@@ -2,7 +2,7 @@
 
 Mac 等平台下推荐 Macdown。
 
-Windows平台推荐 MarkdownPad。
+Windows 平台推荐 MarkdownPad。
 
 
 ## 语法收集
@@ -51,7 +51,6 @@ markdown 自带 html/css 整合，因此需要指定格式时可以通过内嵌 
 三个 * 号。
 
 
-
 ## 公式编辑
 在 markdown 中书写数学公式的方法。就像 Stackoverflow 上的经常有的挺漂亮的公式，其生成的不是图片，而 MathJax 引擎，在 Markdown 中添加 MathJax 引擎也很简单，添加如下代码到 markdown 代码中即可：
 
@@ -76,6 +75,17 @@ $$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$
 $$\frac{a-1}{b-1} \quad$$
 
 $$P(A|B)=\frac{P(B|A)}{P(B)}XP(A)$$
+
+
+## 插件收集
+### 1. Markdown 里做网页的资源列表
+如果你经常需要写一些资源列表性质的文章，发给同事或客户。最简单的办法是，打开这些网页，放在一个独立的 Chrome 浏览器窗口里面，然后安装好插件：Copy as markdown，选择「All Tabs as List」，唰！漂亮的资源列表就生成了！
+
+当然，如果你厌倦手动写 Markdown 链接了，也可以用这个方法。选择：「Current Tab」即可生成一个网页链接，在 markdown 文件里复制一下就出来了。
+
+### 2. Markdown 写邮件
+如果你习惯用 Markdown 了，那么，装上 Chrome 插件 Markdown here，在 gmail 撰写邮件界面，写好后，轻轻一点，你的邮件就变成漂亮的文档了。
+
 
 
 
