@@ -1,7 +1,7 @@
 # Zotero（1）：文献管理软件Zotero基础及进阶示范
 阳志平的网志
 
-原文地址：[Zotero（1）：文献管理软件Zotero基础及进阶示范 - 阳志平的网志](https://www.yangzhiping.com/tech/zotero1.html)
+原文链接：[Zotero（1）：文献管理软件Zotero基础及进阶示范 - 阳志平的网志](https://www.yangzhiping.com/tech/zotero1.html)
 
 我的文献管理软件使用历史极其悠久，先后是：
 
@@ -13,7 +13,7 @@ Endnote Mac 版：07、08 年慢慢转到 Mac 下，不得不抛弃 [NoteExpress
 
 在 Mac 下，先后试用与比较过 [Papers2] 与 [mendeley]。但是因为种种原因，最终还是回到 Zotero 下。有感于国内对这么一款极其优秀的开源软件非常不了解，特别介绍它的入门与进阶知识。
 
-## 注册 Zotero 新账号并下载：
+## 01. 注册Zotero新账号并下载：
 
 登陆 https://www.zotero.org/user/register/，注册一个自己的 Zotero 账号，请特别记住，username 会直接生成个性域名，别乱起，未来会有些不方便。
 
@@ -25,7 +25,7 @@ http://www.zotero.org/download/
 
 下载之后安装默认提示一路安装。
 
-## 配置 Zotero
+## 02. 配置Zotero
 
 打开 Zotero，找到 [首选项] 或偏好：
 
@@ -45,7 +45,7 @@ ln -s /users/ouyang/dropbox/zotero/storage /users/ouyang/dev/zotero/storage
 
 以及，将默认输出格式，更改为 APA 第六版：
 
-## 导入第一篇文献
+## 03. 导入第一篇文献
 
 好了，准备工作做完了。现在，让我们导入第一篇文献。Zotero 支持以下六种导入方法：
 
@@ -77,7 +77,7 @@ http://book.douban.com/subject/1065156/
 
 小提醒：如果没有多出这个图标，Web Translators 功能没有生效，是插件安装失误，请通过 Chrome 网上应用店，安装：Zotero Connector。
 
-## 导入维基百科
+## 04. 导入维基百科
 
 通过集体智慧的协作，目前[Zotero]软件的 Web Translators 已经几乎支持世界上主要高质量资讯网站，如维基百科、Google 学术。现在，让我们继续找点成就感，自动导入维基百科试试看。
 
@@ -91,7 +91,7 @@ http://en.wikipedia.org/wiki/List_of_cognitive_scientists
 
 嗯？这次保存下来的为什么与上次的不太一样！多了个快照？点击看看！原来这是[Zotero]软件的另一个强大而贴心的功能，它自动将网页的快照拍摄下来了。这样，未来这个网页消失了，我们的资讯还没丢失！
 
-## 导入 Google 学术
+## 05. 导入Google学术
 
 一次一次导入一篇，并不是学术研究时的常见现象。更常见的是，批量导入多篇。让我们以 Google 学术库为例。打开 Google 学术库，我们输入检索关键词，[netlogo]，一个网络仿真常用软件。
 
@@ -124,7 +124,7 @@ http://scholar.google.com/scholar?q=netlogo&btnG=&hl=zh-CN&as_sdt=0%2C5
 
 打开[Zotero]软件，我们怒了！作为一个开源软件，它为什么能这么贴心！Google 学术里面带 PDF 文档，刚才弹出窗口提示有 PDF 字眼的，它连关联 PDF 也关联起来了！如下图所示：
 
-## 通过标示符增加
+## 06. 通过标示符增加
 
 总有一些文献，google 学术检索不出来（虽然，这个概率越来越低）。这个时候，需要我们手动添加。
 
@@ -146,13 +146,13 @@ http://scholar.google.com/scholar?q=netlogo&btnG=&hl=zh-CN&as_sdt=0%2C5
 
 小提醒：不过这么整理还是略微有些麻烦，笔者正在想办法，将[Zotero]与[Mou]、[Evernote]的配合更智能化。
 
-## 导入 Endnote 数据库
+## 07. 导入Endnote数据库
 
 好的，我们有大量的文献是使用其它文献管理软件管理的，怎么导入？以最流行、最常用的[Endnote]为例。选择 File=>Export，如下图所示，记得一定要将导出风格选为：Endnote Export：
 
 然后，导出的文本文件，直接导入到[Zotero]中即可，更复杂的导入方法，可以参考各类教程。
 
-## 导入 PDF 文档
+## 08. 导入PDF文档
 
 有不少之前下载好的 PDF 文献，尤其是一些本来是从学术数据库下载的文献，它们支持 PDF 元数据功能，这样就非常省事，可以直接拖到[Zotero]中来，然后会自动将其文献信息识别出来。
 
@@ -160,7 +160,7 @@ http://scholar.google.com/scholar?q=netlogo&btnG=&hl=zh-CN&as_sdt=0%2C5
 
 就自动根据 PDF 元数据生成相关文献信息了：
 
-## Zotero 进阶示例：文献可视化
+## 09. Zotero进阶示例：文献可视化
 
 在上面这个导入例子中，我们用的是同事的一篇学位论文的参考文献库，研究的主题是青少年与社会网络分析。我们尝试对这些文献进行可视化分析。
 
@@ -180,11 +180,11 @@ http://scholar.google.com/scholar?q=netlogo&btnG=&hl=zh-CN&as_sdt=0%2C5
 
 我们可以清晰地发现，我同事的学位论文中，引用的文献聚焦在：青少年吸烟、社会网络、同辈群体、关系等主题上。
 
-## Zotero 更多资源
+## 10. Zotero更多资源
 
 Zotero还有更多进阶玩法，在这里不展开讲了。各位感兴趣的敬请查阅资料：
 
-### 入门教程
+### 1. 入门教程
 
 zotero中文快速入门：http://www.zotero.org/support/zh/quick_start_guide
 
@@ -201,7 +201,7 @@ Zotero入门介绍：http://www.slideshare.net/adam3smith/intro-zotero *你为�
 
 老杨与他本科同学写的Zotero介绍
 
-### 核心插件
+### 2. 核心插件
 
 Zotero插件大全
 
@@ -221,11 +221,11 @@ Zotero隐藏的偏好：http://www.zotero.org/support/preferences/hidden_prefere
 
 RTF Scan
 
-### 版式风格在线可视编辑
+### 3. 版式风格在线可视编辑
 
 csl-editor
 
-### 整合工具
+### 4. 整合工具
 
 Omeka : Zotero开发学校的另一个项目
 
@@ -233,7 +233,7 @@ editorsnotes
 
 Zotero开发机构的其他项目：http://chnm.gmu.edu/research-and-tools/
 
-### 移动支持
+### 5. 移动支持
 
 ZotPad：iPad版的Zotero
 
