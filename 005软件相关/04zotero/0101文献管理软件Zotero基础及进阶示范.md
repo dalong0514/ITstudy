@@ -83,7 +83,7 @@ http://book.douban.com/subject/1065156/
 
 学习一门新学科，常常需要知道学科中的牛人，维基百科的列表功能就是非常强大的资讯源。我们打开它的认知科学家列表，基本代表了功成名就的认知科学家们：
 
-http://en.wikipedia.org/wiki/List_of_cognitive_scientists
+[List of cognitive scientists - Wikipedia](https://en.wikipedia.org/wiki/List_of_cognitive_scientists)
 
 我们会发现，这次图标与保存豆瓣的图书图标不一样了！哈哈，变成一个百科全书的图标了，如下图所示：
 
