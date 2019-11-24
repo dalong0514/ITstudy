@@ -1,4 +1,4 @@
-# 0201插件
+# 0201. 插件汇总
 
 官方插件汇总：[plugins [Zotero Documentation]](https://www.zotero.org/support/plugins)
 
@@ -28,7 +28,7 @@ To read and annotate PDF attachments on your mobile device, zotfile can sync PDF
 
 After highlighting and annotating pdfs on your tablet (or with the PDF reader application on your computer), ZotFile can automatically extract the highlighted text and note annotations from the pdf. The extracted text is saved in a Zotero note. Thanks to Joe Devietti, this feature is now available on all platforms based on the pdf.js library.
 
-### 2. 安装
+### 2. 下载安装
 
 官网下载好匹配版本的插件后「zotfile-5.0.14-fx.xpi」。
 
@@ -90,7 +90,6 @@ General Settings 里的设置目前没操作，感觉对我无用，待确认。
 
 找到条目，然后新建一笔记，然后快捷键「control+option+M」即可生成效果。
 
-
 ## 03. Paper Machines
 
 [papermachines/papermachines: [UNMAINTAINED] A Zotero extension for analysis and visualization in the digital humanities.](https://github.com/papermachines/papermachines)
@@ -99,5 +98,20 @@ General Settings 里的设置目前没操作，感觉对我无用，待确认。
 
 版本不匹配，目前装不了。
 
+## 04. zotero-scholar-citations
 
+Google 学术里自动、批量更新引用次数的插件。
 
+[beloglazov/zotero-scholar-citations: Zotero plugin for auto-fetching numbers of citations from Google Scholar](https://github.com/beloglazov/zotero-scholar-citations)
+
+下载插件「zotero-scholar-citations-1.9.3-fx」。
+
+该插件开发者为了避免将你条目自带的【引用次数】字段与【Google学术引用次数】冲突，所以，他将其保存在【其它】那个字段里面去了。点属性面板，把「其他」勾选一下。
+
+加载后，点击右键，更新一下引用即可在「其他」里看到数据。
+
+## 05. Altmetric
+
+[Discover the attention surrounding your research – Altmetric](https://www.altmetric.com/)
+
+这个不是插件，配套使用的。如何知道全世界关于这篇文献的意见呢？Altmetric 就是拿来干这个的！将这个页面的「Altmetric it!」书签拖到 Chrome 菜单栏上即可。现在需要填写个人信息那个蓝色的书签才显示出来。
