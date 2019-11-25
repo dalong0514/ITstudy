@@ -1,39 +1,74 @@
-# 2019002Python基础
+# 0201. Python基础
+
 1、注释；
+
 以#开头的语句是注释，注释是给人看的，可以是任意内容，解释器会忽略掉注释；
+
 2、每一行都是一个语句，当语句以冒号:结尾时，缩进的语句视为代码块；
+
 3、缩进；
+
 缩进有利有弊，好处是强迫你写出格式化的代码，但没有规定缩进是几个空格还是Tab。按照约定俗成的管理，应该始终坚持使用4个空格的缩进。
+
 在文本编辑器中，需要设置把Tab自动转换为4个空格，确保不混用Tab和空格；
+
 4、Python程序是大小写敏感的，如果写错了大小写，程序会报错；
+
 5、Mac上安装3.0版本的话，在shell里直接输入python3进入交互界面(前面有个>>>)；输入命令exit()可以退出交互界面；
+
 6、在shell里可以执行python3 hello.py运行一个.py文件；目前常规的做法就是vim里写程序，再运行.py文件；
+
 7、重复上一个语句的话用快捷键control+P；
+
 8、2的10次方的语句是2**10；
+
 9、mac的shell里把程序的结果输出为文本格式；
+
 python script1.py > saveit.txt 
+
 10、获取数据类型的内置函数；
+
 type()函数，比如type(1)返回的是int；另一个更常用的是isinstance()函数，isinstance(1,int)返回的是true；
+
 11、转化数据类型；
+
 用内置函数，把对象转化为字符串的话是str()；转化为整数的话是int()；
+
 12、中文编码不了；
+
 代码的第1行或者第2行添加# -*- coding: utf-8 -*-
+
 13、输入函数input()；
+
 14、python编码encode和decode；
+
 计算机里面，编码方法有很多种，英文的一般用ascii,而中文有unicode，utf-8,gbk,utf-16等等；
+
 unicode是utf-8,gbk,utf-16这些的父编码，这些子编码都能转换成unicode编码，然后转化成子编码，例如utf8可以转成unicode，再转gbk，但不能直接从utf8转gbk；所以，python中就有两个方法用来解码（decode）与编码（encode），解码是子编码转unicode，编码就是unicode转子编码；
 
+##  问题
 
-Python遇到的问题；
 1、在包里写print(‘大龙’)，运行包总是显示代码错误；(记录于20171202)；
+
 报错：SyntaxError: (unicode error) 'utf-8' codec can't decode byte 0xb4 in position 0:invalid start byte
+
 基本知识：在python中默认的编码格式是utf-8，所以怎么会报不能按 utf-8来解码？后来发现hello.py这个文件就不是用utf-8编码的；
+
 问题的解决：
+
 在Vim中可以直接查看文件编码；
+
 :set fileencoding
+
 在Vim中直接进行转换文件编码,比如将一个文件转换成utf-8格式；
+
 :set fileencoding=utf-8
+
 也利用shell自带的iconv命令进行编码转换文件内容编码转换；
+
 2、在vim中敲python的代码自动补全插件YouCompleteMe不起作用了；(记录于20171228)；
+
 因为目前YouCompleteMe仅支持python2的，自从安装anaconda后，python3成了vim(或者可以说是系统里)中默认的python版本了，所以补全插件不起作用了；如何查看，在shell里输入命令which python看看返回的是哪个版本就是哪个；
+
 那么只要将python2设为默认的即可，在shell配置文件.vimrc中把全局变量中的路径/Applications/anaconda3/bin放到改行的最后即可；重启iTerm即可；
+
