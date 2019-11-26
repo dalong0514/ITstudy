@@ -1,9 +1,11 @@
-message="Hello Python world!"
+message = "my name is dalong"
 
-print(message)
+first_name = "Feng"
 
-message="my name is dalong"
+last_name = "DaLong"
 
-print(message)
+print(message.upper())
 
-print(2**6)
+print(message + " " + "and your name is lingxuan")
+
+print(first_name + last_name)
