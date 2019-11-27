@@ -4,7 +4,7 @@
 
 [conda的安装与使用（2019-6-28更新） - 简书](https://www.jianshu.com/p/edaa744ea47d)
 
-Conda 是一个开源的软件包管理系统和环境管理系统，用于安装多个版本的软件包及其依赖关系，并在它们之间轻松切换。 Conda 是为 Python 程序创建的，适用于 Linux，OS X 和Windows，也可以打包和分发其他软件。
+Conda 是一个开源的软件包管理系统和环境管理系统，用于安装多个版本的软件包及其依赖关系，并在它们之间轻松切换。 Conda 是为 Python 程序创建的，适用于 Linux，OS X 和 Windows，也可以打包和分发其他软件。
 
 conda 分为 anaconda 和 miniconda。anaconda 是包含一些常用包的版本（这里的常用不代表你常用），miniconda 则是精简版，需要啥装啥，所以推荐使用 miniconda。
 
@@ -51,7 +51,7 @@ conda config --add channels conda-forge
 
 [miniconda的安装及使用 - weixin_42066885的博客 - CSDN博客](https://blog.csdn.net/weixin_42066885/article/details/80323173)
 
-## 02
+## 02. 安装 Python
 
 目前，Python 有两个版本，一个是 2.x 版，一个是 3.x 版，这两个版本是不兼容的。
 
