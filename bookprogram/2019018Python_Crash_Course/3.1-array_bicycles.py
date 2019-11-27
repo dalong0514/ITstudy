@@ -8,8 +8,10 @@ bicycles = ['dalong', 'xuanxuan', 'dudu', 'xiaoming']
 
 #bicycles.insert(2,'gouzi')
 
-popped_bicycles = bicycles.pop()
+#popped_bicycles = bicycles.pop()
+
+bicycles.sort(reverse=True)
 
 print(bicycles)
 
-print(popped_bicycles)
+#print(popped_bicycles)
