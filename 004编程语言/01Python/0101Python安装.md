@@ -51,6 +51,14 @@ conda config --add channels conda-forge
 
 [miniconda的安装及使用 - weixin_42066885的博客 - CSDN博客](https://blog.csdn.net/weixin_42066885/article/details/80323173)
 
+### 安装 ipython
+
+直接用 conda 安装 ipython 取代原始的 Python 交互器。
+
+	conda install ipython
+
+安装完后直接命令 ipython 进入交互器。
+
 ## 02. 安装 Python
 
 目前，Python 有两个版本，一个是 2.x 版，一个是 3.x 版，这两个版本是不兼容的。
