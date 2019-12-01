@@ -47,7 +47,7 @@ conda config --add channels conda-forge
 
 	. ./deactivate
 
-1『这里的 . 相当于 source』
+1『这里的 . 相当于 source，shell 提示改用命令 conda deavtivate。那么逆向思维，直接命令 conda activte 即可激活 conda 环境。』
 
 [miniconda的安装及使用 - weixin_42066885的博客 - CSDN博客](https://blog.csdn.net/weixin_42066885/article/details/80323173)
 
