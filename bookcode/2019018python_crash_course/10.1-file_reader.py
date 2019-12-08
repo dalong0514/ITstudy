@@ -1,8 +1,8 @@
-filename = "2019001债务.md"
+filename = "2019911.txt"
 
-with open(filename) as file_object:
+with open(filename) as f:
 	#contents = file_object.read()
-	lines = file_object.readlines()
+	lines = f.readlines()
 
 for line in lines[:10]:
 	print(line)
