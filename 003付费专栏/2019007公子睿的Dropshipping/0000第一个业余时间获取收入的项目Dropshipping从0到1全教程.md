@@ -1,5 +1,7 @@
 # 第一个业余时间获取收入的项目 | Dropshipping 从 0 到 1 全教程
-原创： 公子睿
+原创： 公子睿 2019-03-16
+
+[第一个业余时间获取收入的项目 | Dropshipping从0到1全教程](https://mp.weixin.qq.com/s/Nu5fuKDGm8b-oj3bqGQffA)
 
 Dropshipping 这个模式是去年 6 月份开始接触的，陆陆续续也做了大半年的时间了。
 

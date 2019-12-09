@@ -1,4 +1,4 @@
-filename = "2019911.txt"
+filename = "/Users/Daglas/zancun/2019001.txt"
 
 with open(filename) as f:
 	#contents = file_object.read()
