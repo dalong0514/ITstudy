@@ -1,6 +1,6 @@
 ## Python 参考书籍
 
-### 入门读物
+### 1. 入门读物
 
 1. 《Python基础教程》（*Beginning Python From Novice to Professional*）
 
@@ -10,7 +10,7 @@
 5. 《Python程序设计》（*Python Programming: An Introduction to Computer Science*）
 6. 《Modern Python Cookbook》
 
-### 进阶读物
+### 2. 进阶读物
 
 1. 《Python核心编程》（*Core Python Applications Programming*）
 
@@ -20,7 +20,7 @@
 5. 《Python高级编程》（*Expert Python Programming*）
 6. 《Python性能分析与优化》（*Mastering Python High Performance*）
 
-### Web框架
+### 3. Web框架
 
 1. 《Django基础教程》（*Tango with Django*）
 
@@ -32,7 +32,7 @@
 7. 《Flask Web开发：基于Python的Web应用开发实战》（*Flask Web Development: Developing Web Applications with Python*）
 8. 《深入理解Flask》（*Mastering Flask*）
 
-### 爬虫开发
+### 4. 爬虫开发
 
 1. 《用Python写网络爬虫》（*Web Scraping with Python*）
 
@@ -41,7 +41,7 @@
 4. 《Python爬虫开发与项目实战》
 5. 《Python 3网络爬虫开发实战》
 
-### 数据分析
+### 5. 数据分析
 
 1. 《利用Python进行数据分析》（*Python for Data Analysis*）
 
@@ -50,7 +50,7 @@
 4. 《Python数据可视化编程实战》（*Python Data Visualization Cookbook*）
 5. 《Python数据处理》（*Data Wrangling with Python*）
 
-### 机器学习
+### 6. 机器学习
 
 1. 《Python机器学习基础教程》（*Introduction to Machine Learning with Python*）
 
