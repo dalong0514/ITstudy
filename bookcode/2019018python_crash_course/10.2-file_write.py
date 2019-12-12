@@ -1,13 +1,12 @@
-readfile = "2019001债务.txt"
-writefile = "2019001债务01.txt"
+readfile = "/Users/Daglas/Desktop/2019001.txt"
+writefile = "/Users/Daglas/Desktop/2019002.txt"
 
 with open(readfile) as file_object:
 	lines = file_object.readlines()
 	#contents = file_object.read()
 
-#p_string = ''
-#for line in lines[0:20]:
-#	p_string += line.strip()
+# lines.remove('\n')
 
-with open(writefile, 'w') as file_object:
-	file_object.write(contents)
+for line in lines[0:10]:
+    with open(writefile, 'w') as file_object:
+    	file_object.write(line)
