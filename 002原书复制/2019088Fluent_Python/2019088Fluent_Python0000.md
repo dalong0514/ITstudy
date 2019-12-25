@@ -2,11 +2,13 @@
 
 Here's the plan; when someone uses a feature you don't understand, simply shoot them This is easier than learning something new, and before too long the only living coders will be writing in an easily understood, tiny subset of Python 0.9.6  <wink>.
 
-Tim Peters
-
-Legendary core developer and author of The Zen of Python
+——Tim Peters Legendary core developer and author of The Zen of Python
 
 Python is an easy to learn, powerful programming language Those are the first words of the official Python Tutorial. That is true, but there is a catch: because the language is easy to learn and put to use, many practicing Python programmers leverage only a fraction of its powerful features.
+
+
+
+
 
 An experienced programmer may start writing useful Python code in a matter of hours As the first productive hours become weeks and months, a lot of developers go on writing Python code with a very strong accent carried from languages learned before Even if Python is your first language, often in academia and in introductory books it is presented while carefully avoiding language-specific features
 
@@ -255,4 +257,3 @@ My mother, Maria Lucia, and my father, Jairo, always supported me in every way. 
 My wife, Marta Mello, endured 15 months of a husband who was always working, but remained supportive and coached me through some critical moments in the project when I feared I might drop out of the marathon
 
 Thank you all, for everything.
-
