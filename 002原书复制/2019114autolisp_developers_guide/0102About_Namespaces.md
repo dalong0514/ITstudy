@@ -1,5 +1,7 @@
 # 0102. About Namespaces (AutoLISP)
 
+[Pomoc: Introduction (AutoLISP)](http://help.autodesk.com/view/OARX/2018/PLK/?guid=GUID-A0E9D801-8BE9-4BF1-85E8-3807E15F3B71)
+
 A namespace is a LISP environment containing a set of symbols (for example, variables and functions).
 
 The concept of namespaces was introduced to prevent applications running in one drawing window from unintentionally affecting applications running in other windows. Each open AutoCAD drawing document has its own namespace. Variables and functions defined in one document namespace are isolated from variables and functions defined in other namespaces.

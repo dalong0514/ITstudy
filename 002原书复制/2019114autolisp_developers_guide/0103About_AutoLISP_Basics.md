@@ -1,5 +1,7 @@
 # 0103. About AutoLISP Basics (AutoLISP)
 
+[Pomoc: Introduction (AutoLISP)](http://help.autodesk.com/view/OARX/2018/PLK/?guid=GUID-A0E9D801-8BE9-4BF1-85E8-3807E15F3B71)
+
 You can use number, string, and list-handling functions to customize AutoCAD.
 
 The following links introduce the basic concepts of the AutoLISP ® programming language. It describes the core components and data types used in AutoLISP, and presents examples of simple number-, string-, output-, and list-handling functions.
@@ -1018,7 +1020,7 @@ Within quoted string values, the backslash (\) character allows control characte
 
 The following lists the currently recognized control characters:
 
-图图
+![](./res/2019004.png)
 
 The prompt, princ, and getXXX functions expand the control characters in a string and display the expanded string at the AutoCAD Command prompt.
 

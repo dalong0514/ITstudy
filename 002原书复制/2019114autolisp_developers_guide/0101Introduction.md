@@ -1,5 +1,7 @@
 # 0101. Introduction (AutoLISP)
 
+[Pomoc: Introduction (AutoLISP)](http://help.autodesk.com/view/OARX/2018/PLK/?guid=GUID-A0E9D801-8BE9-4BF1-85E8-3807E15F3B71)
+
 For years, AutoLISP ® has set the standard for customizing and extending the AutoCAD ® program while Visual LISP ® (VLISP) extends the functionality of AutoLISP by adding significantly more capabilities. Some of the functionality of Visual LISP extends the core functionality of the standard AutoLISP programming language available on Windows and Mac OS, but much of the functionality is available on Windows only as it requires the Microsoft ActiveX ® Automation interface. Visual LISP isn't just an extension of AutoLISP, but is also a complete and integrated development environment (IDE) that includes a compiler, debugger, and other tools to increase productivity when developing custom programs.
 
 Note: The Visual LISP IDE is only available on Windows.
