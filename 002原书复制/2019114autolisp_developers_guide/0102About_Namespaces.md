@@ -92,7 +92,7 @@ Enter the name of the variable you assigned a value to and prefix it with an ! (
 
     The draw1foo variable contains the value you set in Step 3, but draw2foo is nil because you did not set it to a value in the current document; you set a different variable of the same name in the second drawing's namespace.
 
-1『setq 是基本的赋值函数，可以赋，值、字符串等。』
+1『setq 是基本的赋值函数，可以赋，值、字符串等。获取变量的命令，前面要加个！』
 
 ## 02. About Sharing Data Between Namespaces (AutoLISP)
 
@@ -128,48 +128,79 @@ At the AutoCAD Command prompt or from an AutoLISP program, use the vl-bb-set fun
 
     0
 
-The *example* variable is set to 0 in the blackboard namespace.
+    The *example* variable is set to 0 in the blackboard namespace.
 
-At the AutoCAD Command prompt, enter (vl-bb-ref '*example*) and press Enter.
-Returns:
+2. At the AutoCAD Command prompt, enter (vl-bb-ref '*example*) and press Enter.
 
-0
-At the AutoCAD Command prompt, enter !*example* and press Enter.
-Returns:
+    Returns:
 
-nil
-The *example* variable returns nil because it has not been set in the document namespace.
+    0
 
-At the AutoCAD Command prompt, enter (setq *example* -1) and press Enter.
-Returns:
+3. At the AutoCAD Command prompt, enter !*example* and press Enter.
 
--1
-The *example* variable is set to -1 in the document namespace.
+    Returns:
 
-At the AutoCAD Command prompt, enter (vl-bb-ref '*example*) and press Enter.
-Returns:
+    nil
 
-0
-The blackboard variable named *example* is still set to the value assigned in Step 1; setting the document variable of the same name in Step 4 had no effect on the variable in the blackboard.
+    The *example* variable returns nil because it has not been set in the document namespace.
+
+4. At the AutoCAD Command prompt, enter (setq *example* -1) and press Enter.
+
+    Returns:
+
+    -1
+
+    The *example* variable is set to -1 in the document namespace.
+
+    5. At the AutoCAD Command prompt, enter (vl-bb-ref '*example*) and press Enter.
+
+    Returns:
+
+    0
+
+    The blackboard variable named *example* is still set to the value assigned in Step 1; setting the document variable of the same name in Step 4 had no effect on the variable in the blackboard.
 
 You can also the vl-doc-set and vl-doc-ref functions to set and retrieve document namespace variables from a separate-namespace VLX, and vl-propagate to set the value of a variable in all open document namespaces.
 
-## To load functions across all document namespaces (AutoLISP)
+## 03. To load functions across all document namespaces (AutoLISP)
 
 Normally, loading an application file loads it in the current drawing only, but the vl-load-all function can be used to load a file in all drawings.
 
 At the AutoCAD Command prompt, enter an AutoLISP statement that uses the vl-load-all function and press Enter.
+
 Note: The vl-load-all function is useful for testing new functions in multiple documents, but in general you should use acaddoc.lsp to load files that are needed in every document.
-Example
-At the AutoCAD Command prompt, enter (load "yinyang.lsp") and press Enter.
-Invoke a function defined in the AutoLISP source (LSP) file.
-The function should work as expected.
 
-Create a new or open an existing drawing.
-With the second drawing window active, try invoking the function again.
-The response will be an error message saying the function is not defined.
+#### Example
 
-At the AutoCAD Command prompt, enter (vl-load-all "yinyang.lsp") and press Enter.
-Create a new or open an existing drawing.
-Invoke the function again.
-This time the function will work correctly because the vl-load-all function loads the contents of an AutoLISP file into all open documents, and into any documents opened later in the session.
+1. At the AutoCAD Command prompt, enter (load "yinyang.lsp") and press Enter.
+
+2. Invoke a function defined in the AutoLISP source (LSP) file.
+
+    The function should work as expected.
+
+3. Create a new or open an existing drawing.
+
+4. With the second drawing window active, try invoking the function again.
+
+    The response will be an error message saying the function is not defined.
+
+5. At the AutoCAD Command prompt, enter (vl-load-all "yinyang.lsp") and press Enter.
+
+6. Create a new or open an existing drawing.
+
+7. Invoke the function again.
+
+    This time the function will work correctly because the vl-load-all function loads the contents of an AutoLISP file into all open documents, and into any documents opened later in the session.
+
+1『
+
+这个知识点很有用，我将公司的提取程序「line-index.lsp」和贱人工具「cad_tools.vlx」放到 D 根目录下。在 CAD 里输入加载命令：
+
+    (vl-load-all "D:line-index.lsp")
+    
+    (vl-load-all "D:cad_tools.vlx")
+
+加载完后，之后打开的程序这些插件都可以用。
+
+』
+
