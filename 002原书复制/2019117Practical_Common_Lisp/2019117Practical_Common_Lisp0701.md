@@ -10,55 +10,102 @@ While Common Lisp supports both these methods of extending the language, macros 
 
 Now, it may seem that the benefits of having another way to extend the language would be easy to recognize. But for some reason a lot of folks who haven't actually used Lisp macros--folks who think nothing of spending their days creating new functional abstractions or defining hierarchies of classes to solve their programming problems--get spooked by the idea of being able to define new syntactic abstractions. The most common cause of macrophobia seems to be bad experiences with other "macro" systems. Simple fear of the unknown no doubt plays a role, too. To avoid triggering any macrophobic reactions, I'll ease into the subject by discussing several of the standard control-construct macros defined by Common Lisp. These are some of the things that, if Lisp didn't have macros, would have to be built into the language core. When you use them, you don't have to care that they're implemented as macros, but they provide a good example of some of the things you can do with macros.2 In the next chapter, I'll show you how you can define your own macros.
 
-WHEN and UNLESS
+## 01. WHEN and UNLESS
 
 As you've already seen, the most basic form of conditional execution--if x, do y; otherwise do z--is provided by the IF special operator, which has this basic form:
 
-(if condition then-form [else-form])
+    (if condition then-form [else-form])
 
 The condition is evaluated and, if its value is non-NIL, the then-form is evaluated and the resulting value returned. Otherwise, the else-form, if any, is evaluated and its value returned. If condition is NIL and there's no else-form, then the IF returns NIL.
 
-(if (> 2 3) "Yup" "Nope") ==> "Nope" (if (> 2 3) "Yup") ==> NIL (if (> 3 2) "Yup" "Nope") ==> "Yup"
+```
+(if (> 2 3) "Yup" "Nope") ==> "Nope" 
+(if (> 2 3) "Yup") ==> NIL 
+(if (> 3 2) "Yup" "Nope") ==> "Yup"
+```
 
 However, IF isn't actually such a great syntactic construct because the then-form and else-form are each restricted to being a single Lisp form. This means if you want to perform a sequence of actions in either clause, you need to wrap them in some other syntax. For instance, suppose in the middle of a spam-filtering program you wanted to both file a message as spam and update the spam database when a message is spam. You can't write this:
 
-(if (spam-p current-message) (file-in-spam-folder current-message) (update-spam-database current-message))
+```
+(if (spam-p current-message) 
+  (file-in-spam-folder current-message) 
+  (update-spam-database current-message))
+```
 
 because the call to update-spam-database will be treated as the else clause, not as part of the then clause. Another special operator, PROGN, executes any number of forms in order and returns the value of the last form. So you could get the desired behavior by writing the following:
 
-(if (spam-p current-message) (progn (file-in-spam-folder current-message) (update-spam-database current-message)))
+```
+(if (spam-p current-message) 
+  (progn 
+    (file-in-spam-folder current-message) 
+    (update-spam-database current-message)))
+```
 
 That's not too horrible. But given the number of times you'll likely have to use this idiom, it's not hard to imagine that you'd get tired of it after a while. "Why," you might ask yourself, "doesn't Lisp provide a way to say what I really want, namely, 'When x is true, do this, that, and the other thing'?" In other words, after a while you'd notice the pattern of an IF plus a PROGN and wish for a way to abstract away the details rather than writing them out every time.
 
 This is exactly what macros provide. In this case, Common Lisp comes with a standard macro, WHEN, which lets you write this:
 
-(when (spam-p current-message) (file-in-spam-folder current-message) (update-spam-database current-message))
+```
+(when (spam-p current-message) 
+  (file-in-spam-folder current-message) 
+  (update-spam-database current-message))
+```
 
-But if it wasn't built into the standard library, you could define WHEN yourself with a macro such as this, using the backquote notation I discussed in Chapter 3:3
+But if it wasn't built into the standard library, you could define WHEN yourself with a macro such as this, using the backquote notation I discussed in Chapter 3:[3]
 
-(defmacro when (condition &rest body) `(if ,condition (progn ,@body)))
+```
+(defmacro when (condition &rest body) 
+  `(if ,condition (progn ,@body)))
+```
 
 A counterpart to the WHEN macro is UNLESS, which reverses the condition, evaluating its body forms only if the condition is false. In other words:
 
-(defmacro unless (condition &rest body) `(if (not ,condition) (progn ,@body)))
+```
+(defmacro unless (condition &rest body) 
+  `(if (not ,condition) (progn ,@body)))
+```
 
 Admittedly, these are pretty trivial macros. There's no deep black magic here; they just abstract away a few language-level bookkeeping details, allowing you to express your true intent a bit more clearly. But their very triviality makes an important point: because the macro system is built right into the language, you can write trivial macros like WHEN and UNLESS that give you small but real gains in clarity that are then multiplied by the thousands of times you use them. In Chapters 24, 26, and 31 you'll see how macros can also be used on a larger scale, creating whole domain-specific embedded languages. But first let's finish our discussion of the standard control-construct macros.
 
-COND
+1『直觉告诉我这是 lisp 的一个关键知识点。难道 lisp 语言内部可以自有的定制「宏」？』
+
+[3] You can’t actually feed this definition to Lisp because it’s illegal to redefine names in the COMMON-LISP package where WHEN comes from. If you really want to try writing such a macro, you’d need to change the name to something else, such as my-when.
+
+## 02. COND
 
 Another time raw IF expressions can get ugly is when you have a multibranch conditional: if a do x, else if b do y; else do z. There's no logical problem writing such a chain of conditional expressions with just IF, but it's not pretty.
 
-(if a (do-x) (if b (do-y) (do-z)))
-
+```
+(if a 
+  (do-x) 
+  (if b 
+    (do-y) 
+      (do-z)))
+```
 And it would be even worse if you needed to include multiple forms in the then clauses, requiring PROGNs. So, not surprisingly, Common Lisp provides a macro for expressing multibranch conditionals: COND. This is the basic skeleton:
 
-(cond (test-1 form*) . . . (test-N form*))
+```
+(cond 
+  (test-1 form*) 
+  .
+  .
+  . 
+  (test-N form*))
+```
 
-Each element of the body represents one branch of the conditional and consists of a list containing a condition form and zero or more forms to be evaluated if that branch is chosen. The conditions are evaluated in the order the branches appear in the body until one of them evaluates to true. At that point, the remaining forms in that branch are evaluated, and the value of the last form in the branch is returned as the value of the COND as a whole. If the branch contains no forms after the condition, the value of the condition is returned instead. By convention, the branch representing the final else clause in an if/else-if chain is written with a condition of T. Any non-NIL value will work, but a T serves as a useful landmark when reading the code. Thus, you can write the previous nested IF expression using COND like this:
+Each element of the body represents one branch of the conditional and consists of a list containing a condition form and zero or more forms to be evaluated if that branch is chosen. The conditions are evaluated in the order the branches appear in the body until one of them evaluates to true. 
 
-(cond (a (do-x)) (b (do-y)) (t (do-z)))
+At that point, the remaining forms in that branch are evaluated, and the value of the last form in the branch is returned as the value of the COND as a whole. If the branch contains no forms after the condition, the value of the condition is returned instead. 
 
-AND, OR, and NOT
+By convention, the branch representing the final else clause in an if/else-if chain is written with a condition of T. Any non-NIL value will work, but a T serves as a useful landmark when reading the code. Thus, you can write the previous nested IF expression using COND like this:
+
+```
+(cond (a (do-x)) 
+          (b (do-y)) 
+          (t (do-z)))
+```
+
+## 03. AND, OR, and NOT
 
 When writing the conditions in IF, WHEN, UNLESS, and COND forms, three operators that will come in handy are the boolean logic operators, AND, OR, and NOT.
 
