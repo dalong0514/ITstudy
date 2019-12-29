@@ -84,7 +84,7 @@ Related Concepts:
 
 - Selection Set Manipulation Functions Reference (AutoLISP)
 
-### 1. About Selection Set Filter Lists (AutoLISP)
+### 1.1 About Selection Set Filter Lists (AutoLISP)
 
 An entity filter list is an association list that uses DXF group codes in the same format as a list returned by entget.
 
@@ -305,7 +305,7 @@ Regardless of how entities are added to a selection set, the set never contains 
 
 1『选择集里是不会存在重复的实体的。』
 
-### 2. About Passing Selection Sets Between AutoLISP and ObjectARX Applications (AutoLISP)
+### 1.2 About Passing Selection Sets Between AutoLISP and ObjectARX Applications (AutoLISP)
 
 When passing selection sets between AutoLISP and ObjectARX applications, the following should be observed:
 
@@ -345,7 +345,7 @@ Related Concepts:
 
 - Object-Handling Functions Reference (AutoLISP)
 
-### 1. About Accessing an Object’s Entity Name (AutoLISP)
+### 2.1 About Accessing an Object’s Entity Name (AutoLISP)
 
 An AutoLISP routine must obtain an object’s entity name to make subsequent calls to the entity data or selection set functions.
 
@@ -397,15 +397,6 @@ The nentsel and nentselp functions are similar to entsel, except they return two
 Another difference between these functions is that when the user responds to a nentsel call by selecting a complex entity or a complex entity is selected by nentselp, these functions return the entity name of the selected subentity and not the complex entity's header, as entsel does.
 
 For example, when the user selects a 3D polyline, nentsel returns a vertex subentity instead of the polyline header. You can retrieve the polyline header by making successive calls to entnext, stepping forward to the Seqend subentity, and then obtain the name of the header from the Deqend subentity's -2 dxf group code. The same applies when the user selects attributes in a nested block reference.
-
-
-
-
-
-
-
-
-
 
 Selecting an attribute within a block reference returns the name of the attribute and the pick point. When the selected object is a component of a block reference other than an attribute, nentsel returns a list containing the following elements:
 
@@ -542,7 +533,7 @@ The following statement applies the transformation formula for X' to change the 
 
 This statement returns 3.53553, the WCS X coordinate of the start point of the selected line.
 
-### 2. About Entity Data Functions (AutoLISP)
+### 2.2 About Entity Data Functions (AutoLISP)
 
 The functions described in this section operate on entity data and can be used to modify the current drawing database.
 
@@ -550,19 +541,25 @@ The functions described in this section operate on entity data and can be used t
 
 An application can add an entity to the drawing database by calling the entmake function.
 
+
+
+
+
+
+
+
+
 Like that of entmod, the argument to entmake is a list whose format is similar to that returned by entget. The new entity that the list describes is appended to the drawing database (it becomes the last entity in the drawing). If the entity is a complex entity (an old-style polyline or a block), it is not appended to the database until it is complete.
 
 The following example code creates a circle on the MYLAYER layer:
 
+```
 (entmake '((0 . "CIRCLE") ; Object type
-
   (8 . "MYLAYER")         ; Layer
-
   (10 5.0 7.0 0.0)        ; Center point
-
   (40 . 1.0)              ; Radius
-
 ))
+```
 
 The following entmake restrictions apply to all entities:
 
@@ -576,21 +573,16 @@ entmake cannot create viewport entities.
 
 For entity types introduced in AutoCAD Release 13 and later releases, you must also specify subclass markers (DXF group code 100) when creating the entity. All AutoCAD entities have the AcDbEntity subclass marker, and this must be explicitly included in the entmake list. In addition, one or more subclass marker entries are required to identify the specific sub-entity type. These entries must follow group code 0 and must precede group codes that are specifically used to define entity properties in the entmake list. For example, the following is the minimum code required to create a MTEXT entity with entmake:
 
+```
 (entmake '(
-
   (0 . "MTEXT")
-
   (100 . "AcDbEntity") ; Required for all post-R12 entities.
-
   (8 . "ALAYER")
-
   (100 . "AcDbMText")  ; Identifies the entity as MTEXT.
-
   (10 4.0 4.0 0.0)
-
   (1 . "Some\\Ptext")
-
 ))
+```
 
 The following table identifies the entities that do not require subentity marker entries in the list passed to entmake:
 
@@ -608,39 +600,31 @@ As the previous paragraphs imply, entmake can construct only one complex entity 
 
 Complex entities can exist in either model space or paper space, but not both. If you have changed the current space by invoking either of the AutoCAD MSPACE or PSPACE commands (with command) while a complex entity is being constructed, a subsequent call to entmake cancels the complex entity. This can also occur if the subentity has a 67 dxf group code whose value does not match the 67 dxf group code of the entity header.
 
-Working with Polylines
+#### Working with Polylines
 
 The following example contains five calls to the entmake function which creates a single complex entity, an old-style polyline. The polyline has three vertices located at coordinates (1,1,0), (4,6,0), and (3,2,0), and has a linetype of DASHED and a color of BLUE. All other optional definition data assume default values.
 
+```
 (entmake '((0 . "POLYLINE") ; Object type
-
   (62 . 5)                  ; Color
-
   (6 . "dashed")            ; Linetype
-
   (66 . 1)                  ; Vertices follow
-
  ))
 
 (entmake '((0 . "VERTEX")   ; Object type
-
   (10 1.0 1.0 0.0)          ; Start point
-
 ))
 
 (entmake '((0 . "VERTEX")   ; Object type
-
   (10 4.0 6.0 0.0)          ; Second point
-
 ))
 
 (entmake '((0 . "VERTEX")   ; Object type
-
   (10 3.0 2.0 0.0)          ; Third point
-
 ))
 
 (entmake '((0 . "SEQEND"))) ; Sequence end
+```
 
 Note: For the previous example code to execute properly, the linetype DASHED must be loaded.
 
@@ -648,19 +632,16 @@ When defining dotted pairs, as in the above example, there must be a space on bo
 
 For example, the following code sets the color and linetype for the polyline object from values to red and dashed using variables:
 
+```
 (setq clr 5
-
          ltype "dashed")
 
 (entmake (list (cons 0 "POLYLINE") ; Object type
-
   (cons 62 clr)                    ; Color
-
   (cons 6 ltype)                   ; Linetype
-
   (cons 66 1)                      ; Vertices follow
-
 ))
+```
 
 Old-style polyline entities always include a vertices-follow flag (also dxf group code 66). The value of this flag must be 1, and the flag must be followed by a sequence of vertex entities, terminated by a Seqend subentity.
 
@@ -668,7 +649,7 @@ Applications can represent polygons with an arbitrarily large number of sides in
 
 The number of vertices per face is the key parameter in this subdivision process. The AutoCAD PFACEVMAX system variable provides an application with the number of vertices per face entity. This value is read-only and is set to 4.
 
-Working with Blocks
+#### Working with Blocks
 
 Block definitions begin with a block entity and end with an Endblk subentity. Newly created blocks are automatically entered into the symbol table where they can be referenced. Block definitions cannot be nested, nor can they reference themselves. A block definition can contain references to other block definitions.
 
@@ -676,41 +657,31 @@ Note: Before you use entmake to create a block, you should use tblsearch to ensu
 
 Block references can include an attributes-follow flag (dxf group code 66). If present and equal to 1, a series of attribute (Attrib) entities is expected to follow the Insert object. The attribute sequence is terminated by a Seqend subentity.
 
-Topics in this section
+Related Concepts:
 
-About Working With Blocks (AutoLISP)
+- About Modifying an Entity without the Command Function (AutoLISP)
 
-About Anonymous Blocks (AutoLISP)
+- About Accessing an Object’s Entity Name (AutoLISP)
 
-The block definitions (BLOCK) table in a drawing can contain anonymous blocks (also known as unnamed blocks), that AutoCAD creates to support dynamic blocks, tables, hatch patterns, and associative dimensions.
+- About Obtaining Entity Information (AutoLISP)
 
-Parent topic: About Entity Data Functions (AutoLISP)
+- About Deleting an Entity (AutoLISP)
 
-Related Concepts
+- About Anonymous Blocks (AutoLISP)
 
-About Modifying an Entity without the Command Function (AutoLISP)
+- About Non-Graphical Object Handling (AutoLISP)
 
-About Accessing an Object’s Entity Name (AutoLISP)
+- FAQ: What is the Difference Between Lightweight Polylines and Old-Style Polylines? (AutoLISP)
 
-About Obtaining Entity Information (AutoLISP)
+- FAQ: How Do I Process Curve-Fit and Spline-Fit Polylines? (AutoLISP)
 
-About Deleting an Entity (AutoLISP)
-
-About Anonymous Blocks (AutoLISP)
-
-About Non-Graphical Object Handling (AutoLISP)
-
-FAQ: What is the Difference Between Lightweight Polylines and Old-Style Polylines? (AutoLISP)
-
-FAQ: How Do I Process Curve-Fit and Spline-Fit Polylines? (AutoLISP)
-
-Object-Handling Functions Reference (AutoLISP)
+- Object-Handling Functions Reference (AutoLISP)
 
 ##### 1. About Working With Blocks (AutoLISP)
 
 There is no direct method for an application to check whether a block listed in the BLOCK table is actually referenced by an insert object in the drawing. You can use the following code to scan the drawing for instances of a block reference:
 
-(ssget "x" '((2 . "BLOCKNAME")))
+    (ssget "x" '((2 . "BLOCKNAME")))
 
 You must also scan each block definition for instances of nested blocks.
 
@@ -750,57 +721,38 @@ To point:  Press Enter
 
 An AutoLISP application can retrieve and output the definition data for the line by using the following example code:
 
+```
 (defun C:PRINTDXF ( )
-
   (setq ent (entlast))               ; Set ent to last entity.
-
   (setq entl (entget ent))           ; Set entl to association list of last entity.
-
   (setq ct 0)                        ; Set ct (a counter) to 0.
-
   (textpage)                         ; Switch to the text screen.
-
   (princ "\nentget of last entity:")
-
   (repeat (length entl)              ; Repeat for number of members in list:
-
     (print (nth ct entl))            ; Output a newline, then each list member.
-
     (setq ct (1+ ct))                ; Increments the counter by one.
-
   )
-
  (princ)                             ; Exit quietly.
-
 )
+```
 
 This would output the following:
 
+```
 entget of last entity:
-
 (-1 . <Entity name: 1bbd1c8>)
-
 (0 . "LINE")
-
 (330 . <Entity name: 1bbd0c8>)
-
 (5 . "69")
-
 (100 . "AcDbEntity")
-
 (67 . 0)
-
 (410 . "Model")
-
 (8 . "0")
-
 (100 . "AcDbLine")
-
 (10 1.0 2.0 0.0)
-
 (11 6.0 6.0 0.0)
-
 (210 0.0 0.0 1.0)
+```
 
 The -1 item at the start of the list contains the name of the entity. The entmod function, which is described in this section, uses the name to identify the entity to be modified. The individual dotted pairs that represent the values can be extracted by using assoc with the cdr function.
 
@@ -826,23 +778,17 @@ The entmod function modifies an entity by passing it a list in the same format a
 
 The following example code retrieves the definition data of the first entity in the drawing and changes its layer property to MYLAYER.
 
+```
 (setq en (entnext))         ; Sets en to first entity name in the drawing.
-
 (setq ed (entget en))       ; Sets ed to the entity data for entity name en.
-
 (setq ed
-
   (subst (cons 8 "MYLAYER")
-
     (assoc 8 ed)            ; Changes the layer group in ed.
-
     ed                      ; to layer MYLAYER.
-
   )
-
 )
-
 (entmod ed)                 ; Modifies entity en's layer in the drawing.
+```
 
 There are restrictions on the changes to the database that entmod can make; entmod cannot change the following:
 
@@ -874,13 +820,12 @@ As with entity names, handles are unique within a drawing. However, an entity's 
 
 The following example code uses handent to obtain and display the entity name that is associated with the handle “5a2”.
 
+```
 (if (not (setq e1 (handent "5a2")))
-
   (princ "\nNo entity with that handle exists. ")
-
   (princ e1)
-
 )
+```
 
 In one particular editing session, this code might display the following:
 
@@ -902,31 +847,21 @@ There is one exception; when entmod modifies a subentity, it does not update the
 
 Consider the following; if the first entity in the current drawing is an old-style polyline with several vertices, the following code modifies the second vertex of the polyline and regenerates its display.
 
+```
 (setq e1 (entnext))    ; Sets e1 to the polyline's entity name.
-
 (setq v1 (entnext e1)) ; Sets v1 to its first vertex.
-
 (setq v2 (entnext v1)) ; Sets v2 to its second vertex.
-
 (setq v2d (entget v2)) ; Sets v2d to the vertex data.
-
 (setq v2d
-
   (subst
-
     '(10 1.0 2.0 0.0)
-
     (assoc 10 v2d)     ; Changes the vertex's location in v2d
-
     v2d                ; to point (1,2,0).
-
   )
-
 )
-
 (entmod v2d)           ; Moves the vertex in the drawing.
-
 (entupd e1)            ; Regenerates the polyline entity e1.
+```
 
 The argument to entupd can specify either a main entity or a subentity. In either case, entupd regenerates the entire entity. Although its primary use is for complex entities, entupd can regenerate any entity in the current drawing.
 
@@ -970,7 +905,7 @@ About Registered Applications (AutoLISP)
 
 Extended Data-Handling Functions Reference (AutoLISP)
 
-### 1. About Extended Data Group Codes (AutoLISP)
+### 3.1 About Extended Data Group Codes (AutoLISP)
 
 Extended data consists of one or more 1001 group codes, each of which begin with a unique application name.
 
@@ -1014,13 +949,12 @@ Note: AutoLISP manages 1071 group codes as real values. If you use entget to ret
 
 If you want to create a 1071 group code in an entity with entmake or entmod, you can use either a real or an integer value, as shown in the following example:
 
+```
 (entmake '((..... (1071 . 12) .... )))
-
 (entmake '((..... (1071 . 12.0) .... )))
-
 (entmake '((..... (1071 . 65537.0) .... )))
-
 (entmake '((..... (1071 . 65537) .... )))
+```
 
 But AutoLISP still returns the group code value as a real:
 
@@ -1066,7 +1000,7 @@ Scale Factor
 
 1042. Also a real value that is scaled along with the parent.
 
-### 2. About Registered Applications (AutoLISP)
+### 3.2 About Registered Applications (AutoLISP)
 
 An application must register its name or names to be recognized by AutoCAD.
 
@@ -1076,23 +1010,20 @@ Before you register an application, you should first check to see if the name is
 
 The following example code demonstrates the typical use of regapp.
 
+```
 (setq appname "MYAPP_2356")                            ; Unique application name.
-
 (if (tblsearch "appid" appname)                        ; Checks if already registered.
-
   (princ (strcat "\n" appname " already registered."))
 
   (if (= (regapp appname) nil)                         ; Some other problem.
-
     (princ (strcat "\nCan't register XDATA for " appname ". "))
-
   )
-
 )
+```
 
 The regapp function provides a measure of security, but it cannot guarantee that two separate applications have not chosen the same name. One way of ensuring this is to adopt a naming scheme that uses the company or product name and a unique number (like your telephone number or the current date and time).
 
-### 3. About Retrieving Extended Data (AutoLISP)
+### 3.3 About Retrieving Extended Data (AutoLISP)
 
 An application can obtain the extended data (xdata) that it has attached to an entity with entget.
 
@@ -1106,37 +1037,30 @@ Select object: Select an associative hatch
 
 Entering the preceding code at the command line returns a list that looks something like this:
 
+```
 ((-1 . <Entity name: 7ffffb05e10>) (0 . "HATCH") (330 . <Entity name: 7ffffb039f0>) (5 . "1D9") (100 . "AcDbEntity") (67 . 0) (410 . "Model") (8 . "0") (100 . "AcDbHatch") (10 0.0 0.0 0.0) (210 0.0 0.0 1.0) (2 . "ANSI31") (70 . 0) (71 . 1) (91 . 1) (92 . 7) (72 . 0) (73 . 1) (93 . 4) (10 31.2567 17.3197 0.0) (10 7.77575 17.3197 0.0) (10 7.77575 8.83313 0.0) (10 31.2567 8.83313 0.0) (97 . 1) (330 . <Entity name: 7ffffb05d50>) (75 . 1) (76 . 1) (52 . 0.0) (41 . 3.0) (77 . 0) (78 . 1) (53 . 0.785398) (43 . 0.0) (44 . 0.0) (45 . -0.265165) (46 . 0.265165) (79 . 0) (47 . 0.0289642) (98 . 1) (10 21.1106 14.5391 0.0) (-3 ("ACAD" (1010 0.0 0.0 0.0))))
-
+```
 The following example code demonstrates a typical sequence for retrieving xdata for two specified applications. Note that the application argument accepts application names in list form:
 
+```
 (setq working_elist
-
   (entget ent_name
-
     '("MY_APP_1" "SOME_OTHER") ; Only xdata from "MY_APP_1"
-
   )                            ; and "SOME_OTHER" is retrieved.
-
 )
-
 (if working_elist
-
   (progn
-
     ...                        ; Updates working entity groups.
-
     (entmod working_elist)     ; Only xdata from registered
-
   )                            ; applications still in the
-
 )                              ; working_elist list are modified.
+```
 
 As the example code demonstrates, you can modify xdata retrieved by entget by using a subsequent call to entmod, just as you can use entmod to modify normal entity definition data. You can also create xdata by defining it in the entity list passed to entmake. Returning the xdata of only those applications specifically requested protects one application from corrupting another application's data. It also controls the amount of memory that an application needs to use and simplifies the xdata processing that an application needs to perform.
 
 Note: Because the strings passed by application can include wild-card characters, an application name of "*" will cause entget to return all extended data attached to an entity.
 
-### 4. About Attaching Extended Data to an Entity (AutoLISP)
+### 3.4 About Attaching Extended Data to an Entity (AutoLISP)
 
 You can use extended data (xdata) to store any type of information you want on an entity.
 
@@ -1146,41 +1070,33 @@ Note: Xdata attached to an entity is maintained when an object is copied in the 
 
 The following example code demonstrates the basics of attaching xdata to the last entity added to a drawing. Before executing the following example code, draw an entity (such as a line or a circle):
 
+```
 ; Gets the association list of definition data
-
 ; for the last entity.
-
 (setq lastent (entget (entlast)))
 
 ; Registers the application name.
-
 (regapp "NEWDATA")
 
 (setq exdata                        ; Sets the variable
-
   '((-3 ("NEWDATA"                  ; exdata equal to the
-
     (1000 . "This is a new thing!") ; new extended data—
-
   )))                               ; in this case, a text
-
 )                                   ; string.
 
 ; Appends new data list to entity's list.
-
 (setq newent
-
   (append lastent exdata)) 
 
 ; Modifies the entity with the new definition data.
-
 (entmod newent)
+```
 
 The following example code can be used to verify that your new xdata has been attached to the entity:
 
 (entget (car (entsel)) '("NEWDATA"))
 
-### 5. About Management of Extended Data Memory Use (AutoLISP)
+### 3.5 About Management of Extended Data Memory Use (AutoLISP)
 
 Extended data is limited to 16K per entity.
 
@@ -1192,7 +1108,7 @@ xdroom - Returns the remaining number of free bytes that can still be appended t
 
 The xdsize function can be slow when reading a large extended data list, so it is not recommended that you call it frequently. A better approach is to use it (in conjunction with xdroom) in an error handler. If a call to entmod fails, you can use xdsize and xdroom to find out whether the call failed because the entity did not have enough room for the xdata.
 
-### 6. About Handles in Extended Data (AutoLISP)
+### 3.6 About Handles in Extended Data (AutoLISP)
 
 Extended data can contain handles (dxf group code 1005) to save relational structures within a drawing.
 
@@ -1207,6 +1123,13 @@ When an entity is placed in a block definition (with the AutoCAD BLOCK command),
 ## 04. About Xrecord Objects (AutoLISP)
 
 Xrecord objects are used to store and manage arbitrary data.
+
+
+
+
+
+
+
 
 They are composed of DXF group codes with normal object group codes (that is, non-xdata group codes), ranging from 1 through 369 for supported ranges. These objects are similar in concept to xdata but are not limited by size or order.
 
