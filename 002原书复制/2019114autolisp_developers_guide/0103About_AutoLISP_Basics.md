@@ -87,7 +87,7 @@ In this example, the foo function has one required argument, string of the strin
 
 AutoLISP expressions are processed according to the order and data type of the code within the parentheses. Before you can fully utilize AutoLISP, you must understand the differences among the data types and how to use them.
 
-### 1. About Integers (AutoLISP)
+### 3.1 About Integers (AutoLISP)
 
 Integers are whole numbers; numbers that do not contain a decimal point.
 
@@ -139,7 +139,7 @@ The following operation concludes successfully, because AutoLISP first converts 
 
 -2.14748e+009
 
-### 2. About Reals (AutoLISP)
+### 3.2 About Reals (AutoLISP)
 
 A real is a number containing a decimal point. Numbers between -1 and 1 must contain a leading zero.
 
@@ -147,13 +147,13 @@ Real numbers are stored in double-precision floating-point format, providing at 
 
 Reals can be expressed in scientific notation, which has an optional e or E followed by the exponent of the number (for example, 0.0000041 is the same as 4.1e-6). Numbers such as 3.1, 0.23, -56.123, and 21,000,000.0 are all valid AutoLISP real numbers.
 
-### 3. About Strings (AutoLISP)
+### 3.3 About Strings (AutoLISP)
 
 A string is a group of characters surrounded by quotation marks. Within quoted strings the backslash (\) character allows control characters (or escape codes) to be included. When you explicitly use a quoted string in an AutoLISP expression, that value is known as a literal string or a string constant.
 
 Examples of valid strings are “string 1” and “\nEnter first point:”.
 
-### 4. About Lists (AutoLISP)
+### 3.4 About Lists (AutoLISP)
 
 A list is a group of related values separated by spaces and enclosed in parentheses.
 
@@ -181,7 +181,7 @@ AutoLISP provides many functions for working with lists. The following are some 
 
 9. subst - Searches a list for an old item and returns a copy of the list with a new item substituted in place of every occurrence of the old item.
 
-#### Creating a List
+#### 3.4.1 Creating a List
 
 The list function provides a simple method of grouping related items. These items do not need to be of similar data types and can even be other lists. The following code groups three items as a list:
 
@@ -195,7 +195,7 @@ A list can also be created using the quote (or ' ) function.
 
 (1.0 "One" 1)
 
-#### Adding to or Changing an Item in a List
+#### 3.4.2 Adding to or Changing an Item in a List
 
 The append function allows you to add new items to the end of a list, and the cons function allows you to add new items to the beginning of a list. The subst function can be used to substitute a new item for every occurrence of an old item. These functions do not modify the original list; they return a modified list. If you need to modify the original list, you explicitly replace the old list with the new list.
 
@@ -219,7 +219,7 @@ You can substitute all occurrences of an item in a list with a new item using th
 
 ("one" 1.0 "one" 1 "one")
 
-#### Retrieving an Item from a List
+#### 3.4.3 Retrieving an Item from a List
 
 You can retrieve a specific item from a list with the nth function. This function accepts two arguments. The first argument is an integer that specifies which item to return. Lists start with a 0 index. A 0 specifies the first item in a list, 1 specifies the second item, and so on. The second argument is the list itself. The following code returns the second item in lst1.
 
@@ -249,7 +249,7 @@ AutoLISP also offers a number of additional functions that are variations of the
 
 "One"
 
-### 5. About Selection Sets (AutoLISP)
+### 3.5 About Selection Sets (AutoLISP)
 
 Selection sets are groups of one or more objects (entities). You can interactively add objects to, or remove objects from, selection sets with AutoLISP routines.
 
@@ -261,7 +261,7 @@ The following example uses the ssget function to return a selection set containi
 
 1『上面的命名目前没有弄清楚。』
 
-### 6. About Entity Names (AutoLISP)
+### 3.6 About Entity Names (AutoLISP)
 
 An entity name is a numeric label assigned to objects in a drawing.
 
@@ -293,7 +293,7 @@ The following example uses the entlast function to get the name of the last obje
 
 Entity names assigned to objects in a drawing are only in effect during the current editing session. The next time you open the drawing, AutoCAD assigns new entity names to the objects. You can use an object's handle to refer to it from one editing session to another.
 
-### 7. About VLA-objects (AutoLISP/ActiveX)
+### 3.7 About VLA-objects (AutoLISP/ActiveX)
 
 Objects in a drawing can be represented as ActiveX (VLA) objects.
 
@@ -303,7 +303,7 @@ When working with ActiveX methods and properties, you must refer to VLA-objects,
 
 2『VLA-object 的概念去多了解下。』
 
-### 8. About File Descriptors (AutoLISP)
+### 3.8 About File Descriptors (AutoLISP)
 
 A file descriptor is a pointer to a file opened by the AutoLISP open function.
 
@@ -372,7 +372,7 @@ Note: While AutoLISP source code is commonly saved in files with a .lsp or .mnl 
 
     AutoLISP source code files can be created and edited using a plain ASCII text editor.
 
-### 1. About Formatting and Spaces in Code (AutoLISP)
+### 4.1 About Formatting and Spaces in Code (AutoLISP)
 
 AutoLISP code can span multiple lines, and contain empty lines and extra spaces. Empty lines and extra spaces do not have any significant meaning, but can make your code easier to read.
 
@@ -424,7 +424,7 @@ The following two functions are the same code, but the second one is much easier
 )
 ```
 
-### 2. About Comments in AutoLISP Program Files (AutoLISP)
+### 4.2 About Comments in AutoLISP Program Files (AutoLISP)
 
 Comments are useful to both the programmer and future users who may need to revise a program to suit their needs.
 
@@ -457,11 +457,11 @@ and continues to this line,
 but ends way down here|; (princ "\nORTHOMODE set On.")
 ```
 
-### 3. To Create and Open AutoLISP Source Code Files (AutoLISP)
+### 4.3 To Create and Open AutoLISP Source Code Files (AutoLISP)
 
 AutoLISP source code files can be created and edited using a plain ASCII text editor.
 
-#### 01. Create a new source code file
+#### 4.3.1 Create a new source code file
 
 #### Windows
 
@@ -499,7 +499,7 @@ AutoLISP source code files can be created and edited using a plain ASCII text ed
 
 6. In the Extension dialog box, click Use .LSP.
 
-#### 02. Open an existing source code file
+#### 4.3.2 Open an existing source code file
 
 ## 05. About Variables (AutoLISP)
 
@@ -570,7 +570,7 @@ Note: If you do not add the second expression in the above example, a value of 3
 
 1『autolisp 必定返回最后一个函数计算后的值。』
 
-### 1. About Nil Variables (AutoLISP)
+### 5.1 About Nil Variables (AutoLISP)
 
 A variable that has not been assigned a value has a default value of nil.
 
@@ -584,7 +584,7 @@ nil
 
 Another efficient programming practice is to use local variables whenever possible.
 
-### 2. About Predefined Variables (AutoLISP)
+### 5.2 About Predefined Variables (AutoLISP)
 
 AutoLISP has several predefined variables that can be used with your custom functions and commands.
 
@@ -642,7 +642,7 @@ AutoLISP provides many functions for working with string values. The following a
 
 6. vl-string-subst – Substitutes one string for another, within a string.
 
-### 1. Convert the Case of a String
+### 7.1 Convert the Case of a String
 
 The alphabetic characters of a string can be converted to uppercase or lowercase with the strcase function. It accepts two arguments: a string and an optional argument that specifies the case in which the characters are returned. If the optional second argument is omitted, it evaluates to nil and strcase returns the characters converted to uppercase.
 
@@ -660,7 +660,7 @@ Note: The predefined variable T is often used to represent a True value when a f
 
 1『strcase 函数，一般是传递进 2 个参数，第一个参数是要处理的字符串；第二个参数决定如何处理，不输入的话默认为 nil，全大写，输入 T 的话代表 True，全小写。』
 
-### 2. Combine Multiple Strings
+### 7.2 Combine Multiple Strings
 
 You can combine multiple strings into a single string value with the strcat function. This is useful for placing a variable string within a constant string, such as an error message or note in a drawing. The following code example sets a variable to a string value and then uses strcat to insert that string between two other strings.
 
@@ -670,7 +670,7 @@ You can combine multiple strings into a single string value with the strcat func
 
 "This is a BIG test."
 
-### 3. Return a Substring of a String
+### 7.3 Return a Substring of a String
 
 The substr function allows you to return a portion of a string. This function requires two arguments and has one optional argument. The first argument is a string and the second argument is an integer that represents the start character of the string that you want to return as the substring. If the third argument is not provided, substr returns all characters including and following the specified start character.
 
@@ -709,7 +709,7 @@ You can combine the two previous lines of code into one if you do not need the l
 
 "bigfile"
 
-### 4. Find and Replace Text in a String
+### 7.4 Find and Replace Text in a String
 
 Finding and replacing text can be helpful in updating notes or part numbers. The vl-string-search function allows you to locate a pattern within a string, and return the start position as an integer of the first instance of the specified pattern. If the function returns an integer, you can then use that as the starting position for another search to make sure there is not more than one instance of the pattern in the string.
 
@@ -783,7 +783,7 @@ You can substitute all occurrences of an item in a list with a new item with the
 
 ("one" 1.0 "one" 1 "one")
 
-### 1. About Point Lists (AutoLISP)
+### 8.1 About Point Lists (AutoLISP)
 
 AutoLISP utilizes the list data type to represent graphical coordinate values.
 
@@ -896,7 +896,7 @@ AutoLISP supports combinations of the car and cdr functions up to four levels de
 (caddr x)   is equivalent to  (car (cdr (cdr x)))
 ```
 
-### 2. About Dotted Pairs (AutoLISP)
+### 8.2 About Dotted Pairs (AutoLISP)
 
 Dotted pair lists must always contain two members and is the method AutoLISP uses to maintain entity definition data.
 
@@ -956,7 +956,7 @@ AutoLISP includes functions for controlling the AutoCAD display, including both 
 
 These functions are discussed in the following linked topics. The remaining display functions are covered in About Using AutoLISP to Communicate with AutoCAD (AutoLISP), beginning with the About Display Control (AutoLISP) topic.
 
-### 1. About Displaying Messages (AutoLISP)
+### 9.1 About Displaying Messages (AutoLISP)
 
 AutoLISP programs often need to inform the user of an error or request for input.
 
@@ -1008,13 +1008,13 @@ outputs<blank line> "The \"allowable\" tolerance is 1/4""<space>
 
 returns "The \"allowable\" tolerance is 1/4\""
 
-### 2. About Exiting a Function Quietly (AutoLISP)
+### 9.2 About Exiting a Function Quietly (AutoLISP)
 
 If you invoke the princ function without passing an expression to it, it displays nothing and has no value to return.
 
 So if you add a call to princ without any arguments, after an expression, there is no return value. This is a great way to suppress the nil that is often returned by the last expression within a custom function. This practice is called exiting quietly.
 
-### 3. About Control Characters in Strings (AutoLISP)
+### 9.3 About Control Characters in Strings (AutoLISP)
 
 Within quoted string values, the backslash (\) character allows control characters (or escape codes) to be included.
 
@@ -1057,7 +1057,7 @@ Joe 102
 Sam 103
 ```
 
-### 4. About Wild-Card Matching (AutoLISP)
+### 9.4 About Wild-Card Matching (AutoLISP)
 
 A string can be compared to a wild-card pattern with the wcmatch function.
 
@@ -1119,7 +1119,7 @@ AutoLISP provides a number of functions for handling symbols and variables. The 
 
 AutoLISP provides functions for handling one or more groups of functions. The links in this topic provides examples of the defun function. The remaining function-handling functions are listed in AutoLISP Function Synopsis (AutoLISP), under the heading Symbol-Handling Functions (AutoLISP).
 
-### 1. About Defining a Function (AutoLISP)
+### 11.1 About Defining a Function (AutoLISP)
 
 You can define your own functions.
 
@@ -1167,7 +1167,7 @@ Functions that accept no arguments may seem useless. However, you might use this
 
 1『这应该也是个关键点。』
 
-#### 2. About Compatibility of Defun with Earlier Releases of AutoCAD (AutoLISP)
+### 11.2 About Compatibility of Defun with Earlier Releases of AutoCAD (AutoLISP)
 
 The internal implementation of defun changed in AutoCAD 2000.
 
@@ -1190,7 +1190,7 @@ You may want to define it using defun-q: #<SUBR @024bda3c FOO>
 
 The error message alerts you to the possibility of using defun-q instead of defun. The defun-q function is provided strictly for backward compatibility with earlier releases and should not be used for other purposes.
 
-### 3. About C:XXX Functions (AutoLISP)
+### 11.3 About C:XXX Functions (AutoLISP)
 
 If an AutoLISP function is defined with a name of the form C:xxx, it can be issued at the AutoCAD Command prompt in the same manner as a built-in AutoCAD command. This is true regardless of whether you define and load the function in VLISP or at the AutoCAD Command prompt. You can use this feature to add new commands to AutoCAD or to redefine existing commands.
 
@@ -1212,7 +1212,7 @@ Note: When calling a function defined as a command from the code of another Auto
 
 1『什么情况下用全称命令 (C:DONE) 还需确认。』
 
-#### 01. About Defining Commands (AutoLISP)
+#### 11.3.1 About Defining Commands (AutoLISP)
 
 New commands can be defined with the defun function and by prefixing a function name with c:.
 
@@ -1266,7 +1266,7 @@ Note: If you are using the Visual LISP Editor in the Windows release, the Consol
 
 You cannot usually use an AutoLISP statement to respond to prompts from an AutoLISP-implemented command. However, if your AutoLISP routine makes use of the initget function, you can use arbitrary keyboard input with certain functions. This allows an AutoLISP-implemented command to accept an AutoLISP statement as a response. Also, the values returned by a DIESEL expression can perform some evaluation of the current drawing and return these values to AutoLISP.
 
-#### 02. About Redefining AutoCAD Commands (AutoLISP)
+#### 11.3.2 About Redefining AutoCAD Commands (AutoLISP)
 
 Using AutoLISP, you can undefine and replace the functionality of a built-in AutoCAD command.
 
@@ -1325,11 +1325,11 @@ Specify first point:
 
 You can undefined and redefine commands to create a drawing management system, for example. You can redefine the NEW, OPEN, and QUIT commands to write billing information to a log file after a drawing is created and before you terminate an editing session.
 
-### 4. About Local Variables in Functions (AutoLISP)
+### 11.4 About Local Variables in Functions (AutoLISP)
 
 AutoLISP provides a method for defining a list of symbols (variables) that are available only to your function. These are known as local variables.
 
-#### 01. About Local and Global Variables (AutoLISP)
+#### 11.4.1 About Local and Global Variables (AutoLISP)
 
 Variables can be local or global in scope based on how they are defined.
 
@@ -1457,7 +1457,7 @@ After the forward slash, list each local variable.
 
 Be certain there is at least one space between the slash and each local variable.
 
-#### 02. Example Using Local Variables (AutoLISP)
+#### 11.4.2 Example Using Local Variables (AutoLISP)
 
 The LOCAL function in the following example defines two local variables: aaa and bbb.
 
@@ -1510,7 +1510,7 @@ You will notice the function used the values for aaa and bbb that are local with
 
 2
 
-### 5. About Functions with Arguments (AutoLISP)
+### 11.5 About Functions with Arguments (AutoLISP)
 
 With AutoLISP, many functions require you to pass them values. These values are known as arguments.
 
@@ -1680,7 +1680,7 @@ Command: (inters (foo) (bar) (baz))
 
 AutoLISP evaluated (foo), then passed the result to inters. Since the result was a valid 2D point list, AutoLISP proceeds to evaluate (bar), where it determines that the evaluated result is a string, an invalid argument type for inters.
 
-### 1. About Using the *error* Function (AutoLISP)
+### 12.1 About Using the *error* Function (AutoLISP)
 
 The *error* function can ensure that AutoCAD returns to a particular state after an error occurs.
 
@@ -1715,7 +1715,7 @@ The following call to alert displays an alert box with the message File note fou
 
 (alert "File not found")
 
-### 2. About Catching Errors and Continuing Program Execution (AutoLISP)
+### 12.2 About Catching Errors and Continuing Program Execution (AutoLISP)
 
 Programs should intercept and attempt to process errors instead of allowing control to pass to *error* when possible.
 
@@ -1743,7 +1743,7 @@ The following example checks for an error object and returns the error message:
 )
 "divide by zero"
 
-#### o catch errors with vl-catch-all-apply (AutoLISP)
+#### catch errors with vl-catch-all-apply (AutoLISP)
 
 Errors caused by AutoLISP functions can result in a program ending unexpectedly, make sure to handle all known situations that could cause an error.
 

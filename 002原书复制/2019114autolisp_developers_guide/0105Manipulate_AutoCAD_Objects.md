@@ -125,7 +125,7 @@ When ssget filters a selection set, the selected objects it retrieves might incl
 
 1『实现选择哪个图纸空间里的实体，上面的信息以后应该可以用的到。』
 
-#### 01. About Wild-Card Patterns in Selection Set Filter Lists (AutoLISP)
+#### 1.1.1 About Wild-Card Patterns in Selection Set Filter Lists (AutoLISP)
 
 Symbol names specified in filtering lists can include wild-card patterns.
 
@@ -141,7 +141,7 @@ For example, you can retrieve an anonymous block named *U2 with the following:
 
 1『过滤器的形参必须是一个 list，'() 应该就是一个 list 的简要表达方式。』
 
-#### 02. About Filtering for Extended Data in a Selection Set (AutoLISP)
+#### 1.1.2 About Filtering for Extended Data in a Selection Set (AutoLISP)
 
 You can select all entities containing extended data for a particular application using the filter-list argument of ssget.
 
@@ -165,7 +165,7 @@ Wild-card matching is also permitted, so either of the following statements will
 
     (ssget "X" '((-3 ("APP1,APP2"))))
 
-#### 03. About Relational Tests in Filter Lists for Selection Sets (AutoLISP)
+#### 1.1.3 About Relational Tests in Filter Lists for Selection Sets (AutoLISP)
 
 Unless otherwise specified, an equivalency is implied for each item in the filter-list.
 
@@ -195,7 +195,7 @@ The use of relational operators depends on the kind of group code value you are 
 
 6. You cannot use the relational operators with string group codes; use wild-card tests instead.
 
-#### 04. About Logical Grouping of Selection Filter Tests (AutoLISP)
+#### 1.1.4 About Logical Grouping of Selection Filter Tests (AutoLISP)
 
 You can define test groups with nested Boolean expressions to filter objects from a selection set created with ssget.
 
@@ -252,7 +252,7 @@ You can simplify the coding of frequently used grouping operators by setting the
 )
 ```
 
-#### 05. About Modifying Selection Sets (AutoLISP)
+#### 1.1.5 About Modifying Selection Sets (AutoLISP)
 
 Once a selection set has been created, you can add entities to it or remove entities from it with ssadd and ssdel.
 
@@ -537,7 +537,7 @@ This statement returns 3.53553, the WCS X coordinate of the start point of the s
 
 The functions described in this section operate on entity data and can be used to modify the current drawing database.
 
-#### 01. About Adding an Entity without Using the Command Function (AutoLISP)
+#### 2.2.1 About Adding an Entity without Using the Command Function (AutoLISP)
 
 An application can add an entity to the drawing database by calling the entmake function.
 
@@ -588,7 +588,7 @@ The following table identifies the entities that do not require subentity marker
 
 ![](./res/2019016.png)
 
-#### 02. About Creating Complex Entities without Using the Command Function (AutoLISP)
+#### 2.2.2 About Creating Complex Entities without Using the Command Function (AutoLISP)
 
 Complex entities (an old-style polyline or a block) can be created by making multiple calls to entmake, using a separate call for each subentity.
 
@@ -695,7 +695,7 @@ The name (dxf group code 2) of an anonymous block created by AutoLISP, ObjectARX
 
 Note: Anonymous block names do not remain constant. Although a referenced anonymous block becomes permanent, the numeric portion of its name can change between drawing sessions.
 
-### 03. About Obtaining Entity Information (AutoLISP)
+#### 2.2.3 About Obtaining Entity Information (AutoLISP)
 
 The entget function returns the definition data of a specified entity as a list.
 
@@ -770,7 +770,7 @@ If the group code specified is not present in the list (or if it is not a valid 
 
 Caution: Before performing an entget on vertex entities, you should read or write the polyline entity's header. If the most recently processed polyline entity is different from the one to which the vertex belongs, width information (the 40 and 41 group codes) can be lost.
 
-#### 04. About Modifying an Entity without the Command Function (AutoLISP)
+#### 2.2.4 About Modifying an Entity without the Command Function (AutoLISP)
 
 An entity can be modified directly by changing its entity list and posting the changes back to the database.
 
@@ -804,7 +804,7 @@ AutoCAD must recognize all objects (except layers) that the entity list refers t
 
 The entmod function can modify subentities such as polyline vertices and block attributes. If you use entmod to modify an entity in a block definition, this affects all references to that block which exist in model space and paper space. Attributes, unless defined as constant, are not updated for each block reference that exists in a drawing. Also, entities in block definitions cannot be deleted by entdel.
 
-#### 05. About Deleting an Entity (AutoLISP)
+#### 2.2.5 About Deleting an Entity (AutoLISP)
 
 Entities can be deleted using the entdel function or AutoCAD ERASE command (with command).
 
@@ -812,7 +812,7 @@ Entities are not purged from the database until the end of the current drawing s
 
 Attributes and old-style polyline vertices cannot be deleted independently of their parent entities. The entdel function and AutoCAD ERASE command only operate on main entities. If you need to delete an attribute or vertex, you can use the AutoCAD ATTEDIT or PEDIT commands with command.
 
-### 3. About Entity Handles and Their Uses (AutoLISP)
+### 2.3 About Entity Handles and Their Uses (AutoLISP)
 
 The handent function retrieves the name of an entity with a specific handle.
 
@@ -839,7 +839,7 @@ Note: Handles are provided for block definitions, including subentities.
 
 Entities in drawings that are cross-referenced by way of XREF Attach are not actually part of the current drawing; their handles are unchanged but cannot be accessed by handent. However, when drawings are combined by means of INSERT, INSERT *, XREF Bind (XBIND), or partial DXFIN, the handles of entities in the incoming drawing are lost, and incoming entities are assigned new handle values to ensure each handle in the current drawing remains unique.
 
-### 4. About Entity Data Functions and the Graphics Screen (AutoLISP)
+### 2.4 About Entity Data Functions and the Graphics Screen (AutoLISP)
 
 Changes to the drawing made by the entity data functions are reflected on the graphics screen, provided the entity being deleted, undeleted, modified, or created is in an area and on a layer that is currently visible.
 
@@ -867,7 +867,7 @@ The argument to entupd can specify either a main entity or a subentity. In eithe
 
 Note: To ensure that all instances of the block references are updated, you must regenerate the drawing by invoking the AutoCAD REGEN command (with command). The entupd function is not sufficient if the modified entity is in a block definition.
 
-### 5. About Non-Graphical Object Handling (AutoLISP)
+### 2.5 About Non-Graphical Object Handling (AutoLISP)
 
 A drawing database contains two types of non-graphical objects: dictionary and symbol table objects.
 
