@@ -697,11 +697,11 @@ Each item in the list is specified by a DXF group code. The first item in the li
 
 In this example, the following (default) conditions apply to the current drawing:
 
-Layer is 0
+1. Layer is 0
 
-Linetype is CONTINUOUS
+2. Linetype is CONTINUOUS
 
-Elevation is 0
+3. Elevation is 0
 
 The user has drawn a line with the following sequence of commands:
 
@@ -758,7 +758,7 @@ All points associated with an object are expressed in terms of that object's Obj
 
 When writing functions to process entity lists, make sure the function logic is independent of the order of the sublists; use assoc to guarantee this. The assoc function searches a list for a group code of a specified type. The following code returns the object type "LINE" (0) from the list entl.
 
-(cdr (assoc 0 entl))
+    (cdr (assoc 0 entl))
 
 If the group code specified is not present in the list (or if it is not a valid group code), assoc returns nil.
 
@@ -786,11 +786,11 @@ The following example code retrieves the definition data of the first entity in 
 
 There are restrictions on the changes to the database that entmod can make; entmod cannot change the following:
 
-The entity's type or handle.
+1. The entity's type or handle.
 
-Internal fields. (Internal fields are the values that AutoCAD assigns to certain group codes: -2, entity name reference; -1, entity name; 5, entity handle.) Any attempt to change an internal field—for example, the main entity name in a Seqend subentity (group code -2)—is ignored.
+2. Internal fields. (Internal fields are the values that AutoCAD assigns to certain group codes: -2, entity name reference; -1, entity name; 5, entity handle.) Any attempt to change an internal field—for example, the main entity name in a Seqend subentity (group code -2)—is ignored.
 
-Viewport entities. An attempt to change a viewport entity causes an error.
+3. Viewport entities. An attempt to change a viewport entity causes an error.
 
 Other restrictions apply when modifying dimensions and hatch patterns.
 
@@ -879,25 +879,25 @@ When xdata is retrieved with entget, the beginning of extended data is indicated
 
 ![](./res/2019017.png)
 
-Related Concepts
+Related Concepts:
 
-About Attaching Extended Data to an Entity (AutoLISP)
+- About Attaching Extended Data to an Entity (AutoLISP)
 
-About Extended Data Group Codes (AutoLISP)
+- About Extended Data Group Codes (AutoLISP)
 
-About Filtering for Extended Data in a Selection Set (AutoLISP)
+- About Filtering for Extended Data in a Selection Set (AutoLISP)
 
-About Handles in Extended Data (AutoLISP)
+- About Handles in Extended Data (AutoLISP)
 
-About Management of Extended Data Memory Use (AutoLISP)
+- About Management of Extended Data Memory Use (AutoLISP)
 
-About Retrieving Extended Data (AutoLISP)
+- About Retrieving Extended Data (AutoLISP)
 
-About Modifying an Entity without the Command Function (AutoLISP)
+- About Modifying an Entity without the Command Function (AutoLISP)
 
-About Registered Applications (AutoLISP)
+- About Registered Applications (AutoLISP)
 
-Extended Data-Handling Functions Reference (AutoLISP)
+- Extended Data-Handling Functions Reference (AutoLISP)
 
 ### 3.1 About Extended Data Group Codes (AutoLISP)
 
@@ -905,37 +905,53 @@ Extended data consists of one or more 1001 group codes, each of which begin with
 
 The xdata groups returned by entget follow the definition data in the order in which they are saved in the database. Within each application's group, the contents, meaning, and organization of the data are defined by the application. AutoCAD maintains the information but does not use it. The table also shows that the group codes for xdata are in the range 1000-1071. Many of these group codes are for familiar data types, as follows:
 
-String
+#### String
 
-1000. Strings in extended data can be up to 255 bytes long (with the 256th byte reserved for the null character).
+1000.
 
-Application Name
+Strings in extended data can be up to 255 bytes long (with the 256th byte reserved for the null character).
 
-1001 (also a string value). Application names can be up to 31 bytes long (the 32nd byte is reserved for the null character) and must adhere to the rules for symbol table names (such as layer names). An application name can contain letters, digits, and the special characters $ (dollar sign), - (hyphen), and _ (underscore). It cannot contain spaces.
+#### Application Name
 
-Layer Name
+1001 (also a string value). 
 
-1003. Name of a layer associated with the xdata.
+Application names can be up to 31 bytes long (the 32nd byte is reserved for the null character) and must adhere to the rules for symbol table names (such as layer names). An application name can contain letters, digits, and the special characters $ (dollar sign), - (hyphen), and _ (underscore). It cannot contain spaces.
 
-Database -Handle
+#### Layer Name
 
-1005. Handle of an entity in the drawing database.
+1003.
 
-3D Point
+Name of a layer associated with the xdata.
 
-1010. Three real values, contained in a point.
+#### Database -Handle
 
-Real
+1005.
 
-1040. A real value.
+Handle of an entity in the drawing database.
 
-Integer
+#### 3D Point
 
-1070. A 16-bit integer (signed or unsigned).
+1010.
 
-Long
+Three real values, contained in a point.
 
-1071. A 32-bit signed (long) integer. If the value that appears in a 1071 group code is a short integer or real value, it is converted to a long integer; if it is invalid (for example, a string), it is converted to a long zero (0L).
+#### Real
+
+1040.
+
+A real value.
+
+#### Integer
+
+1070.
+
+A 16-bit integer (signed or unsigned).
+
+#### Long
+
+1071.
+
+A 32-bit signed (long) integer. If the value that appears in a 1071 group code is a short integer or real value, it is converted to a long integer; if it is invalid (for example, a string), it is converted to a long zero (0L).
 
 Note: AutoLISP manages 1071 group codes as real values. If you use entget to retrieve an entity's definition list that contains a 1071 group code, the value is returned as a real, as shown in the following example:
 
@@ -962,37 +978,51 @@ ObjectARX and Managed .NET always manages 1071 group codes as long integers.
 
 Several other extended data group codes have special meanings in this context (if the application chooses to use them):
 
-Control String
+#### Control String
 
-1002. An xdata control string can be either "{" or "}". These braces enable the application to organize its data by subdividing it into lists. The left brace begins a list, and the right brace terminates the most recent list. Lists can be nested.
+1002.
+
+An xdata control string can be either "{" or "}". These braces enable the application to organize its data by subdividing it into lists. The left brace begins a list, and the right brace terminates the most recent list. Lists can be nested.
 
 Note: If a 1001 group code appears within a list, it is treated as a string and does not begin a new application group code.
 
-Binary Data
+#### Binary Data
 
-1004. Binary data that is organized into variable-length chunks, which can be handled in ObjectARX and Managed .NET with the ads_binary structure. The maximum length of each chunk is 127 bytes.
+1004.
+
+Binary data that is organized into variable-length chunks, which can be handled in ObjectARX and Managed .NET with the ads_binary structure. The maximum length of each chunk is 127 bytes.
 
 Note: AutoLISP cannot directly handle binary chunks, so the same precautions that apply to long (1071) group codes apply to binary group codes as well.
 
-World Space Position
+#### World Space Position
 
-1011. Unlike a simple 3D point, the WCS coordinates are moved, scaled, rotated, and mirrored along with the parent entity to which the extended data belongs. The WCS position is also stretched when the AutoCAD STRETCH command is applied to the parent entity and when this point lies within the select window.
+1011.
 
-World Space -Displacement
+Unlike a simple 3D point, the WCS coordinates are moved, scaled, rotated, and mirrored along with the parent entity to which the extended data belongs. The WCS position is also stretched when the AutoCAD STRETCH command is applied to the parent entity and when this point lies within the select window.
 
-1012. A 3D point that is scaled, rotated, or mirrored along with the parent, but not stretched or moved.
+#### World Space -Displacement
+
+1012.
+
+A 3D point that is scaled, rotated, or mirrored along with the parent, but not stretched or moved.
 
 World -Direction
 
-1013. A 3D point that is rotated or mirrored along with the parent, but not scaled, stretched, or moved. The WCS direction is a normalized displacement that always has a unit length.
+1013.
+
+A 3D point that is rotated or mirrored along with the parent, but not scaled, stretched, or moved. The WCS direction is a normalized displacement that always has a unit length.
 
 Distance
 
-1041. A real value that is scaled along with the parent entity.
+1041.
+
+A real value that is scaled along with the parent entity.
 
 Scale Factor
 
-1042. Also a real value that is scaled along with the parent.
+1042.
+
+Also a real value that is scaled along with the parent.
 
 ### 3.2 About Registered Applications (AutoLISP)
 
@@ -1025,7 +1055,7 @@ The entget function can return an entity’s definition data and the xdata for t
 
 By default, associative hatch patterns contain xdata. The following example code demonstrates the association list of this xdata. Before you can use the code, create a closed boundary and apply an associative hatch object to the boundary.
 
-(entget (car (entsel)) '("ACAD"))
+    (entget (car (entsel)) '("ACAD"))
 
 Select object: Select an associative hatch
 
@@ -1088,7 +1118,7 @@ The following example code demonstrates the basics of attaching xdata to the las
 
 The following example code can be used to verify that your new xdata has been attached to the entity:
 
-(entget (car (entsel)) '("NEWDATA"))
+    (entget (car (entsel)) '("NEWDATA"))
 
 ### 3.5 About Management of Extended Data Memory Use (AutoLISP)
 
@@ -1118,60 +1148,42 @@ When an entity is placed in a block definition (with the AutoCAD BLOCK command),
 
 Xrecord objects are used to store and manage arbitrary data.
 
-
-
-
-
-
-
-
 They are composed of DXF group codes with normal object group codes (that is, non-xdata group codes), ranging from 1 through 369 for supported ranges. These objects are similar in concept to xdata but are not limited by size or order.
 
 The following code examples create and list xrecord data in a custom dictionary named XRECLIST.
 
+```
 (defun C:MAKEXRECORD( / xrec xname )
-
   ; create the xrecord's data list.
-
   (setq xrec '((0 . "XRECORD")(100 . "AcDbXrecord")
-
     (1 . "This is a test xrecord list")
-
     (10 1.0 2.0 0.0) (40 . 3.14159) (50 . 3.14159)
-
     (62 . 1) (70 . 180))
-
   )
 
   ; use entmakex to create the xrecord with no owner.
-
   (setq xname (entmakex xrec))
 
   ; add the new xrecord to the named object dictionary.
-
   (dictadd (namedobjdict) "XRECLIST" xname)
-
  (princ)
-
 )
 
 (defun C:LISTXRECORD ( / xlist )
-
   ; find the xrecord in the named object dictionary.
-
   (setq xlist (dictsearch (namedobjdict) "XRECLIST"))
 
   ; print out the xrecord's data list.
-
   (princ xlist)
-
  (princ)
-
 )
+```
 
 The results of the LISTXRECORD command will look similar to the following:
 
+```
 ((-1 . <Entity name: 7ffffb05ee0>) (0 . XRECORD) (5 . 1E6) (102 . {ACAD_REACTORS) (330 . <Entity name: 7ffffb038c0>) (102 . }) (330 . <Entity name: 7ffffb038c0>) (100 . AcDbXrecord) (280 . 1) (1 . This is a test xrecord list) (10 1.0 2.0 0.0) (40 . 3.14159) (50 . 3.14159) (62 . 1) (70 . 180))
+```
 
 ## 05. About Symbol Table and Dictionary Access (AutoLISP)
 
@@ -1179,7 +1191,23 @@ AutoLISP provides functions for accessing symbol table and dictionary entries. E
 
 For additional information on non-graphic objects see, About Non-Graphic Object Handling (AutoLISP).
 
-### 1. About Symbol Tables (AutoLISP)
+Related Concepts:
+
+- About Non-Graphical Object Handling (AutoLISP)
+
+- FAQ: What Symbol Table Entries Cannot Be Renamed or Modified? (AutoLISP)
+
+- About Creating Complex Entities without Using the Command Function (AutoLISP)
+
+- About Anonymous Blocks (AutoLISP)
+
+- About Accessing an Object’s Entity Name (AutoLISP)
+
+- About Dictionary Objects and Entries (AutoLISP)
+
+- Symbol Table and Dictionary-Handling Functions Reference (AutoLISP)
+
+### 5.1 About Symbol Tables (AutoLISP)
 
 Symbol tables are used to store non-graphical information in a drawing’s database.
 
@@ -1189,41 +1217,41 @@ The symbol tables that exist in a drawing database are:
 
 Symbol table entries can be manipulated using the following functions:
 
-tblobjname - Returns the entity name of a specified symbol table entry.
+1. tblobjname - Returns the entity name of a specified symbol table entry.
 
-tblsearch - Searches a symbol table for a symbol name.
+2. tblsearch - Searches a symbol table for a symbol name.
 
-tblnext - Returns the next item in a symbol table.
+3. tblnext - Returns the next item in a symbol table.
 
-entdel - Deletes objects (entities) or restores previously deleted objects.
+4. entdel - Deletes objects (entities) or restores previously deleted objects.
 
-entget - Retrieves an object's (entity's) definition data list.
+5. entget - Retrieves an object's (entity's) definition data list.
 
-entmake - Creates a new entity in the drawing.
+6. entmake - Creates a new entity in the drawing.
 
-entmod - Modifies the definition data of an object (entity).
+7. entmod - Modifies the definition data of an object (entity).
 
-handent - Returns an object (entity) name based on its handle.
+8. handent - Returns an object (entity) name based on its handle.
 
-Symbol Table Limitations
+#### 5.1.1 Symbol Table Limitations
 
 The following rules apply to symbol tables:
 
-Symbol table entries can be created using entmake with a few restrictions, other than being valid record representations, and name conflicts can only occur in the VPORT table. *ACTIVE entries cannot be created.
+1. Symbol table entries can be created using entmake with a few restrictions, other than being valid record representations, and name conflicts can only occur in the VPORT table. *ACTIVE entries cannot be created.
 
-Renaming symbol table entries to duplicate names is not acceptable, except for the VPORT symbol table.
+2. Renaming symbol table entries to duplicate names is not acceptable, except for the VPORT symbol table.
 
-Symbol table entries cannot be deleted with entdel.
+3. Symbol table entries cannot be deleted with entdel.
 
-The object states of symbol tables and symbol table entries may be accessed with entget by passing the entity name. The tblobjname function can be used to retrieve the entity name of a symbol table entry.
+4. The object states of symbol tables and symbol table entries may be accessed with entget by passing the entity name. The tblobjname function can be used to retrieve the entity name of a symbol table entry.
 
-Symbol tables themselves cannot be created with entmake; however, symbol table entries can be created with entmake.
+5. Symbol tables themselves cannot be created with entmake; however, symbol table entries can be created with entmake.
 
-Handle group codes (5, 105) cannot be changed in entmod, nor specified in entmake.
+6. Handle group codes (5, 105) cannot be changed in entmod, nor specified in entmake.
 
-Symbol table entries that are not in the APPID symbol table can have many of their fields modified with entmod. Modifying a symbol table record list must include its entity name, which can be obtained from entget but not from the tblsearch and tblnext functions. The 70 group code of symbol table entries is ignored in entmod and entmake operations.
+7. Symbol table entries that are not in the APPID symbol table can have many of their fields modified with entmod. Modifying a symbol table record list must include its entity name, which can be obtained from entget but not from the tblsearch and tblnext functions. The 70 group code of symbol table entries is ignored in entmod and entmake operations.
 
-Accessing Symbol Table Entries
+#### 5.1.2 Accessing Symbol Table Entries
 
 The tblnext function sequentially scans symbol table entries, and the tblsearch function retrieves specific entries. Symbol table names are specified by strings. Both functions return lists with DXF group codes that are similar to the entity data returned by entget.
 
@@ -1231,31 +1259,21 @@ The first call to tblnext returns the first entry in the specified symbol table.
 
 In the following example code, the function GETBLOCK retrieves the symbol table entry for the first block (if any) in the current drawing, and then displays it in a list format.
 
+```
 (defun C:GETBLOCK (/ blk ct)
-
   (setq blk (tblnext "BLOCK" 1))      ; Gets the first BLOCK entry.
-
   (setq ct 0)                         ; Sets ct (a counter) to 0.
-
   (textpage)                          ; Switches to the text screen.
-
   (princ "\nResults from GETBLOCK: ")
-
   (repeat (length blk)                ; Repeats for the number of
-
                                       ; members in the list.
-
     (print (nth ct blk))              ; Prints a new line, then each
-
                                       ; list member.
-
     (setq ct (1+ ct))                 ; Increments the counter by 1.
-
   )
-
  (princ)                              ; Exits quietly.
-
 )
+```
 
 Entries retrieved from the BLOCK table contain a -2 group code that contains the name of the first entity in the block definition. If the block is empty, this is the name of the block's Endblk entity, which is never seen on occupied blocks. In a drawing with a single block named BOX, a call to GETBLOCK displays the following. (The name value varies from session to session.)
 
@@ -1277,39 +1295,19 @@ The setnext option is useful when you are handling the VPORT symbol table, becau
 
 The following processes all viewports in the 4VIEW configuration:
 
+```
 (setq v (tblsearch "VPORT" "4VIEW" T))         ; Finds first VPORT entry.
-
   (while (and v (= (cdr (assoc 2 v)) "4VIEW"))
-
   ..
-
                                                ; ... Processes entry ...
-
   .
-
   (setq v (tblnext "VPORT"))                   ; Gets next VPORT entry.
-
 )
+```
 
 Parent topic: About Symbol Table and Dictionary Access (AutoLISP)
 
-Related Concepts
-
-About Non-Graphical Object Handling (AutoLISP)
-
-FAQ: What Symbol Table Entries Cannot Be Renamed or Modified? (AutoLISP)
-
-About Creating Complex Entities without Using the Command Function (AutoLISP)
-
-About Anonymous Blocks (AutoLISP)
-
-About Accessing an Object’s Entity Name (AutoLISP)
-
-About Dictionary Objects and Entries (AutoLISP)
-
-Symbol Table and Dictionary-Handling Functions Reference (AutoLISP)
-
-### 2. About Dictionary Objects and Entries (AutoLISP)
+### 5.2 About Dictionary Objects and Entries (AutoLISP)
 
 A dictionary is a container object, similar to symbol tables.
 
@@ -1317,245 +1315,137 @@ Dictionaries are stored in the drawing’s named object dictionary, which is the
 
 The following rules apply to dictionary objects:
 
-Dictionary objects can be examined with entget and their xdata modified with entmod. Their entries cannot be altered with entmod. All access to their entries are made through the dictsearch and dictnext functions.
+1. Dictionary objects can be examined with entget and their xdata modified with entmod. Their entries cannot be altered with entmod. All access to their entries are made through the dictsearch and dictnext functions.
 
-Dictionary entry contents cannot be modified through entmod, although xdata can be modified.
+2. Dictionary entry contents cannot be modified through entmod, although xdata can be modified.
 
-Dictionary entries that begin with ACAD* cannot be renamed.
+3. Dictionary entries that begin with ACAD* cannot be renamed.
 
 Dictionary entries can be queried with the dictsearch and dictnext functions. Each dictionary entry consists of a text name key plus a hard ownership handle reference to the entry object. Dictionary entries may be removed by directly passing entry object names to the entdel function. The text name key uses the same syntax and valid characters as symbol table names. A key name can be changed using the dictrename function.
 
 The following example code lists each of the dictionaries in the drawing’s named object dictionary and their entries:
 
+```
 (defun c:ListDictionaries ( / ed ed1)
-
   (prompt "\nDictionaries in current drawing: ")
-
   (foreach ed (entget (namedobjdict))
-
     (progn
-
       (cond ((= (car ed) 3)
-
         (prompt (strcat "\n" (cdr ed))))
-
             ((= (car ed) 350)
-
         (progn
-
           (foreach ed1 (entget (cdr ed))
-
             (if (= (car ed1) 3)
-
               (prompt (strcat "\n  " (cdr ed1)))
-
             )
-
           )
-
         ))
-
       )
-
     )
-
   )
-
  (princ)
-
 )
+```
 
 The following is an example of the output you might see in Text History window after c:ListDictionaries is executed.
 
+```
 Dictionaries in current drawing:
-
 ACAD_CIP_PREVIOUS_PRODUCT_INFO
-
 ACAD_COLOR
-
 ACAD_DETAILVIEWSTYLE
-
   Imperial24
-
 ACAD_GROUP
-
 ACAD_LAYOUT
-
   Layout1
-
   Layout2
-
   Model
-
 ACAD_MATERIAL
-
   ByBlock
-
   ByLayer
-
   Global
-
 ACAD_MLEADERSTYLE
-
   Annotative
-
   Standard
-
 ACAD_MLINESTYLE
-
   Standard
-
 ACAD_PLOTSETTINGS
-
 ACAD_PLOTSTYLENAME
-
   Normal
-
 ACAD_SCALELIST
-
   A0
-
   A1
-
   A2
-
   A3
-
   A4
-
   A5
-
   A6
-
   A7
-
   A8
-
   A9
-
   B0
-
   B1
-
   B2
-
   B3
-
   B4
-
   B5
-
   B6
-
   B7
-
   B8
-
   B9
-
   C0
-
   C1
-
   C2
-
   C3
-
   C4
-
   C5
-
   C6
-
   C7
-
   C8
-
   C9
-
   D0
-
   D1
-
   D2
-
 ACAD_SECTIONVIEWSTYLE
-
   Imperial24
-
 ACAD_TABLESTYLE
-
   Standard
-
 ACAD_VISUALSTYLE
-
   2dWireframe
-
   Basic
-
   Brighten
-
   ColorChange
-
   Conceptual
-
   Dim
-
   EdgeColorOff
-
   Facepattern
-
   Flat
-
   FlatWithEdges
-
   Gouraud
-
   GouraudWithEdges
-
   Hidden
-
   JitterOff
-
   Linepattern
-
   OverhangOff
-
   Realistic
-
   Shaded
-
   Shaded with edges
-
   Shades of Gray
-
   Sketchy
-
   Thicken
-
   Wireframe
-
   X-Ray
-
 AcDbVariableDictionary
-
   CANNOSCALE
-
   CMLEADERSTYLE
-
   CTABLESTYLE
-
   CVIEWDETAILSTYLE
-
   CVIEWSECTIONSTYLE
-
   DIMASSOC
-
   HIDETEXT
-
   LAYEREVAL
-
   LAYERNOTIFY
+  ```
 
 #### Example: Accessing AutoCAD Groups (AutoLISP)
 
@@ -1563,31 +1453,28 @@ This example demonstrates one method for accessing the entities contained in a g
 
 This example assumes a group named G1 exists in the current drawing.
 
-(setq objdict (namedobjdict))
+    (setq objdict (namedobjdict))
 
-(setq grpdict (dictsearch objdict "ACAD_GROUP"))
+    (setq grpdict (dictsearch objdict "ACAD_GROUP"))
 
 This sets the grpdict variable to the entity definition list of the ACAD_GROUP dictionary and returns the following:
 
+```
 ((-1 . <Entity name: 8dc10468>) (0 . "DICTIONARY") (5 . "D")
-
 (102 . "{ACAD_REACTORS") (330 . <Entity name: 8dc10460>)
-
 (102 . "}") (100 . "AcDbDictionary") (3 . "G1")
-
 (350 . <Entity name: 8dc41240>))
+```
 
 The following code sets the variable group1 to the entity definition list of the G1 group:
 
+```
 (setq group1 (dictsearch (cdar grpdict) "G1"))
 
 ((-1 . <Entity name: 8dc10518>) (0 . "GROUP") (5 . "23")
-
 (102 . "{ACAD_REACTORS") (330 . <Entity name: 8dc10468>)
-
 (102 . "}") (100 . "AcDbGroup") (300 . "line and circle") (70 . 0) (71
-
 . 1) (340 . <Entity name: 8dc10510>)(340 . <Entity name: 8dc10550>))
+```
 
 The 340 group codes are the entities that belong to the group.
-
