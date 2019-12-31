@@ -541,14 +541,6 @@ The functions described in this section operate on entity data and can be used t
 
 An application can add an entity to the drawing database by calling the entmake function.
 
-
-
-
-
-
-
-
-
 Like that of entmod, the argument to entmake is a list whose format is similar to that returned by entget. The new entity that the list describes is appended to the drawing database (it becomes the last entity in the drawing). If the entity is a complex entity (an old-style polyline or a block), it is not appended to the database until it is complete.
 
 The following example code creates a circle on the MYLAYER layer:
@@ -563,13 +555,13 @@ The following example code creates a circle on the MYLAYER layer:
 
 The following entmake restrictions apply to all entities:
 
-The first or second member in the list must specify the entity type. The type must be a valid DXF group code. If the first member does not specify the type, it can specify only the name of the entity: group -1 (the name is not saved in the database).
+1. The first or second member in the list must specify the entity type. The type must be a valid DXF group code. If the first member does not specify the type, it can specify only the name of the entity: group -1 (the name is not saved in the database).
 
-AutoCAD must recognize all objects that the entity list refers to. There is one exception: entmake accepts new layer names.
+2. AutoCAD must recognize all objects that the entity list refers to. There is one exception: entmake accepts new layer names.
 
-Any internal fields passed to entmake are ignored.
+3. Any internal fields passed to entmake are ignored.
 
-entmake cannot create viewport entities.
+4. entmake cannot create viewport entities.
 
 For entity types introduced in AutoCAD Release 13 and later releases, you must also specify subclass markers (DXF group code 100) when creating the entity. All AutoCAD entities have the AcDbEntity subclass marker, and this must be explicitly included in the entmake list. In addition, one or more subclass marker entries are required to identify the specific sub-entity type. These entries must follow group code 0 and must precede group codes that are specifically used to define entity properties in the entmake list. For example, the following is the minimum code required to create a MTEXT entity with entmake:
 
@@ -600,7 +592,7 @@ As the previous paragraphs imply, entmake can construct only one complex entity 
 
 Complex entities can exist in either model space or paper space, but not both. If you have changed the current space by invoking either of the AutoCAD MSPACE or PSPACE commands (with command) while a complex entity is being constructed, a subsequent call to entmake cancels the complex entity. This can also occur if the subentity has a 67 dxf group code whose value does not match the 67 dxf group code of the entity header.
 
-#### Working with Polylines
+#### 2.2.2.1 Working with Polylines
 
 The following example contains five calls to the entmake function which creates a single complex entity, an old-style polyline. The polyline has three vertices located at coordinates (1,1,0), (4,6,0), and (3,2,0), and has a linetype of DASHED and a color of BLUE. All other optional definition data assume default values.
 
@@ -626,6 +618,8 @@ The following example contains five calls to the entmake function which creates 
 (entmake '((0 . "SEQEND"))) ; Sequence end
 ```
 
+1『上面的这个代码实现有问题，待解决。』
+
 Note: For the previous example code to execute properly, the linetype DASHED must be loaded.
 
 When defining dotted pairs, as in the above example, there must be a space on both sides of the dot. Otherwise, you will get an invalid dotted pair error message. If you want to use values stored in variables to create a dotted pair, you must use the list and cons functions instead of using the quote ( ‘ ) function.
@@ -649,7 +643,7 @@ Applications can represent polygons with an arbitrarily large number of sides in
 
 The number of vertices per face is the key parameter in this subdivision process. The AutoCAD PFACEVMAX system variable provides an application with the number of vertices per face entity. This value is read-only and is set to 4.
 
-#### Working with Blocks
+#### 2.2.2.2 Working with Blocks
 
 Block definitions begin with a block entity and end with an Endblk subentity. Newly created blocks are automatically entered into the symbol table where they can be referenced. Block definitions cannot be nested, nor can they reference themselves. A block definition can contain references to other block definitions.
 
@@ -689,7 +683,7 @@ You must also scan each block definition for instances of nested blocks.
 
 The block definitions (BLOCK) table in a drawing can contain anonymous blocks (also known as unnamed blocks), that AutoCAD creates to support dynamic blocks, tables, hatch patterns, and associative dimensions.
 
-The entmake function can create anonymous blocks other than *Tnnn (tables), *Dnnn (dimensions), and *Xnnn (hatch patterns). Unreferenced anonymous blocks are purged from the BLOCK definition table when a drawing is opened. Referenced anonymous blocks (those that have been inserted) are not purged. You can use entmake to create a block reference (insert object) to an anonymous block. (You cannot pass an anonymous block to the INSERT command.) Also, you can use entmake to redefine the block. You can modify the entities in a block (but not the block object itself) with entmod.
+The entmake function can create anonymous blocks other than * Tnnn (tables), * Dnnn (dimensions), and *Xnnn (hatch patterns). Unreferenced anonymous blocks are purged from the BLOCK definition table when a drawing is opened. Referenced anonymous blocks (those that have been inserted) are not purged. You can use entmake to create a block reference (insert object) to an anonymous block. (You cannot pass an anonymous block to the INSERT command.) Also, you can use entmake to redefine the block. You can modify the entities in a block (but not the block object itself) with entmod.
 
 The name (dxf group code 2) of an anonymous block created by AutoLISP, ObjectARX, or Managed .NET has the form *Unnn, where nnn is a number generated by AutoCAD. Also, the low-order bit of an anonymous block's block type flag (dxf group code 70) is set to 1. When entmake creates a block whose name begins with * and whose anonymous bit is set, AutoCAD treats this as an anonymous block and assigns it a name. Any characters following the * in the name string passed to entmake are ignored.
 
