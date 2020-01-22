@@ -141,12 +141,6 @@ Symbol 可以具有字符串类型的描述，但是即使描述相同，Symbol 
 
 Object 是 JavaScript 中最复杂的类型，也是 JavaScript 的核心机制之一。Object 表示对象的意思，它是一切有形和无形物体的总称。
 
-
-
-
-
-
-
 下面我们来看一看，为什么给对象添加的方法能用在基本类型上？
 
 在 JavaScript 中，对象的定义是「属性的集合」。属性分为数据属性和访问器属性，二者都是 key-value 结构，key 可以是字符串或者 Symbol 类型。
@@ -161,17 +155,13 @@ Object 是 JavaScript 中最复杂的类型，也是 JavaScript 的核心机制�
 
 JavaScript 中的几个基本类型，都在对象类型中有一个「亲戚」。它们是：
 
-Number；
+- Number；
 
+- String；
 
-String；
+- Boolean；
 
-
-Boolean；
-
-
-Symbol。
-
+- Symbol。
 
 所以，我们必须认识到 3 与 new Number (3) 是完全不同的值，它们一个是 Number 类型，一个是对象类型。
 
@@ -183,18 +173,13 @@ JavaScript 语言设计上试图模糊对象和基本类型之间的关系，我
 
     console.log("abc".charAt(0)); //a
 
-
 甚至我们在原型上添加方法，都可以应用于基本类型，比如以下代码，在 Symbol 原型上添加了 hello 方法，在任何 Symbol 类型变量都可以调用。
 
     Symbol.prototype.hello = () => console.log("hello");
 
-
     var a = Symbol("a");
-
-
-console.log (typeof a); //symbol，a 并非对象
-
-a.hello (); //hello，有效
+    console.log(typeof a); //symbol，a并非对象
+    a.hello(); //hello，有效
 
 所以我们文章开头的问题，答案就是。运算符提供了装箱操作，它会根据基础类型构造一个临时对象，使得我们能在基础类型上调用对应对象的方法。
 
@@ -210,32 +195,27 @@ a.hello (); //hello，有效
 
 其它运算，如加减乘除大于小于，也都会涉及类型转换。幸好的是，实际上大部分类型转换规则是非常简单的，如下表所示：
 
+![](./res/2019011.png)
+
 在这个里面，较为复杂的部分是 Number 和 String 之间的转换，以及对象跟基本类型之间的转换。我们分别来看一看这几种转换的规则。
 
-StringToNumber
-
+### 1. StringToNumber
 
 字符串到数字的类型转换，存在一个语法结构，类型转换支持十进制、二进制、八进制和十六进制，比如：
 
-30；
+- 30；
 
+- 0b111；
 
-0b111；
+- 0o13；
 
-
-0o13；
-
-
-0xFF。
-
+- 0xFF。
 
 此外，JavaScript 支持的字符串语法还包括正负号科学计数法，可以使用大写或者小写的 e 来表示：
 
-1e3；
+- 1e3；
 
-
--1e-2。
-
+- -1e-2。
 
 需要注意的是，parseInt 和 parseFloat 并不使用这个转换，所以支持的语法跟这里不尽相同。
 
@@ -245,14 +225,13 @@ StringToNumber
 
 多数情况下，Number 是比 parseInt 和 parseFloat 更好的选择。
 
-NumberToString
-
+### 2. NumberToString
 
 在较小的范围内，数字到字符串的转换是完全符合你直觉的十进制表示。当 Number 绝对值较大或者较小时，字符串表示则是使用科学计数法表示的。这个算法细节繁多，我们从感性的角度认识，它其实就是保证了产生的字符串不会过长。
 
 具体的算法，你可以去参考 JavaScript 的语言标准。由于这个部分内容，我觉得在日常开发中很少用到，所以这里我就不去详细地讲解了。
 
-装箱转换
+### 3. 装箱转换
 
 每一种基本类型 Number、String、Boolean、Symbol 在对象中都有对应的类，所谓装箱转换，正是把基本类型转换为对应的对象，它是类型转换中一种相当重要的种类。
 
@@ -264,15 +243,9 @@ NumberToString
 
     var symbolObject = (function(){ return this; }).call(Symbol("a"));
 
-
     console.log(typeof symbolObject); //object
-
-
     console.log(symbolObject instanceof Symbol); //true
-
-
     console.log(symbolObject.constructor == Symbol); //true
-
 
 装箱机制会频繁产生临时对象，在一些对性能要求较高的场景下，我们应该尽量避免对基本类型做装箱转换。
 
@@ -280,29 +253,21 @@ NumberToString
 
     var symbolObject = Object(Symbol("a"));
 
-
     console.log(typeof symbolObject); //object
-
-
     console.log(symbolObject instanceof Symbol); //true
-
-
     console.log(symbolObject.constructor == Symbol); //true
-
 
 每一类装箱对象皆有私有的 Class 属性，这些属性可以用 Object.prototype.toString 获取：
 
     var symbolObject = Object(Symbol("a"));
 
-
     console.log(Object.prototype.toString.call(symbolObject)); //[object Symbol]
-
 
 在 JavaScript 中，没有任何方法可以更改私有的 Class 属性，因此 Object.prototype.toString 是可以准确识别对象对应的基本类型的方法，它比 instanceof 更加准确。
 
 但需要注意的是，call 本身会产生装箱操作，所以需要配合 typeof 来区分基本类型还是对象类型。
 
-拆箱转换
+### 4. 拆箱转换
 
 在 JavaScript 标准中，规定了 ToPrimitive 函数，它是对象类型到基本类型的转换（即，拆箱转换）。
 
@@ -311,75 +276,45 @@ NumberToString
 拆箱转换会尝试调用 valueOf 和 toString 来获得拆箱后的基本类型。如果 valueOf 和 toString 都不存在，或者没有返回基本类型，则会产生类型错误 TypeError。
 
     var o = {
-
-
         valueOf : () => {console.log("valueOf"); return {}},
-
-
         toString : () => {console.log("toString"); return {}}
-
-
     }
 
-
     o * 2
-
-
     // valueOf
-
-
     // toString
-
-
     // TypeError
-
 
 我们定义了一个对象 o，o 有 valueOf 和 toString 两个方法，这两个方法都返回一个对象，然后我们进行 o*2 这个运算的时候，你会看见先执行了 valueOf，接下来是 toString，最后抛出了一个 TypeError，这就说明了这个拆箱转换失败了。
 
 到 String 的拆箱转换会优先调用 toString。我们把刚才的运算从 o*2 换成 String (o)，那么你会看到调用顺序就变了。
 
+```
     var o = {
-
-
         valueOf : () => {console.log("valueOf"); return {}},
-
-
         toString : () => {console.log("toString"); return {}}
-
-
     }
 
-
    String(o)
-
-
     // toString
-
-
     // valueOf
-
-
     // TypeError
-
+```
 
 在 ES6 之后，还允许对象通过显式指定 @@toPrimitive Symbol 来覆盖原有的行为。
 
     var o = {
-
-
         valueOf : () => {console.log("valueOf"); return {}},
-
-
         toString : () => {console.log("toString"); return {}}
-
-
     }
-
 
     o[Symbol.toPrimitive] = () => {console.log("toPrimitive"); return "hello"}
 
+    console.log(o + "")
+    // toPrimitive
+    // hello
 
-结语
+## 结语
 
 在本篇文章中，我们介绍了 JavaScript 运行时的类型系统。这里回顾一下今天讲解的知识点。
 
@@ -401,188 +336,109 @@ Data Block：用于描述二进制数据。
 
 有一个说法是：程序 = 算法 + 数据结构，运行时类型包含了所有 JavaScript 执行时所需要的数据结构的定义，所以我们要对它格外重视。
 
-最后我们留一个实践问题，如果我们不用原生的 Number 和 parseInt，用 JavaScript 代码实现 String 到 Number 的转换，该怎么做呢？请你把自己的代码留言给我吧！
+最后我们留一个实践问题，如果我们不用原生的 Number 和 parseInt，用 JavaScript 代码实现 String 到 Number 的转换，该怎么做呢？
 
-补充阅读
+## 补充阅读
 
 事实上，「类型」在 JavaScript 中是一个有争议的概念。一方面，标准中规定了运行时数据类型； 另一方面，JavaScript 语言中提供了 typeof 这样的运算，用来返回操作数的类型，但 typeof 的运算结果，与运行时类型的规定有很多不一致的地方。我们可以看下表来对照一下。
+
+![](./res/2019012.png)
 
 在表格中，多数项是对应的，但是请注意 object——Null 和 function——Object 是特例，我们理解类型的时候需要特别注意这个区别。
 
 从一般语言使用者的角度来看，毫无疑问，我们应该按照 typeof 的结果去理解语言的类型系统。但 JavaScript 之父本人也在多个场合表示过，typeof 的设计是有缺陷的，只是现在已经错过了修正它的时机。
 
-精选留言 (183)
-
-bertZuo
-
-
-老师，对于 Number 类型有一个疑惑，您举列的 console.log (0.1 + 0.2 == 0.3) 为 false，我就另测试了了一下 console.log (0.3 + 0.2 == 0.5) 就为 true 了呢，试试其他都是 true，为啥只有是否等于 0.3 才为 false 呀？
+## 精选留言
 
 2019-01-28
 
+### 01
 
-咕叽咕叽
-
-感谢 winter 老师的分享，受益匪浅。
+咕叽咕叽：
 
 但是本文有两点是值得商榷的。
 
 其一：
 
-原文：Undefined 跟 null 有一定的表意差别，null 表示的是：「定义了但是为空」。
-
-私以为，undefined 表示的是：「定义了但是为空」。而非 null。
+原文：Undefined 跟 null 有一定的表意差别，null 表示的是：「定义了但是为空」。私以为，undefined 表示的是：「定义了但是为空」。而非 null。
 
 二：
 
 原文：
 
-    var o = {
-
-
+```
+var o = {
         valueOf : () => {console.log("valueOf"); return {}},
-
-
         toString : () => {console.log("toString"); return {}}
-
-
     }
 
-
     o + ""
-
-
     // toString
-
-
     // valueOf
-
-
     // TypeError
+```
 
+很多朋友已经提出来了，应该是先执行 valueof，再执行 toString。这个问题，可以从 ecmascript 规范中寻找答案：
 
-很多朋友已经提出来了，应该是先执行 valueof，再执行 toString。
+规范指出，类型转换的内部实现是通过 ToPrimitive (input [ , PreferredType] ) 方法进行转换的，这个方法的作用就是将 input 转换成一个非对象类型。参数 preferredType 是可选的，它的作用是，指出了 input 被期待转成的类型。
 
-这个问题，可以从 ecmascript 规范中寻找答案：
-
-规范指出，类型转换的内部实现是通过 ToPrimitive (input [ , PreferredType] ) 方法进行转换的，这个方法的作用就是将 input 转换成一个非对象类型。
-
-参数 preferredType 是可选的，它的作用是，指出了 input 被期待转成的类型。
-
-如果不传 preferredType 进来，默认的是 'number'。
-
-如果 preferredType 的值是 "string"，那就先执行 "toString", 后执行 "valueOf"。否则，先执行 "valueOf", 后执行 "toString"。
+如果不传 preferredType 进来，默认的是 'number'。如果 preferredType 的值是 "string"，那就先执行 "toString", 后执行 "valueOf"。否则，先执行 "valueOf", 后执行 "toString"。
 
 由此可见，"toString", "valueOf" 的执行顺序，取决于 preferred 的值。
 
 规范原文请移步：http://www.ecma-international.org/ecma-262/#sec-toprimitive
 
-再回到我们的例子
+再回到我们的例子：
 
+```
 var o = {
-
-
         valueOf : () => {console.log("valueOf"); return {}},
-
-
         toString : () => {console.log("toString"); return {}}
-
-
 }
 
-
 o + ""
-
+```
 
 类型转换时，把对象 o 进行转换，调用 toPrimitive 方法，即 toPrimitive (o [ , PreferredType] )。关键的点是，preferredType 是否被传值，传的是什么值？
 
-我们再去看下规范，看看加法运算符的规则。
-
-加法运算符运算过程中有两行代码很重要，如下
+我们再去看下规范，看看加法运算符的规则。加法运算符运算过程中有两行代码很重要，如下：
 
     Let lprim be ? ToPrimitive(lval).
-
-
     Let rprim be ? ToPrimitive(rval).
 
-
-可以看出，调用 ToPrimitive 方法时，第二个参数是没有传参的。
-
-所以 preferredType 取默认的值 "number"。最终先执行 "valueOf", 后执行 "toString"。
+可以看出，调用 ToPrimitive 方法时，第二个参数是没有传参的。所以 preferredType 取默认的值 "number"。最终先执行 "valueOf", 后执行 "toString"。
 
 个人愚见，如有纰漏，还请各位同仁指正。
 
-作者回复：一、undefined 确实是表示未定义，从字面即可看出来。
+作者回复：
 
-取 JavaScript 对象的未定义过的属性得到的都是 undefined。
+一、undefined 确实是表示未定义，从字面即可看出来。取 JavaScript 对象的未定义过的属性得到的都是 undefined。
 
 二、嗯，这个地方我确实写错了，等下改过来。
 
-2019-02-15
+### 03
 
-
-奔跑的兔子
+奔跑的兔子：
 
 我发现有很多同学都在纠结 undefined 问题，为什么不去读一下 mdn 呢。
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined
 
-
 前两段写的很明确了。
 
 undefined is a property of the global object; i.e., it is a variable in global scope. The initial value of undefined is the primitive value undefined.
 
-
 In modern browsers (JavaScript 1.8.5 / Firefox 4+), undefined is a non-configurable, non-writable property per the ECMAScript 5 specification. Even when this is not the case, avoid overriding it.
-
 
 在 ES5 之前的时候，undefined 是可以被赋值的。在现代浏览器当中已经把 undefined 设置为一个 non-configurable, non-writable 属性的值了。
 
-2019-01-28
+### 04
 
-
-yuuk
-
-
-undefined 在全局环境没法被赋值，在局部环境是可以被赋值的！
-
-2019-01-26
-
-
-🍃Spring🍃
-
-
-String 转 number
-
-Math.floor("1000")
-
-
-Math.round("1000")
-
-
-Math.ceil("1000")
-
-
-var num = +"1000"
-
-
-"1000">>>0
-
-
-~~"1000"
-
-
-"1000"*1
-
-
-2019-01-26
-
-
-于江水
+于江水：
 
 1. 实现字符串转数字的同学，不要单纯考虑这个字符串一定全是数字而用运算符来实现。放在实际场景会出现大量 NaN。
 
-2.「需要注意的是，parseInt 和 parseFloat 并不使用这个转换，所以支持的语法跟这里不尽相同。」使用是不是打错了？应该是 适用？
+2. 「需要注意的是，parseInt 和 parseFloat 并不使用这个转换，所以支持的语法跟这里不尽相同。」使用是不是打错了？应该是适用？
 
 3. 代码 Object ((Symbol (‘a’)) 要么左边多了括号要么右边少了括号。
 
@@ -590,110 +446,29 @@ var num = +"1000"
 
 2019-01-29
 
+### 05
 
-饭小笛 🐱
+饭小笛：
 
-关于 Number 类型，如果想要进一步理解可以去参考 IEEE 754 中关于浮点数的表达规范，了解这 64 位中各个位数段表达的含义
+关于 Number 类型，如果想要进一步理解可以去参考 IEEE 754 中关于浮点数的表达规范，了解这 64 位中各个位数段表达的含义。
 
 文中有几个叙述不清的地方：
 
-1. NaN 和 + Infinity 的规定实际是 IEEE 754 标准规定的特殊值：
+1、NaN 和 + Infinity 的规定实际是 IEEE 754 标准规定的特殊值：
 
 （e 为指数的位数，双精度中 e=11）
 
 - 指数为 2^e – 1 且尾数的小数部分全 0，这个数字是 ±∞。（符号位决定正负）
 
-- 指数为 2^e – 1 且尾数的小数部分非全 0，这个数字是 NaN，比如单精度浮点数中按位表示：S111 1111 1AXX XXXX XXXX XXXX XXXX XXXX，S 为符号位值无所谓，A 是小数位的最高位（整数位 1 省略），其取值表示了 NaN 的类型：X 不能全为 0，并被称为 NaN 的 payload
+- 指数为 2^e – 1 且尾数的小数部分非全 0，这个数字是 NaN，比如单精度浮点数中按位表示：S111 1111 1AXX XXXX XXXX XXXX XXXX XXXX，S 为符号位值无所谓，A 是小数位的最高位（整数位 1 省略），其取值表示了 NaN 的类型：X 不能全为 0，并被称为 NaN 的 payload。
 
-2. NaN，占用了 9007199254740990，这个叙述不对
+2、NaN，占用了 9007199254740990，这个叙述不对。
 
-留言里很多童鞋都提出了 9007199254740990 被占用是什么意思的疑问，实际是第一点描述的关于 NaN 规定和参考双精度浮点数的表达方式，尾数共有 53 位，指数固定为 2^e – 1 并去掉 ±∞两个值，那么 NaN 其实是 2^53-2 个特殊数字的合集（2^53-2 = 9007199254740990 ）；
-
-并不是 9007199254740990 被占用，而是 9007199254740990 个特殊值被占用来表示 NaN
-
-扩展一下，我们就可以理解为什么 NaN !== NaN 了，它确实不是一个值，而是一群值呢 0 0！
+留言里很多童鞋都提出了 9007199254740990 被占用是什么意思的疑问，实际是第一点描述的关于 NaN 规定和参考双精度浮点数的表达方式，尾数共有 53 位，指数固定为 2^e – 1 并去掉 ±∞ 两个值，那么 NaN 其实是 2^53-2 个特殊数字的合集（2^53-2 = 9007199254740990 ）；并不是 9007199254740990 被占用，而是 9007199254740990 个特殊值被占用来表示 NaN。扩展一下，我们就可以理解为什么 NaN !== NaN 了，它确实不是一个值，而是一群值呢 0 0！
 
 2019-02-04
 
-
-啊咩
-
-在 chrome 70 我尝试拆箱转换对象，但是无论是转 String 还是 Number 都是先 valueOf 再 toString 呀～
-
-2019-01-27
-
-
-0xAC7
-
-
-1. JavaScript 七种数据类型；
-
-2. 数据类型转换；
-
-3. 数据类型检测；
-
-貌似留言不能直接发图片呢，那我放一个语雀上传后的地址吧，图片是看完这篇课程的简要总结，不包含数据类型转换和检测。
-
-地址：https://cdn.nlark.com/yuque/0/2019/png/119718/1548515753198-ac12f382-49f8-424d-b242-a5764968e2d2.png
-
-2019-01-26
-
-
-悬炫
-
-老师，虽然 undefined 可以被赋值，但是发现对他赋值是没有意义的
-
-undefined=9;
-
-
-let a=undefined;
-
-
-console.log(a)
-
-
-此处的 a 的值还是 undefined，并不是 9；
-
-这是不是意味着，void 0 这种写法已经没什么意义了，因为现在看来，把一个值赋值为 undefined，那这个值就是 undefined。
-
-2019-01-26
-
-
-Aaaaaaaaaaayou
-
-
-实验证明 undefined 被赋值后再打印，还是 undefined。实验环境 mac 10.14.2 chrome71
-
-2019-01-26
-
-
-warmlyice
-
-
-字符串类型转换成 Number 类型，可以使用算术运算符，运算时进行隐式转换。如下:
-
-+""
-
-
-"" - 0
-
-
-"" * 1
-
-
-"" / 1
-
-
-2019-01-26
-
-
-yansj
-
-
-0.1+0.2==0.3 false 主要是因为小数的二进制表示时就有误差。1. 因为十进制转二进制的小数部分的原则是乘 2 取整顺序表达，这边会发现 0.1 0.2 0.3 这三个数都不能有限表达，会产生无限位数。2. 固定位数二进制无法表示无限循环序列（截断部分会进行进位或者舍去，这边会产生误差）
-
-2019-02-07
-
+### 06
 
 白瑞（Barry）
 
@@ -703,145 +478,43 @@ null 的类型是 object，这是由于历史原因造成的。1995 年的 JavaS
 
 2019-01-27
 
+### 07
 
-Mr.z
+blueshell：
 
+重写十进制的 parseInt/parseFloat
 
-winter 你好，关于 js 精度那块的问题，我在实际业务中遇到的情况是，后端产生了一个 long 类型的数值 eg：1089723723231137792，但是在页面 js 获取的时候就变成了 1089723723231137800，我查资料说是 js 精度问题，但是具体的解决方式是后端将这个 long 转成 String 类型然后在前段输出，请问如果不将这个 long 类型转换 String 后输出，前端 js 是否真的无法精确的获取这个 long 的数值呢？谢谢。
-
-2019-01-28
-
-
-大斌
-
-老师，最后小结图是不是有些问题？typeof function 那里？？
-
-2019-01-26
-
-
-头皮发麻
-
-老师居然不是地中海加秃头，还是个二次元的肥宅，，，，
-
-2019-01-29
-
-
-爱烤火的鱼
-
-前面还听得懂，越到后面越听不懂，讲的不是很具象，估计有基础好的人才听得懂。基础不好的听了云山雾罩的...
-
-2019-02-08
-
-
-庖丁
-
-猜测老师喜欢撸猫...
-
-2019-01-26
-
-
-blueshell
-
-
-#### 重写十进制的 parseInt/parseFloat
-
-`
-
-
+```
 var myParse = function (val) {
-
-
     if (val) {
-
-
         var num = val.match(/^\d*\.?\d+/);
-
-
         if (num !== null) {
-
-
             return num[0] - 0;
-
-
         }else{
-
-
             return NaN;
-
-
         }
-
-
     }else{
-
-
         return NaN;
-
-
     }
-
-
 }
+```
 
-
-`
-
-
-作者回复：嗯 不错
-
-不过用正则和剑法自动转换可就偷懒了，而且这些东西有太多你没搞清楚的细节了。
+作者回复：不错。不过用正则和剑法自动转换可就偷懒了，而且这些东西有太多你没搞清楚的细节了。
 
 比如你看看我写的十进制的正则：
 
-/\.[0-9]+|(?:[1-9]+[0-9]*|0)(?:\.[0-9]*|\.)?)(?:[eE][+-]{0,1}[0-9]+)?(?![_$a-zA-Z0-9])/
-
+    /\.[0-9]+|(?:[1-9]+[0-9]*|0)(?:\.[0-9]*|\.)?)(?:[eE][+-]{0,1}[0-9]+)?(?![_$a-zA-Z0-9])/
 
 2019-02-19
 
-
-刀语
-
-7 种基本类型和 7 种语言类型……
-
-抱歉，不懂，能解释一下吗？
-
-关于基本类型和语言类型。
-
-2019-01-30
-
-
-段先森
-
-我想可以通过 ascii 码来确定是哪个数字，然后再生成数字。
-
-2019-01-26
-
-
-zyd-githuber
-
-
-课后小作业。字符串 × 1 就可以转化为 数字。
-
-2019-01-26
-
-
-wl
-
-
 winter 老师，您写的正则多了个括号：
 
-原来的：/\.[0-9]+|(?:[1-9]+[0-9]*|0)(?:\.[0-9]*|\.)?)(?:[eE][+-]{0,1}[0-9]+)?(?![_$a-zA-Z0-9])/
+原来的：
 
-去掉括号后的：/\.[0-9]+|(?:[1-9]+[0-9]*|0)(?:\.[0-9]*|\.)?(?:[eE][+-]{0,1}[0-9]+)?(?![_$a-zA-Z0-9])/
+    /\.[0-9]+|(?:[1-9]+[0-9]*|0)(?:\.[0-9]*|\.)?)(?:[eE][+-]{0,1}[0-9]+)?(?![_$a-zA-Z0-9])/
+
+去掉括号后的：
+
+    /\.[0-9]+|(?:[1-9]+[0-9]*|0)(?:\.[0-9]*|\.)?(?:[eE][+-]{0,1}[0-9]+)?(?![_$a-zA-Z0-9])/
 
 2019-06-18
-
-
-O.z.
-
-
-Object.prototype.toString 拿到的对象类型也是可以被篡改的，覆盖一下 [Symbol.toStringTag] 属性即可。
-
-2019-01-29
-
-
