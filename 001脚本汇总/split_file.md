@@ -1,6 +1,6 @@
 # split_file
 
-
+分割书籍。
 
 ## 01. 分割 txt
 
@@ -125,7 +125,7 @@ import pandas as pd
 
 import modify as md
 
-# split the arr into N chunks
+# 按传入的每章「锚点」切割行
 def chunks(arr, in_list):
     seq = [0]
     tips = []
@@ -188,7 +188,7 @@ for infile in glob.glob("/Users/Daglas/Desktop/*.txt"):
 chunks() 函数变更一下：
 
 ```
-# split the arr into N chunks
+# 按传入的每章「锚点」切割行
 def chunks(arr, in_list):
     seq = [0]
     tips = []
@@ -196,7 +196,7 @@ def chunks(arr, in_list):
     for v in in_list:
         for x in arr:
             if v in x:
-                seq.append(arr.index(x))
+                seq.append(arr.index(x)-2)  # 由于定位的行前面还有个空行，所以 -2
 
     for v in seq:
         if seq.index(v) < len(seq) - 1:
