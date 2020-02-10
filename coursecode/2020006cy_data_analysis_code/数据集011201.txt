@@ -1,0 +1,6 @@
+create_time	name	Chinese	English	Math
+2018/12/22	ZhangFei	66	65	30
+2018/12/22	GuanYu	95	85	98
+2018/12/22	ZhaoYun	93	92	96
+2018/12/22	HuangZhong	90	88	77
+2018/12/22	DianWei	80	90	90

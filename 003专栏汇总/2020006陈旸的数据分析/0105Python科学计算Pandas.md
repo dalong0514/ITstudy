@@ -127,7 +127,7 @@ df2['Chinese']=df2['Chinese'].map(str.rstrip)
 
 如果数据里有某个特殊的符号，我们想要删除怎么办？同样可以使用 strip 函数，比如 Chinese 字段里有美元符号，我们想把这个删掉，可以这么写：
 
-df2['Chinese']=df2['Chinese'].str.strip('$')
+    df2['Chinese']=df2['Chinese'].str.strip('$')
 
 #### 03. 大小写转换
 
@@ -179,6 +179,8 @@ df1 = df1.apply(plus,axis=1,args=(2,3,))
 ```
 
 其中 axis=1 代表按照列为轴进行操作，axis=0 代表按照行为轴进行操作，args 是传递的两个参数，即 n=2, m=3，在 plus 函数中使用到了 n 和 m，从而生成新的 df。
+
+1『df1.apply(plus,axis=1,args=(2,3,))，这个表达式很有借鉴意义，如何传递函数，参数单独拎出来的；axis=1 代表按照列为轴进行操作，即对一行行数据处理，axis=0 代表按照行为轴进行操作，即对一列列数据进行处理。』
 
 ## 04. 数据统计
 
