@@ -25,4 +25,4 @@ class PropertiesItem(scrapy.Item):
     project = scrapy.Field()
     spider = scrapy.Field()
     server = scrapy.Field()
-    data = scrapy.Field()
+    date = scrapy.Field()

@@ -9,13 +9,21 @@ import socket
 from properties.items import PropertiesItem
 from scrapy.loader import ItemLoader
 from scrapy.loader.processors import MapCompose, Join
+from scrapy.http import Request
+from scrapy.linkextractors import LinkExtractor
+from scrapy.spiders import Rule
 
-class BasicSpider(scrapy.Spider):
-    name = 'basic'
+class EasySpider(scrapy.Spider):
+    name = 'easy'
     allowed_domains = ['web']
     start_urls = ['http://web:9312/properties/property_000000.html']
 
-    def parse(self, response):
+    rules = (
+        Rule(LinkExtractor(restrict_xpaths='//*[contains(@class,"next")]')),
+        Rule(LinkExtractor(restrict_xpaths='//*[@itemprop="url"]'), callback='parse_item')
+    )
+
+    def parse_item(self, response):
         l = ItemLoader(item=PropertiesItem(), response=response)
         l.add_xpath('title', '//*[@itemprop="name"][1]/text()', 
         MapCompose(unicode.strip, unicode.title))

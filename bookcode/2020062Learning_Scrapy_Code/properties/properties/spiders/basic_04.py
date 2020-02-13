@@ -3,8 +3,6 @@ import scrapy
 # import urllib.parse as urlparse
 # The urlparse in Python 2.7.11 was renamed to urllib.parse in Python 3
 import urlparse
-import datetime
-import socket
 
 from properties.items import PropertiesItem
 from scrapy.loader import ItemLoader
@@ -27,10 +25,4 @@ class BasicSpider(scrapy.Spider):
         MapCompose(unicode.strip))
         l.add_xpath('image_URL', '//*[@itemprop="image"][1]/@src', 
         MapCompose(lambda i: urlparse.urljoin(response.url, i)))
-        # Housekeeping fields
-        l.add_value('url', response.url)
-        l.add_value('project', self.settings.get('BOT_NAME'))
-        l.add_value('spider', self.name)
-        l.add_value('server', socket.gethostname())
-        l.add_value('date', datetime.datetime.now())
         return l.load_item()

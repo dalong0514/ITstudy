@@ -9,13 +9,26 @@ import socket
 from properties.items import PropertiesItem
 from scrapy.loader import ItemLoader
 from scrapy.loader.processors import MapCompose, Join
+from scrapy.http import Request
 
 class BasicSpider(scrapy.Spider):
-    name = 'basic'
+    name = 'manual'
     allowed_domains = ['web']
     start_urls = ['http://web:9312/properties/property_000000.html']
 
     def parse(self, response):
+        # Get the next index URL and yield Requests
+        next_selector = response.xpath('//*[contains(@class,"next")]//@href')
+        for url in next_selector.extract():
+            yield Request(urlparse.urljoin(response.url, url))
+
+        # Get item URL and yield Requests
+        item_selector = response.xpath('//*[@itemprop="url"]/@href')
+        for url in item_selector.extract():
+            yield Request(urlparse.urljoin(response.url, url), 
+            callback=self.parse_item)
+        
+    def parse_item(self, response):
         l = ItemLoader(item=PropertiesItem(), response=response)
         l.add_xpath('title', '//*[@itemprop="name"][1]/text()', 
         MapCompose(unicode.strip, unicode.title))
