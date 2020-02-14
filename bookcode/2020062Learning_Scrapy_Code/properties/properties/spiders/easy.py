@@ -11,12 +11,13 @@ from scrapy.loader import ItemLoader
 from scrapy.loader.processors import MapCompose, Join
 from scrapy.http import Request
 from scrapy.linkextractors import LinkExtractor
-from scrapy.spiders import Rule
+# 注意这里要引入 CrawlSpider
+from scrapy.spiders import Rule, CrawlSpider
 
-class EasySpider(scrapy.Spider):
+class EasySpider(CrawlSpider):
     name = 'easy'
     allowed_domains = ['web']
-    start_urls = ['http://web:9312/properties/property_000000.html']
+    start_urls = ['http://web:9312/properties/index_00000.html']
 
     rules = (
         Rule(LinkExtractor(restrict_xpaths='//*[contains(@class,"next")]')),

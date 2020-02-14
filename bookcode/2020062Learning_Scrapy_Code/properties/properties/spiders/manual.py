@@ -14,7 +14,8 @@ from scrapy.http import Request
 class BasicSpider(scrapy.Spider):
     name = 'manual'
     allowed_domains = ['web']
-    start_urls = ['http://web:9312/properties/property_000000.html']
+    # Notice: there is the main web site
+    start_urls = ['http://web:9312/properties/index_00000.html']
 
     def parse(self, response):
         # Get the next index URL and yield Requests
