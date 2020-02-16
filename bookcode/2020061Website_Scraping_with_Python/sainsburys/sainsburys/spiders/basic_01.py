@@ -14,14 +14,10 @@ class BasicSpider(scrapy.Spider):
     start_urls = ['http://www.sainsburys.co.uk/shop/gb/groceries/meat-fish/']
 
     def parse(self, response):
-        # from time import time
-        # start = time()
         urls = response.xpath('//ul[@class="categories departments"]/li/a')
 
         for url in urls:
             yield response.follow(url, callback=self.parse_department_pages)
-
-        # print('finished in', time() - start, 'seconds')
 
     def parse_department_pages(self, response):
         product_grid = response.xpath('//ul[@class="productLister gridView"]')

@@ -9,6 +9,13 @@ import scrapy
 
 
 class SainsburysItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    url = scrapy.Field()
+    product_name = scrapy.Field()
+    product_image = scrapy.Field()
+    price_per_unit = scrapy.Field()
+    unit = scrapy.Field()
+    rating = scrapy.Field()
+    product_reviews = scrapy.Field()
+    item_code = scrapy.Field()
+    nutritions = scrapy.Field()
+    product_origin = scrapy.Field()
