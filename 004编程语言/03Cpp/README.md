@@ -1,2 +1,0 @@
-# cpp
-the cpp file
