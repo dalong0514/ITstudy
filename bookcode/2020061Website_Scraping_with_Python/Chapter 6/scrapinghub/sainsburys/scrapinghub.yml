@@ -1,0 +1,2 @@
+project: ??? # TODO add your project ID here
+stack: scrapy:1.5-py3 # Update if you prefer a newer Scrapy version -- and it's available
