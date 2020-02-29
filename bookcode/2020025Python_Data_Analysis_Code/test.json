@@ -1,0 +1,16 @@
+{
+    "require": {
+        "laravel/installer": "^3.0"
+        },
+
+    "config": {
+        "github-protocols": ["https,ssh"]
+        },
+
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.org"
+        }
+    }
+}
