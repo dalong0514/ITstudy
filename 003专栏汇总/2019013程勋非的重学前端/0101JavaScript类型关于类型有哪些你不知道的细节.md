@@ -290,15 +290,15 @@ JavaScript 语言设计上试图模糊对象和基本类型之间的关系，我
 到 String 的拆箱转换会优先调用 toString。我们把刚才的运算从 o*2 换成 String (o)，那么你会看到调用顺序就变了。
 
 ```
-    var o = {
-        valueOf : () => {console.log("valueOf"); return {}},
-        toString : () => {console.log("toString"); return {}}
-    }
+var o = {
+    valueOf : () => {console.log("valueOf"); return {}},
+    toString : () => {console.log("toString"); return {}}
+}
 
-   String(o)
-    // toString
-    // valueOf
-    // TypeError
+String(o)
+// toString
+// valueOf
+// TypeError
 ```
 
 在 ES6 之后，还允许对象通过显式指定 @@toPrimitive Symbol 来覆盖原有的行为。
@@ -354,17 +354,11 @@ Data Block：用于描述二进制数据。
 
 ### 01
 
-咕叽咕叽：
-
 但是本文有两点是值得商榷的。
 
-其一：
+其一：原文：Undefined 跟 null 有一定的表意差别，null 表示的是：「定义了但是为空」。私以为，undefined 表示的是：「定义了但是为空」。而非 null。
 
-原文：Undefined 跟 null 有一定的表意差别，null 表示的是：「定义了但是为空」。私以为，undefined 表示的是：「定义了但是为空」。而非 null。
-
-二：
-
-原文：
+二：原文：
 
 ```
 var o = {
@@ -380,11 +374,7 @@ var o = {
 
 很多朋友已经提出来了，应该是先执行 valueof，再执行 toString。这个问题，可以从 ecmascript 规范中寻找答案：
 
-规范指出，类型转换的内部实现是通过 ToPrimitive (input [ , PreferredType] ) 方法进行转换的，这个方法的作用就是将 input 转换成一个非对象类型。参数 preferredType 是可选的，它的作用是，指出了 input 被期待转成的类型。
-
-如果不传 preferredType 进来，默认的是 'number'。如果 preferredType 的值是 "string"，那就先执行 "toString", 后执行 "valueOf"。否则，先执行 "valueOf", 后执行 "toString"。
-
-由此可见，"toString", "valueOf" 的执行顺序，取决于 preferred 的值。
+规范指出，类型转换的内部实现是通过 ToPrimitive (input [ , PreferredType] ) 方法进行转换的，这个方法的作用就是将 input 转换成一个非对象类型。参数 preferredType 是可选的，它的作用是，指出了 input 被期待转成的类型。如果不传 preferredType 进来，默认的是 'number'。如果 preferredType 的值是 "string"，那就先执行 "toString", 后执行 "valueOf"。否则，先执行 "valueOf", 后执行 "toString"。由此可见，"toString", "valueOf" 的执行顺序，取决于 preferred 的值。
 
 规范原文请移步：http://www.ecma-international.org/ecma-262/#sec-toprimitive
 
@@ -399,42 +389,24 @@ var o = {
 o + ""
 ```
 
-类型转换时，把对象 o 进行转换，调用 toPrimitive 方法，即 toPrimitive (o [ , PreferredType] )。关键的点是，preferredType 是否被传值，传的是什么值？
-
-我们再去看下规范，看看加法运算符的规则。加法运算符运算过程中有两行代码很重要，如下：
+类型转换时，把对象 o 进行转换，调用 toPrimitive 方法，即 toPrimitive (o [ , PreferredType] )。关键的点是，preferredType 是否被传值，传的是什么值？我们再去看下规范，看看加法运算符的规则。加法运算符运算过程中有两行代码很重要，如下：
 
     Let lprim be ? ToPrimitive(lval).
     Let rprim be ? ToPrimitive(rval).
 
 可以看出，调用 ToPrimitive 方法时，第二个参数是没有传参的。所以 preferredType 取默认的值 "number"。最终先执行 "valueOf", 后执行 "toString"。
 
-个人愚见，如有纰漏，还请各位同仁指正。
-
-作者回复：
-
-一、undefined 确实是表示未定义，从字面即可看出来。取 JavaScript 对象的未定义过的属性得到的都是 undefined。
-
-二、嗯，这个地方我确实写错了，等下改过来。
+作者回复：1、undefined 确实是表示未定义，从字面即可看出来。取 JavaScript 对象的未定义过的属性得到的都是 undefined。2、这个地方我确实写错了，等下改过来。
 
 ### 03
 
-奔跑的兔子：
+我发现有很多同学都在纠结 undefined 问题，为什么不去读一下 mdn 呢（[undefined - JavaScript | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined)）。前两段写的很明确了。
 
-我发现有很多同学都在纠结 undefined 问题，为什么不去读一下 mdn 呢。
-
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined
-
-前两段写的很明确了。
-
-undefined is a property of the global object; i.e., it is a variable in global scope. The initial value of undefined is the primitive value undefined.
-
-In modern browsers (JavaScript 1.8.5 / Firefox 4+), undefined is a non-configurable, non-writable property per the ECMAScript 5 specification. Even when this is not the case, avoid overriding it.
+undefined is a property of the global object; i.e., it is a variable in global scope. The initial value of undefined is the primitive value undefined. In modern browsers (JavaScript 1.8.5 / Firefox 4+), undefined is a non-configurable, non-writable property per the ECMAScript 5 specification. Even when this is not the case, avoid overriding it.
 
 在 ES5 之前的时候，undefined 是可以被赋值的。在现代浏览器当中已经把 undefined 设置为一个 non-configurable, non-writable 属性的值了。
 
 ### 04
-
-于江水：
 
 1. 实现字符串转数字的同学，不要单纯考虑这个字符串一定全是数字而用运算符来实现。放在实际场景会出现大量 NaN。
 
@@ -448,11 +420,7 @@ In modern browsers (JavaScript 1.8.5 / Firefox 4+), undefined is a non-configura
 
 ### 05
 
-饭小笛：
-
-关于 Number 类型，如果想要进一步理解可以去参考 IEEE 754 中关于浮点数的表达规范，了解这 64 位中各个位数段表达的含义。
-
-文中有几个叙述不清的地方：
+关于 Number 类型，如果想要进一步理解可以去参考 IEEE 754 中关于浮点数的表达规范，了解这 64 位中各个位数段表达的含义。文中有几个叙述不清的地方：
 
 1、NaN 和 + Infinity 的规定实际是 IEEE 754 标准规定的特殊值：
 
@@ -470,8 +438,6 @@ In modern browsers (JavaScript 1.8.5 / Firefox 4+), undefined is a non-configura
 
 ### 06
 
-白瑞（Barry）
-
 null 的类型是 object，这是由于历史原因造成的。1995 年的 JavaScript 语言第一版，只设计了五种数据类型（对象、整数、浮点数、字符串和布尔值），没考虑 null，只把它当作 object 的一种特殊值。后来 null 独立出来，作为一种单独的数据类型，为了兼容以前的代码，typeof null 返回 object 就没法改变了。
 
 来自：https://wangdoc.com/javascript/types/general.html
@@ -479,8 +445,6 @@ null 的类型是 object，这是由于历史原因造成的。1995 年的 JavaS
 2019-01-27
 
 ### 07
-
-blueshell：
 
 重写十进制的 parseInt/parseFloat
 
@@ -499,9 +463,7 @@ var myParse = function (val) {
 }
 ```
 
-作者回复：不错。不过用正则和剑法自动转换可就偷懒了，而且这些东西有太多你没搞清楚的细节了。
-
-比如你看看我写的十进制的正则：
+作者回复：不错。不过用正则和剑法自动转换可就偷懒了，而且这些东西有太多你没搞清楚的细节了。比如你看看我写的十进制的正则：
 
     /\.[0-9]+|(?:[1-9]+[0-9]*|0)(?:\.[0-9]*|\.)?)(?:[eE][+-]{0,1}[0-9]+)?(?![_$a-zA-Z0-9])/
 
