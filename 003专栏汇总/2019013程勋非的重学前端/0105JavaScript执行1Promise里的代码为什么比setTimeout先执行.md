@@ -1,17 +1,7 @@
-# 0105JavaScript 执行 1：Promise 里的代码为什么比 setTimeout 先执行？
+# 0105. JavaScript 执行 1：Promise 里的代码为什么比 setTimeout 先执行？
+> winter 2019-02-23
 
-winter 2019-02-23
-
-
-
-
-
-13:24
-
-
-讲述：winter 大小：12.28M
-
-你好，我是 winter。这一部分我们来讲一讲 JavaScript 的执行。
+这一部分我们来讲一讲 JavaScript 的执行。
 
 首先我们考虑一下，如果我们是浏览器或者 Node 的开发者，我们该如何使用 JavaScript 引擎。
 
@@ -27,7 +17,7 @@ winter 2019-02-23
 
 由于我们这里主要讲 JavaScript 语言，那么采纳 JSC 引擎的术语，我们把宿主发起的任务称为宏观任务，把 JavaScript 引擎发起的任务称为微观任务。
 
-宏观和微观任务
+## 01. 宏观和微观任务
 
 JavaScript 引擎等待宿主环境分配宏观任务，在操作系统中，通常等待的行为都是一个事件循环，所以在 Node 术语中，也会把这个部分称为事件循环。
 
@@ -55,8 +45,7 @@ while(TRUE) {
 
 接下来，我们来详细介绍一下 Promise。
 
-Promise
-
+## 02. Promise
 
 Promise 是 JavaScript 语言提供的一种标准化的异步管理方式，它的总体思想是，需要进行 io、等待或者其它异步操作的函数，不返回真实结果，而返回一个「承诺」，函数的调用方可以在合适的时机，选择等待这个承诺兑现（通过 Promise 的 then 方法的回调）。
 

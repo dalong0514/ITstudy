@@ -53,7 +53,7 @@
 
 历史上的基于原型语言因此产生了两个流派，显然，JavaScript 显然选择了前一种方式。
 
-JavaScript 的原型
+## 02. JavaScript 的原型
 
 如果我们抛开 JavaScript 用于模拟 Java 类的复杂语法设施（如 new、Function Object、函数的 prototype 属性等），原型系统可以说相当简单，我可以用两条概括：
 
@@ -71,71 +71,37 @@ Object.setPrototypeOf 设置一个对象的原型。
 
 利用这三个方法，我们可以完全抛开类的思维，利用原型来实现抽象和复用。我用下面的代码展示了用原型来抽象猫和虎的例子。
 
+```
 var cat = {
-
-
     say(){
-
-
         console.log("meow~");
-
-
     },
-
-
     jump(){
-
-
         console.log("jump");
-
-
     }
-
-
 }
 
-
 var tiger = Object.create(cat,  {
-
-
     say:{
-
-
         writable:true,
-
-
         configurable:true,
-
-
         enumerable:true,
-
-
         value:function(){
-
-
             console.log("roar!");
-
-
         }
-
-
     }
-
-
 })
 
 
 var anotherCat = Object.create(cat);
 
-
 anotherCat.say();
-
 
 var anotherTiger = Object.create(tiger);
 
-
 anotherTiger.say();
 
+```
 
 这段代码创建了一个「猫」对象，又根据猫做了一些修改创建了虎，之后我们完全可以用 Object.create 来创建另外的猫和虎对象，我们可以通过「原始猫对象」和「原始虎对象」来控制所有猫和虎的行为。
 
@@ -143,54 +109,34 @@ anotherTiger.say();
 
 考虑到 new 和 prototype 属性等基础设施今天仍然有效，而且被很多代码使用，学习这些知识也有助于我们理解运行时的原型工作原理，下面我们试着回到过去，追溯一下早年的 JavaScript 中的原型和类。
 
-早期版本中的类与原型
+## 03. 早期版本中的类与原型
 
 在早期版本的 JavaScript 中，「类」的定义是一个私有属性 [[class]]，语言标准为内置类型诸如 Number、String、Date 等指定了 [[class]] 属性，以表示它们的类。语言使用者唯一可以访问 [[class]] 属性的方式是 Object.prototype.toString。
 
 以下代码展示了所有具有内置 class 属性的对象：
 
+```
     var o = new Object;
-
-
     var n = new Number;
-
-
     var s = new String;
-
-
     var b = new Boolean;
-
-
     var d = new Date;
-
-
     var arg = function(){ return arguments }();
-
-
     var r = new RegExp;
-
-
     var f = new Function;
-
-
     var arr = new Array;
-
-
     var e = new Error;
-
-
     console.log([o, n, s, b, d, arg, r, f, arr, e].map(v => Object.prototype.toString.call(v))); 
-
+```
 
 因此，在 ES3 和之前的版本，JS 中类的概念是相当弱的，它仅仅是运行时的一个字符串属性。
 
 在 ES5 开始，[[class]] 私有属性被 Symbol.toStringTag 代替，Object.prototype.toString 的意义从命名上不再跟 class 相关。我们甚至可以自定义 Object.prototype.toString 的行为，以下代码展示了使用 Symbol.toStringTag 来自定义 Object.prototype.toString 的行为：
 
+```
     var o = { [Symbol.toStringTag]: "MyObject" }
-
-
     console.log(o + "");
-
+```
 
 这里创建了一个新对象，并且给它唯一的一个属性 Symbol.toStringTag，我们用字符串加法触发了 Object.prototype.toString 的调用，发现这个属性最终对 Object.prototype.toString 的结果产生了影响。
 
@@ -208,55 +154,28 @@ new 运算接受一个构造器和一组调用参数，实际上做了几件事�
 
 new 这样的行为，试图让函数对象在语法上跟类变得相似，但是，它客观上提供了两种方式，一是在构造器中添加属性，二是在构造器的 prototype 属性上添加属性。
 
-下面代码展示了用构造器模拟类的两种方法:
+下面代码展示了用构造器模拟类的两种方法：
 
+```
 function c1(){
-
-
     this.p1 = 1;
-
-
     this.p2 = function(){
-
-
         console.log(this.p1);
-
-
     }
-
-
 } 
-
-
 var o1 = new c1;
-
-
 o1.p2();
 
-
 function c2(){
-
-
 }
-
-
 c2.prototype.p1 = 1;
-
-
 c2.prototype.p2 = function(){
-
-
     console.log(this.p1);
-
-
 }
-
 
 var o2 = new c2;
-
-
 o2.p2();
-
+```
 
 第一种方法是直接在构造器中修改 this，给 this 添加属性。
 
@@ -264,26 +183,19 @@ o2.p2();
 
 没有 Object.create、Object.setPrototypeOf 的早期版本中，new 运算是唯一一个可以指定 [[prototype]] 的方法（当时的 mozilla 提供了私有属性 __proto__，但是多数环境并不支持），所以，当时已经有人试图用它来代替后来的 Object.create，我们甚至可以用它来实现一个 Object.create 的不完整的 polyfill，见以下代码：
 
+```
 Object.create = function(prototype){
-
-
     var cls = function(){}
-
-
     cls.prototype = prototype;
-
-
     return new cls;
-
-
 }
-
+```
 
 这段代码创建了一个空函数作为类，并把传入的原型挂在了它的 prototype，最后创建了一个它的实例，根据 new 的行为，这将产生一个以传入的第一个参数为原型的对象。
 
 这个函数无法做到与原生的 Object.create 一致，一个是不支持第二个参数，另一个是不支持 null 作为原型，所以放到今天意义已经不大了。
 
-ES6 中的类
+## 04. ES6 中的类
 
 好在 ES6 中加入了新特性 class，new 跟 function 搭配的怪异行为终于可以退休了（虽然运行时没有改变），在任何场景，我都推荐使用 ES6 的语法来定义类，而令 function 回归原本的函数语义。下面我们就来看一下 ES6 中的类。
 
@@ -291,47 +203,22 @@ ES6 中引入了 class 关键字，并且在标准中删除了所有 [[class]] �
 
 我们先看下类的基本写法：
 
+```
 class Rectangle {
-
-
   constructor(height, width) {
-
-
     this.height = height;
-
-
     this.width = width;
-
-
   }
-
-
   // Getter
-
-
   get area() {
-
-
     return this.calcArea();
-
-
   }
-
-
   // Method
-
-
   calcArea() {
-
-
     return this.height * this.width;
-
-
   }
-
-
 }
-
+```
 
 在现有的类语法中，getter/setter 和 method 是兼容性最好的。
 
@@ -341,62 +228,30 @@ class Rectangle {
 
 此外，最重要的是，类提供了继承能力。我们来看一下下面的代码。
 
+```
 class Animal { 
-
-
   constructor(name) {
-
-
     this.name = name;
-
-
   }
-
-
   
-
-
   speak() {
-
-
     console.log(this.name + ' makes a noise.');
-
-
   }
-
-
 }
-
 
 class Dog extends Animal {
-
-
   constructor(name) {
-
-
     super(name); // call the super class constructor and pass in the name parameter
-
-
   }
-
 
   speak() {
-
-
     console.log(this.name + ' barks.');
-
-
   }
-
-
 }
 
-
 let d = new Dog('Mitzie');
-
-
 d.speak(); // Mitzie barks.
-
+```
 
 以上代码创造了 Animal 类，并且通过 extends 关键字让 Dog 继承了它，展示了最终调用子类的 speak 方法获取了父类的 name。
 
@@ -416,196 +271,10 @@ d.speak(); // Mitzie barks.
 
 ## 精选留言
 
-本篇厘清了一些我对面向对象的理解误区，说明了「基于类」和「基于原型」作为两种编程范式的区别，感谢。
+### 01
 
-不过感觉本篇在写的时候有一些地方讲的不够严谨：
+本篇厘清了一些我对面向对象的理解误区，说明了「基于类」和「基于原型」作为两种编程范式的区别。
 
-1. [[class]] 和 Symbol.toStringTag 实质上是控制的「the creation of the default string description of an object」，但举例中使用了一个 o.toString () 来讲述，感觉容易造成误解。
-
-2. 在讲解 ES6 中的类时，文中指出「类中定义的方法和属性则会被写在原型对象之上」，事实上一般数据属性写在对象上，而访问器属性和方法才是写在原型对象之上的。
-
-3.class 和 extends 实质上是作为语法糖，统一了 JS 程序员对基于类的面向对象的模拟，但感觉文中讲的不是很清楚。
-
-以上是一些个人看法，如有不对的地方欢迎 winter 老师指正。
+不过感觉本篇在写的时候有一些地方讲的不够严谨：1）[[class]] 和 Symbol.toStringTag 实质上是控制的「the creation of the default string description of an object」，但举例中使用了一个 o.toString () 来讲述，感觉容易造成误解。2）在讲解 ES6 中的类时，文中指出「类中定义的方法和属性则会被写在原型对象之上」，事实上一般数据属性写在对象上，而访问器属性和方法才是写在原型对象之上的。3）class 和 extends 实质上是作为语法糖，统一了 JS 程序员对基于类的面向对象的模拟，但感觉文中讲的不是很清楚。
 
 2019-02-01
-
-
-简单
-
-老师，我听了几遍为什么觉得什么都不懂，越听越复杂，不理解也记不住😂
-
-2019-02-14
-
-
-乐亦栗
-
-有像我一样平常根本不用面向对象写代码的吗……
-
-2019-02-27
-
-
-来碗绿豆汤
-
-如果说运行时还是基于 prototype 的，那是不是可以理解为 class 其实是个语法糖，它最终还是被翻译成功 prototype 形式来执行？或者说 prototype 形式写的代码执行起来更高效。
-
-2019-02-01
-
-
-Nina.
-
-
-winter 的文章很适合反复去听，每次都有新的领悟。
-
-今年毕业啦，选择了前端，去实习时有接触到 winter 所说的知识，但是我只能略懂，单词我懂，哈哈。
-
-虽然现在还是前端渣渣，但是我相信，通过自己的努力，一定可以成为大神级的程序媛，相信我嘛～哈哈哈
-
-2019-05-17
-
-
-ttys000
-
-
-老师对贺老反对 'class fileds' 持什么看法？虽然听了两次贺老的演讲，仍然还是有点没搞明白。链接：https://github.com/hax/js-class-fields-chinese-discussion
-
-2019-01-31
-
-
-胡永
-
-这篇文章读一遍有一遍新的体会，厉害了
-
-2019-02-19
-
-
-羲
-
-winter 老师，有一些浏览器对 es6 语法部分不兼容，一般开发中依旧用新的 es6 语法，然后找插件转换成浏览器支持的语法，想问下，你对这种做法怎么看？这样做是不是有点兜圈子了，直接用旧语法也可以写，但又有些想尝试用新的语法
-
-作者回复：我比较支持这个做法，尽早使用新语法，可以享受它们带来的好处，也可以让团队始终保持技术领先。
-
-当然了，少数情况下，没法完美翻译，我就不建议急着用了。
-
-2019-02-13
-
-
-Rickyshin
-
-
-平时用 react 的话，class 还是比较多的，那么想问一下，现在的 react 不推荐写 constructer，而是推荐使用箭头函数直接写方法，是不是 constructer 会在未来变的不是那么重要呢
-
-2019-01-31
-
-
-阿成
-
-讲得很好，今天是不是因为放假了，人好像有点少... 平时写代码，基本上没写过 class，都是 function，体积大了就拆成小的... 可能还是没遇到复杂的场景吧... 而且 vue 等框架本身就解决了一定的复杂度
-
-2019-01-31
-
-
-Jasmin
-
-
-java 工程师转过来的前端 很容易理解 class extends 相反 基于原型的继承 function 神马的 一直不能很好的理解....
-
-2019-04-25
-
-
-王小宏 music
-
-有些东西，真的是，工作好几年可能都摸不透的，高手跟大牛之间，差距就是在于理解的通透性！
-
-2019-03-20
-
-
-辉子
-
-所以为什么 typescript 火起来了，是 ES6 的超集，也对 Java 后端开发者更友好了。
-
-2019-02-02
-
-
-dearfat
-
-
-感谢 winter，总之就是通透，这个境界太难了
-
-2019-02-02
-
-
-37°C^boy
-
-
-mvvm，class
-
-
-utils ，function
-
-
-2019-01-31
-
-
-石
-
-let 和 var 的应用场景区分，老师可以提炼下本质吗，各位朋友平时 let 用的多吗
-
-2019-01-31
-
-
-让时间说真话
-
-在 es6 里面使用 class，extends 关键字实现面向对象编程，使开发者更容易理解类的继承。本篇从 es5 之前版本讲起过度到 es6 总体逻辑很清楚。
-
-2019-02-11
-
-
-米斯特菠萝
-
-写 class 多，抽象化以后，用 class 看着更规整得多，易读性也更好
-
-给微信小程序写的第一个拖拽排序的插件就是 class 写的，new Sortable 就完事了
-
-2019-02-01
-
-
-lt - 零度
-
-老师，我的留言都没回复过我，伤心
-
-编辑回复：别伤心，给你安排
-
-2019-01-31
-
-
-Scorpio
-
-
-很早就开始使用 class 了，主要是我以前是写 java 的，用的习惯
-
-2019-01-31
-
-
-潇潇雨歇
-
-现在基本上都是使用 ES6 语法，使用 class 来实现类；function 来改造成类其实也很简单，构造函数即为类名，this 操作即 constructor 里面的操作，prototype 扩展方法即 class 里面的方法。继承用 extends。
-
-2019-12-17
-
-
-劳码识途
-
-文中在讲解 new 运算符的执行过程的时候说道：`将 this 和调用参数传给构造器，执行`；
-
-是不是应该是将以构造器的 prototype 属性创建的对象作为 this 传递给构造器进行执行？
-
-2019-08-19
-
-
-zj 坚果
-
-看完这一章的内容，忍不住想推荐 Michael S.Mikowski 和 Josh C. Powell 的《单页 Web 应用 - JavaScript 从前端到后端》，这里面的第二章就是专门介绍 JavaScript 基础的，其中就有对基于原型和基于类的两种方式进行比较，个人觉得讲得听清楚的。
-
-2019-07-13
-
