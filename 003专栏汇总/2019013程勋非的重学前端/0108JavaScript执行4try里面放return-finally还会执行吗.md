@@ -1,17 +1,5 @@
-# 0108JavaScript 执行 4：try 里面放 return，finally 还会执行吗？
-
-winter 2019-03-02
-
-
-
-
-
-11:22
-
-
-讲述：winter 大小：10.42M
-
-你好，我是 winter。
+# 0108. JavaScript 执行4：try 里面放 return，finally 还会执行吗？
+> winter 2019-03-02
 
 在前面几篇文章中，我们已经了解了关于执行上下文、作用域、闭包之间的关系。
 
@@ -23,35 +11,11 @@ winter 2019-03-02
 
 为了了解 JavaScript 语句有哪些特别之处，首先我们要看一个不太常见的例子，我会通过这个例子，来向你介绍 JavaScript 语句执行机制涉及的一种基础类型：Completion 类型。
 
-Completion 类型
+## 01. Completion 类型
 
 我们来看一个例子。在函数 foo 中，使用了一组 try 语句。我们可以先来做一个小实验，在 try 中有 return 语句，finally 中的内容还会执行吗？我们来看一段代码。
 
-function foo(){
 
-
-  try{
-
-
-    return 0;
-
-
-  } catch(err) {
-
-
-  } finally {
-
-
-    console.log("a")
-
-
-  }
-
-
-}
-
-
-console.log(foo());
 
 
 通过实际试验，我们可以看到，finally 确实执行了，而且 return 语句也生效了，foo () 返回了结果 0。
@@ -60,31 +24,7 @@ console.log(foo());
 
 如果在这个例子中，我们在 finally 中加入 return 语句，会发生什么呢？
 
-function foo(){
 
-
-  try{
-
-
-    return 0;
-
-
-  } catch(err) {
-
-
-  } finally {
-
-
-    return 1;
-
-
-  }
-
-
-}
-
-
-console.log(foo());
 
 
 通过实际执行，我们看到，finally 中的 return「覆盖」了 try 中的 return。在一个函数中执行了两次 return，这已经超出了很多人的常识，也是其它语言中不会出现的一种行为。
@@ -105,7 +45,7 @@ JavaScript 正是依靠语句的 Completion Record 类型，方才可以在语�
 
 首先我们来看看语句有几种分类。
 
-普通的语句
+## 02. 普通的语句
 
 在 JavaScript 中，我们把不带控制能力的语句称为普通语句。普通语句有下面几种。
 
@@ -137,7 +77,7 @@ debugger 语句
 
 Chrome 控制台显示的正是语句的 Completion Record 的 [[value]]。
 
-语句块
+## 03. 语句块
 
 介绍完了普通语句，我们再来介绍一个比较特殊的语句：语句块。
 
@@ -153,48 +93,19 @@ return 语句可能产生 return 或者 throw 类型的 Completion Record。我�
 
 先给出一个内部为普通语句的语句块：
 
-{
-
-
-  var i = 1; // normal, empty, empty
-
-
-  i ++; // normal, 1, empty
-
-
-  console.log(i) //normal, undefined, empty
-
-
-} // normal, undefined, empty
 
 
 在每一行的注释中，我给出了语句的 Completion Record。
 
 我们看到，在一个 block 中，如果每一个语句都是 normal 类型，那么它会顺次执行。接下来我们加入 return 试试看。
 
-{
-
-
-  var i = 1; // normal, empty, empty
-
-
-  return i; // return, 1, empty
-
-
-  i ++; 
-
-
-  console.log(i)
-
-
-} // return, 1, empty
 
 
 但是假如我们在 block 中插入了一条 return 语句，产生了一个非 normal 记录，那么整个 block 会成为非 normal。这个结构就保证了非 normal 的完成类型可以穿透复杂的语句嵌套结构，产生控制效果。
 
 接下来我们就具体讲讲控制类语句。
 
-控制型语句
+## 04. 控制型语句
 
 控制型语句带有 if、switch 关键字，它们会对不同类型的 Completion Record 产生反应。
 
@@ -210,7 +121,7 @@ return 语句可能产生 return 或者 throw 类型的 Completion Record。我�
 
 而当 finally 执行也得到了非 normal 记录，则会使 finally 中的记录作为整个 try 结构的结果。
 
-带标签的语句
+## 05. 带标签的语句
 
 前文我重点讲了 type 在语句控制中的作用，接下来我们重点来讲一下最后一个字段：target，这涉及了 JavaScript 中的一个语法，带标签的语句。
 
@@ -218,30 +129,12 @@ return 语句可能产生 return 或者 throw 类型的 Completion Record。我�
 
     firstStatement: var i = 1;
 
-
 大部分时候，这个东西类似于注释，没有任何用处。唯一有作用的时候是：与完成记录类型中的 target 相配合，用于跳出多层循环。
-
-    outer: while(true) {
-
-
-      inner: while(true) {
-
-
-          break outer;
-
-
-      }
-
-
-    }
-
-
-    console.log("finished")
 
 
 break/continue 语句如果后跟了关键字，会产生带 target 的完成记录。一旦完成记录带了 target，那么只有拥有对应 label 的循环语句会消费它。
 
-结语
+## 结语
 
 我们以 Completion Record 类型为线索，为你讲解了 JavaScript 语句执行的原理。
 
@@ -249,22 +142,7 @@ break/continue 语句如果后跟了关键字，会产生带 target 的完成记
 
 你遇到哪些语句中的执行的实际效果，是跟你想象的有所出入呢，你可以给我留言，我们一起讨论。
 
-unpreview
-
-
-© 版权归极客邦科技所有，未经许可不得传播售卖。页面已增加防盗追踪，如有侵权极客邦将依法追究其法律责任。
-
-大龙
-
-由作者筛选后的优质留言将会公开显示，欢迎踊跃留言。
-
-Command + Enter 发表
-
-0/2000 字
-
-提交留言
-
-精选留言 (39)
+## 精选留言
 
 有铭
 
@@ -298,40 +176,7 @@ AICC
 
 加利率的钟摆
 
-```javascript
 
-
-function test(){
-
-
-  if(true){
-
-
-    console.log("111");
-
-
-    break;
-
-
-  }
-
-
-  if(true){
-
-
-    console.log("222");
-
-
-  }
-
-
-}
-
-
-test(); // SyntaxError: Illegal break statement
-
-
-```
 
 
 我们可以这么分析：
@@ -340,58 +185,7 @@ test(); // SyntaxError: Illegal break statement
 
 2. function 和 break 相遇，报错
 
-```javascript
 
-
-function test() {
-
-
-  var a = 0;
-
-
-  switch (a) {
-
-
-    case 0:
-
-
-      if (true) {
-
-
-        console.log("111");
-
-
-        break;
-
-
-      }
-
-
-  }
-
-
-  if (true) {
-
-
-    console.log("222");
-
-
-  }
-
-
-}
-
-
-test();
-
-
-// 111
-
-
-// 222
-
-
-```
 
 
 我们可以这么分析：
