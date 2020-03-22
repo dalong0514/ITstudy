@@ -1,17 +1,5 @@
-# 0111JavaScript 语法（预备篇）：到底要不要写分号呢？
-
-winter 2019-03-23
-
-
-
-
-
-10:56
-
-
-讲述：winter 大小：10.02M
-
-你好，我是 winter。
+# 0111. JavaScript 语法（预备篇）：到底要不要写分号呢？
+> winter 2019-03-23
 
 在我们介绍 JavaScript 语法的全局结构之前，我们先要探讨一个语言风格问题：究竟要不要写分号。
 
@@ -37,76 +25,15 @@ winter 2019-03-23
 
 这样描述是比较难以理解的，我们一起看一些实际的例子进行分析：
 
-let a = 1
-
-
-void function(a){
-
-
-    console.log(a);
-
-
-}(a);
-
 
 在这个例子中，第一行的结尾处有换行符，接下来 void 关键字接在 1 之后是不合法的，这命中了我们的第一条规则，因此会在 void 前插入换行符。
 
-var a = 1, b = 1, c = 1;
-
-
-a
-
-
-++
-
-
-b
-
-
-++
-
-
-c
 
 
 这也是个著名的例子，我们看第二行的 a 之后，有换行符，后面遇到了 ++ 运算符，a 后面跟 ++ 是合法的语法，但是我们看看 JavaScript 标准定义中，有 [no LineTerminator here] 这个字样，这是一个语法定义中的规则，你可以感受一下这个规则的内容（下一小节，我会给你详细介绍 no LineTerminator here ）：
 
-UpdateExpression[Yield, Await]:
-
-
-    LeftHandSideExpression[?Yield, ?Await]
-
-
-    LeftHandSideExpression[?Yield, ?Await][no LineTerminator here]++
-
-
-    LeftHandSideExpression[?Yield, ?Await][no LineTerminator here]--
-
-
-    ++UnaryExpression[?Yield, ?Await]
-
-
-    --UnaryExpression[?Yield, ?Await]
-
-
 于是，这里 a 的后面就要插入一个分号了。所以这段代码最终的结果，b 和 c 都变成了 2，而 a 还是 1。
 
-(function(a){
-
-
-    console.log(a);
-
-
-})()
-
-
-(function(a){
-
-
-    console.log(a);
-
-
-})()
 
 
 这个例子是比较有实际价值的例子，这里两个 function 调用的写法被称作 IIFE（立即执行的函数表达式），是个常见技巧。
@@ -117,22 +44,7 @@ UpdateExpression[Yield, Await]:
 
 这是一些鼓励不写分号的编码风格会要求大家写 IIFE 时必须在行首加分号的原因。
 
-function f(){
 
-
-    return/*
-
-
-        This is a return value.
-
-
-    */1;
-
-
-}
-
-
-f();
 
 
 在这个例子中，return 和 1 被用注释分隔开了。
@@ -151,79 +63,26 @@ no LineTerminator here 规则表示它所在的结构中的这一位置不能插
 
 下面一段代码展示了，带标签的 continue 语句，不能在 continue 后插入换行。
 
-outer:for(var j = 0; j < 10; j++)
-
-
-    for(var i = 0; i < j; i++)
-
-
-        continue /*no LineTerminator here*/ outter
-
 
 break 跟 continue 是一样的，break 后也不能插入换行：
-
-outer:for(var j = 0; j < 10; j++)
-
-
-    for(var i = 0; i < j; i++)
-
-
-        break /*no LineTerminator here*/ outter
 
 
 我们前面已经提到过 return 和后自增、后自减运算符。
 
-function f(){
-
-
-    return /*no LineTerminator here*/1;
-
-
-}
-
-
-i/*no LineTerminator here*/++
-
-
-i/*no LineTerminator here*/--
 
 
 以及，throw 和 Exception 之间也不能插入换行符：
 
-throw/*no LineTerminator here*/new Exception("error")
 
-
-凡是 async 关键字，后面都不能插入换行符：
-
-async/*no LineTerminator here*/function f(){
-
-
-}
-
-
-const f = async/*no LineTerminator here*/x => x*x
 
 
 箭头函数的箭头前，也不能插入换行：
 
-const f = x/*no LineTerminator here*/=> x*x
-
+    const f = x/*no LineTerminator here*/=> x*x
 
 yield 之后，不能插入换行：
 
-function *g(){
 
-
-    var i = 0;
-
-
-    while(true)
-
-
-        yield/*no LineTerminator here*/i++;
-
-
-}
 
 
 到这里，我已经整理了所有标准中的 no LineTerminator here 规则，实际上，no LineTerminator here 规则的存在，多数情况是为了保证自动插入分号行为是符合预期的，但是令人遗憾的是，JavaScript 在设计的最初，遗漏了一些重要的情况，所以有一些不符合预期的情况出现，需要我们格外注意。
@@ -236,21 +95,8 @@ function *g(){
 
 我们在前面的案例中，已经展示了一种情况，那就是以括号开头的语句：
 
-(function(a){
-
-
-    console.log(a);
-
 
 })()/* 这里没有被自动插入分号 */
-
-(function(a){
-
-
-    console.log(a);
-
-
-})()
 
 
 这段代码看似两个独立执行的函数表达式，但是其实第三组括号被理解为传参，导致抛出错误。
@@ -305,7 +151,7 @@ console.log(RegExp.$1)
 
 这段代码本意是声明函数 f，然后赋值给 g，再测试 Template 中是否含有字母 a。但是因为没有自动插入分号，函数 f 被认为跟 Template 一体的，进而被莫名其妙地执行了一次。
 
-总结
+## 总结
 
 这一节课，我们讨论了要不要加分号的问题。
 
@@ -313,24 +159,9 @@ console.log(RegExp.$1)
 
 最后留给你一个问题，请找一些开源项目，看看它们的编码规范是否要求加分号，欢迎留言讨论。
 
-unpreview
+## 精选留言
 
-
-© 版权归极客邦科技所有，未经许可不得传播售卖。页面已增加防盗追踪，如有侵权极客邦将依法追究其法律责任。
-
-大龙
-
-由作者筛选后的优质留言将会公开显示，欢迎踊跃留言。
-
-Command + Enter 发表
-
-0/2000 字
-
-提交留言
-
-精选留言 (31)
-
-本末倒置っ
+### 01
 
 几年前，各种各样的书大致上都推荐你加分号。
 
@@ -347,165 +178,3 @@ jquery 依然留着分号，vue 源码不用分号。
 反正分号有和没有，对 eslint fix 来说，只是瞬间的事。。。
 
 2019-03-27
-
-
-Scorpio
-
-
-写了几年一直不写分号。。。等出了问题再说吧。。。我懒。。
-
-2019-03-25
-
-
-Tony
-
-
-一直有加分号的习惯，一是不写分号我有强迫症，二是不写分号 webstorm 会提示
-
-2019-04-19
-
-
-Dylan-Tseng
-
-
-个人觉得还是加分号比较好，至少能保证加上去之后今天老师说的问题都能够得到我们想要的答案。
-
-2019-03-25
-
-
-jacklovepdf
-
-
-总结一下，不加分号可能会有问题，加分号一定不会有问题。那为什么不加？
-
-2019-06-24
-
-
-彧豪
-
-另外我个人也是不写分号，然后使用的是双引号，诸位不写分号党，如果想要写上分号，用的 eslint 和 vs code 那么可以这么搞：
-
-1. eslintrc 中加入这条规则："semi": ["error", "always"]
-
-2. vsc 中设置一下："eslint.autoFixOnSave": true
-
-此时，你保存的时候，vsc 会自动帮你在需要加分号的地方加上分号
-
-2019-03-26
-
-
-老实人
-
-采用 eslint 是不会写的，不采用会写上
-
-2019-03-25
-
-
-陆同春
-
-react 源码规范需要分号
-
-2019-03-23
-
-
-joker
-
-
-现在的编程环境根本不需要担心。格式代码化或 eslint 都可以避免这些问题。
-
-2019-04-29
-
-
-Ranjay
-
-
-eslint 是你自己配置的。。。
-
-2019-04-15
-
-
-Geek_0bb537
-
-
-自动补齐和自动驾驶一样 不特么靠谱！稳妥点 养成写分号的习惯！
-
-2019-04-15
-
-
-醉月
-
-用了 cli 写 vue 以后就很少用分号了
-
-以前学 js 写原生的时候强迫症一样写分号
-
-这东西就是见仁见智
-
-前端真的是娱乐圈，，
-
-为个分号还能争起来。
-
-2019-03-25
-
-
-Scorpio
-
-
-写了几年一直不写分号。。。等出了问题再说吧。。。我懒。。
-
-2019-03-25
-
-
-stanny
-
-
-antd 源码有分号 两个空格缩进
-
-2019-03-24
-
-
-stanny
-
-
-koa 源码有分号
-
-2019-03-24
-
-
-四叶草
-
-启用了 eslint 检查都会要把分号去掉，这样编译后不是可能有问题？
-
-2019-03-23
-
-
-昔忆落落
-
-感觉加分号好看一点，读起来也方便一点，所以一直保留着加分号的习惯
-
-2019-12-20
-
-
-ctrlcctrlv
-
-
-加上分号，就不用考虑课程中涉及到的问题了
-
-2019-11-18
-
-
-Mazin🍃
-
-
-还是加上吧。起码语句的清晰度上一个等级
-
-2019-10-22
-
-
-Smallfly
-
-
-以正则表达式开头的语句中示例代码运行是会报错的～
-
-2019-10-18
-
-
