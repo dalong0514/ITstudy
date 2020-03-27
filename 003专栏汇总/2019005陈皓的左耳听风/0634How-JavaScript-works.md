@@ -52,7 +52,7 @@ JavaScript is a single-threaded programming language, which means it has a singl
 
 Let’s see an example. Take a look at the following code:
 
-```
+```js
 function multiply(x, y) {
     return x * y;
 }
@@ -69,7 +69,7 @@ Each entry in the Call Stack is called a Stack Frame.
 
 And this is exactly how stack traces are being constructed when an exception is being thrown — it is basically the state of the Call Stack when the exception happened. Take a look at the following code:
 
-```
+```js
 function foo() {
     throw new Error('SessionStack will help you resolve crashes :)');
 }
@@ -87,7 +87,7 @@ If this is executed in Chrome (assuming that this code is in a file called foo.j
 
 “Blowing the stack” — this happens when you reach the maximum Call Stack size. And that could happen quite easily, especially if you’re using recursion without testing your code very extensively. Take a look at this sample code:
 
-```
+```js
 function foo() {
     foo();
 }
@@ -97,7 +97,6 @@ foo();
 When the engine starts executing this code, it starts with calling the function “foo”. This function, however, is recursive and starts calling itself without any termination conditions. So at every step of the execution, the same function gets added to the Call Stack over and over again. It looks something like this:
 
 At some point, however, the number of function calls in the Call Stack exceeds the actual size of the Call Stack, and the browser decides to take action, by throwing an error, which can look something like this:
-
 
 Running code on a single thread can be quite easy since you don’t have to deal with complicated scenarios that are arising in multi-threaded environments — for example, deadlocks.
 
@@ -110,7 +109,6 @@ What happens when you have function calls in the Call Stack that take a huge amo
 You may ask — why is this even a problem? The problem is that while the Call Stack has functions to execute, the browser can’t actually do anything else — it’s getting blocked. This means that the browser can’t render, it can’t run any other code, it’s just stuck. And this creates problems if you want nice fluid UIs in your app.
 
 And that’s not the only problem. Once your browser starts processing so many tasks in the Call Stack, it may stop being responsive for quite a long time. And most browsers take action by raising an error, asking you whether you want to terminate the web page.
-
 
 Now, that’s not the best user experience out there, is it?
 
