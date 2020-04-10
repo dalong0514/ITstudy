@@ -231,6 +231,18 @@ http://repo.packagist.org could not be fully loaded, package information was loa
 
     composer config -g --unset repos.packagist
 
+最新找到的淘宝镜像（2020-04-10），但资源还是不行，最后尝试后还是用上面的镜像。（composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/）
+
+[Packagist / Composer 中国全量镜像](https://pkg.phpcomposer.com/)
+
+修改 composer 的全局配置文件：
+
+    composer config -g repo.packagist composer https://packagist.phpcomposer.com
+
+解除镜像：
+
+    composer config -g --unset repos.packagist
+
 ### 4. laravel-admin
 
 先进通过 laravel 创建好的项目里，使用下面命令：

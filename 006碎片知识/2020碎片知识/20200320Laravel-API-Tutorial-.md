@@ -627,6 +627,13 @@ No spam. Just great articles & insights.
  
 ## 06. Creating a Login Endpoint
 
+
+
+
+
+
+
+
 Just like the registration endpoint, we can edit the LoginController (in the Auth folder) to support our API authentication. The login method of the AuthenticatesUsers trait can be overridden to support our API:
 
 ```
@@ -1015,25 +1022,10 @@ class ArticleTest extends TestCase
     }
 
 }
+
 Next Steps
 That’s all there is to it. There’s definitely room for improvement—you can implement OAuth2 with the Passportpackage, integrate a pagination and transformation layer (I recommend Fractal), the list goes on—but I wanted to go through the basics of creating and testing an API in Laravel with no external packages.
 
 Laravel has certainly improved my experience with PHP and the ease of testing with it has solidified my interest in the framework. It’s not perfect, but it’s flexible enough to let you work around its issues.
 
 If you’re designing a public API, check out 5 Golden Rules for Great Web API Design.
-
-UNDERSTANDING THE BASICS
-What is Laravel?
-Laravel is an opinionated PHP framework. It abstracts away the minutiae of building a web application to facilitate productivity, maintenance, and forward compatibility.
-
-What is REST?
-What is the difference between JSON and XML?
-What is Composer?
-About the author
-André Castelo
-View full profile »
-Hire the Author
-André Castelo, Portugal
-MEMBER SINCE JANUARY 3, 2016
-Vue.jsCSSPHPjQueryJavaScript
-André Castelo is a web developer focused on PHP and JavaScript with experience developing apps with Laravel and CodeIgniter as well as APIs in Laravel and client-side single-page apps using AngularJS. He's equally comfortable working with a team or flying solo. [click to continue...]
