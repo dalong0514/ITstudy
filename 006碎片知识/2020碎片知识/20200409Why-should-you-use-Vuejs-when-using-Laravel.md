@@ -525,7 +525,7 @@ We need to create the App component in resources/assets/js/components directory.
 ```html
 <template>
     <div>
-            <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <ul class="navbar-nav">
                     <router-link :to="{ name: 'welcome' }" class="nav-link">Home</router-link>
