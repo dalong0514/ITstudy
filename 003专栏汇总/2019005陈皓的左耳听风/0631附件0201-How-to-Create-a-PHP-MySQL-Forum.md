@@ -1,22 +1,23 @@
-# 0631How to Create a PHP/MySQL Powered Forum From Scratch
+# How to Create a PHP/MySQL Powered Forum From Scratch
 
 [How to Create a PHP/MySQL Powered Forum From Scratch](https://code.tutsplus.com/tutorials/how-to-create-a-phpmysql-powered-forum-from-scratch--net-10188)
 
+by Evert Padje17 Mar 2010
 
-
-by Evert Padje17 Mar 2010	Difficulty:IntermediateLength:LongLanguages:
-PHPWeb DevelopmentMySQL	
-In this tutorial, we're going to build a PHP/MySQL powered forum from scratch. This tutorial is perfect for getting used to basic PHP and database usage. 
-
-If you need extra help with this or any other PHP issues, try contacting one of the PHP developers on Envato Studio. They can help you with everything from PHP fixes to developing robust PHP applications.
+In this tutorial, we're going to build a PHP/MySQL powered forum from scratch. This tutorial is perfect for getting used to basic PHP and database usage. If you need extra help with this or any other PHP issues, try contacting one of the PHP developers on Envato Studio. They can help you with everything from PHP fixes to developing robust PHP applications.
 
 ## Step 1: Creating Database Tables
+
 It's always a good idea to start with creating a good data model when building an application. Let's describe our application in one sentence: We are going to make a forum which has users who create topics in various categories. Other users can post replies. As you can see, I highlighted a couple of nouns which represent our table names.
 
-Users
+### 1.1 Users
+
 Categories
+
 Topics
+
 Posts
+
 These three objects are related to each other, so we'll process that in our table design. Take a look at the scheme below.
 
 图图
@@ -25,17 +26,9 @@ Looks pretty neat, huh? Every square is a database table. All the columns are li
 
 I'll discuss each table by explaining the SQL, which I created using the scheme above. For your own scripts you can create a similar scheme and SQL too. Some editors like MySQL Workbench (the one I used) can generate .sql files too, but I would recommend learning SQL because it's more fun to do it yourself. A SQL introduction can be found at W3Schools.
 
-Users Table
-01
-02
-03
-04
-05
-06
-07
-08
-09
-10
+### 1.2 Users Table
+
+```
 CREATE TABLE users (
 user_id     INT(8) NOT NULL AUTO_INCREMENT,
 user_name   VARCHAR(30) NOT NULL,
@@ -46,6 +39,8 @@ user_level  INT(8) NOT NULL,
 UNIQUE INDEX user_name_unique (user_name),
 PRIMARY KEY (user_id)
 ) TYPE=INNODB;
+```
+
 The CREATE TABLE statement is used to indicate we want to create a new table, of course. The statement is followed by the name of the table and all the columns are listed between the brackets. The names of all the fields are self-explanatory, so we'll only discuss the data types below.
 
 user_id
@@ -72,13 +67,8 @@ user_level
 This field contains the level of the user, for example: '0' for a regular user and '1' for an admin. More about this later.
 
 Categories Table
-1
-2
-3
-4
-5
-6
-7
+
+```
 CREATE TABLE categories (
 cat_id          INT(8) NOT NULL AUTO_INCREMENT,
 cat_name        VARCHAR(255) NOT NULL,
@@ -86,17 +76,13 @@ cat_description     VARCHAR(255) NOT NULL,
 UNIQUE INDEX cat_name_unique (cat_name),
 PRIMARY KEY (cat_id)
 ) TYPE=INNODB;
+```
+
 These data types basically work the same way as the ones in the users table. This table also has a primary key and the name of the category must be an unique one.
 
 Topics Table
-1
-2
-3
-4
-5
-6
-7
-8
+
+```
 CREATE TABLE topics (
 topic_id        INT(8) NOT NULL AUTO_INCREMENT,
 topic_subject       VARCHAR(255) NOT NULL,
@@ -105,17 +91,13 @@ topic_cat       INT(8) NOT NULL,
 topic_by        INT(8) NOT NULL,
 PRIMARY KEY (topic_id)
 ) TYPE=INNODB;
+```
+
 This table is almost the same as the other tables, except for the topic_by field. That field refers to the user who created the topic. The topic_cat refers to the category the topic belongs to. We cannot force these relationships by just declaring the field. We have to let the database know this field must contain an existing user_id from the users table, or a valid cat_id from the categories table. We'll add some relationships after I've discussed the posts table.
 
 Posts Table
-1
-2
-3
-4
-5
-6
-7
-8
+
+```
 CREATE TABLE posts (
 post_id         INT(8) NOT NULL AUTO_INCREMENT,
 post_content        TEXT NOT NULL,
@@ -124,6 +106,8 @@ post_topic      INT(8) NOT NULL,
 post_by     INT(8) NOT NULL,
 PRIMARY KEY (post_id)
 ) TYPE=INNODB;
+```
+
 This is the same as the rest of the tables; there's also a field which refers to a user_id here: the post_by field. The post_topic field refers to the topic the post belongs to.
 
 "A foreign key is a referential constraint between two tables. The foreign key identifies a column or a set of columns in one (referencing) table that refers to a column or set of columns in another (referenced) table."
@@ -155,32 +139,13 @@ And finally, link each post to the user who made it:
 ALTER TABLE posts ADD FOREIGN KEY(post_by) REFERENCES users(user_id) ON DELETE RESTRICT ON UPDATE CASCADE;
 That's the database part! It was quite a lot of work, but the result, a great data model, is definitely worth it.
 
-Step 2: Introduction to the Header/Footer System
+## Step 2: Introduction to the Header/Footer System
+
 Each page of our forum needs a few basic things, like a doctype and some markup. That's why we'll include a header.php file at the top of each page, and a footer.php at the bottom. The header.php contains a doctype, a link to the stylesheet and some important information about the forum, such as the title tag and metatags.
 
 header.php
-01
-02
-03
-04
-05
-06
-07
-08
-09
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
+
+```php
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="nl" lang="nl">
@@ -203,34 +168,23 @@ header.php
         <div id="userbar">Hello Example. Not you? Log out.</div>
     </div>
         <div id="content">
+```
+
 The wrapper div will be used to make it easier to style the entire page. The menu div obviously contains a menu with links to pages we still have to create, but it helps to see where we're going a little bit. The userbar div is going to be used for a small top bar which contains some information like the username and a link to the logout page. The content page holds the actual content of the page, obviously.
 
 The attentive reader might have already noticed we're missing some things. There is no </body> or </html> tag. They're in the footer.php page, as you can see below.
 
-1
-2
-3
-4
-5
+```html
 </div><!-- content -->
 </div><!-- wrapper -->
 <div id="footer">Created for Nettuts+</div>
 </body>
 </html>
+```
+
 When we include a header and a footer on each page the rest of the page get embedded between the header and the footer. This method has got some advantages. First and foremost, everything will be styled correctly. A short example:
 
-01
-02
-03
-04
-05
-06
-07
-08
-09
-10
-11
-12
+```php
 <?php
 $error = false;
 if($error = false)
@@ -243,129 +197,13 @@ else
     //bad looking, unstyled error :-( 
 } 
 ?>
+```
+
 As you can see, a page without errors will result in a nice page with the content. But if there's an error, everything looks really ugly; so that's why it's better to make sure not only real content is styled correctly, but also the errors we might get.
 
 Another advantage is the possibility of making quick changes. You can see for yourself by editing the text in footer.php when you've finished this tutorial; you'll notice that the footer changes on every page immediately. Finally, we add a stylesheet which provides us with some basic markup - nothing too fancy.
 
-001
-002
-003
-004
-005
-006
-007
-008
-009
-010
-011
-012
-013
-014
-015
-016
-017
-018
-019
-020
-021
-022
-023
-024
-025
-026
-027
-028
-029
-030
-031
-032
-033
-034
-035
-036
-037
-038
-039
-040
-041
-042
-043
-044
-045
-046
-047
-048
-049
-050
-051
-052
-053
-054
-055
-056
-057
-058
-059
-060
-061
-062
-063
-064
-065
-066
-067
-068
-069
-070
-071
-072
-073
-074
-075
-076
-077
-078
-079
-080
-081
-082
-083
-084
-085
-086
-087
-088
-089
-090
-091
-092
-093
-094
-095
-096
-097
-098
-099
-100
-101
-102
-103
-104
-105
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
+```css
 body {
     background-color: #4E4E4E;
     text-align: center;         /* make sure IE centers the page too */
@@ -485,25 +323,13 @@ textarea {
     width: 500px;
     height: 200px;
 }
-Step 3: Getting Ready for Action
+```
+
+## Step 3: Getting Ready for Action
+
 Before we can read anything from our database, we need a connection. That's what connect.php is for. We'll include it in every file we are going to create.
 
-01
-02
-03
-04
-05
-06
-07
-08
-09
-10
-11
-12
-13
-14
-15
-16
+```php
 <?php
 //connect.php
 $server = 'localhost';
@@ -520,26 +346,15 @@ if(!mysql_select_db($database)
     exit('Error: could not select the database');
 }
 ?>
+```
+
 Simply replace the default values of the variables at the top of the page with your own date, save the file and you're good to go!
 
-Step 4: Displaying the Forum Overview
+## Step 4: Displaying the Forum Overview
+
 Since we're just started with some basic techniques, we're going to make a simplified version of the forum overview for now.
 
-01
-02
-03
-04
-05
-06
-07
-08
-09
-10
-11
-12
-13
-14
-15
+```php
 <?php
 //create_cat.php
 include 'connect.php';
@@ -555,111 +370,18 @@ echo '<tr>';
 echo '</tr>';
 include 'footer.php';
 ?>
+```
+
 There you have it: a nice and clean overview. We'll be updating this page throughout the tutorial so that it becomes more like the end result, step by step!
 
-Step 5: Signing up a User
+## Step 5: Signing up a User
+
 Let's start by making a simple HTML form so that a new user can register.
 
 
-A PHP page is needed to process the form. We're going to use a $_SERVER variable. The $_SERVER variable is an array with values that are automatically set with each request. One of the values of the $_SERVER array is 'REQUEST_METHOD'. When a page is requested with GET, this variable will hold the value 'GET'. When a page is requested via POST, it will hold the value 'POST'. We can use this value to check if a form has been posted. See the signup.php page below.
+A PHP page is needed to process the form. We're going to use a \$\_SERVER variable. The \$\_SERVER variable is an array with values that are automatically set with each request. One of the values of the \$\_SERVER array is 'REQUEST_METHOD'. When a page is requested with GET, this variable will hold the value 'GET'. When a page is requested via POST, it will hold the value 'POST'. We can use this value to check if a form has been posted. See the signup.php page below.
 
-01
-02
-03
-04
-05
-06
-07
-08
-09
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93
-94
-95
-96
-97
+```php
 <?php
 //signup.php
 include 'connect.php';
@@ -754,9 +476,12 @@ else
         }
     }
 }
- 
+
 include 'footer.php';
+
 ?>
+```
+
 A lot of explanation is in the comments I made in the file, so be sure to check them out. The processing of the data takes place in three parts:
 
 Validating the data
@@ -764,13 +489,7 @@ If the data is not valid, show the form again
 If the data is valid, save the record in the database
 The PHP part is quite self-explanatory. The SQL-query however probably needs a little more explanation.
 
-1
-2
-3
-4
-5
-6
-7
+```
 INSERT INTO
        users(user_name, user_pass, user_email ,user_date, user_level)
 VALUES('" . mysql_real_escape_string($_POST['user_name']) . "',
@@ -778,6 +497,8 @@ VALUES('" . mysql_real_escape_string($_POST['user_name']) . "',
        '" . mysql_real_escape_string($_POST['user_email']) . "',
        NOW(),   
        0);
+```
+
 On line 1 we have the INSERT INTO statement which speaks for itself. The table name is specified on the second line. The words between the brackets represent the columns in which we want to insert the data. The VALUES statement tells the database we're done declaring column names and it's time to specify the values. There is something new here: mysql_real_escape_string. The function escapes special characters in an unescaped string , so that it is safe to place it in a query. This function MUST always be used, with very few exceptions. There are too many scripts that don't use it and can be hacked real easy. Don't take the risk, use mysql_real_escape_string().
 
 "Never insert a plain password as-is. You MUST always encrypt it."
@@ -790,7 +511,8 @@ If the signup process was successful, you should see something like this:
 
 Try refreshing your phpMyAdmin screen, a new record should be visible in the users table.
 
-Step 6: Adding Authentication and User Levels
+## Step 6: Adding Authentication and User Levels
+
 An important aspect of a forum is the difference between regular users and admins/moderators. Since this is a small forum and adding features like adding new moderators and stuff would take way too much time, we'll focus on the login process and create some admin features like creating new categories and closing a thread.
 
 Now that you've completed the previous step, we're going to make your freshly created account an admin account. In phpMyAdmin, click on the users table, and then 'Browse'. Your account will probably pop up right away. Click the edit icon and change the value of the user_level field from 0 to 1. That's it for now. You won't notice any difference in our application immediately, but when we've added the admin features a normal account and your account will have different capabilities.
@@ -803,113 +525,7 @@ If the username and password are incorrect, we show the form again with a messag
 
 The signin.php file is below. Don't think I'm not explaining what I'm doing, but check out the comments in the file. It's much easier to understand that way.
 
-001
-002
-003
-004
-005
-006
-007
-008
-009
-010
-011
-012
-013
-014
-015
-016
-017
-018
-019
-020
-021
-022
-023
-024
-025
-026
-027
-028
-029
-030
-031
-032
-033
-034
-035
-036
-037
-038
-039
-040
-041
-042
-043
-044
-045
-046
-047
-048
-049
-050
-051
-052
-053
-054
-055
-056
-057
-058
-059
-060
-061
-062
-063
-064
-065
-066
-067
-068
-069
-070
-071
-072
-073
-074
-075
-076
-077
-078
-079
-080
-081
-082
-083
-084
-085
-086
-087
-088
-089
-090
-091
-092
-093
-094
-095
-096
-097
-098
-099
-100
-101
-102
-103
-104
-105
-106
-107
+```php
 <?php
 //signin.php
 include 'connect.php';
@@ -1017,18 +633,11 @@ else
  
 include 'footer.php';
 ?>
+```
+
 This is the query that's in the signin.php file:
 
-01
-02
-03
-04
-05
-06
-07
-08
-09
-10
+```
 SELECT
     user_id,
     user_name,
@@ -1039,20 +648,13 @@ WHERE
     user_name = '" . mysql_real_escape_string($_POST['user_name']) . "'
 AND
     user_pass = '" . sha1($_POST['user_pass'])
+```
+
 It's obvious we need a check to tell if the supplied credentials belong to an existing user. A lot of scripts retrieve the password from the database and compare it using PHP. If we do this directly via SQL the password will be stored in the database once during registration and never leave it again. This is safer, because all the real action happens in the database layer and not in our application.
 
 If the user is signed in successfully, we're doing a few things:
 
-01
-02
-03
-04
-05
-06
-07
-08
-09
-10
+```php
 <?php
 //set the $_SESSION['signed_in'] variable to TRUE
 $_SESSION['signed_in'] = true;                  
@@ -1063,29 +665,23 @@ while($row = mysql_fetch_assoc($result))
     $_SESSION['user_name'] = $row['user_name']; 
 }
 ?>
-First, we set the 'signed_in' $_SESSION var to true, so we can use it on other pages to make sure the user is signed in. We also put the username and user id in the $_SESSION variable for usage on a different page. Finally, we display a link to the forum overview so the user can get started right away.
+```
 
-Of course signing in requires another function, signing out! The sign-out process is actually a lot easier than the sign-in process. Because all the information about the user is stored in $_SESSION variables, all we have to do is unset them and display a message.
+First, we set the 'signed_in' \$\_SESSION var to true, so we can use it on other pages to make sure the user is signed in. We also put the username and user id in the \$\_SESSION variable for usage on a different page. Finally, we display a link to the forum overview so the user can get started right away.
 
-Now that we've set the $_SESSION variables, we can determine if someone is signed in. Let's make a last simple change to header.php:
+Of course signing in requires another function, signing out! The sign-out process is actually a lot easier than the sign-in process. Because all the information about the user is stored in \$\_SESSION variables, all we have to do is unset them and display a message.
+
+Now that we've set the \$\_SESSION variables, we can determine if someone is signed in. Let's make a last simple change to header.php:
 
 Replace:
 
-1
+```html
 <div id="userbar">Hello Example. Not you? Log out.</div>
+```
+
 With:
 
-01
-02
-03
-04
-05
-06
-07
-08
-09
-10
-11
+```php
 <?php
 <div id="userbar">
     if($_SESSION['signed_in'])
@@ -1097,55 +693,25 @@ With:
         echo '<a href="signin.php">Sign in</a> or <a href="sign up">create an account</a>.';
     }
 </div>
+```
+
 If a user is signed in, he will see his or her name displayed on the front page with a link to the signout page. Our authentication is done! By now our forum should look like this:
 
+## Step 7: Creating a Category
 
-Step 7: Creating a Category
 We want to create categories so let's start with making a form.
 
-1
-2
-3
-4
-5
+```html
 <form method="post" action="">
     Category name: <input type="text" name="cat_name" />
     Category description: <textarea name="cat_description" /></textarea>
     <input type="submit" value="Add category" />
  </form>
+ ```
+ 
 This step looks a lot like Step 4 (Signing up a user'), so I'm not going to do an in-depth explanation here. If you followed all the steps you should be able to understand this somewhat quickly.
 
-01
-02
-03
-04
-05
-06
-07
-08
-09
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
+```php
 <?php
 //create_cat.php
 include 'connect.php';
@@ -1177,75 +743,26 @@ else
     }
 }
 ?>
-As you can see, we've started the script with the $_SERVER check, after checking if the user has admin rights, which is required for creating a category. The form gets displayed if it hasn't been submitted already. If it has, the values are saved. Once again, a SQL query is prepared and then executed.
+```
 
+As you can see, we've started the script with the \$\_SERVER check, after checking if the user has admin rights, which is required for creating a category. The form gets displayed if it hasn't been submitted already. If it has, the values are saved. Once again, a SQL query is prepared and then executed.
 
-Step 8: Adding Categories to index.php
+## Step 8: Adding Categories to index.php
+
 We've created some categories, so now we're able to display them on the front page. Let's add the following query to the content area of index.php.
 
-1
-2
-3
-4
-5
-6
+```
 SELECT
     categories.cat_id,
     categories.cat_name,
     categories.cat_description,
 FROM
     categories
+```
+
 This query selects all categories and their names and descriptions from the categories table. We only need a bit of PHP to display the results. If we add that part just like we did in the previous steps, the code will look like this.
 
-01
-02
-03
-04
-05
-06
-07
-08
-09
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
+```
 <?php
 //create_cat.php
 include 'connect.php';
@@ -1295,35 +812,22 @@ else
  
 include 'footer.php';
 ?>
-Notice how we're using the cat_id to create links to category.php. All the links to this page will look like this: category.php?cat_id=x, where x can be any numeric value. This may be new to you. We can check the url with PHP for $_GET values. For example, we have this link:
+```
+
+Notice how we're using the cat_id to create links to category.php. All the links to this page will look like this: category.php?cat\_id=x, where x can be any numeric value. This may be new to you. We can check the url with PHP for \$\_GET values. For example, we have this link:
 
 1
 category.php?cat_id=23
-The statement echo $_GET[ëcat_id'];' will display '23'. In the next few steps we'll use this value to retrieve the topics when viewing a single category, but topics can't be viewed if we haven't created them yet. So let's create some topics!
 
-Step 9: Creating a Topic
+The statement echo \$\_GET[ëcat_id'];' will display '23'. In the next few steps we'll use this value to retrieve the topics when viewing a single category, but topics can't be viewed if we haven't created them yet. So let's create some topics!
+
+## Step 9: Creating a Topic
+
 In this step, we're combining the techniques we learned in the previous steps. We're checking if a user is signed in, we'll use an input query to create the topic and create some basic HTML forms.
 
 The structure of create_topic.php can hardly be explained in a list or something, so I rewrote it in pseudo-code.
 
-01
-02
-03
-04
-05
-06
-07
-08
-09
-10
-11
-12
-13
-14
-15
-16
-17
-18
+```php
 <?php
 if(user is signed in)
 {
@@ -1342,150 +846,11 @@ else
     }
 }
 ?>
+```
+
 Here's the real code of this part of our forum, check the explanations below the code to see what it's doing.
 
-001
-002
-003
-004
-005
-006
-007
-008
-009
-010
-011
-012
-013
-014
-015
-016
-017
-018
-019
-020
-021
-022
-023
-024
-025
-026
-027
-028
-029
-030
-031
-032
-033
-034
-035
-036
-037
-038
-039
-040
-041
-042
-043
-044
-045
-046
-047
-048
-049
-050
-051
-052
-053
-054
-055
-056
-057
-058
-059
-060
-061
-062
-063
-064
-065
-066
-067
-068
-069
-070
-071
-072
-073
-074
-075
-076
-077
-078
-079
-080
-081
-082
-083
-084
-085
-086
-087
-088
-089
-090
-091
-092
-093
-094
-095
-096
-097
-098
-099
-100
-101
-102
-103
-104
-105
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126
-127
-128
-129
-130
-131
-132
-133
-134
-135
-136
-137
-138
-139
-140
-141
-142
+```php
 <?php
 //create_cat.php
 include 'connect.php';
@@ -1628,40 +993,29 @@ else
  
 include 'footer.php';
 ?>
+```
+
 I'll discuss this page in two parts, showing the form and processing the form.
 
 Showing the form
 We're starting with a simple HTML form. There is actually something special here, because we use a dropdown. This dropdown is filled with data from the database, using this query:
 
-1
-2
-3
-4
-5
-6
+```
 SELECT
     cat_id,
     cat_name,
     cat_description
 FROM
     categories
+```
+
 That's the only potentially confusing part here; it's quite a piece of code, as you can see when looking at the create_topic.php file at the bottom of this step.
 
 Processing the form
 
 The process of saving the topic consists of two parts: saving the topic in the topics table and saving the first post in the posts table. This requires something quite advanced that goes a bit beyond the scope of this tutorial. It's called a transaction, which basically means that we start by executing the start command and then rollback when there are database errors and commit when everything went well. More about transactions.
 
-01
-02
-03
-04
-05
-06
-07
-08
-09
-10
-11
+```php
 <?php
 //start the transaction
 $query  = "BEGIN WORK;";
@@ -1673,17 +1027,11 @@ $result = mysql_query($sql);
 $sql = "COMMIT;";
 $result = mysql_query($sql);
 ?>
+```
+
 The first query being used to save the data is the topic creation query, which looks like this:
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
+```
 INSERT INTO
     topics(topic_subject,
                topic_date,
@@ -1693,20 +1041,13 @@ VALUES('" . mysql_real_escape_string($_POST['topic_subject']) . "',
        NOW(),
        " . mysql_real_escape_string($_POST['topic_cat']) . ",
        " . $_SESSION['user_id'] . ")
-At first the fields are defined, then the values to be inserted. We've seen the first one before, it's just a string which is made safe by using mysql_real_escape_string(). The second value, NOW(), is a SQL function for the current time. The third value, however, is a value we haven't seen before. It refers to a (valid) id of a category. The last value refers to an (existing) user_id which is, in this case, the value of $_SESSION[ëuser_id']. This variable was declared during the sign in process.
+```
+
+At first the fields are defined, then the values to be inserted. We've seen the first one before, it's just a string which is made safe by using mysql_real_escape_string(). The second value, NOW(), is a SQL function for the current time. The third value, however, is a value we haven't seen before. It refers to a (valid) id of a category. The last value refers to an (existing) user_id which is, in this case, the value of \$\_SESSION[ëuser_id']. This variable was declared during the sign in process.
 
 If the query executed without errors we proceed to the second query. Remember we are still doing a transaction here. If we would've got errors we would have used the ROLLBACK command.
 
-01
-02
-03
-04
-05
-06
-07
-08
-09
-10
+```
 INSERT INTO
         posts(post_content,
         post_date,
@@ -1717,12 +1058,15 @@ VALUES
          NOW(),
          " . $topicid . ",
          " . $_SESSION['user_id'] . ")
+```
+
 The first thing we do in this code is use mysql_insert_id() to retrieve the latest generated id from the topic_id field in the topics table. As you may remember from the first steps of this tutorial, the id is generated in the database using auto_increment.
 
 Then the post is inserted into the posts table. This query looks a lot like the topics query. The only difference is that this post refers to the topic and the topic referred to a category. From the start, we decided to create a good data model and here is the result: a nice hierarchical structure.
 
 
-Step 10: Category View
+## Step 10: Category View
+
 We're going to make an overview page for a single category. We've just created a category, it would be handy to be able to view all the topics in it. First, create a page called category.php.
 
 A short list of the things we need:
@@ -1736,16 +1080,10 @@ topic_id
 topic_subject
 topic_date
 topic_cat
+
 Let's create the two SQL queries that retrieve exactly this data from the database.
 
-1
-2
-3
-4
-5
-6
-7
-8
+```
 SELECT
     cat_id,
     cat_name,
@@ -1754,17 +1092,11 @@ FROM
     categories
 WHERE
     cat_id = " . mysql_real_escape_string($_GET['id'])
+```
+
 The query above selects all the categories from the database.
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
+```
 SELECT 
     topic_id,
     topic_subject,
@@ -1774,94 +1106,12 @@ FROM
     topics
 WHERE
     topic_cat = " . mysql_real_escape_string($_GET['id'])
+```
+
 The query above is executed in the while loop in which we echo the categories. By doing it this way, we'll see all the categories and the latest topic for each of them.
 The complete code of category.php will be the following:
 
-01
-02
-03
-04
-05
-06
-07
-08
-09
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82
-83
-84
-85
+```php
 <?php
 //create_cat.php
 include 'connect.php';
@@ -1947,19 +1197,15 @@ else
  
 include 'footer.php';
 ?>
+```
+
 And here is the final result of our categories page:
 
+## Step 11: Topic View
 
-Step 11: Topic View
 The SQL queries in this step are complicated ones. The PHP-part is all stuff that you've seen before. Let's take a look at the queries. The first one retrieves basic information about the topic:
 
-1
-2
-3
-4
-5
-6
-7
+```
 SELECT
     topic_id,
     topic_subject
@@ -1967,23 +1213,11 @@ FROM
     topics
 WHERE
     topics.topic_id = " . mysql_real_escape_string($_GET['id'])
+```
+
 This information is displayed in the head of the table we will use to display all the data. Next, we retrieve all the posts in this topic from the database. The following query gives us exactly what we need:
 
-01
-02
-03
-04
-05
-06
-07
-08
-09
-10
-11
-12
-13
-14
-15
+```
 SELECT
     posts.post_topic,
     posts.post_content,
@@ -1999,70 +1233,26 @@ ON
     posts.post_by = users.user_id
 WHERE
     posts.post_topic = " . mysql_real_escape_string($_GET['id'])
+```
+
 This time, we want information from the users and the posts table - so we use the LEFT JOIN again. The condition is: the user id should be the same as the post_by field. This way we can show the username of the user who replied at each post.
 
 The final topic view looks like this:
 
+## Step 12: Adding a Reply
 
-Step 12: Adding a Reply
 Let's create the last missing part of this forum, the possibility to add a reply. We'll start by creating a form:
 
-1
-2
-3
-4
+```html
 <form method="post" action="reply.php?id=5">
     <textarea name="reply-content"></textarea>
     <input type="submit" value="Submit reply" />
 </form>
+```
 
 The complete reply.php code looks like this.
 
-01
-02
-03
-04
-05
-06
-07
-08
-09
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
+```php
 <?php
 //create_cat.php
 include 'connect.php';
@@ -2108,8 +1298,10 @@ else
  
 include 'footer.php';
 ?>
+```
+
 The comments in the code pretty much detail what's happening. We're checking for a real user and then inserting the post into the database.
 
+## Finishing Up
 
-Finishing Up
 Now that you've finished this tutorial, you should have a much better understanding of what it takes to build a forum. I hope my explanations were clear enough! Thanks again for reading.
