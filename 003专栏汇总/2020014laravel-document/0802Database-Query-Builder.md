@@ -2,6 +2,8 @@
 
 [Database: Query Builder - Laravel - The PHP Framework For Web Artisans](https://laravel.com/docs/5.8/queries)
 
+[查询构造器 |《Laravel 5.7 中文文档 5.7》| Laravel China 社区](https://learnku.com/docs/laravel/5.7/queries/2289)
+
 ## 2.1 Introduction
 
 Laravel's database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your application and works on all supported database systems.
@@ -151,7 +153,7 @@ $price = DB::table('orders')
 
 Instead of using the count method to determine if any records exist that match your query's constraints, you may use the exists and doesntExist methods:
 
-```
+```php
 return DB::table('orders')->where('finalized', 1)->exists();
 return DB::table('orders')->where('finalized', 1)->doesntExist();
 ```
@@ -258,6 +260,8 @@ $users = DB::table('users')
             ->select('users.*', 'contacts.phone', 'orders.price')
             ->get();
 ```
+
+1『跨表查询数据，戴强在数据流开发里的实现更简洁（通过 Model 间的交互），好好消化吸收。（2020-06-23）』
 
 ### 2.5.2 Left Join / Right Join Clause
 
