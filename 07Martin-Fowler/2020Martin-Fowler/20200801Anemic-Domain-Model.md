@@ -6,8 +6,6 @@ Martin Fowler
 
 [AnemicDomainModel](https://www.martinfowler.com/bliki/AnemicDomainModel.html)
 
-## Tags
-
 BAD THINGS
 
 DOMAIN DRIVEN DESIGN
