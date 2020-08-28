@@ -4,7 +4,9 @@
 
 Martin Fowler
 
-[AnemicDomainModel](https://www.martinfowler.com/bliki/AnemicDomainModel.html)
+[domain driven design](https://martinfowler.com/tags/domain%20driven%20design.html)
+
+[Anemic Domain Model](https://www.martinfowler.com/bliki/AnemicDomainModel.html)
 
 BAD THINGS
 
