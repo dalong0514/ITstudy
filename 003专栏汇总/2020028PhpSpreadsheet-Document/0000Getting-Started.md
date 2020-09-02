@@ -1,5 +1,7 @@
 # Getting started
 
+[Welcome to PhpSpreadsheet's documentation - PhpSpreadsheet Documentation](https://phpspreadsheet.readthedocs.io/en/latest/)
+
 ## 01. Software requirements
 
 PHP version 7.2 or newer to develop using PhpSpreadsheet. Other requirements, such as PHP extensions, are enforced by composer. See the require section of the composer.json file for details.
