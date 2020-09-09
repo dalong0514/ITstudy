@@ -44,7 +44,6 @@ php artisan make:test UserTest
 php artisan make:test UserTest --unit
 ```
 
-
 Once the test has been generated, you may define test methods as you normally would using PHPUnit. To run your tests, execute the phpunit or artisan test command from your terminal:
 
 ```php
