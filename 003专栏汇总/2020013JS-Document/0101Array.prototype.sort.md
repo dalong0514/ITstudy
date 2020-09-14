@@ -228,4 +228,3 @@ getCadata(response) {
   } else console.log(response);
 },
 ```
-
