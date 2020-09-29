@@ -6,39 +6,51 @@ The term 'Mock Objects' has become a popular one to describe special case object
 
 02 January 2007
 
-Photo of Martin Fowler
 Martin Fowler
 
-POPULAR
-
-TESTING
-
-TRANSLATIONS: French · Italian · Spanish · Portuguese · Korean
-CONTENTS
-Regular Tests
-Tests with Mock Objects
-Using EasyMock
-The Difference Between Mocks and Stubs
-Classical and Mockist Testing
-Choosing Between the Differences
-Driving TDD
-Fixture Setup
-Test Isolation
-Coupling Tests to Implementations
-Design Style
-So should I be a classicist or a mockist?
-Final Thoughts
 I first came across the term "mock object" a few years ago in the Extreme Programming (XP) community. Since then I've run into mock objects more and more. Partly this is because many of the leading developers of mock objects have been colleagues of mine at ThoughtWorks at various times. Partly it's because I see them more and more in the XP-influenced testing literature.
 
 But as often as not I see mock objects described poorly. In particular I see them often confused with stubs - a common helper to testing environments. I understand this confusion - I saw them as similar for a while too, but conversations with the mock developers have steadily allowed a little mock understanding to penetrate my tortoiseshell cranium.
 
 This difference is actually two separate differences. On the one hand there is a difference in how test results are verified: a distinction between state verification and behavior verification. On the other hand is a whole different philosophy to the way testing and design play together, which I term here as the classical and mockist styles of Test Driven Development.
 
+1『上面的关键信息来了，stub 和 mock 的 2 大区别。做一张任意卡片。』——已完成
+
+## 00. CONTENTS
+
 Regular Tests
+
+Tests with Mock Objects
+
+Using EasyMock
+
+The Difference Between Mocks and Stubs
+
+Classical and Mockist Testing
+
+Choosing Between the Differences
+
+Driving TDD
+
+Fixture Setup
+
+Test Isolation
+
+Coupling Tests to Implementations
+
+Design Style
+
+So should I be a classicist or a mockist?
+
+Final Thoughts
+
+## 01. Regular Tests
+
 I'll begin by illustrating the two styles with a simple example. (The example is in Java, but the principles make sense with any object-oriented language.) We want to take an order object and fill it from a warehouse object. The order is very simple, with only one product and a quantity. The warehouse holds inventories of different products. When we ask an order to fill itself from a warehouse there are two possible responses. If there's enough product in the warehouse to fill the order, the order becomes filled and the warehouse's amount of the product is reduced by the appropriate amount. If there isn't enough product in the warehouse then the order isn't filled and nothing happens in the warehouse.
 
 These two behaviors imply a couple of tests, these look like pretty conventional JUnit tests.
 
+```java
 public class OrderStateTester extends TestCase {
   private static String TALISKER = "Talisker";
   private static String HIGHLAND_PARK = "Highland Park";
@@ -60,6 +72,8 @@ public class OrderStateTester extends TestCase {
     assertFalse(order.isFilled());
     assertEquals(50, warehouse.getInventory(TALISKER));
   }
+```
+
 xUnit tests follow a typical four phase sequence: setup, exercise, verify, teardown. In this case the setup phase is done partly in the setUp method (setting up the warehouse) and partly in the test method (setting up the order). The call to order.fill is the exercise phase. This is where the object is prodded to do the thing that we want to test. The assert statements are then the verification stage, checking to see if the exercised method carried out its task correctly. In this case there's no explicit teardown phase, the garbage collector does this for us implicitly.
 
 During setup there are two kinds of object that we are putting together. Order is the class that we are testing, but for Order.fill to work we also need an instance of Warehouse. In this situation Order is the object that we are focused on testing. Testing-oriented people like to use terms like object-under-test or system-under-test to name such a thing. Either term is an ugly mouthful to say, but as it's a widely accepted term I'll hold my nose and use it. Following Meszaros I'll use System Under Test, or rather the abbreviation SUT.
@@ -68,9 +82,11 @@ So for this test I need the SUT (Order) and one collaborator (warehouse). I need
 
 This style of testing uses state verification: which means that we determine whether the exercised method worked correctly by examining the state of the SUT and its collaborators after the method was exercised. As we'll see, mock objects enable a different approach to verification.
 
-Tests with Mock Objects
+## 02. Tests with Mock Objects
+
 Now I'll take the same behavior and use mock objects. For this code I'm using the jMock library for defining mocks. jMock is a java mock object library. There are other mock object libraries out there, but this one is an up to date library written by the originators of the technique, so it makes a good one to start with.
 
+```java
 public class OrderInteractionTester extends MockObjectTestCase {
   private static String TALISKER = "Talisker";
 
@@ -107,6 +123,8 @@ public class OrderInteractionTester extends MockObjectTestCase {
 
     assertFalse(order.isFilled());
   }
+```
+
 Concentrate on testFillingRemovesInventoryIfInStock first, as I've taken a couple of shortcuts with the later test.
 
 To begin with, the setup phase is very different. For a start it's divided into two parts: data and expectations. The data part sets up the objects we are interested in working with, in that sense it's similar to the traditional setup. The difference is in the objects that are created. The SUT is the same - an order. However the collaborator isn't a warehouse object, instead it's a mock warehouse - technically an instance of the class Mock.
@@ -121,9 +139,11 @@ In the second test I do a couple of different things. Firstly I create the mock 
 
 The second different thing in the second test case is that I've relaxed the constraints on the expectation by using withAnyArguments. The reason for this is that the first test checks that the number is passed to the warehouse, so the second test need not repeat that element of the test. If the logic of the order needs to be changed later, then only one test will fail, easing the effort of migrating the tests. As it turns out I could have left withAnyArguments out entirely, as that is the default.
 
-Using EasyMock
+## 03. Using EasyMock
+
 There are a number of mock object libraries out there. One that I come across a fair bit is EasyMock, both in its java and .NET versions. EasyMock also enable behavior verification, but has a couple of differences in style with jMock which are worth discussing. Here are the familiar tests again:
 
+```java
 public class OrderEasyTester extends TestCase {
   private static String TALISKER = "Talisker";
   
@@ -166,13 +186,16 @@ public class OrderEasyTester extends TestCase {
     warehouseControl.verify();
   }
 }
+```
+
 EasyMock uses a record/replay metaphor for setting expectations. For each object you wish to mock you create a control and mock object. The mock satisfies the interface of the secondary object, the control gives you additional features. To indicate an expectation you call the method, with the arguments you expect on the mock. You follow this with a call to the control if you want a return value. Once you've finished setting expectations you call replay on the control - at which point the mock finishes the recording and is ready to respond to the primary object. Once done you call verify on the control.
 
 It seems that while people are often fazed at first sight by the record/replay metaphor, they quickly get used to it. It has an advantage over the constraints of jMock in that you are making actual method calls to the mock rather than specifying method names in strings. This means you get to use code-completion in your IDE and any refactoring of method names will automatically update the tests. The downside is that you can't have the looser constraints.
 
 The developers of jMock are working on a new version which will use other techniques to allow you use actual method calls.
 
-The Difference Between Mocks and Stubs
+## 04. The Difference Between Mocks and Stubs
+
 When they were first introduced, many people easily confused mock objects with the common testing notion of using stubs. Since then it seems people have better understood the differences (and I hope the earlier version of this paper helped). However to fully understand the way people use mocks it is important to understand mocks and other kinds of test doubles. ("doubles"? Don't worry if this is a new term to you, wait a few paragraphs and all will be clear.)
 
 When you're doing testing like this, you're focusing on one element of the software at a time -hence the common term unit testing. The problem is that to make a single unit work, you often need other units - hence the need for some kind of warehouse in our example.
@@ -194,6 +217,7 @@ To explore test doubles a bit more, we need to extend our example. Many people o
 
 Here we can begin to see the difference between mocks and stubs. If we were writing a test for this mailing behavior, we might write a simple stub like this.
 
+```java
 public interface MailService {
   public void send (Message msg);
 }
@@ -217,10 +241,13 @@ class OrderStateTester...
     order.fill(warehouse);
     assertEquals(1, mailer.numberSent());
   }
+```
+
 Of course this is a very simple test - only that a message has been sent. We've not tested it was sent to the right person, or with the right contents, but it will do to illustrate the point.
 
 Using mocks this test would look quite different.
 
+```java
 class OrderInteractionTester...
 
   public void testOrderSendsMailIfUnfilled() {
@@ -237,6 +264,7 @@ class OrderInteractionTester...
     order.fill((Warehouse) warehouse.proxy());
   }
 }
+```
 
 In both cases I'm using a test double instead of the real mail service. There is a difference in that the stub uses state verification while the mock uses behavior verification.
 
@@ -244,7 +272,8 @@ In order to use state verification on the stub, I need to make some extra method
 
 Mock objects always use behavior verification, a stub can go either way. Meszaros refers to stubs that use behavior verification as a Test Spy. The difference is in how exactly the double runs and verifies and I'll leave that for you to explore on your own.
 
-Classical and Mockist Testing
+## 05. Classical and Mockist Testing
+
 Now I'm at the point where I can explore the second dichotomy: that between classical and mockist TDD. The big issue here is when to use a mock (or other double).
 
 The classical TDD style is to use real objects if possible and a double if it's awkward to use the real thing. So a classical TDDer would use a real warehouse and a double for the mail service. The kind of double doesn't really matter that much.
@@ -257,7 +286,8 @@ An important offshoot of the mockist style is that of Behavior Driven Developmen
 
 You sometimes see "Detroit" style used for "classical" and "London" for "mockist". This alludes to the fact that XP was originally developed with the C3 project in Detroit and the mockist style was developed by early XP adopters in London. I should also mention that many mockist TDDers dislike that term, and indeed any terminology that implies a different style between classical and mockist testing. They don't consider that there is a useful distinction to be made between the two styles.
 
-Choosing Between the Differences
+## 06. Choosing Between the Differences
+
 In this article I've explained a pair of differences: state or behavior verification / classic or mockist TDD. What are the arguments to bear in mind when making the choices between them? I'll begin with the state versus behavior verification choice.
 
 The first thing to consider is the context. Are we thinking about an easy collaboration, such as order and warehouse, or an awkward one, such as order and mail service?
@@ -272,7 +302,8 @@ But before I do, let me throw in an edge case. Occasionally you do run into thin
 
 As we delve into the classic/mockist choice, there's lots of factors to consider, so I've broken them out into rough groups.
 
-Driving TDD
+## 07. Driving TDD
+
 Mock objects came out of the XP community, and one of the principal features of XP is its emphasis on Test Driven Development - where a system design is evolved through iteration driven by writing tests.
 
 Thus it's no surprise that the mockists particularly talk about the effect of mockist testing on a design. In particular they advocate a style called need-driven development. With this style you begin developing a user story by writing your first test for the outside of your system, making some interface object your SUT. By thinking through the expectations upon the collaborators, you explore the interaction between the SUT and its neighbors - effectively designing the outbound interface of the SUT.
@@ -285,7 +316,8 @@ But classic TDD can do other things too. A common style is middle-out. In this s
 
 I should stress that both mockists and classicists do this one story at a time. There is a school of thought that builds applications layer by layer, not starting one layer until another is complete. Both classicists and mockists tend to have an agile background and prefer fine-grained iterations. As a result they work feature by feature rather than layer by layer.
 
-Fixture Setup
+## 08. Fixture Setup
+
 With classic TDD, you have to create not just the SUT but also all the collaborators that the SUT needs in response to the test. While the example only had a couple of objects, real tests often involve a large amount of secondary objects. Usually these objects are created and torn down with each run of the tests.
 
 Mockist tests, however, only need to create the SUT and mocks for its immediate neighbors. This can avoid some of the involved work in building up complex fixtures (At least in theory. I've come across tales of pretty complex mock setups, but that may be due to not using the tools well.)
@@ -294,7 +326,8 @@ In practice, classic testers tend to reuse complex fixtures as much as possible.
 
 As a result I've heard both styles accuse the other of being too much work. Mockists say that creating the fixtures is a lot of effort, but classicists say that this is reused but you have to create mocks with every test.
 
-Test Isolation
+## 09. Test Isolation
+
 If you introduce a bug to a system with mockist testing, it will usually cause only tests whose SUT contains the bug to fail. With the classic approach, however, any tests of client objects can also fail, which leads to failures where the buggy object is used as a collaborator in another object's test. As a result a failure in a highly used object causes a ripple of failing tests all across the system.
 
 Mockist testers consider this to be a major issue; it results in a lot of debugging in order to find the root of the error and fix it. However classicists don't express this as a source of problems. Usually the culprit is relatively easy to spot by looking at which tests fail and the developers can tell that other failures are derived from the root fault. Furthermore if you are testing regularly (as you should) then you know the breakage was caused by what you last edited, so it's not difficult to find the fault.
@@ -307,7 +340,8 @@ In essence classic xunit tests are not just unit tests, but also mini-integratio
 
 It's at this point that I should stress that whichever style of test you use, you must combine it with coarser grained acceptance tests that operate across the system as a whole. I've often come across projects which were late in using acceptance tests and regretted it.
 
-Coupling Tests to Implementations
+## 10. Coupling Tests to Implementations
+
 When you write a mockist test, you are testing the outbound calls of the SUT to ensure it talks properly to its suppliers. A classic test only cares about the final state - not how that state was derived. Mockist tests are thus more coupled to the implementation of a method. Changing the nature of calls to collaborators usually cause a mockist test to break.
 
 This coupling leads to a couple of concerns. The most important one is the effect on Test Driven Development. With mockist testing, writing the test makes you think about the implementation of the behavior - indeed mockist testers see this as an advantage. Classicists, however, think that it's important to only think about what happens from the external interface and to leave all consideration of implementation until after you're done writing the test.
@@ -316,7 +350,8 @@ Coupling to the implementation also interferes with refactoring, since implement
 
 This can be worsened by the nature of mock toolkits. Often mock tools specify very specific method calls and parameter matches, even when they aren't relevant to this particular test. One of the aims of the jMock toolkit is to be more flexible in its specification of the expectations to allow expectations to be looser in areas where it doesn't matter, at the cost of using strings that can make refactoring more tricky.
 
-Design Style
+## 11. Design Style
+
 One of the most fascinating aspects of these testing styles to me is how they affect design decisions. As I've talked with both types of tester I've become aware of a few differences between the designs that the styles encourage, but I'm sure I'm barely scratching the surface.
 
 I've already mentioned a difference in tackling layers. Mockist testing supports an outside-in approach while developers who prefer a domain model out style tend to prefer classic testing.
@@ -333,7 +368,8 @@ Mockists favor role interfaces and assert that using this style of testing encou
 
 It's important to remember that this difference in design style is a key motivator for most mockists. TDD's origins were a desire to get strong automatic regression testing that supported evolutionary design. Along the way its practitioners discovered that writing tests first made a significant improvement to the design process. Mockists have a strong idea of what kind of design is a good design and have developed mock libraries primarily to help people develop this design style.
 
-So should I be a classicist or a mockist?
+## 12. So should I be a classicist or a mockist?
+
 I find this a difficult question to answer with confidence. Personally I've always been a old fashioned classic TDDer and thus far I don't see any reason to change. I don't see any compelling benefits for mockist TDD, and am concerned about the consequences of coupling tests to implementation.
 
 This has particularly struck me when I've observed a mockist programmer. I really like the fact that while writing the test you focus on the result of the behavior, not how it's done. A mockist is constantly thinking about how the SUT is going to be implemented in order to write the expectations. This feels really unnatural to me.
@@ -342,12 +378,14 @@ I also suffer from the disadvantage of not trying mockist TDD on anything more t
 
 So if mockist testing sounds appealing to you, I'd suggest giving it a try. It's particularly worth trying if you are having problems in some of the areas that mockist TDD is intended to improve. I see two main areas here. One is if you're spending a lot of time debugging when tests fail because they aren't breaking cleanly and telling you where the problem is. (You could also improve this by using classic TDD on finer-grained clusters.) The second area is if your objects don't contain enough behavior, mockist testing may encourage the development team to create more behavior rich objects.
 
-Final Thoughts
+## 13. Final Thoughts
+
 As interest in unit testing, the xunit frameworks and Test Driven Development has grown, more and more people are running into mock objects. A lot of the time people learn a bit about the mock object frameworks, without fully understanding the mockist/classical divide that underpins them. Whichever side of that divide you lean on, I think it's useful to understand this difference in views. While you don't have to be a mockist to find the mock frameworks handy, it is useful to understand the thinking that guides many of the design decisions of the software.
 
 The purpose of this article was, and is, to point out these differences and to lay out the trade-offs between them. There is more to mockist thinking than I've had time to go into, particularly its consequences on design style. I hope that in the next few years we'll see more written on this and that will deepen our understanding of the fascinating consequences of writing tests before the code.
 
-Further Reading
+## 14. Further Reading
+
 For a thorough overview of xunit testing practice, keep an eye out for Gerard Meszaros's forthcoming book (disclaimer: it's in my series). He also maintains a web site with the patterns from the book.
 
 To find out more about TDD, the first place to look is Kent's book.
@@ -358,6 +396,8 @@ You can also find out more about these techniques by looking at the tool website
 
 XP2000 saw the original mock objects paper, but it's rather outdated now.
 
-Significant Revisions
+## Significant Revisions
 
-© Martin Fowler | Privacy Policy | Disclosures
+02 January 2007: Split the original distinction of state-based versus interaction-based testing into two: state versus behavior verification and classic versus mockist TDD. I also made various vocabulary changes to bring it into line with Gerard Meszaros's book of xunit patterns.
+
+08 July 2004: First published

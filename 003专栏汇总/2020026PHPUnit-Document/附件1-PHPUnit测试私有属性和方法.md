@@ -63,7 +63,7 @@ $method->invokeArgs(new Sample(), array(1, 2));
 //array 中依次写入要传的参数。执行结果返回 3
 ```
 
-【注意】：利用反射的方法测试私有方法虽好，但 setAccessible 函数是 php5.3.2 版本以后才支持的（>=5.3.2）。
+注意：利用反射的方法测试私有方法虽好，但 setAccessible 函数是 php5.3.2 版本以后才支持的（>=5.3.2）。
 
 ## 02. 私有属性的 get/set
 
@@ -178,4 +178,5 @@ In the test above we directly test testDoSomethingPrivate(). When it fails we im
 I agree with Dave Thomas and Andy Hunt, who write in their book "Pragmatic Unit Testing":
 
 "In general, you don't want to break any encapsulation for the sake of testing (or as Mom used to say, "don't expose your privates!"). Most of the time, you should be able to test a class by exercising its public methods. If there is significant functionality that is hidden behind private or protected access, that might be a warning sign that there's another class in there struggling to get out."
+
 So: Just because the testing of protected and private attributes and methods is possible does not mean that this is a "good thing".

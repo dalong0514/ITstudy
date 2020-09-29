@@ -18,7 +18,9 @@ console.log(array1);
 
 ## 01. 语法
 
+```js
 arr.sort([compareFunction])
+```
 
 ### 1.1 参数
 

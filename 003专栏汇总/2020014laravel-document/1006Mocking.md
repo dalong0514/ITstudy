@@ -177,7 +177,7 @@ public function testOrderProcess()
 }
 ```
 
-## 6.5 Scoped Event Fakes
+### Scoped Event Fakes
 
 If you only want to fake event listeners for a portion of your test, you may use the fakeFor method:
 
@@ -214,13 +214,13 @@ class ExampleTest extends TestCase
 }
 ```
 
-## 6.6 HTTP Fake
+## 6.5 HTTP Fake
 
 The Http facade's fake method allows you to instruct the HTTP client to return stubbed / dummy responses when requests are made. For more information on faking outgoing HTTP requests, please consult the HTTP Client testing documentation.
 
 [HTTP Client - Laravel - The PHP Framework For Web Artisans](https://laravel.com/docs/7.x/http-client#testing)
 
-## 6.7 Mail Fake
+## 6.6 Mail Fake
 
 You may use the Mail facade's fake method to prevent mail from being sent. You may then assert that mailables were sent to users and even inspect the data they received. When using fakes, assertions are made after the code under test is executed:
 
@@ -274,7 +274,7 @@ Mail::assertQueued(...);
 Mail::assertNotQueued(...);
 ```
 
-## 6.8 Notification Fake
+## 6.7 Notification Fake
 
 You may use the Notification facade's fake method to prevent notifications from being sent. You may then assert that notifications were sent to users and even inspect the data they received. When using fakes, assertions are made after the code under test is executed:
 
@@ -336,7 +336,7 @@ class ExampleTest extends TestCase
 }
 ```
 
-## 6.9 Queue Fake
+## 6.8 Queue Fake
 
 As an alternative to mocking, you may use the Queue facade's fake method to prevent jobs from being queued. You may then assert that jobs were pushed to the queue and even inspect the data they received. When using fakes, assertions are made after the code under test is executed:
 
@@ -396,7 +396,7 @@ class ExampleTest extends TestCase
 }
 ```
 
-## 6.10 Storage Fake
+## 6.9 Storage Fake
 
 The Storage facade's fake method allows you to easily generate a fake disk that, combined with the file generation utilities of the UploadedFile class, greatly simplifies the testing of file uploads. For example:
 
@@ -435,7 +435,7 @@ class ExampleTest extends TestCase
 
 By default, the fake method will delete all files in its temporary directory. If you would like to keep these files, you may use the "persistentFake" method instead.
 
-## 6.11 Facades
+## 6.10 Facades
 
 Unlike traditional static method calls, facades may be mocked. This provides a great advantage over traditional static methods and grants you the same testability you would have if you were using dependency injection. When testing, you may often want to mock a call to a Laravel facade in one of your controllers. For example, consider the following controller action:
 

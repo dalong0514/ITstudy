@@ -2,7 +2,7 @@
 
 [Getting Started · Jest](https://jestjs.io/docs/en/getting-started)
 
-## 01. Getting Started
+## 1.1 Getting Started
 
 Install Jest using yarn:
 
@@ -55,7 +55,7 @@ PASS  ./sum.test.js
 
 You just successfully wrote your first test using Jest! This test used expect and toBe to test that two values were exactly identical. To learn about the other things that Jest can test, see Using Matchers.
 
-### 1.1 Running from command line
+## 1.2 Running from command line
 
 You can run Jest directly from the CLI (if it's globally available in your PATH, e.g. by yarn global add jest or npm install jest --global) with a variety of useful options. Here's how to run Jest on files matching my-test, using config.json as a configuration file and display a native OS notification after the run:
 
@@ -65,7 +65,7 @@ jest my-test --notify --config=config.json
 
 If you'd like to learn more about running jest through the command line, take a look at the Jest CLI Options page.
 
-### 1.2 Additional Configuration
+## 1.3 Additional Configuration
 
 Generate a basic configuration file. Based on your project, Jest will ask you a few questions and will create a basic configuration file with a short description for each option:
 
