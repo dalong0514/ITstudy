@@ -30,7 +30,7 @@
 
 今天分享的内容为系统底层知识中的 Linux 系统、内存和网络等方面的相关知识及推荐的学习资料。
 
-## 01. Linux 系统相关
+## 9.1 Linux 系统相关
 
 学习 Linux 操作系统的原理是通向系统工程师的必经之路。我觉得，Unix/Linux 操作系统里的东西并不难学。你千万不要一下子扎到源代码里去，那样没用——你还是要在上层先通过读一些不错的文档来学习。下面我罗列了一些很不错的站点，其中有很多内容供你去钻研和探索。
 
@@ -56,57 +56,59 @@
 
 10、Optimizing web servers for high throughput and low latency [Optimizing web servers for high throughput and low latency | Dropbox Tech Blog](https://blogs.dropbox.com/tech/2017/09/optimizing-web-servers-for-high-throughput-and-low-latency/)，这是一篇非常底层的系统调优的文章，来自 DropBox，从中你可以学到很多底层的性能调优的经验和知识。
 
-## 02. 内存相关
+## 9.2 内存相关
 
 计算机内存管理是每一个底层程序员需要了解的非常重要的事儿。当然，这里我们重点还是 Linux 操作系统相关的内存管理上的知识。
 
 1、首先，LWN.net 上有一系列的 「What every programmer should know about memory」 文章你需要读一下。当然，你可以直接访问一个完整的 [PDF 文档](http://futuretech.blinkenlights.nl/misc/cpumemory.pdf)。下面是这个系列文章的网页版列表。读完这个列表的内容，你基本上就对内存有了一个比较好的知识体系了。
 
-- Part 1: [Introduction](https://lwn.net/Articles/250967/)，中译版为[「每个程序员都应该了解的内存知识」【第一部分】 - OSCHINA](https://www.oschina.net/translate/what-every-programmer-should-know-about-memory-part1)」
+Part 1: [Introduction](https://lwn.net/Articles/250967/)，中译版为[「每个程序员都应该了解的内存知识」【第一部分】 - OSCHINA](https://www.oschina.net/translate/what-every-programmer-should-know-about-memory-part1)」
 
-- Part 2: CPU caches [Memory part 2: CPU caches [LWN.net]](https://lwn.net/Articles/252125/)
+Part 2: CPU caches [Memory part 2: CPU caches [LWN.net]](https://lwn.net/Articles/252125/)
 
-- Part 3 (Virtual memory) [Memory part 3: Virtual Memory [LWN.net]](https://lwn.net/Articles/253361/)
+Part 3 (Virtual memory) [Memory part 3: Virtual Memory [LWN.net]](https://lwn.net/Articles/253361/)
 
-- Part 4 (NUMA systems) [Memory part 4: NUMA support [LWN.net]](https://lwn.net/Articles/254445/)
+Part 4 (NUMA systems) [Memory part 4: NUMA support [LWN.net]](https://lwn.net/Articles/254445/)
 
-- Part 5 (What programmers can do - cache optimization) [Memory part 5: What programmers can do [LWN.net]](https://lwn.net/Articles/255364/)
+Part 5 (What programmers can do - cache optimization) [Memory part 5: What programmers can do [LWN.net]](https://lwn.net/Articles/255364/)
 
-- Part 6 (What programmers can do - multi-threaded optimizations) [Memory part 6: More things programmers can do [LWN.net]](https://lwn.net/Articles/256433/)
+Part 6 (What programmers can do - multi-threaded optimizations) [Memory part 6: More things programmers can do [LWN.net]](https://lwn.net/Articles/256433/)
 
-- Part 7 (Memory performance tools) [Memory part 7: Memory performance tools [LWN.net]](https://lwn.net/Articles/257209/)
+Part 7 (Memory performance tools) [Memory part 7: Memory performance tools [LWN.net]](https://lwn.net/Articles/257209/)
 
-- Part 8 (Future technologies) [Memory part 8: Future technologies [LWN.net]](https://lwn.net/Articles/258154/)
+Part 8 (Future technologies) [Memory part 8: Future technologies [LWN.net]](https://lwn.net/Articles/258154/)
 
-- Part 9 (Appendices and bibliography) [Memory part 9: Appendices and bibliography [LWN.net]](https://lwn.net/Articles/258188/)
+Part 9 (Appendices and bibliography) [Memory part 9: Appendices and bibliography [LWN.net]](https://lwn.net/Articles/258188/)
 
 2、然后是几篇和内存相关的论文。下面这三篇论文是我个人觉得能对你非常有帮助的文章，尤其是你要做一些程序的性能优化方面。
 
-- Memory Barriers: a Hardware View for Software Hackers。内存的读写屏障是线程并发访问共享的内存数据时，从程序本身、编译器到 CPU 都必须遵循的一个规范。有了这个规范，才能保证访问共享的内存数据时，一个线程对该数据的更新能被另一个线程以正确的顺序感知到。在 SMP（对称多处理）这种类型的多处理器系统（包括多核系统）上，这种读写屏障还包含了复杂的缓存一致性策略。这篇文章做了详细解释。
+Memory Barriers: a Hardware View for Software Hackers。内存的读写屏障是线程并发访问共享的内存数据时，从程序本身、编译器到 CPU 都必须遵循的一个规范。有了这个规范，才能保证访问共享的内存数据时，一个线程对该数据的更新能被另一个线程以正确的顺序感知到。在 SMP（对称多处理）这种类型的多处理器系统（包括多核系统）上，这种读写屏障还包含了复杂的缓存一致性策略。这篇文章做了详细解释。
 
-- A Tutorial Introduction to the ARM and POWER Relaxed Memory Models，对 ARM 和 POWER 的宽松内存模型的一个教程式的简介。本篇文章的焦点是 ARM 和 POWER 体系结构下多处理器系统内存并发访问一致性的设计思路和使用方法。与支持较强的 TSO 模型的 x86 体系结构不同，ARM 和 POWER 这两种体系结构出于对功耗和性能的考虑，使用了一种更为宽松的内存模型。本文详细讨论了 ARM 和 POWER 的模型。
+A Tutorial Introduction to the ARM and POWER Relaxed Memory Models，对 ARM 和 POWER 的宽松内存模型的一个教程式的简介。本篇文章的焦点是 ARM 和 POWER 体系结构下多处理器系统内存并发访问一致性的设计思路和使用方法。与支持较强的 TSO 模型的 x86 体系结构不同，ARM 和 POWER 这两种体系结构出于对功耗和性能的考虑，使用了一种更为宽松的内存模型。本文详细讨论了 ARM 和 POWER 的模型。
 
-- x86-TSO: A Rigorous and Usable Programmer’s Model for x86 Multiprocessors，介绍 x86 的多处理器内存并发访问的一致性模型 TSO。
+x86-TSO: A Rigorous and Usable Programmer’s Model for x86 Multiprocessors，介绍 x86 的多处理器内存并发访问的一致性模型 TSO。
+
+2『已下载论文「2020006Memory Barriers: a Hardware View for Software Hackers」、「2020007A Tutorial Introduction to the ARM and POWER Relaxed Memory Models」和「2020008x86-TSO: a rigorous and usable programmer's model for x86 multiprocessors」，并存储入 Zetro 的「2020Paper」。』
 
 3、接下来是开发者最关心的内存管理方面的 lib 库。通常来说，我们有三种内存分配管理模块。就目前而言，BSD 的 jemalloc 有很大的影响力。后面我们可以看到不同公司的实践性文章。
 
-- ptmalloc [Wolfram Gloger's malloc homepage](http://www.malloc.de/en/) 是 glibc 的内存分配管理。
+ptmalloc [Wolfram Gloger's malloc homepage](http://www.malloc.de/en/) 是 glibc 的内存分配管理。
 
-- tcmalloc [gperftools/gperftools: Main gperftools repository](https://github.com/gperftools/gperftools) 是 Google 的内存分配管理模块，全称是 Thread-Caching malloc，基本上来说比 glibc 的 ptmalloc 快两倍以上。
+tcmalloc [gperftools/gperftools: Main gperftools repository](https://github.com/gperftools/gperftools) 是 Google 的内存分配管理模块，全称是 Thread-Caching malloc，基本上来说比 glibc 的 ptmalloc 快两倍以上。
 
-- jemalloc [jemalloc](http://jemalloc.net/) 是 BSD 提供的内存分配管理。其论文为 [A Scalable Concurrent malloc(3) Implementation for FreeBSD](https://people.freebsd.org/~jasone/jemalloc/bsdcan2006/jemalloc.pdf)，这是一个可以并行处理的内存分配管理器。
+jemalloc [jemalloc](http://jemalloc.net/) 是 BSD 提供的内存分配管理。其论文为 [A Scalable Concurrent malloc(3) Implementation for FreeBSD](https://people.freebsd.org/~jasone/jemalloc/bsdcan2006/jemalloc.pdf)，这是一个可以并行处理的内存分配管理器。
 
 4、关于 C 的这些内存分配器，你可以参看 Wikipedia 的 「C Dynamic Memory Allocation」这个词条。
 
 5、下面是几篇不错的文章，让你感觉一下上面那三种内存分配器的一些比较和工程实践。
 
-- [ptmalloc,tcmalloc和jemalloc内存分配策略研究|I'm OWenT](https://owent.net/2013/867.html)
+[ptmalloc,tcmalloc和jemalloc内存分配策略研究|I'm OWenT](https://owent.net/2013/867.html)
 
-- [内存优化总结:ptmalloc、tcmalloc和jemalloc | bhpike65](http://www.cnhalo.net/2016/06/13/memory-optimize/)
+[内存优化总结:ptmalloc、tcmalloc和jemalloc | bhpike65](http://www.cnhalo.net/2016/06/13/memory-optimize/)
 
-- Scalable memory allocation using jemalloc
+Scalable memory allocation using jemalloc
 
-- [Decreasing RAM Usage by 40% Using jemalloc with Python & Celery - The Zapier Engineering Blog | Zapier](https://zapier.com/engineering/celery-python-jemalloc/)
+[Decreasing RAM Usage by 40% Using jemalloc with Python & Celery - The Zapier Engineering Blog | Zapier](https://zapier.com/engineering/celery-python-jemalloc/)
 
 ## 03. 计算机网络
 

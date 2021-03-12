@@ -309,7 +309,7 @@ Array
 
 有很多操作数组的函数，参见数组函数一节。（[PHP: 数组 函数 - Manual](https://www.php.net/manual/zh/ref.array.php)）
 
-Note：unset() 函数允许删除数组中的某个键。但要注意数组将不会重建索引。如果需要删除后重建索引，可以用 array\_values() 函数。
+Note：unset() 函数允许删除数组中的某个键。但要注意数组将不会重建索引。如果需要删除后重建索引，可以用 `array_values()` 函数。
 
 ```php
 <?php
