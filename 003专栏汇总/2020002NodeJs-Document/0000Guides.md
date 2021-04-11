@@ -4,23 +4,21 @@
 
 Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
 
-## Guides
-
-### General
+## 01. General
 
 Getting Started Guide
 
-Debugging - Getting Started
+Debugging — Getting Started
 
 Easy profiling for Node.js Applications
 
-Diagnostics - Flame Graphs
+Diagnostics — Flame Graphs
 
 Dockerizing a Node.js web app
 
 Migrating to safe Buffer constructors
 
-### Node.js core concepts
+## 02. Node.js core concepts
 
 Introduction to Node.js
 
@@ -32,7 +30,7 @@ Don't Block the Event Loop (or the Worker Pool)
 
 Timers in Node.js
 
-### Module-related guides
+## 03. Module-related guides
 
 Anatomy of an HTTP Transaction
 
@@ -46,6 +44,6 @@ How to publish N-API package
 
 ABI Stability
 
-### Known issues
+## 04. Known issues
 
 Native dependencies on macOS Catalina (v10.15)

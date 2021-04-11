@@ -2,11 +2,116 @@
 
 [Dynamic Block Functions | Lee Mac Programming](http://www.lee-mac.com/dynamicblockfunctions.html)
 
-## Introduction
+1-2『
+
+这里的函数非常有用，今天看到 HGCAD 的插件，通过动态块实现块的参数化，重大突破。这里的函数帮我实现了直接将参数传入动态块。（2021-03-25）
+
+```c
+; 2021-03-25
+(defun c:foo ()
+  (InsertDynamicBlock)
+  ;(GetDynamicBlockPropertyValueUtils (GetVlaObjectBySelectUtils))
+)
+
+; 2021-03-25
+(defun InsertDynamicBlock (/ insPt) 
+  (setq insPt (getpoint "\n选取水平管道插入点："))
+  (InsertTestDynamicBlock insPt "HGCAD动态块#管法兰.PL.PN16")
+)
+
+; 2021-03-25
+(defun InsertTestDynamicBlock (insPt blockName /) 
+  ;(VerifyGsLcBlockByName blockName)
+  (VerifyGsLcPipeLayer)
+  (InsertBlockByNoPropertyUtils insPt blockName "0DataFlow-GsLcPipe")
+  (SetDynamicBlockPropertyValueUtils 
+    (GetLastVlaObjectUtils) 
+    (list (cons "DN" "PN16 DN40") (cons "_H" "L=100"))
+  )
+)
+
+
+
+; 2021-03-25
+(defun GetVlaObjectBySelectUtils (/ )
+  (vlax-ename->vla-object 
+    (car (GetEntityNameListBySSUtils (ssget)))
+  ) 
+)
+
+; 2021-03-25
+(defun GetLastVlaObjectUtils (/ )
+  (vlax-ename->vla-object (entlast)) 
+)
+
+; 2021-03-25
+;; Get Dynamic Block Property Value
+;; Returns the value of a Dynamic Block property (if present)
+;; blk - [vla] VLA Dynamic Block Reference object
+;; prp - [str] Dynamic Block property name (case-insensitive)
+(defun GetOneDynamicBlockPropertyValueUtils (blk prp /)
+  (setq prp (strcase prp))
+  (vl-some '(lambda (x) (if (= prp (strcase (vla-get-propertyname x))) (vlax-get x 'value)))
+    (vlax-invoke blk 'getdynamicblockproperties)
+  )
+)
+
+; 2021-03-25
+;; Set Dynamic Block Property Value
+;; Modifies the value of a Dynamic Block property (if present)
+;; blk - [vla] VLA Dynamic Block Reference object
+;; prp - [str] Dynamic Block property name (case-insensitive)
+;; val - [any] New value for property
+;; Returns: [any] New value if successful, else nil
+(defun SetOneDynamicBlockPropertyValueUtils (blk prp val /)
+  (setq prp (strcase prp))
+  (vl-some
+    '(lambda ( x )
+      (if (= prp (strcase (vla-get-propertyname x)))
+        (progn
+          (vla-put-value x (vlax-make-variant val (vlax-variant-type (vla-get-value x))))
+          (cond (val) (t))
+        )
+      )
+    )
+    (vlax-invoke blk 'getdynamicblockproperties)
+  )
+)
+
+; 2021-03-25
+;; Get Dynamic Block Properties
+;; Returns an association list of Dynamic Block properties & values.
+;; blk - [vla] VLA Dynamic Block Reference object
+;; Returns: [lst] Association list of ((<prop> . <value>) ... )
+(defun GetDynamicBlockPropertyValueUtils (blk /)
+  (mapcar '(lambda (x) (cons (vla-get-propertyname x) (vlax-get x 'value)))
+    (vlax-invoke blk 'getdynamicblockproperties)
+  )
+)
+
+; 2021-03-25
+;; Set Dynamic Block Properties
+;; Modifies values of Dynamic Block properties using a supplied association list.
+;; blk - [vla] VLA Dynamic Block Reference object
+;; lst - [lst] Association list of ((<Property> . <Value>) ... )
+;; Returns: nil
+(defun SetDynamicBlockPropertyValueUtils (blk lst / itm)
+  (setq lst (mapcar '(lambda (x) (cons (strcase (car x)) (cdr x))) lst))
+  (foreach x (vlax-invoke blk 'getdynamicblockproperties)
+    (if (setq itm (assoc (strcase (vla-get-propertyname x)) lst))
+      (vla-put-value x (vlax-make-variant (cdr itm) (vlax-variant-type (vla-get-value x))))
+    )
+  )
+)
+```
+
+』
+
+## 00. Introduction
 
 Below I present a set of functions which may be used to manipulate Dynamic Block Properties using Visual LISP; information about the purpose, required arguments and values returned by each function is detailed in each respective code header.
 
-## Get Dynamic Block Property Value
+## 01. Get Dynamic Block Property Value
 
 ```c
 ;; Get Dynamic Block Property Value  -  Lee Mac
@@ -22,7 +127,7 @@ Below I present a set of functions which may be used to manipulate Dynamic Block
 )
 ```
 
-## Set Dynamic Block Property Value
+## 02. Set Dynamic Block Property Value
 
 ```c
 ;; Set Dynamic Block Property Value  -  Lee Mac
@@ -48,7 +153,7 @@ Below I present a set of functions which may be used to manipulate Dynamic Block
 )
 ```
 
-## Get Dynamic Block Properties
+## 03. Get Dynamic Block Properties
 
 ```c
 ;; Get Dynamic Block Properties  -  Lee Mac
@@ -63,7 +168,7 @@ Below I present a set of functions which may be used to manipulate Dynamic Block
 )
 ```
 
-## Set Dynamic Block Properties
+## 04. Set Dynamic Block Properties
 
 ```c
 ;; Set Dynamic Block Properties  -  Lee Mac
@@ -82,7 +187,7 @@ Below I present a set of functions which may be used to manipulate Dynamic Block
 )
 ```
 
-## Get Dynamic Block Property Allowed Values
+## 05. Get Dynamic Block Property Allowed Values
 
 ```c
 ;; Get Dynamic Block Property Allowed Values  -  Lee Mac
@@ -99,7 +204,7 @@ Below I present a set of functions which may be used to manipulate Dynamic Block
 )
 ```
 
-## Toggle Dynamic Block Flip State
+## 06. Toggle Dynamic Block Flip State
 
 ```c
 ;; Toggle Dynamic Block Flip State  -  Lee Mac
@@ -122,7 +227,7 @@ Below I present a set of functions which may be used to manipulate Dynamic Block
 )
 ```
 
-## Get Visibility Parameter Name
+## 07. Get Visibility Parameter Name
 
 ```c
 ;; Get Visibility Parameter Name  -  Lee Mac
@@ -165,7 +270,7 @@ Below I present a set of functions which may be used to manipulate Dynamic Block
 )
 ```
 
-## Get Dynamic Block Visibility State
+## 08. Get Dynamic Block Visibility State
 
 ```c
 ;; Get Dynamic Block Visibility State  -  Lee Mac
