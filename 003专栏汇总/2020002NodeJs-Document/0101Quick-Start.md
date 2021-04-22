@@ -1,4 +1,6 @@
-# 0101. Introduction to Node.js
+# 0101. Quick Start
+
+## 1.1 Introduction to Node.js
 
 [Introduction to Node.js](https://nodejs.dev/learn)
 
@@ -18,11 +20,11 @@ Node.js has a unique advantage because millions of frontend developers that writ
 
 In Node.js the new ECMAScript standards can be used without problems, as you don't have to wait for all your users to update their browsers - you are in charge of deciding which ECMAScript version to use by changing the Node.js version, and you can also enable specific experimental features by running Node.js with flags.
 
-## 1.1 A Vast Number of Libraries
+### 1.1.1 A Vast Number of Libraries
 
 npm with its simple structure helped the ecosystem of Node.js proliferate, and now the npm registry hosts over 1,000,000 open source packages you can freely use.
 
-## An Example Node.js Application
+### An Example Node.js Application
 
 The most common example Hello World of Node.js is a web server:
 
@@ -46,7 +48,6 @@ server.listen(port, hostname, () => {
 ```
 
 Now, run your web server using `node app.js`. Visit http://localhost:3000 and you will see a message saying "Hello World".
-
 
 This code first includes the Node.js http `module`.
 
@@ -80,7 +81,7 @@ and we close the response, adding the content as an argument to `end()`:
 res.end('Hello World\n')
 ```
 
-## 1.3 Node.js Frameworks and Tools
+### 1.1.2 Node.js Frameworks and Tools
 
 Node.js is a low-level platform. In order to make things easy and exciting for developers, thousands of libraries were built upon Node.js by the community. Many of those established over time as popular options. Here is a non-comprehensive list of the ones worth learning:
 
@@ -109,3 +110,29 @@ Next.js: A framework to render server-side rendered React applications.
 Nx: A toolkit for full-stack monorepo development using NestJS, Express, React, Angular, and more! Nx helps scale your development from one team building one application to many teams collaborating on multiple applications!
 
 Socket.io: A real-time communication engine to build network applications.
+
+## 1.2 A brief history of Node.js
+
+[A brief history of Node.js](https://nodejs.dev/learn/a-brief-history-of-nodejs)
+
+Believe it or not, Node.js is only eleven years old.
+
+In comparison, JavaScript is 24 years old and the Web is 31 years old.
+
+Eleven years isn't a very long time in tech, but Node.js seems to have been around forever.
+
+I've had the pleasure to work with Node.js since the early days when it was only 2 years old, and despite the limited information in the wild, you could already feel that it was going to be a huge thing.
+
+In this post, we draw the big picture of Node.js in its history, to put things in perspective.
+
+A little bit of history
+
+JavaScript is a programming language that was created at Netscape as a scripting tool to manipulate web pages inside their browser, Netscape Navigator.
+
+Part of the business model of Netscape was to sell Web Servers, which included an environment called Netscape LiveWire that could create dynamic pages using server-side JavaScript. Unfortunately, Netscape LiveWire wasn't very successful and server-side JavaScript wasn't popularized until recently, by the introduction of Node.js.
+
+One key factor that led to the rise of Node.js was the timing. Just a few years earlier, JavaScript had started to be considered as a more serious language, thanks to "Web 2.0" applications (such as Flickr, Gmail, etc.) that showed the world what a modern experience on the web could be like.
+
+JavaScript engines also became considerably better as many browsers competed to offer users the best performance. Development teams behind major browsers worked hard to offer better support for JavaScript and find ways to make JavaScript run faster. The engine that Node.js uses under the hood, V8 (also known as Chrome V8 for being the open-source JavaScript engine of The Chromium Project), improved significantly due to this competition.
+
+Node.js happened to be built in the right place and right time, but luck isn't the only reason why it is popular today. It introduces a lot of innovative thinking and approaches for JavaScript server-side development that have already helped many developers.

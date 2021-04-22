@@ -1,5 +1,3 @@
-# 0000个人ESLint
-
 ## 01. 个人配置增加记录
 
 因为是用 cli3 搭建的项目，eslint 用是 vue 的插件 @vue/cli-plugin-eslint，所以没有生成单独的配置文件「.eslintrc.js」，配置规则是在文件「package.json」里的。
@@ -38,6 +36,28 @@
 
 `args` 选项有三个值：1）after-used —— 不检查最后一个使用的参数之前出现的未使用的位置参数，但是检查最后一个使用的参数之后的所有命名参数和所有位置参数。2）all —— 所有命名参数必须使用。3）none —— 不检查参数。
 
+### 1.3 语句结束处不加分号
+
+```json
+    "rules": {
+      'semi': [2, 'never']
+    }
+```
+
+第一个参数：
+
+"off" 或 0：关闭规则
+
+"warn" 或 1：将该规则作为警告打开（不影响退出代码）
+
+"error" 或 2：将规则作为错误打开（退出代码将为 1）
+
+第二个参数：
+
+always（默认）：在语句末尾需要分号
+
+never：不允许加分号
+
 ## 02. 配置文件
 
 2020-09-15
@@ -57,8 +77,9 @@
       "parser": "babel-eslint"
     },
     "rules": {
-      "space-before-function-paren": [2, "never"],
-      "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }]
+        "space-before-function-paren": [2, "never"],
+        'semi': [2, 'never'],
+        "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }]
     },
     "overrides": [
       {
