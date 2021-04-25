@@ -1,6 +1,8 @@
-# CS106A-Programming-Methodology-Lecture0201
+# CS106A-Programming-Methodology0201
 
 Topics: Handout Information, Section Sign-up, Karel Commands, An Algorithm vs Program, Syntax of a Karel Program, Running a Karel Program, Creating Methods, SuperKarel, A for Loop, A While Loop, Karel Conditions, If Statement, Putting it All Together.
+
+1『整节课是围绕 Karel 这个小软件做演示的，目前觉得研读的话性价比太低，先跳过。（2021-04-25）』
 
 Instructor (Mehran Sahami): Alrighty, welcome back to CS106A. If you're stuck in the back, just come on down, have a seat. Originally, I thought maybe we would have slightly fewer people today than last time, but that appears not to be the case. So while we're waiting, everyone loves babies, so I decided to put – that's Karel, the Robot, the early days.
 
@@ -30,7 +32,9 @@ So here they are. You're going to get all of Karel's vocabulary in, like, one mi
 
 Karel also started being a good democrat, knows how to turn left. So he turns left. This is a lower case T, this is an upper case L. So turning left changes his direction by 90 degrees in the left hand of whichever way he's facing. So if he's facing east now, and he turns left, he will be facing north. And then he can turn left again and he'll be facing west.
 
-Okay, now, question? Student: [Inaudible]?
+Okay, now, question? 
+
+Student: [Inaudible]?
 
 Instructor (Mehran Sahami): There is no space here. These are all one word. Good question, and I love it when you make it easy. All right, so besides turning left, there's also B-person Karel's world, and if he couldn't do anything with beepers, they wouldn't be interesting. So he can pick up beepers, which interestingly enough is called pickBeeper, again lower case P, upper case B, all one word, and there is putBeeper.
 
@@ -64,7 +68,7 @@ Instructor (Mehran Sahami):PickBeeper, then move. Notice at that point we could 
 
 Student: Go to the left.
 
-Instructor (Mehran Sahami):Turn left. What happens if we turn left?
+Instructor (Mehran Sahami): Turn left. What happens if we turn left?
 
 Student: [Inaudible].
 
@@ -74,13 +78,15 @@ Student: Move.
 
 Instructor (Mehran Sahami):Move. And now what do we want?
 
-Student: [Inaudible]. Instructor (Mehran Sahami): Yeah, conceptually what we'd like to do is turn right, right? At this point, Karel's like, "No, man. I'm just, you know, I'm left wing. What can I do? I turn left. That's what I do." And you kind of think about it, and you say, "That's all right, because really the world is just one big spectrum, and if you go around far enough to one side, you end up on the other." So if we make you turn left three times, that's equivalent to essentially turning 90 degrees to the right.
+Student: [Inaudible]. 
+
+Instructor (Mehran Sahami): Yeah, conceptually what we'd like to do is turn right, right? At this point, Karel's like, "No, man. I'm just, you know, I'm left wing. What can I do? I turn left. That's what I do." And you kind of think about it, and you say, "That's all right, because really the world is just one big spectrum, and if you go around far enough to one side, you end up on the other." So if we make you turn left three times, that's equivalent to essentially turning 90 degrees to the right.
 
 So here, we turn left, turn left, and turn left. All right, now what do we do?
 
 Student: Move.
 
-Instructor (Mehran Sahami):Move. So we sort of go up the step. PutBeeper and move to the last spot. Now, at this point we'd like to think, oh good times, we can just run this and it's a Karel program, and life is happy. In fact, this is not a valid Karel program. What this is, is an algorithm.
+Instructor (Mehran Sahami): Move. So we sort of go up the step. PutBeeper and move to the last spot. Now, at this point we'd like to think, oh good times, we can just run this and it's a Karel program, and life is happy. In fact, this is not a valid Karel program. What this is, is an algorithm.
 
 This is a recipe for doing something, and we'll talk in a lot more detail about different algorithms on Friday. But the way you can think of distinguishing between an algorithm and a program is an algorithm is essentially the recipe for doing something. The program is something that is valid syntactically according to the rules of the language.
 
@@ -148,7 +154,7 @@ Instructor (Mehran Sahami): Do stars mean anything? Yeah, that star at the end o
 
 Student: So then, is the run program [inaudible]?
 
-Instructor (Mehran Sahami):It's all part of run. So when Karel starts up, and you'll see that in just a second, we start – we go to run and we just start executing the statements from run. So let's actually run this and see what happens, and I'll take a couple more questions in a second.
+Instructor (Mehran Sahami): It's all part of run. So when Karel starts up, and you'll see that in just a second, we start – we go to run and we just start executing the statements from run. So let's actually run this and see what happens, and I'll take a couple more questions in a second.
 
 So we go up to our little run icon here. Actually, before we do that, let me cancel this, because we already have a running program over here. So let's quit out of the running program and come here, and say run. And sometimes if you actually happen to write multiple Karel programs, and you hit the run, then this guy sort of looks like he's running with smoke all around him, which means he's running really fast. That means run the last program I was running.
 
@@ -168,7 +174,7 @@ Instructor (Mehran Sahami): Yeah, he's moving basically from one grid point to t
 
 Student:Is Karel case sensitive?
 
-Instructor (Mehran Sahami):Karel is case sensitive, yes. Everything you type will be case sensitive. My throwing is case sensitive as well, and evidently, that was the wrong case. All right, so something else we'd like to be able to do with Karel, and a few people already pointed out is, "Hey, we created this thing called run. That's kind of cool. Can I create other stuff?" And as a matter of fact, you can, because that's just how snazzy Karel is. And one thing, you might look at this and be like, "Ooh, ooh, ooh, I know what I want to create." What would you want to create if you could create a new command?
+Instructor (Mehran Sahami): Karel is case sensitive, yes. Everything you type will be case sensitive. My throwing is case sensitive as well, and evidently, that was the wrong case. All right, so something else we'd like to be able to do with Karel, and a few people already pointed out is, "Hey, we created this thing called run. That's kind of cool. Can I create other stuff?" And as a matter of fact, you can, because that's just how snazzy Karel is. And one thing, you might look at this and be like, "Ooh, ooh, ooh, I know what I want to create." What would you want to create if you could create a new command?
 
 Student: Turn right.
 
@@ -180,7 +186,7 @@ So we'll call this turn right, and this command will have a body, and what is th
 
 Student: Turn left.
 
-Instructor (Mehran Sahami):Turn left three times. So I'm just going to copy from here and paste into – and the indenting even works out right. Rock on, right? And what I've now done – I'll go ahead and save this – is I've created a new command for Karel called turn right. So anywhere else in my program, I can now say, "Turn right," like here are these three turn lefts. I can replace them. Let me just get rid of them, and I'll replace them with a turn right, and I'll appropriately indent that.
+Instructor (Mehran Sahami): Turn left three times. So I'm just going to copy from here and paste into – and the indenting even works out right. Rock on, right? And what I've now done – I'll go ahead and save this – is I've created a new command for Karel called turn right. So anywhere else in my program, I can now say, "Turn right," like here are these three turn lefts. I can replace them. Let me just get rid of them, and I'll replace them with a turn right, and I'll appropriately indent that.
 
 And what that means is, as you're executing the program, you move, you pickBeeper, you move, you turn left, you move. When you get to turn right, it says, "Let me pause where I saw that turn right. I will go to the turn right method body and run all the instructions that are in that body, and then I will return back to where I left off.
 
@@ -188,29 +194,31 @@ So this program is exactly equivalent to the program we wrote before, now in ter
 
 Student: [Inaudible]?
 
-Instructor (Mehran Sahami):The location's not important. You can put it anywhere. I like to put it at the end, because that's convention in the book, but you can put it anywhere. Uh huh?
+Instructor (Mehran Sahami): The location's not important. You can put it anywhere. I like to put it at the end, because that's convention in the book, but you can put it anywhere. Uh huh?
 
-Student: [Inaudible]? Instructor (Mehran Sahami):Why is run always public? Because that's where things start, and for Karel to know where it is, like private's all the stuff you're sort of like, eh, I'm keeping it to myself. But Karel's like – he's, like, looking around. He's like, "Where do I run? What do I run? And so you got to say, "Oh, it's public. It's available to the whole world." And in a couple weeks when we get into Java, you'll see public and private rear their ugly heads again and it'll all be clear.
+Student: [Inaudible]? 
+
+Instructor (Mehran Sahami): Why is run always public? Because that's where things start, and for Karel to know where it is, like private's all the stuff you're sort of like, eh, I'm keeping it to myself. But Karel's like – he's, like, looking around. He's like, "Where do I run? What do I run? And so you got to say, "Oh, it's public. It's available to the whole world." And in a couple weeks when we get into Java, you'll see public and private rear their ugly heads again and it'll all be clear.
 
 Uh huh?
 
 Student: [Inaudible]?
 
-Instructor (Mehran Sahami):Pardon?
+Instructor (Mehran Sahami): Pardon?
 
-Student:If you made that a public [inaudible]?
+Student: If you made that a public [inaudible]?
 
 Instructor (Mehran Sahami):It would still run. It would be fine. It's just good programming style. See, there's all these things that we kind of will eventually get to, but we got to start somewhere. So we sort of start right in the middle and we're going to build up from there, and eventually we'll go back and fill in some of the pieces underneath.
 
 Uh huh?
 
-Student:Do you have to [inaudible]?
+Student: Do you have to [inaudible]?
 
-Instructor (Mehran Sahami):Run is where – has to be called run. That's where Karel always knows where to start, but everything else could be something else. Like, instead of turn right, I don't know, what's the French word for turn right, or the French two words for turn right? Anyone speak French?
+Instructor (Mehran Sahami): Run is where – has to be called run. That's where Karel always knows where to start, but everything else could be something else. Like, instead of turn right, I don't know, what's the French word for turn right, or the French two words for turn right? Anyone speak French?
 
 Student: [Inaudible].
 
-Instructor (Mehran Sahami):Exactly. We could have called it that if we wanted to, and then rather then turn right we would use that, and it would be fine. So all the other things besides run, we can name them whatever we want as long as we're consistent throughout.
+Instructor (Mehran Sahami): Exactly. We could have called it that if we wanted to, and then rather then turn right we would use that, and it would be fine. So all the other things besides run, we can name them whatever we want as long as we're consistent throughout.
 
 All right, so we could also – you might say something else might be kind of fun to do is to have a command called turn around, for example, which turns Karel around 90 degrees. So we'll just do a little copy and paste magic and have turn around here. We might not actually use it in this program, but just to have, and turn around is actually just two turn lefts.
 
@@ -228,13 +236,13 @@ Student: Procrastination.
 
 Instructor (Mehran Sahami):Procrastination? It's related to that. What do you do to procrastinate in the morning?
 
-Student:Sleep.
+Student: Sleep.
 
 Instructor (Mehran Sahami): Sleep. Oh, sorry, yeah, and how do you prolong that?
 
 Student: [Inaudible].
 
-Instructor (Mehran Sahami):Snooze. And the thing about snooze is, it's amazing how quickly you can do math in the morning. I don't know about you, but my alarm has a nine-minute snooze on it. Why it's nine, I don't know, but it came out of the factory with a nine-minute snooze. And so you're, like, lying there.
+Instructor (Mehran Sahami): Snooze. And the thing about snooze is, it's amazing how quickly you can do math in the morning. I don't know about you, but my alarm has a nine-minute snooze on it. Why it's nine, I don't know, but it came out of the factory with a nine-minute snooze. And so you're, like, lying there.
 
 I remember when I was a student, like, the dreaded, like, 10:00 a.m. class, 9:00 a.m. class. Heaven forbid you ever have a 9:00 a.m. class, and you're sitting there, and, like, the alarm goes off, and you're like, yeah, not going to brush my teeth today. Snooze. And then you think about it a little bit and nine minutes later, it goes off, and you're like, okay, it must be, like, 8:09 a.m. now. And then the math kicks in. You're like, if I don't take a shower, that's like two more whacks on the snooze bar, snooze, snooze. And now you're up to like 8:27 a.m. You're just doing this all while you're, like, have asleep, right. It's like calculus when you're fully awake, yeah, impossible. Snooze bar, you could have, like, your brain removed in a lobotomy and you could still figure it out.
 
@@ -254,7 +262,7 @@ Instructor (Mehran Sahami): So the spaces are, sorry, there is a space here. Wel
 
 Student: Is all of this syntax in the course reader?
 
-Instructor (Mehran Sahami):It's all in the course reader, yeah. Yeah, so you don't need to worry about – if you want to take notes, that's great, but it's all kind of in the course reader if you want to follow along. So you can do something any number of times that you want, right, and it'll just count up. So this could be, like, if you wanted to, you could say, "Hey, turn left six times," and that's still the equivalent of turn right.
+Instructor (Mehran Sahami): It's all in the course reader, yeah. Yeah, so you don't need to worry about – if you want to take notes, that's great, but it's all kind of in the course reader if you want to follow along. So you can do something any number of times that you want, right, and it'll just count up. So this could be, like, if you wanted to, you could say, "Hey, turn left six times," and that's still the equivalent of turn right.
 
 Or we can do the equivalent of snooze, which is that. Right, so basically what does snooze do? Nothing. You just sit there, and you spin around a few times, and you're kind of like in the same spot, facing the same direction when you were done. Okay, but anytime you want to do something some number of times, you can actually do it using this for construct.
 
@@ -314,9 +322,9 @@ Oh, okay, well I'm not going to do the move. Is there an else over here? No. Thi
 
 Okay, so any questions about that? Uh huh?
 
-Student:So is it every brace always comes in pairs?
+Student: So is it every brace always comes in pairs?
 
-Instructor (Mehran Sahami):Every brace comes in pairs. You always have an open brace and there's going to be some close brace that's going to define the body. Oh, that was the double. All right, so what we're going to do is we're going to put this all together in a big program.
+Instructor (Mehran Sahami): Every brace comes in pairs. You always have an open brace and there's going to be some close brace that's going to define the body. Oh, that was the double. All right, so what we're going to do is we're going to put this all together in a big program.
 
 Okay, so we're going to use all these things in a big program, and this program, I'll show you, is basically, Karel is going to run a little steeplechase. You're basically sort of like running hurdles, okay. So we're going to open up another program. Don't worry about all the details right now.
 
@@ -376,9 +384,13 @@ You don't want to just write a program that works in one particular world, unles
 
 All right, so any quick questions before we go? Uh huh?
 
-Student: So if you had the [inaudible]? Instructor (Mehran Sahami):No, because it's still just nine avenues. The for-loop counter stays the same, right. It's that while-loop that's actually going up and down the hurdles, because it doesn't know how big the hurdles are. Any other questions? Student: [Inaudible]?
+Student: So if you had the [inaudible]? 
 
-Instructor (Mehran Sahami):That it's nine avenues and the hurdles are just pools, basically, of any length.
+Instructor (Mehran Sahami): No, because it's still just nine avenues. The for-loop counter stays the same, right. It's that while-loop that's actually going up and down the hurdles, because it doesn't know how big the hurdles are. Any other questions? 
+
+Student: [Inaudible]?
+
+Instructor (Mehran Sahami): That it's nine avenues and the hurdles are just pools, basically, of any length.
 
 Student: [Inaudible].
 

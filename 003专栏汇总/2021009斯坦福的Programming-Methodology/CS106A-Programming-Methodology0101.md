@@ -1,4 +1,4 @@
-# CS106A-Programming-Methodology-Lecture0101
+# CS106A-Programming-Methodology0101
 
 Topics: Welcome to CS106A, Course Staff, Why is the class called Programming Methodology?, Are you in the right class?, Class Logistics, Assignments and Grading, Extensions, Midterm and Final, Grade Breakdown, The Honor Code, Why Karel?
 
