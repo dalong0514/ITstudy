@@ -1,8 +1,8 @@
 # CS106A-Programming-Methodology-Lecture0201
 
-Programming Methodology-Lecture02
+Topics: Handout Information, Section Sign-up, Karel Commands, An Algorithm vs Program, Syntax of a Karel Program, Running a Karel Program, Creating Methods, SuperKarel, A for Loop, A While Loop, Karel Conditions, If Statement, Putting it All Together.
 
-Instructor (Mehran Sahami):Alrighty, welcome back to CS106A. If you're stuck in the back, just come on down, have a seat. Originally, I thought maybe we would have slightly fewer people today than last time, but that appears not to be the case. So while we're waiting, everyone loves babies, so I decided to put – that's Karel, the Robot, the early days.
+Instructor (Mehran Sahami): Alrighty, welcome back to CS106A. If you're stuck in the back, just come on down, have a seat. Originally, I thought maybe we would have slightly fewer people today than last time, but that appears not to be the case. So while we're waiting, everyone loves babies, so I decided to put – that's Karel, the Robot, the early days.
 
 No, this actually – my son, and yeah, I know. He's a little bit older now but, like, he's got these little robot pajamas and he runs around all the time. So I'm like, oh, it's Karel, The Robot, and my wife looks at me like, it's your son. But that's a whole different issue.
 
@@ -30,9 +30,9 @@ So here they are. You're going to get all of Karel's vocabulary in, like, one mi
 
 Karel also started being a good democrat, knows how to turn left. So he turns left. This is a lower case T, this is an upper case L. So turning left changes his direction by 90 degrees in the left hand of whichever way he's facing. So if he's facing east now, and he turns left, he will be facing north. And then he can turn left again and he'll be facing west.
 
-Okay, now, question? Student:[Inaudible]?
+Okay, now, question? Student: [Inaudible]?
 
-Instructor (Mehran Sahami):There is no space here. These are all one word. Good question, and I love it when you make it easy. All right, so besides turning left, there's also B-person Karel's world, and if he couldn't do anything with beepers, they wouldn't be interesting. So he can pick up beepers, which interestingly enough is called pickBeeper, again lower case P, upper case B, all one word, and there is putBeeper.
+Instructor (Mehran Sahami): There is no space here. These are all one word. Good question, and I love it when you make it easy. All right, so besides turning left, there's also B-person Karel's world, and if he couldn't do anything with beepers, they wouldn't be interesting. So he can pick up beepers, which interestingly enough is called pickBeeper, again lower case P, upper case B, all one word, and there is putBeeper.
 
 And what these do is pickBeeper, if Karel happens to be on a corner that has a Beeper on it, he picks up that Beeper, and stuffs it in his Beeper bag, in which case the count in his Beeper bag goes up by one. Or if it's infinite, it remains infinite, because he's got a real big Beeper bag, and sometimes he can infinitely many Beepers in there. It's just – we can talk about the infinity of Karel's Beeper bags some other time, but if you're interested, it's fascinating.
 
@@ -54,31 +54,31 @@ And this is our first Karel program that we want to run, and it's sort of, here'
 
 And over here, happily enough, let me resize a little bit, is our first file, which is empty right now, that we're going to write our first Karel program. So what commands might we consider Karel actually doing from the list you have here, to sort of affect what we want to happen in the world?
 
-Student:[Inaudible].
+Student: [Inaudible].
 
-Instructor (Mehran Sahami):Yeah, so we want to move. Okay, and then what do we want to do?
+Instructor (Mehran Sahami): Yeah, so we want to move. Okay, and then what do we want to do?
 
-Student:[Inaudible].
+Student: [Inaudible].
 
 Instructor (Mehran Sahami):PickBeeper, then move. Notice at that point we could have actually done something else. This is part of the art of programming. There's actually many ways to solve the problem. We're just going to happen to pick one. So we've moved. We've picked the beeper. We've moved again, and now what do we do?
 
-Student:Go to the left.
+Student: Go to the left.
 
 Instructor (Mehran Sahami):Turn left. What happens if we turn left?
 
-Student:[Inaudible].
+Student: [Inaudible].
 
 Instructor (Mehran Sahami):Right, then what are we going to do?
 
-Student:Move.
+Student: Move.
 
 Instructor (Mehran Sahami):Move. And now what do we want?
 
-Student:[Inaudible]. Instructor (Mehran Sahami):Yeah, conceptually what we'd like to do is turn right, right? At this point, Karel's like, "No, man. I'm just, you know, I'm left wing. What can I do? I turn left. That's what I do." And you kind of think about it, and you say, "That's all right, because really the world is just one big spectrum, and if you go around far enough to one side, you end up on the other." So if we make you turn left three times, that's equivalent to essentially turning 90 degrees to the right.
+Student: [Inaudible]. Instructor (Mehran Sahami): Yeah, conceptually what we'd like to do is turn right, right? At this point, Karel's like, "No, man. I'm just, you know, I'm left wing. What can I do? I turn left. That's what I do." And you kind of think about it, and you say, "That's all right, because really the world is just one big spectrum, and if you go around far enough to one side, you end up on the other." So if we make you turn left three times, that's equivalent to essentially turning 90 degrees to the right.
 
 So here, we turn left, turn left, and turn left. All right, now what do we do?
 
-Student:Move.
+Student: Move.
 
 Instructor (Mehran Sahami):Move. So we sort of go up the step. PutBeeper and move to the last spot. Now, at this point we'd like to think, oh good times, we can just run this and it's a Karel program, and life is happy. In fact, this is not a valid Karel program. What this is, is an algorithm.
 
@@ -120,11 +120,11 @@ So we say public Karel, our Karel program extends Karel, and now we need to, aga
 
 Okay, so all this stuff now gets tabbed over one more spot, and even this brace over here gets tabbed one more spot. So now you can see, everything here is part of the run method, because it's nicely tabbed in. We can tell that, and all this stuff here is all part of the body of run, and all of it's encapsulated inside our Karel program.
 
-Student:[Inaudible]?
+Student: [Inaudible]?
 
-Instructor (Mehran Sahami):Why is there a space, you mean like down here?]
+Instructor (Mehran Sahami): Why is there a space, you mean like down here?]
 
-Student:Yeah.
+Student: Yeah.
 
 Instructor (Mehran Sahami):Just for readability. We don't actually need it. There doesn't need to be a space, but that's a good question. Oh, nice bank. I like that. Feel free to bank. If someone – you're on the rebound and I'll set you up for the rebound, just because you were the first one to do it. All right, so, and you might say, "Okay, now we've got our Karel program. We've got our run method. Are we ready for Karel?"
 
@@ -138,15 +138,15 @@ And that actually comes from a place called Stanford.Karel. So what we do is we 
 
 And when we get to Java, this'll become much more clear, but for right now, all you can think of that import's meaning is, go get me all the standard Karel stuff that Stanford's already done for me. And that defines this thing called Karel, which now we're extending in our Karel program. Uh huh?
 
-Student:What is the semicolon for?
+Student: What is the semicolon for?
 
-Instructor (Mehran Sahami):The semicolons always come at the end of the line and Karel's syntax, what they mean is this is the end of one statement. So at the end of the import, for example, that says import the stuff, that's the end of a statement, or for move, or pickBeeper, or turn left, that's the end of a statement. So we put a semicolon. Uh huh?
+Instructor (Mehran Sahami): The semicolons always come at the end of the line and Karel's syntax, what they mean is this is the end of one statement. So at the end of the import, for example, that says import the stuff, that's the end of a statement, or for move, or pickBeeper, or turn left, that's the end of a statement. So we put a semicolon. Uh huh?
 
-Student:Do the stars mean anything?
+Student: Do the stars mean anything?
 
-Instructor (Mehran Sahami):Do stars mean anything? Yeah, that star at the end of Stanford.Karel.* is actually important, and in a couple weeks you'll understand why. For right now, it just means get everything associated with Stanford.Karel. Uh huh?
+Instructor (Mehran Sahami): Do stars mean anything? Yeah, that star at the end of Stanford.Karel.* is actually important, and in a couple weeks you'll understand why. For right now, it just means get everything associated with Stanford.Karel. Uh huh?
 
-Student:So then, is the run program [inaudible]?
+Student: So then, is the run program [inaudible]?
 
 Instructor (Mehran Sahami):It's all part of run. So when Karel starts up, and you'll see that in just a second, we start – we go to run and we just start executing the statements from run. So let's actually run this and see what happens, and I'll take a couple more questions in a second.
 
@@ -162,23 +162,23 @@ All right, no, because Karel's blocked, okay, and you get this little bug on top
 
 So if you want to start this program again, you need to load world – and we happen to have first Karel program, you need to reload your world and then you can start it again from that point. Okay, so any questions about our first Karel program? Uh huh?
 
-Student:[Inaudible]?
+Student: [Inaudible]?
 
-Instructor (Mehran Sahami):Yeah, he's moving basically from one grid point to the next grind point. So he just moves one step at a time. Uh huh?
+Instructor (Mehran Sahami): Yeah, he's moving basically from one grid point to the next grind point. So he just moves one step at a time. Uh huh?
 
 Student:Is Karel case sensitive?
 
 Instructor (Mehran Sahami):Karel is case sensitive, yes. Everything you type will be case sensitive. My throwing is case sensitive as well, and evidently, that was the wrong case. All right, so something else we'd like to be able to do with Karel, and a few people already pointed out is, "Hey, we created this thing called run. That's kind of cool. Can I create other stuff?" And as a matter of fact, you can, because that's just how snazzy Karel is. And one thing, you might look at this and be like, "Ooh, ooh, ooh, I know what I want to create." What would you want to create if you could create a new command?
 
-Student:Turn right.
+Student: Turn right.
 
-Instructor (Mehran Sahami):Turn right. Right? That's a social, right? Everyone wants to turn right. All right, except the person who actually said, "Turn right." So what we can do is we can have a similar syntax that allows us to create new methods in Karel, like the run method actually is the place where Karel will always start. But we can create new methods that we could use, and so maybe we want to create a turn right.
+Instructor (Mehran Sahami): Turn right. Right? That's a social, right? Everyone wants to turn right. All right, except the person who actually said, "Turn right." So what we can do is we can have a similar syntax that allows us to create new methods in Karel, like the run method actually is the place where Karel will always start. But we can create new methods that we could use, and so maybe we want to create a turn right.
 
 So we could say void, sorry, here we'd say private void. Voice – sometimes typing is bad, especially when your hands are a little chalky. So run – you'll notice run is always public void run. For all the other commands that we're going to do as far as Karel's concerned, we're going to use private void, and the name of the command.
 
 So we'll call this turn right, and this command will have a body, and what is the body of the turn right command going to be?
 
-Student:Turn left.
+Student: Turn left.
 
 Instructor (Mehran Sahami):Turn left three times. So I'm just going to copy from here and paste into – and the indenting even works out right. Rock on, right? And what I've now done – I'll go ahead and save this – is I've created a new command for Karel called turn right. So anywhere else in my program, I can now say, "Turn right," like here are these three turn lefts. I can replace them. Let me just get rid of them, and I'll replace them with a turn right, and I'll appropriately indent that.
 
@@ -186,15 +186,15 @@ And what that means is, as you're executing the program, you move, you pickBeepe
 
 So this program is exactly equivalent to the program we wrote before, now in terms of something called turn right, and just to prove that to you, we'll go ahead and run, and there it is, Karel does the equivalent of turn right and life is good. Okay, so we've created a new command called turn right. Question?
 
-Student:[Inaudible]?
+Student: [Inaudible]?
 
 Instructor (Mehran Sahami):The location's not important. You can put it anywhere. I like to put it at the end, because that's convention in the book, but you can put it anywhere. Uh huh?
 
-Student:[Inaudible]? Instructor (Mehran Sahami):Why is run always public? Because that's where things start, and for Karel to know where it is, like private's all the stuff you're sort of like, eh, I'm keeping it to myself. But Karel's like – he's, like, looking around. He's like, "Where do I run? What do I run? And so you got to say, "Oh, it's public. It's available to the whole world." And in a couple weeks when we get into Java, you'll see public and private rear their ugly heads again and it'll all be clear.
+Student: [Inaudible]? Instructor (Mehran Sahami):Why is run always public? Because that's where things start, and for Karel to know where it is, like private's all the stuff you're sort of like, eh, I'm keeping it to myself. But Karel's like – he's, like, looking around. He's like, "Where do I run? What do I run? And so you got to say, "Oh, it's public. It's available to the whole world." And in a couple weeks when we get into Java, you'll see public and private rear their ugly heads again and it'll all be clear.
 
 Uh huh?
 
-Student:[Inaudible]?
+Student: [Inaudible]?
 
 Instructor (Mehran Sahami):Pardon?
 
@@ -208,7 +208,7 @@ Student:Do you have to [inaudible]?
 
 Instructor (Mehran Sahami):Run is where – has to be called run. That's where Karel always knows where to start, but everything else could be something else. Like, instead of turn right, I don't know, what's the French word for turn right, or the French two words for turn right? Anyone speak French?
 
-Student:[Inaudible].
+Student: [Inaudible].
 
 Instructor (Mehran Sahami):Exactly. We could have called it that if we wanted to, and then rather then turn right we would use that, and it would be fine. So all the other things besides run, we can name them whatever we want as long as we're consistent throughout.
 
@@ -224,15 +224,15 @@ All right, so now what we're going to do is I want to ask you a philosophical qu
 
 But there is something, probably in your everyday life, that's just sitting there niggling. Uh huh?
 
-Student:Procrastination.
+Student: Procrastination.
 
 Instructor (Mehran Sahami):Procrastination? It's related to that. What do you do to procrastinate in the morning?
 
 Student:Sleep.
 
-Instructor (Mehran Sahami):Sleep. Oh, sorry, yeah, and how do you prolong that?
+Instructor (Mehran Sahami): Sleep. Oh, sorry, yeah, and how do you prolong that?
 
-Student:[Inaudible].
+Student: [Inaudible].
 
 Instructor (Mehran Sahami):Snooze. And the thing about snooze is, it's amazing how quickly you can do math in the morning. I don't know about you, but my alarm has a nine-minute snooze on it. Why it's nine, I don't know, but it came out of the factory with a nine-minute snooze. And so you're, like, lying there.
 
@@ -248,11 +248,11 @@ And then after all that, you have a brace, an open brace, and there's a close br
 
 And what this will do is it will execute this three times. I could have multiple instructions in here if I want to, and it would execute that whole set sequentially three times, but this is the equivalent of turn right. Okay, question?
 
-Student:[Inaudible]?
+Student: [Inaudible]?
 
-Instructor (Mehran Sahami):So the spaces are, sorry, there is a space here. Well, you don't actually need a space there, but there are no spaces in here. So you need to have this space for sure. The rest of these spaces are basically optional, but we like to kind of space them out for it to make sense. You definitely should not have any spaces in the I plus, plus. There's no spaces in there. Uh huh?
+Instructor (Mehran Sahami): So the spaces are, sorry, there is a space here. Well, you don't actually need a space there, but there are no spaces in here. So you need to have this space for sure. The rest of these spaces are basically optional, but we like to kind of space them out for it to make sense. You definitely should not have any spaces in the I plus, plus. There's no spaces in there. Uh huh?
 
-Student:Is all of this syntax in the course reader?
+Student: Is all of this syntax in the course reader?
 
 Instructor (Mehran Sahami):It's all in the course reader, yeah. Yeah, so you don't need to worry about – if you want to take notes, that's great, but it's all kind of in the course reader if you want to follow along. So you can do something any number of times that you want, right, and it'll just count up. So this could be, like, if you wanted to, you could say, "Hey, turn left six times," and that's still the equivalent of turn right.
 
@@ -298,11 +298,11 @@ So else and then we're going to have another body here, putBeeper, assuming that
 
 Question?
 
-Student:Is that a space or a tab [inaudible]?
+Student: Is that a space or a tab [inaudible]?
 
-Instructor (Mehran Sahami):These are spaces here. So these are required to be spaces, and the syntax is also all in book too. So you can see where the spaces are there as well. Uh huh?
+Instructor (Mehran Sahami): These are spaces here. So these are required to be spaces, and the syntax is also all in book too. So you can see where the spaces are there as well. Uh huh?
 
-Student:Can you make multiple [inaudible]?
+Student: Can you make multiple [inaudible]?
 
 Instructor (Mehran Sahami):For the time being, you should just check one condition at a time. Now, you can actually sort of, what we refer to as nest, these kind of statements. So you could say, "If beeper is present," you might say, "Hey, if there's a beeper present there, that's some marker that I should move forward if there is not a wall in front of me." So what I want to do is, if there is a beeper present, what I now want to do is check to see if I can move forward. So if front is clear, move. And this is what we refer to as a nested expression. Notice how I sort of tabbed it in a little bit, so that it's kind of nested inside this other guy. What it means if check to see if beepers are present. If they're not present, then it skips this whole body and it just puts a beeper down.
 
@@ -354,13 +354,13 @@ So I'm looking south now, I'm looking down, and I just move all the way down to 
 
 Let me run Karel, so we can see if he's feeling up to the challenge. So here he is. We'll start the program. There he goes. Notice what he's doing. He goes over every hurdle. If his front is blocked, he goes up and over. Here's one where you can see it.
 
-He goes all the way up until his right is clear. Then he moves and he comes all the way down until he hits the wall, and he keeps doing this. And if he does this eight times, he always ends up at the end because we know it's guaranteed to be nine avenues long. Uh huh? Student:[Inaudible]?
+He goes all the way up until his right is clear. Then he moves and he comes all the way down until he hits the wall, and he keeps doing this. And if he does this eight times, he always ends up at the end because we know it's guaranteed to be nine avenues long. Uh huh? Student: [Inaudible]?
 
-Instructor (Mehran Sahami):Yeah, good eye. So you might say, "Hey, before when Karel turned right and he was making three right and left turns, what's going on now?" It's super Karel, baby. We're loving it. Super Karel not only knows the three turn lefts, just turn right, but he's like, "Hey, forget turn left, man. I'm just turning right." So he knows, or she knows, or it knows, or whatever, that amorphous form in the sky knows.
+Instructor (Mehran Sahami): Yeah, good eye. So you might say, "Hey, before when Karel turned right and he was making three right and left turns, what's going on now?" It's super Karel, baby. We're loving it. Super Karel not only knows the three turn lefts, just turn right, but he's like, "Hey, forget turn left, man. I'm just turning right." So he knows, or she knows, or it knows, or whatever, that amorphous form in the sky knows.
 
 Uh huh?
 
-Student:[Inaudible]?
+Student: [Inaudible]?
 
 Instructor (Mehran Sahami):Good question, because that's not the specification of the program, right. So one question you could ask is, like, "Hey when I bought my word processor, I bought my word processor to, like, write essay with. So how come when I got my word processor," and this is a valid question to ask, "Why didn't it come with all the essays I needed to write at Stanford?" Right?
 
@@ -376,12 +376,10 @@ You don't want to just write a program that works in one particular world, unles
 
 All right, so any quick questions before we go? Uh huh?
 
-Student:So if you had the [inaudible]? Instructor (Mehran Sahami):No, because it's still just nine avenues. The for-loop counter stays the same, right. It's that while-loop that's actually going up and down the hurdles, because it doesn't know how big the hurdles are. Any other questions? Student:[Inaudible]?
+Student: So if you had the [inaudible]? Instructor (Mehran Sahami):No, because it's still just nine avenues. The for-loop counter stays the same, right. It's that while-loop that's actually going up and down the hurdles, because it doesn't know how big the hurdles are. Any other questions? Student: [Inaudible]?
 
 Instructor (Mehran Sahami):That it's nine avenues and the hurdles are just pools, basically, of any length.
 
-Student:[Inaudible].
+Student: [Inaudible].
 
-Instructor (Mehran Sahami):Yeah, all right, I will see you on Friday. If you have any more questions, come on down.
-
-[End of Audio] Duration: 48 minutes
+Instructor (Mehran Sahami): Yeah, all right, I will see you on Friday. If you have any more questions, come on down.

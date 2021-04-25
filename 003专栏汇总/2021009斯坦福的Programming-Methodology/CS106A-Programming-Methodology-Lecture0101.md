@@ -1,6 +1,8 @@
 # CS106A-Programming-Methodology-Lecture0101
 
-Instructor (Mehran Sahami):Alrighty. If you could have a seat, please, we need to get started. There are still a bunch of people coming in the back. Come on down and try to find a seat somewhere. If you can't find a seat, sit in the aisle as long as you're not a fire marshal. Anyone here a fire marshal? Good. We're fine. Come on in and sit in the aisles.
+Topics: Welcome to CS106A, Course Staff, Why is the class called Programming Methodology?, Are you in the right class?, Class Logistics, Assignments and Grading, Extensions, Midterm and Final, Grade Breakdown, The Honor Code, Why Karel?
+
+Instructor (Mehran Sahami): Alrighty. If you could have a seat, please, we need to get started. There are still a bunch of people coming in the back. Come on down and try to find a seat somewhere. If you can't find a seat, sit in the aisle as long as you're not a fire marshal. Anyone here a fire marshal? Good. We're fine. Come on in and sit in the aisles.
 
 So welcome to CS106A. If you don't think you should be in CS106A, you think you should be somewhere different, now is probably a good time to go, not that I would discourage anyone from taking this class. I think we'll have a lovely time in here. But this class is CS106A or E70A, so if you're, like, "Wait. I thought I was in E70A," you're fine. They're the same class; it's the same thing. No worries, okay?
 
@@ -118,6 +120,8 @@ All right. So there's a little bit more administrative stuff. Now, textbooks, ri
 
 The course reader is called, Karel the Robot Learns Java. You can pick it up at the bookstore. It's relatively cheap. It was actually written by Eric Roberts here. And surprisingly enough, the textbook for the class was also written by Eric Roberts, The Art and Science of Java, which is available now in your local bookstore, including the bookstore on campus, so you can go and pick up a copy of this. So both these things you actually wanna have because they're required for the class. We'll go through all of them. We'll go through basically everything except the last chapter of this book. So you sort of get your money's worth. We're just gonna do it a little bit out of order, but we'll go through the whole thing, okay?
 
+1-2『原来第一个「Karel the Robot Learns Java」不是书籍，是这门课的一个独有资料，已下载作为本书的附件。已下载书籍「2021074The-Art-and-Science-of-Java」。（2021-04-25）』
+
 So email, how many of you have email accounts? All right. I will ask the reverse question because I think at this point, some people just don't wanna put up their hands. How many people don't have email accounts? Odd how that is not the complement of the folks who had their hands up previously. Email's required for this class. Chances are, by being at Stanford, you've already gotten an email account through your SUNet ID, but if you don't have an email account, get an email account and that's how you'll stay in contact with us. That's how we'll stay in contact with you, except we'll also meet with you live in person, but email is kind of the general method for communication.
 
 As a matter of fact, for your first assignment, and part of your first assignment is to send us an email, just because we love you and we don't get enough email as it is. So you need to have an email account to be able to do that. So if you have not already, you can kind of get ahead of the game and go set up your email account. Now, don't worry. You'll get the first assignment next time. So you still get, like, two days of breathing space before your assignment goes out, okay?
@@ -216,23 +220,25 @@ It's not like, oh, there's some little line in it, "Oh, am I gonna need to worry
 
 But the reason I make a big deal about it is historically if I look at the evidence, it happens and we catch it. And when we catch it, we're required by the university to prosecute. And I feel bad because usually it's someone who just made a bad call, like, they were up way too late the night before working on something else, and they're not thinking straight. And rather than just taking a late day or turning in their assignment late and getting a slight penalty on it beyond their two free late days, they decide to cheat. And that's just always the wrong call, okay? So you just don't wanna put yourself in that situation. So I get real serious about it for a moment, and hopefully it won't be an issue and we can just kind of go on, okay?
 
-So with that said, that's a whole bunch of logistical stuff. Any questions about the logistics of this class or anything I just talked about? Uh huh? Student:You had briefly mentioned the late penalty.
+So with that said, that's a whole bunch of logistical stuff. Any questions about the logistics of this class or anything I just talked about? Uh huh? 
 
-Instructor (Mehran Sahami):Oh, the late penalty, good point. So remember our little bucket scale. If you go beyond your two free late days, every day you turn in an assignment late beyond those, it drops down one bucket. So let's say you already used your two free late days on Assignment No. 1. And on Assignment No. 2, you turned in something one day late and you would have gotten a check normally, it becomes a check minus. So that's how it is. It's one bucket per late day beyond your two free ones. Uh huh?
+Student: You had briefly mentioned the late penalty.
 
-Student:Are the sections first come, first served?
+Instructor (Mehran Sahami): Oh, the late penalty, good point. So remember our little bucket scale. If you go beyond your two free late days, every day you turn in an assignment late beyond those, it drops down one bucket. So let's say you already used your two free late days on Assignment No. 1. And on Assignment No. 2, you turned in something one day late and you would have gotten a check normally, it becomes a check minus. So that's how it is. It's one bucket per late day beyond your two free ones. Uh huh?
 
-Instructor (Mehran Sahami):Yeah, the sign-ups, well, they take into consideration your preference, but part of your preference is to do the match is first come, first served. So you wanna sign up early. Oh, thanks for your honesty. As a matter of fact, I dig honesty, all right? Any other questions? It's just honesty's cool. Uh huh?
+Student: Are the sections first come, first served?
 
-Student:How much time should we plan on studying [inaudible]?
+Instructor (Mehran Sahami): Yeah, the sign-ups, well, they take into consideration your preference, but part of your preference is to do the match is first come, first served. So you wanna sign up early. Oh, thanks for your honesty. As a matter of fact, I dig honesty, all right? Any other questions? It's just honesty's cool. Uh huh?
 
-Instructor (Mehran Sahami):Oh, good question. How much time should you plan? And this is something that I say for classes in general at Stanford, which is not always true, which is take the number of units that a class is, multiply it by three. That's how many hours you'll spend per week in that class, total, on average. So what that means is in 106A, a 5 unit class, you multiply by 3, you get 15. Five of those hours are roughly spent between class, section, interactive grading, other stuff. That means on average about ten hours a week will be spent on your assignments in this class. Again, that's an average.
+Student: How much time should we plan on studying [inaudible]?
+
+Instructor (Mehran Sahami): Oh, good question. How much time should you plan? And this is something that I say for classes in general at Stanford, which is not always true, which is take the number of units that a class is, multiply it by three. That's how many hours you'll spend per week in that class, total, on average. So what that means is in 106A, a 5 unit class, you multiply by 3, you get 15. Five of those hours are roughly spent between class, section, interactive grading, other stuff. That means on average about ten hours a week will be spent on your assignments in this class. Again, that's an average.
 
 Sometimes when I go to computer science conferences, I sit there and joke around with plans. And we're, like, "Oh, how long did your assignments take?" And I say, "Oh, on average, ten hours." And what I really mean when I say on average 10 hours is they take between 3 and 45, okay? It's a large variance event, right? Ten is the average. Some people take a really long time. Some people get through it really quickly, but that's about the average you can plan for. Uh huh? Another question?
 
-Student:[Inaudible] late days [inaudible] class days?
+Student: [Inaudible] late days [inaudible] class days?
 
-Instructor (Mehran Sahami):Yeah, all late days are class days, so the free ones — the halfway mark's really my reach. That's about it. All right.
+Instructor (Mehran Sahami): Yeah, all late days are class days, so the free ones — the halfway mark's really my reach. That's about it. All right.
 
 So I do wanna give you your very beginning of an introduction to programming before we sort of break for the day. How are we doing on time? And so in order to kind of see this, there's a few things that we wanna keep in mind.
 
@@ -256,9 +262,9 @@ And so there was a guy named Rich Pattis, who oddly enough was actually a grad s
 
 And so Rich, who's a wonderfully friendly guy — sometime if we get him to come to Stanford, I'll introduce you; he's just very nice — came up with this thing called Karel the Robot. And the term, "Karel" actually comes from Karel Capek. Anyone know who he is? Oh, free candy. Uh huh?
 
-Student:He coined the term, "robot."
+Student: He coined the term, "robot."
 
-Instructor (Mehran Sahami):He coined the term, "robot." He was a Czech playwright who actually wrote a play called, "RUR," which was about robots. And the word robot actually comes from a Czech word, the Czech word for work. And so the robot is named after Karel. And some people say Karl, which is kind of actually closer to I believe if — I don't know if there's anyone who speaks Czech in the room — but closer to the actual pronunciation. But we say Karel these days because it's kind of like gender neutral, okay?
+Instructor (Mehran Sahami): He coined the term, "robot." He was a Czech playwright who actually wrote a play called, "RUR," which was about robots. And the word robot actually comes from a Czech word, the Czech word for work. And so the robot is named after Karel. And some people say Karl, which is kind of actually closer to I believe if — I don't know if there's anyone who speaks Czech in the room — but closer to the actual pronunciation. But we say Karel these days because it's kind of like gender neutral, okay?
 
 And so Karel the Robot is basically this robot that lives in a really simple world. And so I'll show you all that you can meet Karel the Robot. He's friendly; he's fun. I'll show you Karel the Robot. So we gotta get Karel running. He's at the factory. He's getting souped up. We're energizing Karel. You gotta add some color to it. Otherwise — all right. We're begging for him. Come on, Karel. There he is. Oh, yeah. That's Karel the Robot. He looks like one of the old Macintoshes if you remember the original Macintoshes that look like a lunch pail, except he's got legs. One sticks out his back. That's just the way it is.
 
@@ -273,7 +279,3 @@ So any questions about beepers or Karel having a little bag of beepers? And that
 But starting next time, what you're gonna realize is with this extremely simple world, there's actually some complicated things you can do. And after about a week — so this first week, we're gonna focus on Karel — you'll notice that Karel is actually a very nice, gentle introduction into Java. And a lot of the concepts that we learn, sort of software engineering concepts using Karel, will translate over to the Java world, okay? So any questions about Karel or any of the other logistics that you've actually heard about in the class?
 
 Alrighty then. Welcome to 106A. I'll see you on Wednesday.
-
-[End of Audio]
-
-Duration: 50 minutes
