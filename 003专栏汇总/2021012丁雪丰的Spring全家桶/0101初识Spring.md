@@ -160,7 +160,6 @@ Hello Spring
 
 用 start.spring.io 去初始化你的第一个小程序，写一段最基本的 Hello World 代码，同时跟你解读一下 Spring 生成的骨架它是什么样的，它的 pom.xml 里写了什么。同时如果我不用 Spring 生成的骨架，我自己可以去怎样修改我的 pom 文件。
 
-
 项⽬结构
 
 ⾃动⽣成的 Maven ⼯程：1）pom.xml。2）包含 main ⽅法的 Java 程序。3）测试类。4）配置⽂件。
@@ -169,4 +168,118 @@ pom.xml ⽂件解读
 
 依赖 spring-boot-starter-parent：1）⽅便快捷。2）⾃动引⼊ spring-boot-dependencies。3）⾃动配置 spring-boot-maven-plugin。
 
+[Spring Initializr](https://start.spring.io/) 上面选择配置。
 
+Project => Maven Project
+
+Language => Java
+
+右边的依赖搜关键词 web 选择 Spring Web，搜关键词 actuator 选择 Spring Boot Actuato，点击左下角的「Generate」产生一个项目文件。用 Idea 打开后会自动下载相关的依赖文件。这里折腾了一段时间，好在解决了，顺便也跑通了一个用 Gradle 生成的项目。
+
+修改相关代码：
+
+```java
+package dalong.spring.helloworld.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+@RestController
+public class DemoApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(DemoApplication.class, args);
+	}
+	@RequestMapping("/hello")
+	public String hello() {
+		return "Hello Spring";
+	}
+}
+```
+
+点击 Run 后跑起来，没问题。随便在项目文件夹下打开一个终端，输入命名：
+
+```
+curl http://localhost:8080/hello
+```
+ 
+因为在建项目包的时候选择了 Acuator，那么它还为我们提供了了额外的功能，输入命令：
+
+```
+http://localhost:8080/actuator/health
+```
+
+比如说这个情况检查，它可以告诉我当前这个应用程序的状态是 ok 的还是不 ok 的，这边看到的是 up，ok 的。如果有问题的话它就是 down，甚至说可能整个应用系统都没有成功。那么这个时候我们访问健康检查的 URL 的话就是失败的。
+
+回过头来，我们看一下，既然我们选择的是一个 Maven 的工具，所以 Spring Boot 给我们生成了一个 Maven 的 pom 文件。
+
+```
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.5</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+```
+
+一上来，Spring Boot 把它的 Spring Boot start parent 作为我们真个 Maven 工程的 parent 引入了进来。在这个里面它其实定义了大量的依赖，Spring 官方其实对这些依赖都进行了严格的测试，能保证它们是没有冲突的。所以我们在下面使用的时候会看到，我们并没有指定版本号，我们只是告诉了 Maven，我需要依赖什么，剩下的版本号都是在整个 parent 当中的 dependencyManagement 里面去管理的。
+
+```
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+```
+
+然后这里我们还定义了一个 Spring Boot Maven plugin，这个 plugin 其实就是在我们执行项目打包的过程中，它会替我们生成一个可执行的 jar 包。
+
+我们简单演示一下。 
+
+```
+mvn clean package -Dmaven.test.skip
+
+cd target
+```
+
+1『
+
+用了上面的命令发现打包不了：
+
+```
+zsh: command not found: mvn
+```
+
+解决方案：[IntelliJ & Maven - mvn command not found - Stack Overflow](https://stackoverflow.com/questions/36105004/intellij-maven-mvn-command-not-found)
+
+直接点开右侧的 Maven 面板：demo => Lifecycle => Package，点 Run。
+
+』
+
+在 target 中我们可以看到有两个 hello spring 的 jar 包，生成的最原始的包只有 3.1K，而我们实际使用的包它有 17M。为啥有这么大的差距，那是因为 Spring Boot 在打包的时候，它帮我们把所有的依赖都放到了 jar 包里。这个 jar 包是个可执行的 jar 包。
+
+把跑的程序停掉，我们可以来看一下，我们直接在终端里运行这个架包：
+
+```
+java -jar hello-spring-0.0.1-SNAPSHOT.jar
+```
+
+通过简单的 `java -jar` 就可以我们就可以执行这个程序，它同样也是在我们的 8080 端口上面启动了一个 Tomcat，其功能是一样的。而这个架包是一个可执行的架包。这也就意味着，我们的整个 hello world 的程序，能够作为一个单独的进程运行着，和其他的那些程序完全是一样的，它不需要一个外置的容器。
+
+你可能还有另外一个疑问，如果我的工程由于某种特定的原因，它一定要有自己的 parent，不能使用 Spring Boot start parent 作为我们的 parent，那么该怎么办？Spring 官方其实早就想好了应对的办法，只需简单的修改一下 pom 文件就能实现这个目标。
+
+来看一下这个 pom 文件，在这个文件里我没有指定 parent，但是我在这里声明了一个 dependencyManagement，在其中我把 Spring Boot 的依赖，完整的 import 进来，通过这个方式，我们同样可以实现 parent 所做的依赖管理的功能。同样的，我们下面还是会保留整个的 Spring Boot Maven plugin，但是我需要指定的是它在 repackage 的这个时候介入进来的。
