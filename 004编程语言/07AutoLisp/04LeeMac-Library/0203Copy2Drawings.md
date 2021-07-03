@@ -4,6 +4,8 @@
 
 [Copy to Drawings | Lee Mac Programming](http://www.lee-mac.com/copytodrawing.html)
 
+[Get Files Dialog | Lee Mac Programming](http://www.lee-mac.com/getfilesdialog.html)
+
 ## Program Description
 
 This program enables the user to copy a selection of objects to a selected set of drawings, without opening the drawings in the AutoCAD Editor.

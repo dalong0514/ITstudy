@@ -175,3 +175,34 @@ Public Sub ExtractBsGCTDataToCSV()
 End Sub
 ```
 
+1、自动填充检测率数据时用到了通配符匹配（结合了 Case 选择语句）。
+
+```c
+' Abandoned at 2021-06-13
+Sub SetTankInspectRate(range, columnNum)
+  Dim row As Integer
+  row = 1
+  ' weld_joint is the frist column of the range
+  Do While range.Cells(row, 1).Value <> ""
+    ' barrel inspect_rate is the 7th column of the range
+    Select Case True
+      Case (range.Cells(row, 1).Value like "0.85/*") 
+        range.Cells(row, columnNum).Value = "20%"
+      Case (range.Cells(row, 1).Value like "1.0/*") 
+        range.Cells(row, columnNum).Value = "100%"
+      Case else 
+        range.Cells(row, columnNum).Value = "/"
+    End Select
+    ' head inspect_rate is the 7th column of the range
+    Select Case True
+      Case (range.Cells(row, 1).Value like "*/0.85") 
+        range.Cells(row, columnNum+1).Value = "20%"
+      Case (range.Cells(row, 1).Value like "*/1.0") 
+        range.Cells(row, columnNum+1).Value = "100%"
+      Case else 
+        range.Cells(row, columnNum+1).Value = "/"
+    End Select
+    row = row + 1
+  Loop
+End Sub
+```

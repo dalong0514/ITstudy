@@ -74,4 +74,3 @@ for infile in glob.glob("/Users/Daglas/Desktop/*.png"):
         im.save(file + ".png")
         
 ```
-
