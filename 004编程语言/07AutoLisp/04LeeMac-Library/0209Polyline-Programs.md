@@ -25,4 +25,3 @@ Upon issuing the command syntax PC at the AutoCAD command-line, this simple prog
 Upon issuing the command syntax PW at the AutoCAD command-line, this program will first prompt the user for a selection of polylines, followed by a width to be applied to all segments of each polyline in the selection.
 
 At this prompt, a default zero-width value is offered.
-
