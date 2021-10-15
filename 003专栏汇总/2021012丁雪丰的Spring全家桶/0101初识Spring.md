@@ -1,6 +1,6 @@
-# 0101. 初识 Spring
+## 0101. 初识 Spring
 
-## 1.1 大纲
+### 1.1 大纲
 
 1、初识 Spring：1）Spring 家族的主要成员。2）跟着 Spring 了解技术趋势。3）编写第一个 Spring 应用程序。
 
@@ -12,7 +12,7 @@
 
 5、Spring Cloud。1）云原生和微服务。2）服务注册、发现、熔断与配置。3）Spring Cloud Stream。4）服务链路追踪。这一部分会去聊它的服务发现、服务注册、还有熔断。
 
-## 1.2 Spring 家族主要成员
+### 1.2 Spring 家族主要成员
 
 1、诞生于 2002 年，成型于 2003 年，最早的作者为 Rod Johnson。
 
@@ -56,7 +56,7 @@ Spring Cloud：1）简化分布式系统的开发。2）配置管理。3）服�
 
 Spring Cloud 也是这几年诞生的比较热门的 Spring 成员，在里面它其实帮大家简化了分布式系统的开发，比方说我在分布式系统当中的服务注册和发现怎么去做，我的整个配置管理怎么去做，我的服务的熔断该怎么去做，那么在整个应用程序从单机向集群向发展的过程当中，Spring Cloud 帮助大家能够能快更好更轻松的去开发出一套基于云的应用程序。
 
-### 黑板墙
+#### 黑板墙
 
 作品中会有提到如何启动后动态初始化 spring bean嘛？作者回复：如果你说的是 Spring Boot 怎么做自动配置的，那在 Spring Boot 的自动配置相关的章节里会提到，如果你是说怎么做后置处理，有关于 Spring 的 BeanPostProcessor 和 BeanFactoryPostProcessor 的内容，在讲如何在 3.x 上实现自动配置时会讲到。如果你说的是如何动态创建 Bean，那在第 3 章讲 Repository 的创建时会提到。2019-02-12
 
@@ -70,7 +70,7 @@ Spring 的学习需要事先学习掌握 struts、jsp 等知识吗？作者回�
 
 我知道 Spring Cloud 主要搭建 rest 的 http 应用，在最后 Spring Cloud 图中显示，Web、iot、mobile 通过 api-gateway 访问系统，Spring Cloud 是不是支持出 http 以外的协议呢？Spring Cloud 是不是可以和 netty 结合呢？作者回复：这里的 Gateway 其实是指 Spring Cloud Gateway，之前也有用 Netflix 的 Zuul 的，但也是以 HTTP 形式居多的。你问可不可以与 Netty 结合，我只能说，只要想，总是有办法的，用 Spring Boot 写个程序里面用 Netty 启动监听个端口也是中方式，不是么，其实 WebFlux 就支持 Netty。但你说的官方是否支持非 HTTP 协议的网关，走 TCP 的，这个我的确没见到过。2019-02-20
 
-## 1.3 跟着 Spring 了解技术趋势
+### 1.3 跟着 Spring 了解技术趋势
 
 不知道有多少同学回去看一些框架的 Release Notes，它的 Changelog 等等这样的一些信息。比方说我们可以看一下 Spring Framework 5.0 的它的一个 Release Notes，这里面我摘出了这么一些东西。
 
@@ -100,7 +100,7 @@ Spring Boot 和 Spring Cloud 的出现是必然的：1）开箱即⽤。2）与�
 
 另外，整个的 Spring 我们最早它就是把整个的最佳实践囊括到了这个框架当中去，Spring Boot、Spring Cloud 它其实非常好的继承了这个光荣的传统，在里面我们可以看到更多的一些与运维还有部署相关的最佳实践，比如说我们怎么样从一个外置的应用容器变成内嵌式的应用容器，我们怎么样去监控应用程序的运行状态，我们怎么样去管理自己的配置文件，我的配置文件整个的覆盖的规则会是什么样的。当然也包括了我怎么样去做熔断，怎么样去做服务的发现与注册，这样的一些点，他都替你考虑到了。所以说，今后的开发你不会是与单独的 Spring Framework 去打交道，更多的你是在和 Spring Boot、Spring Cloud 以及整个 Spring 的家族打交道。
 
-### 黑板墙
+#### 黑板墙
 
 Java 学到什么程度才可以开始着手学习这套视频？作者回复：我想会基本的语法，了解常用的包和库，会用 Maven，对 DB 和 Web 的东西再有点了解，应该就差不多了吧。2019-02-11
 
@@ -152,7 +152,7 @@ spring-cloud-Netflix 进入维护期，后面会讲 spring-cloud-alibaba 吗？�
 
 请问配置环境以及搭建框架有教程吗？作者回复：额，这个我好像也没怎么搭环境，我就装了个 JDK，然后装了个 IDEA 的 IDE，再下了个 Maven，就没有了，如果不自己装 Maven，就用 IDEA 自带的。2019-02-12
 
-## 1.4 编写你的第一个 Spring 程序
+### 1.4 编写你的第一个 Spring 程序
 
 Hello Spring
 
@@ -202,13 +202,13 @@ public class DemoApplication {
 
 点击 Run 后跑起来，没问题。随便在项目文件夹下打开一个终端，输入命名：
 
-```
+```java
 curl http://localhost:8080/hello
 ```
  
 因为在建项目包的时候选择了 Acuator，那么它还为我们提供了了额外的功能，输入命令：
 
-```
+```java
 http://localhost:8080/actuator/health
 ```
 
@@ -216,7 +216,7 @@ http://localhost:8080/actuator/health
 
 回过头来，我们看一下，既然我们选择的是一个 Maven 的工具，所以 Spring Boot 给我们生成了一个 Maven 的 pom 文件。
 
-```
+```java
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -227,7 +227,7 @@ http://localhost:8080/actuator/health
 
 一上来，Spring Boot 把它的 Spring Boot start parent 作为我们真个 Maven 工程的 parent 引入了进来。在这个里面它其实定义了大量的依赖，Spring 官方其实对这些依赖都进行了严格的测试，能保证它们是没有冲突的。所以我们在下面使用的时候会看到，我们并没有指定版本号，我们只是告诉了 Maven，我需要依赖什么，剩下的版本号都是在整个 parent 当中的 dependencyManagement 里面去管理的。
 
-```
+```java
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -250,7 +250,7 @@ http://localhost:8080/actuator/health
 
 我们简单演示一下。 
 
-```
+```java
 mvn clean package -Dmaven.test.skip
 
 cd target
