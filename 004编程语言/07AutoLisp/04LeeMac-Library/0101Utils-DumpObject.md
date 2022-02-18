@@ -1,8 +1,8 @@
-# 0101Utils-DumpObject
+## 0101Utils-DumpObject
 
 [Dump Object | Lee Mac Programming](http://www.lee-mac.com/dumpobject.html)
 
-## Program Description
+### Program Description
 
 This is a very simple utility to enable the user to list the ActiveX properties & methods of a VLA-Object.
 
@@ -10,6 +10,6 @@ The function will accept as an argument a VLA-Object, Entity Name, Handle, or an
 
 The utility also permits the user to select primary or nested objects by typing dump or dumpn respectively at the AutoCAD command line.
 
-## Example of Output
+### Example of Output
 
 The following output was the result of supplying the LM:dump function with a VLA Circle Object constructed in the WCS plane at zero elevation, centered at the origin, with radius 1.

@@ -1,8 +1,8 @@
-# 0102. Utils-Elist
+## 0102. Utils-Elist
 
 [Entity List | Lee Mac Programming](http://www.lee-mac.com/entitylist.html)
 
-## Program Description
+### Program Description
 
 This utility is a variation of a program of the same name written by Michael Puckett.
 
@@ -12,7 +12,7 @@ The function may be called from the command line using the syntax ee or eex to s
 
 Alternatively, the user may supply the subfunction with a entity name or DXF list to query.
 
-## Examples of Output
+### Examples of Output
 
 Attributed Block
 

@@ -1,4 +1,4 @@
-# Methods Reference
+## Methods Reference
 
 [Free LISP Programs | Lee Mac Programming](http://www.lee-mac.com/programs.html)
 
