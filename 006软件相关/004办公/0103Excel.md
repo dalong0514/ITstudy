@@ -24,13 +24,36 @@
 
 重要: 在 Excel 2016、Excel Mobile 和 Excel 网页版中, 此函数已替换为 CONCAT 函数。 尽管 CONCATENATE 函数仍可向后兼容，但应考虑从现在开始使用 CONCAT。 这是因为 CONCATENATE 可能不再适用将来的 Excel 版本。
 
-语法：CONCATENATE(text1, [text2], ...)
+语法：
+
+```
+CONCATENATE(text1, [text2], ...)
+```
 
 例如：
 
+```
 =CONCATENATE("Stream population for ", A2, " ", A3, " is ", A4, "/mile")
 
 =CONCATENATE(B2, " ", C2)
+```
 
 与号 (&) 计算运算符允许你在不使用函数的情况下联接文本项目。例如, = A1 & B1 返回与 = 连接 (A1, B1) 相同的值。 在许多情况下，使用与号比使用 CONCATENATE 创建字符串的速度更快，更简单。
 
+2、VLOOKUP 匹配值。
+
+[如何在 Excel 中使用VLOOKUP函数？](https://zh-cn.extendoffice.com/excel/functions/excel-vlookup-function.html)
+
+场景：
+
+有两列一一对应的数据集，好比 key-value 值。要在 Excel 里通过 key 来找 value 值。
+
+叶旭峰：流程题仪表位号自动编号后，仪表专业又自己重新编了号，老号没删。根据新号、老号的对应关系，把修改后的新号同步到流程图。
+
+宗源：排设备方案，开始自己编好了设备位号，业主把设备位号修改了很多（Excel 表里），目前有新号、老号的对应关系，把修改后的新号同步到布置图。
+
+```
+=VLOOKUP(E2,B2:C252,2,FALSE)
+```
+
+B2:C252 是 key-value 2 列数据集的范围，E2 是要查询的一个 key 值的 Excel 单元格，2 值数据集的范围内 value 属于第几列，FALSE 表示精准匹配，TRUE 表示近似匹配。

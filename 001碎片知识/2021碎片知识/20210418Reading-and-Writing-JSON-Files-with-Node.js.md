@@ -1,4 +1,4 @@
-# Reading and Writing JSON Files with Node.js
+## Reading and Writing JSON Files with Node.js
 
 By  Scott Robinson
 
@@ -6,7 +6,7 @@ By  Scott Robinson
 
 [javascript - Write / add data in JSON file using Node.js - Stack Overflow](https://stackoverflow.com/questions/36856232/write-add-data-in-json-file-using-node-js)
 
-## Conclusion
+### Conclusion
 
 Throughout this article we showed how you can read and write JSON data from and to files, which is a very common and important task to know how to do as a web programmer.
 
@@ -14,13 +14,13 @@ There are a couple of methods in the fs module both for reading from and writing
 
 Similarly, the writeFile and writeFileSync functions from the fs module write JSON data to the file in an asynchronous and synchronous manner respectively.
 
-## 0.0
+### 0.0
 
 One of the best ways to exchange information between applications written in different languages is to use the JSON (JavaScript Object Notation) format. Thanks to its uniformity and simplicity, JSON has almost completely replaced XML as the standard data exchange format in software, particularly in web services.
 
 Given the extensive use of JSON in software applications, and especially JavaScript-based applications, it is important to know how to read and write JSON data to a file in Node.js. In this article we'll explain how to perform these functions.
 
-## 0.1 Reading a JSON File
+### 0.1 Reading a JSON File
 
 Let's first see how we can read a file that has already been created. But before we do that we need to actually create the file. Open a new window in your favorite text editor and add the following text to it:
 
@@ -40,7 +40,7 @@ To read the JSON data from the file we can use the Node.js fs module. There are 
 
 Although both of these functions perform similar tasks i.e. reading files from disk, the difference lies in the way these functions are actually executed, which we'll explain in more detail in the sections below.
 
-### 1.1 Using fs.readFileSync
+#### 1.1 Using fs.readFileSync
 
 The readFileSync function reads data from a file in a synchronous manner. This function blocks the rest of the code from executing until all the data is read from a file. The function is particularly useful when your application has to load configuration settings before it can perform any other tasks.
 
@@ -74,7 +74,7 @@ However, we want to read the file in its JSON format, not the raw hex data. This
 
 As you can see, the JSON from our file was successfully loaded in to the student object.
 
-### 1. 2 Using fs.readFile
+#### 1. 2 Using fs.readFile
 
 Another way you can read a JSON file in Node.js is using the readFile function. Unlike readFileSync function, the readFile function reads file data in an asynchronous manner. When a readFile function is called, the file reading process starts and immediately the control shifts to next line executing the remaining lines of code. Once the file data has been loaded, this function will call the callback function provided to it. This way you aren't blocking code execution while waiting for the operating system to get back to you with data.
 
@@ -119,7 +119,7 @@ This is after the read call
 
 As you can see, the last line of code in our file is actually the one that shows up first in the output.
 
-### 1.3 Using require
+#### 1.3 Using require
 
 Another approach is to use the global require method to read and parse JSON files. This is the same method you use to load Node modules, but it can also be used to load JSON.
 
@@ -141,13 +141,13 @@ However there are a few drawbacks of require function:
 
 2 Your file must have '.json' extension, so it can't be as flexible. Without the proper extension require doesn't treat the file as JSON file.
 
-## 02. Writing JSON to a File
+### 02. Writing JSON to a File
 
 Similar to the readFile and readFileSync functions, there are two functions for writing data to files: writeFile and writeFileSync. As the names suggest, the writeFile method writes data to a file in an asynchronous way while writeFileSync function writes data to a file in a synchronous manner.
 
 We'll take a closer look in the following sections.
 
-### 2.1 Using fs.writeFileSync
+#### 2.1 Using fs.writeFileSync
 
 The writeFileSync function accepts 2-3 parameters: The path of the file to write data to, the data to write, and an optional parameter.
 
@@ -196,7 +196,7 @@ Here we are telling the method to add newlines and a couple of indentations to t
 }
 ```
 
-### 2.2 Using fs.writeFile
+#### 2.2 Using fs.writeFile
 
 As I mentioned earlier, the writeFile function executes in asynchronous manner, which means our code is not blocked while data is written to the file. And just like the asynchronous methods from before, we need to pass a callback to this function.
 
@@ -234,13 +234,13 @@ Data written to file
 
 And again, you can see that the last line of our code actually shows up first in the console since our callback hasn't been called yet. This ends up saving quite a bit of execution time if you have large amounts of data to write to your file, or if you have quite a few files to write to.
 
-## 03. Learn More
+### 03. Learn More
 
 Want to learn more about the fundamentals of Node.js? Personally, I'd recommend taking an online course like Learn Node.js by Wes Bos. Not only will you learn the most up-to-date ES2017 syntax, but you'll get to build a full stack restaurant app. In my experience, building real-world apps like this is the fastest way to learn.
 
 [Learn Node — The best way to learn Node.js, Express, MongoDB, and Friends](https://learnnode.com/)
 
-## Extend
+#### Extend
 
 [javascript - Write / add data in JSON file using Node.js - Stack Overflow](https://stackoverflow.com/questions/36856232/write-add-data-in-json-file-using-node-js)
 
@@ -291,7 +291,7 @@ UPDATE:
 
 Create a function which returns the current date (year+month+day) as a string. Create the file named this string + .json. the fs module has a function which can check for file existence named fs.stat(path, callback). With this, you can check if the file exists. If it exists, use the read function if it's not, use the create function. Use the date string as the path cuz the file will be named as the today date + .json. the callback will contain a stats object which will be null if the file does not exist.
 
-## Comments
+### Comments
 
 SanthiRaju Yedla • 3 years ago
 

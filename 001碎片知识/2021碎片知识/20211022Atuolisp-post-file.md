@@ -23,4 +23,3 @@
 [How to send files via HTTP_POST with Excel using VBA? - Stack Overflow](https://stackoverflow.com/questions/10954293/how-to-send-files-via-http-post-with-excel-using-vba)
 
 [VBA Download / Upload File using VBA FTP - Analyst Cave](https://analystcave.com/vba-downloading-files-from-ftp-using-vba/)
-
