@@ -1,5 +1,7 @@
 ## 2022024Programming-AutoCAD-with-CS-Best-Practices
 
+[Programming AutoCAD® with C#: Best Practices | Autodesk University](https://www.autodesk.com/autodesk-university/class/Programming-AutoCADR-C-Best-Practices-2012)
+
 Scott McFarlane – Woolpert, Inc.
 
 CP4471
@@ -49,48 +51,66 @@ Let's start with one of the most common coding sequences in AutoCAD programming:
 Consider the following code that finds all the circles in the drawing with a radius less than 1.0 and changes their color to red.
 
 ```cs
-[CommandMethod("ENTCOLOR1")] public void ChangeEntityColor1() {
+// using Autodesk.AutoCAD.ApplicationServices.Core;
+using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.EditorInput;
+using Autodesk.AutoCAD.Runtime;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-// Get the various active objects Document document = Application.DocumentManager.MdiActiveDocument; Database database = document.Database;
+namespace dataflow_cs
+{
+    public class Commands
+    {
+        [CommandMethod("Hello")] 
+        public void Hello()
+        {
+            Editor editor = Application.DocumentManager.MdiActiveDocument.Editor;
+            editor.WriteMessage("Hello, dalong");
+        }
 
-// Create a new transaction Transaction tr = database.TransactionManager.StartTransaction();
-
-using (tr) {
-
-// Get the block table for the current database var blockTable =
-
-(BlockTable) tr.GetObject(
-
-database.BlockTableId, OpenMode.ForRead);
-
-// Get the model space block table record var modelSpace =
-
-(BlockTableRecord) tr.GetObject( blockTable[BlockTableRecord.ModelSpace], OpenMode.ForRead);
-
-RXClass circleClass = RXObject.GetClass(typeof (Circle));
-
-// Loop through the entities in model space foreach (ObjectId objectId in modelSpace) {
-
-// Look for circles if (objectId.ObjectClass.IsDerivedFrom(circleClass)) {
-
-var circle =
-
-(Circle) tr.GetObject( objectId, OpenMode.ForRead);
-
-if (circle.Radius < 1.0) {
-
-circle.UpgradeOpen();
-
-circle.ColorIndex = 1; }
-
-}
-
-} tr.Commit();
-
-}
-
+        [CommandMethod("ENTCOLOR1")]
+        public void ChangeEntityColor1()
+        {
+            // Get the various active objects
+            Document document = Application.DocumentManager.MdiActiveDocument;
+            Database database = document.Database;
+            // Create a new transaction
+            Transaction tr = database.TransactionManager.StartTransaction();
+            using (tr)
+            {
+                // Get the block table for the current database
+                var blockTable =
+                (BlockTable)tr.GetObject(database.BlockTableId, OpenMode.ForRead);
+                // Get the model space block table record
+                var modelSpace = (BlockTableRecord)tr.GetObject(blockTable[BlockTableRecord.ModelSpace], OpenMode.ForRead);
+                RXClass circleClass = RXObject.GetClass(typeof(Circle));
+                // Loop through the entities in model space
+                foreach (ObjectId objectId in modelSpace)
+                {
+                    // Look for circles
+                    if (objectId.ObjectClass.IsDerivedFrom(circleClass))
+                    {
+                        var circle = (Circle)tr.GetObject(objectId, OpenMode.ForRead);
+                        if (circle.Radius < 1.0)
+                        {
+                            circle.UpgradeOpen();
+                            circle.ColorIndex = 1;
+                        }
+                    }
+                }
+                tr.Commit();
+            }
+        }
+    }
 }
 ```
+
+1『在自己项目「dataflow-cs」中测试完毕。（2022-03-21）』
 
 The majority of this code is necessary for virtually any activity your code needs to perform on the entities in a drawing. In this section, we will explore how the use of delegates, along with extension methods, can greatly reduce the duplication of this code in other similar scenarios.
 
@@ -99,35 +119,50 @@ The majority of this code is necessary for virtually any activity your code need
 Before we go any further, I would like to introduce a simple yet very useful static class called Active, which provides quick access to the most commonly used objects in the AutoCAD API.
 
 ```cs
-/// <summary> /// Provides easy access to several "active" objects in the AutoCAD
-
-3 Programming AutoCAD with C#: Best Practices
-
-/// runtime environment. /// </summary> public static class Active {
-
-/// <summary> /// Returns the active Editor object. /// </summary> public static Editor Editor { get { return Document.Editor; } }
-
-/// <summary> /// Returns the active Document object.
-
-/// </summary> public static Document Document { get { return Application.DocumentManager.MdiActiveDocument; } }
-
-/// <summary> /// Returns the active Database object. /// </summary> public static Database Database { get { return Document.Database; } }
-
-/// <summary> /// Sends a string to the command line in the active Editor /// </summary>
-
-/// <param name="message">The message to send.</param>
-
-public static void WriteMessage(string message) { Editor.WriteMessage(message); }
-
-/// <summary> /// Sends a string to the command line in the active Editor using String.Format. /// </summary>
-
-/// <param name="message">The message containing format specifications.</param>
-
-/// <param name="parameter">The variables to substitute into the format string.</param>
-
-public static void WriteMessage(string message, params object[] parameter) { Editor.WriteMessage(message, parameter); }
-
-}
+        /// <summary> /// Provides easy access to several "active" objects in the AutoCAD
+        /// runtime environment.
+        /// </summary>
+        public static class Active
+        {
+            /// <summary>
+            /// Returns the active Editor object.
+            /// </summary>
+            public static Editor Editor
+            {
+                get { return Document.Editor; }
+            }
+            /// <summary>
+            /// Returns the active Document object.
+            /// </summary>
+            public static Document Document
+            {
+                get { return Application.DocumentManager.MdiActiveDocument; }
+            }
+            /// <summary>
+            /// Returns the active Database object.
+            /// </summary>
+            public static Database Database
+            {
+                get { return Document.Database; }
+            }
+            /// <summary>
+            /// Sends a string to the command line in the active Editor
+            /// </summary>
+            /// <param name="message">The message to send.</param>
+            public static void WriteMessage(string message)
+            {
+                Editor.WriteMessage(message);
+            }
+            /// <summary>
+            /// Sends a string to the command line in the active Editor using String.Format.
+            /// </summary>
+            /// <param name="message">The message containing format specifications.</param>
+            /// <param name="parameter">The variables to substitute into the format string.</param>
+            public static void WriteMessage(string message, params object[] parameter)
+            {
+                Editor.WriteMessage(message, parameter);
+            }
+        }
 ```
 
 So in other parts of your code, for example, you can access the active database using:
@@ -139,45 +174,35 @@ var db = Active.Database;
 Let's modify the previous code sample to use our new Active static class.
 
 ```cs
-[CommandMethod("ENTCOLOR2")] public void ChangeEntityColor2() {
+        [CommandMethod("ENTCOLOR2")]
+        public void ChangeEntityColor2()
+        {
 
-using (var tr = Active.Database.TransactionManager.StartTransaction()) {
+            using (var tr = Active.Database.TransactionManager.StartTransaction())
+            {
 
-// Get the block table for the current database
-
-var blockTable =
-
-(BlockTable)tr.GetObject( Active.Database.BlockTableId, OpenMode.ForRead);
-
-// Get the model space block table record var modelSpace =
-
-(BlockTableRecord)tr.GetObject( blockTable[BlockTableRecord.ModelSpace], OpenMode.ForRead);
-
-RXClass circleClass = RXObject.GetClass(typeof(Circle));
-
-// Loop through the entities in model space foreach (ObjectId objectId in modelSpace)
-
-4 Programming AutoCAD with C#: Best Practices
-
-{
-
-// Look for circles if (objectId.ObjectClass.IsDerivedFrom(circleClass)) {
-
-var circle = (Circle)tr.GetObject( objectId, OpenMode.ForRead);
-
-if (circle.Radius < 1.0) {
-
-circle.UpgradeOpen();
-
-circle.ColorIndex = 1; }
-
-}
-
-} tr.Commit();
-
-}
-
-}
+                // Get the block table for the current database
+                var blockTable = (BlockTable)tr.GetObject(Active.Database.BlockTableId, OpenMode.ForRead);
+                // Get the model space block table record
+                var modelSpace = (BlockTableRecord)tr.GetObject(blockTable[BlockTableRecord.ModelSpace], OpenMode.ForRead);
+                RXClass circleClass = RXObject.GetClass(typeof(Circle));
+                // Loop through the entities in model space
+                foreach (ObjectId objectId in modelSpace)
+                {
+                    // Look for circles
+                    if (objectId.ObjectClass.IsDerivedFrom(circleClass))
+                    {
+                        var circle = (Circle)tr.GetObject(objectId, OpenMode.ForRead);
+                        if (circle.Radius < 1.0)
+                        {
+                            circle.UpgradeOpen();
+                            circle.ColorIndex = 1;
+                        }
+                    }
+                }
+                tr.Commit();
+            }
+        }
 ```
 
 There are a couple of techniques used in this code worth mentioning, but are beyond the scope of this class.
@@ -187,6 +212,8 @@ There are a couple of techniques used in this code worth mentioning, but are bey
 2 Use of the RXObject.GetClass method along with the ObjectId.ObjectClass method, which allows you to check for the type of object before you actually open it.
 
 3 Use of the UpgradeOpen method, which allows you to only open an object for write when you know you need to.
+
+1『上面几个 .NET AutoCAD 二次开发常用的函数，做一张信息数据卡片。（2022-03-21）』—— 已完成
 
 #### 2.2 Introducing Delegates 
 
@@ -210,109 +237,90 @@ public delegate void TransactionFunc(Transaction tr);
 This declaration defines a delegate (a method signature) that takes a single Transaction argument, and returns void (nothing). Now we can define a useful method that takes a TransactionFunc as an argument, and invokes the method within the Transaction block.
 
 ```cs
-public void UsingTransaction(TransactionFunc action) { using (var tr = Active.Database.TransactionManager.StartTransaction())
-
-{
-
-// Invoke the method action(tr);
-
-tr.Commit();
-
-}
-
-}
+        public void UsingTransaction(TransactionFunc action)
+        {
+            using (var tr = CADActive.Database.TransactionManager.StartTransaction()) 
+            { 
+                // Invoke the method
+                action(tr);
+                tr.Commit();
+            }
+        }
 ```
 
 To avoid having to explicitly declare delegates, the .NET System namespace includes two delegate classes that use generics: Action, which defines delegates that have no return value, and Func, which defines delegates that have a return value. There are multiple versions of each of these classes which support up to 16 method arguments:
 
-```
-Action – no parameters, no return value.
+`Action` – no parameters, no return value.
 
-Action<T> – one parameter, no return value.
+`Action<T> `– one parameter, no return value.
 
-Action<T1, T2> – two parameters, no return value.
+`Action<T1, T2>` – two parameters, no return value.
 
-Action<T1, T2, T3> – three parameters, no return value.
+`Action<T1, T2, T3>` – three parameters, no return value.
 
 Etc…
-```
 
 And,
 
-```
-Func<TResult> – no parameters, return value of the specified type.
+`Func<TResult> `– no parameters, return value of the specified type.
 
-Func<T, TResult> – one parameter, return value of the specified type.
+`Func<T, TResult>` – one parameter, return value of the specified type.
 
-Func<T1, T2, TResult> – two parameters, return value of the specified type.
+`Func<T1, T2, TResult>` – two parameters, return value of the specified type.
 
-Func<T1, T2, T3, TResult> – three parameters, return value of the specified type.
+`Func<T1, T2, T3, TResult>` – three parameters, return value of the specified type.
 
 Etc…
-```
 
 So using the `Action<T>` class, we can replace the TransactionFunc delegate with its equivalent `Action<Transaction>` and then rewrite our UsingTransaction method as follows:
 
 ```cs
-public void UsingTransaction(Action<Transaction> action) {
-
-using (var tr = Active.Database.TransactionManager.StartTransaction()) {
-
-// Invoke the method
-
-action(tr);
-
-tr.Commit();
-
-}
-
-}
+        public void UsingTransaction(Action<Transaction> action)
+        {
+            using (var tr = CADActive.Database.TransactionManager.StartTransaction())
+            {
+                // Invoke the method
+                action(tr);
+                tr.Commit();
+            }
+        }
 ```
 
 To use this method, we first take the guts of our code, and put it into a method that has the correct signature:
 
 ```cs
-public void ChangeSmallCirclesToRed(Transaction tr) {
-
-// Get the block table for the current database var blockTable =
-
-(BlockTable)tr.GetObject(
-
-Active.Database.BlockTableId, OpenMode.ForRead);
-
-// Get the model space block table record var modelSpace =
-
-(BlockTableRecord)tr.GetObject( blockTable[BlockTableRecord.ModelSpace], OpenMode.ForRead);
-
-RXClass circleClass = RXObject.GetClass(typeof(Circle));
-
-6 Programming AutoCAD with C#: Best Practices
-
-// Loop through the entities in model space foreach (ObjectId objectId in modelSpace) {
-
-// Look for circles if (objectId.ObjectClass.IsDerivedFrom(circleClass)) {
-
-var circle =
-
-(Circle)tr.GetObject( objectId, OpenMode.ForRead);
-
-if (circle.Radius < 1.0) {
-
-circle.UpgradeOpen();
-
-circle.ColorIndex = 1; }
-
-}
-
-}
-
-}
+        public void ChangeSmallCircleToRed(Transaction tr)
+        {
+            // Get the block table for the current database
+            var blockTable = (BlockTable)tr.GetObject(CADActive.Database.BlockTableId, OpenMode.ForRead);
+            // Get the model space block table record
+            var modelSpace = (BlockTableRecord)tr.GetObject(blockTable[BlockTableRecord.ModelSpace], OpenMode.ForRead);
+            RXClass circleClass = RXObject.GetClass(typeof(Circle));
+            // Loop through the entities in model space
+            foreach (ObjectId objectId in modelSpace)
+            {
+                // Look for circles
+                if (objectId.ObjectClass.IsDerivedFrom(circleClass))
+                {
+                    var circle = (Circle)tr.GetObject(objectId, OpenMode.ForRead);
+                    if (circle.Radius < 1.0)
+                    {
+                        circle.UpgradeOpen();
+                        circle.ColorIndex = 1;
+                    }
+                }
+            }
+        }
 ```
 
 Now we can define our command method as follows:
 
 ```cs
-[CommandMethod("ENTCOLOR3")] public void ChangeEntityColorWithDelegate() { UsingTransaction(ChangeSmallCirclesToRed); }
+        [CommandMethod("ENTCOLOR3")]
+        public void ChangeEntityColorWithDelegate()
+        {
+            UsingTransaction(ChangeSmallCircleToRed);
+        }
 ```
 
 So far, we haven't really saved ourselves many keystrokes with this example use of delegates since all it does is remove the transaction-related code, which really isn't that much code. So let's build on our UsingTransaction helper method idea, and strip out some of the boiler plate code related to obtaining the model space block table record.
@@ -320,59 +328,54 @@ So far, we haven't really saved ourselves many keystrokes with this example use 
 Consider the following UsingModelSpace helper method:
 
 ```cs
-public void UsingModelSpace(Action<Transaction, BlockTableRecord> action) {
-
-using (var tr = Active.Database.TransactionManager.StartTransaction()) {
-
-// Get the block table for the current database
-
-var blockTable =
-
-(BlockTable)tr.GetObject( Active.Database.BlockTableId, OpenMode.ForRead);
-
-// Get the model space block table record var modelSpace =
-
-(BlockTableRecord)tr.GetObject( blockTable[BlockTableRecord.ModelSpace], OpenMode.ForRead);
-
-// Invoke the method action(tr, modelSpace);
-
-tr.Commit();
-
-}
-
+public void UsingModelSpace(Action<Transaction, BlockTableRecord> action) 
+{
+    using (var tr = Active.Database.TransactionManager.StartTransaction()) 
+    {
+        // Get the block table for the current database
+        var blockTable =
+            (BlockTable)tr.GetObject( Active.Database.BlockTableId, OpenMode.ForRead);
+        // Get the model space block table record 
+        var modelSpace =
+            (BlockTableRecord)tr.GetObject( blockTable[BlockTableRecord.ModelSpace], OpenMode.ForRead);
+        // Invoke the method action(tr, modelSpace);
+        tr.Commit();
+    }
 }
 ```
 
 This method allows us to reduce the "circle color change" code to the following method:
 
 ```cs
-public void ChangeSmallCirclesToRed2(Transaction tr, BlockTableRecord modelSpace) { RXClass circleClass = RXObject.GetClass(typeof(Circle));
-
-// Loop through the entities in model space foreach (ObjectId objectId in modelSpace) {
-
-// Look for circles if (objectId.ObjectClass.IsDerivedFrom(circleClass)) { var circle =
-
-7 Programming AutoCAD with C#: Best Practices
-
-(Circle)tr.GetObject( objectId, OpenMode.ForRead);
-
-if (circle.Radius < 1.0) {
-
-circle.UpgradeOpen();
-
-circle.ColorIndex = 1; }
-
-}
-
-}
-
+public void ChangeSmallCirclesToRed2(Transaction tr, BlockTableRecord modelSpace) 
+{ 
+    RXClass circleClass = RXObject.GetClass(typeof(Circle));
+    // Loop through the entities in model space 
+    foreach (ObjectId objectId in modelSpace) 
+    {
+        // Look for circles 
+        if (objectId.ObjectClass.IsDerivedFrom(circleClass)) 
+        { 
+            var circle =
+                (Circle)tr.GetObject( objectId, OpenMode.ForRead);
+            if (circle.Radius < 1.0) 
+            {
+                circle.UpgradeOpen();
+                circle.ColorIndex = 1; 
+            }
+        }
+    }
 }
 ```
 
 And our command method now looks like this:
 
 ```cs
-[CommandMethod("ENTCOLOR4")] public void ChangeEntityColorWithDelegate2() { UsingModelSpace(ChangeSmallCirclesToRed2); }
+[CommandMethod("ENTCOLOR4")] 
+public void ChangeEntityColorWithDelegate2() 
+{ 
+    UsingModelSpace(ChangeSmallCirclesToRed2); 
+}
 ```
 
 Now we are starting to save some coding keystrokes, and reduce duplicate code in our applications. Let's take it one step further, and consider the common need to iterate model space and perform some action on all entities of a certain type. Our next helper method will do this, using generics to define the type of object we are looking for.
@@ -380,84 +383,91 @@ Now we are starting to save some coding keystrokes, and reduce duplicate code in
 Here is the code:
 
 ```cs
-public void ForEach<T>(Action<T> action) where T: Entity {
-
-using (var tr = Active.Database.TransactionManager.StartTransaction()) {
-
-// Get the block table for the current database
-
-var blockTable =
-
-(BlockTable)tr.GetObject( Active.Database.BlockTableId, OpenMode.ForRead);
-
-// Get the model space block table record var modelSpace =
-
-(BlockTableRecord)tr.GetObject( blockTable[BlockTableRecord.ModelSpace], OpenMode.ForRead);
-
-RXClass theClass = RXObject.GetClass(typeof(T));
-
-// Loop through the entities in model space foreach (ObjectId objectId in modelSpace) {
-
-// Look for entities of the correct type if (objectId.ObjectClass.IsDerivedFrom(theClass)) {
-
-var entity =
-
-(T)tr.GetObject( objectId, OpenMode.ForRead);
-
-action(entity);
-
-}
-
-} tr.Commit();
-
-}
-
+public void ForEach<T>(Action<T> action) where T: Entity 
+{
+    using (var tr = Active.Database.TransactionManager.StartTransaction()) 
+    {
+        // Get the block table for the current database
+        var blockTable =
+            (BlockTable)tr.GetObject( Active.Database.BlockTableId, OpenMode.ForRead);
+        // Get the model space block table record 
+        var modelSpace =
+            (BlockTableRecord)tr.GetObject( blockTable[BlockTableRecord.ModelSpace], OpenMode.ForRead);
+        RXClass theClass = RXObject.GetClass(typeof(T));
+        // Loop through the entities in model space 
+        foreach (ObjectId objectId in modelSpace) 
+        {
+            // Look for entities of the correct type 
+            if (objectId.ObjectClass.IsDerivedFrom(theClass)) 
+            {
+                var entity =
+                    (T)tr.GetObject( objectId, OpenMode.ForRead);
+                action(entity);
+            }
+        } 
+        tr.Commit();
+    }
 }
 ```
 
 Now our delegate and command methods are greatly simplified:
 
 ```cs
-public void ProcessCircle(Circle circle) {
+public void ProcessCircle(Circle circle) 
+{
 
-if (circle.Radius < 1.0) {
-
-circle.UpgradeOpen();
-
-circle.ColorIndex = 1; }
-
-8 Programming AutoCAD with C#: Best Practices
-
+if (circle.Radius < 1.0) 
+{
+    circle.UpgradeOpen();
+    circle.ColorIndex = 1; }
 }
 
-[CommandMethod("ENTCOLOR")] public void ChangeEntityColorWithForEach() { ForEach<Circle>(ProcessCircle); }
+[CommandMethod("ENTCOLOR")] 
+public void ChangeEntityColorWithForEach() 
+{ 
+    ForEach<Circle>(ProcessCircle); 
+}
 ```
 
 We can also avoid defining the actual delegate method by using an anonymous method. Anonymous methods allow you to define the body of a delegate in-line where the delegate object is expected. So the code for the command method would change to:
 
 ```cs
 ForEach(
-
-delegate(Circle circle) { if (circle.Radius < 1.0) { circle.UpgradeOpen(); circle.ColorIndex = 1; } });
+    delegate(Circle circle) 
+    { 
+        if (circle.Radius < 1.0) 
+        { 
+            circle.UpgradeOpen(); 
+            circle.ColorIndex = 1; 
+        } 
+    }
+);
 ```
 
 Or, we can use lambda expression syntax like so:
 
 ```cs
 ForEach<Circle>(
-
-circle => { if (circle.Radius < 1.0) { circle.UpgradeOpen(); circle.ColorIndex = 1; } });
+    circle => 
+    { 
+        if (circle.Radius < 1.0) 
+        { 
+            circle.UpgradeOpen(); 
+            circle.ColorIndex = 1; 
+        } 
+    }
+);
 ```
 
 Now that we have this handy ForEach method, we can, for example, print the average length of all the lines in the drawing with just a few lines of code:
 
 ```cs
-[CommandMethod("AVGLEN")] public void AverageLength() {
-
-var lengths = new List<double>();
-
-ForEach<Line>(line => lengths.Add(line.Length)); Active.WriteMessage("\nThe average length is {0}." , lengths.Average());
-
+[CommandMethod("AVGLEN")] 
+public void AverageLength() 
+{
+    var lengths = new List<double>();
+    ForEach<Line>(line => lengths.Add(line.Length)); 
+    Active.WriteMessage("\nThe average length is {0}." , lengths.Average());
 }
 ```
 
@@ -466,38 +476,33 @@ One thing that I don't like about our ForEach method is that it always uses the 
 The signature of an extension method always includes at least one argument, which is of the type to which you want the method to apply. You also prefix that argument with the this keyword. Here is our ForEach method, implemented as an extension method:
 
 ```cs
-public static class ExtensionMethods {
-
-public static void ForEach<T>(this Database database, Action<T> action) where T : Entity { using (var tr = database.TransactionManager.StartTransaction()) { // Get the block table for the current database
-
-var blockTable =
-
-(BlockTable)tr.GetObject( database.BlockTableId, OpenMode.ForRead);
-
-// Get the model space block table record var modelSpace =
-
-(BlockTableRecord)tr.GetObject( blockTable[BlockTableRecord.ModelSpace], OpenMode.ForRead);
-
-RXClass theClass = RXObject.GetClass(typeof(T));
-
-// Loop through the entities in model space foreach (ObjectId objectId in modelSpace) {
-
-// Look for entities of the correct type if (objectId.ObjectClass.IsDerivedFrom(theClass)) {
-
-var entity =
-
-(T)tr.GetObject( objectId, OpenMode.ForRead);
-
-action(entity);
-
-}
-
-} tr.Commit();
-
-}
-
-}
-
+public static class ExtensionMethods 
+{
+    public static void ForEach<T>(this Database database, Action<T> action) where T : Entity 
+    { 
+        using (var tr = database.TransactionManager.StartTransaction()) 
+        { 
+            // Get the block table for the current database
+            var blockTable =
+                (BlockTable)tr.GetObject( database.BlockTableId, OpenMode.ForRead);
+            // Get the model space block table record 
+            var modelSpace =
+                (BlockTableRecord)tr.GetObject( blockTable[BlockTableRecord.ModelSpace], OpenMode.ForRead);
+            RXClass theClass = RXObject.GetClass(typeof(T));
+            // Loop through the entities in model space 
+            foreach (ObjectId objectId in modelSpace) 
+            {
+                // Look for entities of the correct type 
+                if (objectId.ObjectClass.IsDerivedFrom(theClass)) 
+                {
+                    var entity =
+                        (T)tr.GetObject( objectId, OpenMode.ForRead);
+                    action(entity);
+                }
+            } 
+            tr.Commit();
+        }
+    }
 }
 ```
 
@@ -505,8 +510,15 @@ Now our "circle color change" code can be:
 
 ```cs
 Active.Database.ForEach<Circle>(
-
-circle => { if (circle.Radius < 1.0) { circle.UpgradeOpen(); circle.ColorIndex = 1; } });
+    circle => 
+    { 
+        if (circle.Radius < 1.0) 
+        { 
+            circle.UpgradeOpen(); 
+            circle.ColorIndex = 1; 
+        } 
+    }
+);
 ```
 
 ### 03. Using LINQ with the AutoCAD API
@@ -538,19 +550,21 @@ int[] c;
 What these three types have in common is that they all implement IEnumerable, which means that they can all be queried using LINQ. The key distinction between the IEnumerable and the other two types is that `List<int>` and `int[]` are themselves containers of data, where `IEnumerable<int>` is separate from its data. IEnumerable is an interface that says nothing more than "this object can be enumerated." It contains a single method, GetEnumerator() that returns an IEnumerator, which is defined as follows:
 
 ```cs
-public interface IEnumerator {
-
-bool MoveNext();
-
-void Reset();
-
-object Current { get; } }
+public interface IEnumerator 
+{
+    bool MoveNext();
+    void Reset();
+    object Current { get; } 
+}
 ```
 
 And `IEnumerator<T>` extends IEnumerator as follows:
 
 ```cs
-public interface IEnumerator<T> : IEnumerator { new T Current { get; } }
+public interface IEnumerator<T> : IEnumerator 
+{ 
+    new T Current { get; } 
+}
 ```
 
 The beauty of IEnumerator is that it allows you to sequentially iterate over the elements of a collection without exposing the underlying data structure. This is a common design pattern that is often referred to as the iterator pattern.
@@ -563,79 +577,75 @@ IEnumerable and IEnumerator are an integral part of .NET languages. For example,
 
 One of the most common activities in an AutoCAD program that involves enumeration is looping through a collection of database objects. Some of the classes in the AutoCAD .NET API that implement IEnumerable for the purposes of enumerating database objects include:
 
-• SymbolTable (base class for all symbol tables)
+1 SymbolTable (base class for all symbol tables)
 
-• AttributeCollection
+2 AttributeCollection
 
-• BlockTableRecord
+3 BlockTableRecord
 
-• ObjectIdCollection
+4 ObjectIdCollection
 
-• SelectionSet
+5 SelectionSet
+
+2『 AutoCAD 数据库里的 5 大枚举数据集，做一张信息数据卡片。（2022-03-21）』—— 已完成
 
 So how can we leverage the power of LINQ with these classes? Let's first look at the code presented earlier that finds all the circles in the drawing with a radius less than 1.0 and changes their color to red.
 
 ```cs
-[CommandMethod("ENTCOLOR1")] public void ChangeEntityColor1() {
-
-// Get the various active objects Document document = Application.DocumentManager.MdiActiveDocument; Database database = document.Database;
-
-// Create a new transaction Transaction tr = database.TransactionManager.StartTransaction();
-
-using (tr) {
-
-// Get the block table for the current database var blockTable =
-
-(BlockTable) tr.GetObject(
-
-database.BlockTableId, OpenMode.ForRead);
-
-// Get the model space block table record var modelSpace =
-
-(BlockTableRecord) tr.GetObject( blockTable[BlockTableRecord.ModelSpace], OpenMode.ForRead);
-
-RXClass circleClass = RXObject.GetClass(typeof (Circle));
-
-// Loop through the entities in model space foreach (ObjectId objectId in modelSpace) {
-
-// Look for circles if (objectId.ObjectClass.IsDerivedFrom(circleClass)) {
-
-var circle =
-
-(Circle) tr.GetObject( objectId, OpenMode.ForRead);
-
-if (circle.Radius < 1.0) {
-
-circle.UpgradeOpen();
-
-circle.ColorIndex = 1; }
-
-}
-
-} tr.Commit();
-
-}
-
-}
+    public class Commands
+    {
+        [CommandMethod("ENTCOLOR1")]
+        public void ChangeEntityColor1()
+        {
+            // Get the various active objects
+            Document document = Application.DocumentManager.MdiActiveDocument;
+            Database database = document.Database;
+            // Create a new transaction
+            Transaction tr = database.TransactionManager.StartTransaction();
+            using (tr)
+            {
+                // Get the block table for the current database
+                var blockTable =
+                (BlockTable)tr.GetObject(database.BlockTableId, OpenMode.ForRead);
+                // Get the model space block table record
+                var modelSpace = (BlockTableRecord)tr.GetObject(blockTable[BlockTableRecord.ModelSpace], OpenMode.ForRead);
+                RXClass circleClass = RXObject.GetClass(typeof(Circle));
+                // Loop through the entities in model space
+                foreach (ObjectId objectId in modelSpace)
+                {
+                    // Look for circles
+                    if (objectId.ObjectClass.IsDerivedFrom(circleClass))
+                    {
+                        var circle = (Circle)tr.GetObject(objectId, OpenMode.ForRead);
+                        if (circle.Radius < 1.0)
+                        {
+                            circle.UpgradeOpen();
+                            circle.ColorIndex = 1;
+                        }
+                    }
+                }
+                tr.Commit();
+            }
+        }
+    }
 ```
 
 If you look closely at the foreach statement, you'll notice that the object being returned by the enumerator is an ObjectId. This means that if we were to convert part of that foreach statement into a LINQ expression, it might look like this:
 
 ```cs
 IEnumerable<ObjectId> circleIds =
+                            from ObjectId objectId in modelSpace 
+                            where objectId.ObjectClass.IsDerivedFrom(circleClass) 
+                            select objectId;
 
-from ObjectId objectId in modelSpace where objectId.ObjectClass.IsDerivedFrom(circleClass) select objectId;
-
-foreach (ObjectId objectId in circleIds) {
-
-var circle = (Circle)tr.GetObject( objectId, OpenMode.ForRead);
-
-if (circle.Radius < 1.0) {
-
-circle.UpgradeOpen();
-
-circle.ColorIndex = 1; }
-
+foreach (ObjectId objectId in circleIds) 
+{
+    var circle = (Circle)tr.GetObject(objectId, OpenMode.ForRead);
+    if (circle.Radius < 1.0) 
+    {
+        circle.UpgradeOpen();
+        circle.ColorIndex = 1; 
+    }
 }
 ```
 
@@ -643,30 +653,36 @@ We could take it a step further, and include the call to GetObject in the LINQ e
 
 ```cs
 IEnumerable<Circle> circles =
+                        from ObjectId objectId in modelSpace 
+                        where objectId.ObjectClass.IsDerivedFrom(circleClass) 
+                        select (Circle)tr.GetObject(objectId, OpenMode.ForRead);
 
-from ObjectId objectId in modelSpace where objectId.ObjectClass.IsDerivedFrom(circleClass) select (Circle)tr.GetObject(objectId, OpenMode.ForRead);
-
-foreach (var circle in circles) { if (circle.Radius < 1.0) { circle.UpgradeOpen(); circle.ColorIndex = 1; } }
+foreach (var circle in circles) 
+{ 
+    if (circle.Radius < 1.0) 
+    { 
+        circle.UpgradeOpen(); 
+        circle.ColorIndex = 1; 
+    } 
+}
 ```
 
 With some more advance LINQ, we can actually include the logic that checks the radius:
 
 ```cs
 IEnumerable<Circle> circlesToMakeRed =
+                        from ObjectId objectId in modelSpace 
+                        where objectId.ObjectClass.IsDerivedFrom(circleClass) 
+                        select (Circle)tr.GetObject(objectId, OpenMode.ForRead)
+                            into circle
+                            where circle.Radius < 1.0
+                            select circle;
 
-from ObjectId objectId in modelSpace where objectId.ObjectClass.IsDerivedFrom(circleClass) select (Circle)tr.GetObject(objectId, OpenMode.ForRead)
-
-into circle
-
-where circle.Radius < 1.0
-
-select circle;
-
-foreach (var circle in circlesToMakeRed) {
-
-circle.UpgradeOpen();
-
-circle.ColorIndex = 1; }
+foreach (var circle in circlesToMakeRed) 
+{
+    circle.UpgradeOpen();
+    circle.ColorIndex = 1; 
+}
 ```
 
 One of the most important things to understand about LINQ is that these expressions take an existing IEnumerable, and typically return a different IEnumerable. This means that none of the code you see in the LINQ expression is executed until you actually iterate through the resulting IEnumerable. In all the examples above, nothing really happens until the foreach statement is executed.
@@ -679,28 +695,26 @@ What we really want is an enumerable for database objects that gives us the actu
 
 ```cs
 Active.Database.UsingModelSpace(
-
-(tr, ms) =>
-
-{
-
-var circles = ms.OfType<Circle>(tr) .Where(c => c.Radius < 1.0);
-
-foreach (var circle in circles) {
-
-circle.UpgradeOpen();
-
-circle.ColorIndex = 1; }
-
-});
+    (tr, ms) =>
+        {
+            var circles = ms.OfType<Circle>(tr) .Where(c => c.Radius < 1.0);
+            foreach (var circle in circles) 
+            {
+                circle.UpgradeOpen();
+                circle.ColorIndex = 1; 
+            }
+        });
 ```
 
 Let's start with a generic IEnumerator class that wraps an `IEnumerator<ObjectId>` and gives us actual objects that derive from DBObject.
 
 ```cs
-/// <summary> /// Generic <c>IEnumerator</c> implementation that wraps an <c>IEnumerator&lt;ObjectId&gt;</c> /// and instead gives us actual objects that derive from <c>DBObject</c>.
-
-/// </summary> /// <typeparam name="T">A type that derives from <c>DBObject</c>.</typeparam> public class MyDbObjectEnumerator<T> : IEnumerator<T> where T : DBObject {
+/// <summary> 
+/// Generic <c>IEnumerator</c> implementation that wraps an <c>IEnumerator&lt;ObjectId&gt;</c> 
+/// and instead gives us actual objects that derive from <c>DBObject</c>.
+/// </summary> /// <typeparam name="T">A type that derives from <c>DBObject</c>.</typeparam> 
+public class MyDbObjectEnumerator<T> : IEnumerator<T> where T : DBObject 
+{
 
 private readonly IEnumerator<ObjectId> _enumerator; private readonly OpenMode _openMode; private readonly RXClass _theClass; private readonly Transaction _transaction;
 
@@ -758,7 +772,12 @@ public T Current { get { return (T) _transaction.GetObject(_enumerator.Current, 
 Next, we need an IEnumerable implementation that returns our custom enumerator.
 
 ```cs
-/// <summary> /// An <c>IEnumerable</c> implementation that returns a <see cref="MyDbObjectEnumerator{T}"/>. /// </summary> /// <typeparam name="T">A type that derives from <c>DBObject</c>.</typeparam> public class MyDBObjectEnumerable<T> : IEnumerable<T> where T : DBObject {
+/// <summary> 
+/// An <c>IEnumerable</c> implementation that returns a <see cref="MyDbObjectEnumerator{T}"/>. 
+/// </summary> 
+/// <typeparam name="T">A type that derives from <c>DBObject</c>.</typeparam> 
+public class MyDBObjectEnumerable<T> : IEnumerable<T> where T : DBObject 
+{
 
 private readonly IEnumerable<ObjectId> _enumerable; private readonly OpenMode _openMode; private readonly Transaction _transaction;
 
@@ -794,7 +813,13 @@ public MyDBObjectEnumerable(IEnumerable<ObjectId> enumerable, Transaction tr, Op
 And finally, to provide easy access to our new enumerable type, we can define extension methods as follows:
 
 ```cs
-public static IEnumerable<T> OfType<T>(this IEnumerable<ObjectId> enumerable, Transaction tr, OpenMode openMode) where T : DBObject { return new MyDBObjectEnumerable<T>(enumerable, tr, openMode); }
+public static IEnumerable<T> OfType<T>(this IEnumerable<ObjectId> enumerable, 
+Transaction tr, 
+OpenMode openMode) 
+where T : DBObject 
+{ 
+return new MyDBObjectEnumerable<T>(enumerable, tr, openMode); 
+}
 ```
 
 ### 04. Abstraction and Dependency Injection
@@ -808,16 +833,16 @@ You may also have additional components that perform specific "services" to your
 Consider the following simple code example, which might represent some business logic code that uses a data tier, and a logging component.
 
 ```cs
-public class Example1 {
-
+public class Example1 
+{
     public void DoTheWork() { 
         DataRepository dataRepository = new DataRepository(); 
-        Logger logger = new Logger(); logger.Log("Getting the data"); 
+        Logger logger = new Logger(); 
+        logger.Log("Getting the data"); 
         DataSet theData = dataRepository.GetSomeData(); 
         // Do some work with the data...
         logger.Log("Done." );
     }
-
 }
 ```
 
@@ -832,23 +857,20 @@ While it is good that we've separated the data access and logging code into thei
 Now examine the following alternative:
 
 ```cs
-public class Example2 {
-
+public class Example2 
+{
     private readonly IDataRepository _dataRepository; 
     private readonly ILogger _logger; 
-    
     public Example2(IDataRepository dataRepository, ILogger logger) {
         _dataRepository = dataRepository;
         _logger = logger; 
     } 
-    
     public void DoTheWork() {
-    _logger.Log("Getting the data" );
-    DataSet theData = _dataRepository.GetSomeData();
-    // Do some work with the data...
-    _logger.Log("Done."); 
+        _logger.Log("Getting the data" );
+        DataSet theData = _dataRepository.GetSomeData();
+        // Do some work with the data...
+        _logger.Log("Done."); 
     }
-
 }
 ```
 
@@ -873,56 +895,62 @@ Depending on the nature of your AutoCAD application, you should consider how you
 Let's explore a simple example that demonstrates how we might accomplish this. Suppose we've been tasked to create an AutoCAD application that is a very simple quantity take-off application. Its goal is to count the number of inserts of each block (by name) in a drawing, and store the results to a database. If we examine the problem in a very abstract way, we can start by writing the core logic as follows:
 
 ```cs
-public class BlockCounter {
+public class BlockCounter 
+{
+    private readonly IDrawing _drawing; 
+    private readonly IQuantityTakeoffDatabase _quantityTakeoffDatabase;
+    
+    public BlockCounter(IDrawing drawing, IQuantityTakeoffDatabase quantityTakeoffDatabase) 
+    {
+        _drawing = drawing;
+        _quantityTakeoffDatabase = quantityTakeoffDatabase; 
+    }
+    
+    public void CountTheBlocks() 
+    {
+        var quantityLineItems = new Dictionary<string, QuantityLineItem>();
+        foreach (BlockRef blockRef in _drawing.GetAllBlockRefs()) 
+        {
+            if (quantityLineItems.ContainsKey(blockRef.Name)) 
+                quantityLineItems[blockRef.Name].Quantity++; 
+            else
+                quantityLineItems.Add(
+                    blockRef.Name,
+                    new QuantityLineItem { BlockName = blockRef.Name, Quantity = 1 });
+        }
+        
+        _quantityTakeoffDatabase.StoreQuantities(quantityLineItems.Values);
+    }
+}
 
-private readonly IDrawing _drawing; private readonly IQuantityTakeoffDatabase _quantityTakeoffDatabase;
+public class BlockRef 
+{
+    public BlockRef(string name) 
+    { 
+        Name = name; 
+    }
+    public string Name { get; private set; }
+}
 
-public BlockCounter(IDrawing drawing, IQuantityTakeoffDatabase quantityTakeoffDatabase) {
+public class QuantityLineItem 
+{ 
+    public string BlockName { get; set; 
+}
 
-_drawing = drawing;
-
-_quantityTakeoffDatabase = quantityTakeoffDatabase; }
-
-public void CountTheBlocks() {
-
-var quantityLineItems = new Dictionary<string, QuantityLineItem>();
-
-foreach (BlockRef blockRef in _drawing.GetAllBlockRefs()) {
-
-if (quantityLineItems.ContainsKey(blockRef.Name)) quantityLineItems[blockRef.Name].Quantity++; else
-
-quantityLineItems.Add(
-
-blockRef.Name,
-
-new QuantityLineItem { BlockName = blockRef.Name, Quantity = 1 });
+public int Quantity 
+{ 
+    get; set; 
+}
 
 }
 
-_quantityTakeoffDatabase.StoreQuantities(quantityLineItems.Values);
-
+public interface IDrawing { 
+    IEnumerable<BlockRef> GetAllBlockRefs(); 
 }
 
-}
-
-public class BlockRef {
-
-public BlockRef(string name) { Name = name; }
-
-public string Name { get; private set; }
-
-}
-
-public class QuantityLineItem { public string BlockName { get; set; }
-
-public int Quantity { get; set; }
-
-}
-
-public interface IDrawing { IEnumerable<BlockRef> GetAllBlockRefs(); }
-
-public interface IQuantityTakeoffDatabase { void StoreQuantities(IEnumerable<QuantityLineItem> lineItems);
-
+public interface IQuantityTakeoffDatabase 
+{ 
+    void StoreQuantities(IEnumerable<QuantityLineItem> lineItems);
 }
 ```
 
@@ -933,44 +961,42 @@ Obviously, in order to make our application actually work inside AutoCAD, we nee
 Taking advantage of our ForEach method we defined earlier, our implementation of IDrawing becomes very easy to write.
 
 ```cs
-public class Drawing : IDrawing {
-
-public IEnumerable<BlockRef> GetAllBlockRefs() {
-
-var blocks = new List<BlockRef>();
-
-Active.Database.ForEach<BlockReference>( blockRef => blocks.Add(new BlockRef(blockRef.Name)));
-
-return blocks;
-
-}
-
+public class Drawing : IDrawing 
+{
+    public IEnumerable<BlockRef> GetAllBlockRefs() 
+    {
+        var blocks = new List<BlockRef>();
+        Active.Database.ForEach<BlockReference>( 
+            blockRef => blocks.Add(new BlockRef(blockRef.Name)));
+        return blocks;
+    }
 }
 ```
 
 Next, we need an implementation of IQuantityTakeoffDatabase. For now, we'll create a mock implementation that simply spits out the quantity line items to the AutoCAD command window. Our final implementation of IQuantityTakeoffDatabase will reside in its own assembly, and will actually write the data to a database somewhere. The beauty of using abstraction is that we don't have to worry about that right now!
 
 ```cs
-public class MockDatabase : IQuantityTakeoffDatabase {
-
-public void StoreQuantities(IEnumerable<QuantityLineItem> lineItems)
-
+public class MockDatabase : IQuantityTakeoffDatabase 
 {
-
-foreach (QuantityLineItem lineItem in lineItems) Active.WriteMessage("{0}: {1}" , lineItem.BlockName, lineItem.Quantity);
-
-} }
+    public void StoreQuantities(IEnumerable<QuantityLineItem> lineItems)
+    {
+        foreach (QuantityLineItem lineItem in lineItems) 
+            Active.WriteMessage("{0}: {1}" , lineItem.BlockName, lineItem.Quantity);
+    } 
+}
+```
 
 Finally, we need a way to invoke the block counter in AutoCAD. The easiest way to do this is to define an AutoCAD command like so:
 
-public static class Commands {
-
-[CommandMethod("CTB")] public static void CountTheBlocks() { var counter = new BlockCounter(new Drawing(), new MockDatabase());
-
-counter.CountTheBlocks();
-
-}
-
+```cs
+public static class Commands 
+{
+    [CommandMethod("CTB")] 
+    public static void CountTheBlocks() 
+    { 
+        var counter = new BlockCounter(new Drawing(), new MockDatabase());
+        counter.CountTheBlocks();
+    }
 }
 ```
 
