@@ -130,6 +130,8 @@ To answer what a class is, we have to understand a little more about .Net. C#.Ne
 
 I know this may seem like a little thing, but it's important to remember as we build our own objects using classes. Now a class may seem to you simply as a chunk of code, but we use classes for everything we program within our project. A class really will house our methods, or the routines or functions that we're write, as well as the properties, the values that we're going to read and write too, as well. Everything that we use is really a container, so think of a class in two different ways. We can use a class as a custom object. Another way we can use a class is simply a container for our functions, or methods.
 
+2『这里对类的理解做一张主题卡片。（2022-03-22）』—— 已完成
+
 Layer (Object)
 
 • CreateLayerMethod
@@ -210,8 +212,12 @@ Note: If Solution Explorer is not open, you can open it from the View menu.
 ```cs
 [Autodesk.AutoCAD.Runtime.CommandMethod ("MyFirstCommand")]
 
-public void cmdMyFirst() { }
+public void cmdMyFirst() 
+{ 
+}
 ```
+
+1『这里才知道，原来 CommandMethod 是 Autodesk.AutoCAD.Runtime 库里的一个函数。做一张信息数据卡片。（2022-03-22）』
 
 Note: You may have to select the + symbol to the left to expand the Commands region.
 
@@ -235,6 +241,8 @@ We have created a function. A function is defined by the phrase, public void. Th
 Connected to the function is an attribute called CommandMethod. The CommandMethod has arguments that can be supplied to the attribute. The arguments, or parameters, or listed in the parenthises. Currently we are only providing one argument which is the name of the command. This is what would be typed into the command line. When the command name, MyFirstCommand, is typed into the command line, the function cmdMyFirst runs.
 
 In the process of creating our first command, we have been introduced to the Runtime, EditorInput, and ApplicationServices namespace. The ApplicationServices namespace stores the classes connected with the Application as a whole. The EditorInput contains classes and means to read and write information to the command line. It also contains all the means to request the user to provide us something – a coordinate picked on the screen, a selected object, etc.
+
+2『 AutoCAD 的几个基础库的功能，做一张信息数据卡片。（2022-03-22）』
 
 Now that we have created our first command, let's test it by compiling our code and then loading the results into AutoCAD.
 
@@ -279,6 +287,8 @@ Note the code runs until the next breakpoint or completes.
 ### 05. Working with Transactions
 
 Transactions are the means to make modifications and really, to even read information of an object that is found in the drawing database. Each object, including non-graphical objects such as Layers, Text Styles, etc. are assigned a unique Object Id each time the drawing is opened. Let's learn about transactions by using an analogy.
+
+2『 Transactions 的概念，做一张术语卡片。（2002-03-22）』—— 已完成
 
 If you wanted to know how much money was in your bank, you still would have to provide the teller, or even the internet, your bank account number, a unique ID, so as to access your bank account. And even if you didn't want to transfer any money, you still would have to open up that account and it would take a transaction to do so. So even if you're looking at the information or modifying the information, a transaction is needed. And it's the same when it comes to working with AutoCAD's database transaction.
 
@@ -328,6 +338,45 @@ trans.Commit();
 In the last step, we created a new line using two point objects. We added the line to the model space block record. We told the transaction that we added something new and then we committed the changes which created the line.
 
 We specified the coordinates of the start and end points in the code. What if we wanted to get information from the user?
+
+1『
+
+目前自己实现的代码（2022-03-22）：
+
+```cs
+        public static void CreateOneLine()
+        {
+            using (var tr = CADActive.Database.TransactionManager.StartTransaction())
+            {
+                // Get the block table for the current database
+                var blockTable = (BlockTable)tr.GetObject(CADActive.Database.BlockTableId, OpenMode.ForRead);
+                // Get the model space block table record
+                var modelSpace = (BlockTableRecord)tr.GetObject(blockTable[BlockTableRecord.ModelSpace], OpenMode.ForWrite);
+                Point3d firstInspt = new Point3d(0, 0, 0);
+                Point3d secondInspt = new Point3d(10, 10, 0);
+                Line lineObj = new Line(firstInspt, secondInspt);
+                modelSpace.AppendEntity(lineObj);
+                tr.AddNewlyCreatedDBObject(lineObj, true);
+                tr.Commit();
+            }
+        }
+```
+
+遇到的坑：
+
+因为代码模型空间的初始化引用的之前的代码当时拷的：
+
+```cs
+var modelSpace = (BlockTableRecord)tr.GetObject(blockTable[BlockTableRecord.ModelSpace], OpenMode.ForRead);
+```
+
+是「读」的权限，这个地方应该是要有「写」的权限：
+
+```cs
+var modelSpace = (BlockTableRecord)tr.GetObject(blockTable[BlockTableRecord.ModelSpace], OpenMode.ForWrite);
+```
+
+』
 
 #### 5.2 Get User Specified Information
 
@@ -402,19 +451,19 @@ The XML and associated files are located in directory whose name ends with .bund
 
 We really have just scratched the surface of what can be done. Yet we have covered a lot. We have learned:
 
-• The Visual Studio Overview.
+1 The Visual Studio Overview.
 
-• Downloading and Installing the Software Development Kit so as to reference the AutoCAD API.
+2 Downloading and Installing the Software Development Kit so as to reference the AutoCAD API.
 
-• What is a Class and created a Class.
+3 What is a Class and created a Class.
 
-• Created a Command.
+4 Created a Command.
 
-• Worked in the Runtime, EditorInput, ApplicationServices, DatabaseServices, and Geometry namespace.
+5 Worked in the Runtime, EditorInput, ApplicationServices, DatabaseServices, and Geometry namespace.
 
-• What a Transaction is and how to use it.
+6 What a Transaction is and how to use it.
 
-• How to have our plug-in automatically load into AutoCAD.
+7 How to have our plug-in automatically load into AutoCAD.
 
 ### 08. Reference
 
