@@ -20,7 +20,7 @@
 
 9、mac 的 shell 里把程序的结果输出为文本格式。
 
-	python script1.py > saveit.txt 
+python script1.py > saveit.txt 
 
 10、获取数据类型的内置函数。
 
@@ -65,3 +65,15 @@ unicode 是 utf-8,gbk,utf-16 这些的父编码，这些子编码都能转换成
 因为目前 YouCompleteMe 仅支持 python2 的，自从安装 anaconda 后，python3 成了 vim（或者可以说是系统里）中默认的 python 版本了，所以补全插件不起作用了。如何查看，在 shell 里输入命令 which python 看看返回的是哪个版本就是哪个。
 
 那么只要将 python2 设为默认的即可，在 shell 配置文件 .vimrc 中把全局变量中的路径 /Applications/anaconda3/bin 放到改行的最后即可，重启 iTerm 即可。
+
+###  其他
+
+1、main 入口函数的作用。
+
+```py
+if __name__ == '__main__':
+    main()
+```
+
+每个 py 文件用 main 入口函数这种结构，那么当执行 py 文件时，无论是主文件还是被载入的模块文件，后台都会自动去识别。
+
