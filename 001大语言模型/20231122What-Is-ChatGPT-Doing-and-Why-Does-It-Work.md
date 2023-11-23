@@ -264,6 +264,8 @@ It is worth understanding that there's never a "model-less model". Any model you
 
 But the remarkable thing is that the underlying structure of ChatGPT—with "just" that many parameters—is sufficient to make a model that computes next-word probabilities "well enough" to give us reasonable essay-length pieces of text.
 
+[Fasti consolari dell'Accademia fiorentina di Salvino Salvini consolo della medesima e rettore generale dello Studio di Firenze. All'altezza reale del serenissimo Gio. Gastone gran principe di Toscana : Salvini, Salvino : Free Download, Borrow, and Streaming : Internet Archive](https://archive.org/details/bub_gb_49d42xp-USMC/page/404/mode/2up)
+
 想象一下，如果你像伽利略在 16 世纪末那样，想知道从比萨斜塔的每一层掉落的炮弹到达地面需要多长时间。你可以在每种情况下测量并制作一张结果表。或者，你可以做理论科学的本质所在：创建一个模型，提供一种计算答案的方法，而不是仅仅测量和记住每个案例。
 
 让我们假设我们有关于炮弹从各个楼层落下所需时间的（有些理想化的）数据：
@@ -301,6 +303,8 @@ But why do we say it's the "wrong" result? In this case, we know we got all the 
 And we have a "good model" if the results we get from our function typically agree with what a human would say. And the nontrivial scientific fact is that for an image-recognition task like this we now basically know how to construct functions that do this.
 
 Can we "mathematically prove" that they work? Well, no. Because to do that we'd have to have a mathematical theory of what we humans are doing. Take the "2" image and change a few pixels. We might imagine that with only a few pixels "out of place" we should still consider the image a "2". But how far should that go? It's a question of human visual perception. And, yes, the answer would no doubt be different for bees or octopuses—and potentially utterly different for putative aliens.
+
+[LeNet - Wolfram Neural Net Repository](https://resources.wolframcloud.com/NeuralNetRepository/resources/LeNet-Trained-on-MNIST-Data/)
 
 在上面的例子中，我们制作了一个基于简单物理学的数值数据模型 —— 在这方面，我们已经知道了几个世纪的「简单数学适用」。但对于 ChatGPT，我们必须为人类大脑产生的人类语言文本制作模型。对于这样的任务，我们（至少目前）还没有像「简单数学」这样的东西。那么，它的模型可能是什么样的呢？
 
@@ -350,13 +354,20 @@ So how do we do this with a neural net? Ultimately a neural net is a connected c
 
 Each "neuron" is effectively set up to evaluate a simple numerical function. And to "use" the network, we simply feed numbers (like our coordinates x and y) in at the top, then have neurons on each layer "evaluate their functions" and feed the results forward through the network—eventually producing the final result at the bottom:
 
-In the traditional (biologically inspired) setup each neuron effectively has a certain set of "incoming connections" from the neurons on the previous layer, with each connection being assigned a certain "weight" (which can be a positive or negative number). The value of a given neuron is determined by multiplying the values of "previous neurons" by their corresponding weights, then adding these up and adding a constant—and finally applying a "thresholding" (or "activation") function. In mathematical terms, if a neuron has inputs x = {x1, x2 …} then we compute f[w . x + b], where the weights w and constant b are generally chosen differently for each neuron in the network; the function f is usually the same.
+In the traditional (biologically inspired) setup each neuron effectively has a certain set of "incoming connections" from the neurons on the previous layer, with each connection being assigned a certain "weight" (which can be a positive or negative number). The value of a given neuron is determined by multiplying the values of "previous neurons" by their corresponding weights, then adding these up and adding a constant—and finally applying a "thresholding" (or "activation") function. In mathematical terms, if a neuron has inputs x = {x1, x2 …} then we compute f[w.x + b], where the weights w and constant b are generally chosen differently for each neuron in the network; the function f is usually the same.
 
-Computing w . x + b is just a matter of matrix multiplication and addition. The "activation function" f introduces nonlinearity (and ultimately is what leads to nontrivial behavior). Various activation functions commonly get used; here we'll just use Ramp (or ReLU):
+Computing w.x + b is just a matter of matrix multiplication and addition. The "activation function" f introduces nonlinearity (and ultimately is what leads to nontrivial behavior). Various activation functions commonly get used; here we'll just use Ramp (or ReLU):
 
 For each task we want the neural net to perform (or, equivalently, for each overall function we want it to evaluate) we'll have different choices of weights. (And—as we'll discuss later—these weights are normally determined by "training" the neural net using machine learning from examples of the outputs we want.)
 
 Ultimately, every neural net just corresponds to some overall mathematical function—though it may be messy to write out. For the example above, it would be:
+
+W511f(w311f(b11+xW111+yw112)+W312f(b12+xW121+yw122)+
+W313f(b13+xW131+yW132)+W314f(b14+xW141+yW142)+b31)+
+Ws12f(W321f(b11+xW111+yW112)+W322f(b12+xW121+yW122)+
+W323f(b13+xW131+yW132)+W324f(b14+xW141+yW142)+b32)+
+W513f(w331f(b11+xW111+yw112)+W332f(b12+xW121+yW122)+
+W333f(b13+xW131+yw132)+W334f(b14+xW141+yw142)+b33)+b51
 
 The neural net of ChatGPT also just corresponds to a mathematical function like this—but effectively with billions of terms.
 
@@ -396,11 +407,17 @@ But let's say we want a "theory of cat recognition" in neural nets. We can say: 
 
 We'll encounter the same kinds of issues when we talk about generating language with ChatGPT. And again it's not clear whether there are ways to "summarize what it's doing". But the richness and detail of language (and our experience with it) may allow us to get further than with images.
 
+[Stephen Wolfram: A New Kind of Science | Online—Table of Contents](https://www.wolframscience.com/nks/)
+
+[Note (a) for Human Thinking: A New Kind of Science | Online by Stephen Wolfram [Page 1099]](https://www.wolframscience.com/nks/notes-10-12--history-of-ideas-about-thinking/)
+
+2『已下载原文书籍「2023047A-New-Kind-of-Science」。（2023-11-23）』
+
 在典型的任务如图像识别中，我们通常使用的模型是怎样工作的呢？目前最流行且成功的方法是使用神经网络。神经网络最初是在 20 世纪 40 年代发明的，其形式与今天使用的惊人地接近，可以被看作是对大脑工作方式的简单理想化。
 
 在人类大脑中，大约有 1000 亿个神经元（神经细胞），每个神经元都能产生电脉冲，频率高达每秒上千次。这些神经元通过复杂的网络相连，每个神经元都有树状分支，可以将电信号传递给其他数千个神经元。在一个粗略的近似中，任何给定神经元在特定时刻是否产生电脉冲取决于它从其他神经元接收到的脉冲 —— 不同的连接以不同的「权重」贡献。
 
-当我们「看到一个图像」时，发生的事情是，来自图像的光子落在我们眼睛后部的（「感光」）细胞上时，它们会在神经细胞中产生电信号。这些神经细胞与其他神经细胞相连，最终信号会通过一系列神经元层。正是在这个过程中，我们「识别」了图像，最终「形成了思维」，我们正在「看到一个 2」（也许最终做的是像大声说出「二」这个词）。
+当我们「看到一个图像」时，发生的事情是，来自图像的光子落在我们眼睛后部的（感光）细胞上时，它们会在神经细胞中产生电信号。这些神经细胞与其他神经细胞相连，最终信号会通过一系列神经元层。正是在这个过程中，我们「识别」了图像，最终「形成了思维」，我们正在「看到一个 2」（也许最终做的是像大声说出「二」这个词）。
 
 前一部分中提到的「黑盒」功能是这样一个神经网络的「数学化」版本。它恰好有 11 层（尽管只有 4 个「核心层」）：
 
@@ -410,7 +427,7 @@ We'll encounter the same kinds of issues when we talk about generating language 
 
 我们希望所有的 1 都「被吸引到一个地方」，所有的 2 都「被吸引到另一个地方」。或者换种方式说，如果一个图像在某种程度上「更接近于 1 而不是 2」，我们希望它最终到达「1 的位置」，反之亦然。
 
-为了提供一个直接的类比，假设我们在平面上有一些点（在现实生活中，它们可能是咖啡店的位置）。那么我们可以想象，从平面上的任何一点出发，我们总是希望最终到达最近的点（即我们总是去最近的咖啡店）。我们可以通过将平面划分为区域（「吸引盆地」），这些区域由理想化的「分水岭」分隔开来：
+为了提供一个直接的类比，假设我们在平面上有一些点（在现实生活中，它们可能是咖啡店的位置）。那么我们可以想象，从平面上的任何一点出发，我们总是希望最终到达最近的点（即我们总是去最近的咖啡店）。我们可以通过将平面划分为区域（吸引盆地），这些区域由理想化的「分水岭」分隔开来：
 
 我们可以将这看作是实施一种「识别任务」，在这种任务中，我们不是在识别给定图像「最像哪个数字」，而是直接看给定点离哪个点最近。（这里展示的「Voronoi 图」设置将 2D 欧几里得空间中的点分开；数字识别任务可以被认为是在 784 维空间中进行的，这个空间由每个图像中所有像素的灰度级别构成。）
 
@@ -422,13 +439,20 @@ We'll encounter the same kinds of issues when we talk about generating language 
 
 每个「神经元」实际上都被设置为评估一个简单的数值函数。要「使用」网络，我们只需将数字（如我们的坐标 x 和 y）从顶部输入，然后让每一层的神经元「计算它们的函数」并将结果通过网络向前传递 —— 最终在底部产生最终结果：
 
-在传统的（受生物启发的）设置中，每个神经元实际上都有一定的「传入连接」，这些连接来自前一层的神经元，每个连接都被分配了一定的「权重」（可以是正数或负数）。给定神经元的值是通过将「前面的神经元」的值与它们对应的权重相乘，然后加在一起并加上一个常数 —— 最后应用一个「阈值」（或「激活」）函数来确定的。用数学术语来说，如果一个神经元有输入 x = {x1, x2 …}，那么我们计算 f [w . x + b]，其中权重 w 和常数 b 通常对网络中的每个神经元选择不同；函数 f 通常是相同的。
+在传统的（受生物启发的）设置中，每个神经元实际上都有一定的「传入连接」，这些连接来自前一层的神经元，每个连接都被分配了一定的「权重」（可以是正数或负数）。给定神经元的值是通过将「前面的神经元」的值与它们对应的权重相乘，然后加在一起并加上一个常数 —— 最后应用一个「阈值」（或「激活」）函数来确定的。用数学术语来说，如果一个神经元有输入 x = {x1, x2 …}，那么我们计算 f[w.x + b]，其中权重 w 和常数 b 通常对网络中的每个神经元选择不同；函数 f 通常是相同的。
 
-计算 w . x + b 只是矩阵乘法和加法的问题。「激活函数」f 引入了非线性（最终导致非平凡行为）。通常使用各种激活函数；在这里，我们将只使用 Ramp（或 ReLU）：
+计算 w.x + b 只是矩阵乘法和加法的问题。「激活函数」f 引入了非线性（最终导致非平凡行为）。通常使用各种激活函数；在这里，我们将只使用 Ramp（或 ReLU）：
 
 对于我们希望神经网络执行的每个任务（或者说，对于我们希望它评估的每个总体函数），我们将有不同的权重选择。（并且 —— 我们稍后将讨论 —— 这些权重通常通过使用我们想要的输出的例子对神经网络进行「训练」来确定。）
 
 最终，每个神经网络都对应于某种整体数学函数 —— 尽管写出来可能很复杂。对于上面的例子，它将是：
+
+W511f(w311f(b11+xW111+yw112)+W312f(b12+xW121+yw122)+
+W313f(b13+xW131+yW132)+W314f(b14+xW141+yW142)+b31)+
+Ws12f(W321f(b11+xW111+yW112)+W322f(b12+xW121+yW122)+
+W323f(b13+xW131+yW132)+W324f(b14+xW141+yW142)+b32)+
+W513f(w331f(b11+xW111+yw112)+W332f(b12+xW121+yW122)+
+W333f(b13+xW131+yw132)+W334f(b14+xW141+yw142)+b33)+b51
 
 ChatGPT 的神经网络也只是对应于类似这样的数学函数 —— 但实际上包含数十亿个项。
 
@@ -450,9 +474,21 @@ ChatGPT 的神经网络也只是对应于类似这样的数学函数 —— 但�
 
 现在，什么是「正确答案」甚至更不清楚了。穿着猫装的狗怎么办？等等。无论给出什么输入，神经网络都会生成一个答案，并且在某种程度上与人类可能做出的判断相符。正如我上面所说的，这不是我们可以「从第一原理推导出来」的事实。这只是经验上被发现为真实的，至少在某些领域是这样。但这是神经网络有用的一个关键原因：它们以某种「类人」的方式进行操作。
 
-给自己看一张猫的照片，问「为什么那是一只猫？」你可能会开始说「嗯，我看到它尖尖的耳朵，等等。」但解释你是如何识别出这是一只猫的图像并不容易。只是你的大脑不知怎的弄清楚了。但对于大脑，目前还没有办法（至少还没有）「深入」查看它是如何弄清楚的。那么对于（人造的）神经网络呢？查看展示猫图片时每个「神经元」做了什么是很简单的。但即使是获得基本的可视化通常也非常困难
+给自己看一张猫的照片，问「为什么那是一只猫？」你可能会开始说「嗯，我看到它尖尖的耳朵，等等。」但解释你是如何识别出这是一只猫的图像并不容易。只是你的大脑不知怎的弄清楚了。但对于大脑，目前还没有办法（至少还没有）「深入」查看它是如何弄清楚的。那么对于（人造的）神经网络呢？查看展示猫图片时每个「神经元」做了什么是很简单的。但即使是获得基本的可视化通常也非常困难。
 
 在我们用于上述「最近点」问题的最终网络中有 17 个神经元。在用于识别手写数字的网络中有 2190 个。在我们用来识别猫和狗的网络中有 60,650 个。通常来说，可视化相当于 60,650 维空间是相当困难的。但因为这是一个用于处理图像的网络，它的许多神经元层被组织成阵列，就像它所观察的像素阵列一样。
+
+1『
+
+一直没弄清楚：参数、千位向量维度里的这个维度、神经元，这几个核心概念的关系。上面这段信息的意思是，神经元数量是等价于向量维度的。向量维度自己是清楚，维度简单说就是表示一个物体（对象）所用的属性数量。老阳一直说的 GPT 用的是千维向量也应该指这个意思，每个文字被分解为千维来表示的。但这里提到的 6W 多个神经元又感觉对应于参数的，比如 Llama2-70B 模型里的 700 亿参数。如果神经元=参数=维度，感觉又不对了，应该不是 700 亿维度的概念。参数应该是指训练时微调神经网络的阀门开关数量（这个隐喻来自于收录的文章 20231121Understanding-AI）。总结下来，目前这 3 个概念还是没理清楚。（2023-11-23）
+
+补充：下面第 6 小节，有关训练神经网络的知识里又提到相关的信息：
+
+上面的图片展示了我们可能需要在只有 2 个权重的不切实际简单情况下进行的最小化。但事实证明，即使有更多的权重（ChatGPT 使用 1750 亿个），仍然可以进行最小化，至少在某种程度的近似中。实际上，「深度学习」在 2011 年左右发生的重大突破与发现在某种意义上，当涉及许多权重时，进行（至少是近似的）最小化可能比只涉及相对较少的权重时更容易。
+
+所以说，三个核心概念里的「参数」即神经网络中的「权重」。（2023-11-23）
+
+』
 
 如果我们拿一个典型的猫图像
 
@@ -467,10 +503,6 @@ ChatGPT 的神经网络也只是对应于类似这样的数学函数 —— 但�
 但假设我们想要一个关于神经网络中的「猫识别理论」。我们可以说：「看，这个特定网络就是这样做的」—— 这立刻给了我们一些关于「这是多么难的问题」的感觉（例如，可能需要多少神经元或层数）。但至少到目前为止，我们没有办法「叙述性地描述」网络在做什么。也许这是因为它确实在计算上不可约简，没有一般的方法来发现它的作用，除了明确地追踪每一步。或者也许只是因为我们还没有「弄清楚科学」，没有识别出让我们总结发生了什么的「自然规律」。
 
 当我们讨论使用 ChatGPT 生成语言时，我们也会遇到同样的问题。同样不清楚是否有方法可以「总结它在做什么」。但语言的丰富性和细节（以及我们对它的经验）可能会让我们比对图像更进一步。
-
-
-
-
 
 ### 06. Machine Learning, and the Training of Neural Nets
 
@@ -515,6 +547,48 @@ It's worth pointing out that in typical cases there are many different collectio
 But each such "different solution" will have at least slightly different behavior. And if we ask, say, for an "extrapolation" outside the region where we gave training examples, we can get dramatically different results:
 
 But which of these is "right"? There's really no way to say. They're all "consistent with the observed data". But they all correspond to different "innate" ways to "think about" what to do "outside the box". And some may seem "more reasonable" to us humans than others.
+
+到目前为止，我们讨论的是那些「已经知道」如何执行特定任务的神经网络。但神经网络之所以有用（在大脑中也可能是这样），在于它们不仅原则上可以执行各种任务，而且还可以通过「示例训练」逐步学会执行这些任务。
+
+当我们制作一个用于区分猫和狗的神经网络时，我们实际上不需要编写一个程序来（例如）显式地找到胡须；相反，我们只需展示大量猫和狗的示例，然后让网络通过「机器学习」来区分它们。
+
+关键在于，经过训练的网络能够「概括」它所展示的特定示例。正如我们上面看到的，网络并不仅仅是识别出它被展示的特定猫图像的像素模式；而是神经网络以某种方式成功地区分了图像，基于我们认为的某种「一般的猫性」。
+
+那么神经网络训练实际上是如何工作的呢？本质上，我们始终在尝试找到让神经网络成功复现我们给出的示例的权重。然后我们依赖于神经网络以一种「合理」的方式在这些示例「之间」进行「插值」（或「概括」）。
+
+让我们看一个比上述最近点问题更简单的问题。让我们尝试让一个神经网络学会以下函数：
+
+对于这个任务，我们需要一个只有一个输入和一个输出的网络，比如：
+
+但我们应该使用哪些权重等呢？对于每一组可能的权重，神经网络都会计算某个函数。例如，以下是它使用一些随机选择的权重集所做的事情：
+
+是的，我们可以清楚地看到，在这些情况中没有一个接近于复现我们想要的函数。那么我们如何找到能够复现该函数的权重呢？
+
+基本思想是提供大量的「输入→输出」示例来「学习」，然后尝试找到能够复现这些示例的权重。以下是使用逐渐增多的示例所做的结果：
+
+在这个「训练」的每个阶段，网络中的权重逐渐调整，并且我们看到最终我们得到了一个成功复现我们想要的函数的网络。那么我们如何调整权重呢？基本思想是在每个阶段看看我们离想要的函数有多远，然后以这样的方式更新权重，以便更接近目标。
+
+为了找出「我们离目标有多远」，我们计算通常称为「损失函数」（或有时称为「成本函数」）的东西。在这里，我们使用一个简单的（L2）损失函数，即我们获得的值与真实值之间差异的平方和。我们看到，随着我们的训练过程的进行，损失函数逐渐减少（遵循特定的「学习曲线」，对于不同的任务是不同的）—— 直到我们达到网络（至少在很好的近似程度上）成功复现我们想要的函数的点：
+
+好的，那么最后一个需要解释的关键部分是如何调整权重以减少损失函数。正如我们所说，损失函数给了我们一个关于我们得到的值与真实值之间的「距离」。但「我们得到的值」在每个阶段都由当前版本的神经网络和其中的权重决定。但现在想象权重是变量 —— 比如说 wi。我们想要找出如何调整这些变量的值以最小化依赖于它们的损失。
+
+例如，想象一下（在实际使用中典型神经网络的难以置信的简化中），我们只有两个权重 w1 和 w2。那么我们可能有一个关于 w1 和 w2 的损失函数，看起来像这样：
+
+数值分析提供了各种技术来找到像这样情况下的最小值。但典型的方法就是逐步跟随从之前的 w1、w2 开始的最陡下降路径：
+
+就像水流下山一样，这个程序保证的只是它最终会在表面的某个局部最小值（山间湖泊）结束；它可能无法达到最终的全局最小值。
+
+找到「权重景观」上的最陡下降路径是否可行并不明显。但微积分来拯救。如上所述，可以一直将神经网络视为计算一个依赖于其输入和权重的数学函数。但现在考虑相对于这些权重求导。事实证明，微积分的链式法则实际上让我们能够「展开」神经网络中连续层的操作。结果是，我们可以 —— 至少在某种局部近似中 ——「反转」神经网络的操作，并逐渐找到最小化与输出相关的损失的权重。
+
+上面的图片展示了我们可能需要在只有 2 个权重的不切实际简单情况下进行的最小化。但事实证明，即使有更多的权重（ChatGPT 使用 1750 亿个），仍然可以进行最小化，至少在某种程度的近似中。实际上，「深度学习」在 2011 年左右发生的重大突破与发现在某种意义上，当涉及许多权重时，进行（至少是近似的）最小化可能比只涉及相对较少的权重时更容易。
+
+换句话说，有点违反直觉地，使用神经网络解决更复杂的问题比解决更简单的问题可能更容易。大致原因似乎是当一个人有很多的「权重变量」时，一个人拥有一个高维空间，其中有「许多不同的方向」可以引导一个人到达最小值 —— 而较少的变量则更容易最终被困在局部最小值（山间湖泊）中，从那里没有「走出去的方向」。
+
+值得指出的是，在典型情况下，有许多不同的权重集合都会给神经网络带来几乎相同的表现。而且在实际神经网络训练中通常会做出许多随机选择 —— 这导致了「不同但等效的解决方案」，如下所示：
+
+但每种「不同的解决方案」至少会有稍微不同的行为。如果我们要求在我们提供训练示例的区域之外的「外推」，我们可能会得到截然不同的结果：
+
+但哪一个是「正确的」？真的没有办法说。它们都是「与观察到的数据一致的」。但它们都对应于不同的「天生的」方式来「思考」如何「走出框架」。有些可能对我们人类来说看起来「更合理」一些。
 
 ### 07. The Practice and Lore of Neural Net Training
 
@@ -562,6 +636,50 @@ Neural nets—perhaps a bit like brains—are set up to have an essentially fixe
 
 But even within the framework of existing neural nets there's currently a crucial limitation: neural net training as it's now done is fundamentally sequential, with the effects of each batch of examples being propagated back to update the weights. And indeed with current computer hardware—even taking into account GPUs—most of a neural net is "idle" most of the time during training, with just one part at a time being updated. And in a sense this is because our current computers tend to have memory that is separate from their CPUs (or GPUs). But in brains it's presumably different—with every "memory element" (i.e. neuron) also being a potentially active computational element. And if we could set up our future computer hardware this way it might become possible to do training much more efficiently.
 
+在过去的十年中，神经网络训练领域取得了许多进展。而且，是的，这基本上是一门艺术。有时 —— 尤其是事后看来 —— 可以看到某些正在进行的事情至少有一丝「科学解释」的曙光。但大多数情况下，这些都是通过试错发现的，逐渐增加的想法和技巧构建了一套关于如何使用神经网络的重要知识。
+
+其中有几个关键部分。首先，对于特定任务应该使用哪种架构的神经网络。然后是如何获得用于训练神经网络的数据这一关键问题。而且越来越多的情况下，我们不是在从零开始训练一个网络，而是新网络可以直接整合另一个已经训练好的网络，或至少可以使用那个网络为自己生成更多训练示例。
+
+人们可能曾经认为对于每一种特定类型的任务都需要不同架构的神经网络。但发现的是，即使对于看起来相当不同的任务，同样的架构似乎也经常有效。在某种程度上，这让人想起通用计算的概念（以及我的计算等价原理），但正如我稍后将讨论的，我认为这更多地反映了我们通常试图让神经网络执行的任务是「类人」的这一事实 —— 神经网络可以捕捉相当通用的「类人过程」。
+
+在神经网络的早期发展中，人们倾向于认为应该「让神经网络尽可能少做事」。例如，在将语音转换为文本时，人们认为应该首先分析语音的音频，将其分解为音素等。但发现的是，至少对于「类人任务」，通常最好只是尝试在「端到端问题」上训练神经网络，让它自己「发现」必要的中间特征、编码等。
+
+还有一种想法是，应该在神经网络中引入复杂的单个组件，以便让它实际上「显式实现特定的算法思想」。但再次，这大多数时候被证明是不值得的；相反，最好只是处理非常简单的组件，并让它们「自行组织」（尽管通常以我们无法理解的方式），以实现（可能）那些算法思想的等效物。
+
+这并不是说没有与神经网络相关的「结构化思想」。因此，例如，在处理图像的早期阶段，具有 2D 神经元阵列和局部连接似乎至少非常有用。而且，拥有集中于「在序列中向后看」的连接模式似乎有用 —— 正如我们稍后将看到的，在处理诸如 ChatGPT 中的人类语言等事物时。
+
+神经网络的一个重要特点是，就像计算机一般，它们最终只是处理数据。目前的神经网络 —— 以及当前的神经网络训练方法 —— 特别是处理数字数组。但在处理过程中，这些数组可以被完全重排和重塑。例如，我们用于识别数字的网络开始时使用的是一个类似于图像的 2D 数组，很快「加厚」成多个通道，但随后「浓缩」成一个 1D 数组，这个数组最终将包含表示不同可能输出数字的元素：
+
+但好吧，如何判断执行特定任务需要多大的神经网络呢？这有点像艺术。在某种程度上，关键是知道「任务有多难」。但对于类人的任务来说，这通常很难估计。是的，可能存在一种非常「机械化」的系统方法来用计算机执行任务。但很难知道是否有人可能认为的技巧或捷径，允许人们以至少「类人水平」的方式更容易地执行任务。机械地列举一个巨大的游戏树来玩某个游戏可能很耗时；但可能有一种更简单的（启发式）方法来实现「人类水平的游戏」。
+
+当处理微型神经网络和简单任务时，有时可以明确看到「无法从这里到达那里」。例如，以下是在上一节中的任务上使用几个小型神经网络所能做到的最好情况：
+
+我们看到的是，如果网络太小，它就无法复现我们想要的函数。但只要超过某个大小，它就没有问题 —— 至少如果训练足够长时间，有足够多的示例。顺便说一句，这些图片展示了神经网络的一个经验：如果中间有一个「挤压」部分，迫使所有东西通过较少的中间神经元，那么通常可以使用较小的网络。（还值得一提的是，「无中间层」—— 或所谓的「感知器」—— 网络只能学习基本上线性的函数，但只要有一个中间层，理论上总是可能任意好地近似任何函数，至少如果有足够多的神经元，尽管为了使其易于训练，通常需要某种形式的正则化或归一化。）
+
+好的，假设已经确定了某种神经网络架构。现在就是获取用于训练网络的数据的问题。围绕神经网络和机器学习的许多实际挑战都集中在获取或准备所需的训练数据上。在许多情况下（有监督学习），人们希望获得输入及其期望输出的明确示例。因此，例如，可能需要通过标记来标识图像中的内容或其他属性。而且可能不得不明确地经过大量努力进行标记。但很多时候，似乎可以依靠已经完成的工作，或将其作为某种代理。因此，例如，可以使用为网络上的图像提供的替代文本。或者，在不同领域，可能使用为视频创建的字幕。或者，对于语言翻译训练，可以使用以不同语言存在的网页或其他文档的平行版本。
+
+要训练神经网络执行特定任务，需要向其展示多少数据？再次强调，从基本原理出发很难估计。当然，通过使用「迁移学习」将例如已在另一个网络中学到的重要特征列表「迁移进来」，可以显著减少所需数据量。但通常神经网络需要「看到大量示例」才能训练得好。至少对于某些任务而言，重要的神经网络知识是示例可以极其重复。实际上，反复向神经网络展示所有拥有的示例是一种标准策略。在这些「训练轮次」（或「迭代」）中，神经网络至少会处于略有不同的状态，而以某种方式「提醒」它特定示例对于让其「记住该示例」是有用的。（是的，这可能类似于重复在人类记忆中的用处。）
+
+但仅仅反复重复相同的示例并不够。还需要向神经网络展示示例的变体。神经网络知识的一个特点是，这些「数据增强」变体不必复杂就能有用。通过基本的图像处理技术稍微修改图像，可以使它们对神经网络训练来说基本上「就像新的」一样。同样，当为训练自动驾驶汽车耗尽实际视频等资源时，可以继续从模型视频游戏环境中运行模拟获得数据，而不需要实际现实世界场景中的所有细节。
+
+像 ChatGPT 这样的系统呢？它具有可以进行「无监督学习」的优点，使得从中获取训练示例变得更容易。回想一下，ChatGPT 的基本任务是找出如何继续已给出的文本。因此，为了获取「训练示例」，所有需要做的就是获取一段文本，然后屏蔽掉它的结尾，然后将这个用作「训练输入」——「输出」则是完整的、未屏蔽的文本。我们稍后将更多讨论这一点，但主要是，与例如学习图像中的内容不同，不需要「显式标记」；ChatGPT 实际上可以直接从给定的任何文本示例中学习。
+
+那么，神经网络中的实际学习过程呢？最终，这一切都是关于确定最能捕获所给训练示例的权重。存在各种详细的选择和「超参数设置」（因为权重可以被视为「参数」），这些可以用来调整这一过程。有不同的损失函数选择（平方和、绝对值和等）。有不同的损失最小化方法（每一步在权重空间中移动多远等）。然后还有问题，比如要展示多大一批示例才能获得连续估计所要最小化的损失。而且，是的，可以应用机器学习（例如我们在 Wolfram 语言中所做的那样）来自动化机器学习，并自动设置像超参数这样的东西。
+
+但最终，整个训练过程可以通过观察损失如何逐渐减少来表征（如 Wolfram 语言中这个小型训练的进度监控所示）：
+
+我们通常看到的是，损失会降低一段时间，但最终会在某个常数值处趋于平稳。如果该值足够小，那么训练可以被认为是成功的；否则，这可能是一个信号，表明应该尝试更改网络架构。
+
+能否判断「学习曲线」变平需要多长时间？像许多其他事情一样，似乎存在大致的幂律缩放关系，这取决于神经网络的大小和使用的数据量。但总的结论是，训练神经网络是困难的，并且需要大量的计算工作。而且在实际操作中，绝大多数工作是在对数字数组进行操作，这是 GPU 擅长的 —— 这就是为什么神经网络训练通常受到 GPU 可用性的限制。
+
+将来是否会有更好的方法来训练神经网络，或通常做神经网络所做的事情？我认为几乎可以肯定。神经网络的基本思想是使用大量简单（基本相同）的组件创建一个灵活的「计算织物」，并使这种「织物」能够逐渐修改以从示例中学习。在当前的神经网络中，人们基本上是使用微积分的思想 —— 应用于实数 —— 来进行这种逐步修改。但越来越清楚的是，高精度的数字并不重要；即使使用当前方法，8 位或更少可能就足够了。
+
+对于像元胞自动机这样的计算系统，它们基本上并行地在许多单独的位上操作，从来不清楚如何做到这种逐步修改，但没有理由认为这是不可能的。实际上，就像「2012 年的深度学习突破」一样，这种逐步修改在更复杂的情况下可能比简单情况下更容易实现。
+
+神经网络 —— 可能有点像大脑 —— 被设置为具有基本固定的神经元网络，所修改的是它们之间连接的强度（权重）。（至少在年轻的大脑中，可能也会生长大量全新的连接。）但虽然这对于生物学来说可能是一个方便的设置，但目前还不清楚这是否接近于实现我们需要的功能的最佳方式。涉及逐渐网络重写的某种东西（可能让人想起我们的物理项目）最终可能会更好。
+
+但即使在现有神经网络的框架内，目前也存在一个关键的限制：目前所做的神经网络训练基本上是顺序的，每一批示例的效果都被传递回来更新权重。实际上，即使考虑到 GPU，大部分神经网络在训练期间大部分时间都是「闲置」的，一次只更新一部分。在某种意义上，这是因为我们当前的计算机倾向于拥有与它们的 CPU（或 GPU）分离的内存。但在大脑中可能就不同了 —— 每个「记忆元素」（即神经元）也是一个潜在的主动计算元素。如果我们能够以这种方式设置我们未来的计算机硬件，可能会变得更加高效地进行训练。
+
 ### 08. Surely a Network That's Big Enough Can Do Anything!
 
 The capabilities of something like ChatGPT seem so impressive that one might imagine that if one could just "keep going" and train larger and larger neural networks, then they'd eventually be able to "do everything". And if one's concerned with things that are readily accessible to immediate human thinking, it's quite possible that this is the case. But the lesson of the past several hundred years of science is that there are things that can be figured out by formal processes, but aren't readily accessible to immediate human thinking.
@@ -593,6 +711,36 @@ But this isn't the right conclusion to draw. Computationally irreducible process
 In other words, the reason a neural net can be successful in writing an essay is because writing an essay turns out to be a "computationally shallower" problem than we thought. And in a sense this takes us closer to "having a theory" of how we humans manage to do things like writing essays, or in general deal with language.
 
 If you had a big enough neural net then, yes, you might be able to do whatever humans can readily do. But you wouldn't capture what the natural world in general can do—or that the tools that we've fashioned from the natural world can do. And it's the use of those tools—both practical and conceptual—that have allowed us in recent centuries to transcend the boundaries of what's accessible to "pure unaided human thought", and capture for human purposes more of what's out there in the physical and computational universe.
+
+确实，像 ChatGPT 这样的系统看起来如此令人印象深刻，以至于人们可能会想象，如果只是继续训练越来越大的神经网络，那么它们最终可能会「做到一切」。如果关注的是人类直接思维容易接触到的事物，这可能是有可能的。但过去几百年的科学教训表明，有些东西可以通过形式化过程来解决，但并不容易被直接的人类思维所理解。
+
+非平凡的数学是一个很大的例子。但一般情况实际上是计算。最终的问题是计算不可约简性的现象。有些计算可能看起来需要很多步骤，但实际上可以被「简化」为一些相当直接的东西。但计算不可约简性的发现表明，这并不总是有效。相反，有些过程 —— 可能像下面所示 —— 要弄清楚发生了什么，不可避免地需要实际追踪每一个计算步骤：
+
+我们大脑通常做的那些事情，可能是特意避免计算不可约简性的。在大脑中做数学需要特别的努力。而在实践中，仅凭大脑「思考」任何非平凡程序的操作步骤几乎是不可能的。
+
+但当然，为此我们有计算机。有了计算机，我们可以轻松地做长时间、计算上不可约简的事情。关键点是，这些事情通常没有捷径。
+
+是的，我们可以记住在某个特定计算系统中发生的许多具体示例。也许我们甚至可以看到一些（计算上可约简的）模式，让我们能做一些概括。但关键是，计算不可约简性意味着我们永远无法保证意外不会发生 —— 只有通过显式地做计算，你才能知道在任何特定情况下实际发生了什么。
+
+归根结底，学习性和计算不可约简性之间存在着根本的张力。学习实际上涉及通过利用规律性来压缩数据。但计算不可约简性意味着最终存在着可能存在的规律性的限制。
+
+就实际情况而言，人们可以想象将小型计算设备 —— 如元胞自动机或图灵机 —— 嵌入到像神经网络这样的可训练系统中。实际上，这样的设备可以作为神经网络的好「工具」，就像 Wolfram|Alpha 可以成为 ChatGPT 的好工具一样。但计算不可约简性意味着人们不能期望「深入」这些设备并让它们学习。
+
+换句话说，存在着能力和可训练性之间的终极权衡：你希望一个系统越多地「真正利用」其计算能力，它就越会表现出计算不可约简性，从而越难以训练。而它越是基本上可训练的，它就越难以进行复杂计算。
+
+对于目前的 ChatGPT 而言，情况实际上更加极端，因为用于生成每个输出标记的神经网络是一个纯粹的「前馈」网络，没有循环，因此无法执行具有非平凡「控制流」的任何类型的计算。
+
+当然，人们可能会怀疑进行不可约简计算的能力是否真的重要。的确，在人类历史的大部分时间里，这并不特别重要。但我们现代的技术世界是建立在至少使用数学计算的工程基础上的 —— 并且越来越多地使用更通用的计算。如果我们观察自然世界，它充满了不可约简的计算 —— 我们正在慢慢地了解如何模仿和用于我们的技术目的。
+
+是的，神经网络当然可以注意到自然世界中的规律性，这些规律性我们也可能通过「未辅助的人类思维」轻易地注意到。但如果我们想要弄清楚数学或计算科学范围内的事物，神经网络是无法做到的 —— 除非它有效地「作为工具使用」一个「普通」的计算系统。
+
+但所有这些都有一些可能令人困惑的地方。在过去，包括写作文在内的许多任务，我们认为它们在某种程度上是「对于计算机来说根本太难了」。现在我们看到像 ChatGPT 这样的系统完成了这些任务，我们往往会突然认为计算机必须已经变得强大得多 —— 特别是超越了它们已经基本能够做到的事情（如逐步计算像元胞自动机这样的计算系统的行为）。
+
+但这不是我们应该得出的结论。计算上不可约简的过程仍然是计算上不可约简的，对计算机来说仍然是根本性的困难 —— 即使计算机可以轻松地计算它们的单个步骤。相反，我们应该得出的结论是，像写作文这样的任务 —— 我们人类可以做，但我们认为计算机做不到的任务，实际上在某种意义上比我们想象的计算上更简单。
+
+换句话说，神经网络能够成功写作文的原因是因为写作文事实证明是一个比我们想象的「计算上更浅」的问题。在某种意义上，这让我们更接近于「拥有一个理论」，了解我们人类是如何做到像写作文这样的事情，或者总体上处理语言的。
+
+如果你有足够大的神经网络，是的，你可能能够做任何人类可以轻松做到的事情。但你不会捕捉到自然界一般能够做到的事情 —— 或者我们从自然界中塑造的工具能够做到的事情。正是使用这些工具 —— 无论是实用的还是概念上的 —— 使我们在近几个世纪超越了「纯粹未辅助人类思维」所能接触到的界限，为人类目的捕捉了更多存在于物理和计算宇宙中的东西。
 
 ### 09. The Concept of Embeddings
 
@@ -641,6 +789,52 @@ If we do things like measure distances between these vectors, then we can find t
 But actually we can go further than just characterizing words by collections of numbers; we can also do this for sequences of words, or indeed whole blocks of text. And inside ChatGPT that's how it's dealing with things. It takes the text it's got so far, and generates an embedding vector to represent it. Then its goal is to find the probabilities for different words that might occur next. And it represents its answer for this as a list of numbers that essentially give the probabilities for each of the 50,000 or so possible words.
 
 (Strictly, ChatGPT does not deal with words, but rather with "tokens"—convenient linguistic units that might be whole words, or might just be pieces like "pre" or "ing" or "ized". Working with tokens makes it easier for ChatGPT to handle rare, compound and non-English words, and, sometimes, for better or worse, to invent new words.)
+
+神经网络 —— 至少在目前的设置中 —— 基本上是基于数字的。因此，如果我们要使用它们来处理像文本这样的东西，我们需要一种用数字表示文本的方法。当然，我们可以开始（基本上就像 ChatGPT 所做的）为字典中的每个单词分配一个数字。但有一个重要的概念 —— 例如对于 ChatGPT 至关重要 —— 超越了这一点。这就是「嵌入」（embeddings）的概念。可以将嵌入视为一种尝试通过数字数组来表示某物的「本质」的方式 —— 具有这样的特性：「邻近的事物」由邻近的数字表示。
+
+例如，我们可以将单词嵌入视为试图在某种「意义空间」中布局单词，其中在意义上「相近」的单词在嵌入中也相近。实际上在 ChatGPT 中使用的嵌入往往涉及大量的数字。但如果我们投影到 2D，我们可以展示单词在嵌入中的布局示例：
+
+的确，我们看到的确实很好地捕捉了典型的日常印象。但我们如何构建这样的嵌入呢？大致的想法是查看大量的文本（这里是来自网络的 50 亿个单词），然后看看不同单词出现的「环境」有多「相似」。例如，「鳄鱼」和「鳄鱼」通常会在其他相似的句子中几乎可互换地出现，这意味着它们将在嵌入中被放置在附近。但「萝卜」和「鹰」不会倾向于出现在其他相似的句子中，因此它们将在嵌入中被放置得很远。
+
+但我们如何实际使用神经网络来实现这样的事情呢？让我们从讨论图像的嵌入而不是单词的嵌入开始。我们想要找到一种方式来用数字列表来描述图像，以便「我们认为相似的图像」被分配给相似的数字列表。
+
+我们如何判断是否应该「认为图像相似」？好吧，如果我们的图像是手写数字，我们可能会「认为两个图像相似」，如果它们是同一个数字。之前我们讨论了一个被训练来识别手写数字的神经网络。我们可以将这个神经网络看作是设置成在最终输出中将图像分成 10 个不同的箱子，每个数字一个。
+
+但如果我们在做出「它是‘4'」的最终决定之前「截获」神经网络内部正在发生的事情呢？我们可能期望神经网络内部有一些数字，将图像描述为「主要像 4 但有点像 2」或类似的东西。想法是捕捉这样的数字来用作嵌入中的元素。
+
+所以这是概念。我们不是直接试图描述「哪个图像靠近哪个图像」，而是考虑一个明确定义的任务（在这种情况下是数字识别），我们可以获得明确的训练数据 —— 然后利用神经网络在执行此任务时隐含地必须做出的相当于「接近决策」。因此，我们不必明确讨论「图像的接近性」，我们只是讨论图像表示什么数字这个具体问题，然后「让神经网络来决定」这对「图像的接近性」意味着什么。
+
+对于数字识别网络，这个过程如何更详细地工作呢？我们可以将网络视为由 11 个连续层组成，可以象征性地总结如下（将激活函数显示为单独的层）：
+
+一开始，我们向第一层输入实际图像，由 2D 像素值数组表示。在最后一层，我们得到一个包含 10 个值的数组，我们可以认为这表示网络对图像对应于数字 0 到 9 的「确定程度」。
+
+输入图像后，最后一层神经元的值是：
+
+换句话说，此时神经网络「非常确定」这个图像是 4 —— 要实际得到输出「4」，我们只需找出数值最大的神经元的位置。
+
+但如果我们再往前看一步呢？网络中的最后一个操作是所谓的 softmax，它试图「强制确定性」。但在应用 softmax 之前，神经元的值是：
+
+代表「4」的神经元仍然具有最高的数值。但其他神经元的值中也包含信息。我们可以期望这个数字列表在某种意义上可以用来表征图像的「本质」，因此可以提供我们可以用作嵌入的东西。因此，例如，这里的每个 4 都有一个略微不同的「签名」（或「特征嵌入」）—— 与 8 的完全不同：
+
+这里我们本质上使用 10 个数字来表征我们的图像。但通常使用的数字远不止这些。例如，在我们的数字识别网络中，我们可以通过访问前一层获得 500 个数字的数组。这可能是作为「图像嵌入」的合理数组。
+
+如果我们想对手写数字的「图像空间」进行显式可视化，我们需要「降低维度」，有效地将我们获得的 500 维向量投影到比如说 3D 空间中：
+
+我们刚刚讨论了如何基于识别图像的相似性（根据我们的训练集，确定它们是否对应于同一个手写数字）来为图像创建表征（因此嵌入）。如果我们有一个识别图像属于哪种常见物体类型（猫、狗、椅子等 5000 种类型之一）的训练集，我们可以对图像进行更广泛的相同处理。通过这种方式，我们可以创建一个以我们对常见物体的识别为「锚点」的图像嵌入，然后根据神经网络的行为进行「概括」。重点是，只要这种行为与我们人类感知和解释图像的方式一致，这将成为一个对我们来说「看起来合理」的嵌入，并在实际中执行「类似人类判断」的任务时有用。
+
+那么，我们如何采用类似的方法来找到单词的嵌入呢？关键是从一个我们可以轻松进行训练的关于单词的任务开始。标准的这种任务是「单词预测」。假设我们得到「the ___ cat」。基于大量文本（比如网络的文本内容），填补空白的不同单词的概率是多少？或者，给定「___ black ___」，不同的「两边单词」的概率是多少？
+
+我们如何为神经网络设置这个问题？最终我们必须用数字来表达一切。一种方法是为英语中大约 50,000 个常用单词中的每一个分配一个唯一的数字。例如，「the」可能是 914，「cat」（前面有一个空格）可能是 3542。（这些是 GPT-2 实际使用的数字。）所以对于「the ___ cat」问题，我们的输入可能是 {914, 3542}。输出应该是什么样的？好吧，它应该是一个包含大约 50,000 个数字的列表，这些数字有效地给出了每个可能的「填空」单词的概率。再次，为了找到嵌入，我们希望「截取」神经网络的「内部」，就在它「得出结论」之前 —— 然后捕获在那里出现的数字列表，我们可以将其视为「表征每个单词」。
+
+那么这些表征看起来是什么样的呢？在过去的 10 年中，已经开发了一系列不同的系统（word2vec、GloVe、BERT、GPT 等），每个系统都基于不同的神经网络方法。但最终，它们都采用单词，并通过数百到数千个数字的列表对其进行表征。
+
+这些「嵌入向量」的原始形式相当不具信息性。例如，以下是 GPT-2 为三个特定单词生成的原始嵌入向量：
+
+如果我们做诸如测量这些向量之间的距离之类的事情，那么我们可以发现诸如单词的「接近性」。稍后我们将更详细地讨论这些嵌入的「认知」意义。但现在的主要观点是，我们有一种将单词有效地转换为「神经网络友好」的数字集合的方法。
+
+但实际上，我们可以做的不仅仅是通过数字集合来表征单词；我们还可以这样做序列的单词，甚至整个文本块。在 ChatGPT 内部，它就是这样处理事情的。它采用到目前为止的文本，并生成一个嵌入向量来表示它。然后它的目标是找到不同单词接下来出现的概率。它以一个数字列表表示其答案，这些数字基本上给出了大约 50,000 个可能单词中每一个的概率。
+
+（严格来说，ChatGPT 并不处理单词，而是处理「词元」—— 方便的语言单位，可能是完整的单词，也可能只是像「pre」或「ing」或「ized」这样的片段。使用词元使 ChatGPT 更容易处理罕见、复合和非英语单词，并且有时，无论好坏，都可以创造新单词。）
 
 ### 10. Inside ChatGPT
 
@@ -705,6 +899,68 @@ In addition, there are aspects of the neural net in ChatGPT that aren't most nat
 If one looks at the longest path through ChatGPT, there are about 400 (core) layers involved—in some ways not a huge number. But there are millions of neurons—with a total of 175 billion connections and therefore 175 billion weights. And one thing to realize is that every time ChatGPT generates a new token, it has to do a calculation involving every single one of these weights. Implementationally these calculations can be somewhat organized "by layer" into highly parallel array operations that can conveniently be done on GPUs. But for each token that's produced, there still have to be 175 billion calculations done (and in the end a bit more)—so that, yes, it's not surprising that it can take a while to generate a long piece of text with ChatGPT.
 
 But in the end, the remarkable thing is that all these operations—individually as simple as they are—can somehow together manage to do such a good "human-like" job of generating text. It has to be emphasized again that (at least so far as we know) there's no "ultimate theoretical reason" why anything like this should work. And in fact, as we'll discuss, I think we have to view this as a—potentially surprising—scientific discovery: that somehow in a neural net like ChatGPT's it's possible to capture the essence of what human brains manage to do in generating language.
+
+好的，我们终于准备好讨论 ChatGPT 内部的构造了。是的，归根结底，它是一个巨大的神经网络 —— 目前是所谓的 GPT-3 网络的一个版本，拥有 1750 亿个权重。在许多方面，这个神经网络非常类似于我们之前讨论过的其他网络。但它是一个专门为处理语言而设置的神经网络。它最显著的特征是一种被称为「变换器（transformer）」的神经网络架构。
+
+在我们上面讨论的第一个神经网络中，任何给定层上的每个神经元基本上都与前一层上的每个神经元相连（至少有一些权重）。但如果处理的数据具有特定的、已知的结构，这种完全连接的网络（可能）就过于复杂了。因此，例如，在处理图像的早期阶段，通常使用所谓的卷积神经网络（「卷积网」），在这种网络中，神经元有效地按照类似于图像中像素的网格布局，并且只与网格上附近的神经元相连。
+
+变换器的想法是为构成一段文本的词元序列做类似的事情。但变换器不是定义序列中可以建立连接的固定区域，而是引入了「注意力」的概念 —— 以及「更多关注」序列中某些部分而不是其他部分的想法。也许有一天只启动一个通用神经网络并通过训练进行所有定制是有意义的。但至少目前看来，在实践中「模块化」事物 —— 就像变换器所做的那样，也可能像我们的大脑所做的那样 —— 似乎是至关重要的。
+
+那么 ChatGPT（或者说，它所基于的 GPT-3 网络）实际上做了什么呢？回想一下，它的总体目标是基于从训练中看到的内容（包括查看来自网络等地方的数十亿页面文本）以一种「合理」的方式继续文本。因此，在任何给定时刻，它都有一定量的文本 —— 它的目标是提出一个适当的选择，以添加下一个词元。
+
+它有三个基本阶段。首先，它获取到目前为止文本对应的词元序列，并找到一个嵌入（即一组数字）来代表这些词元。然后它对这个嵌入进行操作 —— 以「标准神经网络方式」，通过连续层在网络中「传播」值 —— 以产生一个新的嵌入（即新的一组数字）。它接着获取这个数组的最后一部分，并从中生成一个大约包含 50,000 个值的数组，这些值转化为不同可能下一个词元的概率。（是的，巧合的是，使用的词元数量大约与英语中常用单词的数量相同，尽管只有大约 3000 个词元是完整的单词，其余的是片段。）
+
+每个环节都是由神经网络实现的，这一点至关重要，而神经网络的权重是通过网络的端到端训练来确定的。换句话说，实际上除了整体架构之外，没有任何东西是「显式工程化」的；一切都是从训练数据中「学习」而来的。
+
+然而，在架构的设置方式上有许多细节 —— 反映了各种经验和神经网络的知识。而且 —— 尽管这绝对是深入细节 —— 我认为讨论其中一些细节是有用的，至少可以让人了解构建像 ChatGPT 这样的东西需要投入什么。
+
+首先是嵌入模块。以下是 Wolfram 语言对 GPT-2 的嵌入模块的示意性表示：
+
+输入是 n 个词元的向量（如上一节所述，用大约 1 到 50,000 的整数表示）。这些词元中的每一个都被转换（通过单层神经网络）为嵌入向量（GPT-2 的长度为 768，ChatGPT 的 GPT-3 为 12,288）。与此同时，有一个「次要路径」获取词元的（整数）位置序列，并从这些整数创建另一个嵌入向量。最后，来自词元值和词元位置的嵌入向量被相加在一起 —— 产生来自嵌入模块的最终嵌入向量序列。
+
+为什么要将词元值嵌入向量和词元位置嵌入向量相加在一起？我认为这没有任何特别的科学依据。这只是尝试了各种不同的方法，这是一种似乎有效的方法。这是神经网络知识的一部分，在某种意义上 —— 只要所拥有的设置是「大致正确的」，通常只需进行足够的训练就可以找到细节，而无需真正「在工程层面上理解」神经网络最终是如何配置自身的。
+
+以下是嵌入模块对字符串 hello hello hello hello hello hello hello hello hello hello bye bye bye bye bye bye bye bye bye bye 的操作：
+
+每个词元的嵌入向量的元素沿页面显示，页面上我们首先看到一连串的「hello」嵌入，然后是「bye」嵌入。上面的第二个数组是位置嵌入 —— 其有些随机的外观结构只是「碰巧学到的」（在这种情况下是 GPT-2）。
+
+好的，嵌入模块之后是变换器的「主要事件」：一系列所谓的「注意力块」（GPT-2 有 12 个，ChatGPT 的 GPT-3 有 96 个）。这一切都相当复杂 —— 让人想起典型的大型难以理解的工程系统，或者说，生物系统。但无论如何，这里是一个单个「注意力块」的示意性表示（对于 GPT-2）：
+
+在每个注意力块内，有一系列的「注意力头」（GPT-2 有 12 个，ChatGPT 的 GPT-3 有 96 个），每个都独立地在嵌入向量的不同块上操作。（是的，我们不知道将嵌入向量分割开来的具体原因，或者它的不同部分「意味着什么」；这只是那些被「发现有效」的东西之一。）
+
+那么，注意力头做什么呢？基本上，它们是一种「回顾」词元序列（即到目前为止产生的文本）的方式，并以一种对于找到下一个词元有用的形式「打包过去」。在上面的第一部分中，我们谈到了使用 2-gram 概率来根据它们的直接前驱选择单词。变换器中的「注意力」机制允许甚至对更早的词语进行「关注」—— 从而潜在地捕捉到，比如，动词如何可以指涉在句子中它们之前出现的许多词的名词。
+
+在更详细的层面上，一个注意力头所做的是重新组合与不同词元相关的嵌入向量中的块，附有特定的权重。因此，例如，GPT-2 中第一个注意力块的 12 个注意力头对于上面的「hello, bye」字符串具有以下「从序列开头一直回溯」的「重组权重」模式：
+
+经过注意力头处理后，所得到的「重新加权嵌入向量」（对于 GPT-2 长度为 768，对于 ChatGPT 的 GPT-3 长度为 12,288）通过标准的「全连接」神经网络层。很难了解这一层在做什么。但这里是它使用的 768×768 权重矩阵的图（这里是 GPT-2 的）：
+
+取 64×64 的移动平均后，一些（随机游走式的）结构开始显现：
+
+这种结构是由什么决定的？最终这可能是某种「神经网络编码」的人类语言特征。但就目前而言，这些特征可能是什么还不得而知。实际上，我们正在「打开 ChatGPT 的大脑」（或至少是 GPT-2），发现里面确实很复杂，我们还不了解它 —— 即使最终它产生了可识别的人类语言。
+
+好的，经过一个注意力块后，我们得到了一个新的嵌入向量 —— 然后依次传递给其他注意力块（GPT-2 总共有 12 个；GPT-3 有 96 个）。每个注意力块都有自己特定的「注意力」和「全连接」权重模式。以下是 GPT-2 的「hello, bye」输入的注意力权重序列，对于第一个注意力头：
+
+这里是全连接层的（移动平均后的）「矩阵」：
+
+确实，尽管不同注意力块中的「权重矩阵」看起来非常相似，但权重的大小分布可能有所不同（并不总是高斯分布）：
+
+经过所有这些注意力块后，变换器的净效果是什么呢？本质上，它将词元序列的原始嵌入集合转换为最终集合。ChatGPT 的特定工作方式是接着提取这个集合中的最后一个嵌入，并「解码」它以生成下一个词元可能是什么的概率列表。
+
+所以这就是 ChatGPT 内部的大致情况。这可能看起来很复杂（不仅因为其许多不可避免的某种程度上任意的「工程选择」），但实际上涉及的最终元素非常简单。因为最终我们处理的只是一个由「人工神经元」组成的神经网络，每个神经元执行的简单操作就是接收一组数值输入，然后用特定的权重将它们结合起来。
+
+ChatGPT 的原始输入是一个数字数组（到目前为止的词元的嵌入向量），当 ChatGPT「运行」以产生新词元时，这些数字只是「在神经网络的层中波动」，每个神经元「做它的事情」并将结果传递给下一层的神经元。没有循环或「回溯」。一切都只是「向前推进」通过网络。
+
+这与典型的计算系统 —— 如图灵机 —— 非常不同，在图灵机中，结果被同一计算元素反复「重新处理」。在这里 —— 至少在生成给定词元的输出时 —— 每个计算元素（即神经元）只使用一次。
+
+但在 ChatGPT 中，即使是在某种意义上仍然存在一个「外部循环」来重复使用计算元素。因为当 ChatGPT 将要生成一个新词元时，它总是「读取」（即作为输入）在其之前的整个词元序列，包括 ChatGPT 自己之前「写下」的词元。我们可以将这种设置视为意味着 ChatGPT 确实在其最外层至少涉及一个「反馈循环」，尽管每次迭代都以文本中出现的词元的形式明确可见。
+
+但让我们回到 ChatGPT 的核心：用来重复生成每个词元的神经网络。在某种程度上，它非常简单：一整套相同的人工神经元。网络的某些部分仅由神经元的（「全连接」）层组成，在这些层中，给定层上的每个神经元都与前一层的每个神经元相连（具有一定的权重）。但特别是在其变换器架构中，ChatGPT 有更多结构的部分，在这些部分中，不同层的特定神经元才相连。（当然，人们仍然可以说「所有神经元都相连」—— 但有些神经元的权重只是零。）
+
+此外，ChatGPT 中的神经网络还有一些方面，最自然的看法不仅仅是由「同质」层组成。例如，如上面的图标总结所示，在一个注意力块内部，有些地方会对传入的数据「制作多个副本」，每个副本随后经过不同的「处理路径」，可能涉及不同数量的层，然后才重新组合。但虽然这可能是对正在发生的事情的一个方便的表示，至少在原理上总是有可能考虑「密集填充」层，只是让一些权重为零。
+
+如果看一下 ChatGPT 中最长的路径，大约有 400 个（核心）层涉及 —— 在某些方面并不是一个巨大的数字。但有数百万个神经元 —— 共有 1750 亿个连接，因此有 1750 亿个权重。需要认识到的一点是，每次 ChatGPT 生成一个新词元时，它必须进行涉及这些权重的每一个的计算。在实现上，这些计算可以在某种程度上按层组织成高度并行的数组操作，可以方便地在 GPU 上完成。但对于生成的每个词元，仍然必须进行 1750 亿次计算（最终还要更多一些）—— 所以，是的，生成一段长文本的 ChatGPT 可能需要一段时间并不奇怪。
+
+但最终，令人惊奇的是，所有这些操作 —— 尽管每个操作都很简单 —— 却可以一起做得如此出色地「像人类一样」生成文本。必须再次强调的是，（至少据我们所知）没有任何「终极理论原因」可以解释为什么类似这样的事情会有效。实际上，正如我们将讨论的，我认为我们必须将这视为一项（可能令人惊讶的）科学发现：即某种方式下，像 ChatGPT 这样的神经网络能够捕捉到人类大脑在生成语言时设法做到的本质。
 
 ### 11. The Training of ChatGPT
 
