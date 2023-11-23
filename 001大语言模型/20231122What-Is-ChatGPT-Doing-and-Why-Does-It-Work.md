@@ -30,6 +30,18 @@ This takes that result and makes it into an explicit formatted "dataset":
 
 Here's what happens if one repeatedly "applies the model"—at each step adding the word that has the top probability (specified in this code as the "decision" from the model):
 
+In[]:= NestList [StringJoin [#, model [#, "Decision"]] &,
+"The best thing about Al is its ability to", 7]
+
+Out[]= {The best thing about Al is its ability to,
+The best thing about Al is its ability to learn,
+The best thing about Al is its ability to learn from,
+The best thing about Al is its ability to learn from experience, 
+The best thing about Al is its ability to learn from experience., 
+The best thing about Al is its ability to learn from experience. It, 
+The best thing about Al is its ability to learn from experience. It's, 
+The best thing about Al is its ability to learn from experience. It's not}
+
 What happens if one goes on longer? In this ("zero temperature") case what comes out soon gets rather confused and repetitive:
 
 But what if instead of always picking the "top" word one sometimes randomly picks "non-top" words (with the "randomness" corresponding to "temperature" 0.8)? Again one can build up text:
@@ -70,7 +82,7 @@ ChatGPT 的自动生成能力，即使是表面上看起来像是人类编写的
 
 如果一个人反复「应用模型」—— 在每一步添加概率最高的词语（在这段代码中被指定为模型的「决策」）会发生什么：
 
-如果一个人继续下去会发生什么？在这个（「零温度」）情况下，很快输出的内容就会变得混乱和重复：
+如果一个人继续下去会发生什么？在这个（零温度）情况下，很快输出的内容就会变得混乱和重复：
 
 但是，如果不总是选择「顶部」词语，而是有时随机选择「非顶部」词语（与「温度」0.8 的「随机性」相对应）会怎样？再次可以构建文本：
 
@@ -104,30 +116,25 @@ ChatGPT 能自动产生看似由人类撰写的文本，这本身就令人惊叹
 
 比如，下面是获取上述概率表的方法。首先，我们需要检索底层的「语言模型」神经网络：
 
-稍后我们将深入了解这个神经网络及其工作原理。但现
-
-在，我们可以把这个「网络模型」当作一个黑盒子，应用到我们目前的文本上，询问模型认为应该接下来的前 5 个词的概率：
+稍后我们将深入了解这个神经网络及其工作原理。但现在，我们可以把这个「网络模型」当作一个黑盒子，应用到我们目前的文本上，询问模型认为应该接下来的前 5 个词的概率：
 
 这将把结果转换为一个明确格式化的「数据集」：
 
 如果一个人反复「应用这个模型」，在每一步加入概率最高的词语（在这段代码中定义为模型的「决策」），会发生什么：
 
-如果继续进行会怎样？在这个（「零温度」）案例中，输出的内容很快就会变得混乱和重复：
+如果继续进行会怎样？在这个（零温度）案例中，输出的内容很快就会变得混乱和重复：
 
 但如果不总是挑选「最顶端」的词，而是有时随机选择「非顶端」的词（与「温度」0.8 的「随机性」相对应），会怎样？可以再次构建文本：
 
 每次进行这个过程时，都会做出不同的随机选择，文本也将不同 —— 如这 5 个示例所示：
 
-值得指出的是，即使是在第一步，也有许多可能的「下一个词」可供选择（在温度 0.8 时），尽管它们的概率很快就会下降（是的，这个对数 - 对数图上的直线对应于一个 n-1 的「幂律」衰减，这是语言统计中非常典型的特性）：
+值得指出的是，即使是在第一步，也有许多可能的「下一个词」可供选择（在温度 0.8 时），尽管它们的概率很快就会下降（是的，这个对数 —— 对数图上的直线对应于一个 n-1 的「幂律」衰减，这是语言统计中非常典型的特性）：
 
 那么如果继续下去会怎样呢？这是一个随机示例。它比顶词（零温度）情况更好，但最多也只是有些奇怪：
 
 这是使用最简单的 2019 年版 GPT-2 模型完成的。使用更新且更大的 GPT-3 模型，结果会更好。这是使用相同的「提示」，但用最大的 GPT-3 模型生成的顶词（零温度）文本：
 
 这是「温度 0.8」下的一个随机示例：
-
-
-
 
 ### 02. Where Do the Probabilities Come From?
 
@@ -165,7 +172,81 @@ In a crawl of the web there might be a few hundred billion words; in books that 
 
 So what can we do? The big idea is to make a model that lets us estimate the probabilities with which sequences should occur—even though we've never explicitly seen those sequences in the corpus of text we've looked at. And at the core of ChatGPT is precisely a so-called "large language model" (LLM) that's been built to do a good job of estimating those probabilities.
 
-### What Is a Model?
+Direct Translation
+
+好的，所以 ChatGPT 总是基于概率来选择它的下一个词。但这些概率是从哪里来的呢？让我们从一个更简单的问题开始。让我们考虑一次生成一个字母（而不是一个单词）的英文文本。我们如何计算出每个字母的概率呢？
+
+我们可以做的非常基本的事情之一就是取一些英文文本的样本，并计算不同字母在其中出现的频率。例如，这里统计了维基百科上「猫」文章中的字母：
+
+这样做对「狗」的文章也是一样：
+
+结果相似，但不完全相同（「o」在「狗」的文章中无疑更常见，因为毕竟它出现在「dog」这个词中）。不过，如果我们取足够大的英文文本样本，我们可以期望最终至少得到相当一致的结果：
+
+以下是我们仅用这些概率生成一系列字母的样本：
+
+我们可以通过添加空格来将其分成「单词」，就好像它们是有一定概率的字母：
+
+我们可以通过强制「单词长度」的分布与英语中的情况一致，来做得稍微好一点：
+
+我们这里没有偶然得到任何「实际单词」，但结果看起来稍微好一些。不过，要进一步发展，我们需要做的不仅仅是随机地挑选每个字母。例如，我们知道如果我们有一个「q」，下一个字母基本上必须是「u」。
+
+这是单独字母的概率图：
+
+这是显示典型英文文本中字母对（「2-gram」）概率的图表。可能的第一个字母横跨页面显示，第二个字母向下显示：
+
+我们在这里看到，例如，「q」列除了在「u」行是空的（概率为零）。好的，现在我们不再一次生成一个字母的「单词」，让我们用这些「2-gram」概率来生成它们，一次看两个字母。这是结果的样本 —— 恰好包含一些「实际单词」：
+
+有了足够多的英文文本，我们不仅可以得到单个字母或字母对（2-grams）的概率的相当好的估计，还可以得到更长的字母串的概率。如果我们用逐渐更长的 n-gram 概率生成「随机单词」，我们会看到它们逐渐变得「更加真实」：
+
+但现在让我们假设 —— 正如 ChatGPT 所做的那样 —— 我们处理的是完整的单词，而不是字母。英语中大约有 40,000 个常用词。通过查看大量英文文本（比如几百亿个单词的几百万本书），我们可以估计出每个单词的普遍性。利用这一点，我们可以开始生成「句子」，在其中每个单词都是独立随机挑选的，概率与它在语料库中出现的概率相同。以下是我们得到的样本：
+
+不出所料，这是无意义的。那么我们怎样才能做得更好？就像字母一样，我们可以开始考虑不仅仅是单个单词的概率，还有单词对或更长的 n-gram 单词的概率。对单词对这样做，以下是我们得到的 5 个例子，所有情况都是从单词「cat」开始的：
+
+它看起来稍微「更有意义」了。我们可能会想象，如果我们能够使用足够长的 n-gram，我们基本上会「得到一个 ChatGPT」—— 在这个意义上，我们会得到一个能够生成带有「正确整体文章概率」的文章长度单词序列的东西。但这里有一个问题：甚至没有足够的英文文本被写过，以便能够推断出这些概率。
+
+在网络爬虫中可能有几百亿个单词；在已数字化的书籍中可能又有另外几百亿个单词。但是有 40,000 个常用词，即使只是 2-gram 的可能性数量就已经达到 16 亿，3-gram 的可能性数量则达到 60 万亿。因此，我们无法仅凭现有的文本来估计所有这些的概率。到了 20 个单词的「文章片段」，可能性的数量大于宇宙中的粒子数量，所以从某种意义上说，它们永远无法全部被写下。
+
+那么我们能做什么呢？一个重要的想法是制造一个模型，让我们可以估计序列出现的概率 —— 即使我们从未在我们查看过的文本语料库中明确看到过这些序列。而 ChatGPT 的核心正是一个所谓的「大型语言模型」（LLM），它被构建得非常适合估计这些概率。
+
+---
+
+Rephrased Translation
+
+那么，ChatGPT 总是根据概率来挑选它的下一个词。但这些概率是怎么来的呢？我们不妨从一个更简单的问题开始：尝试一次生成一个字母（而不是一个单词）来构成英文文本。我们怎样才能确定每个字母的概率呢？
+
+一个非常基本的做法是选取一些英文文本样本，然后计算其中不同字母出现的频率。比如，以下是统计维基百科「猫」条目中字母出现频率的例子：
+
+对「狗」条目做同样的统计：
+
+结果相似，但有所不同（例如，「o」在「狗」条目中更常见，因为它出现在单词「dog」中）。然而，如果我们取足够大的英文文本样本，我们至少可以期待最终得到相对一致的结果：
+
+以下是我们仅使用这些概率生成的一系列字母样本：
+
+我们可以通过添加空格（把它们当作有一定概率出现的字母）来把这些字母分成「单词」：
+
+通过强制「单词长度」分布与英语中的分布一致，我们可以稍微更好地构造「单词」：
+
+虽然我们这里没有碰巧生成任何「真正的单词」，但结果看起来稍微好一些。然而，要进一步提高，我们需要做的不仅仅是随机选择每个字母。比如，我们知道如果有一个「q」，下一个字母几乎必定是「u」。
+
+这是单独一个字母的概率图：
+
+这是展示典型英文文本中字母对（2-gram）概率的图表。可能的首字母在页面上展示，第二个字母在页面下方展示：
+
+例如，我们可以看到在「q」列中，除了「u」行外，其他都是零概率。好的，现在我们不再一次只生成一个字母的「单词」，而是尝试使用这些「2-gram」概率，一次考虑两个字母来生成它们。这是所得结果的一个样本 —— 偶然包含了一些「真正的单词」：
+
+有了足够多的英文文本，我们不仅可以准确估计单个字母或字母对（2-grams）的概率，还可以估计更长字母串的概率。如果我们用逐渐增长的 n-gram 概率生成「随机单词」，我们会发现它们逐渐变得「更加真实」：
+
+但现在，让我们像 ChatGPT 那样假设我们处理的是完整的单词，而不是字母。英语中大约有 40,000 个常见单词。通过分析大量英文文本（例如几百万本书，总共几百亿个单词），我们可以估算出每个单词的普遍性。利用这个数据，我们可以开始生成「句子」，其中每个单词都是独立随机挑选的，其概率与它在语料库中出现的频率一致。以下是我们得到的样本：
+
+不出所料，这些文本毫无意义。那我们怎么能做得更好呢？就像处理字母一样，我们可以开始考虑不仅仅是单个单词的概率，还要考虑单词对或更长的 n-gram 的概率。采用这种方法生成单词对，以下是我们从「cat」这个词开始得到的 5 个例子：
+
+看起来稍微更有意义了。我们可能会想象，如果我们能使用足够长的 n-gram，我们基本上可以「创造出一个 ChatGPT」—— 意味着我们将得到能够生成具有「正确的整体文章概率」的长篇单词序列的工具。但问题是：迄今为止写过的英文文本远远不够，无法用来推断这些概率。
+
+在网络上爬取的文本可能有几百亿个单词；在已经数字化的书籍中可能还有另外几百亿个单词。但是，在 40,000 个常用词的情况下，即使是 2-gram 的可能性也已经达到了 16 亿，而 3-gram 的可能性则达到了 60 万亿。因此，我们不可能仅凭已有的文本来估算所有这些概率。而到了 20 个单词的「文章片段」，可能性的数量已经超过了宇宙中的粒子总数，所以从某种意义上说，这些文本是不可能全部被写出来的。
+
+那么我们能做些什么呢？一个关键的想法是建立一个模型，即使我们从未在所研究的文本语料库中明确见过这些序列，也能估算出序列出现的概率。而 ChatGPT 的核心就是一个被精心构建用于有效估算这些概率的所谓的「大型语言模型」（LLM）。
+
+### 03. What Is a Model?
 
 Say you want to know (as Galileo did back in the late 1500s) how long it's going to take a cannon ball dropped from each floor of the Tower of Pisa to hit the ground. Well, you could just measure it in each case and make a table of the results. Or you could do what is the essence of theoretical science: make a model that gives some kind of procedure for computing the answer rather than just measuring and remembering each case.
 
@@ -183,7 +264,23 @@ It is worth understanding that there's never a "model-less model". Any model you
 
 But the remarkable thing is that the underlying structure of ChatGPT—with "just" that many parameters—is sufficient to make a model that computes next-word probabilities "well enough" to give us reasonable essay-length pieces of text.
 
-### Models for Human-Like Tasks
+想象一下，如果你像伽利略在 16 世纪末那样，想知道从比萨斜塔的每一层掉落的炮弹到达地面需要多长时间。你可以在每种情况下测量并制作一张结果表。或者，你可以做理论科学的本质所在：创建一个模型，提供一种计算答案的方法，而不是仅仅测量和记住每个案例。
+
+让我们假设我们有关于炮弹从各个楼层落下所需时间的（有些理想化的）数据：
+
+我们如何确定从我们没有明确数据的楼层落下需要多长时间？在这种特定情况下，我们可以使用已知的物理定律来计算出来。但假设我们只有数据，并不知道控制它的基本规律是什么。那么我们可能会做出一个数学猜测，比如说我们可能应该使用一条直线作为模型：
+
+我们可以选择不同的直线。但这条直线平均而言最接近我们所给的数据。根据这条直线，我们可以估算任何楼层的落地时间。
+
+我们怎么知道要尝试使用直线呢？在某种程度上，我们并不知道。这只是数学上简单的东西，我们习惯于许多我们测量的数据能够被数学上简单的模型很好地拟合。我们可以尝试更复杂的数学模型 —— 比如 a + b x + c x²—— 然后在这种情况下我们可能会做得更好：
+
+不过，情况有时也可能出错。例如，用 a + b/x + c sin (x) 得出的最佳结果可能是这样的：
+
+值得理解的是，从来没有「无模型的模型」。你使用的任何模型都有一定的基础结构，然后有一系列「可以调整的旋钮」（即你可以设置的参数）来拟合你的数据。在 ChatGPT 的情况下，使用了许多这样的「旋钮」—— 实际上有 1750 亿个。
+
+但值得注意的是，ChatGPT 的基础结构 —— 仅用这么多参数 —— 就足以构建一个模型，这个模型能够「足够好地」计算下一个词的概率，从而产生合理长度的文章文本。
+
+### 04. Models for Human-Like Tasks
 
 The example we gave above involves making a model for numerical data that essentially comes from simple physics—where we've known for several centuries that "simple mathematics applies". But for ChatGPT we have to make a model of human-language text of the kind produced by a human brain. And for something like that we don't (at least yet) have anything like "simple mathematics". So what might a model of it be like?
 
@@ -205,7 +302,27 @@ And we have a "good model" if the results we get from our function typically agr
 
 Can we "mathematically prove" that they work? Well, no. Because to do that we'd have to have a mathematical theory of what we humans are doing. Take the "2" image and change a few pixels. We might imagine that with only a few pixels "out of place" we should still consider the image a "2". But how far should that go? It's a question of human visual perception. And, yes, the answer would no doubt be different for bees or octopuses—and potentially utterly different for putative aliens.
 
-### Neural Nets
+在上面的例子中，我们制作了一个基于简单物理学的数值数据模型 —— 在这方面，我们已经知道了几个世纪的「简单数学适用」。但对于 ChatGPT，我们必须为人类大脑产生的人类语言文本制作模型。对于这样的任务，我们（至少目前）还没有像「简单数学」这样的东西。那么，它的模型可能是什么样的呢？
+
+在我们讨论语言之前，让我们先谈谈另一项类似人类的任务：识别图像。作为一个简单的例子，让我们考虑数字图像（是的，这是一个经典的机器学习示例）：
+
+我们可以做的一件事是为每个数字获取一堆样本图像：
+
+然后，为了确定我们作为输入得到的图像是否对应于特定的数字，我们可以与我们拥有的样本进行逐像素的显式比较。但作为人类，我们显然似乎做得更好 —— 因为即使数字是手写的，并且有各种修改和扭曲，我们仍然可以识别出来：
+
+当我们为上述数值数据制作模型时，我们可以取给定的数值 x，并计算特定的 a + b x。那么，如果我们将这里每个像素的灰度值视为某个变量 xi，是否有一些函数 —— 当求值时 —— 告诉我们图像是哪个数字的？事实证明，可以构造这样的函数。不出所料，它并不特别简单。一个典型的例子可能涉及大约 50 万个数学运算。
+
+但最终结果是，如果我们将图像的像素值集合输入到这个函数中，输出的将是指定我们拥有哪个数字图像的数字。稍后，我们将讨论如何构建这样的函数以及神经网络的概念。但现在让我们将该函数视为黑盒，我们在其中输入例如手写数字的图像（作为像素值数组），我们得到这些对应的数字：
+
+但这里究竟发生了什么呢？假设我们逐渐模糊一个数字。有一段时间我们的函数仍然「识别」出它，这里是「2」。但很快它就「失去了」，开始给出「错误」的结果：
+
+但我们为什么说这是「错误」的结果呢？在这种情况下，我们知道所有的图像都是通过模糊「2」获得的。但如果我们的目标是制作一个模型，来模拟人类在识别图像方面的能力，那么真正应该问的问题是，如果人类面对这些模糊的图像，而不知道它们来自哪里，会怎么做。
+
+如果我们从函数中得到的结果通常与人类的说法一致，那么我们就有了一个「好的模型」。值得注意的是，对于像这样的图像识别任务，我们现在基本上知道如何构建能够实现这一点的函数。
+
+我们能「数学证明」它们有效吗？嗯，不能。因为要做到这一点，我们必须拥有一个关于我们人类在做什么的数学理论。拿「2」的图像，改变几个像素。我们可能会想象，即使只有几个像素「不在位」，我们仍然应该认为图像是「2」。但这应该进行多远呢？这是一个关于人类视觉感知的问题。是的，对于蜜蜂或章鱼来说答案无疑会不同 —— 对于假设的外星人来说可能完全不同。
+
+### 05. Neural Nets
 
 OK, so how do our typical models for tasks like image recognition actually work? The most popular—and successful—current approach uses neural nets. Invented—in a form remarkably close to their use today—in the 1940s, neural nets can be thought of as simple idealizations of how brains seem to work.
 
@@ -267,8 +384,6 @@ In the final net that we used for the "nearest point" problem above there are 17
 
 And if we take a typical cat image
 
-Cat
-
 then we can represent the states of neurons at the first layer by a collection of derived images—many of which we can readily interpret as being things like "the cat without its background", or "the outline of the cat":
 
 By the 10th layer it's harder to interpret what's going on:
@@ -281,7 +396,83 @@ But let's say we want a "theory of cat recognition" in neural nets. We can say: 
 
 We'll encounter the same kinds of issues when we talk about generating language with ChatGPT. And again it's not clear whether there are ways to "summarize what it's doing". But the richness and detail of language (and our experience with it) may allow us to get further than with images.
 
-### Machine Learning, and the Training of Neural Nets
+在典型的任务如图像识别中，我们通常使用的模型是怎样工作的呢？目前最流行且成功的方法是使用神经网络。神经网络最初是在 20 世纪 40 年代发明的，其形式与今天使用的惊人地接近，可以被看作是对大脑工作方式的简单理想化。
+
+在人类大脑中，大约有 1000 亿个神经元（神经细胞），每个神经元都能产生电脉冲，频率高达每秒上千次。这些神经元通过复杂的网络相连，每个神经元都有树状分支，可以将电信号传递给其他数千个神经元。在一个粗略的近似中，任何给定神经元在特定时刻是否产生电脉冲取决于它从其他神经元接收到的脉冲 —— 不同的连接以不同的「权重」贡献。
+
+当我们「看到一个图像」时，发生的事情是，来自图像的光子落在我们眼睛后部的（「感光」）细胞上时，它们会在神经细胞中产生电信号。这些神经细胞与其他神经细胞相连，最终信号会通过一系列神经元层。正是在这个过程中，我们「识别」了图像，最终「形成了思维」，我们正在「看到一个 2」（也许最终做的是像大声说出「二」这个词）。
+
+前一部分中提到的「黑盒」功能是这样一个神经网络的「数学化」版本。它恰好有 11 层（尽管只有 4 个「核心层」）：
+
+这个神经网络并没有什么特别的「理论导出」，它只是一种 —— 早在 1998 年 —— 作为工程设计构建出来并发现有效的东西。（当然，这与我们描述我们的大脑通过生物进化过程产生的方式并没有太大不同。）
+
+那么，这样的神经网络是如何「识别事物」的呢？关键是吸引子的概念。假设我们有手写的数字 1 和数字 2 的图像：
+
+我们希望所有的 1 都「被吸引到一个地方」，所有的 2 都「被吸引到另一个地方」。或者换种方式说，如果一个图像在某种程度上「更接近于 1 而不是 2」，我们希望它最终到达「1 的位置」，反之亦然。
+
+为了提供一个直接的类比，假设我们在平面上有一些点（在现实生活中，它们可能是咖啡店的位置）。那么我们可以想象，从平面上的任何一点出发，我们总是希望最终到达最近的点（即我们总是去最近的咖啡店）。我们可以通过将平面划分为区域（「吸引盆地」），这些区域由理想化的「分水岭」分隔开来：
+
+我们可以将这看作是实施一种「识别任务」，在这种任务中，我们不是在识别给定图像「最像哪个数字」，而是直接看给定点离哪个点最近。（这里展示的「Voronoi 图」设置将 2D 欧几里得空间中的点分开；数字识别任务可以被认为是在 784 维空间中进行的，这个空间由每个图像中所有像素的灰度级别构成。）
+
+那么我们如何让神经网络「执行识别任务」呢？让我们考虑这个非常简单的例子：
+
+我们的目标是接受一个对应于位置 {x,y} 的「输入」—— 然后将其「识别」为最接近的三个点中的任何一个。换句话说，我们希望神经网络计算出一个像 {x,y} 这样的函数：
+
+那么我们如何使用神经网络来实现这一点呢？从根本上说，神经网络是一组相互连接的理想化的「神经元」—— 通常按层排列 —— 一个简单的例子是：
+
+每个「神经元」实际上都被设置为评估一个简单的数值函数。要「使用」网络，我们只需将数字（如我们的坐标 x 和 y）从顶部输入，然后让每一层的神经元「计算它们的函数」并将结果通过网络向前传递 —— 最终在底部产生最终结果：
+
+在传统的（受生物启发的）设置中，每个神经元实际上都有一定的「传入连接」，这些连接来自前一层的神经元，每个连接都被分配了一定的「权重」（可以是正数或负数）。给定神经元的值是通过将「前面的神经元」的值与它们对应的权重相乘，然后加在一起并加上一个常数 —— 最后应用一个「阈值」（或「激活」）函数来确定的。用数学术语来说，如果一个神经元有输入 x = {x1, x2 …}，那么我们计算 f [w . x + b]，其中权重 w 和常数 b 通常对网络中的每个神经元选择不同；函数 f 通常是相同的。
+
+计算 w . x + b 只是矩阵乘法和加法的问题。「激活函数」f 引入了非线性（最终导致非平凡行为）。通常使用各种激活函数；在这里，我们将只使用 Ramp（或 ReLU）：
+
+对于我们希望神经网络执行的每个任务（或者说，对于我们希望它评估的每个总体函数），我们将有不同的权重选择。（并且 —— 我们稍后将讨论 —— 这些权重通常通过使用我们想要的输出的例子对神经网络进行「训练」来确定。）
+
+最终，每个神经网络都对应于某种整体数学函数 —— 尽管写出来可能很复杂。对于上面的例子，它将是：
+
+ChatGPT 的神经网络也只是对应于类似这样的数学函数 —— 但实际上包含数十亿个项。
+
+但让我们回到单个神经元。以下是具有两个输入（代表坐标 x 和 y）的神经元可以计算的一些函数示例，这里采用了不同的权重和常数选择（以及 Ramp 作为激活函数）：
+
+那么上面的更大网络计算了什么呢？好吧，这是它计算的结果：
+
+它不是完全「正确的」，但接近我们之前展示的「最近点」函数。
+
+让我们看看其他一些神经网络的情况。在每种情况下，正如我们稍后将解释的，我们使用机器学习来找到最佳的权重选择。然后我们在这里展示了这些权重的神经网络计算的结果：
+
+更大的网络通常更擅长近似我们所追求的函数。在「每个吸引盆地的中心」，我们通常得到完全我们想要的答案。但在边界处 —— 神经网络「难以做出决定」—— 情况可能会更混乱。
+
+在这个简单的数学风格的「识别任务」中，很清楚什么是「正确答案」。但在识别手写数字的问题中就不那么清楚了。如果有人写的「2」太糟糕，看起来像「7」，等等怎么办？不过，我们仍然可以询问神经网络如何区分数字 —— 这可以给出一个指示：
+
+我们能否「数学上」说出网络是如何做出区分的？并不真的可以。它只是「做神经网络所做的事」。但事实证明，这通常似乎与我们人类所做的区分相当吻合。
+
+让我们看一个更复杂的例子。假设我们有猫和狗的图像。我们有一个经过训练以区分它们的神经网络。以下是它在一些例子上可能做的事情：
+
+现在，什么是「正确答案」甚至更不清楚了。穿着猫装的狗怎么办？等等。无论给出什么输入，神经网络都会生成一个答案，并且在某种程度上与人类可能做出的判断相符。正如我上面所说的，这不是我们可以「从第一原理推导出来」的事实。这只是经验上被发现为真实的，至少在某些领域是这样。但这是神经网络有用的一个关键原因：它们以某种「类人」的方式进行操作。
+
+给自己看一张猫的照片，问「为什么那是一只猫？」你可能会开始说「嗯，我看到它尖尖的耳朵，等等。」但解释你是如何识别出这是一只猫的图像并不容易。只是你的大脑不知怎的弄清楚了。但对于大脑，目前还没有办法（至少还没有）「深入」查看它是如何弄清楚的。那么对于（人造的）神经网络呢？查看展示猫图片时每个「神经元」做了什么是很简单的。但即使是获得基本的可视化通常也非常困难
+
+在我们用于上述「最近点」问题的最终网络中有 17 个神经元。在用于识别手写数字的网络中有 2190 个。在我们用来识别猫和狗的网络中有 60,650 个。通常来说，可视化相当于 60,650 维空间是相当困难的。但因为这是一个用于处理图像的网络，它的许多神经元层被组织成阵列，就像它所观察的像素阵列一样。
+
+如果我们拿一个典型的猫图像
+
+那么我们可以用一组派生图像来表示第一层神经元的状态 —— 其中许多我们可以轻易地解释为诸如「没有背景的猫」或「猫的轮廓」之类的东西：
+
+到了第 10 层，解释发生了什么就更难了：
+
+但一般来说，我们可能会说神经网络正在「挑选出某些特征」（可能尖耳朵就是其中之一），并利用这些来确定图像的内容。但这些特征是我们有名字的特征吗 —— 比如「尖耳朵」？大部分不是。
+
+我们的大脑是否使用类似的特征？我们大多数时候不知道。但值得注意的是，像我们在这里展示的这样的神经网络的前几层似乎会挑选出图像的某些方面（比如物体的边缘），这些方面类似于我们知道大脑视觉处理的第一级所挑选出的内容。
+
+但假设我们想要一个关于神经网络中的「猫识别理论」。我们可以说：「看，这个特定网络就是这样做的」—— 这立刻给了我们一些关于「这是多么难的问题」的感觉（例如，可能需要多少神经元或层数）。但至少到目前为止，我们没有办法「叙述性地描述」网络在做什么。也许这是因为它确实在计算上不可约简，没有一般的方法来发现它的作用，除了明确地追踪每一步。或者也许只是因为我们还没有「弄清楚科学」，没有识别出让我们总结发生了什么的「自然规律」。
+
+当我们讨论使用 ChatGPT 生成语言时，我们也会遇到同样的问题。同样不清楚是否有方法可以「总结它在做什么」。但语言的丰富性和细节（以及我们对它的经验）可能会让我们比对图像更进一步。
+
+
+
+
+
+### 06. Machine Learning, and the Training of Neural Nets
 
 We've been talking so far about neural nets that "already know" how to do particular tasks. But what makes neural nets so useful (presumably also in brains) is that not only can they in principle do all sorts of tasks, but they can be incrementally "trained from examples" to do those tasks.
 
@@ -325,7 +516,7 @@ But each such "different solution" will have at least slightly different behavio
 
 But which of these is "right"? There's really no way to say. They're all "consistent with the observed data". But they all correspond to different "innate" ways to "think about" what to do "outside the box". And some may seem "more reasonable" to us humans than others.
 
-### The Practice and Lore of Neural Net Training
+### 07. The Practice and Lore of Neural Net Training
 
 Particularly over the past decade, there've been many advances in the art of training neural nets. And, yes, it is basically an art. Sometimes—especially in retrospect—one can see at least a glimmer of a "scientific explanation" for something that's being done. But mostly things have been discovered by trial and error, adding ideas and tricks that have progressively built a significant lore about how to work with neural nets.
 
@@ -371,7 +562,7 @@ Neural nets—perhaps a bit like brains—are set up to have an essentially fixe
 
 But even within the framework of existing neural nets there's currently a crucial limitation: neural net training as it's now done is fundamentally sequential, with the effects of each batch of examples being propagated back to update the weights. And indeed with current computer hardware—even taking into account GPUs—most of a neural net is "idle" most of the time during training, with just one part at a time being updated. And in a sense this is because our current computers tend to have memory that is separate from their CPUs (or GPUs). But in brains it's presumably different—with every "memory element" (i.e. neuron) also being a potentially active computational element. And if we could set up our future computer hardware this way it might become possible to do training much more efficiently.
 
-### "Surely a Network That's Big Enough Can Do Anything!"
+### 08. Surely a Network That's Big Enough Can Do Anything!
 
 The capabilities of something like ChatGPT seem so impressive that one might imagine that if one could just "keep going" and train larger and larger neural networks, then they'd eventually be able to "do everything". And if one's concerned with things that are readily accessible to immediate human thinking, it's quite possible that this is the case. But the lesson of the past several hundred years of science is that there are things that can be figured out by formal processes, but aren't readily accessible to immediate human thinking.
 
@@ -403,7 +594,7 @@ In other words, the reason a neural net can be successful in writing an essay is
 
 If you had a big enough neural net then, yes, you might be able to do whatever humans can readily do. But you wouldn't capture what the natural world in general can do—or that the tools that we've fashioned from the natural world can do. And it's the use of those tools—both practical and conceptual—that have allowed us in recent centuries to transcend the boundaries of what's accessible to "pure unaided human thought", and capture for human purposes more of what's out there in the physical and computational universe.
 
-### The Concept of Embeddings
+### 09. The Concept of Embeddings
 
 Neural nets—at least as they're currently set up—are fundamentally based on numbers. So if we're going to to use them to work on something like text we'll need a way to represent our text with numbers. And certainly we could start (essentially as ChatGPT does) by just assigning a number to every word in the dictionary. But there's an important idea—that's for example central to ChatGPT—that goes beyond that. And it's the idea of "embeddings". One can think of an embedding as a way to try to represent the "essence" of something by an array of numbers—with the property that "nearby things" are represented by nearby numbers.
 
@@ -451,7 +642,7 @@ But actually we can go further than just characterizing words by collections of 
 
 (Strictly, ChatGPT does not deal with words, but rather with "tokens"—convenient linguistic units that might be whole words, or might just be pieces like "pre" or "ing" or "ized". Working with tokens makes it easier for ChatGPT to handle rare, compound and non-English words, and, sometimes, for better or worse, to invent new words.)
 
-### Inside ChatGPT
+### 10. Inside ChatGPT
 
 OK, so we're finally ready to discuss what's inside ChatGPT. And, yes, ultimately, it's a giant neural net—currently a version of the so-called GPT-3 network with 175 billion weights. In many ways this is a neural net very much like the other ones we've discussed. But it's a neural net that's particularly set up for dealing with language. And its most notable feature is a piece of neural net architecture called a "transformer".
 
@@ -515,7 +706,7 @@ If one looks at the longest path through ChatGPT, there are about 400 (core) lay
 
 But in the end, the remarkable thing is that all these operations—individually as simple as they are—can somehow together manage to do such a good "human-like" job of generating text. It has to be emphasized again that (at least so far as we know) there's no "ultimate theoretical reason" why anything like this should work. And in fact, as we'll discuss, I think we have to view this as a—potentially surprising—scientific discovery: that somehow in a neural net like ChatGPT's it's possible to capture the essence of what human brains manage to do in generating language.
 
-### The Training of ChatGPT
+### 11. The Training of ChatGPT
 
 OK, so we've now given an outline of how ChatGPT works once it's set up. But how did it get set up? How were all those 175 billion weights in its neural net determined? Basically they're the result of very large-scale training, based on a huge corpus of text—on the web, in books, etc.—written by humans. As we've said, even given all that training data, it's certainly not obvious that a neural net would be able to successfully produce "human-like" text. And, once again, there seem to be detailed pieces of engineering needed to make that happen. But the big surprise—and discovery—of ChatGPT is that it's possible at all. And that—in effect—a neural net with "just" 175 billion weights can make a "reasonable model" of text humans write.
 
@@ -535,7 +726,7 @@ Put another way, we might ask what the "effective information content" is of hum
 
 When we run ChatGPT to generate text, we're basically having to use each weight once. So if there are n weights, we've got of order n computational steps to do—though in practice many of them can typically be done in parallel in GPUs. But if we need about n words of training data to set up those weights, then from what we've said above we can conclude that we'll need about n2 computational steps to do the training of the network—which is why, with current methods, one ends up needing to talk about billion-dollar training efforts.
 
-### Beyond Basic Training
+### 12. Beyond Basic Training
 
 The majority of the effort in training ChatGPT is spent "showing it" large amounts of existing text from the web, books, etc. But it turns out there's another—apparently rather important—part too.
 
@@ -555,7 +746,7 @@ It's also worth pointing out again that there are inevitably "algorithmic limits
 
 Of course, the network can learn the answer to specific "irreducible" computations. But as soon as there are combinatorial numbers of possibilities, no such "table-lookup-style" approach will work. And so, yes, just like humans, it's time then for neural nets to "reach out" and use actual computational tools. (And, yes, Wolfram|Alpha and Wolfram Language are uniquely suitable, because they've been built to "talk about things in the world", just like the language-model neural nets.)
 
-### What Really Lets ChatGPT Work?
+### 13. What Really Lets ChatGPT Work?
 
 Human language—and the processes of thinking involved in generating it—have always seemed to represent a kind of pinnacle of complexity. And indeed it's seemed somewhat remarkable that human brains—with their network of a "mere" 100 billion or so neurons (and maybe 100 trillion connections) could be responsible for it. Perhaps, one might have imagined, there's something more to brains than their networks of neurons—like some new layer of undiscovered physics. But now with ChatGPT we've got an important new piece of information: we know that a pure, artificial neural network with about as many connections as brains have neurons is capable of doing a surprisingly good job of generating human language.
 
@@ -595,7 +786,7 @@ What might this theory be like? Well, there's one tiny corner that's basically b
 
 But beyond the narrow example of logic, what can be said about how to systematically construct (or recognize) even plausibly meaningful text? Yes, there are things like Mad Libs that use very specific "phrasal templates". But somehow ChatGPT implicitly has a much more general way to do it. And perhaps there's nothing to be said about how it can be done beyond "somehow it happens when you have 175 billion neural net weights". But I strongly suspect that there's a much simpler and stronger story.
 
-### Meaning Space and Semantic Laws of Motion
+### 14. Meaning Space and Semantic Laws of Motion
 
 We discussed above that inside ChatGPT any piece of text is effectively represented by an array of numbers that we can think of as coordinates of a point in some kind of "linguistic feature space". So when ChatGPT continues a piece of text this corresponds to tracing out a trajectory in linguistic feature space. But now we can ask what makes this trajectory correspond to text we consider meaningful. And might there perhaps be some kind of "semantic laws of motion" that define—or at least constrain—how points in linguistic feature space can move around while preserving "meaningfulness"?
 
@@ -623,7 +814,7 @@ Here's a 3D representation, going for a total of 40 steps:
 
 And, yes, this seems like a mess—and doesn't do anything to particularly encourage the idea that one can expect to identify "mathematical-physics-like" "semantic laws of motion" by empirically studying "what ChatGPT is doing inside". But perhaps we're just looking at the "wrong variables" (or wrong coordinate system) and if only we looked at the right one, we'd immediately see that ChatGPT is doing something "mathematical-physics-simple" like following geodesics. But as of now, we're not ready to "empirically decode" from its "internal behavior" what ChatGPT has "discovered" about how human language is "put together".
 
-### Semantic Grammar and the Power of Computational Language
+### 15. Semantic Grammar and the Power of Computational Language
 
 What does it take to produce "meaningful human language"? In the past, we might have assumed it could be nothing short of a human brain. But now we know it can be done quite respectably by the neural net of ChatGPT. Still, maybe that's as far as we can go, and there'll be nothing simpler—or more human understandable—that will work. But my strong suspicion is that the success of ChatGPT implicitly reveals an important "scientific" fact: that there's actually a lot more structure and simplicity to meaningful human language than we ever knew—and that in the end there may be even fairly simple rules that describe how such language can be put together.
 
@@ -663,7 +854,7 @@ We can think of the construction of computational language—and semantic gramma
 
 So what would happen if we applied ChatGPT to underlying computational language? The computational language can describe what's possible. But what can still be added is a sense of "what's popular"—based for example on reading all that content on the web. But then—underneath—operating with computational language means that something like ChatGPT has immediate and fundamental access to what amount to ultimate tools for making use of potentially irreducible computations. And that makes it a system that can not only "generate reasonable text", but can expect to work out whatever can be worked out about whether that text actually makes "correct" statements about the world—or whatever it's supposed to be talking about.
 
-### So … What Is ChatGPT Doing, and Why Does It Work?
+### 16. So … What Is ChatGPT Doing, and Why Does It Work?
 
 The basic concept of ChatGPT is at some level rather simple. Start from a huge sample of human-created text from the web, books, etc. Then train a neural net to generate text that's "like this". And in particular, make it able to start from a "prompt" and then continue with text that's "like what it's been trained with".
 
