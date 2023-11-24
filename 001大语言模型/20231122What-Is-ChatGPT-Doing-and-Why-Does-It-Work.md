@@ -900,9 +900,9 @@ If one looks at the longest path through ChatGPT, there are about 400 (core) lay
 
 But in the end, the remarkable thing is that all these operations—individually as simple as they are—can somehow together manage to do such a good "human-like" job of generating text. It has to be emphasized again that (at least so far as we know) there's no "ultimate theoretical reason" why anything like this should work. And in fact, as we'll discuss, I think we have to view this as a—potentially surprising—scientific discovery: that somehow in a neural net like ChatGPT's it's possible to capture the essence of what human brains manage to do in generating language.
 
-好的，我们终于准备好讨论 ChatGPT 内部的构造了。是的，归根结底，它是一个巨大的神经网络 —— 目前是所谓的 GPT-3 网络的一个版本，拥有 1750 亿个权重。在许多方面，这个神经网络非常类似于我们之前讨论过的其他网络。但它是一个专门为处理语言而设置的神经网络。它最显著的特征是一种被称为「变换器（transformer）」的神经网络架构。
+好的，我们终于准备好讨论 ChatGPT 内部的构造了。是的，归根结底，它是一个巨大的神经网络 —— 目前是所谓的 GPT-3 网络的一个版本，拥有 1750 亿个权重。在许多方面，这个神经网络非常类似于我们之前讨论过的其他网络。但它是一个专门为处理语言而设置的神经网络。它最显著的特征是一种被称为「变换器」（transformer）的神经网络架构。
 
-在我们上面讨论的第一个神经网络中，任何给定层上的每个神经元基本上都与前一层上的每个神经元相连（至少有一些权重）。但如果处理的数据具有特定的、已知的结构，这种完全连接的网络（可能）就过于复杂了。因此，例如，在处理图像的早期阶段，通常使用所谓的卷积神经网络（「卷积网」），在这种网络中，神经元有效地按照类似于图像中像素的网格布局，并且只与网格上附近的神经元相连。
+在我们上面讨论的第一个神经网络中，任何给定层上的每个神经元基本上都与前一层上的每个神经元相连（至少有一些权重）。但如果处理的数据具有特定的、已知的结构，这种完全连接的网络（可能）就过于复杂了。因此，例如，在处理图像的早期阶段，通常使用所谓的卷积神经网络（卷积网），在这种网络中，神经元有效地按照类似于图像中像素的网格布局，并且只与网格上附近的神经元相连。
 
 变换器的想法是为构成一段文本的词元序列做类似的事情。但变换器不是定义序列中可以建立连接的固定区域，而是引入了「注意力」的概念 —— 以及「更多关注」序列中某些部分而不是其他部分的想法。也许有一天只启动一个通用神经网络并通过训练进行所有定制是有意义的。但至少目前看来，在实践中「模块化」事物 —— 就像变换器所做的那样，也可能像我们的大脑所做的那样 —— 似乎是至关重要的。
 
@@ -954,7 +954,7 @@ ChatGPT 的原始输入是一个数字数组（到目前为止的词元的嵌入
 
 但在 ChatGPT 中，即使是在某种意义上仍然存在一个「外部循环」来重复使用计算元素。因为当 ChatGPT 将要生成一个新词元时，它总是「读取」（即作为输入）在其之前的整个词元序列，包括 ChatGPT 自己之前「写下」的词元。我们可以将这种设置视为意味着 ChatGPT 确实在其最外层至少涉及一个「反馈循环」，尽管每次迭代都以文本中出现的词元的形式明确可见。
 
-但让我们回到 ChatGPT 的核心：用来重复生成每个词元的神经网络。在某种程度上，它非常简单：一整套相同的人工神经元。网络的某些部分仅由神经元的（「全连接」）层组成，在这些层中，给定层上的每个神经元都与前一层的每个神经元相连（具有一定的权重）。但特别是在其变换器架构中，ChatGPT 有更多结构的部分，在这些部分中，不同层的特定神经元才相连。（当然，人们仍然可以说「所有神经元都相连」—— 但有些神经元的权重只是零。）
+但让我们回到 ChatGPT 的核心：用来重复生成每个词元的神经网络。在某种程度上，它非常简单：一整套相同的人工神经元。网络的某些部分仅由神经元的（全连接）层组成，在这些层中，给定层上的每个神经元都与前一层的每个神经元相连（具有一定的权重）。但特别是在其变换器架构中，ChatGPT 有更多结构的部分，在这些部分中，不同层的特定神经元才相连。（当然，人们仍然可以说「所有神经元都相连」—— 但有些神经元的权重只是零。）
 
 此外，ChatGPT 中的神经网络还有一些方面，最自然的看法不仅仅是由「同质」层组成。例如，如上面的图标总结所示，在一个注意力块内部，有些地方会对传入的数据「制作多个副本」，每个副本随后经过不同的「处理路径」，可能涉及不同数量的层，然后才重新组合。但虽然这可能是对正在发生的事情的一个方便的表示，至少在原理上总是有可能考虑「密集填充」层，只是让一些权重为零。
 
@@ -982,6 +982,24 @@ Put another way, we might ask what the "effective information content" is of hum
 
 When we run ChatGPT to generate text, we're basically having to use each weight once. So if there are n weights, we've got of order n computational steps to do—though in practice many of them can typically be done in parallel in GPUs. But if we need about n words of training data to set up those weights, then from what we've said above we can conclude that we'll need about n2 computational steps to do the training of the network—which is why, with current methods, one ends up needing to talk about billion-dollar training efforts.
 
+好的，现在我们已经概述了一旦设置好之后 ChatGPT 是如何工作的。但它是如何设置的呢？它神经网络中所有这 1750 亿个权重是如何确定的？基本上，它们是基于大规模训练的结果，这些训练基于大量由人类编写的文本 —— 在网络上、书籍中等。正如我们所说，即使有了所有这些训练数据，神经网络能够成功地生成「类人」的文本也并不明显。而且，再次强调，似乎需要详细的工程部分来实现这一点。但 ChatGPT 的一个大惊喜和发现是，这是可能的。而且，实际上，「仅仅」1750 亿个权重的神经网络可以构建一个「合理的模型」来模拟人类写的文本。
+
+在现代，有大量的数字形式的人类编写的文本。公共网络上至少有数十亿个由人类编写的页面，总共可能有大约一万亿个文本词。如果包括非公共网页，这些数字可能至少是 100 倍更大。到目前为止，已经有超过 500 万本数字化书籍可用（出版过的大约 1 亿本书中的一部分），提供了另外大约 1000 亿个文本词。这还没有提到从视频中的语音等衍生的文本。（作为个人比较，我一生发表的材料总量不到 300 万个词，在过去 30 年中，我写了大约 1500 万个词的电子邮件，总共大约敲打了 5000 万个词 —— 而仅在过去几年中，我在直播中说了超过 1000 万个词。而且，是的，我将用所有这些来训练一个机器人。）
+
+但好吧，鉴于所有这些数据，如何训练一个神经网络呢？基本过程非常类似于我们在上面的简单示例中讨论的。您呈现一批示例，然后调整网络中的权重，以最小化网络在这些示例上犯的错误（损失）。关于「从错误中反向传播」的主要代价是，每次这样做时，网络中的每个权重通常都会至少稍微改变一点，而且有很多权重要处理。（实际的「反向计算」通常只比前向计算难一点。）
+
+有了现代 GPU 硬件，可以轻松地并行计算成千上万个示例的结果。但是，当涉及到实际更新神经网络中的权重时，当前的方法要求基本上逐批进行。（而且，是的，这可能是实际大脑 —— 它们结合了计算和记忆元素 —— 至少目前在架构上具有的优势。）
+
+即使在我们之前讨论的关于学习数值函数的看似简单的情况中，我们发现，至少从零开始，我们通常需要使用数百万个示例来成功训练一个网络。那么，为了训练一个「类人的语言」模型，这意味着我们需要多少个示例呢？似乎没有任何基础的「理论」方法可以知道。但实际上，ChatGPT 是通过几千亿个文本词成功训练的。
+
+有些文本被多次喂入，有些只喂入一次。但不知怎么的，它从所看到的文本中「得到了所需的内容」。但鉴于学习的文本量，它需要多大的网络才能「很好地学习」？同样，我们还没有一种基本的理论方法来回答这个问题。最终 —— 正如我们将在下面进一步讨论的 —— 人类语言及其典型用法可能有一定的「总体算法内容」。但下一个问题是，神经网络在基于该算法内容实现模型方面的效率有多高。我们也不知道 —— 尽管 ChatGPT 的成功表明它相当高效。
+
+最终，我们只能注意到，ChatGPT 使用几百亿个权重来做它所做的事情 —— 与它所接受的总训练数据量（或词元）的数量相当。在某些方面，令人惊讶的是（尽管在 ChatGPT 的较小类似物中也通过实证观察到），似乎「有效的网络大小」与「训练数据的大小」如此相当。毕竟，当然不是因为「在 ChatGPT 内部」所有来自网络、书籍等的所有文本「直接存储」。因为实际上在 ChatGPT 内部的是一堆数字 —— 精度略低于 10 位数 —— 这是对所有这些文本的总体结构的某种分布式编码。
+
+换句话说，我们可能会问人类语言及其典型用途的「有效信息内容」是什么。有原始的语言示例语料库。然后是 ChatGPT 神经网络中的表示。这种表示很可能远非「算法上最小」的表示（正如我们将在下面讨论的）。但这是神经网络容易使用的表示。在这种表示中，最终对训练数据似乎几乎没有多少「压缩」；平均来看，它似乎基本上只需要不到一个神经网络权重来携带一个训练数据词的「信息内容」。
+
+当我们运行 ChatGPT 生成文本时，我们基本上需要使用每个权重一次。所以如果有 n 个权重，我们大约需要进行 n 个计算步骤 —— 尽管实际上其中的许多通常可以在 GPU 中并行完成。但如果我们需要大约 n 个词的训练数据来设置这些权重，那么根据我们上面所说，我们可以得出结论，我们将需要大约 n^2 个计算步骤来进行网络训练 —— 这就是为什么，使用目前的方法，我们最终需要谈论数十亿美元的训练费用。
+
 ### 12. Beyond Basic Training
 
 The majority of the effort in training ChatGPT is spent "showing it" large amounts of existing text from the web, books, etc. But it turns out there's another—apparently rather important—part too.
@@ -1001,6 +1019,27 @@ And indeed, much like for humans, if you tell it something bizarre and unexpecte
 It's also worth pointing out again that there are inevitably "algorithmic limits" to what the neural net can "pick up". Tell it "shallow" rules of the form "this goes to that", etc., and the neural net will most likely be able to represent and reproduce these just fine—and indeed what it "already knows" from language will give it an immediate pattern to follow. But try to give it rules for an actual "deep" computation that involves many potentially computationally irreducible steps and it just won't work. (Remember that at each step it's always just "feeding data forward" in its network, never looping except by virtue of generating new tokens.)
 
 Of course, the network can learn the answer to specific "irreducible" computations. But as soon as there are combinatorial numbers of possibilities, no such "table-lookup-style" approach will work. And so, yes, just like humans, it's time then for neural nets to "reach out" and use actual computational tools. (And, yes, Wolfram|Alpha and Wolfram Language are uniquely suitable, because they've been built to "talk about things in the world", just like the language-model neural nets.)
+
+在训练 ChatGPT 的过程中，大部分工作都花费在「向它展示」来自网络、书籍等的大量现有文本上。但事实证明，还有另一个看似相当重要的部分。
+
+一旦它完成了从最初显示的文本语料库进行的「原始训练」，ChatGPT 内部的神经网络就准备好开始生成自己的文本，从提示等内容继续。但尽管这样产生的结果常常看起来合理，它们往往倾向于以一种通常并不像人类的方式「游荡」，特别是对于较长的文本。这不是通过传统的文本统计方法就能容易检测到的。但这是实际阅读文本的人们很容易注意到的。
+
+在构建 ChatGPT 时的一个关键想法是，在「被动阅读」网络等之后，有另一个步骤：让实际的人与 ChatGPT 积极互动，看它产生的内容，并实际给予它「如何成为一个好的聊天机器人」的反馈。但神经网络怎样使用这些反馈呢？第一步就是让人类对神经网络的结果进行评分。但接着构建另一个神经网络模型，试图预测这些评分。但现在这个预测模型可以运行 —— 本质上像一个损失函数 —— 在原始网络上，实际上允许通过已给出的人类反馈「调优」该网络。实际上，这些结果似乎对系统产生「类人」输出的成功有很大影响。
+
+总的来说，有趣的是，「原始训练」的网络似乎需要很少的「调整」就能有用地朝着特定方向发展。人们可能会认为，要让网络表现得像是「学到了新东西」，就必须进入并运行训练算法，调整权重等。
+
+
+
+
+但事实并非如此。相反，似乎只需告诉 ChatGPT 一次就足够了 —— 作为你给出的提示的一部分 —— 然后它就可以在生成文本时成功地利用你告诉它的信息。再次，这种工作方式，我认为，是理解 ChatGPT「真正做了什么」以及它与人类语言和思维结构的关系的重要线索。
+
+的确，这在某种程度上很像人类：至少一旦经过了所有的预训练，你可以告诉它一些事情，它就可以「记住它」—— 至少「足够长的时间」来使用它生成一段文本。那么，在这种情况下发生了什么呢？可能是「你可能告诉它的一切已经在那里某个地方」—— 你只是在引导它到正确的位置。但这似乎不太可能。相反，看起来更可能的是，是的，元素已经在那里，但具体细节是由类似于「在这些元素之间的轨迹」定义的，而这正是你在告诉它某事时所引入的。
+
+实际上，就像对于人类一样，如果你告诉它一些奇怪和意想不到的完全不适合其所知框架的事情，它似乎不会成功地能够「整合」这些信息。只有当它基本上在已有框架的基础上以相当简单的方式运作时，它才能「整合」它。
+
+同样值得再次指出的是，神经网络能够「捕捉」的内容不可避免地存在「算法限制」。告诉它「浅层」的规则，例如「这变成那」，等等，神经网络很可能能够很好地表示和复制这些内容 —— 实际上它通过语言「已经知道」的内容会给它提供一个立即的模式。但尝试给它一个涉及许多可能计算上不可约步骤的实际「深层」计算的规则，它就不会起作用。（记住，每一步它总是在网络中「向前推送数据」，除了通过生成新词元之外，从不循环。）
+
+当然，网络可以学习特定「不可约」计算的答案。但一旦存在组合数量的可能性，就不会有这种「查表式」方法可行。因此，是的，就像人类一样，到了那时，神经网络需要「求助于」实际的计算工具。（而且，是的，Wolfram|Alpha 和 Wolfram 语言非常合适，因为它们已经构建为「像神经网络一样的语言模型那样谈论世界中的事物」。）
 
 ### 13. What Really Lets ChatGPT Work?
 
@@ -1042,6 +1081,44 @@ What might this theory be like? Well, there's one tiny corner that's basically b
 
 But beyond the narrow example of logic, what can be said about how to systematically construct (or recognize) even plausibly meaningful text? Yes, there are things like Mad Libs that use very specific "phrasal templates". But somehow ChatGPT implicitly has a much more general way to do it. And perhaps there's nothing to be said about how it can be done beyond "somehow it happens when you have 175 billion neural net weights". But I strongly suspect that there's a much simpler and stronger story.
 
+人类语言及其在生成过程中涉及的思维过程，一直似乎代表着一种复杂性的顶峰。的确，人脑 —— 拥有「仅仅」大约 1000 亿个神经元（或许 1 万亿个连接）的网络 —— 能够承担这一责任，这似乎有些不可思议。或许，人们可能想象，大脑除了它们的神经元网络之外，还有其他更多元素 —— 比如一些未被发现的新物理层面。但现在有了 ChatGPT，我们得到了一个重要的新信息：我们知道，一个纯粹的人工神经网络，拥有与大脑神经元数量相当的连接，能够在生成人类语言方面做得出奇地好。
+
+是的，这仍然是一个大型而复杂的系统 —— 拥有与当前世界上可用文本词汇数量大致相当的神经网络权重。但在某种程度上，所有语言的丰富性及其所能表达的内容都能被封装在这样一个有限的系统中，这仍然难以置信。部分原因无疑是因为普遍现象（最早在规则 30 的例子中变得明显）表明，即使底层规则简单，计算过程也可以在效果上大大增加系统的表面复杂性。但实际上，如我们上面讨论的，ChatGPT 中使用的神经网络类型通常被特别构建以限制这种现象及与之相关的计算不可约性的影响，以便使它们的训练更易于接近。
+
+那么，像 ChatGPT 这样的东西如何在语言方面走得如此远呢？我认为基本的答案是，从根本上来说，语言比它看起来更简单。这意味着 ChatGPT—— 即使拥有最终直接的神经网络结构 —— 成功地「捕捉到」了人类语言及其背后的思维的本质。而且，在它的训练过程中，ChatGPT 似乎「隐含地发现了」使这成为可能的语言（和思维）中的任何规律性。
+
+我认为，ChatGPT 的成功正在向我们提供一项基础且重要的科学证据：它表明我们可以期待发现新的重要的「语言法则」—— 实际上是「思维法则」。在 ChatGPT 中 —— 正如它作为神经网络所建立的 —— 这些法则最多是隐含的。但如果我们能以某种方式使这些法则显式化，就有潜力以更直接、高效和透明的方式做 ChatGPT 所做的事情。
+
+但好吧，那么这些法则可能是什么样的呢？它们最终必须给我们提供一些关于如何构建语言及我们用它说的话的规定。稍后我们将讨论如何「查看 ChatGPT 内部」可能为此提供一些线索，以及我们从构建计算语言中所了解的内容如何指明一条前进的道路。但首先，让我们讨论两个长期已知的相当于「语言法则」的例子，以及它们如何与 ChatGPT 的运作相关。
+
+第一个例子是语言的句法。语言不仅仅是一堆杂乱无章的单词。相反，有（相当）明确的语法规则来规定不同种类的单词如何组合：例如，在英语中，名词可以被形容词前置和动词后置，但通常两个名词不能紧挨着放置。这样的语法结构可以（至少近似地）被一组规则捕捉到，这些规则定义了如何组合「解析树」：
+
+ChatGPT 没有任何关于这些规则的显式「知识」。但在训练中，它似乎隐含地「发现」了这些规则，并且似乎擅长遵循它们。那么，这是如何工作的呢？从「大图景」角度来看，这还不清楚。但要获得一些洞察力，看一个简单得多的例子可能是有指导意义的。
+
+考虑由 '(' 和 ')' 组成的「语言」，这种语言的语法规定括号必须始终平衡，如解析树所示：
+
+我们可以训练一个神经网络来产生「语法正确」的括号序列吗？在神经网络中处理序列有各种方法，但让我们使用变换器网络，就像 ChatGPT 所做的那样。并且给定一个简单的变换器网络，我们可以开始向它喂养语法正确的括号序列作为训练示例。一个细微之处（实际上也出现在 ChatGPT 生成人类语言时）是，除了我们的「内容词元」（这里是「（」和「）」）外，我们还必须包含一个「结束」词元，它被生成以指示输出不应该继续进行（即对于 ChatGPT，表示已经到达「故事的结尾」）。
+
+如果我们用一个有 8 个头和长度为 128 的特征向量的注意力块（ChatGPT 也使用长度为 128 的特征向量，但有 96 个注意力块，每个块有 96 个头）来设置一个变换器网络，那么似乎不可能让它学会关于括号语言的太多知识。但是使用 2 个注意力块后，学习过程似乎开始收敛 —— 至少在提供了大约 1000 万个示例后（而且，就像变换器网络常见的那样，展示更多示例似乎只会降低其性能）。
+
+因此，有了这个网络，我们可以做类似于 ChatGPT 所做的事情，并询问下一个词元应该是什么的概率 —— 在一个括号序列中：
+
+在第一个例子中，网络「非常确定」序列不能在这里结束 —— 这是好事，因为如果结束了，括号将会留下不平衡。然而，在第二个例子中，它「正确地认识到」序列可以在这里结束，尽管它也「指出」有可能「重新开始」，放下一个「（」，大概是跟着一个「）」。但是，即使经过辛苦训练的大约 40 万个权重，它说下一个词元是「）」的概率有 15％—— 这不对，因为那将必然导致括号不平衡。
+
+如果我们向网络询问以越来越长的「（」序列为开始的最高概率完成情况，我们会得到如下结果：
+
+是的，直到一定长度，网络做得很好。但之后它开始失败。这是在神经网络（或通常的机器学习）中像这样「精确」的情况下看到的非常典型的情况。人类「一瞥即可解决」的案例，神经网络也可以解决。但需要做一些「更多算法化」的事情的案例（例如，明确计算括号以看它们是否关闭），神经网络往往「计算能力太浅」而无法可靠地做到。（顺便说一下，即使是完整的当前版本的 ChatGPT 也很难在长序列中正确匹配括号。）
+
+那么，这对像 ChatGPT 这样的东西和像英语这样的语言句法意味着什么呢？括号语言是「简朴的」，并且更多地是一个「算法故事」。但在英语中，基于单词的局部选择和其他提示来「猜测」什么在语法上将适合是更现实的。是的，神经网络在这方面做得更好 —— 即使它可能错过一些「正式正确」的情况，好吧，人类也可能错过。但主要的一点是，语言存在整体句法结构 —— 以及所有随之而来的规律性 —— 在某种意义上限制了神经网络必须学习的「多少」。一个关键的「自然科学式」的观察是，像 ChatGPT 中那样的变换器架构的神经网络似乎成功地能够学习嵌套树状的句法结构，这种结构似乎（至少在某种近似中）存在于所有人类语言中。
+
+句法为语言提供了一种约束。但显然还有更多。像「好奇的电子吃蓝色理论用于鱼类」这样的句子在语法上是正确的，但不是人们通常会期望说的，如果 ChatGPT 生成了这样的句子也不会被认为是成功的 —— 因为，嗯，用其中单词的正常含义来说，它基本上是毫无意义的。
+
+但是否有一种通用的方法来判断一个句子是否有意义呢？目前没有一个传统的总体理论来解释这一点。但这是可以想象的，经过数十亿个（假设有意义的）网页等来源的句子训练后，ChatGPT 隐含地「为此发展了一种理论」。
+
+这个理论可能是什么样的？好吧，有一个很小的角落基本上已经为人所知两千年，那就是逻辑学。当然，在亚里士多德发现的三段论形式中，逻辑基本上是一种表明遵循某些模式的句子是合理的，而其他句子则不合理的方式。例如，合理地说「所有 X 都是 Y。这不是 Y，所以它不是 X」（如「所有鱼都是蓝色的。这不是蓝色的，所以它不是鱼。」）。就像人们可以有点幽默地想象亚里士多德通过审查（「机器学习风格」）大量的修辞例子来发现三段论逻辑一样，人们也可以想象，在 ChatGPT 的训练中，它能够通过查看大量的网络文本等来「发现三段论逻辑」。（是的，因此可以期望 ChatGPT 产生包含基于三段论逻辑等的「正确推理」的文本，但当涉及到更复杂的形式逻辑时，情况就完全不同了 —— 我认为可以预期它会因为同样的原因（无法匹配括号）而失败。）
+
+但除了逻辑这一狭窄的例子之外，关于如何系统地构建（或识别）甚至看似有意义的文本，还有什么可以说的呢？是的，有像 Mad Libs 那样使用非常特定的「短语模板」的东西。但不知怎的，ChatGPT 隐含地有一种更通用的方法来做到这一点。也许除了「当你有 1750 亿个神经网络权重时，不知怎的就发生了」，没有什么可以说的。但我强烈怀疑有一个更简单、更有力的故事。
+
 ### 14. Meaning Space and Semantic Laws of Motion
 
 We discussed above that inside ChatGPT any piece of text is effectively represented by an array of numbers that we can think of as coordinates of a point in some kind of "linguistic feature space". So when ChatGPT continues a piece of text this corresponds to tracing out a trajectory in linguistic feature space. But now we can ask what makes this trajectory correspond to text we consider meaningful. And might there perhaps be some kind of "semantic laws of motion" that define—or at least constrain—how points in linguistic feature space can move around while preserving "meaningfulness"?
@@ -1055,6 +1132,10 @@ As another example, here's how words corresponding to different parts of speech 
 Of course, a given word doesn't in general just have "one meaning" (or necessarily correspond to just one part of speech). And by looking at how sentences containing a word lay out in feature space, one can often "tease apart" different meanings—as in the example here for the word "crane" (bird or machine?):
 
 OK, so it's at least plausible that we can think of this feature space as placing "words nearby in meaning" close in this space. But what kind of additional structure can we identify in this space? Is there for example some kind of notion of "parallel transport" that would reflect "flatness" in the space? One way to get a handle on that is to look at analogies:
+
+
+
+
 
 And, yes, even when we project down to 2D, there's often at least a "hint of flatness", though it's certainly not universally seen.
 

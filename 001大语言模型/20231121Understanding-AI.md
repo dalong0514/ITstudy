@@ -392,9 +392,9 @@ LLM 的每一层都是一个变换器，这是一种神经网络结构，最初�
 
 Now let’s talk about what happens inside each transformer. The transformer has a two-step process for updating the hidden state for each word of the input passage:
 
-In the attention step, words “look around” for other words that have relevant context and share information with one another.
+1 In the attention step, words “look around” for other words that have relevant context and share information with one another.
 
-In the feed-forward step, each word “thinks about” information gathered in previous attention steps and tries to predict the next word.
+2 In the feed-forward step, each word “thinks about” information gathered in previous attention steps and tries to predict the next word.
 
 Of course it’s the network, not the individual words, that performs these steps. But we’re phrasing things this way to emphasize that transformers treat words, rather than entire sentences or passages, as the basic unit of analysis. This approach enables LLMs to take full advantage of the massive parallel processing power of modern GPU chips. And it also helps LLMs to scale to passages with thousands of words. These are both areas where earlier language models struggled.
 
