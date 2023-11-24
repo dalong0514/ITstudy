@@ -480,13 +480,65 @@ ChatGPT 的神经网络也只是对应于类似这样的数学函数 —— 但�
 
 1『
 
-一直没弄清楚：参数、千位向量维度里的这个维度、神经元，这几个核心概念的关系。上面这段信息的意思是，神经元数量是等价于向量维度的。向量维度自己是清楚，维度简单说就是表示一个物体（对象）所用的属性数量。老阳一直说的 GPT 用的是千维向量也应该指这个意思，每个文字被分解为千维来表示的。但这里提到的 6W 多个神经元又感觉对应于参数的，比如 Llama2-70B 模型里的 700 亿参数。如果神经元=参数=维度，感觉又不对了，应该不是 700 亿维度的概念。参数应该是指训练时微调神经网络的阀门开关数量（这个隐喻来自于收录的文章 20231121Understanding-AI）。总结下来，目前这 3 个概念还是没理清楚。（2023-11-23）
+一直没弄清楚：参数、千维向量维度里的这个维度、神经元，这几个核心概念的关系。上面这段信息的意思是，神经元数量是等价于向量维度的。向量维度自己是清楚，维度简单说就是表示一个物体（对象）所用的属性数量。老阳一直说的 GPT 用的是千维向量也应该指这个意思，每个文字被分解为千维来表示的。但这里提到的 6W 多个神经元又感觉对应于参数的，比如 Llama2-70B 模型里的 700 亿参数。如果神经元=参数=维度，感觉又不对了，应该不是 700 亿维度的概念。参数应该是指训练时微调神经网络的阀门开关数量（这个隐喻来自于收录的文章 20231121Understanding-AI）。总结下来，目前这 3 个概念还是没理清楚。（2023-11-23）
 
 补充：下面第 6 小节，有关训练神经网络的知识里又提到相关的信息：
 
 上面的图片展示了我们可能需要在只有 2 个权重的不切实际简单情况下进行的最小化。但事实证明，即使有更多的权重（ChatGPT 使用 1750 亿个），仍然可以进行最小化，至少在某种程度的近似中。实际上，「深度学习」在 2011 年左右发生的重大突破与发现在某种意义上，当涉及许多权重时，进行（至少是近似的）最小化可能比只涉及相对较少的权重时更容易。
 
 所以说，三个核心概念里的「参数」即神经网络中的「权重」。（2023-11-23）
+
+GPTs-42master-Geoffrey Hinton（2023-11-23）
+
+您的问题涉及到深度学习中的几个基本概念：参数、向量维度、神经元。我将逐一解释这些概念，并阐述它们之间的关系。
+
+1、参数 (Parameters):
+
+- 在神经网络中，参数通常指的是网络中的权重（weights）和偏置（biases）。
+
+- 权重决定了输入数据的特征如何影响网络的输出，而偏置是一个调整输出的附加值。
+
+- 例如，在一个简单的神经网络层中，每个输入与其对应的权重相乘，加上偏置，然后通过激活函数以产生输出。
+
+- 参数的总数取决于网络的大小和复杂性。例如，在一个有多层和每层有多个神经元的网络中，参数的数量会很大。
+
+2、向量维度 (Vector Dimensions):
+
+- 向量维度指的是表示数据的属性或特征的数量。
+
+- 在深度学习中，输入数据（如文本、图像等）通常被转换为向量形式，每个维度代表数据的一个特征或属性。
+
+- 例如，文本数据可以通过词嵌入（word embeddings）转换为高维空间中的向量，每个维度代表某种语义或语法特性。
+
+3、神经元 (Neurons):
+
+- 神经元是构成神经网络的基本单位。
+
+- 每个神经元接收来自前一层的输入，通过权重加权，加上偏置，然后通常通过一个非线性激活函数来产生输出。
+
+- 神经元的数量通常指的是网络中的激活单元的总数。
+
+关于这些概念之间的关系和区别：
+
+1、神经元数量与向量维度:
+
+- 神经元的数量并不直接等同于向量的维度。一个神经网络层的输出可以是一个多维向量，其中每个维度对应于该层中的一个神经元的输出。
+
+- 在某些上下文中，比如在处理文本时，神经元的输出可能与词嵌入的维度相关，但这两者不是同一概念。
+
+2、神经元与参数:
+
+- 神经元数量并不等同于参数数量。每个神经元可能有多个参数（每个输入一个权重加一个偏置），因此，整个网络的参数数量通常远远超过神经元的数量。
+
+- 例如，Llama2-70B 模型中的 700 亿参数指的是整个网络中所有权重和偏置的总和，而不是神经元的数量。
+
+3、参数、神经元与网络复杂度:
+
+- 网络的复杂度通常与其参数数量相关。更多的参数意味着网络可以学习更复杂的函数或表示更复杂的数据模式。
+
+- 神经元数量也对网络的复杂度有影响，但主要是通过决定网络的宽度（每层的神经元数量）和深度（层数）。
+
+总的来说，这些概念虽然相互关联，但它们描述了神经网络的不同方面。参数描述了网络可以调整的元素，向量维度描述了输入和输出数据的复杂性，而神经元数量描述了网络的规模和结构。
 
 』
 
@@ -1028,9 +1080,6 @@ Of course, the network can learn the answer to specific "irreducible" computatio
 
 总的来说，有趣的是，「原始训练」的网络似乎需要很少的「调整」就能有用地朝着特定方向发展。人们可能会认为，要让网络表现得像是「学到了新东西」，就必须进入并运行训练算法，调整权重等。
 
-
-
-
 但事实并非如此。相反，似乎只需告诉 ChatGPT 一次就足够了 —— 作为你给出的提示的一部分 —— 然后它就可以在生成文本时成功地利用你告诉它的信息。再次，这种工作方式，我认为，是理解 ChatGPT「真正做了什么」以及它与人类语言和思维结构的关系的重要线索。
 
 的确，这在某种程度上很像人类：至少一旦经过了所有的预训练，你可以告诉它一些事情，它就可以「记住它」—— 至少「足够长的时间」来使用它生成一段文本。那么，在这种情况下发生了什么呢？可能是「你可能告诉它的一切已经在那里某个地方」—— 你只是在引导它到正确的位置。但这似乎不太可能。相反，看起来更可能的是，是的，元素已经在那里，但具体细节是由类似于「在这些元素之间的轨迹」定义的，而这正是你在告诉它某事时所引入的。
@@ -1085,7 +1134,7 @@ But beyond the narrow example of logic, what can be said about how to systematic
 
 是的，这仍然是一个大型而复杂的系统 —— 拥有与当前世界上可用文本词汇数量大致相当的神经网络权重。但在某种程度上，所有语言的丰富性及其所能表达的内容都能被封装在这样一个有限的系统中，这仍然难以置信。部分原因无疑是因为普遍现象（最早在规则 30 的例子中变得明显）表明，即使底层规则简单，计算过程也可以在效果上大大增加系统的表面复杂性。但实际上，如我们上面讨论的，ChatGPT 中使用的神经网络类型通常被特别构建以限制这种现象及与之相关的计算不可约性的影响，以便使它们的训练更易于接近。
 
-那么，像 ChatGPT 这样的东西如何在语言方面走得如此远呢？我认为基本的答案是，从根本上来说，语言比它看起来更简单。这意味着 ChatGPT—— 即使拥有最终直接的神经网络结构 —— 成功地「捕捉到」了人类语言及其背后的思维的本质。而且，在它的训练过程中，ChatGPT 似乎「隐含地发现了」使这成为可能的语言（和思维）中的任何规律性。
+那么，像 ChatGPT 这样的东西如何在语言方面走得如此远呢？我认为基本的答案是，从根本上来说，语言比它看起来更简单。这意味着 ChatGPT —— 即使拥有最终直接的神经网络结构 —— 成功地「捕捉到」了人类语言及其背后的思维的本质。而且，在它的训练过程中，ChatGPT 似乎「隐含地发现了」使这成为可能的语言（和思维）中的任何规律性。
 
 我认为，ChatGPT 的成功正在向我们提供一项基础且重要的科学证据：它表明我们可以期待发现新的重要的「语言法则」—— 实际上是「思维法则」。在 ChatGPT 中 —— 正如它作为神经网络所建立的 —— 这些法则最多是隐含的。但如果我们能以某种方式使这些法则显式化，就有潜力以更直接、高效和透明的方式做 ChatGPT 所做的事情。
 
@@ -1097,15 +1146,15 @@ ChatGPT 没有任何关于这些规则的显式「知识」。但在训练中，
 
 考虑由 '(' 和 ')' 组成的「语言」，这种语言的语法规定括号必须始终平衡，如解析树所示：
 
-我们可以训练一个神经网络来产生「语法正确」的括号序列吗？在神经网络中处理序列有各种方法，但让我们使用变换器网络，就像 ChatGPT 所做的那样。并且给定一个简单的变换器网络，我们可以开始向它喂养语法正确的括号序列作为训练示例。一个细微之处（实际上也出现在 ChatGPT 生成人类语言时）是，除了我们的「内容词元」（这里是「（」和「）」）外，我们还必须包含一个「结束」词元，它被生成以指示输出不应该继续进行（即对于 ChatGPT，表示已经到达「故事的结尾」）。
+我们可以训练一个神经网络来产生「语法正确」的括号序列吗？在神经网络中处理序列有各种方法，但让我们使用变换器网络，就像 ChatGPT 所做的那样。并且给定一个简单的变换器网络，我们可以开始向它喂养语法正确的括号序列作为训练示例。一个细微之处（实际上也出现在 ChatGPT 生成人类语言时）是，除了我们的「内容词元」（这里是 '(' 和 ')' ）外，我们还必须包含一个「结束」词元，它被生成以指示输出不应该继续进行（即对于 ChatGPT，表示已经到达「故事的结尾」）。
 
 如果我们用一个有 8 个头和长度为 128 的特征向量的注意力块（ChatGPT 也使用长度为 128 的特征向量，但有 96 个注意力块，每个块有 96 个头）来设置一个变换器网络，那么似乎不可能让它学会关于括号语言的太多知识。但是使用 2 个注意力块后，学习过程似乎开始收敛 —— 至少在提供了大约 1000 万个示例后（而且，就像变换器网络常见的那样，展示更多示例似乎只会降低其性能）。
 
 因此，有了这个网络，我们可以做类似于 ChatGPT 所做的事情，并询问下一个词元应该是什么的概率 —— 在一个括号序列中：
 
-在第一个例子中，网络「非常确定」序列不能在这里结束 —— 这是好事，因为如果结束了，括号将会留下不平衡。然而，在第二个例子中，它「正确地认识到」序列可以在这里结束，尽管它也「指出」有可能「重新开始」，放下一个「（」，大概是跟着一个「）」。但是，即使经过辛苦训练的大约 40 万个权重，它说下一个词元是「）」的概率有 15％—— 这不对，因为那将必然导致括号不平衡。
+在第一个例子中，网络「非常确定」序列不能在这里结束 —— 这是好事，因为如果结束了，括号将会留下不平衡。然而，在第二个例子中，它「正确地认识到」序列可以在这里结束，尽管它也「指出」有可能「重新开始」，放下一个 '('，大概是跟着一个 ')'。但是，即使经过辛苦训练的大约 40 万个权重，它说下一个词元是 ')' 的概率有 15％ —— 这不对，因为那将必然导致括号不平衡。
 
-如果我们向网络询问以越来越长的「（」序列为开始的最高概率完成情况，我们会得到如下结果：
+如果我们向网络询问以越来越长的 '(' 序列为开始的最高概率完成情况，我们会得到如下结果：
 
 是的，直到一定长度，网络做得很好。但之后它开始失败。这是在神经网络（或通常的机器学习）中像这样「精确」的情况下看到的非常典型的情况。人类「一瞥即可解决」的案例，神经网络也可以解决。但需要做一些「更多算法化」的事情的案例（例如，明确计算括号以看它们是否关闭），神经网络往往「计算能力太浅」而无法可靠地做到。（顺便说一下，即使是完整的当前版本的 ChatGPT 也很难在长序列中正确匹配括号。）
 
@@ -1115,7 +1164,7 @@ ChatGPT 没有任何关于这些规则的显式「知识」。但在训练中，
 
 但是否有一种通用的方法来判断一个句子是否有意义呢？目前没有一个传统的总体理论来解释这一点。但这是可以想象的，经过数十亿个（假设有意义的）网页等来源的句子训练后，ChatGPT 隐含地「为此发展了一种理论」。
 
-这个理论可能是什么样的？好吧，有一个很小的角落基本上已经为人所知两千年，那就是逻辑学。当然，在亚里士多德发现的三段论形式中，逻辑基本上是一种表明遵循某些模式的句子是合理的，而其他句子则不合理的方式。例如，合理地说「所有 X 都是 Y。这不是 Y，所以它不是 X」（如「所有鱼都是蓝色的。这不是蓝色的，所以它不是鱼。」）。就像人们可以有点幽默地想象亚里士多德通过审查（「机器学习风格」）大量的修辞例子来发现三段论逻辑一样，人们也可以想象，在 ChatGPT 的训练中，它能够通过查看大量的网络文本等来「发现三段论逻辑」。（是的，因此可以期望 ChatGPT 产生包含基于三段论逻辑等的「正确推理」的文本，但当涉及到更复杂的形式逻辑时，情况就完全不同了 —— 我认为可以预期它会因为同样的原因（无法匹配括号）而失败。）
+这个理论可能是什么样的？好吧，有一个很小的角落基本上已经为人所知两千年，那就是逻辑学。当然，在亚里士多德发现的三段论形式中，逻辑基本上是一种表明遵循某些模式的句子是合理的，而其他句子则不合理的方式。例如，合理地说「所有 X 都是 Y。这不是 Y，所以它不是 X」（如「所有鱼都是蓝色的。这不是蓝色的，所以它不是鱼。」）。就像人们可以有点幽默地想象亚里士多德通过审查（机器学习风格）大量的修辞例子来发现三段论逻辑一样，人们也可以想象，在 ChatGPT 的训练中，它能够通过查看大量的网络文本等来「发现三段论逻辑」。（是的，因此可以期望 ChatGPT 产生包含基于三段论逻辑等的「正确推理」的文本，但当涉及到更复杂的形式逻辑时，情况就完全不同了 —— 我认为可以预期它会因为同样的原因（无法匹配括号）而失败。）
 
 但除了逻辑这一狭窄的例子之外，关于如何系统地构建（或识别）甚至看似有意义的文本，还有什么可以说的呢？是的，有像 Mad Libs 那样使用非常特定的「短语模板」的东西。但不知怎的，ChatGPT 隐含地有一种更通用的方法来做到这一点。也许除了「当你有 1750 亿个神经网络权重时，不知怎的就发生了」，没有什么可以说的。但我强烈怀疑有一个更简单、更有力的故事。
 
@@ -1133,10 +1182,6 @@ Of course, a given word doesn't in general just have "one meaning" (or necessari
 
 OK, so it's at least plausible that we can think of this feature space as placing "words nearby in meaning" close in this space. But what kind of additional structure can we identify in this space? Is there for example some kind of notion of "parallel transport" that would reflect "flatness" in the space? One way to get a handle on that is to look at analogies:
 
-
-
-
-
 And, yes, even when we project down to 2D, there's often at least a "hint of flatness", though it's certainly not universally seen.
 
 So what about trajectories? We can look at the trajectory that a prompt for ChatGPT follows in feature space—and then we can see how ChatGPT continues that:
@@ -1150,6 +1195,34 @@ And what we see in this case is that there's a "fan" of high-probability words t
 Here's a 3D representation, going for a total of 40 steps:
 
 And, yes, this seems like a mess—and doesn't do anything to particularly encourage the idea that one can expect to identify "mathematical-physics-like" "semantic laws of motion" by empirically studying "what ChatGPT is doing inside". But perhaps we're just looking at the "wrong variables" (or wrong coordinate system) and if only we looked at the right one, we'd immediately see that ChatGPT is doing something "mathematical-physics-simple" like following geodesics. But as of now, we're not ready to "empirically decode" from its "internal behavior" what ChatGPT has "discovered" about how human language is "put together".
+
+我们之前讨论过，在 ChatGPT 内部，任何一段文本实际上都是由一系列数字表示的，我们可以将其视为某种「语言特征空间」中点的坐标。因此，当 ChatGPT 继续一段文本时，这相当于在语言特征空间中追踪出一条轨迹。但现在我们可以问，是什么使这条轨迹对应于我们认为有意义的文本。是否也许存在某种「语义运动定律」，定义或至少限制语言特征空间中的点如何移动，同时保持「有意义」？
+
+那么，这个语言特征空间是什么样的呢？下面是一个例子，展示了如果我们将这样的特征空间投影到二维空间，单个单词（这里是常见名词）可能如何布局：
+
+我们在上面看到了另一个基于代表植物和动物的词汇的例子。但在这两种情况中，关键点是「语义上相似的词汇」被放置在附近。
+
+作为另一个例子，这里是不同词性的单词如何布局：
+
+当然，一个给定的单词通常不只有「一个意义」（或者不一定只对应一个词性）。通过查看包含某个单词的句子在特征空间中的布局，人们通常可以「分辨出」不同的含义 —— 就像这里的单词「crane」（鹤或机器？）的例子：
+
+好的，至少我们可以设想这个特征空间将「意义上接近的词汇」放置在空间中的靠近位置。但我们能在这个空间中识别出什么额外的结构呢？例如，是否存在某种「平行转移」的概念，反映空间的「平坦性」？了解这一点的一种方法是查看类比：
+
+是的，即使我们将其投影到二维空间，通常也至少会有一种「平坦性的暗示」，尽管这种情况当然并非普遍存在。
+
+那么轨迹呢？我们可以观察 ChatGPT 提示在特征空间中的轨迹，然后我们可以看到 ChatGPT 如何继续这个轨迹：
+
+在这里并没有看到「几何上明显」的运动规律。这并不令人惊讶；我们完全预期这是一个更复杂的故事。例如，即使确实存在「语义运动定律」，用哪种嵌入（或实际上是哪种「变量」）来自然陈述它也远非明显。
+
+在上图中，我们展示了「轨迹」的几个步骤 —— 在每个步骤中，我们选择 ChatGPT 认为最可能的词（「零温度」情况）。但我们也可以问，在某一点上哪些词可以「接下来出现」，以及相应的概率是多少：
+
+在这种情况下，我们看到的是一个在特征空间中似乎朝着一个或多或少明确方向的高概率词汇「扇形」。如果我们走得更远会发生什么？这里是我们在「沿着」轨迹「移动」时出现的连续「扇形」：
+
+这里是一个总共 40 步的 3D 表示：
+
+1『所以之前看那个评测 M3 的哔站视频，UP 跑贪吃蛇的时候说，跑了多少步。（2023-11-24）』
+
+是的，这看起来很乱，并没有特别鼓励人们认为可以通过实证研究「ChatGPT 内部在做什么」来确定「类似数学物理的」「语义运动定律」。但也许我们只是在看「错误的变量」（或错误的坐标系），如果我们看到正确的变量，我们会立即看到 ChatGPT 在做一些「数学物理上简单」的事情，比如遵循测地线。但截至目前，我们还没有准备好通过其「内部行为」来「实证解码」ChatGPT 所「发现」的关于人类语言是如何「组合在一起」的。
 
 ### 15. Semantic Grammar and the Power of Computational Language
 
@@ -1191,6 +1264,44 @@ We can think of the construction of computational language—and semantic gramma
 
 So what would happen if we applied ChatGPT to underlying computational language? The computational language can describe what's possible. But what can still be added is a sense of "what's popular"—based for example on reading all that content on the web. But then—underneath—operating with computational language means that something like ChatGPT has immediate and fundamental access to what amount to ultimate tools for making use of potentially irreducible computations. And that makes it a system that can not only "generate reasonable text", but can expect to work out whatever can be worked out about whether that text actually makes "correct" statements about the world—or whatever it's supposed to be talking about.
 
+生成「有意义的人类语言」需要什么？在过去，我们可能会认为这不亚于一个人脑的工作。但现在我们知道，ChatGPT 的神经网络也能相当体面地完成这项工作。尽管如此，也许这就是我们能走的极限，不会有更简单或更易于人类理解的方法。但我强烈怀疑，ChatGPT 的成功隐含地揭示了一个重要的「科学」事实：有意义的人类语言实际上比我们所知的有更多的结构和简单性，并且最终可能存在相当简单的规则来描述这种语言是如何组合在一起的。
+
+正如我们上面提到的，句法语法为不同词性的单词在人类语言中的组合提供了规则。但要处理意义，我们需要更进一步。做这件事的一种方法是考虑不仅仅是语言的句法语法，还有语义语法。
+
+为了句法，我们识别诸如名词和动词等。但为了语义，我们需要更「细微的区分」。例如，我们可能会识别「移动」的概念，以及「独立于位置保持其身份」的「物体」的概念。这些「语义概念」有无数具体例子。但对于我们的语义语法来说，我们只需要一些大致的规则，基本上说「物体」可以「移动」。关于这一切如何工作有很多要说的（我之前说过一些）。但在这里，我将满足于只提几点，表明一些可能的前进道路。
+
+值得一提的是，即使一个句子完全符合语义语法，也并不意味着它在实践中已经实现（或甚至能够实现）。「大象去了月球」无疑会通过我们的语义语法，但它当然尚未在我们的实际世界中实现（至少目前还没有）—— 尽管它绝对适用于一个虚构的世界。
+
+当我们开始讨论「语义语法」时，我们很快就会问「它的底层是什么？」它假设了什么样的「世界模型」？句法语法实际上只是关于如何从单词构建语言。但语义语法必然涉及某种「世界模型」—— 这个模型作为一个「骨架」，实际单词构成的语言可以在其上层叠。
+
+直到最近，我们可能会想象（人类）语言将是描述我们的「世界模型」的唯一通用方式。几个世纪前，特别是基于数学，就开始有了特定事物的形式化。但现在有了一种更通用的形式化方法：计算语言。
+
+是的，这已经是我四十多年来的重大项目（现在体现在 Wolfram 语言中）：开发一种精确的符号表示，尽可能广泛地讨论世界上的事物，以及我们关心的抽象事物。因此，例如，我们有城市、分子、图像和神经网络的符号表示，并且我们内置了关于如何计算这些事物的知识。
+
+经过几十年的工作，我们以这种方式涵盖了许多领域。但在过去，我们并没有特别处理「日常对话」。在「我买了两磅苹果」中，我们可以轻松地表示（并对）「两磅苹果」进行营养和其他计算。但我们还没有（完全）为「我买了」制作符号表示。
+
+这一切都与语义语法的概念相关 —— 目标是拥有一个通用的符号「概念构建工具包」，为我们提供什么能与什么相匹配的规则，从而为我们可能转化为人类语言的「流程」提供规则。
+
+但假设我们拥有这种「符号话语语言」。我们会用它做什么呢？我们可以从生成「局部有意义的文本」开始。但最终我们可能会希望更「全球意义上」的结果 —— 这意味着要更多地「计算」关于在世界中（或某些一致的虚构世界中）实际存在或发生的事物。
+
+目前在 Wolfram 语言中，我们拥有大量关于许多种事物的内置计算知识。但对于完整的符号话语语言，我们必须建立额外的关于世界上一般事物的「计算规则」：如果一个物体从 A 移动到 B，然后从 B 移动到 C，那么它就从 A 移动到了 C，等等。
+
+鉴于符号话语语言，我们可以用它来做「独立陈述」。但我们也可以用它来询问有关世界的问题，「Wolfram|Alpha 风格」。或者我们可以用它来陈述我们「想要实现的事物」，大概是通过某种外部驱动机制。或者我们可以用它来做出断言 —— 也许是关于实际世界的，或者也许是关于我们正在考虑的某个特定世界，无论是虚构的还是其他。
+
+人类语言从根本上来说是不精确的，不仅因为它不是「锚定」在特定的计算实现上，而且其含义基本上仅由其使用者之间的「社会契约」定义。但计算语言，由于其本质，具有一定的基本精确性 —— 因为最终它所指定的内容总是可以「在计算机上明确执行」。人类语言通常可以容忍一定程度的模糊性。（当我们说「行星」时，它包括系外行星吗？等等）但在计算语言中，我们必须对我们所做的所有区分都精确而清晰。
+
+利用普通人类语言来构造计算语言中的名称通常很方便。但它们在计算语言中的含义必然是精确的 —— 可能涵盖或可能不涵盖典型人类语言使用中的某些特定含义。
+
+弄清楚适合通用符号话语语言的基本「本体论」应该如何界定并不容易。这也许就是为什么自从亚里士多德两千多年前的初步尝试以来，几乎没有进展。但今天我们对如何以计算方式思考世界的了解已经大大增强，这无疑是一个巨大的帮助（我们的物理项目和 ruliad 的「基本形而上学」概念也起到了作用）。
+
+那么，这一切在 ChatGPT 的背景下意味着什么呢？通过它的训练，ChatGPT 实际上已经「拼凑」了相当多的等同于语义语法的内容。但它的成功给了我们一个理由，让我们相信构建更完整的计算语言形式是可行的。而且，与我们目前对 ChatGPT 内部了解的情况不同，我们可以期望设计计算语言，使其容易被人类理解。
+
+当我们讨论语义语法时，我们可以类比于三段论逻辑。起初，三段论逻辑基本上是关于用人类语言表达的陈述的一系列规则。但（是的，两千年后）当形式逻辑被发展出来后，三段论逻辑的原始基本构造就可以用来构建包括现代数字电路运作等在内的巨大的「形式化建筑物」。我们也可以期望，对于更广泛的语义语法也将是如此。一开始，它可能只能处理简单的模式，例如以文本形式表达的。但一旦整个计算语言框架建立起来，我们可以期待它将能够被用来建立「通用语义逻辑」的高塔，使我们能够以精确和形式化的方式处理以前除了通过人类语言在「底层」上，带有所有其模糊性的情况下，从未能够接触到的各种事物。
+
+我们可以将计算语言和语义语法的构建视为代表一种最终的压缩，用以代表事物。因为它使我们能够谈论可能发生的事物的本质，而不需要处理普通人类语言中存在的所有「转述」。我们可以将 ChatGPT 的巨大优势视为类似的东西：因为它也以某种意义上「穿透了」，达到了一个点，在这个点上，它可以「以有语义意义的方式组合语言」，而不用关心不同可能的措辞。
+
+那么，如果我们将 ChatGPT 应用于底层的计算语言会发生什么呢？计算语言可以描述可能发生的事情。但仍然可以增加的是基于阅读网络上所有内容的「流行度」的感觉。但在此之下，使用计算语言意味着像 ChatGPT 这样的系统可以直接并基本地使用潜在的不可约简计算的终极工具。这使它不仅能够「生成合理文本」，而且可以预期弄清楚该文本是否对世界或其所讨论的任何事物做出了「正确」的陈述。
+
 ### 16. So … What Is ChatGPT Doing, and Why Does It Work?
 
 The basic concept of ChatGPT is at some level rather simple. Start from a huge sample of human-created text from the web, books, etc. Then train a neural net to generate text that's "like this". And in particular, make it able to start from a "prompt" and then continue with text that's "like what it's been trained with".
@@ -1209,9 +1320,27 @@ It's not clear how to "fix that" and still maintain the ability to train the sys
 
 But for now it's exciting to see what ChatGPT has already been able to do. At some level it's a great example of the fundamental scientific fact that large numbers of simple computational elements can do remarkable and unexpected things. But it also provides perhaps the best impetus we've had in two thousand years to understand better just what the fundamental character and principles might be of that central feature of the human condition that is human language and the processes of thinking behind it.
 
+ChatGPT 的基本概念在某种程度上相当简单。从网络、书籍等收集大量人类创造的文本样本开始。然后训练一个神经网络，使其生成「类似于这些」的文本。特别是，使其能够从一个「提示」开始，然后继续生成「与其训练内容相似」的文本。
+
+正如我们所见，ChatGPT 中的实际神经网络由非常简单的元素组成，尽管它们有数十亿个。神经网络的基本操作也非常简单，本质上是将其生成的文本的输入「单次通过其元素」（没有任何循环等），以产生它生成的每个新单词（或单词的一部分）。
+
+但令人惊讶且出乎意料的是，这个过程可以产生与网络上、书籍中等地方的文本「相似」的文本。这不仅是连贯的人类语言，它还「说出」了「根据提示」并利用它「阅读过」的内容的东西。它并不总是说出「全局上有意义」的事情（或对应于正确的计算）—— 因为（例如，未能访问 Wolfram|Alpha 的「计算超能力」）它只是说出一些基于其训练材料中的「听起来正确」的事情。
+
+ChatGPT 的具体工程设计使其非常引人注目。但归根结底（至少在它能使用外部工具之前），ChatGPT 只是从它积累的「传统智慧统计」中提取出一些「连贯的文本线索」。但它的结果令人惊讶地类似于人类，正如我所讨论的，这表明至少在科学上非常重要的一点：人类语言（及其背后的思维模式）在其结构上比我们认为的要简单得多，更具有「法则性」。ChatGPT 已经隐含地发现了这一点。但我们可以通过语义语法、计算语言等显式地展示出来。
+
+ChatGPT 在生成文本方面的表现令人印象深刻，其结果通常非常类似于我们人类所产生的内容。那么，这是否意味着 ChatGPT 的运作方式类似于大脑？它的基础人工神经网络结构最初是基于对大脑的理想化模型。当我们人类生成语言时，很可能许多正在进行的活动在很多方面都是相似的。
+
+当涉及到训练（也就是学习）时，大脑和当前计算机的不同「硬件」（以及可能一些未开发的算法思想）迫使 ChatGPT 使用一种可能与大脑相当不同（在某些方面效率远低）的策略。还有另外一个因素：与典型的算法计算不同，ChatGPT 在内部并没有「循环」或「重新计算数据」。这不可避免地限制了它的计算能力 —— 即使与当前计算机相比也是如此，但与大脑相比更是如此。
+
+目前尚不清楚如何「解决这个问题」，同时仍然保持合理效率地训练系统的能力。但为了做到这一点，将使未来的 ChatGPT 能够做更多「类脑的事情」。当然，有很多大脑不擅长的事情 —— 特别是涉及到实质上不可约简的计算。在这些方面，无论是大脑还是像 ChatGPT 这样的系统都需要寻求「外部工具」—— 比如 Wolfram 语言。
+
+但目前看到 ChatGPT 已经能够做到的事情是令人兴奋的。在某种程度上，它是一个伟大的科学事实的绝佳示例，即大量简单的计算元素可以做出惊人且意想不到的事情。但它也可能是我们在两千年里最好的动力，以更好地理解人类语言及其背后的思维过程的基本特征和原则，这是人类条件的核心特征。
+
 ### Thanks
 
 I've been following the development of neural nets now for about 43 years, and during that time I've interacted with many people about them. Among them—some from long ago, some from recently, and some across many years—have been: Giulio Alessandrini, Dario Amodei, Etienne Bernard, Taliesin Beynon, Sebastian Bodenstein, Greg Brockman, Jack Cowan, Pedro Domingos, Jesse Galef, Roger Germundsson, Robert Hecht-Nielsen, Geoff Hinton, John Hopfield, Yann LeCun, Jerry Lettvin, Jerome Louradour, Marvin Minsky, Eric Mjolsness, Cayden Pierce, Tomaso Poggio, Matteo Salvarezza, Terry Sejnowski, Oliver Selfridge, Gordon Shaw, Jonas Sjöberg, Ilya Sutskever, Gerry Tesauro and Timothee Verdier. For help with this piece, I'd particularly like to thank Giulio Alessandrini and Brad Klee.
+
+我已经关注神经网络的发展大约 43 年了，在这段时间里，我与许多人就这个话题进行了交流。其中一些人是很久以前的，一些是最近的，还有一些是跨越多年的，包括：Giulio Alessandrini、Dario Amodei、Etienne Bernard、Taliesin Beynon、Sebastian Bodenstein、Greg Brockman、Jack Cowan、Pedro Domingos、Jesse Galef、Roger Germundsson、Robert Hecht-Nielsen、Geoff Hinton、John Hopfield、Yann LeCun、Jerry Lettvin、Jerome Louradour、Marvin Minsky、Eric Mjolsness、Cayden Pierce、Tomaso Poggio、Matteo Salvarezza、Terry Sejnowski、Oliver Selfridge、Gordon Shaw、Jonas Sjöberg、Ilya Sutskever、Gerry Tesauro 和 Timothee Verdier。在撰写这篇文章时，我特别感谢 Giulio Alessandrini 和 Brad Klee 的帮助。
 
 ### Additional Resources
 
@@ -1220,4 +1349,3 @@ I've been following the development of neural nets now for about 43 years, and d
 [Introduction to Machine Learning](https://www.wolfram.com/language/introduction-machine-learning/)
 
 [Wolfram U Classes and Courses](https://www.wolfram.com/wolfram-u/courses/catalog/?topic=machine-learning)
-
