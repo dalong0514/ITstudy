@@ -1,8 +1,8 @@
-## 专访 Open AI 首席科学家 Ilya Sutskever
+## 20231101专访OpenAI首席科学家IlyaSutskever
 
 ChatGPT 可能已经有了意识，AI 将万世不朽
 
-[Open AI首席科学家：ChatGPT可能已经有了意识，AI将万世不朽-36氪](https://36kr.com/p/2499103970088838)
+[Open AI首席科学家：ChatGPT 可能已经有了意识，AI将万世不朽-36氪](https://36kr.com/p/2499103970088838)
 
 36 氪的朋友们
 

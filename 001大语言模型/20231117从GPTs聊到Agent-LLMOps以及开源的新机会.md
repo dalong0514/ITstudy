@@ -1,4 +1,4 @@
-## 从 GPTs 聊到 Agent、LLMOps 以及开源的新机会
+## 20231117从GPTs聊到Agent-LLMOps以及开源的新机会
 
 [从 GPTs 聊到 Agent、LLMOps 以及开源的新机会｜Z 沙龙第 1 期](https://mp.weixin.qq.com/s/h6LkRp3xpFfAA3ml6l3olA)
 

@@ -1,4 +1,4 @@
-## ChatGPT 开启联网，AI 迎来 AppStore 时刻，应用体验将被彻底颠覆
+## 20230324ChatGPT开启联网AI迎来AppStore时刻
 
 [凌晨重磅，ChatGPT 开启联网，AI 迎来 AppStore 时刻，应用体验将被彻底颠覆-36氪](https://36kr.com/p/2184809710043265)
 

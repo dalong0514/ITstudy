@@ -1,4 +1,13 @@
 
+
+2023-11-27
+
+智谱的技术文档：
+
+[⁡⁣‍​⁣‍​​​⁣⁤ChatGLM3 技术文档 - 飞书云文档](https://lslfd0slxc.feishu.cn/wiki/WvQbwIJ9tiPAxGk8ywDck6yfnof)
+
+
+
 2023-11-26
 
 最源头的信息：
