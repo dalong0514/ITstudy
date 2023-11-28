@@ -138,21 +138,33 @@ However, as a user of Pinecone, you don't need to worry about the intricacies an
 
 The following sections will explore several algorithms and their unique approaches to handling vector embeddings. This knowledge will empower you to make informed decisions and appreciate the seamless performance Pinecone delivers as you unlock the full potential of your application.
 
-Random Projection
+多种算法可以促进向量索引的创建。它们的共同目标是通过创建可以快速遍历的数据结构来实现快速查询。它们通常会将原始向量的表示形式转换为压缩形式，以优化查询过程。
+
+然而，作为 Pinecone 的用户，你不需要担心这些不同算法的复杂性和选择。Pinecone 旨在处理所有的复杂性和算法决策，确保在没有任何麻烦的情况下获得最佳性能和结果。通过利用 Pinecone 的专业知识，你可以专注于真正重要的事情 —— 提取有价值的洞察并交付强大的 AI 解决方案。
+
+接下来的章节将探讨几种算法及其处理向量嵌入的独特方法。这些知识将使你能够做出明智的决策，并欣赏 Pinecone 在你释放应用程序全部潜力时提供的无缝性能。
+
+4.1 Random Projection
 
 The basic idea behind random projection is to project the high-dimensional vectors to a lower-dimensional space using a random projection matrix. We create a matrix of random numbers. The size of the matrix is going to be the target low-dimension value we want. We then calculate the dot product of the input vectors and the matrix, which results in a projected matrix that has fewer dimensions than our original vectors but still preserves their similarity.
-
-Random Projection
 
 When we query, we use the same projection matrix to project the query vector onto the lower-dimensional space. Then, we compare the projected query vector to the projected vectors in the database to find the nearest neighbors. Since the dimensionality of the data is reduced, the search process is significantly faster than searching the entire high-dimensional space.
 
 Just keep in mind that random projection is an approximate method, and the projection quality depends on the properties of the projection matrix. In general, the more random the projection matrix is, the better the quality of the projection will be. But generating a truly random projection matrix can be computationally expensive, especially for large datasets. Learn more about random projection.
 
-Product Quantization
+[Random Projection for Locality Sensitive Hashing | Pinecone](https://www.pinecone.io/learn/series/faiss/locality-sensitive-hashing-random-projection/)
+
+4.1 随机投影
+
+随机投影背后的基本思想是使用随机投影矩阵将高维向量投影到低维空间。我们创建一个随机数矩阵。该矩阵的大小将是我们想要的目标低维值。然后，我们计算输入向量和矩阵的点积，这导致一个投影矩阵，其维度比我们原始向量少，但仍保留它们的相似性。
+
+当我们查询时，我们使用相同的投影矩阵将查询向量投影到低维空间。然后，我们将投影的查询向量与数据库中的投影向量进行比较，以找到最近的邻居。由于数据的维度减少，搜索过程比搜索整个高维空间要快得多。
+
+请记住，随机投影是一种近似方法，投影质量取决于投影矩阵的属性。通常，投影矩阵越随机，投影的质量就越好。但生成真正随机的投影矩阵在计算上可能很昂贵，尤其是对于大型数据集。了解更多关于随机投影的信息。
+
+4.2 Product Quantization
 
 Another way to build an index is product quantization (PQ), which is a lossy compression technique for high-dimensional vectors (like vector embeddings). It takes the original vector, breaks it up into smaller chunks, simplifies the representation of each chunk by creating a representative “code” for each chunk, and then puts all the chunks back together - without losing information that is vital for similarity operations. The process of PQ can be broken down into four steps: splitting, training, encoding, and querying.
-
-Product Quantization
 
 Splitting -The vectors are broken into segments.
 
@@ -164,29 +176,59 @@ Querying - When we query, the algorithm breaks down the vectors into sub-vectors
 
 The number of representative vectors in the codebook is a trade-off between the accuracy of the representation and the computational cost of searching the codebook. The more representative vectors in the codebook, the more accurate the representation of the vectors in the subspace, but the higher the computational cost to search the codebook. By contrast, the fewer representative vectors in the codebook, the less accurate the representation, but the lower the computational cost. Learn more about PQ.
 
-Locality-sensitive hashing
+[Product Quantization: Compressing high-dimensional vectors by 97% | Pinecone](https://www.pinecone.io/learn/series/faiss/product-quantization/)
+
+4.2 乘积量化
+
+构建索引的另一种方法是乘积量化（PQ），它是一种对高维向量（如向量嵌入）进行有损压缩的技术。它采用原始向量，将其分解为较小的块，通过为每个块创建一个代表性的「代码」来简化每个块的表示，然后将所有块重新组合起来 —— 而不丢失对相似性操作至关重要的信息。PQ 的过程可以分解为四个步骤：分割、训练、编码和查询。
+
+1、分割：向量被分解成段落。
+
+2、训练：我们为每个段落构建一个「代码簿」。简单来说 —— 算法生成一个潜在的「代码」池，可以分配给向量。实际上这个「代码簿」由通过对向量的每个段落进行 k 均值聚类创建的聚类中心点组成。我们将在段落代码簿中拥有与我们用于 k 均值聚类的值相同数量的值。
+
+3、编码：算法为每个段落分配一个特定的代码。实际上，在训练完成后，我们找到代码簿中每个向量段落最近的值。我们的 PQ 代码对于段落将是代码簿中对应值的标识符。我们可以使用任意多的 PQ 代码，这意味着我们可以从代码簿中选择多个值来代表每个段落。
+
+4、查询：当我们查询时，算法将向量分解成子向量，并使用相同的代码簿对它们进行量化。然后，它使用索引代码找到与查询向量最接近的向量。
+
+代码簿中代表性向量的数量是表示准确性和搜索代码簿的计算成本之间的权衡。代码簿中的代表性向量越多，子空间中向量的表示就越准确，但搜索代码簿的计算成本也越高。相比之下，代码簿中的代表性向量越少，表示就越不准确，但计算成本就越低。了解更多关于乘积量化（PQ）的信息。
+
+4.3 Locality-sensitive hashing
 
 Locality-Sensitive Hashing (LSH) is a technique for indexing in the context of an approximate nearest-neighbor search. It is optimized for speed while still delivering an approximate, non-exhaustive result. LSH maps similar vectors into “buckets” using a set of hashing functions, as seen below:
-
-Locality-sensitive hashing
 
 To find the nearest neighbors for a given query vector, we use the same hashing functions used to “bucket” similar vectors into hash tables. The query vector is hashed to a particular table and then compared with the other vectors in that same table to find the closest matches. This method is much faster than searching through the entire dataset because there are far fewer vectors in each hash table than in the whole space.
 
 It's important to remember that LSH is an approximate method, and the quality of the approximation depends on the properties of the hash functions. In general, the more hash functions used, the better the approximation quality will be. However, using a large number of hash functions can be computationally expensive and may not be feasible for large datasets. Learn more about LSH.
 
-Hierarchical Navigable Small World (HNSW)
+[Locality Sensitive Hashing (LSH): The Illustrated Guide | Pinecone](https://www.pinecone.io/learn/series/faiss/locality-sensitive-hashing/)
+
+4.3 局部敏感哈希
+
+局部敏感哈希（LSH）是一种在近似最近邻搜索背景下的索引技术。它为了速度进行了优化，同时仍然提供近似、非穷尽的结果。LSH 使用一组哈希函数将相似向量映射到「桶」中，如下所示：
+
+为了找到给定查询向量的最近邻居，我们使用相同的哈希函数将相似向量「分桶」到哈希表中。查询向量被哈希到特定表中，然后与同一表中的其他向量进行比较，以找到最接近的匹配项。这种方法比搜索整个数据集要快得多，因为每个哈希表中的向量比整个空间中的向量少得多。
+
+重要的是要记住，LSH 是一种近似方法，近似的质量取决于哈希函数的属性。通常，使用的哈希函数越多，近似的质量就越好。然而，使用大量的哈希函数在计算上可能很昂贵，对于大型数据集可能不可行。了解更多关于 LSH 的信息。
+
+4.4 Hierarchical Navigable Small World (HNSW)
 
 HNSW creates a hierarchical, tree-like structure where each node of the tree represents a set of vectors. The edges between the nodes represent the similarity between the vectors. The algorithm starts by creating a set of nodes, each with a small number of vectors. This could be done randomly or by clustering the vectors with algorithms like k-means, where each cluster becomes a node.
 
-Hierarchical Navigable Small World (HNSW)
-
 The algorithm then examines the vectors of each node and draws an edge between that node and the nodes that have the most similar vectors to the one it has.
-
-Hierarchical Navigable Small World (HNSW)
 
 When we query an HNSW index, it uses this graph to navigate through the tree, visiting the nodes that are most likely to contain the closest vectors to the query vector. Learn more about HNSW.
 
-Similarity Measures
+[Hierarchical Navigable Small Worlds (HNSW) | Pinecone](https://www.pinecone.io/learn/series/faiss/hnsw/)
+
+4.4 分层可导航小世界（HNSW）
+
+HNSW 创建了一个层次化的、树状结构，其中树的每个节点代表一组向量。节点之间的边代表向量之间的相似性。算法首先创建一组节点，每个节点包含少量向量。这可以通过随机或使用诸如k均值之类的算法对向量进行聚类来完成，其中每个聚类成为一个节点。
+
+然后，算法检查每个节点的向量，并在该节点与拥有与其拥有的向量最相似的向量的节点之间绘制边。
+
+当我们查询 HNSW 索引时，它使用这个图来浏览树，访问最有可能包含与查询向量最接近的向量的节点。了解更多关于 HNSW 的信息。
+
+### 05. Similarity Measures
 
 Building on the previously discussed algorithms, we need to understand the role of similarity measures in vector databases. These measures are the foundation of how a vector database compares and identifies the most relevant results for a given query.
 
@@ -194,16 +236,34 @@ Similarity measures are mathematical methods for determining how similar two vec
 
 Several similarity measures can be used, including:
 
-Cosine similarity: measures the cosine of the angle between two vectors in a vector space. It ranges from -1 to 1, where 1 represents identical vectors, 0 represents orthogonal vectors, and -1 represents vectors that are diametrically opposed.
+1 Cosine similarity: measures the cosine of the angle between two vectors in a vector space. It ranges from -1 to 1, where 1 represents identical vectors, 0 represents orthogonal vectors, and -1 represents vectors that are diametrically opposed.
 
-Euclidean distance: measures the straight-line distance between two vectors in a vector space. It ranges from 0 to infinity, where 0 represents identical vectors, and larger values represent increasingly dissimilar vectors.
+2 Euclidean distance: measures the straight-line distance between two vectors in a vector space. It ranges from 0 to infinity, where 0 represents identical vectors, and larger values represent increasingly dissimilar vectors.
 
-Dot product: measures the product of the magnitudes of two vectors and the cosine of the angle between them. It ranges from -∞ to ∞, where a positive value represents vectors that point in the same direction, 0 represents orthogonal vectors, and a negative value represents vectors that point in opposite directions.
-
+3 Dot product: measures the product of the magnitudes of two vectors and the cosine of the angle between them. It ranges from -∞ to ∞, where a positive value represents vectors that point in the same direction, 0 represents orthogonal vectors, and a negative value represents vectors that point in opposite directions.
 
 The choice of similarity measure will have an effect on the results obtained from a vector database. It is also important to note that each similarity measure has its own advantages and disadvantages, and it is important to choose the right one depending on the use case and requirements. Learn more about similarity measures.
 
-Filtering
+[Vector Similarity Explained | Pinecone](https://www.pinecone.io/learn/vector-similarity/)
+
+相似性度量
+
+在前面讨论的算法基础上，我们需要理解相似性度量在向量数据库中的作用。这些度量是向量数据库比较和识别给定查询最相关结果的基础。
+
+相似性度量是用于确定向量空间中两个向量相似程度的数学方法。在向量数据库中，使用相似性度量来比较存储在数据库中的向量，并找出与给定查询向量最相似的向量。
+
+可以使用几种相似性度量，包括：
+
+1、余弦相似性：度量向量空间中两个向量之间角度的余弦。它的范围是 - 1 到 1，其中 1 表示完全相同的向量，0 表示正交向量，-1 表示完全相反的向量。
+
+2、欧几里得距离：度量向量空间中两个向量之间的直线距离。它的范围是 0 到无穷大，其中 0 表示完全相同的向量，较大的值表示越来越不相似的向量。
+
+3、点积：度量两个向量的大小和它们之间角度的余弦的乘积。它的范围是 -∞ 到 ∞，其中正值表示指向相同方向的向量，0 表示正交向量，负值表示指向相反方向的向量。
+
+相似性度量的选择将影响从向量数据库获得的结果。同样重要的是要注意，每种相似性度量都有其自身的优点和缺点，根据使用案例和需求选择合适的度量非常重要。了解更多关于相似性度量的信息。
+
+### 06. Filtering
+
 Every vector stored in the database also includes metadata. In addition to the ability to query for similar vectors, vector databases can also filter the results based on a metadata query. To do this, the vector database usually maintains two indexes: a vector index and a metadata index. It then performs the metadata filtering either before or after the vector search itself, but in either case, there are difficulties that cause the query process to slow down.
 
 Post-filtering and Pre-filtering
@@ -213,14 +273,28 @@ Pre-filtering: In this approach, metadata filtering is done before the vector se
 
 Post-filtering: In this approach, the metadata filtering is done after the vector search. This can help ensure that all relevant results are considered, but it may also introduce additional overhead and slow down the query process as irrelevant results need to be filtered out after the search is complete.
 
-
 To optimize the filtering process, vector databases use various techniques, such as leveraging advanced indexing methods for metadata or using parallel processing to speed up the filtering tasks. Balancing the trade-offs between search performance and filtering accuracy is essential for providing efficient and relevant query results in vector databases. Learn more about vector search filtering.
 
-Database Operations
+[The Missing WHERE Clause in Vector Search | Pinecone](https://www.pinecone.io/learn/vector-search-filtering/)
+
+每个存储在数据库中的向量都包括元数据。除了查询相似向量的能力外，向量数据库还可以根据元数据查询过滤结果。为此，向量数据库通常维护两个索引：向量索引和元数据索引。然后，在向量搜索之前或之后执行元数据过滤，但在任何情况下，都有导致查询过程变慢的困难。
+
+后过滤和前过滤
+
+过滤过程可以在向量搜索之前或之后执行，但每种方法都有可能影响查询性能的自身挑战：
+
+前过滤：在这种方法中，元数据过滤在向量搜索之前完成。虽然这可以帮助减少搜索空间，但也可能导致系统忽略不符合元数据过滤标准的相关结果。此外，广泛的元数据过滤可能会由于增加的计算开销而减慢查询过程。
+
+后过滤：在这种方法中，元数据过滤在向量搜索之后完成。这可以帮助确保考虑所有相关结果，但也可能引入额外的开销并减慢查询过程，因为需要在搜索完成后过滤掉不相关的结果。
+
+为了优化过滤过程，向量数据库使用各种技术，例如利用元数据的高级索引方法或使用并行处理来加速过滤任务。平衡搜索性能和过滤准确性之间的权衡对于在向量数据库中提供高效和相关的查询结果至关重要。了解更多关于向量搜索过滤的信息。
+
+### 07. Database Operations
+
 Unlike vector indexes, vector databases are equipped with a set of capabilities that makes them better qualified to be used in high scale production settings. Let's take a look at an overall overview of the components that are involved in operating the database.
 
-Database Operations
-Performance and Fault tolerance
+7.1 Performance and Fault tolerance
+
 Performance and fault tolerance are tightly related. The more data we have, the more nodes that are required - and the bigger chance for errors and failures. As is the case with other types of databases, we want to ensure that queries are executed as quickly as possible even if some of the underlying nodes fail. This could be due to hardware failures, network failures, or other types of technical bugs. This kind of failure could result in downtime or even incorrect query results.
 
 To ensure both high performance and fault tolerance, vector databases use sharding and replication apply the following:
@@ -229,8 +303,8 @@ Sharding - partitioning the data across multiple nodes. There are different meth
 
 Replication - creating multiple copies of the data across different nodes. This ensures that even if a particular node fails, other nodes will be able to replace it. There are two main consistency models: eventual consistency and strong consistency. Eventual consistency allows for temporary inconsistencies between different copies of the data which will improve availability and reduce latency but may result in conflicts and even data loss. On the other hand, strong consistency requires that all copies of the data are updated before a write operation is considered complete. This approach provides stronger consistency but may result in higher latency.
 
+7.2 Monitoring
 
-Monitoring
 To effectively manage and maintain a vector database, we need a robust monitoring system that tracks the important aspects of the database's performance, health, and overall status. Monitoring is critical for detecting potential problems, optimizing performance, and ensuring smooth production operations. Some aspects of monitoring a vector database include the following:
 
 Resource usage - monitoring resource usage, such as CPU, memory, disk space, and network activity, enables the identification of potential issues or resource constraints that could affect the performance of the database.
@@ -239,8 +313,8 @@ Query performance - query latency, throughput, and error rates may indicate pote
 
 System health - overall system health monitoring includes the status of individual nodes, the replication process, and other critical components.
 
+7.3 Access-control
 
-Access-control
 Access control is the process of managing and regulating user access to data and resources. It is a vital component of data security, ensuring that only authorized users have the ability to view, modify, or interact with sensitive data stored within the vector database.
 
 Access control is important for several reasons:
@@ -253,30 +327,76 @@ Accountability and auditing: Access control mechanisms enable organizations to m
 
 Scalability and flexibility: As organizations grow and evolve, their access control needs may change. A robust access control system allows for seamless modification and expansion of user permissions, ensuring that data security remains intact throughout the organization's growth.
 
-Backups and collections
+7.4 Backups and collections
+
 When all else fails, vector databases offer the ability to rely on regularly created backups. These backups can be stored on external storage systems or cloud-based storage services, ensuring the safety and recoverability of the data. In case of data loss or corruption, these backups can be used to restore the database to a previous state, minimizing downtime and impact on the overall system. With Pinecone, users can choose to back up specific indexes as well and save them as “collections,” which can later be used to populate new indexes.
 
-API and SDKs
+7.5 API and SDKs
+
 This is where the rubber meets the road: Developers who interact with the database want to do so with an easy-to-use API, using a toolset that is familiar and comfortable. By providing a user-friendly interface, the vector database API layer simplifies the development of high-performance vector search applications.
 
 In addition to the API, vector databases would often provide programming language specific SDKs that wrap the API. The SDKs make it even easier for developers to interact with the database in their applications. This allows developers to concentrate on their specific use cases, such as semantic text search, generative question-answering, hybrid search, image similarity search, or product recommendations, without having to worry about the underlying infrastructure complexities.
 
-Summary
+7.1 性能和容错性
+
+性能和容错性紧密相关。我们拥有的数据越多，需要的节点就越多 —— 而出现错误和故障的机会也越大。如同其他类型的数据库一样，我们希望即使一些底层节点失败，查询也能尽可能快地执行。这可能是由于硬件故障、网络故障或其他类型的技术缺陷导致的。这类故障可能导致停机或甚至错误的查询结果。
+
+为了确保高性能和容错性，向量数据库使用分片和复制应用以下方法：
+
+分片：将数据跨多个节点进行分区。有不同的方法用于分区数据 —— 例如，可以根据不同数据集群的相似性对数据进行分区，以便将相似的向量存储在同一个分区中。进行查询时，它会发送到所有分片，并检索并合并结果。这称为「散播-聚合」模式。
+
+复制：在不同节点上创建数据的多个副本。这确保即使特定节点失败，其他节点也能够替换它。有两种主要的一致性模型：最终一致性和强一致性。最终一致性允许数据的不同副本之间暂时存在不一致性，这将提高可用性并减少延迟，但可能导致冲突甚至数据丢失。另一方面，强一致性要求在写操作完成之前更新数据的所有副本。这种方法提供了更强的一致性，但可能导致更高的延迟。
+
+7.2 监控
+
+为了有效管理和维护向量数据库，我们需要一个强大的监控系统来跟踪数据库性能、健康状况和整体状态的重要方面。监控对于检测潜在问题、优化性能以及确保平稳的生产运营至关重要。监控向量数据库的一些方面包括：
+
+资源使用：监控资源使用情况，如 CPU、内存、磁盘空间和网络活动，有助于识别可能影响数据库性能的潜在问题或资源限制。
+
+查询性能：查询延迟、吞吐量和错误率可能表明需要解决的潜在系统问题。
+
+系统健康：整体系统健康监控包括单个节点的状态、复制过程和其他关键组件的状态。
+
+7.3 访问控制
+
+访问控制是管理和调节用户对数据和资源的访问的过程。它是数据安全的重要组成部分，确保只有授权用户才能查看、修改或与存储在向量数据库中的敏感数据进行交互。
+
+访问控制的重要性在于：
+
+数据保护：由于 AI 应用程序经常处理敏感和机密信息，实施严格的访问控制机制有助于保护数据免受未经授权的访问和潜在的安全漏洞。
+
+合规性：许多行业，如医疗保健和金融，受到严格的数据隐私法规的约束。实施适当的访问控制有助于组织遵守这些法规，保护它们免受法律和财务后果的影响。
+
+问责和审计：访问控制机制使组织能够保持对向量数据库内用户活动的记录。这些信息对于审计目的至关重要，当发生安全漏洞时，它有助于追溯任何未经授权的访问或修改。
+
+可扩展性和灵活性：随着组织的增长和发展，它们的访问控制需求可能会发生变化。一个健全的访问控制系统允许无缝地修改和扩展用户权限，确保在组织增长过程中数据安全始终保持完整。
+
+7.4 备份和集合
+
+当所有其他方法都失败时，向量数据库提供了依赖定期创建的备份的能力。这些备份可以存储在外部存储系统或基于云的存储服务上，确保数据的安全性和可恢复性。在数据丢失或损坏的情况下，这些备份可以用来将数据库恢复到之前的状态，最大限度地减少停机时间和对整体系统的影响。使用 Pinecone，用户也可以选择备份特定索引，并将它们保存为「集合」，这些集合稍后可以用来填充新的索引。
+
+7.5 API 和 SDK
+
+这是事情的关键所在：与数据库交互的开发者希望通过易于使用的 API，使用熟悉和舒适的工具集来实现。通过提供用户友好的界面，向量数据库 API 层简化了高性能向量搜索应用程序的开发。
+
+除了 API 外，向量数据库通常还提供特定于编程语言的 SDK，这些 SDK 封装了 API。SDK 使开发者在他们的应用程序中与数据库的交互变得更加容易。这使得开发者可以专注于他们的特定用例，如语义文本搜索、生成性问答、混合搜索、图像相似性搜索或产品推荐，而不必担心底层基础设施的复杂性。
+
+### 08. Summary
+
 The exponential growth of vector embeddings in fields such as NLP, computer vision, and other AI applications has resulted in the emergence of vector databases as the computation engine that allows us to interact effectively with vector embeddings in our applications.
 
 Vector databases are purpose-built databases that are specialized to tackle the problems that arise when managing vector embeddings in production scenarios. For that reason, they offer significant advantages over traditional scalar-based databases and standalone vector indexes.
 
 In this post, we reviewed the key aspects of a vector database, including how it works, what algorithms it uses, and the additional features that make it operationally ready for production scenarios. We hope this helps you understand the inner workings of vector databases. Luckily, this isn't something you must know to use Pinecone. Pinecone takes care of all of these considerations (and then some) and frees you to focus on the rest of your application.
 
-Further Reading
-Making it easier to maintain open-source projects with CodiumAI and Pinecone
-
-Making Retrieval Augmented Generation Fast
-
-An (Opinionated) Checklist to Choose a Vector Database
-
 Author
 
 Roie Schwaber-Cohen
 
 Developer Advocate
+
+在自然语言处理、计算机视觉以及其他人工智能应用领域，向量嵌入的指数级增长导致了向量数据库的出现，这些数据库成为了允许我们在应用程序中有效与向量嵌入交互的计算引擎。
+
+向量数据库是专门构建的数据库，专门用于解决在生产环境中管理向量嵌入时出现的问题。因此，它们相比传统的基于标量的数据库和独立的向量索引提供了显著优势。
+
+在这篇文章中，我们回顾了向量数据库的关键方面，包括它的工作原理、所使用的算法，以及使其在生产环境中运行就绪的附加功能。我们希望这有助于您理解向量数据库的内部工作机制。幸运的是，这不是使用 Pinecone 时必须了解的内容。Pinecone 处理了所有这些考虑因素（甚至更多），让您可以专注于应用程序的其他部分。

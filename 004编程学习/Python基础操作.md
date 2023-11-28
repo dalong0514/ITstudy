@@ -1,5 +1,63 @@
 ## 0201. Python 基础
 
+2023-11-28
+
+在Conda中创建一个新的虚拟环境非常简单。您只需要打开终端（在Windows上是命令提示符或Anaconda Prompt），然后使用以下命令：
+
+```sh
+conda create --name study
+```
+
+这将创建一个名为 `llm` 的新虚拟环境。如果您希望在此环境中安装特定的Python版本或其他包，您可以在创建环境时指定它们，如下所示：
+
+```sh
+conda create --name llm python=3.9
+```
+
+这将创建一个包含Python 3.8的新环境。或者，如果您想安装其他包，可以这样做：
+
+```sh
+conda create --name llm python=3.9 numpy pandas
+```
+
+这将创建一个环境，其中包括Python 3.9、NumPy和Pandas。
+
+创建环境后，您可以使用以下命令激活该环境：
+
+```sh
+conda activate study
+```
+
+当您完成工作并想要退出虚拟环境时，可以使用以下命令：
+
+```sh
+conda deactivate
+```
+
+这将返回您到基础环境或之前的工作环境。
+
+要查看Conda中所有可用的虚拟环境，您可以在终端中使用以下命令：
+
+```sh
+conda env list
+```
+
+或者
+
+```sh
+conda info --envs
+```
+
+这两个命令都会列出您的机器上存在的所有Conda虚拟环境，以及它们各自的路径。当前激活的环境会在其名称旁边有一个星号(*)标记。
+
+要删除一个名为 `gpt` 的Conda虚拟环境，您可以使用以下命令：
+
+```sh
+conda env remove --name gpt
+```
+
+在执行此命令后，Conda将删除该环境及其包含的所有包。如果您想确认环境已被删除，可以再次运行 `conda env list` 来查看当前的环境列表。如果删除成功，`gpt` 环境将不再列出。
+
 ### 细节汇总
 
 1、注释。以 # 开头的语句是注释，注释是给人看的，可以是任意内容，解释器会忽略掉注释。
@@ -30,7 +88,7 @@ type() 函数，比如 type(1) 返回的是 int；另一个更常用的是 isins
 
 12、中文编码不了。
 
-代码的第 1 行或者第 2 行添加 # -*- coding: utf-8 -*-
+代码的第 1 行或者第 2 行添加 #-*- coding: utf-8 -*- 
 
 13、输入函数 input()。
 
