@@ -18,9 +18,9 @@ Index Terms—Large Language Models; Emergent Abilities; Adaptation Tuning; Util
 
 从 1950 年代图灵测试提出开始，人类就致力于实现机器对语言智能的掌握。语言是一个基于语法规则的复杂表达系统，为 AI 算法的开发提出了挑战。在过去 20 年，语言建模成为了理解和生成语言的关键方法，从统计模型发展到神经网络模型。最近，研究人员通过在大型语料库上预训练变压器模型，开发了预训练语言模型（PLMs），这些模型在多种自然语言处理（NLP）任务中表现出色。研究还发现，增加模型的参数规模可以提高其性能。当参数规模超过一定阈值时，这些大型语言模型不仅性能显著提升，还展现了小型模型（如 BERT）所不具备的特殊能力，比如上下文学习。因此，研究界将这类大规模的 PLMs 称为大型语言模型（LLM），它们可能包含数十亿甚至数百亿参数。最近，学术界和工业界对 LLM 的研究取得了显著进展，其中最引人注目的是 ChatGPT 的推出，这是一款基于 LLM 的先进 AI 聊天机器人，引起了社会广泛关注。LLM 的技术进步对 AI 领域产生了深远影响，将改变我们开发和使用 AI 算法的方式。鉴于这些快速的技术发展，本文回顾了 LLM 的最新研究进展，涵盖了其背景、关键发现和主要技术，特别关注预训练、适应性调整、应用和性能评估。同时，我们也概述了 LLM 开发的可用资源，并探讨了未来研究的方向。本文为研究人员和工程师提供了最新的 LLM 文献综述，是一份宝贵的资源。
 
-### 01. NTRODUCTION
+### 01. Introduction
 
-“The limits of my language mean the limits of my world.”
+"The limits of my language mean the limits of my world."
 
 — Ludwig Wittgenstein
 
@@ -30,11 +30,51 @@ Technically, language modeling (LM) is one of the major approaches to advancing 
 
 • Statistical language models (SLM). SLMs [6–9] are developed based on statistical learning methods that rose in the 1990s. The basic idea is to build the word prediction model based on the Markov assumption, e.g., predicting the next word based on the most recent context. The SLMs with a fixed context length n are also called n-gram language models, e.g., bigram and trigram language models. SLMs have been widely applied to enhance task performance in information retrieval (IR) [10, 11] and natural language processing (NLP) [12–14]. However, they often suffer from the curse of dimensionality: it is difficult to accurately estimate high-order language models since an exponential number of transition probabilities need to be estimated. Thus, specially designed smoothing strategies such as back-off estimation [15] and Good–Turing estimation [16] have been introduced to alleviate the data sparsity problem.
 
+直译：
+
+我的语言的限制就意味着我的世界的限制。
+
+—— 路德维希·维特根斯坦
+
+语言是人类表达和交流的重要能力，这种能力在早期童年发展并在一生中不断演变 [3, 4]。然而，机器不能自然地掌握理解和以人类语言形式交流的能力，除非装备了强大的人工智能（AI）算法。实现这一目标，即使机器能够像人类一样阅读、写作和交流，一直是一个长期的研究挑战 [5]。
+
+在技术上，语言建模（LM）是提高机器语言智能的主要方法之一。总体而言，LM 旨在建模词序列的生成可能性，以预测未来（或缺失）词汇的概率。LM 的研究在文献中受到广泛关注，可分为四个主要发展阶段：
+
+·统计语言模型（SLM）。SLM [6–9] 是基于 20 世纪 90 年代兴起的统计学习方法开发的。基本思想是基于马尔可夫假设构建词预测模型，例如，根据最近的上下文预测下一个词。固定上下文长度 n 的 SLMs 也称为 n-gram 语言模型，例如，二元和三元语言模型。SLMs 已广泛应用于信息检索（IR）[10, 11] 和自然语言处理（NLP）[12–14] 中以提高任务性能。然而，它们通常受到维数诅咒的困扰：由于需要估计指数数量的转移概率，因此难以准确估计高阶语言模型。因此，特别设计了平滑策略，如回退估计 [15] 和古德 - 图灵估计 [16]，以减轻数据稀疏问题。
+
+意译：
+
+我的语言的界限就是我的世界的界限。
+
+—— 路德维希·维特根斯坦
+
+语言是人类表达和沟通的关键能力，这种能力从儿童时期开始发展，并伴随终生 [3, 4]。然而，除非配备了强大的人工智能（AI）算法，否则机器无法自然地理解和使用人类语言进行交流。使机器能够像人类一样阅读、写作和交流，长期以来一直是研究领域的挑战 [5]。
+
+技术上讲，语言建模（LM）是提升机器语言智能的主要方法之一。LM 的主要目标是建立词序列的生成概率模型，以预测未来或缺失的词汇。LM 的研究在文献中得到了广泛关注，并经历了四个主要的发展阶段：
+
+·统计语言模型（SLM）。SLM [6–9] 基于 20 世纪 90 年代兴起的统计学习方法开发而成。其基本思路是根据马尔可夫假设来构建词预测模型，例如根据最近的上下文预测下一个词。SLM 中固定上下文长度 n 的模型也被称为 n-gram 语言模型，如二元和三元模型。SLM 已被广泛应用于信息检索（IR）[10, 11] 和自然语言处理（NLP）[12–14] 中，以提升任务性能。然而，SLM 常受到维度诅咒的影响，难以准确估计高阶语言模型，因为它们需要估计数量庞大的转移概率。为此，研究者引入了特别设计的平滑策略，如回退估计 [15] 和古德 - 图灵估计 [16]，来解决数据稀疏问题。
+
 • Neural language models (NLM). NLMs [1, 17, 18] characterize the probability of word sequences by neural networks, e.g., multi-layer perceptron (MLP) and recurrent neural networks (RNNs). As a remarkable contribution, the work in [1] introduced the concept of distributed representation of words and built the word prediction function conditioned on the aggregated context features (i.e., the distributed word vectors). By extending the idea of learning effective features for text data, a general neural network approach was developed to build a unified, end-to-end solution for various NLP tasks [2]. Furthermore, word2vec [19, 20] was proposed to build a simplified shallow neural network for learning distributed word representations, which were demonstrated to be very effective across a variety of NLP tasks. These studies have initiated the use of language models for representation learning (beyond word sequence modeling), having an important impact on the field of NLP.
 
 • Pre-trained language models (PLM). As an early attempt, ELMo [21] was proposed to capture context-aware word representations by first pre-training a bidirectional LSTM (biLSTM) network (instead of learning fixed word representations) and then fine-tuning the biLSTM network according to specific downstream tasks. Furthermore, based on the highly parallelizable Transformer architecture [22] with self-attention mechanisms, BERT [23] was proposed by pre-training bidirectional language models with specially designed pre-training tasks on large-scale unlabeled corpora. These pre-trained context-aware word representations are very effective as general-purpose semantic features, which have largely raised the performance bar of NLP tasks. This study has inspired a large number of follow-up work, which sets the “pre-training and fine-tuning” learning paradigm. Following this paradigm, a great number of studies on PLMs have been developed, introducing either different architectures [24, 25] (e.g., GPT-2 [26] and BART [24]) or improved pre-training strategies [27–29]. In this paradigm, it often requires fine-tuning the PLM for adapting to different downstream tasks.
 
 • Large language models (LLM). Researchers find that scaling PLM (e.g., scaling model size or data size) often leads to an improved model capacity on downstream tasks (i.e., following the scaling law [30]). A number of studies have explored the performance limit by training an ever larger PLM (e.g., the 175B-parameter GPT-3 and the 540Bparameter PaLM). Although scaling is mainly conducted in model size (with similar architectures and pre-training tasks), these large-sized PLMs display different behaviors from smaller PLMs (e.g., 330M-parameter BERT and 1.5Bparameter GPT-2) and show surprising abilities (called emergent abilities [31]) in solving a series of complex tasks. For example, GPT-3 can solve few-shot tasks through in-context learning, whereas GPT-2 cannot do well. Thus, the research community coins the term “large language models (LLM)”1  for these large-sized PLMs [32–35], which attract increasing research attention (See Figure 1). A remarkable application of LLMs is ChatGPT 2 that adapts the LLMs from the GPT series for dialogue, which presents an amazing conversation ability with humans. We can observe a sharp increase of the arXiv papers that are related to LLMs after the release of ChatGPT in Figure 1.
+
+直译：
+
+·神经语言模型（NLM）。NLM [1, 17, 18] 通过神经网络来描述词序列的概率，例如，多层感知机（MLP）和循环神经网络（RNN）。作为显著的贡献，[1] 中的工作引入了词的分布式表示概念，并建立了基于聚合上下文特征（即分布式词向量）的词预测函数。通过扩展学习文本数据有效特征的想法，开发了一种通用的神经网络方法，为各种 NLP 任务构建了统一的端到端解决方案 [2]。此外，word2vec [19, 20] 提出了构建简化的浅层神经网络来学习分布式词表示，这在各种 NLP 任务中被证明非常有效。这些研究开创了使用语言模型进行表示学习（超越词序列建模）的用途，对 NLP 领域产生了重要影响。
+
+·预训练语言模型（PLM）。作为早期尝试，ELMo [21] 提出了通过首先预训练双向 LSTM（biLSTM）网络（而不是学习固定的词表示），然后根据特定下游任务对 biLSTM 网络进行微调，来捕获上下文感知的词表示。此外，基于具有自注意力机制的高度并行化的变压器架构 [22]，通过在大规模未标记语料库上预训练双向语言模型，并设计特殊的预训练任务，提出了 BERT [23]。这些预训练的上下文感知词表示作为通用的语义特征非常有效，极大地提高了 NLP 任务的性能水平。这项研究激发了大量后续工作，建立了「预训练和微调」学习范式。遵循这一范式，开发了大量关于 PLM 的研究，引入了不同的架构 [24, 25]（例如，GPT-2 [26] 和 BART [24]）或改进的预训练策略 [27–29]。在这一范式中，通常需要对 PLM 进行微调以适应不同的下游任务。
+
+·大型语言模型（LLM）。研究人员发现，对 PLM 进行扩展（例如，扩大模型大小或数据大小）通常会提高下游任务的模型容量（即遵循缩放法则 [30]）。许多研究通过训练更大的 PLM（例如，175B 参数的 GPT-3 和 540B 参数的 PaLM）探索了性能极限。尽管扩展主要在模型大小上进行（具有相似的架构和预训练任务），但这些大型 PLM 表现出与较小的 PLM（例如，330M 参数的 BERT 和 1.5B 参数的 GPT-2）不同的行为，并展示了解决一系列复杂任务的惊人能力（称为突现能力 [31]）。例如，GPT-3 可以通过上下文学习解决小样本任务，而 GPT-2 则做不到。因此，研究界为这些大型 PLM 创造了「大型语言模型（LLM）」这一术语 [32–35]，这引起了越来越多的研究关注（见图 1）。LLM 的一个显著应用是 ChatGPT 2，它将 GPT 系列的 LLM 适应于对话，表现出与人类惊人的对话能力。在图 1 中，我们可以观察到在 ChatGPT 发布后与 LLM 相关的 arXiv 论文数量急剧增加。
+
+意译：
+
+·神经语言模型（NLM）。NLM [1, 17, 18] 通过神经网络描述词序列的概率，如多层感知机（MLP）和循环神经网络（RNN）。[1] 中的研究引入了词的分布式表示概念，基于聚合上下文特征构建词预测函数。这种方法为文本数据的特征学习提供了一种通用的神经网络方法，用于各种 NLP 任务的端到端解决方案 [2]。word2vec [19, 20] 通过构建简化的浅层神经网络来学习分布式词表示，在多种 NLP 任务中表现出色。这些研究开辟了利用语言模型进行表示学习的新途径，对 NLP 领域产生了重要影响。
+
+·预训练语言模型（PLM）。ELMo [21] 作为早期尝试，通过首先预训练双向 LSTM 网络，然后针对特定下游任务进行微调，捕获了上下文感知的词表示。基于具有自注意力机制的变压器架构 [22]，BERT [23] 通过预训练双向语言模型，并设计了特殊的预训练任务，在大规模未标记语料库上表现出色。这些预训练的上下文感知词表示作为通用语义特征，显著提升了 NLP 任务的性能。这项研究启发了许多后续工作，奠定了「预训练和微调」学习范式。在这一范式下，开发了众多 PLM 研究，引入了不同的架构 [24, 25]（如 GPT-2 [26] 和 BART [24]）或改进的预训练策略 [27–29]。在这种模式下，通常需要对 PLM 进行微调以适应不同的下游任务。
+
+·大型语言模型（LLM）。研究发现，扩展 PLM（如增大模型或数据规模）通常能提高下游任务的模型性能（遵循缩放法则 [30]）。众多研究通过训练更大规模的 PLM（如 175B 参数的 GPT-3 和 540B 参数的 PaLM）探索了性能极限。尽管这些大型 PLM 在模型大小上进行了扩展，它们与较小的 PLM（如 330M 参数的 BERT 和 1.5B 参数的 GPT-2）表现出不同的行为，并展示了解决复杂任务的惊人能力（称为突现能力 [31]）。例如，GPT-3 能通过上下文学习解决小样本任务，而 GPT-2 则不能。因此，研究界为这些大型 PLM 创造了「大型语言模型（LLM）」这一术语 [32–35]，吸引了越来越多的研究关注。LLM 的一个重要应用是 ChatGPT 2，它将 GPT 系列中的 LLM 适应于对话场景，展现了与人类的惊人对话能力。从图 1 中可以看出，自 ChatGPT 发布以来，与 LLM 相关的 arXiv 论文数量显著增加。
 
 (a) Query=”Language Model”
 
@@ -44,17 +84,69 @@ Fig. 1: The trends of the cumulative numbers of arXiv papers that contain the ke
 
 Fig. 2: An evolution process of the four generations of language models (LM) from the perspective of task solving capacity. Note that the time period for each stage may not be very accurate, and we set the time mainly according to the publish date of the most representative studies at each stage. For neural language models, we abbreviate the paper titles of two representative studies to name the two approaches: NPLM [1] (“A neural probabilistic language model”) and NLPS [2] (“Natural language processing (almost) from scratch”). Due to the space limitation, we don’t list all representative studies in this figure.
 
+直译：
+
+图 1：自 2018 年 6 月起包含关键词「语言模型」，自 2019 年 10 月起包含关键词「大型语言模型」的 arXiv 论文累积数量趋势。通过按月查询标题或摘要中的关键词进行精确匹配来计算统计数据。我们为这两个关键词设置了不同的 x 轴范围，因为「语言模型」更早被探索。我们标记了与 LLM 研究进展中重要里程碑对应的点。ChatGPT 发布后出现了急剧增长：标题或摘要中包含「大型语言模型」的 arXiv 论文平均每天发布数量从每天 0.40 篇增加到每天 8.58 篇（图 1 (b)）。
+
+图 2：从任务解决能力的角度，展示了四代语言模型（LM）的演变过程。请注意，每个阶段的时间周期可能不是非常准确，我们主要根据每个阶段最具代表性研究的发布日期来设置时间。对于神经语言模型，我们缩写了两项代表性研究的论文标题来命名两种方法：NPLM [1]（「神经概率语言模型」）和 NLPS [2]（「（几乎）从头开始的自然语言处理」）。由于空间限制，我们没有在此图中列出所有代表性研究。
+
+意译：
+
+图 1：从 2018 年 6 月起跟踪包含「语言模型」关键词，从 2019 年 10 月起跟踪包含「大型语言模型」关键词的 arXiv 论文的累积数量趋势。这些统计数据是通过每月在论文标题或摘要中查询这些关键词进行精确匹配计算得出的。由于「语言模型」较早被研究，我们为这两个关键词设置了不同的 x 轴范围。我们标记了 LLM 研究进展中的重要里程碑。ChatGPT 发布后，包含「大型语言模型」关键词的 arXiv 论文的平均日发表数量从每天 0.40 篇增加到每天 8.58 篇（见图 1 (b)）。
+
+图 2：从任务解决能力的角度出发，展示了四代语言模型（LM）的发展过程。每个阶段的时间可能不是非常准确，我们主要根据每个阶段最具代表性的研究发布日期来确定时间。对于神经语言模型，我们简化了两项代表性研究的论文标题来命名两种方法：NPLM [1]（神经概率语言模型）和 NLPS [2]（几乎从零开始的自然语言处理）。由于篇幅限制，我们没有在图中列出所有代表性研究。
+
 As discussed before, language model is not a new technical concept specially for LLMs, but has evolved with the advance of artificial intelligence over the decades. Early language models mainly aim to model and generate text data, while latest language models (e.g., GPT-4) focus on complex task solving. From language modeling to task solving, it is an important leap in scientific thinking, which is the key to understand the development of language models in the research history. From the perspective of task solving, the four generations of language models have exhibited different levels of model capacities. In Figure 2, we describe the evolution process of language models in terms of the task solving capacity. At first, statistical language models mainly assisted in some specific tasks (e.g., retrieval or speech tasks), in which the predicted or estimated probabilities can enhance the performance of task-specific approaches. Subsequently, neural language models focused on learning task-agnostic representations (e.g., features), aiming to reduce the efforts for human feature engineering. Furthermore, pre-trained language models learned context-aware representations that can be optimized according to downstream tasks. For the latest generation of language model, LLMs are enhanced by exploring the scaling effect on model capacity, which can be considered as general-purpose task solvers. To summarize, in the evolution process, the task scope that can be solved by language models have been greatly extended, and the task performance attained by language models have been significantly enhanced.
 
 In the existing literature, PLMs have been widely discussed and surveyed [36–39], while LLMs are seldom reviewed in a systematic way. To motivate our survey, we first highlight three major differences between LLMs and PLMs. First, LLMs display some surprising emergent abilities that may not be observed in previous smaller PLMs. These abilities are key to the performance of language models on complex tasks, making AI algorithms unprecedently powerful and effective. Second, LLMs would revolutionize the way that humans develop and use AI algorithms. Unlike small PLMs, the major approach to accessing LLMs is through the prompting interface (e.g., GPT-4 API). Humans have to understand how LLMs work and format their tasks in a way that LLMs can follow. Third, the development of LLMs no longer draws a clear distinction between research and engineering. The training of LLMs requires extensive practical experiences in large-scale data processing and distributed parallel training. To develop capable LLMs, researchers have to solve complicated engineering issues, working with engineers or being engineers.
+
+直译：
+
+正如之前讨论的，语言模型并不是专门针对 LLM 的新技术概念，而是随着几十年来人工智能的进步而演化。早期的语言模型主要旨在建模和生成文本数据，而最新的语言模型（例如 GPT-4）专注于解决复杂任务。从语言建模到任务解决，是科学思维的重要跳跃，这是理解研究历史中语言模型发展的关键。从任务解决的角度来看，四代语言模型展现了不同层次的模型能力。在图 2 中，我们描述了从任务解决能力的角度来看语言模型的演变过程。首先，统计语言模型主要协助完成一些特定任务（例如，检索或语音任务），其中预测或估计的概率可以提高特定任务方法的性能。随后，神经语言模型专注于学习与任务无关的表示（例如，特征），旨在减少人类特征工程的努力。进一步，预训练语言模型学习了可以根据下游任务优化的上下文感知表示。对于最新一代的语言模型，LLM 通过探索对模型容量的缩放效应得到增强，可以被视为通用任务解决器。总之，在演变过程中，语言模型能解决的任务范围已经大大扩展，而语言模型所达到的任务性能也得到了显著提升。
+
+在现有文献中，PLM 已被广泛讨论和调查 [36–39]，而 LLM 很少以系统方式进行回顾。为了激发我们的调查，我们首先强调 LLM 和 PLM 之间的三个主要区别。首先，LLM 展示了一些令人惊讶的突现能力，这些能力在之前较小的 PLM 中可能未被观察到。这些能力是语言模型在复杂任务上性能的关键，使 AI 算法前所未有地强大和有效。其次，LLM 将改变人类开发和使用 AI 算法的方式。与小型 PLM 不同，访问 LLM 的主要方式是通过提示界面（例如，GPT-4 API）。人类必须理解 LLM 如何工作，并以 LLM 能够遵循的方式格式化他们的任务。第三，LLM 的发展不再在研究和工程之间划清界限。LLM 的训练需要在大规模数据处理和分布式并行训练方面的广泛实践经验。为了开发能力强大的 LLM，研究人员必须解决复杂的工程问题，与工程师合作或成为工程师。
+
+意译：
+
+正如先前所讨论的，语言模型不是仅针对 LLM 的新技术概念，而是随着数十年来人工智能的发展而演变的。早期语言模型主要用于建模和生成文本数据，而最新的语言模型（如 GPT-4）则专注于解决复杂任务。从语言建模到任务解决，这是科学思维的重大飞跃，也是理解语言模型发展历程的关键。从任务解决的角度看，四代语言模型展示了不同层次的能力。在图 2 中，我们从任务解决能力的角度描述了语言模型的演变过程。
+
+起初，统计语言模型主要用于辅助特定任务（如检索或语音任务），其中预测或估计的概率可以增强特定任务方法的性能。接下来，神经语言模型专注于学习与任务无关的表示（如特征），旨在减少人工特征工程的工作量。此外，预训练语言模型学习了可针对下游任务优化的上下文感知表示。对于最新一代的语言模型，LLM 通过探索模型容量的扩展效应得到增强，可被视为通用任务解决器。总的来说，在发展过程中，语言模型能解决的任务范围已大幅扩展，其任务性能也显著提升。
+
+在现有文献中，PLM 已被广泛讨论和调查 [36–39]，而 LLM 却很少以系统化的方式进行回顾。为了激励我们的调查，我们首先强调 LLM 与 PLM 之间的三大区别。首先，LLM 展现了一些在先前较小的 PLM 中可能未观察到的惊人突现能力。这些能力是语言模型在复杂任务上表现优异的关键，使 AI 算法变得前所未有地强大和有效。其次，LLM 将改变人们开发和使用 AI 算法的方式。与小型 PLM 不同，访问 LLM 的主要方式是通过提示界面（如 GPT-4 API）。人们需要了解 LLM 的工作方式，并将他们的任务格式化为 LLM 可以理解的形式。第三，LLM 的发展模糊了研究与工程之间的界限。LLM 的训练需要大规模数据处理和分布式并行训练方面的丰富实践经验。为了开发出能力强大的 LLM，研究人员必须解决复杂的工程问题，与工程师合作或亲自扮演工程师的角色。
 
 Nowadays, LLMs are posing a significant impact on the AI community, and the advent of ChatGPT and GPT-4 leads to the rethinking of the possibilities of artificial general intelligence (AGI). OpenAI has published a technical article entitled “Planning for AGI and beyond”, which discusses the short-term and long-term plans to approach AGI [40], and a more recent paper has argued that GPT-4 might be considered as an early version of an AGI system [41]. The research areas of AI are being revolutionized by the rapid progress of LLMs. In the field of NLP, LLMs can serve as a general-purpose language task solver (to some extent), and the research paradigm has been shifting towards the use of LLMs. In the field of IR, traditional search engines are challenged by the new information seeking way through AI chatbots (i.e., ChatGPT), and New Bing 3 presents an initial attempt that enhances the search results based on LLMs. In the field of CV, the researchers try to develop ChatGPT-like vision-language models that can better serve multimodal dialogues [42–45], and GPT-4 [46] has supported multimodal input by integrating the visual information. This new wave of technology would potentially lead to a prosperous ecosystem of real-world applications based on LLMs. For instance, Microsoft 365 is being empowered by LLMs (i.e., Copilot) to automate the office work, and OpenAI supports the use of plugins in ChatGPT for implementing special functions.
 
 Despite the progress and impact, the underlying principles of LLMs are still not well explored. Firstly, it is mysterious why emergent abilities occur in LLMs, instead of smaller PLMs. As a more general issue, there lacks a deep, detailed investigation of the key factors that contribute to the superior abilities of LLMs. It is important to study when and how LLMs obtain such abilities [47]. Although there are some meaningful discussions about this problem [31, 47], more principled investigations are needed to uncover the “secrets“ of LLMs. Secondly, it is difficult for the research community to train capable LLMs. Due to the huge demand of computation resources, it is very costly to carry out repetitive, ablating studies for investigating the effect of various strategies for training LLMs. Indeed, LLMs are mainly trained by industry, where many important training details (e.g., data collection and cleaning) are not revealed to the public. Thirdly, it is challenging to align LLMs with human values or preferences. Despite the capacities, LLMs are also likely to produce toxic, fictitious, or harmful contents. It requires effective and efficient control approaches to eliminating the potential risk of the use of LLMs [46].
 
+直译：
+
+如今，LLM 对 AI 社区产生了显著影响，ChatGPT 和 GPT-4 的出现促使人们重新思考人工通用智能（AGI）的可能性。OpenAI 发表了一篇名为「规划 AGI 及其未来」的技术文章，讨论了接近 AGI 的短期和长期计划 [40]，而一篇更近期的论文则认为 GPT-4 可能被视为 AGI 系统的早期版本 [41]。LLM 的快速进展正在革新 AI 的研究领域。在 NLP 领域，LLM 可以作为通用语言任务解决器（在某种程度上），研究范式已向使用 LLM 转变。在 IR 领域，传统搜索引擎正面临通过 AI 聊天机器人（即 ChatGPT）进行信息检索的新挑战，而 New Bing 3 展示了基于 LLM 增强搜索结果的初步尝试。在 CV 领域，研究人员试图开发类似 ChatGPT 的视觉语言模型，以更好地服务于多模态对话 [42–45]，GPT-4 [46] 已通过整合视觉信息支持多模态输入。这一新技术浪潮可能会导致基于 LLM 的实际应用生态系统的繁荣。例如，Microsoft 365 正被 LLM（即 Copilot）赋能以自动化办公工作，OpenAI 支持在 ChatGPT 中使用插件来实现特殊功能。
+
+尽管取得了进展和影响，但 LLM 的基本原理仍未得到充分探索。首先，为什么 LLM 中出现突现能力而较小的 PLM 中则没有，这一点仍是一个谜。作为一个更普遍的问题，缺乏对 LLM 卓越能力的关键因素进行深入、详细调查。研究 LLM 何时以及如何获得这些能力是重要的 [47]。尽管关于这个问题有一些有意义的讨论 [31, 47]，但需要更有原则性的调查来揭示 LLM 的「秘密」。其次，研究社区很难训练出有能力的 LLM。由于巨大的计算资源需求，进行重复的、消融性的研究以探索训练 LLM 的各种策略的效果非常昂贵。事实上，LLM 主要由工业界训练，其中许多重要的训练细节（例如，数据收集和清洗）并未向公众披露。第三，使 LLM 与人类价值观或偏好保持一致是一个挑战。尽管 LLM 具有能力，但它们也可能产生有毒的、虚构的或有害的内容。需要有效而高效的控制方法来消除使用 LLM 的潜在风险 [46]。
+
+意译：
+
+当今，LLM 对 AI 领域产生了重大影响，ChatGPT 和 GPT-4 的推出使人们重新思考人工通用智能（AGI）的可能性。OpenAI 发表了一篇名为「规划 AGI 及其未来」的技术文章，讨论了接近 AGI 的短期和长期计划 [40]，一篇更近期的论文甚至认为 GPT-4 可能是 AGI 系统的早期版本 [41]。LLM 的迅速发展正在彻底改变 AI 的研究领域。在 NLP 领域，LLM 可以在一定程度上作为通用语言任务解决器，研究范式正在向使用 LLM 转变。在 IR 领域，传统搜索引擎正面临 AI 聊天机器人（如 ChatGPT）提出的新型信息检索方式的挑战，而 New Bing 3 则展示了基于 LLM 增强搜索结果的初始尝试。在计算机视觉（CV）领域，研究人员正努力开发类似 ChatGPT 的视觉语言模型，以更好地服务多模态对话 [42–45]，GPT-4 [46] 已支持通过整合视觉信息的多模态输入。这一新技术浪潮有可能催生基于 LLM 的实际应用的繁荣生态系统。例如，Microsoft 365 正在通过 LLM（如 Copilot）实现办公自动化，而 OpenAI 支持在 ChatGPT 中使用插件来实现特殊功能。
+
+尽管取得了进步并产生了影响，LLM 的基本原理仍有待深入探索。首先，为何 LLM 展现出的突现能力在较小的 PLM 中未观察到，这仍是个谜。更广泛地说，缺乏对促成 LLM 卓越能力的关键因素的深入详细调查。研究 LLM 何时以及如何获得这些能力是至关重要的 [47]。虽然已有一些有意义的讨论 [31, 47]，但需要更系统的研究来揭示 LLM 的「秘密」。其次，对研究社区而言，训练出能力强大的 LLM 极为困难。由于巨大的计算资源需求，进行重复、消融性研究以探索训练 LLM 的各种策略非常昂贵。实际上，LLM 主要由工业界进行训练，其中许多重要的训练细节（如数据收集和清洗）尚未向公众公开。第三，使 LLM 与人类价值观或偏好保持一致是一个挑战。尽管 LLM 功能强大，但它们也可能产生有害、虚构或有害内容。需要有效且高效的控制方法来消除使用 LLM 的潜在风险 [46]。
+
 Faced with both opportunities and challenges, it needs more attention on the research and development of LLMs. In order to provide a basic understanding of LLMs, this survey conducts a literature review of the recent advances in LLMs from four major aspects, including pre-training (how to pretrain a capable LLM), adaptation (how to effectively adapt pre-trained LLMs for better use), utilization (how to use LLMs for solving various downstream tasks) and capability evaluation (how to evaluate the abilities of LLMs and existing empirical findings). We thoroughly comb the literature and summarize the key findings, techniques, and methods of LLMs. For this survey, we also create a GitHub project website by collecting the supporting resources for LLMs, at the link https://github.com/RUCAIBox/LLMSurvey. We are also aware of several related review articles on PLMs or LLMs [32, 36, 38, 39, 43, 48–54]. These papers either discuss PLMs or some specific (or general) aspects of LLMs. Compared with them, we focus on the techniques and methods to develop and use LLMs and provide a relatively comprehensive reference to important aspects of LLMs.
 
 The remainder of this survey is organized as follows: Section 2 introduces the background for LLMs and the evolution of GPT-series models, followed by the summarization of available resources for developing LLMs in Section 3. Sections 4, 5, 6, and 7 review and summarize the recent progress from the four aspects of pre-training, adaptation, utilization, and capacity evaluation, respectively. Then, Section 8 discusses the practical guide for prompt design, and Section 9 reviews the applications of LLMs in several representative domains. Finally, we conclude the survey in Section 10 by summarizing the major findings and discuss the remaining issues for future work.
+
+[RUCAIBox/LLMSurvey: The official GitHub page for the survey paper "A Survey of Large Language Models".](https://github.com/RUCAIBox/LLMSurvey)
+
+直译：
+
+面对机遇和挑战，LLM 的研究和发展需要更多的关注。为了提供对 LLM 的基本理解，本调查对 LLM 最近的进展进行了文献回顾，涵盖了四个主要方面，包括预训练（如何预训练出一个有能力的 LLM）、适应性（如何有效地适应预训练的 LLM 以便更好地使用）、利用（如何使用 LLM 解决各种下游任务）和能力评估（如何评估 LLM 的能力和现有的经验发现）。我们彻底梳理了文献，并总结了 LLM 的关键发现、技术和方法。对于这项调查，我们还通过收集支持 LLM 的资源，在 https://github.com/RUCAIBox/LLMSurvey 创建了一个 GitHub 项目网站。我们也注意到了一些与 PLM 或 LLM 相关的评论文章 [32, 36, 38, 39, 43, 48–54]。这些论文要么讨论 PLM，要么讨论 LLM 的某些特定（或一般）方面。与它们相比，我们关注于开发和使用 LLM 的技术和方法，并提供了关于 LLM 重要方面的相对全面的参考。
+
+本调查的剩余部分安排如下：第 2 节介绍了 LLM 的背景和 GPT 系列模型的演变，接着在第 3 节总结了开发 LLM 的可用资源。第 4、5、6 和 7 节分别回顾和总结了预训练、适应性、利用和能力评估四个方面的最新进展。然后，第 8 节讨论了提示设计的实用指南，第 9 节回顾了 LLM 在几个代表性领域的应用。最后，我们在第 10 节通过总结主要发现并讨论未来工作的剩余问题来结束这项调查。
+
+意译：
+
+面对机遇与挑战，对 LLM 的研究和发展需投入更多关注。为了提供对 LLM 的基础理解，本调查回顾了 LLM 的最新进展，涵盖四个主要方面：预训练（如何预训练一个强大的 LLM）、适应性（如何有效适应预训练的 LLM 以便更好使用）、利用（如何使用 LLM 解决各种下游任务）以及能力评估（如何评估 LLM 的能力和现有的经验性发现）。我们对文献进行了全面梳理，总结了 LLM 的关键发现、技术和方法。此外，我们还在 https://github.com/RUCAIBox/LLMSurvey 上创建了一个 GitHub 项目网站，收集了支持 LLM 的资源。我们也注意到了一些与 PLM 或 LLM 相关的综述文章 [32, 36, 38, 39, 43, 48–54]。这些论文要么聚焦于 PLM，要么探讨 LLM 的特定或一般方面。与它们相比，我们专注于开发和使用 LLM 的技术和方法，并提供了关于 LLM 重要方面的较为全面的参考资料。
+
+本调查的其余部分安排如下：第 2 节介绍 LLM 的背景和 GPT 系列模型的演变，第 3 节总结了开发 LLM 的可用资源。第 4、5、6、7 节分别回顾和总结了预训练、适应性、利用和能力评估四个方面的最新进展。接下来，第 8 节讨论了提示设计的实践指南，第 9 节回顾了 LLM 在几个代表性领域的应用。最后，在第 10 节中，我们通过总结主要发现并探讨未来工作的悬而未决的问题，结束这项调查。
 
 • Version: v13 (major update on November 23, 2023).
 
@@ -74,110 +166,74 @@ The remainder of this survey is organized as follows: Section 2 introduces the b
 
 3 https://www.bing.com/new
 
-直译：
-
-「我的语言的限制就意味着我的世界的限制。」
-
-— 路德维希·维特根斯坦
-
-语言是人类表达和交流的重要能力，这种能力在早期童年发展并在一生中不断演变 [3, 4]。然而，机器不能自然地掌握理解和以人类语言形式交流的能力，除非装备了强大的人工智能（AI）算法。实现这一目标，即使机器能够像人类一样阅读、写作和交流，一直是一个长期的研究挑战 [5]。
-
-在技术上，语言建模（LM）是提高机器语言智能的主要方法之一。总体而言，LM 旨在建模词序列的生成可能性，以预测未来（或缺失）词汇的概率。LM 的研究在文献中受到广泛关注，可分为四个主要发展阶段：
-
-·统计语言模型（SLM）。SLM [6–9] 是基于 20 世纪 90 年代兴起的统计学习方法开发的。基本思想是基于马尔可夫假设构建词预测模型，例如，根据最近的上下文预测下一个词。固定上下文长度 n 的 SLMs 也称为 n-gram 语言模型，例如，二元和三元语言模型。SLMs 已广泛应用于信息检索（IR）[10, 11] 和自然语言处理（NLP）[12–14] 中以提高任务性能。然而，它们通常受到维数诅咒的困扰：由于需要估计指数数量的转移概率，因此难以准确估计高阶语言模型。因此，特别设计了平滑策略，如回退估计 [15] 和古德 - 图灵估计 [16]，以减轻数据稀疏问题。
-
-意译s：
-
-我的语言的界限就是我的世界的界限。
-
-—— 路德维希·维特根斯坦
-
-语言是人类表达和沟通的关键能力，这种能力从儿童时期开始发展，并伴随终生 [3, 4]。然而，除非配备了强大的人工智能（AI）算法，否则机器无法自然地理解和使用人类语言进行交流。使机器能够像人类一样阅读、写作和交流，长期以来一直是研究领域的挑战 [5]。
-
-技术上讲，语言建模（LM）是提升机器语言智能的主要方法之一。LM 的主要目标是建立词序列的生成概率模型，以预测未来或缺失的词汇。LM 的研究在文献中得到了广泛关注，并经历了四个主要的发展阶段：
-
-·统计语言模型（SLM）。SLM [6–9] 基于 20 世纪 90 年代兴起的统计学习方法开发而成。其基本思路是根据马尔可夫假设来构建词预测模型，例如根据最近的上下文预测下一个词。SLM 中固定上下文长度 n 的模型也被称为 n-gram 语言模型，如二元和三元模型。SLM 已被广泛应用于信息检索（IR）[10, 11] 和自然语言处理（NLP）[12–14] 中，以提升任务性能。然而，SLM 常受到维度诅咒的影响，难以准确估计高阶语言模型，因为它们需要估计数量庞大的转移概率。为此，研究者引入了特别设计的平滑策略，如回退估计 [15] 和古德 - 图灵估计 [16]，来解决数据稀疏问题。
-
-
-
-
-
-
-### 02. OVERVIEW
+### 02. OverView
 
 In this section, we present an overview about the background of LLMs and then summarize the technical evolution of the GPT-series models.
 
-2.1 Background for LLMs
+#### 2.1 Background for LLMs
 
 Typically, large language models (LLMs) refer to Transformer language models that contain hundreds of billions (or more) of parameters 4 , which are trained on massive text data [32], such as GPT-3 [55], PaLM [56], Galactica [35], and LLaMA [57]. LLMs exhibit strong capacities to understand natural language and solve complex tasks (via text generation). To have a quick understanding of how LLMs work, this part introduces the basic background for LLMs, including scaling laws, emergent abilities and key techniques.
 
-Formulation of Scaling Laws for LLMs. Currently, LLMs are mainly built upon the Transformer architecture [22], where multi-head attention layers are stacked in a very deep neural network. Existing LLMs adopt similar Transformer architectures and pre-training objectives (e.g., language modeling) as small language models. However, LLMs significantly extend the model size, data size, and total
-
-4. In existing literature, there is no formal consensus on the minimum parameter scale for LLMs, since the model capacity is also related to data size and total compute. In this survey, we take a slightly loose definition of LLMs, and mainly focus on discussing language models with a model size larger than 10B.
-
-compute (orders of magnification). Extensive research has shown that scaling can largely improve the model capacity of LLMs [26, 55, 56]. Thus, it is useful to establish a quantitative approach to characterizing the scaling effect. Next, we introduce two representative scaling laws for Transformer language models [30, 34].
+Formulation of Scaling Laws for LLMs. Currently, LLMs are mainly built upon the Transformer architecture [22], where multi-head attention layers are stacked in a very deep neural network. Existing LLMs adopt similar Transformer architectures and pre-training objectives (e.g., language modeling) as small language models. However, LLMs significantly extend the model size, data size, and total compute (orders of magnification). Extensive research has shown that scaling can largely improve the model capacity of LLMs [26, 55, 56]. Thus, it is useful to establish a quantitative approach to characterizing the scaling effect. Next, we introduce two representative scaling laws for Transformer language models [30, 34].
 
 • KM scaling law 5 . In 2020, Kaplan et al. [30] (the OpenAI team) firstly proposed to model the power-law relationship of model performance with respective to three major factors, namely model size (N ), dataset size (D), and the amount of training compute (C ), for neural language models. Given a compute budget c, they empirically presented three basic formulas for the scaling law 6 :
 
-α N c N L(N) = , α N ∼ 0.076, N c ∼ 8.8 × 10 13 (1) ( N )
+直译：
 
-α D c D L(D) = , α D ∼ 0.095, D c ∼ 5.4 × 1013  ( D )
+LLM 背景
 
-α C c C L(C) = , α C ∼ 0.050, C c ∼ 3.1 × 108  ( C )
+通常，大型语言模型（LLM）指的是包含数百亿（或更多）参数的变压器语言模型 [4]，它们在大量文本数据上进行训练 [32]，例如 GPT-3 [55]、PaLM [56]、Galactica [35] 和 LLaMA [57]。LLM 展现了强大的理解自然语言和解决复杂任务（通过文本生成）的能力。为了快速了解 LLM 如何工作，本部分介绍了 LLM 的基本背景，包括缩放法则、突现能力和关键技术。
+
+LLM 的缩放法则构建。目前，LLM 主要建立在变压器架构 [22] 之上，其中多头注意力层在非常深的神经网络中堆叠。现有的 LLM 采用与小型语言模型相似的变压器架构和预训练目标（例如，语言建模）。然而，LLM 显著扩展了模型规模、数据规模和总计算量（数量级）。广泛的研究表明，缩放可以大大提高 LLM 的模型容量 [26, 55, 56]。因此，建立一种量化方法来描述缩放效应是有用的。接下来，我们将介绍两个变压器语言模型的代表性缩放法则 [30, 34]。
+
+·KM 缩放法则 5。2020 年，Kaplan 等人 [30]（OpenAI 团队）首次提出模拟神经语言模型的模型性能与三个主要因素的幂律关系，即模型规模（N）、数据集规模（D）和训练计算量（C）。给定一个计算预算 c，他们实证地提出了三个基本的缩放法则公式 [6]：
+
+意译：
+
+大型语言模型（LLM）的背景
+
+一般来说，大型语言模型（LLM）是指那些包含数百亿（甚至更多）参数的变压器语言模型，这些模型在大量文本数据上接受训练，如 GPT-3 [55]、PaLM [56]、Galactica [35] 和 LLaMA [57] 等。LLM 展现出强大的自然语言理解和复杂任务解决能力（通过文本生成）。为了快速理解 LLM 的工作原理，本部分介绍了 LLM 的基本背景，包括缩放法则、突现能力和关键技术。
+
+构建 LLM 的缩放法则。目前，LLM 主要基于变压器架构 [22]，在该架构中，多头注意力层被堆叠在非常深的神经网络中。现有的 LLM 采用类似于小型语言模型的变压器架构和预训练目标（例如语言建模）。然而，LLM 在模型规模、数据规模和总计算量上进行了显著扩展（数量级上的增加）。大量研究表明，通过缩放可以显著提高 LLM 的模型容量 [26, 55, 56]。因此，建立一种量化方法来描述缩放效应非常重要。下面，我们将介绍变压器语言模型的两个代表性缩放法则 [30, 34]。
+
+·KM 缩放法则。2020 年，Kaplan 等人 [30]（OpenAI 团队）首次提出了一种模型，用来描述神经语言模型性能与三个主要因素之间的幂律关系，这三个因素是模型规模（N）、数据集规模（D）和训练计算量（C）。在给定的计算预算 c 下，他们提出了三个基本的缩放法则公式 [6]：
+
+L(N) 
+
+L(D) 
+
+L(C)
 
 where L(·) denotes the cross entropy loss in nats, and a follow-up study [58] from OpenAI has shown that the language modeling loss can be decomposed into two parts, namely irreducible loss (the entropy of the true data distribution) and reducible loss (an estimate of the KL divergence between the true and model distributions). The three laws were derived by fitting the model performance with varied data sizes (22M to 23B tokens), model sizes (768M to 1.5B non-embedding parameters) and training compute, under some assumptions (e.g., the analysis of one factor should be not bottlenecked by the other two factors). They showed that the model performance has a strong dependence relation on the three factors.
 
 • Chinchilla scaling law. As another representative study, Hoffmann et al. [34] (the Google DeepMind team) proposed an alternative form for scaling laws to instruct the computeoptimal training for LLMs. They conducted rigorous experiments by varying a larger range of model sizes (70M to 16B) and data sizes (5B to 500B tokens), and fitted a similar scaling law yet with different coefficients as below [34]:
 
-A B L(N, D) = E + + , (2) N α Dβ  where E = 1.69, A = 406.4, B = 410.7, α = 0.34 and β = 0.28. By optimizing the loss L(N, D) under the constraint C ≈ 6ND, they showed that the optimal allocation of compute budget to model size and data size can be derived as follows:
+L(N, D)
 
-(
-
-a
-
-)
-
-(
-
-b
-
-N opt (C) = G
-
-C
-
-6
-
-,
-
-D opt (C) = G−1 
-
-C
-
-6
-
-)
-
-,
-
-(3)
+(2)
 
 where a = α+ α , b = α+ β and G is a scaling coefficient that β β can be computed by A, B , α and β . As analyzed in [34],
 
-5. Since there was not a model trained following this law in the original paper, we took the last names of the two co-first authors to name this scaling law.
+where E = 1.69, A = 406.4, B = 410.7, α = 0.34 and β = 0.28. By optimizing the loss L(N, D) under the constraint C ≈ 6ND, they showed that the optimal allocation of compute budget to model size and data size can be derived as follows:
 
-6. Here, N c , D c and C c are measured in the number of nonembedding parameters, the number of training tokens and the number of FP-days, respectively. According to the original paper [30], C c and C should be denoted by C c min and C min , corresponding to the optimal use of compute. We use the simplified notations for ease of discussions. 5
+(3)
 
-given an increase in compute budget, the KM scaling law favors a larger budget allocation in model size than the data size, while the Chinchilla scaling law argues that the two sizes should be increased in equal scales, i.e., having similar values for a and b in Equation (3).
+where a = α+ α , b = α+ β and G is a scaling coefficient that β β can be computed by A, B , α and β . As analyzed in [34], given an increase in compute budget, the KM scaling law favors a larger budget allocation in model size than the data size, while the Chinchilla scaling law argues that the two sizes should be increased in equal scales, i.e., having similar values for a and b in Equation (3).
+
+
+
+
+
+
 
 Discussion on Scaling Laws. After introducing the formulations, we continue to discuss scaling law in the following two aspects, to enhance its understanding:
 
 • Predictable scaling. In practice, scaling law can be used to instruct the training of LLMs, and it has been proven feasible to reliably estimate the performance of larger models based on that of smaller models, called predictable scaling [46]. The benefits of predictable scaling for training LLMs are mainly twofold. Firstly, for large models, it is infeasible to rigorously examine various training tricks or variants, and it would be very helpful if experiences gained from small models could also apply to large models. For instance, small proxy models can be trained to find the optimal schedule of the data mixture for large models [59]. Secondly, the training of large-scale models takes a long time, often suffering from issues such as training loss spike, and scaling law can be employed to monitor the training status of LLMs, e.g., identifying abnormal performance at an early time. Despite that scaling law characterizes a smooth trend of performance increase (or loss decrease), it also indicates that diminishing returns 7 might occur as model scaling. An empirical study [58] from the OpenAI team has shown that representation quality or semantic content can still effectively improve even if approaching the point of diminishing returns (i.e., approaching the irreducible loss) [58]. This finding suggests that training large models are promising for improving the performance of downstream tasks. To further explore scaling effect, a potential issue is that the amount of available data for training LLMs is actually limited. With the ever-increasing model scale, the public text data would be soon “exhausted” for LLMs [60]. Thus, it will be meaningful to study how scaling laws apply to a data-constrained regime [61], where data repetition or augmentation might be useful to alleviate data scarcity.
 
-• Task-level predictability. Existing research of scaling laws are mostly conducted in terms of language modeling loss (e.g., per-token cross-entropy loss in nats [30]), while in practice we are more concerned about the performance of LLMs on actual tasks. Thus, a basic problem is that how the decrease of language modeling loss translates into the improvement of task performance [58]. Intuitively, a model with a smaller language modeling loss tends to yield a better performance on downstream tasks, since language modeling loss can be considered as a general measure of the overall model capacity. GPT-4 [46] has reported that some capabilities (e.g., coding ability) can be accurately predicted via scaling law. Despite that, readers should be aware that a direct decrease in language modeling loss does not always indicate an improvement of model performance on downstream tasks. Specially, the phenomenon of inverse scaling would occur for some tasks, where task performance surprisingly becomes worse as the language modeling loss decreases [62]. Overall, it is more difficult to explore and
 
-7. https://en.wikipedia.org/wiki/Diminishing returns
 
-characterize task-level scaling laws, since it might be also dependent on task-related information (task metric, task difficulty, etc.). Furthermore, some capacities (e.g., in-context learning [55]) are unpredictable according to the scaling law, which can be observed only when the model size exceeds a certain level (as discussed below).
+
+• Task-level predictability. Existing research of scaling laws are mostly conducted in terms of language modeling loss (e.g., per-token cross-entropy loss in nats [30]), while in practice we are more concerned about the performance of LLMs on actual tasks. Thus, a basic problem is that how the decrease of language modeling loss translates into the improvement of task performance [58]. Intuitively, a model with a smaller language modeling loss tends to yield a better performance on downstream tasks, since language modeling loss can be considered as a general measure of the overall model capacity. GPT-4 [46] has reported that some capabilities (e.g., coding ability) can be accurately predicted via scaling law. Despite that, readers should be aware that a direct decrease in language modeling loss does not always indicate an improvement of model performance on downstream tasks. Specially, the phenomenon of inverse scaling would occur for some tasks, where task performance surprisingly becomes worse as the language modeling loss decreases [62]. Overall, it is more difficult to explore and characterize task-level scaling laws, since it might be also dependent on task-related information (task metric, task difficulty, etc.). Furthermore, some capacities (e.g., in-context learning [55]) are unpredictable according to the scaling law, which can be observed only when the model size exceeds a certain level (as discussed below).
 
 Emergent Abilities of LLMs. In the literature [31], emergent abilities of LLMs are formally defined as “the abilities that are not present in small models but arise in large models”, which is one of the most prominent features that distinguish LLMs from previous PLMs. It further introduces a notable characteristic when emergent abilities occur [31]: performance rises significantly above random when the scale reaches a certain level. By analogy, such an emergent pattern has close connections with the phenomenon of phase transition in physics [31, 63]. In principle, emergent abilities can be defined in relation to some complex tasks [31, 64], while we are more concerned with general abilities that can be applied to solve a variety of tasks. Here, we briefly introduce three typical emergent abilities for LLMs and representative models that possess such an ability 8 .
 
@@ -185,21 +241,9 @@ Emergent Abilities of LLMs. In the literature [31], emergent abilities of LLMs a
 
 • Instruction following. By fine-tuning with a mixture of multi-task datasets formatted via natural language descriptions (called instruction tuning), LLMs are shown to perform well on unseen tasks that are also described in the form of instructions [28, 66, 67]. With instruction tuning, LLMs are enabled to follow the task instructions for new tasks without using explicit examples, thus having an improved generalization ability. According to the experiments in [67], instruction-tuned LaMDA-PT [68] started to significantly outperform the untuned one on unseen tasks when the model size reached 68B, but not for 8B or smaller model sizes. A recent study [69] found that a model size of 62B is at least required for PaLM to perform well on various tasks in four evaluation benchmarks (i.e., MMLU, BBH, TyDiQA and MGSM), though a much smaller size might suffice for some specific tasks (e.g., MMLU).
 
-• Step-by-step reasoning. For small language models, it is usually difficult to solve complex tasks that involve
+• Step-by-step reasoning. For small language models, it is usually difficult to solve complex tasks that involve multiple reasoning steps, e.g., mathematical word problems. In contrast, with the chain-of-thought (CoT) prompting strategy [33], LLMs can solve such tasks by utilizing the prompting mechanism that involves intermediate reasoning steps for deriving the final answer. This ability is speculated to be potentially obtained by training on code [33, 47]. An empirical study [33] has shown that CoT prompting can bring performance gains (on arithmetic reasoning benchmarks) when applied to PaLM and LaMDA variants with a model size larger than 60B, while its advantage over the standard prompting becomes more evident when the model size exceeds 100B. Furthermore, the performance improvement with CoT prompting seems to be also varied for different tasks, e.g., GSM8K > MAWPS > SWAMP for PaLM [33].
 
-8. It is difficult to accurately examine the critical size for emergent abilities of LLMs (i.e., the minimum size to possess an ability), since it might vary for different models or tasks. Also, existing studies often test emergent abilities on very limited model sizes for a specific LLM. For example, PaLM is often tested with three sizes of 8B, 62B and 540B. It is unclear about the model performance of the untested sizes.
-
-9. In a recent study [65], it also shows that in-context learning implicitly performs meta-optimization through the attention mechanism. 6
-
-multiple reasoning steps, e.g., mathematical word problems. In contrast, with the chain-of-thought (CoT) prompting strategy [33], LLMs can solve such tasks by utilizing the prompting mechanism that involves intermediate reasoning steps for deriving the final answer. This ability is speculated to be potentially obtained by training on code [33, 47]. An empirical study [33] has shown that CoT prompting can bring performance gains (on arithmetic reasoning benchmarks) when applied to PaLM and LaMDA variants with a model size larger than 60B, while its advantage over the standard prompting becomes more evident when the model size exceeds 100B. Furthermore, the performance improvement with CoT prompting seems to be also varied for different tasks, e.g., GSM8K > MAWPS > SWAMP for PaLM [33].
-
-How Emergent Abilities Relate to Scaling Laws. In existing literature [30, 31, 34], scaling laws and emergent abilities provide two perspectives to understand the advantage of large models over small models. In general, scaling law (often measured by language modeling loss) describes predictable performance relation with the potential effect of diminishing returns, while emergent abilities (often measured by task performance) are unpredictable but very profitable once such abilities actually emerge. Since the two perspectives reflect different performance trends (continuous improvement v.s. sharp performance leap), they might lead to misaligned findings or observations. There are also extensive debates on the rationality of emergent abilities. A popular speculation is that emergent abilities might be partially attributed to the evaluation setting for special tasks (e.g., the discontinuous evaluation metrics) [70, 71]: when evaluation metrics are altered accordingly, the sharpness of the emergent ability curve would disappear. However, the performance of LLMs on most tasks are perceived by users naturally in a discontinuous way. For instance, end users prefer a reliable code generated by LLMs that can successfully pass the test case, but are less interested in selecting a better code with fewer errors between two failed ones. More recently, a study [72] proposes a new evaluation setting that can enlarge the resolution of task metrics, making task performance more predictable. Despite these efforts, more fundamental research (e.g., grokking 10 ) about the working mechanism of LLMs is still in need to understand the emergence of certain abilities. The subtle relation between scaling law and emergent abilities can be explained by analogy with the ability acquisition of human 11 . Take the speaking ability as an example. For children, language development (especially infants) can be also considered as a multi-level process where “emergent abilities” occur. Specially, the language ability would relatively stable within a time interval, but qualitative change only occurs when evolving into another ability level (e.g., from speaking simple words to speaking simple sentences). Such a learning process is essentially not smooth and stable (i.e., language ability does not develop at a constant rate over time), though a child actually grows
-
-10. Grokking refers that “a pattern in the data, improving generalization performance from random chance level to perfect generalization”, quoted from the original paper [73].
-
-11. This explanation is only for ease of understanding, and there is not direct evidence to connect the two points.
-
-every day. It is interesting that young parents would be often surprised by unexpected progress of the speaking ability exhibited by their babies.
+How Emergent Abilities Relate to Scaling Laws. In existing literature [30, 31, 34], scaling laws and emergent abilities provide two perspectives to understand the advantage of large models over small models. In general, scaling law (often measured by language modeling loss) describes predictable performance relation with the potential effect of diminishing returns, while emergent abilities (often measured by task performance) are unpredictable but very profitable once such abilities actually emerge. Since the two perspectives reflect different performance trends (continuous improvement v.s. sharp performance leap), they might lead to misaligned findings or observations. There are also extensive debates on the rationality of emergent abilities. A popular speculation is that emergent abilities might be partially attributed to the evaluation setting for special tasks (e.g., the discontinuous evaluation metrics) [70, 71]: when evaluation metrics are altered accordingly, the sharpness of the emergent ability curve would disappear. However, the performance of LLMs on most tasks are perceived by users naturally in a discontinuous way. For instance, end users prefer a reliable code generated by LLMs that can successfully pass the test case, but are less interested in selecting a better code with fewer errors between two failed ones. More recently, a study [72] proposes a new evaluation setting that can enlarge the resolution of task metrics, making task performance more predictable. Despite these efforts, more fundamental research (e.g., grokking 10 ) about the working mechanism of LLMs is still in need to understand the emergence of certain abilities. The subtle relation between scaling law and emergent abilities can be explained by analogy with the ability acquisition of human 11 . Take the speaking ability as an example. For children, language development (especially infants) can be also considered as a multi-level process where “emergent abilities” occur. Specially, the language ability would relatively stable within a time interval, but qualitative change only occurs when evolving into another ability level (e.g., from speaking simple words to speaking simple sentences). Such a learning process is essentially not smooth and stable (i.e., language ability does not develop at a constant rate over time), though a child actually grows every day. It is interesting that young parents would be often surprised by unexpected progress of the speaking ability exhibited by their babies.
 
 Key Techniques for LLMs. It has been a long way that LLMs evolve into the current state: general and capable learners. In the development process, a number of important techniques are proposed, which largely improve the capacity of LLMs. Here, we briefly list several important techniques that (potentially) lead to the success of LLMs, as follows.
 
@@ -217,7 +261,23 @@ designs an effective tuning approach that enables LLMs to follow the expected in
 
 In addition, many other factors (e.g., the upgrade of hardware) also contribute to the success of LLMs. Currently, we limit our discussion to the major technical approaches and key findings for developing LLMs.
 
-2.2 Technical Evolution of GPT-series Models
+4 In existing literature, there is no formal consensus on the minimum parameter scale for LLMs, since the model capacity is also related to data size and total compute. In this survey, we take a slightly loose definition of LLMs, and mainly focus on discussing language models with a model size larger than 10B.
+
+5 Since there was not a model trained following this law in the original paper, we took the last names of the two co-first authors to name this scaling law.
+
+6 Here, N c , D c and C c are measured in the number of nonembedding parameters, the number of training tokens and the number of FP-days, respectively. According to the original paper [30], C c and C should be denoted by C c min and C min , corresponding to the optimal use of compute. We use the simplified notations for ease of discussions.
+
+7 https://en.wikipedia.org/wiki/Diminishing returns
+
+8 It is difficult to accurately examine the critical size for emergent abilities of LLMs (i.e., the minimum size to possess an ability), since it might vary for different models or tasks. Also, existing studies often test emergent abilities on very limited model sizes for a specific LLM. For example, PaLM is often tested with three sizes of 8B, 62B and 540B. It is unclear about the model performance of the untested sizes.
+
+9 In a recent study [65], it also shows that in-context learning implicitly performs meta-optimization through the attention mechanism. 
+
+10 Grokking refers that “a pattern in the data, improving generalization performance from random chance level to perfect generalization”, quoted from the original paper [73].
+
+11 This explanation is only for ease of understanding, and there is not direct evidence to connect the two points.
+
+#### 2.2 Technical Evolution of GPT-series Models
 
 Due to the excellent capacity in communicating with humans, ChatGPT has ignited the excitement of the AI community since its release. ChatGPT is developed based on the powerful GPT model with specially optimized conversation capacities. Considering the ever-growing interest in ChatGPT and GPT models, we add a special discussion about the technical evolution of the GPT-series models, to briefly summarize the progress how they have been developed in the past years. Meanwhile, we drew a schematic diagram depicting the technological evolution of the GPT-series models in Figure 4. The basic principle underlying GPT models is to compress the world knowledge into the decoder-only Transformer model by language modeling, such that it can recover (or memorize) the semantics of world knowledge and serve as a general-purpose task solver. Two key points to the success are (I) training decoder-only Transformer language models that can accurately predict the next word and (II) scaling up the size of language models. Overall, the research of OpenAI on LLMs can be roughly divided into the following stages 13 .
 
