@@ -66,7 +66,7 @@ Technically, language modeling (LM) is one of the major approaches to advancing 
 
 ·预训练语言模型（PLM）。作为早期尝试，ELMo [21] 提出了通过首先预训练双向 LSTM（biLSTM）网络（而不是学习固定的词表示），然后根据特定下游任务对 biLSTM 网络进行微调，来捕获上下文感知的词表示。此外，基于具有自注意力机制的高度并行化的变压器架构 [22]，通过在大规模未标记语料库上预训练双向语言模型，并设计特殊的预训练任务，提出了 BERT [23]。这些预训练的上下文感知词表示作为通用的语义特征非常有效，极大地提高了 NLP 任务的性能水平。这项研究激发了大量后续工作，建立了「预训练和微调」学习范式。遵循这一范式，开发了大量关于 PLM 的研究，引入了不同的架构 [24, 25]（例如，GPT-2 [26] 和 BART [24]）或改进的预训练策略 [27–29]。在这一范式中，通常需要对 PLM 进行微调以适应不同的下游任务。
 
-·大型语言模型（LLM）。研究人员发现，对 PLM 进行扩展（例如，扩大模型大小或数据大小）通常会提高下游任务的模型容量（即遵循缩放法则 [30]）。许多研究通过训练更大的 PLM（例如，175B 参数的 GPT-3 和 540B 参数的 PaLM）探索了性能极限。尽管扩展主要在模型大小上进行（具有相似的架构和预训练任务），但这些大型 PLM 表现出与较小的 PLM（例如，330M 参数的 BERT 和 1.5B 参数的 GPT-2）不同的行为，并展示了解决一系列复杂任务的惊人能力（称为突现能力 [31]）。例如，GPT-3 可以通过上下文学习解决小样本任务，而 GPT-2 则做不到。因此，研究界为这些大型 PLM 创造了「大型语言模型（LLM）」这一术语 [32–35]，这引起了越来越多的研究关注（见图 1）。LLM 的一个显著应用是 ChatGPT 2，它将 GPT 系列的 LLM 适应于对话，表现出与人类惊人的对话能力。在图 1 中，我们可以观察到在 ChatGPT 发布后与 LLM 相关的 arXiv 论文数量急剧增加。
+·大型语言模型（LLM）。研究人员发现，对 PLM 进行扩展（例如，扩大模型大小或数据大小）通常会提高下游任务的模型容量（即遵循缩放法则 [30]）。许多研究通过训练更大的 PLM（例如，175B 参数的 GPT-3 和 540B 参数的 PaLM）探索了性能极限。尽管扩展主要在模型大小上进行（具有相似的架构和预训练任务），但这些大型 PLM 表现出与较小的 PLM（例如，330M 参数的 BERT 和 1.5B 参数的 GPT-2）不同的行为，并展示了解决一系列复杂任务的惊人能力（称为涌现 [31]）。例如，GPT-3 可以通过上下文学习解决小样本任务，而 GPT-2 则做不到。因此，研究界为这些大型 PLM 创造了「大型语言模型（LLM）」这一术语 [32–35]，这引起了越来越多的研究关注（见图 1）。LLM 的一个显著应用是 ChatGPT 2，它将 GPT 系列的 LLM 适应于对话，表现出与人类惊人的对话能力。在图 1 中，我们可以观察到在 ChatGPT 发布后与 LLM 相关的 arXiv 论文数量急剧增加。
 
 意译：
 
@@ -74,7 +74,7 @@ Technically, language modeling (LM) is one of the major approaches to advancing 
 
 ·预训练语言模型（PLM）。ELMo [21] 作为早期尝试，通过首先预训练双向 LSTM 网络，然后针对特定下游任务进行微调，捕获了上下文感知的词表示。基于具有自注意力机制的变压器架构 [22]，BERT [23] 通过预训练双向语言模型，并设计了特殊的预训练任务，在大规模未标记语料库上表现出色。这些预训练的上下文感知词表示作为通用语义特征，显著提升了 NLP 任务的性能。这项研究启发了许多后续工作，奠定了「预训练和微调」学习范式。在这一范式下，开发了众多 PLM 研究，引入了不同的架构 [24, 25]（如 GPT-2 [26] 和 BART [24]）或改进的预训练策略 [27–29]。在这种模式下，通常需要对 PLM 进行微调以适应不同的下游任务。
 
-·大型语言模型（LLM）。研究发现，扩展 PLM（如增大模型或数据规模）通常能提高下游任务的模型性能（遵循缩放法则 [30]）。众多研究通过训练更大规模的 PLM（如 175B 参数的 GPT-3 和 540B 参数的 PaLM）探索了性能极限。尽管这些大型 PLM 在模型大小上进行了扩展，它们与较小的 PLM（如 330M 参数的 BERT 和 1.5B 参数的 GPT-2）表现出不同的行为，并展示了解决复杂任务的惊人能力（称为突现能力 [31]）。例如，GPT-3 能通过上下文学习解决小样本任务，而 GPT-2 则不能。因此，研究界为这些大型 PLM 创造了「大型语言模型（LLM）」这一术语 [32–35]，吸引了越来越多的研究关注。LLM 的一个重要应用是 ChatGPT 2，它将 GPT 系列中的 LLM 适应于对话场景，展现了与人类的惊人对话能力。从图 1 中可以看出，自 ChatGPT 发布以来，与 LLM 相关的 arXiv 论文数量显著增加。
+·大型语言模型（LLM）。研究发现，扩展 PLM（如增大模型或数据规模）通常能提高下游任务的模型性能（遵循缩放法则 [30]）。众多研究通过训练更大规模的 PLM（如 175B 参数的 GPT-3 和 540B 参数的 PaLM）探索了性能极限。尽管这些大型 PLM 在模型大小上进行了扩展，它们与较小的 PLM（如 330M 参数的 BERT 和 1.5B 参数的 GPT-2）表现出不同的行为，并展示了解决复杂任务的惊人能力（称为涌现 [31]）。例如，GPT-3 能通过上下文学习解决小样本任务，而 GPT-2 则不能。因此，研究界为这些大型 PLM 创造了「大型语言模型（LLM）」这一术语 [32–35]，吸引了越来越多的研究关注。LLM 的一个重要应用是 ChatGPT 2，它将 GPT 系列中的 LLM 适应于对话场景，展现了与人类的惊人对话能力。从图 1 中可以看出，自 ChatGPT 发布以来，与 LLM 相关的 arXiv 论文数量显著增加。
 
 (a) Query=”Language Model”
 
@@ -104,7 +104,7 @@ In the existing literature, PLMs have been widely discussed and surveyed [36–3
 
 正如之前讨论的，语言模型并不是专门针对 LLM 的新技术概念，而是随着几十年来人工智能的进步而演化。早期的语言模型主要旨在建模和生成文本数据，而最新的语言模型（例如 GPT-4）专注于解决复杂任务。从语言建模到任务解决，是科学思维的重要跳跃，这是理解研究历史中语言模型发展的关键。从任务解决的角度来看，四代语言模型展现了不同层次的模型能力。在图 2 中，我们描述了从任务解决能力的角度来看语言模型的演变过程。首先，统计语言模型主要协助完成一些特定任务（例如，检索或语音任务），其中预测或估计的概率可以提高特定任务方法的性能。随后，神经语言模型专注于学习与任务无关的表示（例如，特征），旨在减少人类特征工程的努力。进一步，预训练语言模型学习了可以根据下游任务优化的上下文感知表示。对于最新一代的语言模型，LLM 通过探索对模型容量的缩放效应得到增强，可以被视为通用任务解决器。总之，在演变过程中，语言模型能解决的任务范围已经大大扩展，而语言模型所达到的任务性能也得到了显著提升。
 
-在现有文献中，PLM 已被广泛讨论和调查 [36–39]，而 LLM 很少以系统方式进行回顾。为了激发我们的调查，我们首先强调 LLM 和 PLM 之间的三个主要区别。首先，LLM 展示了一些令人惊讶的突现能力，这些能力在之前较小的 PLM 中可能未被观察到。这些能力是语言模型在复杂任务上性能的关键，使 AI 算法前所未有地强大和有效。其次，LLM 将改变人类开发和使用 AI 算法的方式。与小型 PLM 不同，访问 LLM 的主要方式是通过提示界面（例如，GPT-4 API）。人类必须理解 LLM 如何工作，并以 LLM 能够遵循的方式格式化他们的任务。第三，LLM 的发展不再在研究和工程之间划清界限。LLM 的训练需要在大规模数据处理和分布式并行训练方面的广泛实践经验。为了开发能力强大的 LLM，研究人员必须解决复杂的工程问题，与工程师合作或成为工程师。
+在现有文献中，PLM 已被广泛讨论和调查 [36–39]，而 LLM 很少以系统方式进行回顾。为了激发我们的调查，我们首先强调 LLM 和 PLM 之间的三个主要区别。首先，LLM 展示了一些令人惊讶的涌现，这些能力在之前较小的 PLM 中可能未被观察到。这些能力是语言模型在复杂任务上性能的关键，使 AI 算法前所未有地强大和有效。其次，LLM 将改变人类开发和使用 AI 算法的方式。与小型 PLM 不同，访问 LLM 的主要方式是通过提示界面（例如，GPT-4 API）。人类必须理解 LLM 如何工作，并以 LLM 能够遵循的方式格式化他们的任务。第三，LLM 的发展不再在研究和工程之间划清界限。LLM 的训练需要在大规模数据处理和分布式并行训练方面的广泛实践经验。为了开发能力强大的 LLM，研究人员必须解决复杂的工程问题，与工程师合作或成为工程师。
 
 意译：
 
@@ -112,7 +112,7 @@ In the existing literature, PLMs have been widely discussed and surveyed [36–3
 
 起初，统计语言模型主要用于辅助特定任务（如检索或语音任务），其中预测或估计的概率可以增强特定任务方法的性能。接下来，神经语言模型专注于学习与任务无关的表示（如特征），旨在减少人工特征工程的工作量。此外，预训练语言模型学习了可针对下游任务优化的上下文感知表示。对于最新一代的语言模型，LLM 通过探索模型容量的扩展效应得到增强，可被视为通用任务解决器。总的来说，在发展过程中，语言模型能解决的任务范围已大幅扩展，其任务性能也显著提升。
 
-在现有文献中，PLM 已被广泛讨论和调查 [36–39]，而 LLM 却很少以系统化的方式进行回顾。为了激励我们的调查，我们首先强调 LLM 与 PLM 之间的三大区别。首先，LLM 展现了一些在先前较小的 PLM 中可能未观察到的惊人突现能力。这些能力是语言模型在复杂任务上表现优异的关键，使 AI 算法变得前所未有地强大和有效。其次，LLM 将改变人们开发和使用 AI 算法的方式。与小型 PLM 不同，访问 LLM 的主要方式是通过提示界面（如 GPT-4 API）。人们需要了解 LLM 的工作方式，并将他们的任务格式化为 LLM 可以理解的形式。第三，LLM 的发展模糊了研究与工程之间的界限。LLM 的训练需要大规模数据处理和分布式并行训练方面的丰富实践经验。为了开发出能力强大的 LLM，研究人员必须解决复杂的工程问题，与工程师合作或亲自扮演工程师的角色。
+在现有文献中，PLM 已被广泛讨论和调查 [36–39]，而 LLM 却很少以系统化的方式进行回顾。为了激励我们的调查，我们首先强调 LLM 与 PLM 之间的三大区别。首先，LLM 展现了一些在先前较小的 PLM 中可能未观察到的惊人涌现。这些能力是语言模型在复杂任务上表现优异的关键，使 AI 算法变得前所未有地强大和有效。其次，LLM 将改变人们开发和使用 AI 算法的方式。与小型 PLM 不同，访问 LLM 的主要方式是通过提示界面（如 GPT-4 API）。人们需要了解 LLM 的工作方式，并将他们的任务格式化为 LLM 可以理解的形式。第三，LLM 的发展模糊了研究与工程之间的界限。LLM 的训练需要大规模数据处理和分布式并行训练方面的丰富实践经验。为了开发出能力强大的 LLM，研究人员必须解决复杂的工程问题，与工程师合作或亲自扮演工程师的角色。
 
 Nowadays, LLMs are posing a significant impact on the AI community, and the advent of ChatGPT and GPT-4 leads to the rethinking of the possibilities of artificial general intelligence (AGI). OpenAI has published a technical article entitled “Planning for AGI and beyond”, which discusses the short-term and long-term plans to approach AGI [40], and a more recent paper has argued that GPT-4 might be considered as an early version of an AGI system [41]. The research areas of AI are being revolutionized by the rapid progress of LLMs. In the field of NLP, LLMs can serve as a general-purpose language task solver (to some extent), and the research paradigm has been shifting towards the use of LLMs. In the field of IR, traditional search engines are challenged by the new information seeking way through AI chatbots (i.e., ChatGPT), and New Bing 3 presents an initial attempt that enhances the search results based on LLMs. In the field of CV, the researchers try to develop ChatGPT-like vision-language models that can better serve multimodal dialogues [42–45], and GPT-4 [46] has supported multimodal input by integrating the visual information. This new wave of technology would potentially lead to a prosperous ecosystem of real-world applications based on LLMs. For instance, Microsoft 365 is being empowered by LLMs (i.e., Copilot) to automate the office work, and OpenAI supports the use of plugins in ChatGPT for implementing special functions.
 
@@ -122,13 +122,13 @@ Despite the progress and impact, the underlying principles of LLMs are still not
 
 如今，LLM 对 AI 社区产生了显著影响，ChatGPT 和 GPT-4 的出现促使人们重新思考人工通用智能（AGI）的可能性。OpenAI 发表了一篇名为「规划 AGI 及其未来」的技术文章，讨论了接近 AGI 的短期和长期计划 [40]，而一篇更近期的论文则认为 GPT-4 可能被视为 AGI 系统的早期版本 [41]。LLM 的快速进展正在革新 AI 的研究领域。在 NLP 领域，LLM 可以作为通用语言任务解决器（在某种程度上），研究范式已向使用 LLM 转变。在 IR 领域，传统搜索引擎正面临通过 AI 聊天机器人（即 ChatGPT）进行信息检索的新挑战，而 New Bing 3 展示了基于 LLM 增强搜索结果的初步尝试。在 CV 领域，研究人员试图开发类似 ChatGPT 的视觉语言模型，以更好地服务于多模态对话 [42–45]，GPT-4 [46] 已通过整合视觉信息支持多模态输入。这一新技术浪潮可能会导致基于 LLM 的实际应用生态系统的繁荣。例如，Microsoft 365 正被 LLM（即 Copilot）赋能以自动化办公工作，OpenAI 支持在 ChatGPT 中使用插件来实现特殊功能。
 
-尽管取得了进展和影响，但 LLM 的基本原理仍未得到充分探索。首先，为什么 LLM 中出现突现能力而较小的 PLM 中则没有，这一点仍是一个谜。作为一个更普遍的问题，缺乏对 LLM 卓越能力的关键因素进行深入、详细调查。研究 LLM 何时以及如何获得这些能力是重要的 [47]。尽管关于这个问题有一些有意义的讨论 [31, 47]，但需要更有原则性的调查来揭示 LLM 的「秘密」。其次，研究社区很难训练出有能力的 LLM。由于巨大的计算资源需求，进行重复的、消融性的研究以探索训练 LLM 的各种策略的效果非常昂贵。事实上，LLM 主要由工业界训练，其中许多重要的训练细节（例如，数据收集和清洗）并未向公众披露。第三，使 LLM 与人类价值观或偏好保持一致是一个挑战。尽管 LLM 具有能力，但它们也可能产生有毒的、虚构的或有害的内容。需要有效而高效的控制方法来消除使用 LLM 的潜在风险 [46]。
+尽管取得了进展和影响，但 LLM 的基本原理仍未得到充分探索。首先，为什么 LLM 中出现涌现而较小的 PLM 中则没有，这一点仍是一个谜。作为一个更普遍的问题，缺乏对 LLM 卓越能力的关键因素进行深入、详细调查。研究 LLM 何时以及如何获得这些能力是重要的 [47]。尽管关于这个问题有一些有意义的讨论 [31, 47]，但需要更有原则性的调查来揭示 LLM 的「秘密」。其次，研究社区很难训练出有能力的 LLM。由于巨大的计算资源需求，进行重复的、消融性的研究以探索训练 LLM 的各种策略的效果非常昂贵。事实上，LLM 主要由工业界训练，其中许多重要的训练细节（例如，数据收集和清洗）并未向公众披露。第三，使 LLM 与人类价值观或偏好保持一致是一个挑战。尽管 LLM 具有能力，但它们也可能产生有毒的、虚构的或有害的内容。需要有效而高效的控制方法来消除使用 LLM 的潜在风险 [46]。
 
 意译：
 
 当今，LLM 对 AI 领域产生了重大影响，ChatGPT 和 GPT-4 的推出使人们重新思考人工通用智能（AGI）的可能性。OpenAI 发表了一篇名为「规划 AGI 及其未来」的技术文章，讨论了接近 AGI 的短期和长期计划 [40]，一篇更近期的论文甚至认为 GPT-4 可能是 AGI 系统的早期版本 [41]。LLM 的迅速发展正在彻底改变 AI 的研究领域。在 NLP 领域，LLM 可以在一定程度上作为通用语言任务解决器，研究范式正在向使用 LLM 转变。在 IR 领域，传统搜索引擎正面临 AI 聊天机器人（如 ChatGPT）提出的新型信息检索方式的挑战，而 New Bing 3 则展示了基于 LLM 增强搜索结果的初始尝试。在计算机视觉（CV）领域，研究人员正努力开发类似 ChatGPT 的视觉语言模型，以更好地服务多模态对话 [42–45]，GPT-4 [46] 已支持通过整合视觉信息的多模态输入。这一新技术浪潮有可能催生基于 LLM 的实际应用的繁荣生态系统。例如，Microsoft 365 正在通过 LLM（如 Copilot）实现办公自动化，而 OpenAI 支持在 ChatGPT 中使用插件来实现特殊功能。
 
-尽管取得了进步并产生了影响，LLM 的基本原理仍有待深入探索。首先，为何 LLM 展现出的突现能力在较小的 PLM 中未观察到，这仍是个谜。更广泛地说，缺乏对促成 LLM 卓越能力的关键因素的深入详细调查。研究 LLM 何时以及如何获得这些能力是至关重要的 [47]。虽然已有一些有意义的讨论 [31, 47]，但需要更系统的研究来揭示 LLM 的「秘密」。其次，对研究社区而言，训练出能力强大的 LLM 极为困难。由于巨大的计算资源需求，进行重复、消融性研究以探索训练 LLM 的各种策略非常昂贵。实际上，LLM 主要由工业界进行训练，其中许多重要的训练细节（如数据收集和清洗）尚未向公众公开。第三，使 LLM 与人类价值观或偏好保持一致是一个挑战。尽管 LLM 功能强大，但它们也可能产生有害、虚构或有害内容。需要有效且高效的控制方法来消除使用 LLM 的潜在风险 [46]。
+尽管取得了进步并产生了影响，LLM 的基本原理仍有待深入探索。首先，为何 LLM 展现出的涌现在较小的 PLM 中未观察到，这仍是个谜。更广泛地说，缺乏对促成 LLM 卓越能力的关键因素的深入详细调查。研究 LLM 何时以及如何获得这些能力是至关重要的 [47]。虽然已有一些有意义的讨论 [31, 47]，但需要更系统的研究来揭示 LLM 的「秘密」。其次，对研究社区而言，训练出能力强大的 LLM 极为困难。由于巨大的计算资源需求，进行重复、消融性研究以探索训练 LLM 的各种策略非常昂贵。实际上，LLM 主要由工业界进行训练，其中许多重要的训练细节（如数据收集和清洗）尚未向公众公开。第三，使 LLM 与人类价值观或偏好保持一致是一个挑战。尽管 LLM 功能强大，但它们也可能产生有害、虚构或有害内容。需要有效且高效的控制方法来消除使用 LLM 的潜在风险 [46]。
 
 Faced with both opportunities and challenges, it needs more attention on the research and development of LLMs. In order to provide a basic understanding of LLMs, this survey conducts a literature review of the recent advances in LLMs from four major aspects, including pre-training (how to pretrain a capable LLM), adaptation (how to effectively adapt pre-trained LLMs for better use), utilization (how to use LLMs for solving various downstream tasks) and capability evaluation (how to evaluate the abilities of LLMs and existing empirical findings). We thoroughly comb the literature and summarize the key findings, techniques, and methods of LLMs. For this survey, we also create a GitHub project website by collecting the supporting resources for LLMs, at the link https://github.com/RUCAIBox/LLMSurvey. We are also aware of several related review articles on PLMs or LLMs [32, 36, 38, 39, 43, 48–54]. These papers either discuss PLMs or some specific (or general) aspects of LLMs. Compared with them, we focus on the techniques and methods to develop and use LLMs and provide a relatively comprehensive reference to important aspects of LLMs.
 
@@ -176,66 +176,81 @@ Typically, large language models (LLMs) refer to Transformer language models tha
 
 Formulation of Scaling Laws for LLMs. Currently, LLMs are mainly built upon the Transformer architecture [22], where multi-head attention layers are stacked in a very deep neural network. Existing LLMs adopt similar Transformer architectures and pre-training objectives (e.g., language modeling) as small language models. However, LLMs significantly extend the model size, data size, and total compute (orders of magnification). Extensive research has shown that scaling can largely improve the model capacity of LLMs [26, 55, 56]. Thus, it is useful to establish a quantitative approach to characterizing the scaling effect. Next, we introduce two representative scaling laws for Transformer language models [30, 34].
 
-• KM scaling law 5 . In 2020, Kaplan et al. [30] (the OpenAI team) firstly proposed to model the power-law relationship of model performance with respective to three major factors, namely model size (N ), dataset size (D), and the amount of training compute (C ), for neural language models. Given a compute budget c, they empirically presented three basic formulas for the scaling law 6 :
-
 直译：
 
-LLM 背景
-
-通常，大型语言模型（LLM）指的是包含数百亿（或更多）参数的变压器语言模型 [4]，它们在大量文本数据上进行训练 [32]，例如 GPT-3 [55]、PaLM [56]、Galactica [35] 和 LLaMA [57]。LLM 展现了强大的理解自然语言和解决复杂任务（通过文本生成）的能力。为了快速了解 LLM 如何工作，本部分介绍了 LLM 的基本背景，包括缩放法则、突现能力和关键技术。
+通常，大型语言模型（LLM）指的是包含数百亿（或更多）参数的变压器语言模型 [4]，它们在大量文本数据上进行训练 [32]，例如 GPT-3 [55]、PaLM [56]、Galactica [35] 和 LLaMA [57]。LLM 展现了强大的理解自然语言和解决复杂任务（通过文本生成）的能力。为了快速了解 LLM 如何工作，本部分介绍了 LLM 的基本背景，包括缩放法则、涌现和关键技术。
 
 LLM 的缩放法则构建。目前，LLM 主要建立在变压器架构 [22] 之上，其中多头注意力层在非常深的神经网络中堆叠。现有的 LLM 采用与小型语言模型相似的变压器架构和预训练目标（例如，语言建模）。然而，LLM 显著扩展了模型规模、数据规模和总计算量（数量级）。广泛的研究表明，缩放可以大大提高 LLM 的模型容量 [26, 55, 56]。因此，建立一种量化方法来描述缩放效应是有用的。接下来，我们将介绍两个变压器语言模型的代表性缩放法则 [30, 34]。
 
-·KM 缩放法则 5。2020 年，Kaplan 等人 [30]（OpenAI 团队）首次提出模拟神经语言模型的模型性能与三个主要因素的幂律关系，即模型规模（N）、数据集规模（D）和训练计算量（C）。给定一个计算预算 c，他们实证地提出了三个基本的缩放法则公式 [6]：
-
 意译：
 
-大型语言模型（LLM）的背景
-
-一般来说，大型语言模型（LLM）是指那些包含数百亿（甚至更多）参数的变压器语言模型，这些模型在大量文本数据上接受训练，如 GPT-3 [55]、PaLM [56]、Galactica [35] 和 LLaMA [57] 等。LLM 展现出强大的自然语言理解和复杂任务解决能力（通过文本生成）。为了快速理解 LLM 的工作原理，本部分介绍了 LLM 的基本背景，包括缩放法则、突现能力和关键技术。
+一般来说，大型语言模型（LLM）是指那些包含数百亿（甚至更多）参数的变压器语言模型，这些模型在大量文本数据上接受训练，如 GPT-3 [55]、PaLM [56]、Galactica [35] 和 LLaMA [57] 等。LLM 展现出强大的自然语言理解和复杂任务解决能力（通过文本生成）。为了快速理解 LLM 的工作原理，本部分介绍了 LLM 的基本背景，包括缩放法则、涌现和关键技术。
 
 构建 LLM 的缩放法则。目前，LLM 主要基于变压器架构 [22]，在该架构中，多头注意力层被堆叠在非常深的神经网络中。现有的 LLM 采用类似于小型语言模型的变压器架构和预训练目标（例如语言建模）。然而，LLM 在模型规模、数据规模和总计算量上进行了显著扩展（数量级上的增加）。大量研究表明，通过缩放可以显著提高 LLM 的模型容量 [26, 55, 56]。因此，建立一种量化方法来描述缩放效应非常重要。下面，我们将介绍变压器语言模型的两个代表性缩放法则 [30, 34]。
 
-·KM 缩放法则。2020 年，Kaplan 等人 [30]（OpenAI 团队）首次提出了一种模型，用来描述神经语言模型性能与三个主要因素之间的幂律关系，这三个因素是模型规模（N）、数据集规模（D）和训练计算量（C）。在给定的计算预算 c 下，他们提出了三个基本的缩放法则公式 [6]：
+• KM scaling law 5 . In 2020, Kaplan et al. [30] (the OpenAI team) firstly proposed to model the power-law relationship of model performance with respective to three major factors, namely model size (N ), dataset size (D), and the amount of training compute (C ), for neural language models. Given a compute budget c, they empirically presented three basic formulas for the scaling law 6 :
 
-L(N) 
-
-L(D) 
-
-L(C)
+L(N) L(D) L(C)
 
 where L(·) denotes the cross entropy loss in nats, and a follow-up study [58] from OpenAI has shown that the language modeling loss can be decomposed into two parts, namely irreducible loss (the entropy of the true data distribution) and reducible loss (an estimate of the KL divergence between the true and model distributions). The three laws were derived by fitting the model performance with varied data sizes (22M to 23B tokens), model sizes (768M to 1.5B non-embedding parameters) and training compute, under some assumptions (e.g., the analysis of one factor should be not bottlenecked by the other two factors). They showed that the model performance has a strong dependence relation on the three factors.
 
 • Chinchilla scaling law. As another representative study, Hoffmann et al. [34] (the Google DeepMind team) proposed an alternative form for scaling laws to instruct the computeoptimal training for LLMs. They conducted rigorous experiments by varying a larger range of model sizes (70M to 16B) and data sizes (5B to 500B tokens), and fitted a similar scaling law yet with different coefficients as below [34]:
 
-L(N, D)
-
-(2)
-
 where a = α+ α , b = α+ β and G is a scaling coefficient that β β can be computed by A, B , α and β . As analyzed in [34],
 
 where E = 1.69, A = 406.4, B = 410.7, α = 0.34 and β = 0.28. By optimizing the loss L(N, D) under the constraint C ≈ 6ND, they showed that the optimal allocation of compute budget to model size and data size can be derived as follows:
 
-(3)
-
 where a = α+ α , b = α+ β and G is a scaling coefficient that β β can be computed by A, B , α and β . As analyzed in [34], given an increase in compute budget, the KM scaling law favors a larger budget allocation in model size than the data size, while the Chinchilla scaling law argues that the two sizes should be increased in equal scales, i.e., having similar values for a and b in Equation (3).
 
+直译：
 
+·KM 缩放法则 5。2020 年，Kaplan 等人 [30]（OpenAI 团队）首次提出模拟神经语言模型的模型性能与三个主要因素的幂律关系，即模型规模（N）、数据集规模（D）和训练计算量（C）。给定一个计算预算 c，他们实证地提出了三个基本的缩放法则公式 [6]：
 
+其中 L (·) 表示以 nats 为单位的交叉熵损失，OpenAI 的后续研究 [58] 表明，语言建模损失可以分解为两部分，即不可减少的损失（真实数据分布的熵）和可减少的损失（真实和模型分布之间的 KL 散度的估计）。这三个法则是通过拟合模型性能与不同数据规模（22M 到 23B 个词汇）、模型规模（768M 到 1.5B 个非嵌入参数）和训练计算量，在一些假设下得出的（例如，分析一个因素时不应受其他两个因素的限制）。他们表明，模型性能与这三个因素有强烈的依赖关系。
 
+·奇努拉缩放法则。作为另一项代表性研究，Hoffmann 等人 [34]（谷歌 DeepMind 团队）提出了一种替代形式的缩放法则，以指导 LLM 的计算最优训练。他们通过改变更大范围的模型规模（70M 到 16B）和数据规模（5B 到 500B 个词汇），并拟合了一个类似的缩放法则，但系数不同，如下 [34]：
 
+意译：
 
+·KM 缩放法则。2020 年，Kaplan 等人 [30]（OpenAI 团队）首次提出了一种模型，用来描述神经语言模型性能与三个主要因素之间的幂律关系，这三个因素是模型规模（N）、数据集规模（D）和训练计算量（C）。在给定的计算预算 c 下，他们提出了三个基本的缩放法则公式 [6]：
+
+其中 L (·) 表示以纳特（nats）为单位的交叉熵损失。OpenAI 的后续研究 [58] 显示，语言建模的损失可以分解为两部分：不可减少的损失（即真实数据分布的熵）和可减少的损失（即真实和模型分布之间的 KL 散度的估计值）。这三个法则是通过拟合模型性能与不同数据规模（从 22M 到 23B 个词汇）、模型规模（从 768M 到 1.5B 个非嵌入参数）和训练计算量，在某些假设（例如，分析一个因素时不受其他两个因素的限制）下得出的。研究表明，模型性能与这三个因素有着强烈的依赖关系。
+
+·奇努拉缩放法则。另一项代表性的研究由 Hoffmann 等人 [34]（谷歌 DeepMind 团队）进行，他们提出了一种用于指导 LLM 计算最优训练的替代缩放法则形式。他们通过改变更广泛的模型规模（从 70M 到 16B）和数据规模（从 5B 到 500B 个词汇），并拟合了一个类似的缩放法则，但系数有所不同，如下 [34]：
 
 Discussion on Scaling Laws. After introducing the formulations, we continue to discuss scaling law in the following two aspects, to enhance its understanding:
 
 • Predictable scaling. In practice, scaling law can be used to instruct the training of LLMs, and it has been proven feasible to reliably estimate the performance of larger models based on that of smaller models, called predictable scaling [46]. The benefits of predictable scaling for training LLMs are mainly twofold. Firstly, for large models, it is infeasible to rigorously examine various training tricks or variants, and it would be very helpful if experiences gained from small models could also apply to large models. For instance, small proxy models can be trained to find the optimal schedule of the data mixture for large models [59]. Secondly, the training of large-scale models takes a long time, often suffering from issues such as training loss spike, and scaling law can be employed to monitor the training status of LLMs, e.g., identifying abnormal performance at an early time. Despite that scaling law characterizes a smooth trend of performance increase (or loss decrease), it also indicates that diminishing returns 7 might occur as model scaling. An empirical study [58] from the OpenAI team has shown that representation quality or semantic content can still effectively improve even if approaching the point of diminishing returns (i.e., approaching the irreducible loss) [58]. This finding suggests that training large models are promising for improving the performance of downstream tasks. To further explore scaling effect, a potential issue is that the amount of available data for training LLMs is actually limited. With the ever-increasing model scale, the public text data would be soon “exhausted” for LLMs [60]. Thus, it will be meaningful to study how scaling laws apply to a data-constrained regime [61], where data repetition or augmentation might be useful to alleviate data scarcity.
 
+直译：
 
+关于缩放法则的讨论。在介绍了公式之后，我们接着从以下两个方面讨论缩放法则，以加深对其的理解：
 
+·可预测的缩放。在实践中，缩放法则可以用来指导 LLM 的训练，并且已被证明基于较小模型的性能可靠估计更大模型的性能，这被称为可预测的缩放 [46]。训练 LLM 时，可预测的缩放的好处主要有两方面。首先，对于大型模型，严格检验各种训练技巧或变体是不可行的，如果从小模型获得的经验也能适用于大模型，那将非常有帮助。例如，可以训练小型代理模型来找到大型模型的数据混合的最佳计划 [59]。其次，大规模模型的训练需要很长时间，常常遭遇诸如训练损失突增等问题，缩放法则可以用来监控 LLM 的训练状态，例如，及早识别异常性能。尽管缩放法则表征了性能增加（或损失减少）的平滑趋势，它也表明随着模型缩放，可能会出现收益递减 [7]。OpenAI 团队的一项实证研究表明，即使接近收益递减点（即接近不可减少的损失），表示质量或语义内容仍然可以有效提高 [58]。这一发现表明，训练大型模型对提高下游任务的性能具有潜力。为了进一步探索缩放效应，一个潜在问题是训练 LLM 的可用数据实际上是有限的。随着模型规模的不断增长，公共文本数据将很快被 LLM「耗尽」[60]。因此，研究缩放法则如何适用于数据受限制的情况 [61] 将是有意义的，其中数据重复或增强可能有助于缓解数据稀缺。
+
+意译：
+
+关于缩放法则的讨论。在介绍了公式之后，我们将从以下两个方面进一步讨论缩放法则，以加深对其的理解：
+
+·可预测的缩放。在实践中，缩放法则可以用于指导 LLM 的训练，已被证明可以基于较小模型的性能可靠地估计更大模型的性能，这被称为可预测的缩放 [46]。训练 LLM 时，可预测的缩放主要有两方面的好处。
+
+首先，对于大型模型，严格检验各种训练技巧或变体是不可行的，如果从小型模型获得的经验也适用于大型模型，那将非常有帮助。例如，可以训练小型代理模型来找到大型模型的数据混合的最佳安排 [59]。其次，大规模模型的训练需要很长时间，常常面临训练损失突然增加等问题，缩放法则可以用来监控 LLM 的训练状态，如及早识别异常性能。尽管缩放法则描述了性能增加（或损失减少）的平滑趋势，它也表明随着模型缩放，可能会遇到收益递减 [7]。OpenAI 团队的一项实证研究显示，即使接近收益递减点（即接近不可减少的损失），表示质量或语义内容仍然可以有效提高 [58]。这一发现表明，训练大型模型对于提高下游任务的性能有潜力。要进一步探索缩放效应，一个潜在的问题是训练 LLM 的可用数据实际上是有限的。随着模型规模的不断增加，公共文本数据可能很快就会对 LLM 来说变得「不足够」[60]。因此，研究缩放法则如何适用于数据受限的情况 [61] 将非常有意义，其中数据重复或增强可能有助于缓解数据稀缺问题。
 
 • Task-level predictability. Existing research of scaling laws are mostly conducted in terms of language modeling loss (e.g., per-token cross-entropy loss in nats [30]), while in practice we are more concerned about the performance of LLMs on actual tasks. Thus, a basic problem is that how the decrease of language modeling loss translates into the improvement of task performance [58]. Intuitively, a model with a smaller language modeling loss tends to yield a better performance on downstream tasks, since language modeling loss can be considered as a general measure of the overall model capacity. GPT-4 [46] has reported that some capabilities (e.g., coding ability) can be accurately predicted via scaling law. Despite that, readers should be aware that a direct decrease in language modeling loss does not always indicate an improvement of model performance on downstream tasks. Specially, the phenomenon of inverse scaling would occur for some tasks, where task performance surprisingly becomes worse as the language modeling loss decreases [62]. Overall, it is more difficult to explore and characterize task-level scaling laws, since it might be also dependent on task-related information (task metric, task difficulty, etc.). Furthermore, some capacities (e.g., in-context learning [55]) are unpredictable according to the scaling law, which can be observed only when the model size exceeds a certain level (as discussed below).
 
-Emergent Abilities of LLMs. In the literature [31], emergent abilities of LLMs are formally defined as “the abilities that are not present in small models but arise in large models”, which is one of the most prominent features that distinguish LLMs from previous PLMs. It further introduces a notable characteristic when emergent abilities occur [31]: performance rises significantly above random when the scale reaches a certain level. By analogy, such an emergent pattern has close connections with the phenomenon of phase transition in physics [31, 63]. In principle, emergent abilities can be defined in relation to some complex tasks [31, 64], while we are more concerned with general abilities that can be applied to solve a variety of tasks. Here, we briefly introduce three typical emergent abilities for LLMs and representative models that possess such an ability 8 .
+Emergent Abilities of LLMs. In the literature [31], emergent abilities of LLMs are formally defined as “the abilities that are not present in small models but arise in large models”, which is one of the most prominent features that distinguish LLMs from previous PLMs. It further introduces a notable characteristic when emergent abilities occur [31]: performance rises significantly above random when the scale reaches a certain level. By analogy, such an emergent pattern has close connections with the phenomenon of phase transition in physics [31, 63]. In principle, emergent abilities can be defined in relation to some complex tasks [31, 64], while we are more concerned with general abilities that can be applied to solve a variety of tasks. Here, we briefly introduce three typical emergent abilities for LLMs and representative models that possess such an ability 8.
+
+直译：
+
+·任务级可预测性。目前关于缩放法则的研究大多从语言建模损失的角度进行（例如，每个词汇的交叉熵损失，以纳特为单位 [30]），而在实践中，我们更关心 LLM 在实际任务上的性能。因此，一个基本问题是语言建模损失的减少如何转化为任务性能的提高 [58]。直观上，语言建模损失较小的模型倾向于在下游任务上表现更好，因为语言建模损失可以被视为对整体模型容量的一般性衡量。GPT-4 [46] 报告称，一些能力（例如，编程能力）可以通过缩放法则准确预测。尽管如此，读者应该意识到，语言建模损失的直接减少并不总是表明在下游任务上模型性能的改善。特别是，对于某些任务，可能会出现逆向缩放现象，即当语言建模损失减少时，任务性能出人意料地变差 [62]。总的来说，探索和描述任务级缩放法则更为困难，因为它可能还依赖于与任务相关的信息（任务指标、任务难度等）。此外，根据缩放法则，一些能力（例如，上下文学习 [55]）是不可预测的，只有当模型规模超过一定水平时才能观察到（如下所述）。
+
+LLM 的涌现。在文献中 [31]，LLM 的涌现被正式定义为「在小型模型中不存在但在大型模型中出现的能力」，这是区别 LLM 和以前 PLM 的最显著特征之一。当涌现出现时，它进一步引入了一个显著特征 [31]：当规模达到一定水平时，性能显著高于随机水平。类比地，这种突现模式与物理学中的相变现象密切相关 [31, 63]。原则上，涌现可以定义为与一些复杂任务相关 [31, 64]，而我们更关注可以应用于解决各种任务的通用能力。在这里，我们简要介绍三种 LLM 的典型涌现和具有此类能力的代表性模型 [8]。
+
+意译：
+
+·任务级可预测性。目前的缩放法则研究大多从语言建模损失的角度进行（例如，每个词汇的交叉熵损失，以纳特为单位 [30]），但在实际应用中，我们更关心 LLM 在具体任务上的表现。因此，一个关键问题是语言建模损失的减少如何转化为任务性能的提升 [58]。直观上，语言建模损失较小的模型倾向于在下游任务上有更好的表现，因为语言建模损失可以被视为整体模型容量的一般性指标。GPT-4 [46] 报告称，某些能力（例如编程能力）可以通过缩放法则准确预测。尽管如此，需要注意的是，语言建模损失的直接降低并不总能指示下游任务上模型性能的改进。特别是，在某些任务中可能出现逆向缩放现象，即随着语言建模损失的减少，任务性能反而变差 [62]。总体来说，探索和描述任务级别的缩放法则更为困难，因为它可能还依赖于与任务相关的信息（如任务指标、任务难度等）。此外，一些能力（如上下文学习 [55]）根据缩放法则是不可预测的，这些能力只有在模型规模超过一定水平时才会显现（如下所述）。
+
+LLM 的涌现。在文献中 [31]，LLM 的涌现被正式定义为「在小型模型中不存在但在大型模型中出现的能力」，这是区分 LLM 和之前 PLM 的最显著特点之一。当涌现出现时，它呈现出一个显著的特征 [31]：当模型规模达到一定水平时，性能会显著高于随机水平。类比地，这种突现模式与物理学中的相变现象密切相关 [31, 63]。从原理上讲，涌现可以与某些复杂任务相关联 [31, 64]，但我们更关注那些可以应用于解决多种任务的通用能力。在这里，我们将简要介绍三种 LLM 的典型涌现及具有这些能力的代表性模型 [8]。
 
 • In-context learning. The in-context learning (ICL) ability is formally introduced by GPT-3 [55]: assuming that the language model has been provided with a natural language instruction and/or several task demonstrations, it can generate the expected output for the test instances by completing the word sequence of input text, without requiring additional training or gradient update 9 . Among the GPTseries models, the 175B GPT-3 model exhibited a strong ICL ability in general, but not the GPT-1 and GPT-2 models. Such an ability also depends on the specific downstream task. For example, the ICL ability can emerge on the arithmetic tasks (e.g., the 3-digit addition and subtraction) for the 13B GPT-3, but 175B GPT-3 even cannot work well on the Persian QA task [31].
 
@@ -243,7 +258,27 @@ Emergent Abilities of LLMs. In the literature [31], emergent abilities of LLMs a
 
 • Step-by-step reasoning. For small language models, it is usually difficult to solve complex tasks that involve multiple reasoning steps, e.g., mathematical word problems. In contrast, with the chain-of-thought (CoT) prompting strategy [33], LLMs can solve such tasks by utilizing the prompting mechanism that involves intermediate reasoning steps for deriving the final answer. This ability is speculated to be potentially obtained by training on code [33, 47]. An empirical study [33] has shown that CoT prompting can bring performance gains (on arithmetic reasoning benchmarks) when applied to PaLM and LaMDA variants with a model size larger than 60B, while its advantage over the standard prompting becomes more evident when the model size exceeds 100B. Furthermore, the performance improvement with CoT prompting seems to be also varied for different tasks, e.g., GSM8K > MAWPS > SWAMP for PaLM [33].
 
+直译：
+
+·上下文学习。上下文学习（ICL）能力是由 GPT-3 [55] 正式引入的：假设语言模型已经提供了自然语言指令和 / 或若干任务示例，它可以通过补全输入文本的词序列来为测试实例生成预期输出，而无需额外的训练或梯度更新 [9]。在 GPT 系列模型中，175B 的 GPT-3 模型一般表现出较强的 ICL 能力，而 GPT-1 和 GPT-2 模型则不然。这种能力也依赖于具体的下游任务。例如，对于 13B 的 GPT-3，在算术任务（如三位数加减法）上可以表现出 ICL 能力，但 175B 的 GPT-3 甚至在波斯语问答任务上也表现不佳 [31]。
+
+·遵循指令。通过使用自然语言描述格式化的多任务数据集进行微调（称为指令调整），LLM 被证明可以在未见过的任务上表现良好，这些任务也以指令的形式描述 [28, 66, 67]。通过指令调整，LLM 能够在没有使用明确示例的情况下遵循新任务的指令，从而提高了其泛化能力。根据 [67] 中的实验，指令调整后的 LaMDA-PT [68] 开始在未见过的任务上显著超越未调整的模型，当模型大小达到 68B 时，但 8B 或更小的模型大小则没有这种效果。最近的一项研究 [69] 发现，PaLM 至少需要 62B 的模型大小才能在四个评估基准（即 MMLU、BBH、TyDiQA 和 MGSM）上的各种任务中表现良好，尽管对于某些特定任务（例如 MMLU）较小的模型大小可能就足够了。
+
+意译：
+
+1、上下文学习。上下文学习（ICL）能力由 GPT-3 [55] 首次正式引入：假定语言模型已被赋予自然语言指令和 / 或一些任务示例，它能够通过完成输入文本的词序列为测试实例生成预期输出，而无需额外训练或梯度更新 [9]。在 GPT 系列模型中，175B 的 GPT-3 模型普遍显示出较强的 ICL 能力，而 GPT-1 和 GPT-2 模型则不是这样。这种能力也取决于特定的下游任务。例如，对于 13B 的 GPT-3，ICL 能力可以在算术任务（如三位数加减法）中显现，但 175B 的 GPT-3 甚至在波斯语问答任务上也表现不佳 [31]。
+
+2、遵循指令。通过对多任务数据集进行自然语言描述格式化的微调（称为指令调整），LLM 被证明能够在未见过的、以指令形式描述的任务上表现良好 [28, 66, 67]。经过指令调整，LLM 能够在没有明确示例的情况下遵循新任务的指令，因此具有更好的泛化能力。根据 [67] 中的实验，当模型大小达到 68B 时，经过指令调整的 LaMDA-PT [68] 开始在未见任务上显著优于未调整的模型，但 8B 或更小的模型大小则不具备这种效果。近期的一项研究 [69] 发现，PaLM 至少需要 62B 的模型大小才能在四个评估基准（即 MMLU、BBH、TyDiQA 和 MGSM）上的多种任务中表现良好，尽管对于某些特定任务（如 MMLU）较小的模型大小可能已经足够。
+
+3、逐步推理。对于小型语言模型，解决涉及多个推理步骤的复杂任务通常是个挑战，例如数学文字题。相反，通过采用链式思维（CoT）提示策略 [33]，大型语言模型（LLM）可以解决这类任务，利用中间推理步骤作为提示机制来得出最终答案。这种能力被推测可能是通过在代码上训练获得的 [33, 47]。一项实证研究 [33] 表明，当应用于模型大小超过 60B 的 PaLM 和 LaMDA 变体时，CoT 提示可以带来性能提升（在算术推理基准上），而当模型大小超过 100B 时，其优势相对于标准提示变得更加明显。此外，CoT 提示带来的性能提升似乎也因任务而异，例如，对于 PaLM 而言，GSM8K > MAWPS > SWAMP [33]。
+
+这些能力的发现表明，LLM 在解决复杂问题和适应多样化任务方面具有巨大潜力，特别是当它们达到一定的模型规模时。这种高级能力的出现可能与模型在训练过程中接触到的大量多样化数据有关，使得模型能够在没有显式训练的情况下适应新任务或解决复杂问题。这些发现为 AI 研究领域提供了新的方向，并可能为未来的模型设计和应用提供新的见解。
+
 How Emergent Abilities Relate to Scaling Laws. In existing literature [30, 31, 34], scaling laws and emergent abilities provide two perspectives to understand the advantage of large models over small models. In general, scaling law (often measured by language modeling loss) describes predictable performance relation with the potential effect of diminishing returns, while emergent abilities (often measured by task performance) are unpredictable but very profitable once such abilities actually emerge. Since the two perspectives reflect different performance trends (continuous improvement v.s. sharp performance leap), they might lead to misaligned findings or observations. There are also extensive debates on the rationality of emergent abilities. A popular speculation is that emergent abilities might be partially attributed to the evaluation setting for special tasks (e.g., the discontinuous evaluation metrics) [70, 71]: when evaluation metrics are altered accordingly, the sharpness of the emergent ability curve would disappear. However, the performance of LLMs on most tasks are perceived by users naturally in a discontinuous way. For instance, end users prefer a reliable code generated by LLMs that can successfully pass the test case, but are less interested in selecting a better code with fewer errors between two failed ones. More recently, a study [72] proposes a new evaluation setting that can enlarge the resolution of task metrics, making task performance more predictable. Despite these efforts, more fundamental research (e.g., grokking 10 ) about the working mechanism of LLMs is still in need to understand the emergence of certain abilities. The subtle relation between scaling law and emergent abilities can be explained by analogy with the ability acquisition of human 11 . Take the speaking ability as an example. For children, language development (especially infants) can be also considered as a multi-level process where “emergent abilities” occur. Specially, the language ability would relatively stable within a time interval, but qualitative change only occurs when evolving into another ability level (e.g., from speaking simple words to speaking simple sentences). Such a learning process is essentially not smooth and stable (i.e., language ability does not develop at a constant rate over time), though a child actually grows every day. It is interesting that young parents would be often surprised by unexpected progress of the speaking ability exhibited by their babies.
+
+如何理解涌现与缩放法则的关系。在现有文献中 [30, 31, 34]，缩放法则和涌现提供了理解大模型相较于小模型优势的两种视角。一般来说，缩放法则（通常通过语言建模损失衡量）描述了与潜在收益递减效应相关的可预测性能关系，而涌现（通常通过任务性能衡量）虽然不可预测，但一旦这些能力真正出现，它们会带来很大的利益。由于这两种视角反映了不同的性能趋势（连续改进与急剧性能飞跃），它们可能导致不一致的发现或观察。关于涌现的合理性，也存在广泛的争论。一个流行的猜测是，涌现可能部分归因于特殊任务的评估设置（例如，不连续的评估指标）[70, 71]：当相应地改变评估指标时，涌现曲线的急剧性可能会消失。然而，用户自然地以不连续的方式感知大多数任务上 LLM 的性能。
+
+例如，最终用户更喜欢由 LLM 生成的能成功通过测试用例的可靠代码，而不太关心在两个失败的代码中选择错误较少的那个。最近的一项研究 [72] 提出了一种新的评估设置，可以提高任务指标的分辨率，使任务性能更加可预测。尽管做出了这些努力，但为了理解某些能力的出现，仍需要更多基础性研究（例如，深刻理解 10），以了解 LLM 的工作机制。缩放法则与涌现之间微妙的关系可以通过类比人类 11 的能力获取来解释。以说话能力为例，对儿童（尤其是婴儿）来说，语言发展也可以被视为一个多层次的过程，其中会出现「涌现」。特别是，语言能力在一段时间内相对稳定，但只有在进化到另一个能力水平（例如，从说简单单词到说简单句子）时才会发生质的变化。这样的学习过程本质上是不平稳的（即语言能力不会随时间以恒定速率发展），尽管儿童实际上每天都在成长。有趣的是，年轻父母经常会对他们的孩子所展示的说话能力的意外进步感到惊讶。
 
 Key Techniques for LLMs. It has been a long way that LLMs evolve into the current state: general and capable learners. In the development process, a number of important techniques are proposed, which largely improve the capacity of LLMs. Here, we briefly list several important techniques that (potentially) lead to the success of LLMs, as follows.
 
@@ -260,6 +295,20 @@ designs an effective tuning approach that enables LLMs to follow the expected in
 • Tools manipulation. In essence, LLMs are trained as text generators over massive plain text corpora, thus performing less well on the tasks that are not best expressed in the form of text (e.g., numerical computation). In addition, their capacities are also limited to the pre-training data, e.g., the inability to capture up-to-date information. To tackle these issues, a recently proposed technique is to employ external tools to compensate for the deficiencies of LLMs [80, 81]. For example, LLMs can utilize the calculator for accurate computation [80] and employ search engines to retrieve unknown information [81]. More recently, ChatGPT has enabled the mechanism of using external plugins (existing or newly created apps) 12 , which are by analogy with the “eyes and ears” of LLMs. Such a mechanism can broadly expand the scope of capacities for LLMs.
 
 In addition, many other factors (e.g., the upgrade of hardware) also contribute to the success of LLMs. Currently, we limit our discussion to the major technical approaches and key findings for developing LLMs.
+
+LLM 的关键技术。LLM 发展到目前这个阶段：成为通用且有能力的学习者，经历了漫长的过程。在发展过程中，提出了许多重要的技术，这些技术大大提高了 LLM 的能力。在这里，我们简要列出了一些可能导致 LLM 成功的重要技术，如下。
+
+·缩放。如前文所述，变压器语言模型中存在明显的缩放效应：更大的模型 / 数据规模和更多的训练计算通常会导致模型容量的提升 [30, 34]。作为两个代表性模型，GPT-3 和 PaLM 通过将模型规模分别增加到 175B 和 540B 来探索缩放极限。由于计算预算通常有限，缩放法则可以进一步用于更高效地分配计算资源。例如，Chinchilla（使用更多训练词汇）在相同的计算预算下通过增加数据规模，胜过了其对应模型 Gopher（具有更大的模型规模）[34]。此外，数据缩放应该伴随着仔细的清洗过程，因为预训练数据的质量在模型容量中起着关键作用。
+
+·训练。由于模型规模庞大，成功训练一个有能力的 LLM 非常具有挑战性。需要分布式训练算法来学习 LLM 的网络参数，其中通常会联合使用各种并行策略。为了支持分布式训练，发布了几个优化框架来促进并行算法的实现和部署，如 DeepSpeed [74] 和 Megatron-LM [75–77]。此外，优化技巧对于训练的稳定性和模型性能也很重要，例如，重启以克服训练损失突增 [56] 和混合精度训练 [78]。更近期，GPT-4 [46] 提出开发特殊基础设施和优化方法，以便使用更小的模型可靠地预测大型模型的性能。
+
+·能力引发。在大规模语料库上预训练后，LLM 被赋予了作为通用任务解决器的潜在能力。当 LLM 执行某些特定任务时，这些能力可能不会明确地表现出来。作为技术方法，设计适当的任务指令或特定的上下文学习策略来引发这些能力是有用的。例如，已经证明链式思维提示对于通过包含中间推理步骤来解决复杂推理任务是有用的。此外，我们可以通过用自然语言表达的任务描述对 LLM 进行指令调整，以提高 LLM 在未见任务上的泛化能力。这些引发技术主要对应于 LLM 的涌现，这些能力在小型语言模型上可能不会显示出相同的效果。
+
+·对齐调整。由于 LLM 被训练以捕捉预训练语料库的数据特征（包括高质量和低质量数据），它们可能会生成有害、有偏见甚至对人类有害的内容。因此，有必要将 LLM 与人类价值观（如有益、诚实和无害）对齐。为此，InstructGPT [66] 设计了一种有效的调整方法，使 LLM 能够遵循预期的指令，该方法利用了带有人类反馈的强化学习技术 [66, 79]。它在训练循环中加入人类，并采用精心设计的标注策略。ChatGPT 实际上是基于类似于 InstructGPT 的技术开发的，展现出在产生高质量、无害回应方面的强大对齐能力，例如拒绝回答侮辱性问题。
+
+·工具操控。从本质上讲，LLM 作为文本生成器在大量普通文本语料库上进行训练，因此在不以文本形式最佳表达的任务上表现不佳（例如，数值计算）。此外，它们的能力也受限于预训练数据，例如无法捕捉最新信息。为解决这些问题，最近提出的技术是使用外部工具来弥补 LLM 的不足 [80, 81]。例如，LLM 可以使用计算器进行精确计算 [80]，并利用搜索引擎检索未知信息 [81]。最近，ChatGPT 启用了使用外部插件（现有或新创建的应用）的机制 [12]，这类似于 LLM 的「眼睛和耳朵」。这样的机制可以广泛扩展 LLM 的能力范围。
+
+此外，许多其他因素（例如硬件的升级）也促成了 LLM 的成功。目前，我们将讨论限制在开发 LLM 的主要技术方法和关键发现上。
 
 4 In existing literature, there is no formal consensus on the minimum parameter scale for LLMs, since the model capacity is also related to data size and total compute. In this survey, we take a slightly loose definition of LLMs, and mainly focus on discussing language models with a model size larger than 10B.
 
@@ -281,843 +330,55 @@ In addition, many other factors (e.g., the upgrade of hardware) also contribute 
 
 Due to the excellent capacity in communicating with humans, ChatGPT has ignited the excitement of the AI community since its release. ChatGPT is developed based on the powerful GPT model with specially optimized conversation capacities. Considering the ever-growing interest in ChatGPT and GPT models, we add a special discussion about the technical evolution of the GPT-series models, to briefly summarize the progress how they have been developed in the past years. Meanwhile, we drew a schematic diagram depicting the technological evolution of the GPT-series models in Figure 4. The basic principle underlying GPT models is to compress the world knowledge into the decoder-only Transformer model by language modeling, such that it can recover (or memorize) the semantics of world knowledge and serve as a general-purpose task solver. Two key points to the success are (I) training decoder-only Transformer language models that can accurately predict the next word and (II) scaling up the size of language models. Overall, the research of OpenAI on LLMs can be roughly divided into the following stages 13 .
 
-Early Explorations. According to one interview with Ilya Sutskever 14 (a co-founder and chief scientist of OpenAI), the idea of approaching intelligent systems with language
+由于在与人类交流方面的出色能力，ChatGPT 自发布以来激发了 AI 社区的极大兴趣。ChatGPT 是基于功能强大的 GPT 模型开发的，具有专门优化的对话能力。考虑到对 ChatGPT 和 GPT 模型不断增长的兴趣，我们特别讨论了 GPT 系列模型的技术演变，简要总结了过去几年它们的发展进程。同时，我们在图 4 中绘制了一个示意图，描述了 GPT 系列模型的技术演变。GPT 模型的基本原理是通过语言建模将世界知识压缩到仅解码器的变压器模型中，使其能够恢复（或记忆）世界知识的语义，并作为通用任务解决器。成功的两个关键点是（I）训练能够准确预测下一个词的仅解码器变压器语言模型和（II）扩大语言模型的规模。总的来说，OpenAI 在 LLM 上的研究大致可以分为以下几个阶段 13。
 
-12. https://openai.com/blog/chatgpt-plugins
-
-13. Note that the discussion of this part can be somewhat subjective. The overall viewpoints and summaries are made based on the understanding of the survey authors by reading the papers, blog articles, interview reports and APIs released by OpenAI.
-
-14. https://hackernoon.com/an-interview-with-ilya-sutskever-cofounder-of-openai
-
-models was already explored in the early days of OpenAI, while it was attempted with recurrent neural networks (RNN) [121]. With the advent of Transformer, OpenAI developed two initial GPT models, namely GPT-1 [122] and GPT-2 [26], which can be considered as the foundation to more powerful models subsequently i.e., GPT-3 and GPT-4.
+Early Explorations. According to one interview with Ilya Sutskever 14 (a co-founder and chief scientist of OpenAI), the idea of approaching intelligent systems with language models was already explored in the early days of OpenAI, while it was attempted with recurrent neural networks (RNN) [121]. With the advent of Transformer, OpenAI developed two initial GPT models, namely GPT-1 [122] and GPT-2 [26], which can be considered as the foundation to more powerful models subsequently i.e., GPT-3 and GPT-4.
 
 • GPT-1. In 2017, the Transformer model [22] was introduced by Google, and the OpenAI team quickly adapted their language modeling work to this new neural network architecture. They released the first GPT model in 2018, i.e., GPT-1 [122], and coined the abbreviation term GPT as the model name, standing for Generative Pre-Training. GPT-1 was developed based on a generative, decoder-only Transformer architecture, and adopted a hybrid approach of unsupervised pretraining and supervised fine-tuning. GPT1 has set up the core architecture for the GPT-series models and established the underlying principle to model natural language text, i.e., predicting the next word.
 
 • GPT-2. Following a similar architecture of GPT-1, GPT-2 [26] increased the parameter scale to 1.5B, which was trained with a large webpage dataset WebText. As claimed in the paper of GPT-2, it sought to perform tasks via unsupervised language modeling, without explicit fine-tuning using labeled data. To motivate the approach, they introduced a probabilistic form for multi-task solving, i.e., p(output | input, task) (similar approaches have been adopted in [123]), which predicts the output conditioned on the input and task information. To model this conditional probability, language text can be naturally employed as a unified way to format input, output and task information. In this way, the process of solving a task can be cast as a word prediction problem for generating the solution text. Further, they introduced a more formal claim for this idea: “Since the (task-specific) supervised objective is the same as the unsupervised (language modeling) objective but only evaluated on a subset of the sequence, the global minimum of the unsupervised objective is also the global minimum of the supervised objective (for various tasks)” [26] 15 . A basic understanding of this claim is that each (NLP) task can be considered as the word prediction problem based on a subset of the world text. Thus, unsupervised language modeling could be capable in solving various tasks, if it was trained to have sufficient capacity in recovering the world text. These early discussion in GPT-2’s paper echoed in the interview of Ilya Sutskever by Jensen Huang: “What the neural network learns is some representation of the process that produced the text. This text is actually a projection of the world...the more accurate you are in predicting the next word, the higher the fidelity, the more resolution you get in this process...” 16 .
 
-Capacity Leap. Although GPT-2 is intended to be an “unsupervised multitask learner”, it overall has an inferior performance compared with supervised fine-tuning state-of-the-art methods. Because it has a relatively small model size, it has been widely fine-tuned in downstream tasks, especially the dialog tasks [124, 125]. Based on GPT-2, GPT-3
+Capacity Leap. Although GPT-2 is intended to be an “unsupervised multitask learner”, it overall has an inferior performance compared with supervised fine-tuning state-of-the-art methods. Because it has a relatively small model size, it has been widely fine-tuned in downstream tasks, especially the dialog tasks [124, 125]. Based on GPT-2, GPT-3 demonstrates a key capacity leap by scaling of the (nearly same) generative pre-training architecture.
 
-15. To better understand this sentence, we put some explanation words in parentheses.
+• GPT-3. GPT-3 [55] was released in 2020, which scaled the model parameters to an ever larger size of 175B. In the GPT-3’s paper, it formally introduced the concept of in-context learning (ICL) 17 , which utilizes LLMs in a fewshot or zero-shot way. ICL can teach (or instruct) LLMs to understand the tasks in the form of natural language text. With ICL, the pre-training and utilization of LLMs converge to the same language modeling paradigm: pre-training predicts the following text sequence conditioned on the context, while ICL predicts the correct task solution, which can be also formatted as a text sequence, given the task description and demonstrations. GPT-3 not only demonstrates very excellent performance in a variety of NLP tasks, but also on a number of specially designed tasks that require the abilities of reasoning or domain adaptation. Although the GPT-3’s paper does not explicitly discuss the emergent abilities of LLMs, we can observe large performance leap that might transcend the basic scaling law [30], e.g., larger models have significantly stronger ICL ability (illustrated in the original Figure 1.2 of the GPT-3’s paper [55]). Overall, GPT-3 can be viewed as a remarkable landmark in the journey evolving from PLMs to LLMs. It has empirically proved that scaling the neural networks to a significant size can lead to a huge increase in model capacity.
 
-16. https://lifearchitect.ai/ilya/ 8
+早期探索。根据对 OpenAI 联合创始人兼首席科学家伊利亚·苏茨克沃 14 的一次采访，早在 OpenAI 成立初期，就已经探索了使用语言模型接近智能系统的想法，当时是尝试使用递归神经网络（RNN）[121]。随着变压器的出现，OpenAI 开发了两个初始的 GPT 模型，即 GPT-1 [122] 和 GPT-2 [26]，这可以被视为后来更强大的模型（即 GPT-3 和 GPT-4）的基础。
+
+·GPT-1。2017 年，谷歌推出了变压器模型 [22]，OpenAI 团队迅速将他们的语言建模工作适应这一新的神经网络架构。他们在 2018 年发布了第一个 GPT 模型，即 GPT-1 [122]，并将其简称为 GPT，代表生成式预训练（Generative Pre-Training）。GPT-1 基于生成式的仅解码器变压器架构，采用了无监督预训练和有监督微调的混合方法。GPT-1 为 GPT 系列模型奠定了核心架构，并建立了建模自然语言文本的基本原则，即预测下一个词。
+
+·GPT-2。沿用 GPT-1 的类似架构，GPT-2 [26] 将参数规模扩大到 1.5B，采用了大型网页数据集 WebText 进行训练。正如 GPT-2 论文中所声称的，它旨在通过无监督语言建模来执行任务，而无需使用标记数据进行明确的微调。为了激励这种方法，他们引入了一种多任务解决的概率形式，即 p (output | input, task)（类似的方法已在 [123] 中采用），它根据输入和任务信息预测输出。为了建模这种条件概率，可以自然地使用语言文本作为统一的格式化输入、输出和任务信息的方式。这样，解决任务的过程可以被视为生成解决方案文本的词预测问题。进一步，他们提出了这个想法的更正式声明：「由于（特定任务的）有监督目标与无监督（语言建模）目标相同，只是在序列的子集上进行评估，因此无监督目标的全局最小值也是各种任务的有监督目标的全局最小值。」[26] 15。这一声明的基本理解是，每个（NLP）任务都可以被视为基于世界文本子集的词预测问题。因此，如果无监督语言建模经过训练，具有足够的恢复世界文本的能力，它就有可能解决各种任务。GPT-2 论文中的这些早期讨论在伊利亚·苏茨克沃接受詹森·黄采访时得到了呼应：「神经网络学习的是产生文本的过程的某种表示。这种文本实际上是世界的投影…… 你在预测下一个词方面越准确，保真度越高，你在这个过程中获得的分辨率就越高......」16。
+
+能力飞跃。尽管 GPT-2 打算成为「无监督多任务学习者」，但总体上其性能不如有监督微调的最新方法。由于其模型规模相对较小，它被广泛用于下游任务的微调，特别是对话任务 [124, 125]。基于 GPT-2，GPT-3 通过扩大（几乎相同的）生成式预训练架构展示了关键的能力飞跃。
+
+·GPT-3。GPT-3 [55] 于 2020 年发布，其模型参数规模扩大到了前所未有的 175B。在 GPT-3 的论文中，正式引入了上下文学习（ICL）17 的概念，该概念利用 LLM 进行少样本或零样本学习。ICL 可以教导（或指导）LLM 以自然语言文本的形式理解任务。通过 ICL，LLM 的预训练和利用融合为相同的语言建模范式：预训练基于上下文预测后续文本序列，而 ICL 在给定任务描述和演示的情况下预测正确的任务解决方案，这也可以格式化为文本序列。GPT-3 不仅在多种 NLP 任务中展示了非常出色的性能，还在一些特别设计的任务中表现出色，这些任务需要推理或领域适应能力。尽管 GPT-3 的论文没有明确讨论 LLM 的突现能力，但我们可以观察到可能超越基本缩放法则 [30] 的大幅性能飞跃，例如，更大的模型具有显著更强的 ICL 能力（如 GPT-3 论文 [55] 原始图 1.2 所示）。总体而言，GPT-3 可以被视为从 PLM 到 LLM 演变过程中的一个显著里程碑。它已经实证表明，将神经网络扩展到显著规模可以导致模型容量的巨大增加。
+
+·GPT-4 及未来发展。GPT-4，作为 GPT 系列的最新进展，继续沿着这一路径推进，不仅在模型规模和能力上取得了进一步的提升，还在模型的适应性和可靠性方面做了创新。GPT-4 的发布标志着 LLM 在技术上的进一步成熟，展示了在处理更广泛、更复杂任务方面的巨大潜力。随着 GPT 系列的不断发展，我们可以预期未来的模型将在理解和生成语言方面达到更高的水平，同时在与人类用户交互时提供更加精准、富有洞察力的回应。这些进步不仅推动了人工智能领域的研究，也为实际应用开辟了新的可能性，包括但不限于增强创造力、提高工作效率和改善人机交互体验。随着技术的不断进步和应用场景的拓展，GPT 系列模型无疑将在未来继续引领人工智能领域的发展方向。
 
 TABLE 1: Statistics of large language models (having a size larger than 10B in this survey) in recent years, including the capacity evaluation, pre-training data scale (either in the number of tokens or storage size) and hardware resource costs. In this table, we only include LLMs with a public paper about the technical details. Here, “Release Time” indicates the date when the corresponding paper was officially released. “Publicly Available” means that the model checkpoints can be publicly accessible while “Closed Source” means the opposite. “Adaptation” indicates whether the model has been with subsequent fine-tuning: IT denotes instruction tuning and RLHF denotes reinforcement learning with human feedback. “Evaluation” indicates whether the model has been evaluated with corresponding abilities in their original paper: ICL denotes in-context learning and CoT denotes chain-of-thought. “*” denotes the largest publicly available version.
 
-Model
-
-Release Time
-
-Oct-2019 Oct-2020 Apr-2021 Jun-2021 Oct-2021 Mar-2022 Apr-2022 Apr-2022 May-2022 May-2022 Jul-2022 Sep-2022 Oct-2022 Oct-2022 Nov-2022 Nov-2022 Nov-2022 Nov-2022 Dec-2022 Feb-2023 Apr-2023 May-2023 May-2023 Jul-2023 Sep-2023 Sep-2023 Sep-2023 Oct-2023
-
-Size (B)
-
-11
-
-13
-
-13*
-
-198
-
-11
-
-16
-
-20
-
-11
-
-20
-
-175
-
-54.5
-
-13
-
-130
-
-11
-
-176
-
-13
-
-120
-
-176
-
-175
-
-65
-
-12
-
-16
-
-15.5
-
-70
-
-13
-
-14
-
-101
-
-13
-
-Base Model
-
--
-
--
-
--
-
-T5
-
--
-
-T5
-
--
-
--
-
--
-
--
-
-T5
-
-mT5
-
-BLOOM OPT
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
-Adaptation IT RLHF
-
-Pre-train Data Scale
-
-1T tokens 1T tokens
-
-1.1TB
-
-2.6TB
-
-577B tokens 825GB
-
-1T tokens 180B tokens
-
-850B tokens 400B tokens
-
-366B tokens
-
-106B tokens
-
--
-
--
-
-1.4T tokens 300B tokens 400B tokens 1T tokens 2T tokens
-
-2.6T tokens 3T tokens 311B tokens
-
-3.2T tokens
-
-300B tokens 1T tokens 100B tokens 375B tokens 300B tokens 300B tokens
-
-180B tokens 400B tokens
-
-300B tokens
-
-280B tokens 768B tokens 270B tokens 967B tokens
-
--
-
-1.4T tokens 780B tokens
-
-1.3T tokens
-
-300B tokens
-
--
-
--
-
--
-
-329B tokens 100B tokens
-
-Latest Data Timestamp
-
-Apr-2019
-
--
-
--
-
--
-
--
-
--
-
--
-
-Apr-2019
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
-May-2020
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
-Jul-2021
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
-Hardware (GPUs / TPUs)
-
-1024 TPU v3
-
--
-
-2048 Ascend 910
-
-512 TPU v3
-
-96 40G A100 256 TPU v3 512 TPU v4 992 80G A100
-
--
-
-1536 Ascend 910 768 40G A100
-
-384 80G A100
-
--
-
--
-
-128 40G A100 2048 80G A100 256 40G A100
-
-512 40G A100 2000 80G A100 1024 A800
-
-192 A800 512 80G A800
-
-2048 TPU v3
-
-384 V100 800 GPU 1024 A100 128 TPU v3 2128 GPU
-
--
-
-4096 TPU v3
-
-1024 TPU v4 1024 TPU v3 4480 80G A100
-
--
-
--
-
-6144 TPU v4 128 A100 64 TPU v3 128 A100 40G 512 TPU v4 512 TPU v4
-
--
-
--
-
-512 Ascend 910
-
--
-
-Training Evaluation Time ICL CoT
-
-T5 [82] mT5 [83] PanGu- α [84] CPM-2 [85] T0 [28] CodeGen [86] GPT-NeoX-20B [87] Tk-Instruct [88] UL2 [89] OPT [90] NLLB [91] CodeGeeX [92] GLM [93] Flan-T5 [69] BLOOM [78] mT0 [94] Galactica [35] BLOOMZ [94] Publicly OPT-IML [95] Available LLaMA [57] Pythia [96] CodeGen2 [97] StarCoder [98] LLaMA2 [99] Baichuan2 [100] QWEN [101] FLM [102] Skywork [103]
-
--
-
--
-
--
-
-✓
-
--
-
-✓
-
--
-
--
-
--
-
--
-
-✓
-
-✓
-
-✓ ✓
-
--
-
--
-
--
-
-✓ ✓ ✓ ✓
-
--
-
-GPT-3 [55] May-2020 175 - GShard [104] Jun-2020 600 - Codex [105] Jul-2021 12 GPT-3 ERNIE 3.0 [106] Jul-2021 10 - Jurassic-1 [107] Aug-2021 178 - HyperCLOVA [108] Sep-2021 82 - FLAN [67] Sep-2021 137 LaMDA-PT ✓ Yuan 1.0 [109] Oct-2021 245 - Anthropic [110] Dec-2021 52 - WebGPT [81] Dec-2021 175 GPT-3 Gopher [64] Dec-2021 280 - ERNIE 3.0 Titan [111] Dec-2021 260 - GLaM [112] Dec-2021 1200 - LaMDA [68] Jan-2022 137 - MT-NLG [113] Jan-2022 530 - AlphaCode [114] Feb-2022 41 - InstructGPT [66] Mar-2022 175 GPT-3 ✓ Chinchilla [34] Mar-2022 70 - PaLM [56] Apr-2022 540 - AlexaTM [115] Aug-2022 20 - Sparrow [116] Sep-2022 70 - WeLM [117] Sep-2022 10 - U-PaLM [118] Oct-2022 540 PaLM Flan-PaLM [69] Oct-2022 540 PaLM ✓ Flan-U-PaLM [69] Oct-2022 540 U-PaLM ✓ GPT-4 [46] Mar-2023 - - ✓ PanGu-Σ [119] Mar-2023 1085 PanGu- α PaLM2 [120] May-2023 16 - ✓
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
-✓ ✓ ✓
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
-✓
-
--
-
--
-
--
-
--
-
--
-
-✓
-
--
-
--
-
-✓
-
--
-
--
-
--
-
-✓
-
--
-
--
-
--
-
--
-
--
-
-27 h
-
--
-
-4h
-
--
-
--
-
-60 d 60 d
-
-105 d
-
--
-
--
-
--
-
-21 d
-
--
-
--
-
--
-
--
-
--
-
-22 d
-
--
-
-4d
-
--
-
--
-
--
-
-13.4 d 60 h
-
--
-
--
-
-920 h
-
-574 h
-
-57.7 d
-
--
-
--
-
--
-
--
-
-120 d
-
-24 d 5d 37 h
-
--
-
-100 d
-
--
-
-✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓
-
-✓
-
-✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓
-
-✓
-
-✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
-✓
-
--
-
--
-
--
-
-✓
-
--
-
-✓
-
-✓
-
--
-
--
-
-✓
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
--
-
-Closed Source
-
--
-
--
-
-✓ ✓
-
--
-
-✓ ✓ ✓ ✓
-
-✓ 9
-
-T5
-
-GShard mT5
-
-Publicly Available
-
-2019 GPT-3
-
-2020
-
-Codex
-
-2021
-
-1-4
-
-5-8
-
-PanGu-𝛂 PLUG
-
-Ernie 3.0 Jurassic-1 CPM-2
-
-T0 HyperCLOVA
-
-9-10
-
-FLAN Yuan 1.0
-
-Anthropic WebGPT Ernie 3.0 Titan Gopher GLaM
-
-BLOOM mT0 BLOOMZ Galatica OPT-IML
-
-InstructGPT CodeGen MT-NLG CodeGeeX GLM AlexaTM WeLM
-
-OPT GPT-NeoX-20B Tk-Instruct Cohere
-
-11-12
-
-2022
-
-1-3
-
-4-6
-
-LaMDA AlphaCode Chinchilla RWKV UL2 Sparrow PaLM Flan-T5 YaLM Flan-PaLM Luminous 7-10 NLLB 11-12
-
-2023
-
-Pythia Vicuna PanGu-Σ Bard LLaMA
-
-InternLM MPT Baichuan PaLM2 CodeGen2 StarCoder Falcon
-
-Baichuan2 QWEN FLM Aquila2 Skywork XVERSE Grok-1
-
-1-4
-
-5-8
-
-9-11
-
-ChatGPT
-
-GPT-4
-
-LLaMA2
-
 Fig. 3: A timeline of existing large language models (having a size larger than 10B) in recent years. The timeline was established mainly according to the release date (e.g., the submission date to arXiv) of the technical paper for a model. If there was not a corresponding paper, we set the date of a model as the earliest time of its public release or announcement. We mark the LLMs with publicly available model checkpoints in yellow color. Due to the space limit of the figure, we only include the LLMs with publicly reported evaluation results.
-
-ChatGPT
-
-GPT-1
-
-2018.06
-
-decoder-only architecture generative pre-training
-
-code-davinci-002
-
-GPT-2
-
-2019.02
-
-unsupervised multitask learner scaling the model size
-
-+instruction
-
-text-davinci-002
-
-GPT-3
-
-2020.05
-
-+code
-
-Codex
-
-2021.07
-
-code pre-training
-
-GPT-3.5
-
-2022.03
-
-GPT-4
-
-2023.03
-
-in-context learning exploring scaling limits
-
-strong reasoning ability
-
-GPT-4 Turbo
-
-2023.09
-
-+RLHF
-
-+chat
-
-longer context window
-
-text-davinci-003
-
-2022.09
-
-human alignment
-
-gpt-3.5-turbo
-
-2022.03
-
-capable code model
-
-2022.03
-
-instruction following
-
-2023.03
-
-excellent comprehensive ability
-
-GPT-4 Turbo with vision
-
-2023.09
-
-multimodal ability
 
 Fig. 4: A brief illustration for the technical evolution of GPT-series models. We plot this figure mainly based on the papers, blog articles and official APIs from OpenAI. Here, solid lines denote that there exists an explicit evidence (e.g., the official statement that a new model is developed based on a base model) on the evolution path between two models, while dashed lines denote a relatively weaker evolution relation.
 
-demonstrates a key capacity leap by scaling of the (nearly same) generative pre-training architecture.
+表 1：近年来大型语言模型（本调查中规模超过 10B）的统计数据，包括能力评估、预训练数据规模（以词汇数量或存储大小表示）和硬件资源成本。在这个表格中，我们仅包括那些有关技术细节公开论文的 LLM。此处，「发布时间」指的是相应论文正式发布的日期。「公开可用」意味着模型检查点可以公开访问，而「闭源」则意味着相反。「适应性」指模型是否经过后续微调：IT 代表指令调整，RLHF 代表带有人类反馈的强化学习。「评估」指模型是否在原始论文中被评估具有相应能力：ICL 代表上下文学习，CoT 代表链式思维。「*」代表最大的公开可用版本。
 
-• GPT-3. GPT-3 [55] was released in 2020, which scaled the model parameters to an ever larger size of 175B. In the GPT-3’s paper, it formally introduced the concept of in-context learning (ICL) 17 , which utilizes LLMs in a fewshot or zero-shot way. ICL can teach (or instruct) LLMs to understand the tasks in the form of natural language text. With ICL, the pre-training and utilization of LLMs converge to the same language modeling paradigm: pre-training predicts the following text sequence conditioned on the context, while ICL predicts the correct task solution, which can be also formatted as a text sequence, given the task description
+图 3：近年来大型语言模型（规模超过 10B）的时间线。这个时间线主要根据模型的技术论文发布日期（例如，提交到 arXiv 的日期）建立。如果没有相应的论文，我们将模型的日期设定为其公开发布或公告的最早时间。我们用黄色标记了具有公开可用模型检查点的 LLM。由于图形空间限制，我们仅包括公开报道评估结果的 LLM。
 
-17. GPT-2 essentially used ICL for unsupervised task learning, though it wasn’t called ICL at that time.
+图 4：GPT 系列模型技术演变的简要说明。我们主要根据 OpenAI 的论文、博客文章和官方 API 绘制此图。这里，实线表示两个模型之间演变路径上存在明确证据（例如，官方声明一个新模型是基于基础模型开发的），而虚线表示相对较弱的演变关系。
 
-and demonstrations. GPT-3 not only demonstrates very excellent performance in a variety of NLP tasks, but also on a number of specially designed tasks that require the abilities of reasoning or domain adaptation. Although the GPT-3’s paper does not explicitly discuss the emergent abilities of LLMs, we can observe large performance leap that might transcend the basic scaling law [30], e.g., larger models have significantly stronger ICL ability (illustrated in the original Figure 1.2 of the GPT-3’s paper [55]). Overall, GPT-3 can be viewed as a remarkable landmark in the journey evolving from PLMs to LLMs. It has empirically proved that scaling the neural networks to a significant size can lead to a huge increase in model capacity.
-
-Capacity Enhancement. Due to the strong capacities, GPT3 has been the base model to develop even more capable 10
-
-LLMs for OpenAI. Overall, OpenAI has explored two major approaches to further improving the GPT-3 model, i.e., training on code data and alignment with human preference, which are detailed as follows.
+Capacity Enhancement. Due to the strong capacities, GPT3 has been the base model to develop even more capable 10 LLMs for OpenAI. Overall, OpenAI has explored two major approaches to further improving the GPT-3 model, i.e., training on code data and alignment with human preference, which are detailed as follows.
 
 • Training on code data. A major limitation of the original GPT-3 model (pre-trained on plain text) lies in the lack of the reasoning ability on complex tasks, e.g., completing the code and solving math problems. To enhance this ability, Codex [105] was introduced by OpenAI in July 2021, which was a GPT model fine-tuned on a large corpus of GitHub code. It demonstrated that Codex can solve very difficult programming problems, and also lead to a significant performance improvement in solving math problems [126]. Further, a contrastive approach [127] to training text and code embedding was reported in January 2022, which was shown to improve a series of related tasks (i.e., linearprobe classification, text search and code search). Actually, the GPT-3.5 models are developed based on a code-based GPT model (i.e., code-davinci-002), which indicates that training on code data is a very useful practice to improve the model capacity of GPT models, especially the reasoning ability. Furthermore, there is also a speculation that training on code data can greatly increase the chain-of-thought prompting abilities of LLMs [47], while it is still worth further investigation with more thorough verification.
 
 • Human alignment. The related research of human alignment can be dated back to the year 2017 (or earlier) for OpenAI: a blog article entitled “learning from human preferences” 18 was posted on the OpenAI blog describing a work that applied reinforcement learning (RL) to learn from the preference comparisons annotated by humans [79] (similar to the reward training step in the aligning algorithm of InstructGPT in Figure 12). Shortly after the release of this RL paper [79], the paper of the Proximal Policy Optimization (PPO) [128] was published in July 2017, which now has been the foundational RL algorithm for learning from human preferences [66]. Later in January 2020, GPT-2 was finetuned using the aforementioned RL algorithms [79, 128], which leveraged human preferences to improve the capacities of GPT-2 on NLP tasks. In the same year, another work [129] trained a summarization model for optimizing human preferences in a similar way. Based on these prior work, InstructGPT [66] was proposed in January 2022 to improve the GPT-3 model for human alignment, which formally established a three-stage reinforcement learning from human feedback (RLHF) algorithm. Note that it seems that the wording of “instruction tuning” has seldom been used in OpenAI’s paper and documentation, which is substituted by supervised fine-tuning on human demonstrations (i.e., the first step of the RLHF algorithm [66]). In addition to improving the instruction following capacity, the RLHF algorithm is particularly useful to mitigate the issues of generating harm or toxic content for LLMs, which is key to the safe deployment of LLMs in practice. OpenAI describes their approach to alignment research in a technical article [130], which has summarized three promising directions: “training AI systems to use human feedback, to assist human evaluation and to do alignment research”.
 
-These enhancement techniques lead to the improved
+能力增强。由于其强大的能力，GPT-3 已成为 OpenAI 开发更有能力的 LLM 的基础模型。总体来说，OpenAI 探索了两种主要方法来进一步改进 GPT-3 模型，即在代码数据上训练和与人类偏好对齐，具体如下。
 
-18. https://openai.com/research/learning-from-human-preferences
+·在代码数据上训练。原始 GPT-3 模型（在纯文本上预训练）的一个主要局限在于缺乏解决复杂任务的推理能力，例如完成代码和解决数学问题。为了增强这种能力，OpenAI 于 2021 年 7 月推出了 Codex [105]，这是一个在大量 GitHub 代码库上微调的 GPT 模型。它证明了 Codex 可以解决非常困难的编程问题，并在解决数学问题方面取得了显著的性能提升 [126]。进一步地，2022 年 1 月报道了一种训练文本和代码嵌入的对比方法 [127]，该方法被证明可以改善一系列相关任务（即线性探测分类、文本搜索和代码搜索）。实际上，GPT-3.5 模型是基于基于代码的 GPT 模型（即 code-davinci-002）开发的，这表明在代码数据上训练是提高 GPT 模型（尤其是推理能力）容量的非常有用的实践。此外，也有猜测认为在代码数据上训练可以大大增加 LLM 的链式思维提示能力 [47]，尽管这还值得通过更彻底的验证进一步调查。
 
-GPT-3 models with stronger capacities, which are called GPT-3.5 models by OpenAI (see the discussion about the OpenAI API in Section 3.1).
+·人类对齐。与人类对齐的相关研究可以追溯到 2017 年（或更早）的 OpenAI：OpenAI 博客上发表了一篇名为「从人类偏好中学习」18 的博文，描述了一项应用强化学习（RL）从人类标注的偏好比较中学习的工作 [79]（类似于 InstructGPT 中对齐算法的奖励训练步骤图 12）。在这篇 RL 论文 [79] 发布后不久，近端策略优化（PPO）[128] 的论文于 2017 年 7 月发布，现在已成为从人类偏好中学习的基础 RL 算法 [66]。后来在 2020 年 1 月，GPT-2 使用上述 RL 算法 [79, 128] 进行了微调，利用人类偏好提高了 GPT-2 在 NLP 任务上的能力。同年，另一项工作 [129] 以类似方式训练了一个优化人类偏好的摘要模型。基于这些先前工作，InstructGPT [66] 于 2022 年 1 月提出，旨在改进 GPT-3 模型以实现人类对齐，正式建立了三阶段的人类反馈强化学习（RLHF）算法。值得注意的是，在 OpenAI 的论文和文档中似乎很少使用「指令调整」这个词汇，而是用人类演示的有监督微调代替（即 RLHF 算法 [66] 的第一步）。除了提高遵循指令的能力外，RLHF 算法特别有助于减轻 LLM 生成有害或有毒内容的问题，这对于 LLM 在实践中的安全部署至关重要。OpenAI 在一篇技术文章 [130] 中描述了他们对齐研究的方法，总结了三个有前景的方向：「训练 AI 系统使用人类反馈、协助人类评估和进行对齐研究」。
+
+These enhancement techniques lead to the improved GPT-3 models with stronger capacities, which are called GPT-3.5 models by OpenAI (see the discussion about the OpenAI API in Section 3.1).
 
 The Milestones of Language Models. Based on all the exploration efforts, two major milestones have been achieved by OpenAI, namely ChatGPT [131] and GPT-4 [46], which have largely raised the capacity bar of existing AI systems.
 
@@ -1125,19 +386,45 @@ The Milestones of Language Models. Based on all the exploration efforts, two maj
 
 • GPT-4. As another remarkable progress, GPT-4 [46] was released in March 2023, which extended the text input to multimodal signals. Overall, GPT-4 has stronger capacities in solving complex tasks than GPT-3.5, showing a large performance improvement on many evaluation tasks. A recent study [41] investigated the capacities of GPT-4 by conducting qualitative tests with human-generated problems, spanning a diverse range of difficult tasks, and showed that GPT-4 can achieve more superior performance than prior GPT models such as ChatGPT. Furthermore, GPT-4 responds more safely to malicious or provocative queries, due to a six-month iterative alignment (with an additional safety reward signal in the RLHF training). In the technical report, OpenAI has emphasized how to safely develop GPT-4 and applied a number of intervention strategies to mitigate the possible issues of LLMs, such as hallucinations, privacy and overreliance. For example, they introduced the mechanism called red teaming [132] to reduce the harm or toxic content generation. As another important aspect, GPT4 has been developed on a well-established deep learning infrastructure with improved optimization methods. They introduced a new mechanism called predictable scaling that can accurately predict the final performance with a small proportion of compute during model training.
 
-• GPT-4V, GPT-4 turbo, and beyond. Based on the work done for GPT-4 [46], OpenAI further released GPT-4V in September 2023, which focused on the safe deployment of the vision capabilities of GPT-4. In the GPT-4V’s system card [133], it has extensively discussed the assessment and mitigation of risks related to visually augmented inputs. Specially, GPT-4V exhibited strong vision capacities in various application scenarios, showing the great potential as 11
-
-a powerful multimodal learning system. More recently, in November 2023, OpenAI released an upgraded generation of GPT-4 model at DevDay, named GPT-4 Turbo, with a series of technical improvements. GPT-4 Turbo is featured by the improved model capacity (more capable than GPT4), the extended knowledge source (up to April 2023), long context window (up to 128k tokens), optimized model performance (cheaper price), and other useful functionality updates (function call, reproducible outputs, etc.). At the same time, Assistants API was launched to ease the rapid development of agent-like assistants. With this API, developers can easily create goal-oriented assistants within their applications, by leveraging specific instruction, extra knowledge and tool use. Furthermore, multimodal capacities (see, hear, and speak) were also enhanced in this new release, supported by GPT-4 Turbo with vision, DALL·E 3, Text-to-speech (TTS), and Listen to voice samples. These improvements have greatly extended the capacity scope and enhanced the task performance of GPT models. More importantly, the application ecosystem will be greatly strengthened with the technology upgrade in improved models, APIs, and functionalities.
+• GPT-4V, GPT-4 turbo, and beyond. Based on the work done for GPT-4 [46], OpenAI further released GPT-4V in September 2023, which focused on the safe deployment of the vision capabilities of GPT-4. In the GPT-4V’s system card [133], it has extensively discussed the assessment and mitigation of risks related to visually augmented inputs. Specially, GPT-4V exhibited strong vision capacities in various application scenarios, showing the great potential as 11 a powerful multimodal learning system. More recently, in November 2023, OpenAI released an upgraded generation of GPT-4 model at DevDay, named GPT-4 Turbo, with a series of technical improvements. GPT-4 Turbo is featured by the improved model capacity (more capable than GPT4), the extended knowledge source (up to April 2023), long context window (up to 128k tokens), optimized model performance (cheaper price), and other useful functionality updates (function call, reproducible outputs, etc.). At the same time, Assistants API was launched to ease the rapid development of agent-like assistants. With this API, developers can easily create goal-oriented assistants within their applications, by leveraging specific instruction, extra knowledge and tool use. Furthermore, multimodal capacities (see, hear, and speak) were also enhanced in this new release, supported by GPT-4 Turbo with vision, DALL·E 3, Text-to-speech (TTS), and Listen to voice samples. These improvements have greatly extended the capacity scope and enhanced the task performance of GPT models. More importantly, the application ecosystem will be greatly strengthened with the technology upgrade in improved models, APIs, and functionalities.
 
 Despite the huge progress, there are still limitations with these superior LLMs, e.g., generating hallucinations with factual errors or potentially risky response within some specific context [46]. More limitations or issues of LLMs will be discussed in Section 7. It poses long-standing research challenges to develop more capable, safer LLMs. From the perspective of engineering, OpenAI has adopted an iterative deployment strategy [134] to develop the models and products by following a five-stage development and deployment life-cycle, which aims to effectively reduce the potential risks of using the models. In the following, we will dive into the technical details in order to have a specific understanding of how they have been developed.
 
-3
+能力增强。凭借其强大的能力，GPT-3 成为 OpenAI 开发更高能力的 LLM 的基础模型。总的来说，OpenAI 探索了两种主要方法来进一步改进 GPT-3 模型，即在代码数据上训练和与人类偏好对齐，具体如下。
 
-R ESOURCES OF LLM S
+·在代码数据上训练。原始 GPT-3 模型（在纯文本上预训练）的主要局限之一在于缺乏解决复杂任务（如编写代码和解决数学问题）的推理能力。为了增强这种能力，OpenAI 在 2021 年 7 月推出了 Codex [105]，这是一个在大量 GitHub 代码库上微调的 GPT 模型。它证明了 Codex 能够解决非常复杂的编程问题，并在解决数学问题方面取得了显著的性能提升 [126]。此外，2022 年 1 月报道了一种训练文本和代码嵌入的对比方法 [127]，该方法被证明可以改善一系列相关任务。实际上，GPT-3.5 模型是基于基于代码的 GPT 模型（即 code-davinci-002）开发的，表明在代码数据上训练是提高 GPT 模型容量的有用实践。
+
+·人类对齐。与人类对齐的相关研究可以追溯到 2017 年的 OpenAI：OpenAI 博客上发表了一篇名为「从人类偏好中学习」的博文 [79]，描述了一项应用强化学习（RL）从人类注解的偏好比较中学习的工作。GPT-2 使用上述 RL 算法 [79, 128] 进行了微调，利用人类偏好提高了 GPT-2 在 NLP 任务上的能力。基于这些先前的工作，InstructGPT [66] 于 2022 年 1 月提出，旨在改进 GPT-3 模型以实现人类对齐，正式建立了三阶段的人类反馈强化学习（RLHF）算法。此外，RLHF 算法特别有助于减轻 LLM 生成有害或有毒内容的问题，这对于 LLM 在实践中的安全部署至关重要。
+
+·语言模型的里程碑。凭借所有的探索努力，OpenAI 已经实现了两个重要的里程碑，即 ChatGPT [131] 和 GPT-4 [46]，它们大大提高了现有 AI 系统的能力。
+
+·ChatGPT。2022 年 11 月，OpenAI 发布了基于 GPT 模型（GPT-3.5 和 GPT-4）的对话模型 ChatGPT。ChatGPT 在类似于 InstructGPT 的方式下进行了训练，同时专门针对对话进行了优化。它结合了人类生成的对话（扮演用户和 AI 的角色）与 InstructGPT 数据集，以对话格式进行 ChatGPT 的训练。
+
+·GPT-4。作为另一个显著进展，GPT-4 [46] 于 2023 年 3 月发布，将文本输入扩展到多模态信号。总体而言，GPT-4 在解决复杂任务方面比 GPT-3.5 具有更强的能力，展示了在许多评估任务上的大幅性能提升。
+
+·GPT-4V、GPT-4 Turbo 及未来发展。基于 GPT-4 [46] 的工作，OpenAI 在 2023 年 9 月进一步发布了 GPT-4V，专注于 GPT-4 视觉能力的安全部署。更近期的 2023 年 11 月，OpenAI 在 DevDay 发布了 GPT-4 的升级版 GPT-4 Turbo，带来了一系列技术改进。GPT-4 Turbo 具有更强的模型容量、扩展的知识来源、更长的上下文窗口、优化的模型性能和其他实用功能更新。
+
+尽管取得了巨大进展，这些优越的 LLM 仍存在局限性，例如在某些特定情境下产生错误的幻觉或潜在风险的回应 [46]。LLM 的更多局限性或问题将在第 7 节中讨论。从工程学角度来看，OpenAI 采用了迭代部署策略 [134]，通过遵循五阶段的开发和部署生命周期来开发模型和产品，旨在有效降低使用模型的潜在风险。接下来，我们将深入技术细节，以更具体地了解它们是如何被开发的。
+
+12 https://openai.com/blog/chatgpt-plugins
+
+13 Note that the discussion of this part can be somewhat subjective. The overall viewpoints and summaries are made based on the understanding of the survey authors by reading the papers, blog articles, interview reports and APIs released by OpenAI.
+
+14 https://hackernoon.com/an-interview-with-ilya-sutskever-cofounder-of-openai
+
+15 To better understand this sentence, we put some explanation words in parentheses.
+
+16 https://lifearchitect.ai/ilya/
+
+17 GPT-2 essentially used ICL for unsupervised task learning, though it wasn’t called ICL at that time.
+
+18 https://openai.com/research/learning-from-human-preferences
+
+### 03 Resources of LLMs
 
 It is by no means an easy job to develop or reproduce LLMs, considering the challenging technical issues and huge demands of computation resources. A feasible way is to learn experiences from existing LLMs and reuse publicly available resources for incremental development or experimental study. In this section, we briefly summarize the publicly available resources for developing LLMs, including model checkpoints (or APIs), corpora and libraries.
 
-3.1 Publicly Available Model Checkpoints or APIs
+#### 3.1 Publicly Available Model Checkpoints or APIs
 
 Given the huge cost of model pre-training, well-trained model checkpoints are critical to the study and development of LLMs for the research community. Since the parameter scale is a key factor to consider for using LLMs, we categorize these public models into two scale levels (i.e., tens of billions of parameters and hundreds of billions of parameters), which is useful for users to identify the suitable resources according to their resource budget. In addition, for inference, we can directly employ public APIs to perform our tasks, without running the model locally. Next, we introduce the publicly available model checkpoints and APIs.
 
@@ -1327,7 +614,7 @@ Categories Collections
 
 Time
 
-#Examples
+Examples
 
 Task
 
@@ -1761,23 +1048,6 @@ Bias
 
 ✓ × × × ✓ ×
 
-#L
-
-96
-
-64
-
-96
-
-118
-
-70
-
-105
-
-80
-
-80
 
 96
 
@@ -1795,11 +1065,6 @@ Bias
 
 24
 
-#H
-
-96
-
-128
 
 96
 
@@ -5797,7 +5062,7 @@ Let’s use python to solve math problems. Here are three examples how to do it,
 
 I want you act as a code completer. Given a code snippet, your objective is to complete the code and ensure that it can achieve the described functionality.
 
-### Complete sqlite SQL query only and with no explanation. \ n # \ n### Sqlite SQL tables, with their properties: \ n# \ n { table }\ n# { foreign_key }\ n# \ n### { question }\ n SELECT
+`### Complete sqlite SQL query only and with no explanation. \ n # \ n### Sqlite SQL tables, with their properties: \ n# \ n { table }\ n# { foreign_key }\ n# \ n### { question }\ n SELECT`
 
 I’ve watched the following movies in the past in order: \ n { user_his_text } \ n \ n Now there are { recall_budget } candidate movies that I can watch next: \ n { candidate_text_order } \ n Please rank these { recall_budget } movies by measuring the possibilities that I would like to watch next most, according to my watching history. Please think step by step. \ n Note that my most recently watched movie is { recent_item } . Please show me your ranking results with order numbers. Split your output with line break. You MUST rank the given candidate movies. You can not generate movies that are not in the given candidate list.
 
@@ -6271,7 +5536,7 @@ Contribution on Tips. We list the following guys for their contributions on the 
 
 • Salvatore Raieli: C4
 
-R EFERENCES
+### References
 
 [1] Y. Bengio, R. Ducharme, P. Vincent, and C. Janvin, “A neural probabilistic language model,” J. Mach. Learn. Res., vol. 3, pp. 1137–1155, 2003.
 
