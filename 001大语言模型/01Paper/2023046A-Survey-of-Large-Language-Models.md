@@ -374,6 +374,11 @@ Capacity Enhancement. Due to the strong capacities, GPT3 has been the base model
 
 能力增强。由于其强大的能力，GPT-3 已成为 OpenAI 开发更有能力的 LLM 的基础模型。总体来说，OpenAI 探索了两种主要方法来进一步改进 GPT-3 模型，即在代码数据上训练和与人类偏好对齐，具体如下。
 
+
+
+
+
+
 ·在代码数据上训练。原始 GPT-3 模型（在纯文本上预训练）的一个主要局限在于缺乏解决复杂任务的推理能力，例如完成代码和解决数学问题。为了增强这种能力，OpenAI 于 2021 年 7 月推出了 Codex [105]，这是一个在大量 GitHub 代码库上微调的 GPT 模型。它证明了 Codex 可以解决非常困难的编程问题，并在解决数学问题方面取得了显著的性能提升 [126]。进一步地，2022 年 1 月报道了一种训练文本和代码嵌入的对比方法 [127]，该方法被证明可以改善一系列相关任务（即线性探测分类、文本搜索和代码搜索）。实际上，GPT-3.5 模型是基于基于代码的 GPT 模型（即 code-davinci-002）开发的，这表明在代码数据上训练是提高 GPT 模型（尤其是推理能力）容量的非常有用的实践。此外，也有猜测认为在代码数据上训练可以大大增加 LLM 的链式思维提示能力 [47]，尽管这还值得通过更彻底的验证进一步调查。
 
 ·人类对齐。与人类对齐的相关研究可以追溯到 2017 年（或更早）的 OpenAI：OpenAI 博客上发表了一篇名为「从人类偏好中学习」18 的博文，描述了一项应用强化学习（RL）从人类标注的偏好比较中学习的工作 [79]（类似于 InstructGPT 中对齐算法的奖励训练步骤图 12）。在这篇 RL 论文 [79] 发布后不久，近端策略优化（PPO）[128] 的论文于 2017 年 7 月发布，现在已成为从人类偏好中学习的基础 RL 算法 [66]。后来在 2020 年 1 月，GPT-2 使用上述 RL 算法 [79, 128] 进行了微调，利用人类偏好提高了 GPT-2 在 NLP 任务上的能力。同年，另一项工作 [129] 以类似方式训练了一个优化人类偏好的摘要模型。基于这些先前工作，InstructGPT [66] 于 2022 年 1 月提出，旨在改进 GPT-3 模型以实现人类对齐，正式建立了三阶段的人类反馈强化学习（RLHF）算法。值得注意的是，在 OpenAI 的论文和文档中似乎很少使用「指令调整」这个词汇，而是用人类演示的有监督微调代替（即 RLHF 算法 [66] 的第一步）。除了提高遵循指令的能力外，RLHF 算法特别有助于减轻 LLM 生成有害或有毒内容的问题，这对于 LLM 在实践中的安全部署至关重要。OpenAI 在一篇技术文章 [130] 中描述了他们对齐研究的方法，总结了三个有前景的方向：「训练 AI 系统使用人类反馈、协助人类评估和进行对齐研究」。
@@ -424,175 +429,57 @@ Despite the huge progress, there are still limitations with these superior LLMs,
 
 It is by no means an easy job to develop or reproduce LLMs, considering the challenging technical issues and huge demands of computation resources. A feasible way is to learn experiences from existing LLMs and reuse publicly available resources for incremental development or experimental study. In this section, we briefly summarize the publicly available resources for developing LLMs, including model checkpoints (or APIs), corpora and libraries.
 
+开发或复制 LLM 绝非易事，考虑到技术挑战和巨大的计算资源需求。一个可行的方法是从现有的 LLM 中学习经验，并重用公开可用的资源进行增量开发或实验研究。在本节中，我们简要总结了用于开发 LLM 的公开可用资源，包括模型检查点（或 API）、语料库和库。
+
 #### 3.1 Publicly Available Model Checkpoints or APIs
 
 Given the huge cost of model pre-training, well-trained model checkpoints are critical to the study and development of LLMs for the research community. Since the parameter scale is a key factor to consider for using LLMs, we categorize these public models into two scale levels (i.e., tens of billions of parameters and hundreds of billions of parameters), which is useful for users to identify the suitable resources according to their resource budget. In addition, for inference, we can directly employ public APIs to perform our tasks, without running the model locally. Next, we introduce the publicly available model checkpoints and APIs.
 
-Models with Tens of Billions of Parameters. Most of the models in this category have a parameter scale ranging from 10B to 20B, except LLaMA [57] and LLaMA2 [99] (containing 70B parameters in the largest version), NLLB [91] (containing 54.5B parameters in the largest version), and Falcon [135] (containing 40B parameters in the largest version). Other models within this range include mT5 [83], PanGu- α [84], T0 [28], GPT-NeoX-20B [87], CodeGen [86], UL2 [89], Flan-T5 [69], and mT0 [94]. Among them, FlanT5 (11B version) can serve as a premier model for research on instruction tuning, since it explores the instruction tuning from three aspects [69]: increasing the number of tasks, scaling the model size, and fine-tuning with chain-ofthought prompting data. Besides, CodeGen (11B version), as an autoregressive language model designed for generating code, can be considered as a good candidate for exploring the code generation ability. It also introduces a new benchmark MTPB [86] specially for multi-turn program synthesis, which is composed by 115 expert-generated problems. To solve these problems, it requires LLMs to acquire sufficient programming knowledge (e.g., math, array operations, and algorithms). More recently, CodeGen2 [97] has been released to explore the impact of choices in model architecture, learning algorithms, and data distributions on the model. As another LLM specialized in coding abilities, StarCoder [98] has also achieved excellent results. As for multilingual tasks, mT0 (13B version) might be a good candidate model, which has been fine-tuned on multilingual tasks with multilingual prompts. Furthermore, PanGu- α [84] shows good performance in Chinese downstream tasks in zero-shot or fewshot settings, which is developed based on the deep learning framework MindSpore [136]. Note that PanGu- α [84] holds multiple versions of models (up to 200B parameters), while the largest public version has 13B parameters. As a popular LLM, LLaMA (65B version) [57], which contains approximately five times as many parameters as other models, has exhibited superior performance in tasks related to instruction following. Compared to LLaMA, LLaMA2 [99] has made more explorations in reinforcement learning from human feedback (RLHF) and developed a chat-oriented version called LLaMA-chat, which generally outperforms existing open-source models across a range of helpfulness and safety benchmarks. Due to the openness and effectiveness, LLaMA has attracted significant attention from the research community, and many efforts [137–140] have been devoted to fine-tuning or continually pre-training its different model versions for implementing new models or tools. More recently, Falcon [135], as another open-source LLM, has also achieved very excellent performance on open benchmarks. It is featured by a more careful data cleaning process to prepare the pre-training data (with a publicly shared dataset RefinedWeb [141]). Typically, pre-training models at this scale require hundreds or even thousands of GPUs or TPUs. For instance, GPT-NeoX-20B uses 12 supermicro servers, each equipped with 8 NVIDIA A100-SXM4-40GB GPUs, while LLaMA utilizes 2,048 A100-80G GPUs as reported in their original publications. To accurately estimate the computation resources needed, it is suggested to use the metrics measuring the number of involved computations such as FLOPS (i.e., FLoating point number Operations Per Second) [30]. 12
-
-Continue pre-training Model inheritance Data inheritance
-
-LLaMA
-
-Instruction tuning
-
-Parameter-efficient fine-tuning Full parameter fine-tuning
-
-+ chinese data
-
-+ chat data
-
-Open-Chinese-LLaMA
-
-Linly-Chinese-LLaMA
-
-Chinese Vicuna
-
-Baize
-
-+ synthetic data
-
-Vicuna
-
-Panda
-
-+ task data
-
-Alpaca
-
-Chinese LLaMA
-
-+ Alpaca data
-
-RLHF
-
-PKU-Beaver
-
-Yulan-Chat
-
-+ chat data
-
-Alpaca Lora
-
-Goat
-
-BiLLa
-
-Cornucopia
-
-+ synthetic data
-
-+ chat data
-
-Lawyer LLaMA
-
-+ chat data
-
-OpenFlamingo
-
-LLaVA
-
-BELLE
-
-MiniGPT-4
-
-Ziya
-
-+ task data
-
-QiZhenGPT
-
-Chinese Alpaca
-
-+ task data
-
-+ task data
-
-Guanaco
-
-+ task data
-
-TaoLi
-
-Koala
-
-+ task data
-
-VisionLLM
-
-InstructBLIP
-
-Chatbridge
-
-ChatMed
-
-Math
-
-LLaMA Adapter
-
-PandaGPT
-
-BenTsao
-
-LAWGPT
-
-Multimodal models
-
-Finance
-
-Medicine
-
-Law
-
-Bilingualism
-
-Education
+Models with Tens of Billions of Parameters. Most of the models in this category have a parameter scale ranging from 10B to 20B, except LLaMA [57] and LLaMA2 [99] (containing 70B parameters in the largest version), NLLB [91] (containing 54.5B parameters in the largest version), and Falcon [135] (containing 40B parameters in the largest version). Other models within this range include mT5 [83], PanGu- α [84], T0 [28], GPT-NeoX-20B [87], CodeGen [86], UL2 [89], Flan-T5 [69], and mT0 [94]. Among them, FlanT5 (11B version) can serve as a premier model for research on instruction tuning, since it explores the instruction tuning from three aspects [69]: increasing the number of tasks, scaling the model size, and fine-tuning with chain-ofthought prompting data. Besides, CodeGen (11B version), as an autoregressive language model designed for generating code, can be considered as a good candidate for exploring the code generation ability. It also introduces a new benchmark MTPB [86] specially for multi-turn program synthesis, which is composed by 115 expert-generated problems. To solve these problems, it requires LLMs to acquire sufficient programming knowledge (e.g., math, array operations, and algorithms). More recently, CodeGen2 [97] has been released to explore the impact of choices in model architecture, learning algorithms, and data distributions on the model. As another LLM specialized in coding abilities, StarCoder [98] has also achieved excellent results. As for multilingual tasks, mT0 (13B version) might be a good candidate model, which has been fine-tuned on multilingual tasks with multilingual prompts. Furthermore, PanGu- α [84] shows good performance in Chinese downstream tasks in zero-shot or fewshot settings, which is developed based on the deep learning framework MindSpore [136]. Note that PanGu- α [84] holds multiple versions of models (up to 200B parameters), while the largest public version has 13B parameters. As a popular LLM, LLaMA (65B version) [57], which contains approximately five times as many parameters as other models, has exhibited superior performance in tasks related to instruction following. Compared to LLaMA, LLaMA2 [99] has made more explorations in reinforcement learning from human feedback (RLHF) and developed a chat-oriented version called LLaMA-chat, which generally outperforms existing open-source models across a range of helpfulness and safety benchmarks. Due to the openness and effectiveness, LLaMA has attracted significant attention from the research community, and many efforts [137–140] have been devoted to fine-tuning or continually pre-training its different model versions for implementing new models or tools. More recently, Falcon [135], as another open-source LLM, has also achieved very excellent performance on open benchmarks. It is featured by a more careful data cleaning process to prepare the pre-training data (with a publicly shared dataset RefinedWeb [141]). Typically, pre-training models at this scale require hundreds or even thousands of GPUs or TPUs. For instance, GPT-NeoX-20B uses 12 supermicro servers, each equipped with 8 NVIDIA A100-SXM4-40GB GPUs, while LLaMA utilizes 2,048 A100-80G GPUs as reported in their original publications. To accurately estimate the computation resources needed, it is suggested to use the metrics measuring the number of involved computations such as FLOPS (i.e., FLoating point number Operations Per Second) [30].
 
 Fig. 5: An evolutionary graph of the research work conducted on LLaMA. Due to the huge number, we cannot include all the LLaMA variants in this figure, even much excellent work. To support incremental update, we share the source file of this figure, and welcome the readers to include the desired models by submitting the pull requests on our GitHub page.
 
+考虑到模型预训练的巨大成本，良好训练的模型检查点对于研究界研究和开发 LLM 至关重要。由于参数规模是使用 LLM 时需要考虑的关键因素，我们将这些公共模型分为两个规模级别（即数十亿参数和数百亿参数），这对用户根据其资源预算选择合适的资源很有帮助。此外，对于推理，我们可以直接使用公共 API 来执行任务，而无需在本地运行模型。接下来，我们介绍公开可用的模型检查点和 API。
+
+参数规模为数十亿的模型。此类别中的大多数模型的参数规模从 10B 到 20B 不等，除了 LLaMA [57] 和 LLaMA2 [99]（最大版本包含 70B 参数），NLLB [91]（最大版本包含 54.5B 参数），以及 Falcon [135]（最大版本包含 40B 参数）。这个范围内的其他模型包括 mT5 [83]、PanGu-α[84]、T0 [28]、GPT-NeoX-20B [87]、CodeGen [86]、UL2 [89]、Flan-T5 [69] 和 mT0 [94]。
+
+其中，Flan-T5（11B 版本）可以作为研究指令调整的首选模型，因为它从三个方面探索了指令调整 [69]：增加任务数量、扩大模型规模，并用链式思维提示数据进行微调。此外，CodeGen（11B 版本）作为一个自回归语言模型，设计用于生成代码，可以被视为探索代码生成能力的良好候选者。它还引入了一个专门用于多轮程序合成的新基准 MTPB [86]，由 115 个专家生成的问题组成。为了解决这些问题，需要 LLM 掌握足够的编程知识（例如，数学、数组操作和算法）。
+
+最近，CodeGen2 [97] 发布，探索了模型架构、学习算法和数据分布选择对模型的影响。作为另一个专注于编码能力的 LLM，StarCoder [98] 也取得了出色的成绩。对于多语言任务，mT0（13B 版本）可能是一个不错的候选模型，它已经在多语言任务上使用多语言提示进行了微调。
+
+此外，PanGu-α[84] 在零样本或少样本设置中展现了在中文下游任务上的良好性能，它是基于深度学习框架 MindSpore [136] 开发的。需要注意的是，PanGu-α[84] 拥有多个版本的模型（最多 200B 参数），而最大的公开版本有 13B 参数。
+
+作为一个受欢迎的 LLM，LLaMA（65B 版本）[57]，其参数数量大约是其他模型的五倍，已经在遵循指令相关任务上表现出卓越的性能。与 LLaMA 相比，LLaMA2 [99] 在人类反馈强化学习（RLHF）方面进行了更多探索，并开发了一个以聊天为导向的版本 LLaMA-chat，通常在一系列有用性和安全性基准上胜过现有开源模型。由于其开放性和有效性，LLaMA 吸引了研究界的重大关注，许多工作 [137-140] 已经致力于对其不同版本的模型进行微调或持续预训练，以实现新的模型或工具。
+
+最近，Falcon [135] 作为另一个开源 LLM，也在开放基准上取得了非常出色的性能。它通过更仔细的数据清洗过程准备了预训练数据（并提供了公开共享的数据集 RefinedWeb [141]）。通常，这种规模的预训练模型需要数百甚至数千个 GPU 或 TPU。例如，GPT-NeoX-20B 使用了 12 台超微服务器，每台装备了 8 个 NVIDIA A100-SXM4-40GB GPU，而 LLaMA 则使用了 2048 个 A100-80G GPU，如其原始出版物所报道。为了准确估计所需的计算资源，建议使用度量涉及计算的数量的指标，如 FLOPS（即每秒浮点运算次数）[30]。
+
+图 5：LLaMA 研究工作的演变图。由于数量庞大，我们无法在此图中包含所有 LLaMA 变体，即使是许多出色的工作也无法全部包括。为了支持增量更新，我们共享了此图的源文件，并欢迎读者通过在我们的 GitHub 页面上提交拉取请求来包含所需的模型。
+
 Models with Hundreds of Billions of Parameters. For models in this category, only a handful of models have been publicly released. For example, OPT [90], OPT-IML [95], BLOOM [78], and BLOOMZ [94] have nearly the same number of parameters as GPT-3 (175B version), while GLM [93] and Galactica [35] have 130B and 120B parameters, respectively. Among them, OPT (175B version), with the instruction-tuned version OPT-IML, has been specially motivated for open sharing, which aims to enable researchers to carry out reproducible research at scale. For research in cross-lingual generalization, BLOOM (176B version) and BLOOMZ (176B version) can be used as base models, due to the competence in multilingual language modeling tasks. As a bilingual LLM, GLM has also provided a popular small-sized Chinese chat model ChatGLM2-6B (a updated version for ChatGLM-6B), which is featured with many improvements in efficiency and capacity (e.g., quantization, 32K-length context, fast inference rate). Models of this scale typically require thousands of GPUs or TPUs to train. For instance, OPT (175B version) used 992 A100-80GB GPUs, while GLM (130B version) used a cluster of 96 NVIDIA DGX-A100 (8x40G) GPU nodes.
 
-LLaMA Model Family. The collection of LLaMA models [57] were introduced by Meta AI in February, 2023, consisting of four sizes (7B, 13B, 30B and 65B). Since released, LLaMA has attracted extensive attention from both research and industry communities. LLaMA mod-
+LLaMA Model Family. The collection of LLaMA models [57] were introduced by Meta AI in February, 2023, consisting of four sizes (7B, 13B, 30B and 65B). Since released, LLaMA has attracted extensive attention from both research and industry communities. LLaMA models have achieved very excellent performance on various open benchmarks, which have become the most popular open language models thus far. A large number of researchers have extended LLaMA models by either instruction tuning or continual pretraining. In particular, instruction tuning LLaMA has become a major approach to developing customized or specialized models, due to the relatively low computational costs. To effectively adapt LLaMA models in non-English languages, it often needs to extend the original vocabulary (trained mainly on English corpus) or fine-tune it with instructions or data in the target language. Among these extended models, Stanford Alpaca [142] is the first open instruct-following model fine-tuned based on LLaMA (7B). It is trained by 52K instruction-following demonstrations generated via selfinstruct [143] using text-davinci-003. The instruction data, named Alpaca-52K, and training code have been extensively adopted in subsequent work, such as AlpacaLoRA [144] (a reproduction of Stanford Alpaca using LoRA [145]), Koala [146], and BELLE [147]. In addition, Vicuna [138] is another popular LLaMA variant, trained upon user-shared conversations collected from ShareGPT [148]. Due to the excellent performance and availability of the LLaMA model family, many multimodal models incorporate them as the base language models, to achieve strong language understanding and generation abilities. Compared with other variants, Vicuna is more preferred in multimodal language models, which have led to the emergence of a variety of popular models, including LLaVA [149], MiniGPT4 [150], InstructBLIP [151], and PandaGPT [152]. The release of LLaMA has greatly advanced the research progress of LLMs. To summarize the research work conducted on LLaMA, we present a brief evolutionary graph in Figure 5.
 
-els have achieved very excellent performance on various open benchmarks, which have become the most popular open language models thus far. A large number of researchers have extended LLaMA models by either instruction tuning or continual pretraining. In particular, instruction tuning LLaMA has become a major approach to developing customized or specialized models, due to the relatively low computational costs. To effectively adapt LLaMA models in non-English languages, it often needs to extend the original vocabulary (trained mainly on English corpus) or fine-tune it with instructions or data in the target language. Among these extended models, Stanford Alpaca [142] is the first open instruct-following model fine-tuned based on LLaMA (7B). It is trained by 52K instruction-following demonstrations generated via selfinstruct [143] using text-davinci-003. The instruction data, named Alpaca-52K, and training code have been extensively adopted in subsequent work, such as AlpacaLoRA [144] (a reproduction of Stanford Alpaca using LoRA [145]), Koala [146], and BELLE [147]. In addition, Vicuna [138] is another popular LLaMA variant, trained upon user-shared conversations collected from ShareGPT [148]. Due to the excellent performance and availability of the LLaMA model family, many multimodal models incorporate them as the base language models, to achieve strong language understanding and generation abilities. Compared with other variants, Vicuna is more preferred in multimodal 13
+参数规模为数百亿的模型。在此类别中，只有少数几个模型被公开发布。例如，OPT [90]、OPT-IML [95]、BLOOM [78] 和 BLOOMZ [94] 的参数数量与 GPT-3（175B 版本）几乎相同，而 GLM [93] 和 Galactica [35] 分别有 130B 和 120B 参数。其中，OPT（175B 版本）及其指令调整版本 OPT-IML 特别针对公开共享而设计，旨在使研究人员能够进行大规模的可复制研究。对于跨语言泛化研究，BLOOM（176B 版本）和 BLOOMZ（176B 版本）可作为基础模型，因为它们在多语言语言建模任务中表现出色。作为双语 LLM，GLM 还提供了一个受欢迎的小型中文聊天模型 ChatGLM2-6B（ChatGLM-6B 的升级版本），其以许多效率和能力方面的改进为特色（例如，量化、32K 长度上下文、快速推理速率）。这种规模的模型通常需要数千个 GPU 或 TPU 来训练。例如，OPT（175B 版本）使用了 992 个 A100-80GB GPU，而 GLM（130B 版本）使用了 96 个 NVIDIA DGX-A100（8x40G）GPU 节点的集群。
 
-language models, which have led to the emergence of a variety of popular models, including LLaVA [149], MiniGPT4 [150], InstructBLIP [151], and PandaGPT [152]. The release of LLaMA has greatly advanced the research progress of LLMs. To summarize the research work conducted on LLaMA, we present a brief evolutionary graph in Figure 5.
+LLaMA 模型家族。Meta AI 于 2023 年 2 月发布了 LLaMA 模型系列 [57]，包括四种规模（7B、13B、30B 和 65B）。自发布以来，LLaMA 吸引了研究和工业界的广泛关注。LLaMA 模型在各种开放基准上表现出色，成为迄今为止最受欢迎的开放语言模型。大量研究人员通过指令调整或持续预训练扩展了 LLaMA 模型。特别是，指令调整 LLaMA 已成为开发定制或专门模型的主要方法，因为计算成本相对较低。为了在非英语语言中有效地适应 LLaMA 模型，通常需要扩展原始词汇表（主要在英语语料上训练）或用目标语言的指令或数据进行微调。在这些扩展模型中，斯坦福 Alpaca [142] 是基于 LLaMA（7B）微调的第一个开放指令遵循模型。它通过使用 text-davinci-003 的自我指令 [143] 生成了 52K 个指令遵循演示。Alpaca-52K 指令数据和训练代码在后续工作中得到了广泛应用，例如 AlpacaLoRA [144]（使用 LoRA [145] 复制的斯坦福 Alpaca）、Koala [146] 和 BELLE [147]。此外，Vicuna [138] 是另一个受欢迎的 LLaMA 变体，基于用户共享的来自 ShareGPT [148] 的对话进行训练。由于 LLaMA 模型家族的卓越性能和可用性，许多多模态模型将它们作为基础语言模型，以实现强大的语言理解和生成能力。与其他变体相比，Vicuna 在多模态语言模型中更受青睐，催生了多种流行模型，包括 LLaVA [149]、MiniGPT4 [150]、InstructBLIP [151] 和 PandaGPT [152]。LLaMA 的发布极大地推进了 LLM 的研究进展。为了总结对 LLaMA 的研究工作，我们在图 5 中呈现了一个简要的演变图。
 
-Public API of LLMs. Instead of directly using the model copies, APIs provide a more convenient way for common users to use LLMs, without the need of running the model locally. As a representative interface for using LLMs, the APIs for the GPT-series models [46, 55, 66, 105] have been widely used for both academia and industry 19 . OpenAI has provided seven major interfaces to the models in GPT-3 series: ada, babbage, curie, davinci (the most powerful version in GPT-3 series), text-ada-001, text-babbage-001, and text-curie-001. Among them, the first four interfaces can be further finetuned on the host server of OpenAI. In particular, babbage, curie, and davinci correspond to the GPT-3 (1B), GPT-3 (6.7B), and GPT-3 (175B) models, respectively [55]. In addition, there are also two APIs related to Codex [105], called code-cushman-001 (a powerful and multilingual version of the Codex (12B) [105]) and code-davinci-002. Further, GPT-3.5 series include one base model code-davinci-002 and three enhanced versions, namely text-davinci-002, text-davinci-003, and gpt-3.5-turbo. As more powerful alternatives, in this year, OpenAI has released the model interfaces for GPT-4 series, including gpt-4, gpt-4-32k, gpt-4-1106-preview (i.e., GPT-4 Turbo) and gpt-4-vision-preview (i.e., GPT-4 Turbo with vision, a multimodal model). It is worth noting that OpenAI has been maintaining and upgrading these model interfaces (gpt-3.5-turbo, gpt-4, gpt-4-32k), so the API name will actually point to the latest version. Currently, ChatGPT can be powered by either GPT-3.5 or GPT-4 models. Overall, one select the suitable model interface based on the specific application scenarios and response requirements. The detailed usage can be found on their project websites 20 .
+Public API of LLMs. Instead of directly using the model copies, APIs provide a more convenient way for common users to use LLMs, without the need of running the model locally. As a representative interface for using LLMs, the APIs for the GPT-series models [46, 55, 66, 105] have been widely used for both academia and industry 19 . OpenAI has provided seven major interfaces to the models in GPT-3 series: ada, babbage, curie, davinci (the most powerful version in GPT-3 series), text-ada-001, text-babbage-001, and text-curie-001. Among them, the first four interfaces can be further finetuned on the host server of OpenAI. In particular, babbage, curie, and davinci correspond to the GPT-3 (1B), GPT-3 (6.7B), and GPT-3 (175B) models, respectively [55]. In addition, there are also two APIs related to Codex [105], called code-cushman-001 (a powerful and multilingual version of the Codex (12B) [105]) and code-davinci-002. Further, GPT-3.5 series include one base model code-davinci-002 and three enhanced versions, namely text-davinci-002, text-davinci-003, and gpt-3.5-turbo. As more powerful alternatives, in this year, OpenAI has released the model interfaces for GPT-4 series, including gpt-4, gpt-4-32k, gpt-4-1106-preview (i.e., GPT-4 Turbo) and gpt-4-vision-preview (i.e., GPT-4 Turbo with vision, a multimodal model). It is worth noting that OpenAI has been maintaining and upgrading these model interfaces (gpt-3.5-turbo, gpt-4, gpt-4-32k), so the API name will actually point to the latest version. Currently, ChatGPT can be powered by either GPT-3.5 or GPT-4 models. Overall, one select the suitable model interface based on the specific application scenarios and response requirements. The detailed usage can be found on their project websites 20.
 
 TABLE 2: Statistics of commonly-used data sources.
 
-Corpora
+LLM 的公共 API。与直接使用模型副本相比，API 为普通用户提供了一种更便捷的方式来使用 LLM，无需在本地运行模型。作为使用 LLM 的代表性界面，GPT 系列模型的 API [46, 55, 66, 105] 已被学术界和工业界广泛使用 19。OpenAI 为 GPT-3 系列模型提供了七个主要接口：ada、babbage、curie、davinci（GPT-3 系列中最强大的版本）、text-ada-001、text-babbage-001 和 text-curie-001。其中，前四个接口可以在 OpenAI 的主机服务器上进一步微调。特别是，babbage、curie 和 davinci 分别对应 GPT-3（1B）、GPT-3（6.7B）和 GPT-3（175B）模型 [55]。此外，还有两个与 Codex [105] 相关的 API，分别是 code-cushman-001（Codex（12B）[105] 的强大且多语言版本）和 code-davinci-002。此外，GPT-3.5 系列包括一个基础模型 code-davinci-002 和三个增强版本，即 text-davinci-002、text-davinci-003 和 gpt-3.5-turbo。作为更强大的替代品，今年 OpenAI 发布了 GPT-4 系列的模型接口，包括 gpt-4、gpt-4-32k、gpt-4-1106-preview（即 GPT-4 Turbo）和 gpt-4-vision-preview（即具有视觉能力的 GPT-4 Turbo，一种多模态模型）。值得注意的是，OpenAI 一直在维护和升级这些模型接口（gpt-3.5-turbo、gpt-4、gpt-4-32k），因此 API 名称实际上将指向最新版本。目前，ChatGPT 可以由 GPT-3.5 或 GPT-4 模型提供支持。总体而言，可以根据特定的应用场景和响应要求选择合适的模型接口。详细用法可以在他们的项目网站上找到 20。
 
-Size
+表 2：常用数据源的统计数据。
 
-Source
+#### 3.2 Commonly Used Corpora for Pre-training
 
-Latest Update Time
-
-BookCorpus [153] 5GB Books Gutenberg [154] - Books C4 [82] 800GB CommonCrawl CC-Stories-R [155] 31GB CommonCrawl CC-NEWS [27] 78GB CommonCrawl REALNEWs [156] 120GB CommonCrawl OpenWebText [157] 38GB Reddit links Pushift.io [158] 2TB Reddit links Wikipedia [159] 21GB Wikipedia BigQuery [160] - Codes the Pile [161] 800GB Other ROOTS [162] 1.6TB Other
-
-Dec-2015 Dec-2021 Apr-2019 Sep-2019 Feb-2019 Apr-2019 Mar-2023 Mar-2023 Mar-2023 Mar-2023 Dec-2020 Jun-2022
-
-3.2 Commonly Used Corpora for Pre-training
-
-In contrast to earlier PLMs, LLMs which consist of a significantly larger number of parameters require a higher volume
-
-19. https://platform.openai.com/docs/api-reference/introduction
-
-20. https://platform.openai.com/docs/models/overview
-
-of training data that covers a broad range of content. For this need, there are increasingly more accessible training datasets that have been released for research. In this section, we will briefly summarize several widely used corpora for training LLMs. Based on their content types, we categorize these corpora into six groups: Books, CommonCrawl, Reddit links, Wikipedia, Code, and others.
+In contrast to earlier PLMs, LLMs which consist of a significantly larger number of parameters require a higher volume of training data that covers a broad range of content. For this need, there are increasingly more accessible training datasets that have been released for research. In this section, we will briefly summarize several widely used corpora for training LLMs. Based on their content types, we categorize these corpora into six groups: Books, CommonCrawl, Reddit links, Wikipedia, Code, and others.
 
 Books. BookCorpus [153] is a commonly used dataset in previous small-scale models (e.g., GPT [122] and GPT-2 [26]), consisting of over 11,000 books covering a wide range of topics and genres (e.g., novels and biographies). Another large-scale book corpus is Project Gutenberg [154], consisting of over 70,000 literary books including novels, essays, poetry, drama, history, science, philosophy, and other types of works in the public domain. It is currently one of the largest open-source book collections, which is used in training of MT-NLG [113] and LLaMA [57]. As for Books1 [55] and Books2 [55] used in GPT-3 [55], they are much larger than BookCorpus but have not been publicly released so far.
 
 CommonCrawl. CommonCrawl [163] is one of the largest open-source web crawling databases, containing a petabytescale data volume, which has been widely used as training data for existing LLMs. As the whole dataset is very large, existing studies mainly extract subsets of web pages from it within a specific period. However, due to the widespread existence of noisy and low-quality information in web data, it is necessary to perform data preprocessing before usage. Based on CommonCrawl, there are four filtered datasets that are commonly used in existing work: C4 [82], CCStories [155], CC-News [27], and RealNews [156]. The Colossal Clean Crawled Corpus (C4) includes five variants 21 , namely en (806G), en.noclean (6T), realnewslike (36G), webtextlike (17G), and multilingual (38T). The en version has been utilized for pre-training T5 [82], LaMDA [68], Gopher [64], and UL2 [89]. The multilingual C4, also called mC4, has been used in mT5 [83]. CC-Stories (31G) is composed of a subset of CommonCrawl data, in which the contents are made in a story-like way. Because the original source of CC-Stories is not available now, we include a reproduction version, CC-Stories-R [164], in Table 2. Moreover, two news corpora extracted from CommonCrawl, i.e., REALNEWS (120G) and CC-News (76G), are also commonly used as the pre-training data.
 
-Reddit Links. Reddit is a social media platform that enables users to submit links and text posts, which can be voted on by others through “upvotes” or “downvotes”. Highly upvoted posts are often considered useful, and can be utilized to create high-quality datasets. WebText [26] is a well-known corpus composed of highly upvoted links from Reddit, but it is not publicly available. As a surrogate, there is a readily accessible open-source alternative called OpenWebText [157]. Another corpus extracted from Reddit is PushShift.io [158], a real-time updated dataset that consists of historical data from Reddit since its creation day. Pushshift provides not only monthly data dumps but also useful utility tools to support users in searching, summarizing, and conducting
-
-21. https://www.tensorflow.org/datasets/catalog/c4 14
-
-preliminary investigations on the entire dataset. This makes it easy for users to collect and process Reddit data.
+Reddit Links. Reddit is a social media platform that enables users to submit links and text posts, which can be voted on by others through “upvotes” or “downvotes”. Highly upvoted posts are often considered useful, and can be utilized to create high-quality datasets. WebText [26] is a well-known corpus composed of highly upvoted links from Reddit, but it is not publicly available. As a surrogate, there is a readily accessible open-source alternative called OpenWebText [157]. Another corpus extracted from Reddit is PushShift.io [158], a real-time updated dataset that consists of historical data from Reddit since its creation day. Pushshift provides not only monthly data dumps but also useful utility tools to support users in searching, summarizing, and conducting preliminary investigations on the entire dataset. This makes it easy for users to collect and process Reddit data.
 
 Wikipedia. Wikipedia [159] is an online encyclopedia containing a large volume of high-quality articles on diverse topics. Most of these articles are composed in an expository style of writing (with supporting references), covering a wide range of languages and fields. Typically, the Englishonly filtered versions of Wikipedia are widely used in most LLMs (e.g., GPT-3 [55], LaMDA [68], and LLaMA [57]). Wikipedia is available in multiple languages, so it can be used in multilingual settings.
 
@@ -610,49 +497,41 @@ In practice, it commonly requires a mixture of different data sources for pre-tr
 
 TABLE 3: A detailed list of available collections for instruction tuning.
 
-Categories Collections
-
-Time
-
-Examples
-
-Task
-
-Chat
-
-Synthetic
-
-Nat. Inst. [166] Apr-2021 FLAN [67] Sep-2021 P3 [167] Oct-2021 Super Nat. Inst. [88] Apr-2022 MVPCorpus [168] Jun-2022 xP3 [94] Nov-2022 OIG[169] Mar-2023
-
-HH-RLHF [170] Apr-2022 HC3 [171] Jan-2023 ShareGPT [148] Mar-2023 Dolly [172] Apr-2023 OpenAssistant [173] Apr-2023
-
-Self-Instruct [143] Alpaca [137] Guanaco [174] Baize [175] BELLE [176]
-
-Dec-2022 Mar-2023 Mar-2023 Apr-2023 Apr-2023
-
-193K
-
-4.4M
-
-12.1M 5M 41M 81M 43M
-
-160K 87K 90K 15K 161K
-
-82K 52K 535K 158K 1.5M
-
 TABLE 4: A list of available collections for alignment.
 
-Dataset
+与早期的 PLM 相比，由于参数数量显著增加，LLM 需要覆盖广泛内容的更大量训练数据。为此，越来越多的可访问训练数据集已被发布用于研究。在本节中，我们将简要总结几个用于训练 LLM 的广泛使用的语料库。根据它们的内容类型，我们将这些语料库分为六个组别：书籍、CommonCrawl、Reddit 链接、维基百科、代码和其他。
 
-Summarize from Feedback [129] SHP [177] WebGPT Comparisons [81] Stack Exchange Preferences [178] HH-RLHF [170] Sandbox Alignment Data [179] CValues [180] PKU-SafeRLHF [181]
+书籍。BookCorpus [153] 是以前小规模模型（例如 GPT [122] 和 GPT-2 [26]）中常用的数据集，包含超过 11,000 本涵盖广泛主题和类型（例如小说和传记）的书籍。另一个大规模书籍语料库是 Project Gutenberg [154]，包含超过 70,000 本文学作品，包括小说、散文、诗歌、戏剧、历史、科学、哲学等公共领域作品。它目前是最大的开源书籍收藏之一，用于 MT-NLG [113] 和 LLaMA [57] 的训练。至于 GPT-3 [55] 中使用的 Books1 [55] 和 Books2 [55]，它们比 BookCorpus 大得多，但到目前为止还未公开发布。
 
-Release Time #Examples
+CommonCrawl。CommonCrawl [163] 是最大的开源网络爬虫数据库之一，包含 PB 级数据量，已被广泛用作现有 LLM 的训练数据。由于整个数据集非常大，现有研究主要从中提取特定时期的网页子集。然而，由于网络数据中普遍存在噪声和低质量信息，使用前需要进行数据预处理。基于 CommonCrawl，有四个过滤后的数据集在现有工作中常用：C4 [82]、CCStories [155]、CC-News [27] 和 RealNews [156]。巨大清洁爬取语料库（C4）包括五个变体 21，即 en（806G）、en.noclean（6T）、realnewslike（36G）、webtextlike（17G）和多语言（38T）。en 版本已用于 T5 [82]、LaMDA [68]、Gopher [64] 和 UL2 [89] 的预训练。多语言 C4，也称为 mC4，已用于 mT5 [83]。CC-Stories（31G）由 CommonCrawl 数据的一个子集组成，其中内容以故事方式呈现。由于 CC-Stories 的原始来源现在不可用，我们在表 2 中包括了一个再现版本 CC-Stories-R [164]。此外，两个从 CommonCrawl 提取的新闻语料库，即 REALNEWS（120G）和 CC-News（76G），也常用作预训练数据。
 
-Sep-2020 Oct-2021 Dec-2021 Dec-2021 Apr-2022 May-2023 Jul-2023 Oct-2023
+Reddit 链接。Reddit 是一个社交媒体平台，允许用户提交链接和文本帖子，其他人可以通过「赞成票」或「反对票」对其进行投票。高票帖子通常被认为有用，可以用来创建高质量数据集。WebText [26] 是一个由 Reddit 高票链接组成的著名语料库，但它未公开发布。作为替代，有一个易于获取的开源替代品 OpenWebText [157]。另一个从 Reddit 提取的语料库是 PushShift.io [158]，包含 Reddit 自创建之日起的历史数据，实时更新。Pushshift 不仅提供每月数据转储，还提供有用的实用工具，帮助用户在整个数据集上进行搜索、总结和初步调查。这使用户更容易收集和处理 Reddit 数据。
 
-193K 385K 19K 10M 169K 169K 145K 330K
+维基百科。维基百科 [159] 是一个包含大量高质量文章的在线百科全书，涵盖多种主题。这些文章大多以论述性写作风格（附有支持性参考资料）撰写，涵盖广泛的语言和领域。通常，维基百科的仅英语过滤版本在大多数 LLM 中广泛使用（例如，GPT-3 [55]、LaMDA [68] 和 LLaMA [57]）。维基百科有多种语言版本，因此可以用于多语言环境。
 
-3.3 Commonly Used Datasets for Fine-tuning
+代码。为了收集代码数据，现有工作主要从互联网上爬取开源许可证下的代码。两个主要来源是公开代码库下的开源许可证（例如，GitHub）和与代码相关的问答平台（例如，StackOverflow）。谷歌公开发布了 BigQuery 数据集 [160]，包括各种编程语言中大量开源许可证的代码片段，作为代表性代码数据集。CodeGen 利用了 BIGQUERY [86]，一个 BigQuery 数据集的子集，来训练 CodeGen 的多语言版本（CodeGen-Multi）。
+
+其他。Pile [161] 是一个大规模、多样化且开源的文本数据集，包含超过 800GB 的数据，来自多个来源，包括书籍、网站、代码、科学论文和社交媒体平台。它由 22 个多样化的高质量子集构成。Pile 数据集广泛用于不同参数规模的模型，如 GPT-J（6B）[165]、CodeGen（16B）[86] 和 Megatron-Turing NLG（530B）[113]。ROOTS [162] 由多个较小的数据集组成（总共 1.61TB 文本），涵盖 59 种不同语言（包括自然语言和编程语言），已用于训练 BLOOM [78]。
+
+实际上，预训练 LLM 通常需要混合不同的数据源（见图 6），而不是单一语料库。因此，现有研究通常混合几个现成的数据集（例如，C4、OpenWebText 和 Pile），然后进行进一步处理以获取预训练语料库。此外，为了训练适应特定应用的 LLM，从相关来源（例如，维基百科和 BigQuery）提取数据以丰富预训练数据中的相应信息也很重要。为了快速参考现有 LLM 中使用的数据源，我们介绍了三个代表性 LLM 的预训练语料库：
+
+·GPT-3（175B）[55] 在包括 CommonCrawl [163]、WebText2 [55]、Books1 [55]、Books2 [55] 和 Wikipedia [159] 的混合数据集上进行训练，总计 300B 词汇。
+
+·PaLM（540B）[56] 使用 780B 词汇的预训练数据集，来源于社交媒体对话、过滤网页、书籍、Github、多语言维基百科和新闻。
+
+·LLaMA [57] 从多个来源提取训练数据，包括 CommonCrawl、C4 [82]、Github、维基百科、书籍、ArXiv 和 StackExchange。LLaMA（6B）和 LLaMA（13B）的训练数据大小为 1.0T 词汇，而 LLaMA（32B）和 LLaMA（65B）使用了 1.4T 词汇。
+
+表 3：指令调整可用集合的详细列表。
+
+表 4：对齐可用集合的列表。
+
+19 https://platform.openai.com/docs/api-reference/introduction
+
+20 https://platform.openai.com/docs/models/overview
+
+21 https://www.tensorflow.org/datasets/catalog/c4
+
+#### 3.3 Commonly Used Datasets for Fine-tuning
 
 After pre-training, it requires further fine-tuning LLMs to enhance the model capacity, which often involve two major steps, namely instruction tuning (supervised fine-tuning) and alignment tuning. In this section, we mainly focus on discussing the related available datasets for the two kinds of tuning approaches, and more algorithm details can be found in Section 5.
 
@@ -662,7 +541,7 @@ After pre-training, instruction tuning (a.k.a., supervised finetuning) is an imp
 
 NLP Task Datasets. This kind of datasets are formatted based on collected NLP task datasets (e.g., text classification and summarization) with corresponding natural language task descriptions. In this category, P3 [182] and FLAN [67, 183] are two widely used datasets for instruction tuning.
 
-• P3 [182] is composed of 170 English NLP datasets and 2,052 English prompt templates, where the input and output of each data example have been formatted with specific prompt templates for composing the training instance. 15
+• P3 [182] is composed of 170 English NLP datasets and 2,052 English prompt templates, where the input and output of each data example have been formatted with specific prompt templates for composing the training instance. 
 
 • FLAN [67] consists of 62 widely used NLP benchmarks in its original version. Recently, FLAN-v2 [183] is also proposed, which expands FLAN by mixing additional instruction datasets, including Muffin [67], NIV2 [88], T0-SF [28], and CoT [184–186]. Muffin contains 62 tasks from the original FLAN and additional 26 tasks, including conversation and code synthesis tasks. T0-SF is extracted from T0 [28] while ensuring no overlap with Muffin. NIV2 refers to the Natural-Instructions v2 dataset [88], and CoT [184–186] is a combination of nine reasoning tasks with corresponding chain-of-thought prompts and outputs.
 
@@ -682,6 +561,34 @@ Synthetic Datasets. This kind of datasets are typically constructed by instructi
 
 • Baize [175] is an English multi-turn conversation corpus constructed using ChatGPT, comprising 111.5K instances. To create Baize, a method called “self-chat” [175] is purposed, where ChatGPT takes on the roles of both the user and the AI assistant in turns, generating information in a conversational format.
 
+预训练后，需要进一步对 LLM 进行微调以增强模型容量，这通常涉及两个主要步骤，即指令调整（有监督微调）和对齐调整。在本节中，我们主要关注讨论这两种调整方法的相关可用数据集，更多算法细节可以在第 5 节中找到。
+
+3.3.1 指令调整数据集
+
+预训练后，指令调整（也称为有监督微调）是增强或解锁 LLM 特定能力（例如，遵循指令）的重要方法。在这部分中，我们介绍了几个用于指令调整的广泛使用的数据集，并根据构建格式化指令实例的方法将它们分为三个主要类型：NLP 任务数据集、日常聊天数据集和合成数据集。我们在表 3 中展示了它们的详细信息。
+
+1、NLP 任务数据集。这类数据集是基于收集的 NLP 任务数据集（例如，文本分类和摘要）以及相应的自然语言任务描述进行格式化的。在这一类别中，P3 [182] 和 FLAN [67, 183] 是两个广泛用于指令调整的数据集。
+
+·P3 [182] 由 170 个英文 NLP 数据集和 2,052 个英文提示模板组成，其中每个数据示例的输入和输出都已使用特定提示模板格式化，以组成训练实例。
+
+·FLAN [67] 最初版本由 62 个广泛使用的 NLP 基准组成。最近，还提出了 FLAN-v2 [183]，它通过混合额外的指令数据集扩展了 FLAN，包括 Muffin [67]、NIV2 [88]、T0-SF [28] 和 CoT [184–186]。Muffin 包含来自原始 FLAN 的 62 个任务和额外的 26 个任务，包括对话和代码合成任务。T0-SF 从 T0 [28] 中提取，同时确保与 Muffin 不重叠。NIV2 指的是自然指令 v2 数据集 [88]，CoT [184–186] 是一个包含九个推理任务及其对应链式思维提示和输出的组合。
+
+2、日常聊天数据集。这类数据集是基于真实用户对话构建的，其中查询由人类提出，回应主要由人类标注者或 LLM（例如 ChatGPT、GPT-4）生成。对话类型包括开放式生成、问答、头脑风暴和聊天。在这一类别中，ShareGPT [148]、OpenAssistant [173] 和 Dolly [172] 是三个常用于 LLM 微调的数据集。
+
+·ShareGPT [148] 收集自一个数据收集平台，用户可以通过 ShareGPT API 上传他们与 ChatGPT 或 GPT-4 的对话。目前，该数据集包含约 90,000 个对话，包括人类的真实指令或询问和 ChatGPT 的回应。
+
+·OpenAssistant [173] 是一个多语言语料库，包含 66,497 个人类和 AI 助手之间的真实世界对话树。每个对话树包含多个节点，每个节点代表对话中一个角色生成的信息。它涵盖 35 种语言，并包含 461,292 个手动注释的响应质量评级。
+
+·Dolly [172] 是一个英文数据集，包含来自 Databricks 的 15,000 个人类生成的数据实例（提示 - 响应对）。该数据集涵盖了 InstructGPT [66] 中概述的七个领域，包括头脑风暴、分类、闭卷质量保证、生成、信息提取、开卷质量保证和摘要。
+
+3、合成数据集。这类数据集通常是通过基于预定义的指导规则或方法指导 LLM 来构建的。在这一类别中，Self-Instruct52K [143]、Alpaca [142] 和 Baize [175] 是三个常用的 LLM 合成数据集。
+
+·Self-Instruct-52K [143] 是通过自我指导 [143] 方法生成的指令数据集，包含 82,000 个实例和 52,000 条指令。具体来说，作者构建了 175 个种子实例，然后迭代地提示 LLM [55] 根据随机选择的 8 条指令作为参考合成额外的指令。随后，进一步指导 LLM 基于合成指令生成实例输入及其相应输出，最终获得 Self-Instruct52K 数据集。
+
+·Alpaca [142] 也是基于自我指导 [143] 方法的合成数据集。它利用 text-davinci-003 模型在 Self-Instruct-52K 的 175 个种子数据集上获得 52,000 条新指令及相应输入和输出。此外，在最终数据集中，60% 的示例是纯指令，没有输入部分。
+
+·Baize [175] 是使用 ChatGPT 构建的英文多轮对话语料库，包含 111.5K 个实例。为了创建 Baize，提出了一种称为「自聊」[175] 的方法，其中 ChatGPT 轮流扮演用户和 AI 助手的角色，以对话格式生成信息。
+
 3.3.2 Alignment Datasets
 
 Apart from instruction tuning, it is important to construct high-quality datasets for aligning LLMs with human values and preferences (e.g., helpfulness, honesty, and harmlessness). In this section, we introduce several widely used datasets for alignment tuning, including HH-RLHF [170], SHP [177], PKU-SafeRLHF [181], Stack Exchange Preferences [178] and Sandbox Alignment Data [179]. We show their details in Table 4.
@@ -694,9 +601,23 @@ Apart from instruction tuning, it is important to construct high-quality dataset
 
 • Stack Exchange Preferences [178] focuses on the helpfulness of answers. It comprises about 10M questions and answers from Stack Overflow. Each instance consists of a question and more than two corresponding answers. Each answer is annotated with a score calculated based on its votes and a label denoting whether it is selected.
 
-• Sandbox Alignment Data [179] is an alignment dataset containing feedback from LLMs rather than human. It comes from a virtual interaction environment called SANDBOX, where the model simulates social interactions with other models and revise responses according to the feedback from other models. The dataset contains 169K instances, and each instance consists of a societal query, several responses, and corresponding ratings from other models. 16
+• Sandbox Alignment Data [179] is an alignment dataset containing feedback from LLMs rather than human. It comes from a virtual interaction environment called SANDBOX, where the model simulates social interactions with other models and revise responses according to the feedback from other models. The dataset contains 169K instances, and each instance consists of a societal query, several responses, and corresponding ratings from other models.
 
-3.4 Library Resource
+3.3.2 对齐数据集
+
+除了指令调整，构建高质量数据集以使 LLM 与人类价值观和偏好（例如，有用性、诚实性和无害性）对齐也很重要。在本节中，我们将介绍几个用于对齐调整的广泛使用的数据集，包括 HH-RLHF [170]、SHP [177]、PKU-SafeRLHF [181]、Stack Exchange Preferences [178] 和 Sandbox Alignment Data [179]。我们在表 4 中展示了它们的详细信息。
+
+·HH-RLHF [170] 包含大约 169K 个实例，可以分为两部分，分别专注于 LLM 的有用性和无害性。每个实例都是一个开放式对话，由众包工作者与聊天模型进行，讨论寻求帮助、建议或任务完成。聊天模型针对每个用户查询提供两个回应，更有帮助或有害的回应将被选为注释。
+
+·SHP [177] 专注于回应的有用性。它包含 385K 个人类对 18 个不同主题领域的问题 / 指令回应的集体偏好，涵盖从烹饪到法律咨询的主题。每个实例是一个 Reddit 帖子，包含一个问题或指令和一对顶级评论，其中一个被 Reddit 用户认为更可取，另一个被认为不够有用。与 HH-RLHF [170] 不同，SHP 中的数据由自然发生的人类撰写的回应组成。
+
+·PKU-SafeRLHF [181] 包含超过 330K 个专家比较数据实例，集中于有用性和无害性。数据集中的每个实例都包括一个问题和两个回应，每个回应都附有安全标签，以及两个回应之间根据有用性和无害性的偏好注释。一个回应的无害性指的是它在所有 14 个危害类别中被分类为风险中性，而一个回应的有用性则根据其解决问题的有效性进行评估。
+
+·Stack Exchange Preferences [178] 专注于回答的有用性。它包含来自 Stack Overflow 的约 1000 万个问题和答案。每个实例由一个问题和两个以上相应的答案组成。每个答案都根据其投票计算得分，并标注是否被选中。
+
+·Sandbox Alignment Data [179] 是一个包含 LLM 反馈而非人类反馈的对齐数据集。它来自一个名为 SANDBOX 的虚拟交互环境，模型在其中模拟与其他模型的社会互动，并根据其他模型的反馈修改回应。该数据集包含 169K 个实例，每个实例包括一个社会查询、几个回应和来自其他模型的相应评级。
+
+#### 3.4 Library Resource
 
 In this part, we briefly introduce a series of available libraries for developing LLMs.
 
@@ -714,9 +635,7 @@ In this part, we briefly introduce a series of available libraries for developin
 
 • FastMoE [192] is a specialized training library for MoE (i.e., mixture-of-experts) models. It is developed based on PyTorch, prioritizing both efficiency and user-friendliness in its design. FastMoE simplifies the process of transferring Transformer models to MoE models and supports both data parallelism and model parallelism during training.
 
-• vLLM [193] is a fast, memory efficient, and easy-to-use library for LLM inference and serving. To enable fast inference, it is specially optimized with high serving throughput, effective attention memory management using PagedAttention [193], continuous batching, and optimized CUDA kernels. Furthermore, vLLM also supports various
-
-decoding algorithms, tensor parallelism and streaming outputs. To ease the integration with other systems, vLLM is friendly to the use of HuggingFace models, and also provide OpenAI-compatible API servers.
+• vLLM [193] is a fast, memory efficient, and easy-to-use library for LLM inference and serving. To enable fast inference, it is specially optimized with high serving throughput, effective attention memory management using PagedAttention [193], continuous batching, and optimized CUDA kernels. Furthermore, vLLM also supports various decoding algorithms, tensor parallelism and streaming outputs. To ease the integration with other systems, vLLM is friendly to the use of HuggingFace models, and also provide OpenAI-compatible API servers.
 
 • DeepSpeed-MII [194] is also a memory efficient Python library developed by DeepSpeed [74]. It aims to democratize LLMs inference by prioritizing high throughput, low latency, and cost-effectiveness. DeepSpeed-MII achieves accelerated text generation inference by leveraging four essential technologies: blocked KV caching, continuous batching, dynamic SplitFuse, and high-performance CUDA Kernels. It currently supports over 13,000 models across three popular model architectures, such as LLaMA [57], Mistral [195], and OPT [90].
 
@@ -724,125 +643,67 @@ decoding algorithms, tensor parallelism and streaming outputs. To ease the integ
 
 In addition to the above library resources, existing deep learning frameworks (e.g., PyTorch [197], TensorFlow [198], MXNet [199], PaddlePaddle [200], MindSpore [136] and OneFlow [201]) have also provided the support for parallel algorithms, which are commonly used for training largescale models.
 
-4
+在这部分中，我们简要介绍了一系列可用于开发 LLM 的库。
 
-P RE - TRAINING
+·Transformers [187] 是由 Hugging Face 开发和维护的一个用于构建基于 Transformer 架构模型的开源 Python 库。它具有简单且用户友好的 API，便于使用和定制各种预训练模型。它是一个功能强大的库，拥有一个庞大且活跃的用户和开发者社区，定期更新和改进模型和算法。
+
+·DeepSpeed [74] 是微软开发的深度学习优化库（与 PyTorch 兼容），已被用于训练多个 LLM，如 MTNLG [113] 和 BLOOM [78]。它为分布式训练提供了各种优化技术的支持，如内存优化（ZeRO 技术、梯度检查点）和流水线并行。
+
+·Megatron-LM [75–77] 是 NVIDIA 开发的用于训练大规模语言模型的深度学习库。它还提供了丰富的分布式训练优化技术，包括模型和数据并行、混合精度训练和 FlashAttention。这些优化技术可以大大提高训练效率和速度，实现跨 GPU 的高效分布式训练。
+
+·JAX [188] 是由谷歌开发的用于高性能机器学习算法的 Python 库，允许用户轻松地在带有硬件加速（例如 GPU 或 TPU）的数组上执行计算。它能够在各种设备上高效地进行计算，并支持几个特色功能，如自动微分和即时编译。
+
+·Colossal-AI [189] 是 HPC-AI Tech 开发的用于训练大规模 AI 模型的深度学习库。它基于 PyTorch 实现，并支持丰富的并行训练策略集合。此外，它还可以使用 PatrickStar [190] 提出的方法优化异构内存管理。最近，一个类似 ChatGPT 的模型 ColossalChat [140] 已被公开发布，包括两个版本（7B 和 13B），它们是使用 Colossal-AI 基于 LLaMA [57] 开发的。
+
+·BMTrain [191] 是 OpenBMB 开发的一种高效库，用于以分布式方式训练具有大规模参数的模型，强调代码简单性、低资源和高可用性。BMTrain 已将几个常见的 LLM（例如 Flan-T5 [69] 和 GLM [93]）纳入其 ModelCenter，开发者可以直接使用这些模型。
+
+·FastMoE [192] 是一个专门用于 MoE（即专家混合）模型的训练库。它基于 PyTorch 开发，其设计重点是效率和用户友好。FastMoE 简化了将 Transformer 模型转换为 MoE 模型的过程，并在训练期间支持数据并行和模型并行。
+
+·vLLM [193] 是一个快速、内存高效且易于使用的 LLM 推理和服务库。为了实现快速推理，它特别优化了高吞吐量服务、使用 PagedAttention [193] 的有效注意力内存管理、连续批处理和优化的 CUDA 核心。此外，vLLM 还支持各种解码算法、张量并行和流式输出。为了便于与其他系统集成，vLLM 对 HuggingFace 模型的使用友好，并提供兼容 OpenAI 的 API 服务器。
+
+·DeepSpeed-MII [194] 也是一个内存高效的 Python 库，由 DeepSpeed [74] 开发。它旨在通过优先考虑高吞吐量、低延迟和成本效益来普及 LLM 推理。DeepSpeed-MII 通过利用四种核心技术来实现加速文本生成推理：阻塞 KV 缓存、连续批处理、动态 SplitFuse 和高性能 CUDA 核心。它目前支持三种流行模型架构的 13,000 多个模型，如 LLaMA [57]、Mistral [195] 和 OPT [90]。
+
+·DeepSpeed-Chat [196] 是一个快速、经济、易用的系统框架，使得整个 RLHF 过程能够在模型训练期间集成。它的三个主要功能特点是：(1) 简化了类似 ChatGPT 模型的训练和推理过程，使得使用简单脚本实现多个训练或推理步骤；(2) 复制了 InstructGPT [66] 的训练模式，为三个训练步骤（即 SFT、奖励模型微调和 RLHF）提供了完整的流程；(3) 将 Deepspeed 的训练引擎和推理引擎整合为统一的混合引擎（Deepspeed HE），用于 RLHF 训练，使训练和推理模式之间无缝切换，并利用 DeepSpeed 推理的各种优化。
+
+除了上述库资源外，现有的深度学习框架（例如，PyTorch [197]、TensorFlow [198]、MXNet [199]、PaddlePaddle [200]、MindSpore [136] 和 OneFlow [201]）也提供了并行算法的支持，这些算法通常用于训练大规模模型。
+
+### 04. Pretraining
 
 Pre-training establishes the basis of the abilities of LLMs. By pre-training on large-scale corpora, LLMs can acquire essential language understanding and generation skills [55, 56]. In this process, the scale and quality of the pre-training corpus are critical for LLMs to attain powerful capabilities. Furthermore, to effectively pre-train LLMs, model architectures, acceleration methods, and optimization techniques need to be well designed. In what follows, we first discuss the data collection and processing in Section 4.1, then introduce the commonly used model architectures in Section 4.2, and finally present the training techniques to stably and efficiently optimize LLMs in Section 4.3.
 
-4.1 Data Collection and Preparation
+预训练为 LLM 的能力奠定了基础。通过在大规模语料库上进行预训练，LLM 可以获得基本的语言理解和生成技能 [55, 56]。在这个过程中，预训练语料库的规模和质量对于 LLM 获得强大能力至关重要。此外，为了有效地预训练 LLM，需要精心设计模型架构、加速方法和优化技术。接下来，我们将首先在第 4.1 节讨论数据收集和处理，然后在第 4.2 节介绍常用的模型架构，最后在第 4.3 节介绍稳定和高效优化 LLM 的训练技术。
+
+#### 4.1 Data Collection and Preparation
 
 Compared with small-scale language models, LLMs have a stronger demand for high-quality data for model pretraining, and their model capacities largely rely on the pretraining corpus and how it has been preprocessed. In this part, we discuss the collection and processing of pre-training data, including data sources, preprocessing methods, and important analysis of how pre-training data affects the performance of LLMs. 17
 
-T5 (11B)
-
-100%
-
-GLaM (1200B)
-
-Falcon (40B)
-
-100%
-
-PaLM (540B) 5% 14% 31%
-
-LLaMA (65B) 3% 2% 5%
-
-GPT-3 (175B)
-
-5%
-
-16%
-
-MT-NLG (530B) 2% 26% 4%
-
-62%
-
-Gopher (280B)
-
-3%
-
-Chinchilla (70B)
-
-4%
-
-37%
-
-40%
-
-60%
-
-56%
-
-6%
-
-87%
-
-84%
-
-22%
-
-LaMDA (137B)
-
-13%
-
-Galactica (120B) 8% 7%
-
-86%
-
-GPT-NeoX (20B)
-
-CodeGen (16B)
-
-AlphaCode (41B)
-
-8%
-
-20%
-
-30%
-
-38%
-
-39%
-
-48%
-
-6%
-
-38%
-
-10%
-
-10%
-
-30%
-
-50%
-
-50%
-
-15%
-
-25%
-
-100%
-
-💻 C4 (800G, 2019), 💻 OpenWebText (38G, 2023), 💻 Wikipedia (21G, 2023) 💬 the Pile - StackExchange (41G, 2020) 📚 BookCorpus (5G, 2015), 📚 Gutenberg (-, 2021), 📚 CC-Stories-R (31G, 2019), 📰 CC-NEWES (78G, 2019), 📰 REALNEWs (120G, 2019) 🔬 the Pile - ArXiv (72G, 2020), 🔬 the Pile - PubMed Abstracts (25G, 2020) ⌨ BigQuery (-, 2023), the Pile - GitHub (61G, 2020)
-
 Fig. 6: Ratios of various data sources in the pre-training data for existing LLMs.
 
-4.1.1 Data Source To develop a capable LLM, it is key to collect a large amount of natural language corpus from various data sources. Existing LLMs mainly leverage a mixture of diverse public textual datasets as the pre-training corpus. Figure 6 shows the distribution of the sources of pre-training data for a number of representative LLMs.
+4.1.1 Data Source 
+
+To develop a capable LLM, it is key to collect a large amount of natural language corpus from various data sources. Existing LLMs mainly leverage a mixture of diverse public textual datasets as the pre-training corpus. Figure 6 shows the distribution of the sources of pre-training data for a number of representative LLMs.
 
 The source of pre-training corpus can be broadly categorized into two types: general data and specialized data. General data, such as webpages, books, and conversational text, is utilized by most LLMs [55, 56, 90] due to its large, diverse, and accessible nature, which can enhance the language modeling and generalization abilities of LLMs. In light of the impressive generalization capabilities exhibited by LLMs, there are also studies that extend their pre-training corpus to more specialized datasets, such as multilingual data, scientific data, and code, endowing LLMs with specific task-solving capabilities [35, 56, 86]. In what follows, we describe these two types of pre-training data sources and their effects on LLMs. For a detailed introduction to the commonly used corpus, one can refer to Section 3.2.
 
 General Text Data. As we can see in Figure 6, the vast majority of LLMs adopt general-purpose pre-training data, such as webpages, books, and conversational text, which provides rich text sources on a variety of topics. Next, we briefly summarize three important kinds of general data.
 
+4.1 数据收集和准备
+
+与小规模语言模型相比，LLM 对高质量数据的需求更强，它们的模型能力在很大程度上依赖于预训练语料库以及如何进行预处理。在这部分中，我们将讨论预训练数据的收集和处理，包括数据来源、预处理方法，以及预训练数据如何影响 LLM 性能的重要分析。17
+
+图 6：现有 LLM 的预训练数据中各种数据来源的比例。
+
+4.1.1 数据来源
+
+为了开发一个有能力的 LLM，关键是从各种数据来源收集大量自然语言语料库。现有的 LLM 主要利用各种公共文本数据集的混合作为预训练语料库。图 6 显示了许多代表性 LLM 的预训练数据来源分布。
+
+预训练语料库的来源可以大致分为两类：通用数据和专门数据。通用数据，如网页、书籍和对话文本，由于其庞大、多样且易于获取的特点，被大多数 LLM [55, 56, 90] 所使用，这可以增强 LLM 的语言建模和泛化能力。鉴于 LLM 展示出的令人印象深刻的泛化能力，也有研究将它们的预训练语料库扩展到更多专门的数据集，如多语言数据、科学数据和代码，赋予 LLM 特定任务解决能力 [35, 56, 86]。接下来，我们将描述这两类预训练数据源及其对 LLM 的影响。有关常用语料库的详细介绍，请参阅第 3.2 节。
+
+通用文本数据。正如我们在图 6 中看到的，绝大多数 LLM 采用通用预训练数据，如网页、书籍和对话文本，提供了关于各种主题的丰富文本来源。接下来，我们将简要总结三种重要的通用数据。
+
 • Webpages. Owing to the proliferation of the Internet, various types of data have been created, which enables LLMs to gain diverse linguistic knowledge and enhance their generalization capabilities [26, 82]. For convenient use of these data resources, a large amount of data is crawled from the web in previous work, such as CommonCrawl [163]. However, the crawled web data tends to contain both high-quality text, such as Wikipedia and low-quality text, like spam mail, thus it is important to filter and process webpages for improving the data quality.
 
-• Conversation text. Conversation data can enhance the conversational competence of LLMs [90] and potentially im-
-
-prove their performance on a range of question-answering tasks [56]. Researchers can utilize subsets of public conversation corpus (e.g., PushShift.io Reddit corpus) [158, 202] or collect conversation data from online social media. Since online conversational data often involves discussions among multiple participants, an effective processing way is to transform a conversation into a tree structure, where the utterance is linked to the one it responds to. In this way, the multi-party conversation tree can be divided into multiple sub-conversations, which can be collected in the pre-training corpus. Furthermore, a potential risk is that the excessive integration of dialogue data into LLMs may result in a side effect [90]: declarative instructions and direct interrogatives are erroneously perceived as the beginning of conversations, thus leading to a decline in the efficacy of the instructions.
+• Conversation text. Conversation data can enhance the conversational competence of LLMs [90] and potentially improve their performance on a range of question-answering tasks [56]. Researchers can utilize subsets of public conversation corpus (e.g., PushShift.io Reddit corpus) [158, 202] or collect conversation data from online social media. Since online conversational data often involves discussions among multiple participants, an effective processing way is to transform a conversation into a tree structure, where the utterance is linked to the one it responds to. In this way, the multi-party conversation tree can be divided into multiple sub-conversations, which can be collected in the pre-training corpus. Furthermore, a potential risk is that the excessive integration of dialogue data into LLMs may result in a side effect [90]: declarative instructions and direct interrogatives are erroneously perceived as the beginning of conversations, thus leading to a decline in the efficacy of the instructions.
 
 • Books. Compared to other corpus, books provide an important source of formal long texts, which are potentially beneficial for LLMs to learn linguistic knowledge, model long-term dependency, and generate narrative and coherent texts. To obtain open-source book data, existing studies usually adopt the Books3 and Bookcorpus2 datasets, which are available in the Pile dataset [161].
 
@@ -853,6 +714,20 @@ Specialized Text Data. Specialized datasets are useful to improve the specific c
 • Scientific text. The exploration of science by humans has been witnessed by the increasing growth of scientific publications. In order to enhance the understanding of scientific knowledge for LLMs [35, 203], it is useful to incorporate a scientific corpus for model pre-training [35, 203]. By pretraining on a vast amount of scientific text, LLMs can achieve impressive performance in scientific and reasoning tasks [204]. To construct the scientific corpus, existing efforts mainly collect arXiv papers, scientific textbooks, math webpages, and other related scientific resources. Due to the complex nature of data in scientific fields, such as mathematical symbols and protein sequences, specific tokenization and preprocessing techniques are usually required to transform these different formats of data into a unified form that can be processed by language models.
 
 • Code. Program synthesis has been widely studied in the research community [105, 205–208], especially the use of PLMs trained on code [165, 209]. However, it remains challenging for these PLMs (e.g., GPT-J [165]) to generate high-quality and accurate programs. Recent studies [105, 208] have found that training LLMs on a vast code corpus can lead to a substantial improvement in the quality of the synthesized programs. The generated programs can successfully pass expert-designed unit-test cases [105] or solve competitive programming questions [114]. In general, two types of code corpora are commonly used for pre-training LLMs. The first source is from programming question answering communities like Stack Exchange [210]. The second source is from public software repositories such as GitHub [86, 105, 208], where code data (including comments and docstrings) are collected for utilization. Compared to natural language text, code is in the format of a programming language, corresponding to long-range dependencies and accurate execution logic [211]. A recent study [47] also speculates that training on code might be a source of complex reasoning abilities (e.g., chain-of-thought ability [33]). Furthermore, it has been shown that formatting reasoning tasks into code can help LLMs generate more accurate results [211].
+
+·网页资源。互联网的广泛发展产生了各种类型的数据，这为 LLM 提供了丰富的语言知识，增强了它们的泛化能力 [26, 82]。为了方便利用这些数据资源，先前的工作中从网络上爬取了大量数据，例如 CommonCrawl [163]。然而，爬取的网络数据中既包含高质量文本（如维基百科），也包含低质量文本（如垃圾邮件），因此过滤和处理网页数据以提高质量非常重要。
+
+·对话文本。对话数据可以增强 LLM 的对话能力 [90]，并有可能提高它们在一系列问答任务上的表现 [56]。研究人员可以利用公共对话语料库的子集（例如 PushShift.io Reddit 语料库）[158, 202] 或从在线社交媒体收集对话数据。由于在线对话数据常涉及多方参与者的讨论，有效的处理方式是将对话转换为树状结构，其中每个发言与它所回应的发言相连接。这样，多方对话树可以被分解成多个子对话，进而收集到预训练语料库中。此外，对话数据过度整合到 LLM 中可能带来副作用 [90]：声明性指令和直接询问语句可能被错误地视为对话的开头，导致指令效力下降。
+
+·书籍。与其他语料相比，书籍是正式长文本的重要来源，对 LLM 学习语言知识、建模长期依赖关系和生成叙事性与连贯文本可能非常有益。为获取开源书籍数据，现有研究通常采用 Books3 和 Bookcorpus2 数据集，这些数据集可在 Pile 数据集 [161] 中找到。
+
+专门文本数据。专门数据集对提高 LLM 在下游任务上的特定能力非常有用。下面我们介绍三种专门数据。
+
+·多语言文本。除了目标语言文本外，整合多语言语料库可以增强 LLM 的多语言理解和生成能力。例如，BLOOM [78] 和 PaLM [56] 分别收集了覆盖 46 种和 122 种语言的多语言数据。FLM [102] 几乎等量混合了中文和英文语料库。这些模型在多语言任务（如翻译、多语言摘要和多语言问答）上表现出色，并与针对目标语言语料库微调的最新模型相比有可比较或更优的性能。18
+
+·科学文本。人类对科学的探索伴随着科学出版物的不断增长。为了增强 LLM 对科学知识的理解 [35, 203]，将科学语料库纳入模型预训练是有益的 [35, 203]。通过在大量科学文本上进行预训练，LLM 能在科学和推理任务上取得印象深刻的表现 [204]。为构建科学语料库，现有努力主要收集 arXiv 论文、科学教科书、数学网页等相关科学资源。由于科学领域数据的复杂性（如数学符号和蛋白质序列），通常需要特定的标记化和预处理技术，将这些不同格式的数据转换为语言模型可处理的统一形式。
+
+·代码。程序合成在研究社区中得到了广泛研究 [105, 205–208]，特别是在代码上训练的 PLM [165, 209]。然而，对于这些 PLM（例如 GPT-J [165]），生成高质量和准确的程序仍然是一个挑战。近期研究 [105, 208] 发现，在大量代码语料库上训练 LLM 可以显著提高合成程序的质量。生成的程序可以成功通过专家设计的单元测试用例 [105] 或解决竞赛编程问题 [114]。一般来说，用于 LLM 预训练的代码语料库有两种来源。第一种来源是编程问答社区（如 Stack Exchange [210]）。第二种来源是公共软件仓库（如 GitHub [86, 105, 208]），从中收集代码数据（包括注释和文档字符串）。与自然语言文本相比，代码是以编程语言格式呈现的，对应于长期依赖关系和准确的执行逻辑 [211]。最近的研究 [47] 还推测，代码训练可能是复杂推理能力（例如链式思维能力 [33]）的来源。此外，还有研究表明，将推理任务格式化为代码可以帮助 LLM 生成更准确的结果 [211]。
 
 4.1.2 Data Preprocessing
 
@@ -872,101 +747,107 @@ pages) as positive instances and sample candidate data as negative instances, an
 
 De-duplication. Existing work [214] has found that duplicate data in a corpus would reduce the diversity of language models, which may cause the training process to become unstable and thus affect the model performance. Therefore, it is necessary to de-duplicate the pre-training corpus. Specially, de-duplication can be performed at different granularities, including sentence-level, document-level, and dataset-level de-duplication. First, low-quality sentences that contain repeated words and phrases should be removed, as they may introduce repetitive patterns in language modeling [215]. At the document level, existing studies mostly rely on the overlap ratio of surface features (e.g., words and n-grams overlap) between documents to detect and remove duplicate documents containing similar contents [57, 64, 78, 216]. Furthermore, to avoid the dataset contamination problem, it is also crucial to prevent the overlap between the training and evaluation sets [56], by removing the possible duplicate texts from the training set. It has been shown that the three levels of de-duplication are useful to improve the training of LLMs [56, 217], which should be jointly used in practice.
 
-Privacy Reduction. The majority of pre-training text data is obtained from web sources, including user-generated content involving sensitive or personal information, which may increase the risk of privacy breaches [218]. Thus, it is necessary to remove the personally identifiable information (PII) from the pre-training corpus. One direct and effective approach is to employ rule-based methods, such as keyword spotting, to detect and remove PII such as names, addresses, and phone numbers [162]. Furthermore, researchers also find that the vulnerability of LLMs under privacy attacks can be attributed to the presence of duplicate PII data in the pre-training corpus [219]. Therefore, de-duplication can also 19
-
-Raw Corpus
-
-Quality Filtering
-
-Language Filtering Metric Filtering Statistic Filtering Keyword Filtering
-
-Alice is writing a paper about LLMs. #$^& Alice is writing a paper about LLMs.
-
-De-duplication
-
-Sentence-level Document-level Set-level
-
-Alice is writing a paper about LLMs. Alice is writing a paper about LLMs.
-
-Privacy Reduction
-
-Detect Personality Identifiable Information (PII) Remove PII
-
-Replace('Alice') is writing a paper about LLMs.
-
-Tokenization
-
-Reuse Existing Tokenizer SentencePiece Byte-level BPE
-
-Ready to pre-train!
-
-Encode('[Somebody] is writing a paper about LLMs.')
-
-32, 145, 66, 79, 12, 56, ...
+Privacy Reduction. The majority of pre-training text data is obtained from web sources, including user-generated content involving sensitive or personal information, which may increase the risk of privacy breaches [218]. Thus, it is necessary to remove the personally identifiable information (PII) from the pre-training corpus. One direct and effective approach is to employ rule-based methods, such as keyword spotting, to detect and remove PII such as names, addresses, and phone numbers [162]. Furthermore, researchers also find that the vulnerability of LLMs under privacy attacks can be attributed to the presence of duplicate PII data in the pre-training corpus [219]. Therefore, de-duplication can also reduce privacy risks to some extent.
 
 Fig. 7: An illustration of a typical data preprocessing pipeline for pre-training large language models.
-
-reduce privacy risks to some extent.
 
 Tokenization. Tokenization is also a crucial step for data preprocessing. It aims to segment raw text into sequences of individual tokens, which are subsequently used as the inputs of LLMs. In traditional NLP research (e.g., sequence labeling with conditional random fields [220]), word-based tokenization is the predominant approach, which is more aligned with human’s language cognition. However, wordbased tokenization can yield different segmentation results for the same input in some languages (e.g., Chinese word segmentation), generate a huge word vocabulary containing many low-frequency words, and also suffer from the “outof-vocabulary” issue. Thus, several neural network models employ character as the minimum unit to derive the word representation (e.g., a CNN word encoder in ELMo [21]). Recently, subword tokenizers have been widely used in Transformer based language models, typically including BytePair Encoding tokenization, WordPiece tokenization and Unigram tokenization. HuggingFace has maintained an excellent online NLP course on tokenizer 22 with running examples, and we refer to the beginners to this course. Next, we briefly describe the three representative tokenization methods.
 
 • Byte-Pair Encoding (BPE) tokenization. BPE was originally proposed as a general data compression algorithm in 1994 [221], and then adapted to NLP for tokenization [222]. It starts with a set of basic symbols (e.g., the alphabets and boundary characters), and iteratively combine frequent pairs of two consecutive tokens in the corpus as new tokens (called merge). For each merge, the selection criterion is based on the co-occurrence frequency of two contiguous tokens: the top frequent pair would be selected. The merge process continues until it reaches the predefined size. Further, Byte-level BPE has been used to improve the tokenization quality for multilingual corpus (e.g., the text containing non-ASCII characters) by considering bytes as the basic symbols for merge. Representative language models with this tokenization approach include GPT-2, BART, and LLaMA.
 
-• WordPiece tokenization. WordPiece was a Google internal subword tokenization algorithm. It was originally proposed by Google in developing voice search systems [223]. Then, it was used in the neural machine translation system in 2016 [224], and was adopted as the word tokenizer for BERT in 2018 [23]. WordPiece has a very similar idea with BPE by iteratively merging consecutive tokens, whereas
-
-22. https://huggingface.co/learn/nlp-course/chapter6
-
-taking a slightly different selection criterion for the merge. To conduct the merge, it first trains a language model and employs it to score all possible pairs. Then, at each merge, it selects the pair that leads to the most increase in the likelihood of training data. Since Google has’t released the official implementation of the WordPiece algorithm, HuggingFace gives a more intuitive selection measure in its online NLP course: a pair is scored by dividing the co-occurrence count by the product of the occurrence counts of two tokens in the pair based on training corpus.
+• WordPiece tokenization. WordPiece was a Google internal subword tokenization algorithm. It was originally proposed by Google in developing voice search systems [223]. Then, it was used in the neural machine translation system in 2016 [224], and was adopted as the word tokenizer for BERT in 2018 [23]. WordPiece has a very similar idea with BPE by iteratively merging consecutive tokens, whereas taking a slightly different selection criterion for the merge. To conduct the merge, it first trains a language model and employs it to score all possible pairs. Then, at each merge, it selects the pair that leads to the most increase in the likelihood of training data. Since Google has’t released the official implementation of the WordPiece algorithm, HuggingFace gives a more intuitive selection measure in its online NLP course: a pair is scored by dividing the co-occurrence count by the product of the occurrence counts of two tokens in the pair based on training corpus.
 
 • Unigram tokenization. Unlike BPE and WordPiece, Unigram tokenization [225] starts with a sufficiently large set of possible substrings or subtokens for a corpus, and iteratively removes the tokens in the current vocabulary until the expected vocabulary size is reached. As the selection criterion, it calculates the yielded increase in the likelihood of training corpus by assuming that some token was removed from current vocabulary. This step is conducted based on a trained unigram language model. To estimate the unigram language model, it adopts an expectation–maximization (EM) algorithm: at each iteration, we first find the currently optimal tokenization of words based on the old language model, and then re-estimate the probabilities of unigrams to update the language model. During this procedure, dynamic programming algorithms (i.e., the Viterbi algorithm) are used to efficiently find the optimal decomposition way of a word given the language model. Representative models that adopt this tokenization approach include T5 and mBART.
 
-Although it is expedient to leverage an existing tokenizer (e.g., OPT [90] and GPT-3 [55] utilize the tokenizer of GPT2 [26]), using a tokenizer specially designed for the pretraining corpus can be highly beneficial [78], especially for the corpus that consists of diverse domains, languages, and formats. Therefore, recent LLMs often train the customized tokenizers specially for the pre-training corpus with the SentencePiece library [226], which includes Byte-level BPE and Unigram tokenization. A note is that normalization techniques in BPE, such as NFKC [227], may degrade the tokenization performance [34, 64, 78]. When extending existing LLMs (i.e., continual pre-training or instruction tuning), we should be also aware of the potential side effect with customized tokenizers. For example, LLaMA trains the BPE tokenizer based on a pre-training corpus mainly consisting of English texts, and the derived vocabulary might be less capable in processing non-English data, e.g., taking longer inference latency to generate Chinese texts. 20
-
-Data Source
-
-Stage 1
-
-1
-
-2
-
-3
-
-4
-
-Stage 2
-
-···
-
-Data Mixture
-
-Stage
-
-Stage
-
-source to create specific data mixtures as pre-training data. As Figure 6 illustrates, existing LLMs use different data mixtures to construct the pre-training data. As a representative model, the pre-training data of LLaMA [57] mainly consists of webpages (over 80%), alongside 6.5% of code-heavy data from GitHub and StackExchange, 4.5% from books, and
-
-Data Curriculum
+Although it is expedient to leverage an existing tokenizer (e.g., OPT [90] and GPT-3 [55] utilize the tokenizer of GPT2 [26]), using a tokenizer specially designed for the pretraining corpus can be highly beneficial [78], especially for the corpus that consists of diverse domains, languages, and formats. Therefore, recent LLMs often train the customized tokenizers specially for the pre-training corpus with the SentencePiece library [226], which includes Byte-level BPE and Unigram tokenization. A note is that normalization techniques in BPE, such as NFKC [227], may degrade the tokenization performance [34, 64, 78]. When extending existing LLMs (i.e., continual pre-training or instruction tuning), we should be also aware of the potential side effect with customized tokenizers. For example, LLaMA trains the BPE tokenizer based on a pre-training corpus mainly consisting of English texts, and the derived vocabulary might be less capable in processing non-English data, e.g., taking longer inference latency to generate Chinese texts.
 
 Fig. 8: An illustration of data scheduling for pre-training LLMs.
 
 Discussion on Effect of Data Quality. For pre-training, the quality of pre-training data is vital to the model capacities of LLMs. Existing work has shown that pre-training on the low-quality corpus, such as noisy, toxic, and duplicate data, would largely hurt the performance of models [64, 214, 216, 219]. Recent studies, such as T5 [82], GLaM [112], and Gopher [64], have investigated the influence of data quality on the LLMs’ capacities. By comparing the performance of models trained on the filtered and unfiltered corpus, they have reached the similar conclusion that pre-training LLMs on cleaned data can improve the model performance. More specifically, the duplication of data may result in “double descent” (referring to the phenomenon of performance initially deteriorating and subsequently improving) [214, 228], or even overwhelm the training process [214]. In addition, it has been shown that duplicate data degrades the ability of LLMs to copy from the context, which might further affect the generalization capacity of LLMs using in-context learning [214]. Therefore, as suggested in [56, 64, 78, 212], it is essential to utilize preprocessing methods like quality filtering, toxic filtering and deduplication to carefully clean the pre-training corpus (as illustrated in Section 4.1.2), to improve stability of the training process and avoid affecting the model performance.
 
+22 https://huggingface.co/learn/nlp-course/chapter6
+
+4.1.2 数据预处理
+
+在收集大量文本数据后，对数据进行预处理以构建预训练语料库至关重要，尤其是去除噪声、冗余、无关或潜在有害数据 [56, 64, 212]，这些因素可能会大大影响 LLM 的能力和表现。为了促进数据处理，最近的一项研究 [213] 提出了一种用于 LLM 的有用的数据处理系统，名为 Data-Juicer，提供了 50 多种处理操作符和工具。在这部分中，我们回顾了改善收集数据质量的详细数据预处理策略 [64, 78, 112]。LLM 预训练数据的典型预处理流程已在图 7 中示意。
+
+图 7：展示了预训练大型语言模型的典型数据预处理流程的插图。
+
+1、质量过滤。
+
+为了从收集的语料库中去除低质量数据，现有工作通常采用两种方法：(1) 基于分类器的，和 (2) 基于启发式的。前者方法基于高质量文本训练选择分类器，并利用它来识别并过滤掉低质量数据。通常，这些方法 [55, 56, 112] 使用精心策划的数据（例如维基百科页面）作为正例，采样候选数据作为负例，预测每个数据示例的质量评分。然而，一些研究 [64, 112] 发现，基于分类器的方法可能导致无意中移除方言、口语和社会语中的高质量文本，可能导致预训练语料库中的偏见，并降低语料库多样性。作为第二种方法，例如 BLOOM [78] 和 Gopher [64] 等研究采用基于启发式的方法通过一套精心设计的规则来消除低质量文本，可以总结如下：
+
+基于语言的过滤。如果 LLM 主要用于某些语言的任务，可以过滤掉其他语言的文本。
+
+基于度量的过滤。可以利用生成文本的评估度量（例如困惑度）来检测并移除不自然的句子。
+
+基于统计的过滤。可以利用语料库的统计特征（例如标点分布、符号与单词比例和句子长度）来衡量文本质量并过滤低质量数据。
+
+基于关键词的过滤。基于特定关键词集，可以识别并移除文本中的噪声或无用元素，例如 HTML 标签、超链接、模板和攻击性词汇。
+
+2、去重。
+
+现有研究 [214] 发现，语料库中的重复数据会减少语言模型的多样性，可能导致训练过程变得不稳定，进而影响模型性能。因此，对预训练语料库进行去重是必要的。特别地，去重可以在不同的粒度上进行，包括句子级、文档级和数据集级去重。首先，应该移除包含重复词汇和短语的低质量句子，因为它们可能在语言建模中引入重复模式 [215]。在文档级别上，现有研究大多依赖于文档间表面特征（如单词和 n-gram 重叠）的重叠比率来检测和移除包含类似内容的重复文档 [57, 64, 78, 216]。此外，为了避免数据集污染问题，防止训练集和评估集之间的重叠也非常重要 [56]，需要从训练集中移除可能的重复文本。已有研究表明，这三级去重对于改善 LLM 的训练是有益的 [56, 217]，应在实践中联合使用。
+
+3、隐私减少。
+
+大多数预训练文本数据来自网络资源，包括涉及敏感或个人信息的用户生成内容，这可能增加隐私泄露的风险 [218]。因此，有必要从预训练语料库中移除个人可识别信息（PII）。一种直接有效的方法是采用基于规则的方法，例如关键词发现，以检测和移除 PII，如姓名、地址和电话号码 [162]。此外，研究人员还发现，LLM 在隐私攻击下的脆弱性可以归因于预训练语料库中存在重复的 PII 数据 [219]。因此，去重也可以在一定程度上减少隐私风险。
+
+4、分词。分词也是数据预处理的一个关键步骤。它的目的是将原始文本分割成个别的标记序列，随后作为 LLM 的输入。在传统的自然语言处理研究中（例如，使用条件随机场的序列标注 [220]），基于词的分词是主要方法，这更符合人类的语言认知。然而，基于词的分词可能在某些语言（例如中文分词）中为同一输入产生不同的分割结果，产生一个包含许多低频词的巨大词汇表，并且还面临「词汇表外」问题。因此，一些神经网络模型采用字符作为最小单位来派生词表示（例如，ELMo [21] 中的 CNN 词编码器）。最近，基于字的分词器在基于 Transformer 的语言模型中得到了广泛使用，典型的包括字节对编码（BytePair Encoding）分词、WordPiece 分词和单词单元（Unigram）分词。HuggingFace 维护了一个关于分词器的优秀在线自然语言处理课程，其中包含运行示例，我们建议初学者参考这个课程。接下来，我们简要介绍这三种代表性的分词方法。
+
+1、字节对编码（Byte-Pair Encoding, BPE）分词：BPE 最初于 1994 年提出，作为一种通用的数据压缩算法 [221]，后来被适应用于自然语言处理中的分词 [222]。它从一组基础符号（如字母和边界字符）开始，迭代地将语料库中频繁出现的两个连续标记对组合为新标记（称为合并）。对于每次合并，选择标准基于两个连续标记的共现频率：选择最频繁的对。合并过程持续进行，直到达到预定义的大小。此外，字节级 BPE 已用于改善多语言语料库的分词质量（例如，包含非 ASCII 字符的文本），通过考虑字节作为合并的基础符号。采用此分词方法的代表性语言模型包括 GPT-2、BART 和 LLaMA。
+
+2、WordPiece 分词：WordPiece 是谷歌内部的一个子词分词算法。它最初由谷歌在开发语音搜索系统时提出 [223]。后来，在 2016 年被用于神经机器翻译系统 [224]，并在 2018 年作为 BERT 的词分词器被采用 [23]。WordPiece 与 BPE 有类似的思想，通过迭代合并连续标记，但合并选择标准略有不同。在进行合并时，它首先训练一个语言模型，并使用它来为所有可能的对打分。然后，在每次合并中，它选择使训练数据似然性增加最多的对。由于谷歌没有发布 WordPiece 算法的官方实现，HuggingFace 在其在线自然语言处理课程中给出了更直观的选择度量：根据训练语料库，一个对的得分是由两个标记在对中共现计数除以两个标记出现计数的乘积来计算。
+
+3、单元（Unigram）分词：与 BPE 和 WordPiece 不同，单元分词 [225] 以足够大的语料库可能子字符串或子标记集合开始，然后迭代地从当前词汇表中移除标记，直到达到期望的词汇表大小。作为选择标准，它通过假设某个标记从当前词汇表中移除后，计算训练语料库似然性的增加来进行选择。这一步是基于训练的单元语言模型进行的。为了估计单元语言模型，它采用期望 - 最大化（EM）算法：在每次迭代中，我们首先根据旧语言模型找到单词当前最优的分词方式，然后重新估计单元的概率以更新语言模型。在此过程中，使用动态规划算法（即 Viterbi 算法）来高效地找到给定语言模型的单词的最优分解方式。采用此分词方法的代表性模型包括 T5 和 mBART。
+
+尽管使用现有的分词器（例如，OPT [90] 和 GPT-3 [55] 使用 GPT-2 [26] 的分词器）是方便的，但为预训练语料库专门设计的分词器可能会非常有益 [78]，特别是对于由不同领域、语言和格式组成的语料库。因此，最近的大型语言模型（LLM）通常使用 SentencePiece 库 [226]（包括字节级 BPE 和单元分词）为预训练语料库训练定制的分词器。需要注意的是，BPE 中的规范化技术，如 NFKC [227]，可能会降低分词性能 [34, 64, 78]。在扩展现有 LLM（即持续预训练或指令调整）时，我们也应该注意定制分词器的潜在副作用。例如，LLaMA 基于主要包含英文文本的预训练语料库训练 BPE 分词器，而衍生的词汇表可能在处理非英语数据时能力较弱，例如生成中文文本的推断延迟较长。
+
+图 8：大型语言模型预训练的数据调度示意图。
+
+关于数据质量影响的讨论。对于预训练而言，预训练数据的质量对 LLM 的模型能力至关重要。现有研究表明，使用低质量语料库（如噪声、有害和重复数据）进行预训练会大大损害模型性能 [64, 214, 216, 219]。最近的研究，如 T5 [82]、GLaM [112] 和 Gopher [64]，已经研究了数据质量对 LLM 能力的影响。通过比较在过滤和未过滤语料库上训练的模型性能，他们得出了相似的结论：在清洁数据上预训练 LLM 可以提高模型性能。更具体地说，数据的重复可能导致「双重下降」（指性能先恶化后改善的现象）[214, 228]，甚至可能压倒训练过程 [214]。此外，研究表明重复数据降低了 LLM 从上下文复制的能力，这可能进一步影响使用上下文学习的 LLM 的泛化能力 [214]。因此，正如 [56, 64, 78, 212] 中建议的，使用质量过滤、有害过滤和去重等预处理方法仔细清理预训练语料库（如第 4.1.2 节所示），对于提高训练过程的稳定性和避免影响模型性能至关重要。
+
 4.1.3 Data Scheduling
 
 After data preprocessing, it is essential to design suitable strategies to schedule these multi-source data for pretraining a capable LLM. Generally, two key aspects should be paid close attention for data scheduling: the proportion of each data source (data mixture), and the order in which each data source is scheduled for training (data curriculum). Next, we discuss the two aspects in detail. An illustration of data scheduling has been presented in Figure 8.
 
-Data Mixture. Since each kind of data source is closely related to the development of certain capacities for LLMs (referring to the discussions in Section 4.1), it is important to set a suitable distribution to mix these data. The data mixture is generally set in a global level (i.e., the distribution of the entire pre-training data), and can be also locally set to varied proportions at different training stages. During pre-training, data samples from different sources would be selected according to the mixture proportions: more data will be sampled from a data source with a larger weight. Typically, existing LLMs such as LLaMA [57] may employ upsampling or downsampling on the full data of each
+Data Mixture. Since each kind of data source is closely related to the development of certain capacities for LLMs (referring to the discussions in Section 4.1), it is important to set a suitable distribution to mix these data. The data mixture is generally set in a global level (i.e., the distribution of the entire pre-training data), and can be also locally set to varied proportions at different training stages. During pre-training, data samples from different sources would be selected according to the mixture proportions: more data will be sampled from a data source with a larger weight. Typically, existing LLMs such as LLaMA [57] may employ upsampling or downsampling on the full data of each source to create specific data mixtures as pre-training data. As Figure 6 illustrates, existing LLMs use different data mixtures to construct the pre-training data. As a representative model, the pre-training data of LLaMA [57] mainly consists of webpages (over 80%), alongside 6.5% of code-heavy data from GitHub and StackExchange, 4.5% from books, and 2.5% of scientific data sourced from arXiv, which has become an important reference for training general-purpose LLMs. Furthermore, special data mixtures can be used to facilitate different purposes. For example, Falcon [141] is trained on pure webpages, and CodeGen [86] largely increases the amount of code data. In practice, data mixture is often determined empirically, and we summarize several common strategies for finding an effective data mixture as follows:
 
-2.5% of scientific data sourced from arXiv, which has become an important reference for training general-purpose LLMs. Furthermore, special data mixtures can be used to facilitate different purposes. For example, Falcon [141] is trained on pure webpages, and CodeGen [86] largely increases the amount of code data. In practice, data mixture is often determined empirically, and we summarize several common strategies for finding an effective data mixture as follows:
+直译：
+
+在数据预处理之后，设计合适的策略来安排这些多源数据进行大型语言模型（LLMs）的预训练至关重要。通常，对于数据安排有两个关键方面需要密切关注：每个数据源的比例（数据混合）和每个数据源被安排用于训练的顺序（数据课程）。接下来，我们将详细讨论这两个方面。数据安排的示意图在图 8 中展示。
+
+数据混合。由于每种数据源都与 LLMs 某些能力的发展密切相关（参考第 4.1 节的讨论），设置合适的分布以混合这些数据是重要的。数据混合通常在全局级别上设置（即整个预训练数据的分布），并且可以在不同的训练阶段以不同的比例局部设置。在预训练期间，将根据混合比例从不同源中选择数据样本：权重较大的数据源将被采样更多数据。通常，现有的 LLMs 如 LLaMA [57] 可能会对每个源的全部数据进行上采样或下采样，以创建特定的数据混合作为预训练数据。正如图 6 所示，现有的 LLMs 使用不同的数据混合构造预训练数据。作为一个代表性模型，LLaMA [57] 的预训练数据主要由网页（超过 80%）组成，外加来自 GitHub 和 StackExchange 的 6.5% 代码密集型数据，4.5% 来自书籍的数据，以及 2.5% 来自 arXiv 的科学数据，这已成为训练通用目的 LLMs 的重要参考。此外，特殊的数据混合可以用于促进不同的目的。例如，Falcon [141] 仅在网页上进行训练，而 CodeGen [86] 则大量增加代码数据。在实践中，数据混合通常是经验性地确定的，我们总结了以下几种寻找有效数据混合的常见策略：
+
+意译：
+
+在数据预处理之后，为大型语言模型（LLMs）的预训练制定合适的多源数据调度策略非常关键。在数据调度中，有两个重要方面需要特别关注：每个数据源的比重（数据混合）和各数据源用于训练的安排顺序（数据课程）。下面，我们将详细探讨这两个方面，相关的数据安排示意图见图 8。
+
+数据混合的策略：由于每种数据源都与 LLMs 的特定能力发展密切相关，因此确定适当的数据混合分布非常重要。数据混合通常在全局层面上设置，即整个预训练数据的分布，同时也可以在不同训练阶段局部调整比例。
+
+在预训练期间，将根据混合比例从各种数据源中选择样本：比重更大的数据源将提供更多的样本。例如，LLaMA [57] 这类现有的 LLMs 可能会对各数据源进行上采样或下采样，以制定特定的预训练数据混合。如图 6 所示，现有的 LLMs 采用不同的数据混合来构建预训练数据。以 LLaMA [57] 为例，其预训练数据主要包括网页内容（超过 80%），以及来自 GitHub 和 StackExchange 的 6.5% 代码密集数据、4.5% 书籍数据、2.5% 来自 arXiv 的科学数据，这已成为训练通用目的 LLMs 的一个重要参考。另外，为了不同的目的，可以使用特殊的数据混合。例如，Falcon [141] 专门在网页上训练，而 CodeGen [86] 则大幅增加代码数据的比例。在实际操作中，数据混合通常基于经验来确定，我们总结了几种寻找有效数据混合的常见策略。
 
 • Increasing the diversity of data sources. Recent studies have empirically shown that training on excessive data about a certain domain would degrade the generalization capability of LLMs on other domains [35, 64]. In contrast, increasing the data source heterogeneity (e.g., including diverse data sources) is critical for improving the downstream performance of LLMs [212, 229, 230]. To further examine the effect of different data sources, some studies have conducted ablation experiments by removing each data source one by one, and pre-train LLMs with specially curated datasets [212]. It has been shown that dropping data sources with high heterogeneity (e.g., webpages) impacts LLM’s abilities more severely than dropping sources with low heterogeneity (e.g., academic corpus).
 
 • Optimizing data mixtures. In addition to manually setting the data mixtures, several studies have proposed to optimize the data mixtures for improving the model pretraining [59, 231]. Given the target downstream tasks, one can select pre-training data with either higher proximity in the feature space [231] or those that provide positive influences on downstream task performance [232]. Further, to reduce the reliance of target tasks, DoReMi [59] first trains a small reference model using given initial domain weights, and then trains another small proxy model, upweighting the domains on which the greatest discrepancies in likelihood between the two models are observed. Finally, the learned domain weights of the proxy model are applied to train a much larger LLM. In a more simple way, one can train several small language models with different data mixtures, and select the data mixture that leads to the most desirable performance. However, an assumption made in this approach is, when trained in a similar way, small models would resemble with large models in model abilities or behaviors, which may not always hold in practice.
 
-• Specializing the targeted abilities. The model capacities of LLMs heavily rely on data selection and mixture, and one can boost the proportions of specific data sources to enhance certain model abilities [64, 212]. For example, the mathematical reasoning and coding abilities can be specially enhanced by training with more mathematical texts and code data, respectively. Furthermore, experimental results on the LAMBADA dataset [233] show that increasing the proportion of books data can improve the model capacity in capturing long-term dependencies from text, and increasing the proportion of the C4 dataset [82] leads to performance improvement on the C4 validation dataset [64]. Generally, it is important to identify more implicit relations between 21
+• Specializing the targeted abilities. The model capacities of LLMs heavily rely on data selection and mixture, and one can boost the proportions of specific data sources to enhance certain model abilities [64, 212]. For example, the mathematical reasoning and coding abilities can be specially enhanced by training with more mathematical texts and code data, respectively. Furthermore, experimental results on the LAMBADA dataset [233] show that increasing the proportion of books data can improve the model capacity in capturing long-term dependencies from text, and increasing the proportion of the C4 dataset [82] leads to performance improvement on the C4 validation dataset [64]. Generally, it is important to identify more implicit relations between data sources and model abilities. To enhance specific skills such as mathematics and coding in LLMs, or to develop specialized LLMs, a practical way is to employ a multi-stage training approach, e.g., general and skill-specific data can be scheduled at two consecutive stages. This approach of training LLMs on varying sources or proportions of data across multiple stages is also known as “data curriculum”, which will be introduced below.
 
-data sources and model abilities. To enhance specific skills such as mathematics and coding in LLMs, or to develop specialized LLMs, a practical way is to employ a multi-stage training approach, e.g., general and skill-specific data can be scheduled at two consecutive stages. This approach of training LLMs on varying sources or proportions of data across multiple stages is also known as “data curriculum”, which will be introduced below.
+直译：
+
+增加数据来源的多样性。近期研究实证表明，过度训练某一领域的数据会降低大型语言模型（LLMs）在其他领域的泛化能力 [35, 64]。相反，增加数据来源的异质性（例如，包括多样化的数据源）对于提升 LLMs 的下游任务性能至关重要 [212, 229, 230]。为了进一步检验不同数据来源的影响，一些研究通过逐一移除每个数据来源，并使用特别策划的数据集对 LLMs 进行预训练 [212]。研究表明，删除异质性高的数据来源（例如，网页）比删除异质性低的数据来源（例如，学术语料库）对 LLM 的能力影响更严重。
+
+优化数据混合。除了手动设置数据混合外，一些研究提出优化数据混合以改善模型预训练 [59, 231]。考虑到目标下游任务，可以选择具有更高特征空间接近度 [231] 的预训练数据，或者选择对下游任务性能有积极影响的数据 [232]。此外，为了减少对目标任务的依赖，DoReMi [59] 首先使用给定的初始领域权重训练一个小型参考模型，然后训练另一个小型代理模型，增加两个模型之间观察到的最大似然差异领域的权重。最后，代理模型学习到的领域权重被应用于训练更大的 LLM。更简单的方法是，用不同的数据混合训练几个小型语言模型，并选择导致最理想性能的数据混合。然而，这种方法的一个假设是，以类似方式训练的小模型在模型能力或行为上会与大型模型相似，这在实践中可能并不总是成立。
+
+专门化目标能力。LLMs 的模型容量在很大程度上取决于数据选择和混合，可以通过增加特定数据来源的比例来增强某些模型能力 [64, 212]。例如，通过训练更多数学文本和代码数据，可以特别增强数学推理和编码能力。此外，对 LAMBADA 数据集 [233] 的实验结果表明，增加图书数据的比例可以提高模型捕捉文本中长期依赖关系的能力，增加 C4 数据集 [82] 的比例可以改善在 C4 验证数据集 [64] 上的性能。总的来说，识别数据来源与模型能力之间更隐蔽的关系是重要的。为了在 LLMs 中增强诸如数学和编码等特定技能，或者开发专门化的 LLMs，一种实用的方法是采用多阶段训练方法，例如，可以在两个连续阶段安排通用和技能特定的数据。这种在多个阶段使用不同来源或比例的数据训练 LLMs 的方法也被称为「数据课程」，将在下文中介绍。
+
+意译：
+
+数据来源多样化的重要性：最新研究显示，专注于特定领域的大量数据训练可能削弱大型语言模型（LLMs）在其他领域的泛化能力。相对地，包括多种不同类型数据源来提升数据源异质性对于增强 LLMs 在后续任务中的表现至关重要。为了深入了解不同数据源的影响，有研究通过逐一移除各种数据源，并用精选数据集对 LLMs 进行预训练。结果发现，移除异质性高的数据源（如网页内容）比移除异质性低的数据源（如学术文献）对 LLMs 的性能影响更大。
+
+优化数据混合策略：除了手动设置数据混合，还有研究提出通过优化数据混合来提高模型预训练效果。根据目标下游任务，可以选择特征空间上更接近的数据，或是对下游任务表现有积极影响的数据。例如，DoReMi 项目先用初始数据权重训练一个小型模型，然后训练另一个模型，加强两模型性能差异最大的领域。最后，这种域权重被应用于训练更大的 LLM。一个更简单的方法是，训练多个数据混合不同的小型语言模型，选择表现最佳的数据混合。但这种方法假设小模型和大模型的训练方式相似，这在实践中并非总是适用。
+
+针对特定能力的专项训练：LLMs 的能力很大程度上取决于数据的选择和组合。通过增加特定数据源的比例，可以增强模型在某些领域的能力。例如，增加数学文本和编程数据的比例可以特别提高数学推理和编程能力。LAMBADA 数据集的实验表明，增加图书数据比例有助于模型更好地捕捉文本中的长期依赖关系，而增加 C4 数据集的比例则能提升在 C4 验证集上的表现。通常，理解数据来源与模型能力之间的隐性联系是重要的。为了在 LLMs 中增强特定技能，如数学和编程，或发展专门化的 LLMs，采用多阶段训练方法是一种有效的策略。这种方法，也就是所谓的「数据课程」，将在下文详细介绍。
 
 Data Curriculum. After preparing the data mixture, it is important to schedule the order that specific data is presented to LLMs for pre-training. It has been shown that, in some cases, to learn a certain skill, learning in a skillset sequence (e.g., basic skills → target skill) outperforms direct learning from a corpus focused solely on the target skill [234, 235]. Following the idea of curriculum learning [236], data curriculum has been proposed and widely used in model pre-training [234, 235, 237, 238]. It aims to organize different parts of pre-training data for LLMs in a specific order, e.g., starting with easy/general examples and progressively introducing more challenging/specialized ones. More generally, it can broadly refer to the adaptive adjustment of data proportions for different sources during pre-training. Existing work about data curriculum mainly focuses on continual pre-training, such as specialized coding LLMs (e.g., CodeLLaMA [235]) or long context LLMs (e.g., LongLLaMA [238]). However, it still lacks of more detailed report about data curriculum for general-purpose LLMs (e.g., LLaMA) in the literature. To determine data curriculum, a practical approach is to monitor the development of key abilities of LLMs based on specially constructed evaluation benchmarks, and then adaptively adjust the data mixture during pre-training. Next, we take three common abilities as examples to introduce how the concept of data curriculum 23 applies in continual pre-training.
 
@@ -974,11 +855,35 @@ Data Curriculum. After preparing the data mixture, it is important to schedule t
 
 • Mathematics. Llemma [239] is proposed to enhance the mathematical capacities of general-purpose LLMs. It is developed based on CodeLLaMA. Although CodeLLaMA [235] mainly focuses on the coding ability, experiments have shown that it performs better than its base model LLaMA 2 on mathematics benchmarks [239]. Based on CodeLLaMA, Llemma is continually trained on mixtures of scientific papers, web data containing mathematical text and code (2T general tokens → 500B code-heavy tokens → 50∼200B math-heavy tokens). Note that the pre-training data of Llemma also contains 5% general domain data as a form of regularization.
 
-• Long context. Long context modeling is an important ability for LLMs, and many studies have explored extend-
+• Long context. Long context modeling is an important ability for LLMs, and many studies have explored extending the context windows of LLMs via continually training [235, 238]. With modifications on position embeddings (i.e., position interpolation) of RoPE-based LLMs [57, 99, 240], CodeLLaMA further extends the context window of LLaMA 2 (2.5T tokens with 4K context window → 20B tokens with 16K context window). LongLLaMA [238] also achieves longer context window with the help of external memory and a unique training objective (1T tokens with 2K context window → 10B tokens with 8K context window).
 
-23. We utilize the symbol “ → ” to represent the data order in data curriculum. For example, “2T webpage tokens → 500B code tokens” means that the LLM is firstly trained with 2T webpage tokens and subsequently with 500B code data tokens.
+We utilize the symbol “ → ” to represent the data order in data curriculum. For example, “2T webpage tokens → 500B code tokens” means that the LLM is firstly trained with 2T webpage tokens and subsequently with 500B code data tokens.
 
-ing the context windows of LLMs via continually training [235, 238]. With modifications on position embeddings (i.e., position interpolation) of RoPE-based LLMs [57, 99, 240], CodeLLaMA further extends the context window of LLaMA 2 (2.5T tokens with 4K context window → 20B tokens with 16K context window). LongLLaMA [238] also achieves longer context window with the help of external memory and a unique training objective (1T tokens with 2K context window → 10B tokens with 8K context window).
+直译：
+
+数据课程。准备好数据混合后，安排特定数据呈现给 LLMs 进行预训练的顺序非常重要。研究表明，在某些情况下，按照技能集序列学习（例如，基础技能 → 目标技能）比直接从仅聚焦于目标技能的语料库学习更有效 [234, 235]。遵循课程学习的理念 [236]，数据课程已被提出并广泛应用于模型预训练 [234, 235, 237, 238]。其目的是以特定顺序组织 LLMs 的预训练数据的不同部分，例如，从简单 / 通用的示例开始，逐步引入更具挑战性 / 专业化的内容。更广泛地说，它还可以指在预训练期间对不同来源的数据比例进行自适应调整。关于数据课程的现有研究主要集中在持续预训练上，如专业化的编码 LLMs（例如，CodeLLaMA [235]）或长上下文 LLMs（例如，LongLLaMA [238]）。然而，关于通用 LLMs（例如，LLaMA）的数据课程，文献中仍缺乏更详细的报告。确定数据课程的一种实用方法是监测基于特别构建的评估基准的 LLMs 关键能力的发展，然后在预训练期间自适应调整数据混合。接下来，我们以三种常见能力为例介绍数据课程如何应用于持续预训练。
+
+·编码。为了提高 LLMs 的编码能力，基于 LLaMA 2 [99]（2T 通用标记 → 500B 代码密集型标记）开发了 CodeLLaMA [235]，旨在提高代码生成能力，并保留自然语言理解技能。CodeLLaMA 还提供了进一步专门化为特定编程语言的版本，即 CodeLLaMA-Python（2T 通用标记 → 500B 代码密集型标记 → 100B Python 密集型标记）。
+
+·数学。Llemma [239] 被提出用于增强通用 LLMs 的数学能力。它基于 CodeLLaMA 开发。尽管 CodeLLaMA [235] 主要关注编码能力，但实验表明，它在数学基准测试上比其基础模型 LLaMA 2 表现更好 [239]。基于 CodeLLaMA，Llemma 继续在科学论文、包含数学文本和代码的网页数据混合物上进行训练（2T 通用标记 → 500B 代码密集型标记 → 50∼200B 数学密集型标记）。需要注意的是，Llemma 的预训练数据还包含 5% 的通用领域数据，作为一种规范化形式。
+
+·长上下文。长上下文建模是 LLMs 的一个重要能力，许多研究通过持续训练探索了扩展 LLMs 的上下文窗口 [235, 238]。CodeLLaMA 对基于 RoPE 的 LLMs [57, 99, 240] 的位置嵌入（即，位置插值）进行修改，进一步扩展了 LLaMA 2 的上下文窗口（2.5T 标记，4K 上下文窗口 → 20B 标记，16K 上下文窗口）。LongLLaMA [238] 也借助外部存储和独特的训练目标实现了更长的上下文窗口（1T 标记，2K 上
+
+下文窗口 → 10B 标记，8K 上下文窗口）。
+
+我们使用符号「→」来表示数据课程中的数据顺序。例如，「2T 网页标记 → 500B 代码数据标记」意味着 LLM 首先用 2T 网页标记进行训练，随后使用 500B 代码数据标记。
+
+意译：
+
+数据课程策略。在准备好数据混合后，规划特定数据在预训练 LLMs 过程中的呈现顺序非常重要。研究发现，在某些情况下，按技能集序列学习（例如，从基础技能到目标技能）比直接从专注于目标技能的语料库中学习更为有效。基于课程学习理念，数据课程已被提出并广泛用于模型预训练。其目的是以特定顺序组织 LLMs 的预训练数据，比如从简单、通用的例子开始，逐渐引入更有挑战性、专业化的内容。更广义上，它还涉及在预训练期间自适应调整不同数据源的比例。目前的研究主要聚焦于持续预训练，如专门化的编程 LLMs 或长上下文 LLMs。然而，对于通用 LLMs（如 LLaMA）的数据课程，文献中还缺乏更详细的报告。确定数据课程的一个实用方法是监测 LLMs 关键能力的发展，并基于特别构建的评估基准在预训练期间自适应调整数据混合。下面，我们将以三个常见能力为例，介绍数据课程如何应用于持续预训练。
+
+·编程能力：为提升 LLMs 的编程能力，基于 LLaMA 2 开发了 CodeLLaMA，目标是提高代码生成能力并保留自然语言理解技能。CodeLLaMA 还提供了更进一步专门化的版本，如专注于 Python 语言的 CodeLLaMA-Python。
+
+·数学能力：Llemma 被提出用以增强通用 LLMs 的数学能力，它基于 CodeLLaMA 开发。尽管 CodeLLaMA 主要关注编码能力，但在数学基准测试上表现出色。Llemma 在科学论文、含数学文本和代码的网页数据混合物上继续训练，同时保留了一定比例的通用领域数据。
+
+·长上下文建模：长上下文建模对 LLMs 至关重要。研究通过持续训练尝试扩展 LLMs 的上下文窗口。例如，CodeLLaMA 通过修改 RoPE-based LLMs 的位置嵌入扩展了上下文窗口，而 LongLLaMA 则利用外部存储和独特的训练目标实现了更长的上下文窗口。
+
+数据课程中使用「→」表示数据顺序，如「2T 网页标记 → 500B 代码数据标记」表示 LLM 先用 2T 网页标记训练，然后使用 500B 代码数据标记。
 
 4.1.4 Summary of Data Preparation
 
@@ -990,265 +895,97 @@ In this part, we summarize the general procedure and key points to prepare pre-t
 
 • Data scheduling. With the preprocessed data, the next step is to determine the data mixture and the specific order of data for pre-training LLMs. To determine both settings, a practical way is to first train several small language models with multiple candidate plans and then select a good plan among them [59]. Overall, it is more difficult to find a suitable data curriculum. In practice, one can monitor the performance of intermediate model checkpoints on specific evaluation benchmarks, and dynamically tune the data mixture and distribution during pre-training. In this process, it is also useful to explore the potential relations between data sources and model abilities to instruct the design of data curriculum.
 
-4.2 Architecture
+直译：
+
+在这部分中，我们总结了为 LLMs 准备预训练数据的一般程序和关键点，详细内容分为以下三个方面。
+
+·数据收集。建议在预训练数据中包含多种数据来源。尽管 Falcon [141] 表明单独使用网页就可以训练出强大的 LLMs，但更典型的做法是同时整合包括代码、书籍、科学论文等在内的多种高质量文本。如果 LLM 专门具备某项技能，相应数据源的比例应相应增加。例如，Gopher [64] 和 Chinchilla [34] 训练时大约 40% 的数据来自书籍。PaLM [44] 和 LaMDA [68] 使用了大约 50% 的对话数据。
+
+·数据清理。在数据收集之后，清理原始语料库以提高其质量至关重要。首先，去重在现有工作中是常用的 [99, 141, 229]。其次，应该在不同的粒度上（例如，文档、段落或句子）移除低质量文本、有害内容和有隐私问题的数据。在实践中，可以使用启发式和基于分类器的方法进行质量和有害内容过滤（例如，CCNet [241]、fastText [242] 和 Data-Juicer [243]）。第三，使用清理后的数据，可以进一步统一或指定预训练数据的格式，并使用像 SentencePiece [226] 这样的库在过滤和去重后的语料库上训练分词器。
+
+·数据调度。使用预处理后的数据，下一步是确定预训练 LLMs 的数据混合和特定顺序。为了确定这两个设置，一种实用的方法是首先用多个候选计划训练几个小型语言模型，然后从中选择一个好的计划 [59]。总的来说，找到合适的数据课程更为困难。在实践中，可以监控中间模型检查点在特定评估基准上的性能，并在预训练期间动态调整数据混合和分布。在这个过程中，探索数据来源与模型能力之间的潜在关系对于指导数据课程的设计也是有用的。
+
+意译：
+
+在这部分，我们概括了为大型语言模型（LLMs）准备预训练数据的一般流程和关键要点，具体分为以下三个方面。
+
+1、数据收集的重要性：建议在预训练数据中纳入多种数据源。虽然单纯使用网页就能训练出强大的 LLMs（如 Falcon），但更常见的做法是融合包括代码、书籍、科学论文等多种高质量文本。如果 LLM 专注于特定技能，应相应增加该技能相关数据源的比例。例如，Gopher 和 Chinchilla 大约有 40% 的数据来自书籍，而 PaLM 和 LaMDA 大约使用了 50% 的对话数据。
+
+2、数据清理的步骤：数据收集后，关键步骤是清理原始语料库以提升其质量。常见的步骤包括去重、移除低质量文本、有害内容和隐私问题数据。在实践中，可以采用启发式或基于分类器的方法进行质量和有毒内容过滤。此外，还可以统一或指定预训练数据的格式，并使用工具如 SentencePiece 在过滤和去重后的语料库上进行分词。
+
+3、数据调度的方法：准备好预处理数据后，下一步是确定预训练 LLMs 的数据混合和具体顺序。一种实用的方法是先用多个候选方案训练几个小型语言模型，然后从中选择一个较好的方案。在实践中，可以监测模型在特定评估基准上的性能，根据需要动态调整数据混合和分布。此过程中，探索数据来源与模型能力之间的关系也对设计数据课程十分有益。
+
+#### 4.2 Architecture
 
 In this section, we review the architecture design of LLMs, i.e., mainstream architecture, pre-training objective, and detailed configuration. Table 5 presents the model cards of several representative LLMs with public details.
 
-4.2.1 Typical Architectures Due to the excellent parallelizability and capacity, the Transformer architecture [22] has become the de facto backbone to 22
+4.2.1 Typical Architectures 
+
+Due to the excellent parallelizability and capacity, the Transformer architecture [22] has become the de facto backbone to develop various LLMs, making it possible to scale language models to hundreds or thousands of billions of parameters. In general, the mainstream architectures of existing LLMs can be roughly categorized into three major types, namely encoder-decoder, causal decoder, and prefix decoder, as shown in Figure 9.
 
 TABLE 5: Model cards of several selected LLMs with public configuration details. Here, PE denotes position embedding, #L denotes the number of layers, #H denotes the number of attention heads, d model denotes the size of hidden states, and MCL denotes the maximum context length during training.
 
-Model
-
-GPT3 [55] PanGU- α [84] OPT [90] PaLM [56] BLOOM [78] MT-NLG [113] Gopher [64] Chinchilla [34] Galactica [35] LaMDA [68] Jurassic-1 [107] LLaMA [57] LLaMA 2 [99] Falcon [141] GLM-130B [93] T5 [82]
-
-Category
-
-Causal decoder Causal decoder Causal decoder Causal decoder Causal decoder Causal decoder Causal decoder Causal decoder Causal decoder Causal decoder Causal decoder Causal decoder Causal decoder Causal decoder Prefix decoder Encoder-decoder
-
-Size
-
-175B 207B 175B 540B 176B 530B 280B 70B 120B 137B 178B 65B 70B 40B 130B 11B
-
-Normalization
-
-Pre LayerNorm Pre LayerNorm Pre LayerNorm Pre LayerNorm Pre LayerNorm
-
--
-
-Pre RMSNorm Pre RMSNorm Pre LayerNorm
-
--
-
-Pre LayerNorm Pre RMSNorm Pre RMSNorm Pre LayerNorm Post DeepNorm Pre RMSNorm
-
-PE
-
-Learned Learned Learned RoPE ALiBi Relative Relative Learned Relative Learned RoPE RePE RoPE RoPE Relative
-
-Activation
-
-GeLU GeLU ReLU SwiGLU GeLU
-
--
-
--
-
-GeLU GeGLU GeLU SwiGLU SwiGLU GeLU GeGLU ReLU
-
-Bias
-
-✓ ✓ ✓ × ✓
-
--
-
--
-
-×
-
-✓ × × × ✓ ×
-
-
-96
-
-64
-
-76
-
-80
-
-80
-
-60
-
-70
-
-24
-
-
-96
-
-48
-
-112
-
-128
-
-128
-
-64
-
-80
-
-128
-
-96
-
-64
-
-64
-
-64
-
-96
-
-128
-
-dmodel 
-
-12288
-
-16384
-
-12288
-
-18432
-
-14336
-
-20480
-
-16384
-
-8192
-
-10240
-
-8192
-
-13824
-
-8192
-
-8192
-
-8192
-
-12288
-
-1024
-
-MCL
-
-2048
-
-1024
-
-2048
-
-2048
-
-2048
-
-2048
-
-2048
-
-2048
-
-2048 2048 4096 2048 2048 512
-
-Causal Decoder
-
-Survey
-
-of
-
-Large
-
-Language Models
-
-Prefix Decoder
-
-Survey
-
-of
-
-Large
-
-Language Models
-
-Encoder-Decoder
-
-A
-
-A
-
-A
-
-Survey
-
-of
-
-Large
-
-Language Models
-
-Decoder
-
-Decoder
-
-Encoder
-
-Decoder
-
 Fig. 9: A comparison of the attention patterns in three mainstream architectures. Here, the blue, green, yellow and grey rounded rectangles indicate the attention between prefix tokens, attention between prefix and target tokens, attention between target tokens, and masked attention respectively.
 
-develop various LLMs, making it possible to scale language models to hundreds or thousands of billions of parameters. In general, the mainstream architectures of existing LLMs can be roughly categorized into three major types, namely encoder-decoder, causal decoder, and prefix decoder, as shown in Figure 9.
+Encoder-decoder Architecture. The vanilla Transformer model is built on the encoder-decoder architecture [22], which consists of two stacks of Transformer blocks as the encoder and decoder, respectively. The encoder adopts stacked multi-head self-attention layers to encode the input sequence for generating its latent representations, while the decoder performs cross-attention on these representations and autoregressively generates the target sequence. Encoder-decoder PLMs (e.g., T5 [82] and BART [24]) have shown effectiveness on a variety of NLP tasks. So far, there are only a small number of LLMs that are built based on the encoder-decoder architecture, e.g., Flan-T5 [69]. We leave a detailed discussion about the architecture selection in Section 4.2.6.
 
-Encoder-decoder Architecture. The vanilla Transformer model is built on the encoder-decoder architecture [22], which consists of two stacks of Transformer blocks as the encoder and decoder, respectively. The encoder adopts stacked multi-head self-attention layers to encode the input sequence for generating its latent representations, while the decoder performs cross-attention on these representations and autoregressively generates the target sequence. Encoder-decoder PLMs (e.g., T5 [82] and BART [24]) have shown effectiveness on a variety of NLP tasks. So far, there are only a small number of LLMs that are built based on the encoder-decoder architecture, e.g., Flan-T5 [69]. We leave a detailed discussion about the architecture selection
 
-in Section 4.2.6.
 
-Causal Decoder Architecture. The causal decoder architecture incorporates the unidirectional attention mask, to guarantee that each input token can only attend to the past tokens and itself. The input and output tokens are processed in the same fashion through the decoder. As representative language models of this architecture, the GPT-series models [26, 55, 122] are developed based on the causal-decoder architecture. In particular, GPT-3 [55] has successfully demonstrated the effectiveness of this architecture, also showing an amazing in-context learning capability of LLMs. Interestingly, GPT-1 [122] and GPT2 [26] do not exhibit such superior abilities as those in GPT-3, and it seems that scaling plays an important role in increasing the model capacity of this model architecture. So far, the causal decoders have been widely adopted as the architecture of LLMs by various existing LLMs, such as OPT [90], BLOOM [78], and Gopher [64]. Note that both the causal decoder and prefix decoder discussed next belong
 
-Decoder
-
-Decoder
-
-Models Language
-
-Decoder
-
-of
-
-A
-
-Large
-
-Encoder
-
-Survey
-
-Models Language
-
-of
-
-A
-
-Large
-
-Survey
-
-Models Language
-
-of
-
-A
-
-Large
-
-Survey 23
-
-to decoder-only architectures. When mentioning “decoderonly architecture”, it mainly refers to the causal decoder architecture in existing literature, unless specified.
+Causal Decoder Architecture. The causal decoder architecture incorporates the unidirectional attention mask, to guarantee that each input token can only attend to the past tokens and itself. The input and output tokens are processed in the same fashion through the decoder. As representative language models of this architecture, the GPT-series models [26, 55, 122] are developed based on the causal-decoder architecture. In particular, GPT-3 [55] has successfully demonstrated the effectiveness of this architecture, also showing an amazing in-context learning capability of LLMs. Interestingly, GPT-1 [122] and GPT2 [26] do not exhibit such superior abilities as those in GPT-3, and it seems that scaling plays an important role in increasing the model capacity of this model architecture. So far, the causal decoders have been widely adopted as the architecture of LLMs by various existing LLMs, such as OPT [90], BLOOM [78], and Gopher [64]. Note that both the causal decoder and prefix decoder discussed next belong to decoder-only architectures. When mentioning “decoderonly architecture”, it mainly refers to the causal decoder architecture in existing literature, unless specified.
 
 Prefix Decoder Architecture. The prefix decoder architecture (a.k.a., non-causal decoder [244]) revises the masking mechanism of causal decoders, to enable performing bidirectional attention over the prefix tokens [245] and unidirectional attention only on generated tokens. In this way, like the encoder-decoder architecture, the prefix decoders can bidirectionally encode the prefix sequence and autoregressively predict the output tokens one by one, where the same parameters are shared during encoding and decoding. Instead of pre-training from scratch, a practical suggestion is to continually train causal decoders and then convert them into prefix decoders for accelerating convergence [29], e.g., U-PaLM [118] is derived from PaLM [56]. Existing representative LLMs based on prefix decoders include GLM130B [93] and U-PaLM [118].
 
+
+
+
 Mixture-of-Experts. For the above three types of architectures, we can further extend them via the mixture-ofexperts (MoE) scaling, in which a subset of neural network weights for each input are sparsely activated, e.g., Switch Transformer [25] and GLaM [112]. The major merit is that MoE is a flexible way to scale up the model parameter while maintaining a constant computational cost [25]. It has been shown that substantial performance improvement can be observed by increasing either the number of experts or the total parameter size [246]. Despite the merits, training large MoE models may suffer from instability issues due to the complex, hard-switching nature of the routing operation. To enhance the training stability of MoE-based language models, techniques such as selectively using high-precision tensors in the routing module or initializing the model with a smaller range have been introduced [25]. More recently, there is widespread speculation that GPT-4 has been developed based on the MoE architecture, but without official verification.
 
-Emergent Architectures. The conventional Transformer architectures typically suffer from quadratic computational complexity. Because of this, efficiency has become an important issue when training and making inference with long inputs. To improve efficiency, some studies aim to devise new architectures for language modeling, including parameterized state space models (e.g., S4 [247], GSS [248], and H3 [249]), long convolutions like Hyena [250], and Transformer-like architectures that incorporate recursive update mechanisms (e.g., RWKV [251] and RetNet [252]). The key merits of these new architectures are twofold. First, these models can generate outputs recursively like RNNs, meaning that they only need to refer to the single previous state during decoding. It makes the decoding process more efficient as it eliminates the need to revisit all previous states as in conventional Transformers. Second, these models have the capacity to encode an entire sentence in parallel like Transformers. This contrasts with conventional RNNs which has to encode sentences on a token-by-token basis. Thus, they can benefit from the parallelism of GPUs with techniques such as Parallel Scan [253, 254], FFT [250, 251], and Chunkwise Recurrent [252]. These techniques enable
+Emergent Architectures. The conventional Transformer architectures typically suffer from quadratic computational complexity. Because of this, efficiency has become an important issue when training and making inference with long inputs. To improve efficiency, some studies aim to devise new architectures for language modeling, including parameterized state space models (e.g., S4 [247], GSS [248], and H3 [249]), long convolutions like Hyena [250], and Transformer-like architectures that incorporate recursive update mechanisms (e.g., RWKV [251] and RetNet [252]). The key merits of these new architectures are twofold. First, these models can generate outputs recursively like RNNs, meaning that they only need to refer to the single previous state during decoding. It makes the decoding process more efficient as it eliminates the need to revisit all previous states as in conventional Transformers. Second, these models have the capacity to encode an entire sentence in parallel like Transformers. This contrasts with conventional RNNs which has to encode sentences on a token-by-token basis. Thus, they can benefit from the parallelism of GPUs with techniques such as Parallel Scan [253, 254], FFT [250, 251], and Chunkwise Recurrent [252]. These techniques enable models with these new architectures to be trained in a highly parallel and efficient manner.
 
-models with these new architectures to be trained in a highly parallel and efficient manner.
+直译：
+
+在本节中，我们回顾了大型语言模型（LLMs）的架构设计，即主流架构、预训练目标和详细配置。表 5 展示了一些具有公开详细信息的代表性 LLMs 的模型卡片。
+
+4.2.1 典型架构
+
+由于其出色的并行化能力和容量，变换器（Transformer）架构 [22] 已成为开发各种 LLMs 的事实标准，使得将语言模型扩展到数百亿或数千亿参数成为可能。一般来说，现有 LLMs 的主流架构大致可以分为三种主要类型，即编码器 - 解码器、因果解码器和前缀解码器，如图 9 所示。
+
+表 5：一些选定 LLMs 的模型卡片，包含公开配置细节。这里，PE 表示位置嵌入，#L 表示层数，#H 表示注意力头数，d model 表示隐藏状态的大小，MCL 表示训练中的最大上下文长度。
+
+图 9：三种主流架构中注意力模式的比较。这里，蓝色、绿色、黄色和灰色的圆角矩形分别表示前缀标记之间的注意力、前缀和目标标记之间的注意力、目标标记之间的注意力和屏蔽注意力。
+
+编码器 - 解码器架构。原始的变换器模型基于编码器 - 解码器架构 [22]，由两组变换器块组成，分别作为编码器和解码器。编码器采用堆叠的多头自注意力层对输入序列进行编码，生成其潜在表示，而解码器对这些表示执行交叉注意力，并自回归地生成目标序列。编码器 - 解码器 PLMs（例如，T5 [82] 和 BART [24]）在多种 NLP 任务上显示出有效性。迄今为止，基于编码器 - 解码器架构构建的 LLMs 数量不多，例如，Flan-T5 [69]。我们将在第 4.2.6 节对架构选择进行详细讨论。
+
+因果解码器架构。因果解码器架构采用单向注意力遮罩，以确保每个输入标记只能关注过去的标记和它本身。输入和输出标记通过解码器以相同方式处理。作为这种架构的代表性语言模型，GPT 系列模型 [26, 55, 122] 是基于因果解码器架构开发的。特别是，GPT-3 [55] 成功地展示了这种架构的有效性，同时展现了 LLMs 惊人的上下文学习能力。有趣的是，GPT-1 [122] 和 GPT-2 [26] 并没有表现出像 GPT-3 那样的卓越能力，似乎在增加这种模型架构的模型容量方面，规模扩大起着重要作用。迄今为止，因果解码器已被广泛采用为各种现有 LLMs 的架构，如 OPT [90]、BLOOM [78] 和 Gopher [64]。值得注意的是，因果解码器和接下来讨论的前缀解码器都属于仅解码器架构。在现有文献中，提到「仅解码器架构」时，主要指的是因果解码器架构，除非另有说明。
+
+前缀解码器架构。前缀解码器架构（又称非因果解码器 [244]）修订了因果解码器的遮罩机制，使其能够对前缀标记进行双向注意力处理 [245]，并仅对生成的标记进行单向注意力处理。这样，像编码器 - 解码器架构一样，前缀解码器可以双向编码前缀序列并自回归地逐个预测输出标记，编码和解码过程中共享相同的参数。作为一种实用建议，可以持续训练因果解码器，然后将其转换为前缀解码器以加速收敛 [29]，例如，U-PaLM [118] 是基于 PaLM [56] 派生的。基于前缀解码器的现有代表性 LLMs 包括 GLM130B [93] 和 U-PaLM [118]。
+
+专家混合。对于上述三种类型的架构，我们可以通过专家混合（MoE）扩展来进一步扩展它们，在这种扩展中，每个输入的一部分神经网络权重被稀疏激活，例如，Switch Transformer [25] 和 GLaM [112]。其主要优点是 MoE 是一种灵活的方法，可以在保持恒定计算成本的同时扩大模型参数 [25]。已经显示，通过增加专家数量或总参数大小可以观察到显著的性能提升 [246]。尽管有这些优点，由于路由操作的复杂、硬切换特性，训练大型 MoE 模型可能会遇到不稳定性问题。为了增强基于 MoE 的语言模型的训练稳定性，已经引入了诸如在路由模块中选择性使用高精度张量或使用较小范围初始化模型等技术 [25]。最近，广泛猜测 GPT-4 是基于 MoE 架构开发的，但没有官方验证。
+
+新兴架构。传统的变换器架构通常遭受二次计算复杂性的困扰。因此，在训练和使用长输入进行推理时，效率成为一个重要问题。为了提高效率，一些研究旨在设计新的语言建模架构，包括参数化状态空间模型（例如，S4 [247]、GSS [248] 和 H3 [249]）、类似长卷积的 Hyena [250]，以及结合递归更新机制的变换器类架构（例如，RWKV [251] 和 RetNet [252]）。这些新架构的主要优点有两个。首先，这些模型可以像 RNNs 一样递归生成输出，这意味着它们只需要在解码过程中引用单个先前状态。这使得解码过程更高效，因为它消除了像传统变换器那样需要重访所有先前状态的需要。其次，这些模型具有像变换器一样并行编码整个句子的能力。这与传统 RNNs 形成对比，后者必须逐个标记地编码句子。因此，它们可以利用 GPU 的并行性，并结合 Parallel Scan [253, 254]、FFT [250, 251] 和 Chunkwise Recurrent [252] 等技术。这些技术使得采用这些新架构的模型可以以高度并行和高效的方式进行训练。
+
+---
+
+意译：
+
+在这一节，我们将重点介绍大型语言模型（LLMs）的架构设计，包括主流的架构类型、预训练目标和详细配置。表 5 中展示了一些公开配置详细信息的代表性 LLMs 的模型卡片。
+
+典型架构的分类：由于其出色的并行化能力和容量，变换器（Transformer）架构已成为开发各种 LLMs 的标准。这使得将语言模型扩展到数百亿甚至数千亿参数成为可能。现有 LLMs 的主流架构大致可分为三大类：编码器 - 解码器、因果解码器和前缀解码器，如图 9 所示。
+
+表 5 中列出了一些选择的 LLMs 的模型卡片，包括它们的配置细节。例如，位置嵌入（PE）、层数（#L）、注意力头数（#H）、隐藏状态大小（d model）和训练中的最大上下文长度（MCL）等。
+
+图 9 对比了三种主流架构中的注意力模式。其中，不同颜色的圆角矩形代表不同类型的注意力，如前缀标记间、前缀与目标标记间、目标标记间和屏蔽注意力等。
+
+编码器-解码器架构详解：原始的变换器模型采用编码器-解码器架构，由两组变换器块构成的编码器和解码器组成。编码器通过多头自注意力层对输入序列进行编码，生成潜在表示，而解码器则对这些表示进行交叉注意力操作，自回归地生成目标序列。例如，T5 和 BART 这类编码器-解码器 PLMs 在多种 NLP 任务上表现出色。目前，基于此架构构建的 LLMs 数量有限，如 Flan-T5。关于架构选择的详细讨论将在第 4.2.6 节进行。
+
+因果解码器架构详解：因果解码器架构通过单向注意力遮罩确保每个输入标记仅关注过去的标记和自身。这种架构下的输入和输出标记通过解码器以相同的方式处理。GPT 系列模型（如 GPT-3）是基于此架构开发的代表性语言模型，展示了这种架构的有效性和 LLMs 的上下文学习能力。值得注意的是，GPT-1 和 GPT-2 并未展现出与 GPT-3 相同的卓越能力，这表明规模扩大在增强模型容量方面扮演了重要角色。目前，包括 OPT、BLOOM 和 Gopher 在内的多种 LLMs 都采用了因果解码器架构。通常，当提到「仅解码器架构」时，主要指的是因果解码器架构。
+
+前缀解码器架构的特点：前缀解码器架构（也称为非因果解码器）调整了因果解码器的遮罩机制，允许对前缀标记进行双向注意力处理，而对生成的标记只进行单向注意力处理。这使得前缀解码器像编码器-解码器架构一样，能够双向编码前缀序列并自回归地逐个预测输出标记，编码和解码过程中共享相同的参数。一种实用的建议是持续训练因果解码器，然后将其转换为前缀解码器以加快收敛，例如，U-PaLM 就是从 PaLM 派生的。目前，基于前缀解码器的代表性 LLMs 包括 GLM130B 和 U-PaLM。
+
+专家混合的扩展：上述三种架构可以通过专家混合（MoE）的方式进一步扩展。在 MoE 中，每个输入的神经网络权重部分被稀疏激活，如 Switch Transformer 和 GLaM。MoE 的主要优点是它提供了一种在保持计算成本恒定的同时扩大模型参数的灵活方法。研究表明，通过增加专家数量或总参数大小可以显著提升性能。但是，由于路由操作的复杂性，大型 MoE 模型训练可能面临不稳定性问题。为了提高基于 MoE 的语言模型的训练稳定性，已引入了一些技术，例如在路由模块中使用高精度张量或使用较小范围初始化模型。最近，有广泛猜测称 GPT-4 可能基于 MoE 架构开发，尽管尚未得到官方证实。
+
+新兴架构的发展：传统的变换器架构通常面临着二次计算复杂性的问题。因此，当处理长输入进行训练和推理时，效率成为一个重要议题。为提高效率，一些研究致力于开发新的语言模型架构，如参数化状态空间模型（S4、GSS 和 H3）、长卷积模型（如 Hyena）和结合递归更新机制的变换器类架构（如 RWKV 和 RetNet）。这些新架构的主要优点包括：它们可以像循环神经网络（RNNs）一样递归生成输出，仅需引用单个先前状态，提高了解码效率；同时，它们能够像变换器一样并行编码整个句子，与逐个标记编码的传统 RNNs 形成对比。利用 Parallel Scan、FFT 和 Chunkwise Recurrent 等技术，这些新架构的模型可以高效、高度并行地进行训练。
 
 4.2.2 Detailed Configuration
 
@@ -1266,225 +1003,9 @@ Normalization Position. In addition to the normalization method, normalization p
 
 • Post-LN. Post-LN is used in the vanilla Transformer [22], which is placed between residual blocks. However, existing work has found that the training of Transformers with post-LN tends to be instable due to the large gradients near the output layer [267]. Thus, post-LN is rarely employed in existing LLMs except combined with other strategies (e.g., combining post-LN with pre-LN in GLM130B [93]).
 
-• Pre-LN. Different from post-LN, pre-LN [268] is applied before each sub-layer, and an additional LN is placed before the final prediction. Compared with post-LN, the Transformers with pre-LN are more stable in training. However, it performs worse than the variants with post-LN [269]. Despite the decreasing performance, most LLMs still adopt pre-LN due to the training stability. However, one excep- 24
+• Pre-LN. Different from post-LN, pre-LN [268] is applied before each sub-layer, and an additional LN is placed before the final prediction. Compared with post-LN, the Transformers with pre-LN are more stable in training. However, it performs worse than the variants with post-LN [269]. Despite the decreasing performance, most LLMs still adopt pre-LN due to the training stability. However, one exception is that pre-LN has been found unstable in GLM when training models more than 100B parameters [93].
 
 TABLE 6: Detailed formulations for the network configurations. Here, Sublayer denotes a FFN or a self-attention module in a Transformer layer, d denotes the size of hidden states, p i denotes position embedding at position i, A ij denotes the attention score between a query and a key, r i−j denotes a learnable scalar based on the offset between the query and the key, and R Θ,t denotes a rotary matrix with rotation degree t · Θ .
-
-Configuration
-
-Normalization position
-
-Normalization method
-
-Activation function
-
-Position embedding
-
-Method
-
-Post Norm [22] Pre Norm [26] Sandwich Norm [255]
-
-LayerNorm [256]
-
-RMSNorm [257] DeepNorm [258]
-
-ReLU [259] GeLU [260] Swish [261] SwiGLU [262] GeGLU [262]
-
-Absolute [22] Relative [82] RoPE [263] ALiBi [264]
-
-Equation
-
-Norm(x+Sublayer(x)) x + Sublayer(Norm(x)) x + Norm(Sublayer(Norm(x)))
-
-x− µ 1 · σ µ d ∑ i=1 d √ d ∑i=1 d 
-
-+
-
-β
-
-,
-
-=
-
-1
-
-γ
-
-xi 
-
-,
-
-σ
-
-=
-
-(xi 
-
-−
-
-))2 
-
-µ
-
-x 1 · RMS(x) √ d ∑i=1 d 
-
-γ
-
-,
-
-RMS(x)
-
-=
-
-xi 2 
-
-LayerNorm(α · x + Sublayer(x))
-
-ReLU(x) = max(x, 0)
-
-2
-
-√
-
-GeLU(x) π ∫ √
-
-=
-
-0.5x
-
-⊗
-
-[1
-
-+
-
-erf(x/
-
-2)],
-
-erf(x)
-
-=
-
-x 0 e−t 2 
-
-dt
-
-Swish(x) = x ⊗ sigmoid(x)
-
-SwiGLU(x1 
-
-,
-
-x2 
-
-)
-
-=
-
-Swish(x1 
-
-)
-
-⊗
-
-x2 
-
-GeGLU(x1 
-
-,
-
-x2 
-
-)
-
-=
-
-GeLU(x1 
-
-)
-
-⊗
-
-x2 
-
-xi 
-
-=
-
-xi 
-
-+
-
-pi 
-
-Aij 
-
-=
-
-Wq 
-
-xi 
-
-xj T 
-
-Wk T 
-
-+
-
-ri−j 
-
-Aij 
-
-=
-
-Wq 
-
-xi 
-
-RΘ,i−j 
-
-xj T 
-
-Wk T 
-
-=
-
-(Wq 
-
-xi 
-
-RΘ,i 
-
-)(Wk 
-
-xj 
-
-RΘ,j 
-
-)T 
-
-Aij 
-
-=
-
-Wq 
-
-xi 
-
-xj T 
-
-Wk T 
-
-−
-
-m(i
-
-−
-
-j)
-
-tion is that pre-LN has been found unstable in GLM when training models more than 100B parameters [93].
 
 • Sandwich-LN. Based on pre-LN, Sandwich-LN [255] adds extra LN before the residual connections to avoid the value explosion issues in Transformer layer outputs. However, it has been found that Sandwich-LN sometimes fails to stabilize the training of LLMs and may lead to the collapse of training [93].
 
@@ -1494,27 +1015,15 @@ Position Embeddings. Since the self-attention modules in Transformer are permuta
 
 • Absolute position embedding. In the vanilla Transformer [22], absolute position embeddings are employed. At the bottoms of the encoder and the decoder, the absolute positional embeddings are added to the input embeddings. There are two variants of absolute position embeddings proposed in the vanilla Transformer [22], i.e., sinusoidal and learned position embeddings, where the latter is commonly used in existing pre-trained language models.
 
-• Relative position embedding. Unlike absolute position embeddings, relative positional embeddings are generated according to the offsets between keys and queries [273]. A popular variant of relative PE was introduced in Transformer-XL [274, 275]. The calculation of attention scores between keys and queries has been modified to introduce learnable embeddings corresponding to relative positions. T5 [82] further simplified relative positional em-
-
-beddings, which was subsequently adopted by Gopher [64]. Specifically, it adds learnable scalars to the attention scores, where the scalars are calculated based on the distances between the positions of the query and the key. Compared with the absolute PE, Transformers with relative position embedding can generalize to sequences longer than those sequences for training, i.e., extrapolation [264].
+• Relative position embedding. Unlike absolute position embeddings, relative positional embeddings are generated according to the offsets between keys and queries [273]. A popular variant of relative PE was introduced in Transformer-XL [274, 275]. The calculation of attention scores between keys and queries has been modified to introduce learnable embeddings corresponding to relative positions. T5 [82] further simplified relative positional embeddings, which was subsequently adopted by Gopher [64]. Specifically, it adds learnable scalars to the attention scores, where the scalars are calculated based on the distances between the positions of the query and the key. Compared with the absolute PE, Transformers with relative position embedding can generalize to sequences longer than those sequences for training, i.e., extrapolation [264].
 
 • Rotary Position Embedding. Rotary position embedding (RoPE) [263] sets specific rotatory matrices based on the absolute position of each key or query. The scores between keys and queries can be computed with relative position information (Table 6). RoPE combines each consecutive pair of elements in query and key vectors as a dimension, so there are d/2 dimensions for an original d-length embedding. For each dimension i ∈ { 1, . . . , d/2 } , the pair of involved elements will rotate based on the rotation angle t · θ i , where t denotes the position index and θ i is the basis in the dimension. Following sinusoidal position embeddings [22], RoPE defines the basis θ i as an exponentiation of the base b (set to 10000 by default):
 
-Θ = { θ i = b −2(i−1)/d | i ∈ { 1, 2, . . . , d/2 }} .
-
-(4)
-
 Furthermore, a recent study [276] defines the distance required to rotate one cycle (2π ) for each dimension as wavelength:
-
-λ i = 2πb 2(i−1)/d = 2π/θ i .
-
-(5)
 
 Due to the excellent performance and the long-term decay property, RoPE is widely adopted in the latest LLMs, e.g., PaLM [56] and LLaMA [57]. Based on RoPE, xPos [277] further improves the translation invariance and length extrapolation of Transformer. At each dimension of the rotation angle vector, xPos adds a special exponential decay that is smaller when the basis is larger. It can alleviate the unstable phenomenon during training as the distance increases.
 
-• ALiBi. ALiBi [264] is proposed to improve the extrapolation of Transformer. Similar to relative position embedding, it biases attention scores with a penalty based on the 25
-
-distances between keys and queries. Different from the relative positional embedding methods like T5 [82], the penalty scores in ALiBi are pre-defined without any trainable parameters. Empirical results in [264] have shown that ALiBi has a better extrapolation performance on sequences that are longer than those for training than several popular position embedding methods such as sinusoidal PE [22], RoPE [263], and T5 bias [82]. In addition, it has been shown that ALiBi can also improve training stability in BLOOM [78].
+• ALiBi. ALiBi [264] is proposed to improve the extrapolation of Transformer. Similar to relative position embedding, it biases attention scores with a penalty based on the distances between keys and queries. Different from the relative positional embedding methods like T5 [82], the penalty scores in ALiBi are pre-defined without any trainable parameters. Empirical results in [264] have shown that ALiBi has a better extrapolation performance on sequences that are longer than those for training than several popular position embedding methods such as sinusoidal PE [22], RoPE [263], and T5 bias [82]. In addition, it has been shown that ALiBi can also improve training stability in BLOOM [78].
 
 Attention. Attention mechanism is a critical component of Transformer. It allows the tokens across the sequence to interact with each other and compute the representations of the input and output sequence.
 
@@ -1530,79 +1039,143 @@ Attention. Attention mechanism is a critical component of Transformer. It allows
 
 To put all these discussions together, we summarize the suggestions from existing literature for detailed configuration. For stronger generalization and training stability, it is suggested to choose the pre RMSNorm for layer normalization, and SwiGLU or GeGLU as the activation function. In addition, LN may not be used immediately after embedding layers, which is likely to incur performance degradation. As for position embeddings, RoPE or ALiBi is a better choice since it performs better on long sequences.
 
+直译：
+
+自变换器（Transformer）[22] 推出以来，已经提出了各种改进，以增强其训练稳定性、性能和计算效率。在这一部分，我们将讨论变换器四个主要部分的相应配置，包括标准化、位置嵌入、激活函数和注意力与偏置。为了使这项调查更加自足，我们在表 6 中详细呈现了这些配置的公式。
+
+标准化方法。预训练 LLMs 的训练不稳定性是一个挑战性问题。为了缓解这一问题，标准化是一种广泛采用的策略，用于稳定神经网络的训练。在原始的变换器（Transformer）[22] 中，使用了 LayerNorm [256]。最近，提出了几种高级标准化技术作为 LayerNorm 的替代品，例如，RMSNorm 和 DeepNorm。
+
+·LayerNorm。在早期研究中，BatchNorm [265] 是一种常用的标准化方法。然而，它难以处理长度可变的序列数据和小批量数据。因此，引入了 LayerNorm [256] 来进行逐层标准化。具体来说，计算每层所有激活的均值和方差，以重新定位和重新调整激活。
+
+·RMSNorm。为了提高 LayerNorm（LN）的训练速度，提出了 RMSNorm [257]，通过仅使用激活之和的均方根（RMS）重新调整激活，而不是均值和方差。相关研究已经证明了其在变换器 [266] 的训练速度和性能上的优越性。采用 RMSNorm 的代表性模型包括 Gopher [64] 和 Chinchilla [34]。
+
+·DeepNorm。微软提出的 DeepNorm [258] 旨在稳定深度变换器的训练。通过将 DeepNorm 作为残差连接，可以将变换器扩展到 1000 层 [258]，这已经显示出稳定性和良好性能的优势。它已被 GLM-130B [93] 采用。
+
+标准化位置。除了标准化方法之外，标准化位置在 LLMs 中也起着至关重要的作用。标准化位置通常有三种选择，即 post-LN、pre-LN 和 sandwich-LN。
+
+·Post-LN。Post-LN 用于原始的变换器（Transformer）[22]，放置在残差块之间。然而，现有工作发现，带有 post-LN 的变换器训练往往因为输出层附近的大梯度而不稳定 [267]。因此，除了与其他策略结合使用（例如，在 GLM130B [93] 中将 post-LN 与 pre-LN 结合）之外，现有 LLMs 很少采用 post-LN。
+
+·Pre-LN。与 post-LN 不同，pre-LN [268] 在每个子层之前应用，并且在最终预测之前放置一个额外的 LN。与 post-LN 相比，带有 pre-LN 的变换器在训练中更稳定。然而，其性能比带有 post-LN 的变体差 [269]。尽管性能下降，但大多数 LLMs 仍采用 pre-LN，因为它具有训练稳定性。然而，一个例外是，当训练超过 100B 参数的模型时，在 GLM 中发现 pre-LN 不稳定 [93]。
+
+表 6：网络配置的详细公式。这里，Sublayer 表示变换器层中的 FFN 或自注意力模块，d 表示隐藏状态的大小，p i 表示位置 i 处的位置嵌入，A ij 表示查询和键之间的注意力得分，r i−j 表示基于查询和键之间偏移量的可学习标量，R Θ,t 表示旋转度为 t·Θ 的旋转矩阵。
+
+·Sandwich-LN。基于 pre-LN，Sandwich-LN [255] 在残差连接之前增加了额外的 LN，以避免变换器层输出中的值爆炸问题。然而，已发现 Sandwich-LN 有时无法稳定 LLMs 的训练，并可能导致训练崩溃 [93]。
+
+激活函数。为了获得良好的性能，还需要在前馈网络中正确设置激活函数。在现有的 LLMs 中，广泛使用 GeLU 激活函数 [270]。特别是在最新的 LLMs（例如，PaLM 和 LaMDA）中，也采用了 GLU 激活 [262, 271] 的变体，特别是 SwiGLU 和 GeGLU 变体，在实践中通常能获得更好的性能 [266]。然而，与 GeLU 相比，它们在前馈网络中需要额外的参数（大约 50%）[272]。
+
+位置嵌入。由于变换器中的自注意力模块对置换是等变的，因此采用位置嵌入（PE）来注入绝对或相对位置信息，用于建模序列。
+
+·绝对位置嵌入。在原始变换器（Transformer）[22] 中，采用了绝对位置嵌入。在编码器和解码器的底部，将绝对位置嵌入添加到输入嵌入中。在原始变换器 [22] 中提出了两种绝对位置嵌入的变体，即正弦和学习位置嵌入，后者在现有的预训练语言模型中更为常用。
+
+·相对位置嵌入。与绝对位置嵌入不同，相对位置嵌入是根据键和查询之间的偏移生成的 [273]。Transformer-XL [274, 275] 中引入了一种流行的相对 PE 变体。键和查询之间的注意力得分计算被修改为引入对应于相对位置的可学习嵌入。T5 [82] 进一步简化了相对位置嵌入，随后被 Gopher [64] 采用。具体来说，它在注意力得分中添加了可学习的标量，这些标量基于查询和键的位置之间的距离计算。与绝对 PE 相比，带有相对位置嵌入的变换器可以泛化到比训练序列更长的序列，即外推 [264]。
+
+·旋转位置嵌入。旋转位置嵌入（RoPE）[263] 根据每个键或查询的绝对位置设置特定的旋转矩阵。键和查询之间的得分可以通过相对位置信息计算（表 6）。RoPE 将查询和键向量中的每对连续元素组合为一个维度，因此对于原始长度为 d 的嵌入，有 d/2 个维度。对于每个维度 i ∈ {1, . . . , d/2}，所涉及的元素对将根据旋转角度 t·θ i 旋转，其中 t 表示位置索引，θ i 是该维度的基础。根据正弦位置嵌入 [22]，RoPE 将基础 θ i 定义为基数 b（默认设为 10000）的指数。
+
+此外，最近的一项研究 [276] 定义了每个维度旋转一个周期（2π）所需的距离为波长：
+
+由于其出色的性能和长期衰减特性，RoPE 在最新的 LLMs 中得到了广泛应用，例如 PaLM [56] 和 LLaMA [57]。基于 RoPE，xPos [277] 进一步改善了变换器的平移不变性和长度外推能力。在旋转角度向量的每个维度上，xPos 添加了一个特殊的指数衰减，当基数较大时衰减更小。它可以缓解训练过程中随着距离增加而出现的不稳定现象。
+
+·ALiBi。ALiBi [264] 被提出用于改善变换器的外推能力。类似于相对位置嵌入，它通过基于键和查询之间的距离的惩罚来偏置注意力得分。与 T5 [82] 等相对位置嵌入方法不同，ALiBi 中的惩罚得分是预定义的，没有任何可训练参数。[264] 中的实证结果表明，ALiBi 在处理比训练序列更长的序列时具有比诸如正弦 PE [22]、RoPE [263] 和 T5 偏置 [82] 等流行位置嵌入方法更好的外推性能。此外，已经证明 ALiBi 还可以提高 BLOOM [78] 的训练稳定性。
+
+注意力。注意力机制是变换器的关键组成部分。它允许序列中的标记相互作用并计算输入和输出序列的表示。
+
+·全注意力。在原始的变换器（Transformer）[22] 中，注意力机制以成对方式进行，考虑序列中所有标记对之间的关系。它采用了缩放点积注意力，其中隐藏状态被映射为查询、键和值。此外，变换器使用多头注意力而不是单一注意力，通过不同的头部中的不同投影来投影查询、键和值。每个头部输出的串联被视为最终输出。
+
+·稀疏注意力。全注意力的一个关键挑战是二次计算复杂性，当处理长序列时，这成为一个负担。因此，提出了各种高效的变换器变体，以减少注意力机制的计算复杂性 [278, 279]。例如，GPT-3 [55] 采用了局部带状稀疏注意力（即 Factorized Attention [280]）。每个查询只能根据位置关注一部分标记，而不是整个序列。
+
+
+
+
+
+---
+
+意译：
+
+变换器架构中的标准化方法：自变换器（Transformer）推出以来，为了增强其训练稳定性、性能和计算效率，提出了多种改进。我们将探讨变换器中四个主要部分的配置，包括标准化、位置嵌入、激活函数和注意力与偏置。特别地，标准化方法是解决预训练 LLMs 训练不稳定性的关键策略。
+
+LayerNorm：在早期研究中，BatchNorm 是常用的标准化方法，但它难以处理长度可变的序列数据和小批量数据。因此，引入了 LayerNorm 进行逐层标准化，通过计算每层所有激活的均值和方差来重新定位和调整激活。
+
+RMSNorm：为提高 LayerNorm 的训练速度，提出了 RMSNorm。它通过使用激活之和的均方根（RMS）来重新调整激活，而不是均值和方差。研究表明 RMSNorm 在变换器的训练速度和性能上有优势，像 Gopher 和 Chinchilla 等模型已经采用了 RMSNorm。
+
+DeepNorm：DeepNorm 是微软提出的，旨在稳定深度变换器的训练。通过将 DeepNorm 作为残差连接，可以将变换器扩展到 1000 层，显示出稳定性和良好性能的优势。GLM-130B 等模型已经采用了 DeepNorm。
+
+这些标准化方法的细节在表 6 中详细呈现，有助于理解变换器架构的关键改进。
+
+变换器架构中的标准化位置：标准化位置在 LLMs 中同样至关重要。一般有三种标准化位置选择：post-LN、pre-LN 和 sandwich-LN。
+
+Post-LN：用于原始变换器中，放置在残差块之间。但发现，带有 post-LN 的变换器训练可能因输出层附近的大梯度而不稳定，因此除非与其他策略结合（如 GLM130B 中的 post-LN 与 pre-LN 结合），否则现有 LLMs 很少采用。
+
+Pre-LN：与 post-LN 不同，pre-LN 在每个子层之前应用，且在最终预测前增加额外的 LN。相比 post-LN，带有 pre-LN 的变换器训练更稳定，但性能较差。尽管性能下降，大多数 LLMs 仍采用 pre-LN 以确保训练稳定性。
+
+Sandwich-LN：基于 pre-LN，Sandwich-LN 在残差连接前增加了额外的 LN，以避免变换器层输出中的值爆炸问题。然而，有时 Sandwich-LN 无法稳定 LLMs 的训练，甚至可能导致训练崩溃。
+
+激活函数的选择：为获得良好性能，前馈网络中的激活函数选择也很关键。在现有 LLMs 中，广泛使用 GeLU 激活函数。在最新的 LLMs（如 PaLM 和 LaMDA）中，还采用了 GLU 激活的变体，尤其是 SwiGLU 和 GeGLU，通常在实际应用中表现更好。然而，与 GeLU 相比，这些变体在前馈网络中需要额外约 50% 的参数。
+
+变换器架构中的位置嵌入：变换器中的自注意力模块对置换是等变的，因此采用位置嵌入（PE）来引入序列的绝对或相对位置信息。
+
+绝对位置嵌入：原始变换器采用了绝对位置嵌入，即在编码器和解码器的底部，将绝对位置嵌入添加到输入嵌入中。原始变换器提出了两种绝对位置嵌入的变体：正弦和学习位置嵌入，其中学习位置嵌入在现有的预训练语言模型中更常用。
+
+相对位置嵌入：与绝对位置嵌入不同，相对位置嵌入是根据键和查询之间的偏移生成的。例如，Transformer-XL 引入了一种流行的相对 PE 变体，通过修改键和查询之间的注意力得分计算来引入可学习的相对位置嵌入。T5 进一步简化了这种相对位置嵌入，随后被 Gopher 采用。与绝对 PE 相比，带有相对位置嵌入的变换器能够泛化到比训练序列更长的序列。
+
+旋转位置嵌入（RoPE）：RoPE 根据每个键或查询的绝对位置设置特定的旋转矩阵。它将查询和键向量中的每对连续元素组合为一个维度，每个维度的元素对将基于旋转角度进行旋转。RoPE 的定义依据正弦位置嵌入，其基础 θ 以基数 b（通常设为 10000）的指数形式定义。
+
+位置嵌入的这些不同方法为变换器架构提供了灵活性，使其能够有效地处理序列数据。
+
+变换器架构中的位置嵌入进阶：最近的研究定义了每个维度旋转一个周期（2π）所需的距离为波长。RoPE 由于其出色的性能和长期衰减特性在最新的 LLMs（如 PaLM 和 LLaMA）中得到广泛应用。基于 RoPE，xPos 进一步改进了变换器的平移不变性和长度外推能力，通过在旋转角度向量的每个维度上添加特殊的指数衰减来减轻训练过程中的不稳定现象。
+
+ALiBi：为改善变换器的外推能力，提出了 ALiBi。它类似于相对位置嵌入，通过基于键和查询之间距离的惩罚来偏置注意力得分。与 T5 等相对位置嵌入方法不同，ALiBi 的惩罚得分是预定义的，没有可训练参数。研究显示 ALiBi 在处理比训练序列更长的序列时具有更好的外推性能，并且可以提高训练稳定性。
+
+注意力机制的关键性：注意力机制是变换器的核心组成部分，允许序列中的标记相互作用，计算输入和输出序列的表示。
+
+全注意力：原始变换器采用全注意力机制，以成对方式考虑序列中所有标记对之间的关系，并采用缩放点积注意力。此外，变换器使用多头注意力，通过不同的头部中不同的投影来投影查询、键和值。
+
+稀疏注意力：全注意力的主要挑战是二次计算复杂性，特别是在处理长序列时。因此，提出了多种高效的变换器变体以降低注意力机制的计算复杂性。例如，GPT-3 采用了局部带状稀疏注意力，每个查询只能根据位置关注序列中的一部分标记。
+
+
+
+
+
 4.2.3 Pre-training Tasks
 
 Pre-training plays a key role that encodes general knowledge from large-scale corpus into the massive model parameters. For training LLMs, there are two commonly used pretraining tasks, namely language modeling and denoising autoencoding.
 
-Language Modeling. The language modeling task (LM) is the most commonly used objective to pre-train decoder-only LLMs, e.g., GPT3 [55] and PaLM [56]. Given a sequence of tokens x = { x 1 , . . . , x n } , the LM task aims to autoregressively predict the target tokens x i based on the preceding tokens x <i in a sequence. A general training objective is to maximize the following likelihood:
-
-n L LM (x) = ∑ log P(x i | x <i ). i=1
-
-(6)
+Language Modeling. The language modeling task (LM) is the most commonly used objective to pre-train decoder-only LLMs, e.g., GPT3 [55] and PaLM [56]. Given a sequence of tokens x = { x 1 , . . . , x n } , the LM task aims to autoregressively predict the target tokens x i based on the preceding tokens x < i in a sequence. A general training objective is to maximize the following likelihood:
 
 Since most language tasks can be cast as the prediction problem based on the input, these decoder-only LLMs might be potentially advantageous to implicitly learn how to accomplish these tasks in a unified LM way. Some studies have also revealed that decoder-only LLMs can be naturally transferred to certain tasks by autoregressively predicting the next tokens [26, 55], without fine-tuning. An important variant of LM is the prefix language modeling task, which is designed for pre-training models with the prefix decoder architecture. The tokens within a randomly selected prefix would not be used in computing the loss of prefix language modeling. With the same amount of tokens seen during pretraining, prefix language modeling performs slightly worse than language modeling, since fewer tokens in the sequence are involved for model pre-training [29].
 
-Denoising Autoencoding. In addition to conventional LM, the denoising autoencoding task (DAE) has also been widely used to pre-train language models [24, 82]. The inputs x \ ˜x for DAE task are corrupted text with randomly 26
+Denoising Autoencoding. In addition to conventional LM, the denoising autoencoding task (DAE) has also been widely used to pre-train language models [24, 82]. The inputs x \ ˜x for DAE task are corrupted text with randomly replaced spans. Then, the language models are trained to recover the replaced tokens ˜x. Formally, the training objective of DAE is denoted as follows:
 
-I am sleepy. I start a pot of
 
-0.661 strong
 
-0.008 soup
-
-0.119 black
-
-0.008 . . .
-
-0.057 hot
-
-0.007 happy
-
-0.017 oat
-
-0.006 Boh
-
-0.012 beans
-
-0.006 . . .
 
 Fig. 10: The probability distribution over the vocabulary in descending order for the next token of the context “I am sleepy. I start a pot of”. For ease of discussion, this example is given in word units instead of subword units.
-
-coffee water tea rice chai
-
-0.005 ...
-
-4.3e-6
-
-4.3e-6 ...
-
-replaced spans. Then, the language models are trained to recover the replaced tokens ˜x. Formally, the training objective of DAE is denoted as follows:
-
-L DAE (x) = log P(˜x | x \ ˜x ).
-
-(7)
 
 However, the DAE task seems to be more complicated in implementation than LM task. As a result, it has not been widely used to pre-train large language models. Existing LLMs that take DAE as pre-training objectives include T5 [82] and GLM-130B [93]. These models are mainly trained to recover the replaced spans in an autoregressive way.
 
 Mixture-of-Denoisers. Mixture-of-Denoisers (MoD) [89], also known as UL2 loss, was introduced as a unified objective for pre-training language models. MoD regards both LM and DAE objectives as different types of denoising tasks, namely S-denoiser (LM), R-denoiser (DAE, short span and low corruption), and X-denoiser (DAE, long span or high corruption). Among the three denoising tasks, S-denoiser is similar to the conventional LM objective (Equation (6)), while R-denoiser and X-denoiser are similar to DAE objectives (Equation (7)) but differ from each other in the lengths of spans and ratio of corrupted text. For input sentences started with different special tokens (i.e., { [R], [S], [X] } ), the model will be optimized using the corresponding denoisers. MoD has been applied in the latest PaLM 2 model [120].
 
+
+
+
 4.2.4 Long Context Modeling
 
 In real applications, there is an increasing demand for long context modeling capacities of LLMs, such as PDF processing and story writing [286]. Many closed-source LLMs provide professional support for long text processing. For instance, OpenAI releases GPT-4 Turbo with a 128K context window, and Anthropic releases Claude 2.1 with a 200K context window. To enhance the long context modeling abilities, there are generally two feasible directions, namely scaling position embeddings and adapting context window. Next, we introduce the two parts in detail.
 
-Scaling Position Embeddings. Transformer-based LLMs can learn effective position embeddings within the maximum training length. Thus, when adapting LLMs to language tasks beyond the maximum training length, it is necessary to scale to larger position indices. Some specific position embeddings have been shown to possess a certain degree of ability to generalize to text beyond the training length, which is formally termed extrapolation capability,
-
-including T5 bias [82], ALiBi [264], xPos [277] and even NoPE [287]. However, as one of the mainstream position embedding methods, RoPE exhibits limited extrapolation ability in empirical studies [240]. In the following, we discuss several methods that can scale RoPE to longer texts.
+Scaling Position Embeddings. Transformer-based LLMs can learn effective position embeddings within the maximum training length. Thus, when adapting LLMs to language tasks beyond the maximum training length, it is necessary to scale to larger position indices. Some specific position embeddings have been shown to possess a certain degree of ability to generalize to text beyond the training length, which is formally termed extrapolation capability, including T5 bias [82], ALiBi [264], xPos [277] and even NoPE [287]. However, as one of the mainstream position embedding methods, RoPE exhibits limited extrapolation ability in empirical studies [240]. In the following, we discuss several methods that can scale RoPE to longer texts.
 
 • Direct model fine-tuning. To adapt LLMs to a long context window, a straightforward approach is to directly finetune the models on long texts with the desired length. The context extension can be scheduled with increased lengths in a multi-stage approach (e.g., 2K → 8K → 32K). To conduct effective extension, it needs specially prepared long texts for training. Specially, some recent study has shown that the quality is more important than the lengths of training text in long context models [288]. However, a recent study has highlighted that the fine-tuning approach tends to be inherently slow when adapting LLMs for long texts [240].
+
+
+
 
 • Position interpolation. This method downscales the position indices within the original context window, to avoid out-of-distribution rotation angles during pre-training [240, 289]. To be more specific, this approach multiplies all position indices by a coefficient L/L ′ (L < L ′ ), where L and L ′ represent the original and target context window length, respectively. Experimental results [240] have shown that this method can extend the context window effectively and efficiently, compared to the above approach of direct model fine-tuning. However, it is worth noting that this technique may have an adverse impact on the model’s performance when handling shorter texts[240, 290].
 
 • Position truncation. To mitigate the challenges posed by out-of-distribution rotation angles, another practical approach is to truncate longer relative positions to satisfy the requirement of the maximum training length. Specifically, ReRoPE and LeakyReRoPE [291] introduce a pre-defined window length, which is smaller than the maximum training length. Position indices within this pre-defined window are retained, while those indices beyond the window are either truncated to the pre-defined window length or interpolated to align with the maximum training length. This strategy can reserve local position relationships and enhance the extrapolation capacity. However, this approach needs to compute the attention matrices twice, accommodating additional computational budget.
 
-• Base modification. LLMs are usually trained with a preset maximum training length, e.g., 4096 in Llama 2 [99]. However, wavelengths in certain dimensions of RoPE may exceed the training length for longer text [276], so that language models have not undergone sufficient training (i.e., a complete rotation cycle) on these dimensions. Thus, when we adapt LLMs to longer texts, the rotation angles for certain dimensions would be never seen in the training phase [292]. Given a fixed rotation angle t·θ i , a smaller basis θ i allows for a greater distance t, i.e., enabling the modeling of longer texts [235, 276, 288]. According to the formula θ i = b −2(i−1)/d in Equation 4, decreasing the basis can be achieved by increasing the value of the base. In addition, decreasing the base can also help re-scale the wavelengths of all dimensions below the training length, while it often needs continual pre-training to adapt the LLMs to long context windows [292]. A recent study [292] has empirically compared these two base modification methods, and shown that decreasing the base demonstrates a better extrapolation 27
+• Base modification. LLMs are usually trained with a preset maximum training length, e.g., 4096 in Llama 2 [99]. However, wavelengths in certain dimensions of RoPE may exceed the training length for longer text [276], so that language models have not undergone sufficient training (i.e., a complete rotation cycle) on these dimensions. Thus, when we adapt LLMs to longer texts, the rotation angles for certain dimensions would be never seen in the training phase [292]. Given a fixed rotation angle t·θ i , a smaller basis θ i allows for a greater distance t, i.e., enabling the modeling of longer texts [235, 276, 288]. According to the formula θ i = b −2(i−1)/d in Equation 4, decreasing the basis can be achieved by increasing the value of the base. In addition, decreasing the base can also help re-scale the wavelengths of all dimensions below the training length, while it often needs continual pre-training to adapt the LLMs to long context windows [292]. A recent study [292] has empirically compared these two base modification methods, and shown that decreasing the base demonstrates a better extrapolation capacity beyond the training length, while increasing the base performs better within the training length.
 
-capacity beyond the training length, while increasing the base performs better within the training length.
+
+
 
 • Basis truncation. Similar to the base modification, the truncation of the basis also concentrates on dealing with the singular dimensions with wavelengths exceeding the training length [293]. According to the definition λ i = 2π/θi  in Equation 5, the dimension with a large wavelength λi  has a small basis θ i accordingly. Based on this observation, this approach first defines a basis range [a, c]. Given the basis range, the value of basis is modified according to the following ways: (1) when θ i ≥ c, the value is retained, (2) when θ i ≤ a, the value is set to zero, and (3) when a < θ i < c, the value is truncated to a fixed small value. Via basis truncation, the out-of-distribution rotation angles can be avoided at larger position indices. However, this approach does not perform very well at long context tasks [293].
 
@@ -1612,11 +1185,17 @@ Adapting Context Window. Since Transformer-based LLMs have limited context windo
 
 • Λ-shaped context window. Some prior work has revealed that LLMs tend to allocate greater attention weights to the starting and nearest tokens among all previous tokens [297, 298], so called the “lost in the middle” phenomenon [299]. Based on this observation, LM-Infinite [300] and StreamingLLM [298] propose to employ a “Λ-shaped” attention mask, which selectively preserves the initial tokens and the nearest tokens that each query can attend to and then discards any tokens beyond this scope. Experiments demonstrate that this method can facilitate extra-long text generation with a fixed memory [298]. However, it may struggle to model the long-range dependency in prompts, since it cannot effectively utilize the information from the discarded tokens [298].
 
+
+
+
 • External memory. It has been shown that a relatively small subset of tokens can effectively capture the majority of attention patterns in a Transformer [301], i.e., the topk attention keys can well approximate the original full attention. Therefore, a number of studies propose to store the past keys in external memory and utilize a k -NN search method to retrieve the k most relevant tokens for generation [238, 301, 302]. For a decoder model, it typically employs one certain layer to access these top-k external tokens, while still adopts the normal context window in the rest layers [238, 302].
 
 In addition to the studies based on vanilla Transformer, there are a surge of Transformer variants with efficient at-
 
 tentions and other efficient architectures, aiming to alleviate high computational cost for modeling long texts. These studies have been extensively discussed in Section 4.2.1 and Section 4.2.2. Furthermore, context compression and prompting techniques (e.g., iterative reasoning [303]) have also been proven to be a viable strategy for handling long text tasks [303–306], without the need of model adaption.
+
+
+
 
 4.2.5 Decoding Strategy
 
@@ -1624,19 +1203,11 @@ After the LLMs have been pre-trained, it is essential to employ a specific decod
 
 Background. We start the discussion with the prevalent decoder-only architecture, and introduce the auto-regressive decoding mechanism. Since such LLMs are pre-trained based on the language modeling task (Equation 6), a basic decoding method is greedy search that predicts the most likely token at each step based on the previously generated tokens, formally modeled as:
 
-x i = arg maxP(x | x <i ),
-
-(8)
-
-x
-
-where x i is the token with the highest probability at ith step of generation conditioned on the context x <i . For instance in Figure 10, when predicting the next token of the sentence “I am sleepy. I start a pot of”, greedy search selects the token “coffee” which has the highest probability at the current step. Greedy search can achieve satisfactory results in text generation tasks (e.g., machine translation and text summarization), in which the output is highly dependent on the input [307]. However, in terms of open-ended generation tasks (e.g., story generation and dialog), greedy search sometimes tends to generate awkward and repetitive sentences [308].
+where x i is the token with the highest probability at ith step of generation conditioned on the context x < i . For instance in Figure 10, when predicting the next token of the sentence “I am sleepy. I start a pot of”, greedy search selects the token “coffee” which has the highest probability at the current step. Greedy search can achieve satisfactory results in text generation tasks (e.g., machine translation and text summarization), in which the output is highly dependent on the input [307]. However, in terms of open-ended generation tasks (e.g., story generation and dialog), greedy search sometimes tends to generate awkward and repetitive sentences [308].
 
 As another alternative decoding strategy, samplingbased methods are proposed to randomly select the next token based on the probability distribution to enhance the randomness and diversity during generation:
 
-x i ∼ P(x | x <i ).
 
-(9)
 
 For the example in Figure 10, sampling-based methods will sample the word “coffee” with higher probability while also retaining the possibilities of selecting the rest words, “water”, “tea”, “rice”, etc.
 
@@ -1652,11 +1223,10 @@ Besides, some researchers [312] propose to penalize the generation of previously
 
 Improvement for Random Sampling. Sampling-based methods sample the token over the whole vocabulary, which may select wrong or irrelevant tokens (e.g., “happy” and “Boh” in Figure 10) based on the context. To improve the generation quality, several strategies have been proposed for mitigating or preventing the selection of words with exceedingly low probabilities.
 
+
+
+
 • Temperature sampling. To modulate the randomness of sampling, a practical method is to adjust the temperature coefficient of the softmax function for computing the probability of the j -th token over the vocabulary:
-
-exp (l j /t) P(x j | x <i ) = exp (l j ′ /t) , ∑j ′ 
-
-(10)
 
 where l j ′ is the logits of each word and t is the temperature coefficient. Reducing the temperature t increases the chance of selecting words with high probabilities while decreases the chances of selecting words with low probabilities. When t is set to 1, it becomes the default random sampling; when t is approaching 0, it is equivalent to greedy search. In addition, when t goes to infinity, it degenerates to uniform sampling.
 
@@ -1668,6 +1238,8 @@ Recently, researchers have also explored other sampling strategies for LLMs. For
 
 thereby amplifying the impact of important tokens. Based on this contrastive idea, DoLa [319] further extends this approach to contrasting the logits across different layers of a single LLM, as higher layers tend to assign more weight to important tokens.
 
+
+
 Memory Wall
 
 When generating a new token, the most time-consuming steps revolve around data transfer and weight computation. A main issue is the significant amount of time overwhelmed by data transfer, often referred to as the memory wall issue.
@@ -1676,17 +1248,14 @@ To address this issue, researchers formally quantify data transfer from GPU memo
 
 Arithmetic intensity is further defined as the ratio of FLOPs to I/O bytes:
 
-FLOPs 2 intensity = = I/O bytes 1 + d 2 + 1 s
-
-(11)
-
 Let’s consider LLaMA 13B (d = 128) with a sequence length of 1024 (s = 1024) as an example. The calculated arithmetic intensity is 1.97. However, the A100 80G GPU can perform 312 TFLOPs and transfer 2 TB of data in one second, i.e., its ideal arithmetic intensity is 156. This indicates that the bottleneck in attention calculation lies in the process of data transfer (i.e., excessive I/O loading).
+
+
+
 
 Decoding Efficiency Issues. In this part, we briefly analyze the decoding efficiency issues of LLMs. Overall, the decoding process of LLMs can be divided into two stages for overhead analysis: (1) the prefill stage, which computes the hidden states of the input sequence, and (2) the incremental decoding stage, which generates a token and updates hidden states in an auto-regressive manner [321]. As shown in the above memory wall box, the arithmetic intensity of the incremental decoding stage is only 1.97, which is far from the expected value of 156 (calculated according to the standard configuration of A100 80GB GPU). In contrast, the arithmetic intensity of the prefill stage achieves 113.78 for LLaMA-13B. Consequently, existing work mainly investigates how to enhance the efficiency of the incremental decoding algorithm, which can be categorized into two main approaches:
 
-• Reducing data transfer mainly focuses on optimizing GPU memory access, thereby increasing the arithmetic intensity. As introduced in Section 4.2.2, KV cache can avoid redundant computation of previous tokens and PagedAt- 29
-
-tention allocates KV caches into continuous blocks to reduce memory fragmentation. Furthermore, Flash-Decoding [322] speeds up attention computation by loading the keys and values in parallel, especially effective for long text generation. As another alternative approach, multi-query and grouped-query attention can reduce the GPU memory bandwidth overhead by sharing KV parameters (loading fewer weights).
+• Reducing data transfer mainly focuses on optimizing GPU memory access, thereby increasing the arithmetic intensity. As introduced in Section 4.2.2, KV cache can avoid redundant computation of previous tokens and PagedAttention allocates KV caches into continuous blocks to reduce memory fragmentation. Furthermore, Flash-Decoding [322] speeds up attention computation by loading the keys and values in parallel, especially effective for long text generation. As another alternative approach, multi-query and grouped-query attention can reduce the GPU memory bandwidth overhead by sharing KV parameters (loading fewer weights).
 
 • Decoding strategy optimization aims to improve the sequential nature of the auto-regressive generation manner in different ways. As a representative study, speculative decoding [323, 324] first leverages a compact but efficient model (e.g., a n-gram model or a small PLM) to generate short segments and then utilizes the LLM to verify and correct these drafts. It can lead to a notable 2 × to 3 × speedup without compromising the generation quality. Researchers further suggest several variants to improve the efficiency of this approach, such as a learning-based method to combine several small models [325] and a stage-wise acceleration which employs a more smaller LM to accelerate the small LM first [326]. In addition, token-level early-exit techniques have been proposed enabling the generation of a token at lower Transformer layers, rather than passing through all the layers [327]. It can attain greater speedup, but at the cost of sacrificing generation quality.
 
@@ -1700,9 +1269,7 @@ Practical Settings. In practice, existing libraries (e.g., Transformers [187]) a
 
 • LLaMA [57] applies diverse decoding strategies tailored to specific tasks. For instance, it employs the greedy search for question answering tasks while utilizes a sampling strategy with the temperature settings of 0.1 (pass@1) and 0.8 (pass@100) for code generation.
 
-• OpenAI API supports several basic decoding strategies, including greedy search (by setting temperature to
-
-0), beam search (with the setting best_of), temperature sampling (with the setting temperature), nucleus sampling (with the setting top_p). It also introduce parameters presence_penalty and frequency_penalty to control the repetition degree of generation. According to the OpenAI’s document, their APIs would produce different outputs even if the input and the hyper-parameters are the same. Setting temperature to 0 can yield more deterministic outputs, albeit with a slight chance of variability.
+• OpenAI API supports several basic decoding strategies, including greedy search (by setting temperature to 0), beam search (with the setting best_of), temperature sampling (with the setting temperature), nucleus sampling (with the setting top_p). It also introduce parameters presence_penalty and frequency_penalty to control the repetition degree of generation. According to the OpenAI’s document, their APIs would produce different outputs even if the input and the hyper-parameters are the same. Setting temperature to 0 can yield more deterministic outputs, albeit with a slight chance of variability.
 
 4.2.6 Summary and Discussion
 
@@ -1716,9 +1283,8 @@ Say you read a detective novel. It’s like complicated plot, a storyline, diffe
 
 Now, there are many different words. But predicting those words better and better, the understanding of the text keeps on increasing. GPT-4 predicts the next word better.
 
-a. https://www.nvidia.com/en-us/on-demand/session/gtcspring23-S52092/
 
-b. https://lifearchitect.ai/ilya/
+
 
 Architecture Choice. In earlier literature of pre-trained language models, there are lots of discussions on the effects of different architectures [29, 89]. However, most LLMs are developed based on the causal decoder architecture, and there still lacks a theoretical analysis on its advantage over the other alternatives. Next, we briefly summarize existing discussions on this issue.
 
@@ -1726,15 +1292,19 @@ Architecture Choice. In earlier literature of pre-trained language models, there
 
 • Scaling law has been widely observed in causal decoders. By scaling the model size, the dataset size, and the total computation, the performance of causal decoders can be substantially improved [30, 55]. Thus, it has become an important strategy to increase the model capacity of the causal decoder via scaling. However, more detailed investigation on encoder-decoder models is still lacking, and more efforts are needed to investigate the performance of encoder-decoder models at a large scale.
 
-More research efforts about the discussions on architec- 30
+More research efforts about the discussions on architectures and pre-training objectives are in need to analyze how the choices of the architecture and pre-training tasks affect the capacity of LLMs, especially for encoder-decoder architectures. Despite the effectiveness of decoder-only architecture, it is also suggested to make more diverse exploration on architecture design. Besides the major architecture, the detailed configuration of LLM is also worth attention, which has been discussed in Section 4.2.2.
 
-tures and pre-training objectives are in need to analyze how the choices of the architecture and pre-training tasks affect the capacity of LLMs, especially for encoder-decoder architectures. Despite the effectiveness of decoder-only architecture, it is also suggested to make more diverse exploration on architecture design. Besides the major architecture, the detailed configuration of LLM is also worth attention, which has been discussed in Section 4.2.2.
+a. https://www.nvidia.com/en-us/on-demand/session/gtcspring23-S52092/
 
-4.3 Model Training
+b. https://lifearchitect.ai/ilya/
+
+#### 4.3 Model Training
 
 In this part, we review the important settings, techniques, or tricks for training LLMs.
 
-4.3.1 Optimization Setting For parameter optimization of LLMs, we present the commonly used settings for batch training, learning rate, optimizer, and training stability.
+4.3.1 Optimization Setting 
+
+For parameter optimization of LLMs, we present the commonly used settings for batch training, learning rate, optimizer, and training stability.
 
 Batch Training. For language model pre-training, existing work generally sets the batch size to a large number (e.g., 2,048 examples or 4M tokens) to improve the training stability and throughput. For LLMs such as GPT-3 and PaLM, they have introduced a new strategy that dynamically increases the batch size during training, ultimately reaching a million scale. Specifically, the batch size of GPT-3 is gradually increasing from 32K to 3.2M tokens. Empirical results have demonstrated that the dynamic schedule of batch size can effectively stabilize the training process of LLMs [56].
 
@@ -1756,335 +1326,9 @@ As the model and data sizes increase, it has become challenging to efficiently t
 
 • Pipeline parallelism. Pipeline parallelism aims to distribute the different layers of a LLM into multiple GPUs. Especially, in the case of a Transformer model, pipeline parallelism loads consecutive layers onto the same GPU, to reduce the cost of transmitting the computed hidden states or gradients between GPUs. However, a naive implementation of pipeline parallelism may result in a lower GPU utilization rate as each GPU has to wait for the previous one to complete the computation, leading to the unnecessary cost of bubbles overhead [331]. To reduce these bubbles in pipeline parallelism, GPipe [331] and PipeDream [332] propose the techniques of padding multiple batches of data and asynchronous gradient update to improve the pipeline efficiency.
 
-• Tensor parallelism. Tensor parallelism is also a commonly used technique that aims to decompose the LLM for
-
-24. Model parallelism is a more broader term that includes tensor parallelism and pipeline parallelism in some work [75]. 31
-
 TABLE 7: Detailed optimization settings of several existing LLMs.
 
-Model
-
-GPT3 (175B) PanGu- α (200B) OPT (175B) PaLM (540B) BLOOM (176B) MT-NLG (530B) Gopher (280B) Chinchilla (70B) Galactica (120B) LaMDA (137B) Jurassic-1 (178B) LLaMA (65B) LLaMA 2 (70B) Falcon (40B) GLM (130B) T5 (11B) ERNIE 3.0 Titan (260B) PanGu-Σ (1.085T)
-
-Batch Size (#tokens)
-
-Learning Rate
-
-Warmup
-
-Decay Method
-
-Optimizer
-
-Precision Type
-
-Weight Decay
-
-Grad Clip
-
-Dropout
-
-32K
-
-→
-
-3.2M
-
-0.1
-
-6
-
-×
-
-10−5 
-
-0.1
-
-2
-
-×
-
-10−5 
-
-1.0
-
-yes
-
-cosine decay to 10%
-
--
-
-Adam Adam AdamW Adafactor Adam Adam Adam AdamW AdamW
-
-FP16
-
--
-
-2M
-
-yes no yes yes yes yes yes
-
-FP16 BF16 BF16 BF16 BF16 BF16
-
--
-
--
-
-1.2
-
-×
-
-10−4 
-
-1.0
-
-manual decay inverse square root cosine decay to 10% cosine decay to 10% cosine decay to 10% cosine decay to 10% linear decay to 10%
-
-0.1 lr2 
-
--
-
-0.1
-
-1M
-
-→
-
-4M
-
-0.1
-
-4M
-
-1
-
-×
-
-10−2 
-
-1.0
-
-6
-
-×
-
-10−5 
-
-0.1
-
-→ 6M 3M
-
-64 3M 1.5M
-
-K → →
-
-3.75M
-
-0.1
-
-5
-
-×
-
-10−5 
-
-1.0
-
-4
-
-×
-
-10−5 
-
-1.0
-
--
-
-0.1
-
-0.0
-
--
-
--
-
-1
-
-×
-
-10−4 
-
-1.0
-
--
-
--
-
--
-
-2M 256K
-
-7
-
-×
-
-10−6 
-
-0.1
-
--
-
--
-
--
-
-BF16
-
-yes yes yes yes yes no
-
--
-
--
-
--
-
-32
-
-K
-
-→
-
-3.2M
-
-0.1
-
-6
-
-×
-
-10−5 
-
-1.0
-
--
-
-AdamW AdamW AdamW AdamW AdaFactor Adam Adam
-
--
-
--
-
--
-
-1.5
-
-×
-
-10−4 
-
-0.1
-
-cosine decay to 10% cosine decay to 10% cosine decay to 10% cosine decay to 10% inverse square root
-
--
-
-1.5
-
-×
-
-10−4 
-
-0.1
-
-8
-
-×
-
-10−5 
-
-1.0
-
-BF16 FP16
-
-2M
-
-1.85
-
-×
-
-10−4 
-
-0.1
-
--
-
-4M 4M
-
--
-
--
-
--
-
--
-
-0.4M
-
-→
-
-8.25M
-
-0.1
-
-1
-
-×
-
-10−2 
-
-1.0
-
-0.1
-
-64K 0.5M
-
-2
-
-×
-
-10−5 
-
-0.1
-
-FP16 FP16
-
--
-
--
-
-1
-
-×
-
-10−4 
-
-1.0
-
-yes
-
--
-
--
-
--
-
--
-
--
-
--
-
-multi-GPU loading. Unlike pipeline parallelism, tensor parallelism focuses on decomposing the tensors (the parameter matrices) of LLMs. For a matrix multiplication operation Y = XA in the LLM, the parameter matrix A can be split into two submatrices, A 1 and A 2 , by column, which can be expressed as Y = [XA 1 , XA 2 ]. By placing matrices A 1 and A 2 on different GPUs, the matrix multiplication operation would be invoked at two GPUs in parallel, and the final result can be obtained by combining the outputs from the two GPUs through across-GPU communication. Currently, tensor parallelism has been supported in several open-source libraries, e.g., Megatron-LM [75], and can be extended to higher-dimensional tensors. Also, Colossal-AI has implemented tensor parallelism for higher-dimensional tensors [335–337] and proposed sequence parallelism [338] especially for sequence data, which can further decompose the attention operation of the Transformer model.
+• Tensor parallelism. Tensor parallelism is also a commonly used technique that aims to decompose the LLM for multi-GPU loading. Unlike pipeline parallelism, tensor parallelism focuses on decomposing the tensors (the parameter matrices) of LLMs. For a matrix multiplication operation Y = XA in the LLM, the parameter matrix A can be split into two submatrices, A 1 and A 2 , by column, which can be expressed as Y = [XA 1 , XA 2 ]. By placing matrices A 1 and A 2 on different GPUs, the matrix multiplication operation would be invoked at two GPUs in parallel, and the final result can be obtained by combining the outputs from the two GPUs through across-GPU communication. Currently, tensor parallelism has been supported in several open-source libraries, e.g., Megatron-LM [75], and can be extended to higher-dimensional tensors. Also, Colossal-AI has implemented tensor parallelism for higher-dimensional tensors [335–337] and proposed sequence parallelism [338] especially for sequence data, which can further decompose the attention operation of the Transformer model.
 
 ZeRO. ZeRO [333] technique, proposed by the DeepSpeed [74] library, focuses on the issue of memory redundancy in data parallelism. As mentioned before, data parallelism requires each GPU to store the same copy of a LLM, including model parameters, model gradients, and optimizer parameters. Whereas, not all of the above data is necessary to be retained on each GPU, which would cause a memory redundancy problem. To resolve it, the ZeRO technique aims to retain only a fraction of data on each GPU, while the rest data can be retrieved from other GPUs when required. Specifically, ZeRO provides three solutions, depending on how the three parts of the data are stored, namely optimizer state partitioning, gradient partitioning, and parameter partitioning. Empirical results indicate that the first two solutions do not increase the communication overhead, and the third solution increases about 50% communication overhead but saves memory proportional to the number of GPUs. PyTorch has implemented a similar technique as ZeRO, called FSDP [339].
 
@@ -2092,17 +1336,15 @@ Mixed Precision Training. In previous PLMs (e.g., BERT [23]), 32-bit floating-po
 
 some studies [334] have started to utilize 16-bit floating-point numbers (FP16), which reduces memory usage and communication overhead. Additionally, as popular NVIDIA GPUs (e.g., A100) have twice the amount of FP16 computation units as FP32, the computational efficiency of FP16 can be further improved. However, existing work has found that FP16 may lead to the loss of computational accuracy [64, 78], which affects the final model performance. To alleviate it, an alternative called Brain Floating Point (BF16) has been used for training, which allocates more exponent bits and fewer significant bits than FP16. For pre-training, BF16 generally performs better than FP16 on representation accuracy [78].
 
-Overall Training Suggestion. In practice, the above training techniques, especially 3D parallelism, are often jointly used to improve the training throughput and large model loading. For instance, researchers have incorporated 8-way data parallelism, 4-way tensor parallelism, and 12-way pipeline parallelism, enabling the training of BLOOM [78] on 384 A100 GPUs. Currently, open-source libraries like DeepSpeed [74], Colossal-AI [189], and Alpa [340] can well support the three parallel training methods. To reduce the memory redundancy, ZeRO, FSDP, and activation recomputation techniques [77, 341] can be also employed for training LLMs, which have already been integrated into DeepSpeed, PyTorch, and Megatron-LM. In addition, the mixed precision training technique such as BF16 can be also leveraged to improve the training efficiency and reduce GPU memory usage, while it requires necessary support on hardware (e.g., A100 GPU). Because training large models is a time-intensive process, it would be useful to forecast the model performance and detect abnormal issues at an early stage. For this purpose, GPT-4 [46] has recently introduced a new mechanism called predictable scaling built on a deep learning stack, enabling the performance prediction of large models with a much smaller model, which might be quite useful for developing LLMs. In practice, one can further leverage the supporting training techniques of mainstream deep learning frameworks. For instance, PyTorch supports the data parallel training algorithm FSDP [339] (i.e., fully sharded data parallel), which allows for partial offloading 32
+Overall Training Suggestion. In practice, the above training techniques, especially 3D parallelism, are often jointly used to improve the training throughput and large model loading. For instance, researchers have incorporated 8-way data parallelism, 4-way tensor parallelism, and 12-way pipeline parallelism, enabling the training of BLOOM [78] on 384 A100 GPUs. Currently, open-source libraries like DeepSpeed [74], Colossal-AI [189], and Alpa [340] can well support the three parallel training methods. To reduce the memory redundancy, ZeRO, FSDP, and activation recomputation techniques [77, 341] can be also employed for training LLMs, which have already been integrated into DeepSpeed, PyTorch, and Megatron-LM. In addition, the mixed precision training technique such as BF16 can be also leveraged to improve the training efficiency and reduce GPU memory usage, while it requires necessary support on hardware (e.g., A100 GPU). Because training large models is a time-intensive process, it would be useful to forecast the model performance and detect abnormal issues at an early stage. For this purpose, GPT-4 [46] has recently introduced a new mechanism called predictable scaling built on a deep learning stack, enabling the performance prediction of large models with a much smaller model, which might be quite useful for developing LLMs. In practice, one can further leverage the supporting training techniques of mainstream deep learning frameworks. For instance, PyTorch supports the data parallel training algorithm FSDP [339] (i.e., fully sharded data parallel), which allows for partial offloading of training computations to CPUs if desired.
 
-of training computations to CPUs if desired.
+24 Model parallelism is a more broader term that includes tensor parallelism and pipeline parallelism in some work [75]. 31
 
-5
-
-A DAPTATION OF LLM S
+### 05. Adaptation of LLM
 
 After pre-training, LLMs can acquire the general abilities for solving various tasks. However, an increasing number of studies have shown that LLM’s abilities can be further adapted according to specific goals. In this section, we introduce two major approaches to adapting pre-trained LLMs, namely instruction tuning and alignment tuning. The former approach mainly aims to enhance (or unlock) the abilities of LLMs, while the latter approach aims to align the behaviors of LLMs with human values or preferences. Further, we will also discuss efficient tuning and quantization for model adaptation in resource-limited settings. In what follows, we will introduce the four parts in detail.
 
-5.1 Instruction Tuning
+#### 5.1 Instruction Tuning
 
 In essence, instruction tuning is the approach to fine-tuning pre-trained LLMs on a collection of formatted instances in the form of natural language [67], which is highly related to supervised fine-tuning [66] and multi-task prompted training [28]. In order to perform instruction tuning, we first need to collect or construct instruction-formatted instances. Then, we employ these formatted instances to fine-tune LLMs in a supervised learning way (e.g., training with the sequence-to-sequence loss). After instruction tuning, LLMs can demonstrate superior abilities to generalize to unseen tasks [28, 67, 69], even in a multilingual setting [94].
 
@@ -2116,95 +1358,27 @@ description “Please answer this question” is added for each example in the q
 
 Formatting Daily Chat Data. Despite that a large number of training instances have been formatted with instructions, they mainly come from public NLP datasets, either lacking instruction diversity or mismatching with real human needs [66]. To overcome this issue, InstructGPT [66] proposes to take the queries that real users have submitted to the OpenAI API as the task descriptions. Additionally, to enrich the task diversity, human labelers are also asked to compose the instructions for real-life tasks, including open-ended generation, open question answering, brainstorming, and chatting. Then, they let another group of labelers directly answer these instructions as the output. Finally, they pair one instruction (i.e., the collected user query) and the expected output (i.e., the human-written answer) as a training instance. Note that InstructGPT also employs these real-world tasks formatted in natural language for alignment tuning (discussed in Section 5.2). Further, GPT-4 [46] has designed potentially high-risk instructions and guided the model to reject these instructions through supervised fine-tuning for safety concerns. Considering the absence of high-quality public chat data, several studies have also collected users’ chat requests as input data, and then utilized ChatGPT or GPT-4 to generate responses as output data. A notable example of such a dataset is the conversational data from ShareGPT [148]. Additionally, Dolly [172] and OpenAssistant [173] have further released their conversation data, which has been carefully labeled by human annotators to attain a high level of quality.
 
-Formatting Synthetic Data. To reduce the burden of human annotation or manual collection, several semi-automated approaches [143] have been proposed for constructing instances by feeding existing instances into LLMs to synthesize diverse task descriptions and instances. As illustrated in Figure 11(c), the Self-Instruct method only needs 175 instances as the initial task pool. Then, they randomly select a few instances from the pool as demonstrations and prompt a LLM to generate new instructions and corresponding input-output pairs. After the quality and diversity filtering, newly generated instances would be added into the task pool. Hence, the synthetic method is an effective and economical way to generate large-scale instruction data for 33
-
-API collection
-
-Human-written
-
-Human-written
-
-NLP Datasets
-
-Task description
-
-Please answer this question:
-
-Demonstrations
-
-Q: What is the capital of France? A: Paris.
-
-Q: What is the capital of Brazil? A: Brasilia
-
-Output
-
-Input
-
-Q: What is the capital of China? A: Beijing.
-
-Seed Instances
-
-Instance Pool
-
-&
-
-Instruction Generation
-
-LLM
-
-Filter
-
-Task description
-
-Task description
-
-Can you recommend some ways to lose weight?
-
-Desired output written by human
-
-Output
-
-Here are some ways to lose weight:
-
-1. Eat a healthy diet: Focus on …
-
-2. Increase physical activity: Engage …
-
-(b) Formatting Daily Chat Data
-
-Give me a quote from a famous person on this topic.
-
-Input-Output Generation
-
-LLM
-
-Input
-
-Output
-
-Input: The importance of being honest. Output: Honesty is the first chapter in the book of wisdom.
+Formatting Synthetic Data. To reduce the burden of human annotation or manual collection, several semi-automated approaches [143] have been proposed for constructing instances by feeding existing instances into LLMs to synthesize diverse task descriptions and instances. As illustrated in Figure 11(c), the Self-Instruct method only needs 175 instances as the initial task pool. Then, they randomly select a few instances from the pool as demonstrations and prompt a LLM to generate new instructions and corresponding input-output pairs. After the quality and diversity filtering, newly generated instances would be added into the task pool. Hence, the synthetic method is an effective and economical way to generate large-scale instruction data for LLMs. However, the instances generated by the Self-Instruct method might be simplistic or lack the diversity. To improve the quality of synthetic int ructions, WizardLM [346] introduces Evol-Instruct by proposing in-depth and in-breadth evolving to enrich the complexity and diversity of the instances. Furthermore, Self-Align [347] establishes multiple human-aligned principles to filter the synthesized instances. It then employs these instances to train a LLM in order to yield more aligned instances. To enhance the quality of the instance output, researchers directly adopt humanwritten texts as the output and synthesize corresponding instructions using ICL examples [348].
 
 (a) Formatting Task Datasets
+
+(b) Formatting Daily Chat Data
 
 (c) Formatting Synthetic Data
 
 Fig. 11: An illustration of instance formatting and three different methods for constructing the instruction-formatted instances.
 
-LLMs. However, the instances generated by the Self-Instruct method might be simplistic or lack the diversity. To improve the quality of synthetic int ructions, WizardLM [346] introduces Evol-Instruct by proposing in-depth and in-breadth evolving to enrich the complexity and diversity of the instances. Furthermore, Self-Align [347] establishes multiple human-aligned principles to filter the synthesized instances. It then employs these instances to train a LLM in order to yield more aligned instances. To enhance the quality of the instance output, researchers directly adopt humanwritten texts as the output and synthesize corresponding instructions using ICL examples [348].
-
 Key Factors for Instance Construction. The quality of instruction instances has an important impact on the performance of the model. Here, we discuss some essential factors for instance construction.
 
-• Scaling the instructions. It has been widely shown that scaling the number of tasks can largely enhance the generalization ability of LLMs [28, 67, 88]. With the increasing of the task number, the model performance initially shows a continuous growth pattern, while the gain becomes negligible when it reaches a certain level [69, 88]. A plausible speculation is that a certain number of representative tasks can provide relatively sufficient knowledge and adding more tasks may not bring additional gains [69]. Also, it is beneficial to enhance the diversity of the task descriptions in several aspects, such as length, structure, and creativity [28]. As for the number of instances per task, it has been found that a small number of instances can usually saturate the generalization performance of the model to perform a specific task [67, 69]. Specially, several recent work [349, 350] has explored the effect of fine-tuning with a small amount of high-quality instruction data (e.g., one or a few thousand instances), showing very promising results on the evaluation tasks. In contrast, another line of studies continue to explore the scaling effect of instruction data [351, 352]. For example, Orca [351] scales up the synthesized instances to 5 million with step-by-step explanations, and it achieves superior
-
-performance across a wide range of tasks compared to the methods tuned with instruction data.
+• Scaling the instructions. It has been widely shown that scaling the number of tasks can largely enhance the generalization ability of LLMs [28, 67, 88]. With the increasing of the task number, the model performance initially shows a continuous growth pattern, while the gain becomes negligible when it reaches a certain level [69, 88]. A plausible speculation is that a certain number of representative tasks can provide relatively sufficient knowledge and adding more tasks may not bring additional gains [69]. Also, it is beneficial to enhance the diversity of the task descriptions in several aspects, such as length, structure, and creativity [28]. As for the number of instances per task, it has been found that a small number of instances can usually saturate the generalization performance of the model to perform a specific task [67, 69]. Specially, several recent work [349, 350] has explored the effect of fine-tuning with a small amount of high-quality instruction data (e.g., one or a few thousand instances), showing very promising results on the evaluation tasks. In contrast, another line of studies continue to explore the scaling effect of instruction data [351, 352]. For example, Orca [351] scales up the synthesized instances to 5 million with step-by-step explanations, and it achieves superior performance across a wide range of tasks compared to the methods tuned with instruction data.
 
 • Formatting design. As an important factor, the design of natural language format also highly impacts the generalization performance of LLMs [88]. Typically, we can add task descriptions and optional demonstrations to the input-output pairs of existing datasets, where the task description is the most key part for LLMs to understand the task [88]. Further, it can lead to substantial improvements by using an appropriate number of exemplars as demonstrations [69], which also alleviates the model sensitivity to instruction engineering [67, 69]. However, incorporating other components (e.g., things to avoid, reasons, and suggestions) into instructions may have a negligible or even adverse effect on the performance of LLMs [88, 166]. Recently, to elicit the step-by-step reasoning ability of LLMs, some work [69] proposes to include chain-of-thought (CoT) examples for some reasoning datasets, such as arithmetic reasoning. It has been shown that fine-tuning LLMs with both CoT and non-CoT examples can lead to a good performance across various reasoning tasks, including those that require multihop reasoning ability (e.g., commonsense question answering and arithmetic reasoning) as well as those without the need for such a reasoning way (e.g., sentiment analysis and extractive question answering) [69, 95].
 
-To summarize, diversity and quality of instructions seem to be more important than the number of instances [349] since the well-performing InstructGPT [66] and LLaMA-2Chat [99] utilize fewer but more diverse instructions (or instances) than the Flan-series LLMs [67, 69]. However, a large amount of training data may compensate for the absence of high-quality data [351]. Further, it is more useful to invite labelers to compose human-need tasks than using dataset-specific tasks. However, it still lacks general guidelines to annotate human-need instances, making the task composition somehow heuristic. To reduce human efforts, we can either reuse existing formatted datasets (Table 3) or automatically construct the instructions using existing LLMs [143]. We conduct a preliminary experiment to show 34
+To summarize, diversity and quality of instructions seem to be more important than the number of instances [349] since the well-performing InstructGPT [66] and LLaMA-2Chat [99] utilize fewer but more diverse instructions (or instances) than the Flan-series LLMs [67, 69]. However, a large amount of training data may compensate for the absence of high-quality data [351]. Further, it is more useful to invite labelers to compose human-need tasks than using dataset-specific tasks. However, it still lacks general guidelines to annotate human-need instances, making the task composition somehow heuristic. To reduce human efforts, we can either reuse existing formatted datasets (Table 3) or automatically construct the instructions using existing LLMs [143]. We conduct a preliminary experiment to show the effectiveness of different construction methods in Section 5.1.4.
 
-the effectiveness of different construction methods in Section 5.1.4.
+5.1.2 Instruction Tuning Strategies 
 
-5.1.2 Instruction Tuning Strategies Unlike pre-training, instruction tuning is often more efficient since only a moderate number of instances are used for training. Since instruction tuning can be considered as a supervised training process, its optimization is different from pre-training in several aspects [69], such as the training objective (i.e., sequence-to-sequence loss) and optimization configuration (e.g., smaller batch size and learning rate), which require special attention in practice. In addition to these optimization configurations, there are also four important aspects to consider for instruction tuning:
+Unlike pre-training, instruction tuning is often more efficient since only a moderate number of instances are used for training. Since instruction tuning can be considered as a supervised training process, its optimization is different from pre-training in several aspects [69], such as the training objective (i.e., sequence-to-sequence loss) and optimization configuration (e.g., smaller batch size and learning rate), which require special attention in practice. In addition to these optimization configurations, there are also four important aspects to consider for instruction tuning:
 
 Balancing the Data Distribution. Since instruction tuning involves a mixture of different tasks, it is important to balance the proportion of different tasks during finetuning. A widely used method is the examples-proportional mixing strategy [82], i.e., combining all the datasets and sampling each instance equally from the mixed datasets. Furthermore, increasing the sampling ratio of high-quality collections (e.g., FLAN [67] and P3 [167]) can generally lead to performance improvement according to recent findings [69, 95]. Further, it is common to set a maximum cap to control the maximum number of examples that a dataset can contain during instruction tuning [82], which is set to prevent larger datasets from overwhelming the entire distribution [82, 95]. In practice, the maximum cap is typically set to several thousands or tens of thousands according to different datasets [67, 69]. Recently, it has been empirically found that existing instruction datasets (Table 3) mainly focus on enhancing LLMs’ capabilities in certain aspects, and a single dataset alone cannot lead to a comprehensive enhancement in model capacity [353]. Therefore, it is often suggested to use a mixture of existing instruction datasets to achieve a balanced improvement in different capacities, including NLP task data (e.g., FLAN v2 [292]), chat data (e.g., ShareGPT [148]), and synthetic data (e.g., GPT4-Alpaca [354]).
 
@@ -2222,113 +1396,13 @@ Other Practical Tricks. In practice, there are also several useful strategies an
 
 In addition to the above practical strategies and tricks, existing work has also used other tricks, e.g., concatenating multiple examples into a single sequence to approach the max length [355].
 
-5.1.3 The Effect of Instruction Tuning In this part, we discuss the effect of instruction tuning on LLMs in three major aspects.
+5.1.3 The Effect of Instruction Tuning 
+
+In this part, we discuss the effect of instruction tuning on LLMs in three major aspects.
 
 Performance Improvement. Despite being tuned on a moderate number of instances, instruction tuning has become an important way to improve or unlock the abilities of LLMs [69]. Recent studies have experimented with language models in multiple scales (ranging from 77M to 540B), showing that the models of different scales can all benefit from instruction tuning [69, 345], yielding improved performance as the parameter scale increases [94]. Further, smaller models with instruction tuning can even perform better than larger models without fine-tuning [28, 69]. Besides the model scale, instruction tuning demonstrates consistent improvements in various model architectures, pre-training 35
 
 TABLE 8: Basic statistics of the required number of GPUs, tuning time, batch size (denoted as BS) per device (full tuning and LoRA tuning), and inference rate (the number of generated tokes per second). Our experiments are conducted based on two Linux servers having 8 A800-80G SXM4 GPUs with 6 NVSwitch and 8 3090-24G GPUs, respectively. The major difference between A800 and A100 lies in the NVLink interconnect speed. Thus, our estimations about training and inference efficiency would be slightly improved for A100, while the rest memory consumption would remain the same. For full tuning experiments, we use data parallel training, ZeRO Stage 3, BF16, and gradient checkpointing. Additionally, the LoRA tuning can be executed on one 80G GPU utilizing INT8 quantization with the rank setting set to 16. All the experiments are conducted with Alpaca-52K dataset by training LLaMA models three epochs. The max sequence length for both training settings is set to 512. The inference experiments are performed with the batch size set to 1.
-
-Models
-
-LLaMA (7B) LLaMA (13B) LLaMA (30B) LLaMA (65B)
-
-A800 Full Training A800 LoRA Training A800 Inference (16-bit) 3090 Inference (16-bit) 3090 Inference (8-bit) #GPU BS Time #GPU BS Time #GPU #Token/s #GPU #Token/s #GPU #Token/s
-
-2
-
-4
-
-8
-
-16
-
-8
-
-8
-
-4
-
-2
-
-3.0h
-
-3.1h
-
-6.1h
-
-11.2h
-
-1
-
-1
-
-1
-
-1
-
-80
-
-48
-
-24
-
-4
-
-3.5h
-
-5.1h
-
-14.3h
-
-60.6h
-
-1
-
-1
-
-1
-
-2
-
-36.6
-
-26.8
-
-17.7
-
-8.8
-
-1
-
-2
-
-4
-
-8
-
-24.3
-
-9.9
-
-3.8
-
-2.0
-
-1
-
-1
-
-2
-
-4
-
-7.5
-
-4.5
-
-2.6
-
-1.5
 
 objectives, and model adaptation methods [69]. In practice, instruction tuning offers a general approach to enhancing the abilities of existing language models [69] (including small-sized PLMs). Also, it is much less costly than pretraining, since the amount of instruction data required by LLMs is significantly smaller than pre-training data.
 
@@ -2338,7 +1412,9 @@ Domain Specialization. Existing LLMs have showcased superior capabilities in tra
 
 those of expert clinicians. Furthermore, a recent study [357] fine-tunes FLAN-T5 to support e-commerce recommender systems with natural language instructions, showing strong performance in a variety of recommendation tasks. There are also several open-sourced medical models instructiontuned based on LLaMA [57], such as BenTsao [358]. Also, researchers explore instruction tuning on law [359], finance [360], and arithmetic computation [361].
 
-5.1.4 Empirical Analysis for Instruction Tuning Fine-tuning LLMs with different instruction sets tend to lead to model variants with varied performance on downstream tasks. In this section, we will explore the effect of different types of instructions in fine-tuning LLMs (i.e., LLaMA (7B) and LLaMA (13B) 25 ), as well as examine the usefulness of several instruction improvement strategies.
+5.1.4 Empirical Analysis for Instruction Tuning 
+
+Fine-tuning LLMs with different instruction sets tend to lead to model variants with varied performance on downstream tasks. In this section, we will explore the effect of different types of instructions in fine-tuning LLMs (i.e., LLaMA (7B) and LLaMA (13B) 25 ), as well as examine the usefulness of several instruction improvement strategies.
 
 Instruction Datasets. According to the discussion in Section 5.1.1, we mainly consider three common kinds of instructions as follows:
 
@@ -2348,239 +1424,9 @@ Instruction Datasets. According to the discussion in Section 5.1.1, we mainly co
 
 • Synthetic instructions. In addition to reusing existing instructions, we can also automatically synthesize massive instructions using LLMs. We adopt the popular synthetic instruction dataset Self-Instruct-52K [143], consisting of 52K instructions paired with about 82K instance inputs and outputs. These generated instructions have a similar data distribution as the human-written seed tasks (e.g., grammar checking, brainstorming).
 
-As the original FLAN-T5 dataset is very large (i.e., over 15M), we randomly sample 80,000 instructions from it for conducting a fair comparison with other instruction datasets
-
-25. Due to the limit of computational resources, we cannot conduct large-scale experiments on larger LLaMA variants right now, which would be scheduled in a future version. 36
+As the original FLAN-T5 dataset is very large (i.e., over 15M), we randomly sample 80,000 instructions from it for conducting a fair comparison with other instruction datasets (i.e., ShareGPT and Self-Instruct-52K) at a similar scale. In our experiments, we test on each individual instruction set to explore their own effects and also examine their combinatorial effects on model performance.
 
 TABLE 9: Results of instruction-tuning experiments (all in a single-turn conversation) based on the LLaMA (7B) and LLaMA (13B) model under the chat and QA setting. We employ four instruction improvement strategies on the Self-Instruct-52K dataset, i.e., enhancing the complexity (w/ complexity), increasing the diversity (w/ diversity), balancing the difficulty (w/ difficulty), and scaling the instruction number (w/ scaling). ∗ Since we select the LLaMA (7B)/(13B) model fine-tuned on Self-Instruct-52K as the baseline, we omit the win rate of the fine-tuned model with Self-Instruct-52K against itself.
-
-Dataset Mixtures
-
-① FLAN-T5 ② ShareGPT ③ Self-Instruct-52K ②+③ ①+②+③
-
-③ Self-Instruct-52K w/ complexity w/ diversity w/ difficulty w/ scaling
-
-① FLAN-T5 ② ShareGPT ③ Self-Instruct-52K ②+③ ①+②+③
-
-③ Self-Instruct-52K w/ complexity w/ diversity w/ difficulty w/ scaling
-
-Instruction Numbers
-
-80,000
-
-63,184
-
-82,439
-
-145,623
-
-225,623
-
-82,439
-
-70,000
-
-70,000
-
-70,000
-
-220,000
-
-80,000
-
-63,184
-
-82,439
-
-145,623
-
-225,623
-
-82,439
-
-70,000
-
-70,000
-
-70,000
-
-220,000
-
-Lexical Diversity
-
-48.48
-
-77.31
-
-25.92
-
-48.22
-
-48.28
-
-25.92
-
-70.43
-
-75.59
-
-73.48
-
-57.78
-
-48.48
-
-77.31
-
-25.92
-
-48.22
-
-48.28
-
-25.92
-
-70.43
-
-75.59
-
-73.48
-
-57.78
-
-Chat
-
-AlpacaFarm
-
-23.77
-
-81.30 / ∗
-
-71.36
-
-70.00
-
-/ ∗
-
-76.96
-
-81.55
-
-79.15
-
-51.13
-
-22.12
-
-77.13 / ∗
-
-72.85
-
-69.49
-
-/ ∗
-
-77.94
-
-78.92
-
-80.45
-
-58.12
-
-QA
-
-Models
-
-MMLU
-
-38.58
-
-38.11
-
-37.52
-
-41.26
-
-43.69
-
-37.52
-
-39.73
-
-38.01
-
-32.55
-
-33.81
-
-34.12
-
-47.49
-
-36.73
-
-41.16
-
-43.50
-
-36.73
-
-46.89
-
-44.97
-
-43.15
-
-38.07
-
-BBH3k
-
-LLaMA (7B)
-
-LLaMA (13B)
-
-32.79
-
-27.71
-
-29.81
-
-28.36
-
-29.69
-
-29.81
-
-33.25
-
-30.03
-
-31.25
-
-26.63
-
-34.05
-
-33.82
-
-25.43
-
-29.49
-
-31.16
-
-25.43
-
-35.75
-
-36.40
-
-34.59
-
-27.28
-
-(i.e., ShareGPT and Self-Instruct-52K) at a similar scale. In our experiments, we test on each individual instruction set to explore their own effects and also examine their combinatorial effects on model performance.
 
 Improvement Strategies. Although real-world instructions from human users are more suitable for fine-tuning LLMs, it is difficult to collect them at a large scale. As alternatives to human-generated instructions, most existing research mainly adopts synthetic instructions generated by LLMs. However, there are some potential problems with synthetic instructions, such as poor topic diversity and uneven instruction difficulty (either too simple or too difficult). Thus, it is necessary to improve the quality of the synthetic instructions. Next, we summarize four major improvement strategies widely used in existing work as follows:
 
@@ -2594,9 +1440,7 @@ Following YuLan-Chat [352], we employ ChatGPT to rewrite the instructions from S
 
 • Balancing the instruction difficulty. As the synthetic instructions tend to contain too easy or too hard ones, it is likely to result in training instability or even overfitting for LLMs. To explore the potential effects, we leverage the perplexity score of LLMs to estimate the difficulty of instructions and remove too easy or too hard instructions. To generate the same scale of instructions for fair comparison, we adopt a LLaMA (7B) model to compute the perplexity for the 220K instructions from the large instruction dataset, and then keep 70K instructions of moderate perplexity scores as the difficulty-balanced dataset.
 
-Experimental Setup. To conduct the experiments on the effect of instruction data, we leverage these new instruction datasets for tuning LLaMA, a popular LLM backbone that has been widely used for instruction-tuning. We use the code from YuLan-Chat [352] for our experiments, and train LLaMA 7B and 13B on a server of 8 A800-80G GPUs. All 37
-
-the hyper-parameters settings remain the same as Stanford Alpaca. To better evaluate the instruction following ability of fine-tuned models, we consider two settings, namely Chat setting and QA setting. The chat setting mainly utilizes user instructions and queries from daily chat, whereas the QA setting mainly employs question answering examples from existing NLP datasets. The evaluation on the chat setting is conducted based on the AlpacaFarm evaluation set [363]. Instead of using a full pairwise comparison, we select the LLaMA 7B and 13B models fine-tuned on SelfInstruct-52K as the reference baselines, and then compare them with other fine-tuned LLaMA 7B and 13B models using different instructions, respectively. Since our focus is to examine the usefulness of different strategies to generate the instructions, the model fine-tuned on Self-Instruct-52K can serve as a good reference. Following AlpacaFarm [363], for each comparison, we employ ChatGPT to automatically annotate which response from two compared models each time is the best for the user query, and report the win rate (%) as the evaluation metric. For the QA setting, we select two benchmarks, MMLU [364] and BBH [365], and evaluate the accuracy based on their default settings by using heuristic rules to parse the answers from these LLMs.
+Experimental Setup. To conduct the experiments on the effect of instruction data, we leverage these new instruction datasets for tuning LLaMA, a popular LLM backbone that has been widely used for instruction-tuning. We use the code from YuLan-Chat [352] for our experiments, and train LLaMA 7B and 13B on a server of 8 A800-80G GPUs. All the hyper-parameters settings remain the same as Stanford Alpaca. To better evaluate the instruction following ability of fine-tuned models, we consider two settings, namely Chat setting and QA setting. The chat setting mainly utilizes user instructions and queries from daily chat, whereas the QA setting mainly employs question answering examples from existing NLP datasets. The evaluation on the chat setting is conducted based on the AlpacaFarm evaluation set [363]. Instead of using a full pairwise comparison, we select the LLaMA 7B and 13B models fine-tuned on SelfInstruct-52K as the reference baselines, and then compare them with other fine-tuned LLaMA 7B and 13B models using different instructions, respectively. Since our focus is to examine the usefulness of different strategies to generate the instructions, the model fine-tuned on Self-Instruct-52K can serve as a good reference. Following AlpacaFarm [363], for each comparison, we employ ChatGPT to automatically annotate which response from two compared models each time is the best for the user query, and report the win rate (%) as the evaluation metric. For the QA setting, we select two benchmarks, MMLU [364] and BBH [365], and evaluate the accuracy based on their default settings by using heuristic rules to parse the answers from these LLMs.
 
 For both instruction tuning and evaluation, we adopt the following prompt: “The following is a conversation between a human and an AI assistant. The AI assistant gives helpful, detailed, and polite answers to the user’s questions. \ n [ | Human | ]: { input }\ n[ | AI | ]:”. To reproduce our results, we release the code and data at the link: https://github.com/ RUCAIBox/LLMSurvey/tree/main/Experiments.
 
@@ -2620,11 +1464,11 @@ Instruction Tuning Suggestions
 
 To conduct instruction tuning on LLMs, one can prepare the computational resources according to the basic statistics about the required number of GPUs and tuning time in Table 8. After setting up the development environment, we recommend beginners to follow the code of Alpaca repository [137] for instruction tuning. Subsequently, one should select the base model and construct the instruction datasets as we discuss in this section. When computational resources for training are constrained, users can utilize LoRA for parameterefficient tuning (see Section 5.3). As for inference, users can further use quantization methods to deploy LLMs on fewer or smaller GPUs (see Section 5.4).
 
-5.2 Alignment Tuning
+25 Due to the limit of computational resources, we cannot conduct large-scale experiments on larger LLaMA variants right now, which would be scheduled in a future version.
 
-This part first presents the background of alignment with its definition and criteria, then focuses on the collection of human feedback data for aligning LLMs, and finally 38
+#### 5.2 Alignment Tuning
 
-discusses the key technique of reinforcement learning from human feedback (RLHF) for alignment tuning.
+This part first presents the background of alignment with its definition and criteria, then focuses on the collection of human feedback data for aligning LLMs, and finally discusses the key technique of reinforcement learning from human feedback (RLHF) for alignment tuning.
 
 5.2.1 Background and Criteria for Alignment
 
@@ -2636,9 +1480,7 @@ Alignment Criteria. Recently, there is increasing attention on developing multif
 
 • Honesty. At a basic level, a LLM aligned to be honest should present accurate content to users instead of fabricating information. Additionally, it is crucial for the LLM to convey appropriate degrees of uncertainty in its output, in order to avoid any form of deception or misrepresentation of information. This requires the model to know about its capabilities and levels of knowledge (e.g., “know unknowns”). According to the discussion in [368], honesty is a more objective criterion compared to helpfulness and harmlessness, hence honesty alignment could potentially be developed with less reliance on human efforts.
 
-• Harmlessness. To be harmless, it requires that the language produced by the model should not be offensive or discriminatory. To the best of its abilities, the model should be capable of detecting covert endeavors aimed at soliciting
-
-requests for malicious purposes. Ideally, when the model was induced to conduct a dangerous action (e.g., committing a crime), the LLM should politely refuse. Nonetheless, what behaviors are deemed harmful and to what extent vary amongst individuals or societies [368] highly depend on who is using the LLM, the type of the posed question, and the context (e.g., time) at which the LLM is being used.
+• Harmlessness. To be harmless, it requires that the language produced by the model should not be offensive or discriminatory. To the best of its abilities, the model should be capable of detecting covert endeavors aimed at soliciting requests for malicious purposes. Ideally, when the model was induced to conduct a dangerous action (e.g., committing a crime), the LLM should politely refuse. Nonetheless, what behaviors are deemed harmful and to what extent vary amongst individuals or societies [368] highly depend on who is using the LLM, the type of the posed question, and the context (e.g., time) at which the LLM is being used.
 
 As we can see, these criteria are quite subjective, and are developed based on human cognition. Thus, it is difficult to directly formulate them as optimization objectives for LLMs. In existing work, there are many ways to fulfill these criteria when aligning LLMs. A promising technique is red teaming [369], which involves using manual or automated means to probe LLMs in an adversarial way to generate harmful outputs and then updates LLMs to prevent such outputs.
 
@@ -2648,7 +1490,7 @@ During the pre-training stage, LLMs are trained using the language modeling obje
 
 Human Labeler Selection. In existing work, the dominant method for generating human feedback data is human annotation [66, 116, 367]. This highlights the critical role of selecting appropriate human labelers. To provide high-quality feedback, human labelers are supposed to have a qualified level of education and excellent proficiency in English. For example, Sparrow [116] requires human labelers to be UK-based native English speakers who have obtained at least an undergraduate-level educational qualification. Even then, several studies [367] have found that there still exists a mismatch between the intentions of researchers and human labelers, which may lead to low-quality human feedback and cause LLMs to produce unexpected output. To address this issue, InstructGPT [66] further conducts a screening process to filter labelers by assessing the agreement between human labelers and researchers. Specifically, researchers first label a small amount of data and then measure the agreement between themselves and human labelers. The labelers with the highest agreement will be selected to proceed with the subsequent annotation work. In some other work [370], “super raters” are used to ensure the high quality of human feedback. Researchers evaluate the performance of human labelers and select a group of well-performing human labelers (e.g., high agreement) as super raters. The super raters will be given priority to collaborate with the researchers in the subsequent study. When human labelers annotate the output of LLMs, it is helpful to specify detailed instructions and provide instant guidance for human labelers, which can further regulate the annotation of labelers.
 
-Human Feedback Collection. In existing work, there are mainly three kinds of approaches to collecting feedback and preference data from human labelers. 39
+Human Feedback Collection. In existing work, there are mainly three kinds of approaches to collecting feedback and preference data from human labelers.
 
 • Ranking-based approach. In early work [367], human labelers often evaluate model-generated outputs in a coarse-grained manner (i.e., only selecting the best) without taking into account more fine-grained alignment criteria. Nonetheless, different labelers may hold diverse opinions on the selection of the best candidate output, and this method disregards the unselected samples, which may lead to inaccurate or incomplete human feedback. To address this issue, subsequent studies [116] introduce the Elo rating system to derive the preference ranking by comparing candidate outputs. The ranking of outputs serves as the training signal that guides the model to prefer certain outputs over others, thus inducing outputs that are more reliable and safer.
 
@@ -2662,123 +1504,17 @@ In the following, we focus on a well-known technique, reinforcement learning fro
 
 To align LLMs with human values, reinforcement learning from human feedback (RLHF) [79, 367] has been proposed to fine-tune LLMs with the collected human feedback data, which is useful to improve the alignment criteria (e.g., helpfulness, honesty, and harmlessness). RLHF employs reinforcement learning (RL) algorithms (e.g., Proximal Policy Optimization (PPO) [128]) to adapt LLMs to human feedback by learning a reward model. Such an approach incorporates humans in the training loop for developing well-aligned LLMs, as exemplified by InstructGPT [66].
 
-RLHF System. The RLHF system mainly comprises three key components: a pre-trained LM to be aligned, a reward model learning from human feedback, and a RL algorithm training the LM. Specifically, the pre-trained LM is typically
-
-Supervised Fine-tuning
-
-Prompts
-
-Training with demonstration data
-
-Human Annotator
-
-Demonstrations Demonstration Data
-
-LM Outputs
-
-Human Feedback
-
-Pre-trained LM
-
-🔥
-
-Reward Model Training
-
-Prompts
-
-Reward Model 🔥
-
-Pre-trained LM
-
-🧊
-
-Ranking
-
-Training with feedback data
-
-RL Fine-tuning
-
-Prompts
-
-Reward Model 🧊
-
-Aligned LM
-
-🔥
-
-LM Outputs
-
-😊/😞
-
-Reward
-
-Training with RL algorithm (PPO)
+RLHF System. The RLHF system mainly comprises three key components: a pre-trained LM to be aligned, a reward model learning from human feedback, and a RL algorithm training the LM. Specifically, the pre-trained LM is typically a generative model that is initialized with existing pretrained LM parameters. For example, OpenAI uses 175B GPT-3 for its first popular RLHF model, InstructGPT [66], and DeepMind uses the 280 billion parameter model Gopher [64] for its GopherCite model [370]. Further, the reward model (RM) provides (learned) guidance signals that reflect human preferences for the text generated by the LM, usually in the form of a scalar value. The reward model can take on two forms: a fine-tuned LM or a LM trained de novo using human preference data. Existing work typically employs reward models having a parameter scale different from that of the aligned LM [66, 370]. For example, OpenAI uses 6B GPT-3 and DeepMind uses 7B Gopher as the reward model, respectively. Finally, to optimize the pre-trained LM using the signal from the reward model, a specific RL algorithm is designed for large-scale model tuning. Specifically, Proximal Policy Optimization (PPO) [128] is a widely used RL algorithm for alignment in existing work [66, 116, 370].
 
 Fig. 12: The workflow of the RLHF algorithm.
-
-a generative model that is initialized with existing pretrained LM parameters. For example, OpenAI uses 175B GPT-3 for its first popular RLHF model, InstructGPT [66], and DeepMind uses the 280 billion parameter model Gopher [64] for its GopherCite model [370]. Further, the reward model (RM) provides (learned) guidance signals that reflect human preferences for the text generated by the LM, usually in the form of a scalar value. The reward model can take on two forms: a fine-tuned LM or a LM trained de novo using human preference data. Existing work typically employs reward models having a parameter scale different from that of the aligned LM [66, 370]. For example, OpenAI uses 6B GPT-3 and DeepMind uses 7B Gopher as the reward model, respectively. Finally, to optimize the pre-trained LM using the signal from the reward model, a specific RL algorithm is designed for large-scale model tuning. Specifically, Proximal Policy Optimization (PPO) [128] is a widely used RL algorithm for alignment in existing work [66, 116, 370].
 
 Key Steps for RLHF. Figure 12 illustrates the overall threestep process of RLHF [66] as introduced below.
 
 • Supervised fine-tuning. To make the LM initially perform desired behaviors, it usually needs to collect a supervised dataset containing input prompts (instruction) and desired outputs for fine-tuning the LM. These prompts and outputs can be written by human labelers for some specific tasks while ensuring the diversity of tasks. For example, InstructGPT [66] asks human labelers to compose prompts (e.g., “List five ideas for how to regain enthusiasm for my career”) and desired outputs for several generative tasks such as open QA, brainstorming, chatting, and rewriting. Note that the first step is optional in specific settings or scenarios.
 
-• Reward model training. The second step is to train the RM using human feedback data. Specifically, we employ the LM to generate a certain number of output texts using sampled prompts (from either the supervised dataset or the human-generated prompt) as input. We then invite 40
-
-MHA Adapter
-
-FFN
-
-FFN
-
-Adapter
-
-Adapter
-
-Prefix
-
-Prefix
-
-Layer #N
-
-…
-
-Layer #1
-
-Layer #N
-
-…
-
-Layer #1
-
-Wdown 
-
-Layer #N
-
-…
-
-LoRA
-
-…
-
-MHA
-
-Adapter
-
-Wdown 
-
-Layer #1
-
-Input (a) Adapter Tuning
-
-Input (b) Prefix Tuning
-
-Prompt Input (c) Prompt Tuning
-
-Input (d) Low-Rank Adapation
+• Reward model training. The second step is to train the RM using human feedback data. Specifically, we employ the LM to generate a certain number of output texts using sampled prompts (from either the supervised dataset or the human-generated prompt) as input. We then invite human labelers to annotate the preference for these pairs. The annotation process can be conducted in multiple forms, and a common approach is to annotate by ranking the generated candidate texts, which can reduce the inconsistency among annotators. Then, the RM is trained to predict the human-preferred output. In InstructGPT, labelers rank model-generated outputs from best to worst, and the RM (i.e., 6B GPT-3) is trained to predict the ranking. Note that, in recent work [371], the annotation of preference on response pairs has been conducted by an AI agent (usually an aligned LLM) instead of humans, which is called “reinforcement learning from AI feedback (RLAIF)”. LLMs trained with typical RLHF algorithms tend to generate harmless responses with less helpfulness, which is called evasion problem [371]. To guarantee both the harmlessness and helpfulness, RLAIF generates the AI feedback based on pre-set alignment principles in instructions [371, 372], which can also reduce the efforts of human annotation.
 
 Fig. 13: An illustration of four different parameter-efficient fine-tuning methods. MHA and FFN denote the multi-head attention and feed-forward networks in the Transformer layer, respectively.
-
-human labelers to annotate the preference for these pairs. The annotation process can be conducted in multiple forms, and a common approach is to annotate by ranking the generated candidate texts, which can reduce the inconsistency among annotators. Then, the RM is trained to predict the human-preferred output. In InstructGPT, labelers rank model-generated outputs from best to worst, and the RM (i.e., 6B GPT-3) is trained to predict the ranking. Note that, in recent work [371], the annotation of preference on response pairs has been conducted by an AI agent (usually an aligned LLM) instead of humans, which is called “reinforcement learning from AI feedback (RLAIF)”. LLMs trained with typical RLHF algorithms tend to generate harmless responses with less helpfulness, which is called evasion problem [371]. To guarantee both the harmlessness and helpfulness, RLAIF generates the AI feedback based on pre-set alignment principles in instructions [371, 372], which can also reduce the efforts of human annotation.
 
 • RL fine-tuning. At this step, aligning (i.e., fine-tuning) the LM is formalized as an RL problem. In this setting, the pre-trained LM acts as the policy that takes as input a prompt and returns an output text, the action space of it is the vocabulary, the state is the currently generated token sequence, and the reward is provided by the RM. To avoid eviating significantly from the initial (before tuning) LM, a penalty term is commonly incorporated into the reward function. For example, InstructGPT optimizes the LM against the RM using the PPO algorithm. For each input prompt, InstructGPT calculates the KL divergence between the generated results from the current LM and the initial LM as the penalty. It is noted that the second and final steps can be iterated in multiple turns for better aligning LLMs. Due to the instability of the RL algorithm, recent work [373] replaces the RL tuning with another supervised fine-tuning by reusing the best ranked samples with higher rewards.
 
@@ -2790,25 +1526,19 @@ model size), since large reward models generally perform better in judging the q
 
 • Effective RL training. As the RL training process tends to be unstable and hyper-parameter sensitive, it is suggested that the language model should be well supervised finetuned before RL training, so as to reaching a good model capacity. A commonly-used way is to fine-tune the LLM on its best outputs of the prompts (referred to as rejection sampling or best-of-N ) from the alignment dataset until convergence before RL. Given a prompt, the LLM would first produce N outputs via the sampling algorithm, and then the best candidate from the model will be selected by the reward model for learning. After fine-tuning the LLM on the best samples until convergence, the RL process will be performed to further improve the performance. LLaMA 2 [99] has successively trained five versions of RLHF models, where the LLM has been progressively improved with the improvement of the reward models. In this way, the collected prompts and annotations of human preference data can better reflect the issues of the current model checkpoint, thus making special tuning to address these issues. In addition, LLaMA 2 also adds samples from prior iterations into the subsequent ones, to alleviate the possible capacity regression issue during iterative optimization.
 
-• Efficient RL training. As the RL training requires to 41
-
-iterate the inference process of both the LLM and reward models, it would greatly increase the total memory and computation cost, especially for larger reward models and LLMs. As a practical trick, we can deploy the reward model on a separate server, and invoke the corresponding API to work with the LLM on its own server. In addition, as RLHF requires the LLM to generate multiple candidate outputs, instead of calling the sample decoding procedure for multiple times, it is more efficient to utilize the beam search decoding algorithm 26 . It only needs to perform onepass decoding for response generation, meanwhile such a strategy can also enhance the diversity of the generated candidate responses.
+• Efficient RL training. As the RL training requires to iterate the inference process of both the LLM and reward models, it would greatly increase the total memory and computation cost, especially for larger reward models and LLMs. As a practical trick, we can deploy the reward model on a separate server, and invoke the corresponding API to work with the LLM on its own server. In addition, as RLHF requires the LLM to generate multiple candidate outputs, instead of calling the sample decoding procedure for multiple times, it is more efficient to utilize the beam search decoding algorithm 26 . It only needs to perform onepass decoding for response generation, meanwhile such a strategy can also enhance the diversity of the generated candidate responses.
 
 Process-Supervised RLHF. In existing literature of RLHF [376], the supervision signals for RL training can be generally classified into two distinct categories: outcomesupervision signals and process-supervision signals. The outcome-supervised RLHF employs a quantitative score to assess the quality of the whole text generated by LLMs. In contrast, process-supervised RLHF offers an evaluation of each individual component (e.g., sentence, word, or reasoning step) within the generated content, which can provide fine-grained supervision signals to guide the training, helping LLMs refine the undesired generation contents [376, 377]. OpenAI has proposed a fine-grained annotation dataset named PRM800k [377] consisting of 12K process-annotated mathematical problems (i.e., MATH dataset [378]) and 75K solutions generated by LLMs of these problems, where each reasoning step of mathematical problems is labeled as positive, negative or neutral in PRM800k. This fine-grained dataset has been utilized in existing work [377, 379] to train the process-supervised reward models (PRM), and the probability from the prediction of each label can be considered as the supervision signals during RLHF procedure. To effectively leverage processsupervision signals from PRMs, existing work [376] has utilized expert iteration [380, 381], an effective RL algorithm to improve the base policy via learning from expert policy. Typically, expert iteration contains two main stages: policy improvement and distillation [376]. In the policy improvement stage, expert policy processes the systematic search procedure to produce the samples. PRMs provide process-supervision signals to guide expert policy in the search procedure and enhance the quality of samples. Subsequently, during the distillation stage, the samples generated by expert policy in the first stage are utilized to improve the base policy through supervised fine-tuning. In addition to expert iteration, PRMs can also be utilized to re-rank the candidates of the final answers generated by LLMs [377] or to select better intermediate reasoning steps during step by step reasoning [379, 382].
 
-5.2.4 Alignment without RLHF Although RLHF has achieved great success in aligning the behaviors of LLMs with human values and preferences, it also suffers from notable limitations. First, RLHF needs to train multiple LMs including the model being aligned, the
+5.2.4 Alignment without RLHF 
 
-26. https://huggingface.co/docs/transformers/v4.31.0/en/main classes/text generation#transformers.GenerationMixin.group beam search
-
-reward model, and the reference model at the same time, which is tedious in algorithmic procedure and memoryconsuming in practice. Besides, the commonly-used PPO algorithm in RLHF is rather complex and often sensitive to hyper-parameters. As an alternative, increasing studies explore to directly optimize LLMs to adhere to human preferences, using supervised fine-tuning without reinforcement learning [349].
+Although RLHF has achieved great success in aligning the behaviors of LLMs with human values and preferences, it also suffers from notable limitations. First, RLHF needs to train multiple LMs including the model being aligned, the reward model, and the reference model at the same time, which is tedious in algorithmic procedure and memoryconsuming in practice. Besides, the commonly-used PPO algorithm in RLHF is rather complex and often sensitive to hyper-parameters. As an alternative, increasing studies explore to directly optimize LLMs to adhere to human preferences, using supervised fine-tuning without reinforcement learning [349].
 
 Overview. The basic idea of non-RL alignment approaches is to directly fine-tune LLMs with supervised learning on high-quality alignment dataset. It basically assumes that response feedback or golden rules to avert unsafe behaviors have been injected or included in the specially curated alignment dataset, so that LLMs can directly learn aligned behaviors from these demonstration data via suitable fine-tuning strategies. Thus, to implement this approach, two key issues are the construction of alignment dataset and the design of fine-tuning loss. For the first issue, the alignment dataset can be automatically constructed by an aligned LLMs according to human-written safety principles [347] or refining existing examples using edits operations [383]. In addition, we can also reuse existing reward models to select highrated responses from existing human feedback data [373]. For the second issue, non-RL alignment approaches mainly fine-tune LLMs in a supervised learning way (the same as the original instruction tuning loss) on a high-quality alignment dataset, meanwhile auxiliary learning objectives can be used to enhance the alignment performance, e.g., ranking responses or contrasting instruction-response pairs.
 
 Alignment Data Collection. The construction of alignment data is important to effectively align the behaviors of LLMs with human preferences. To collect high-quality alignment data, some work tries to reuse existing reward models to select high-rated responses, and others explore to leverage powerful LLMs (e.g., ChatGPT) or build a simulated environment to generate synthetic alignment examples. Next, we will discuss these three lines of research.
 
-• Reward model based approaches. The reward model in RLHF has been trained to measure the alignment degree on the responses of LLMs. It is straightforward to leverage existing reward models to select high-quality responses as alignment data for subsequent fine-tuning. Based on this idea, RAFT [373] adopts reward models trained on human preference data to rank the responses of LLMs and collect those with higher rewards for supervised fine-tuning. In addition, the reward model can be also used to score model responses and assign them to different quality groups. Quark [384] sorts the responses of LLMs into different quantiles based on the reward scores. Each quantile is attached with a special reward token to represent the reward level of the quantile. Conditioned on the highest-reward tokens, LLMs are subsequently prompted to generate high-quality responses. Given an initial answer and the corresponding human feedback, ILF [385] first adopts LLMs to generate refined answers, then utilizes the reward model to select the answer that best matches the feedback for further training. As valuable resources for aligning LLMs, several reward models have been released, including DeBERTa- 42
-
-base/large/xxlarge from OpenAssistant 27 , Moss-7B from Fudan 28 , and Flan-T5-xl from Stanford 29 .
+• Reward model based approaches. The reward model in RLHF has been trained to measure the alignment degree on the responses of LLMs. It is straightforward to leverage existing reward models to select high-quality responses as alignment data for subsequent fine-tuning. Based on this idea, RAFT [373] adopts reward models trained on human preference data to rank the responses of LLMs and collect those with higher rewards for supervised fine-tuning. In addition, the reward model can be also used to score model responses and assign them to different quality groups. Quark [384] sorts the responses of LLMs into different quantiles based on the reward scores. Each quantile is attached with a special reward token to represent the reward level of the quantile. Conditioned on the highest-reward tokens, LLMs are subsequently prompted to generate high-quality responses. Given an initial answer and the corresponding human feedback, ILF [385] first adopts LLMs to generate refined answers, then utilizes the reward model to select the answer that best matches the feedback for further training. As valuable resources for aligning LLMs, several reward models have been released, including DeBERTa-base/large/xxlarge from OpenAssistant 27 , Moss-7B from Fudan 28 , and Flan-T5-xl from Stanford 29 .
 
 • LLM based generative approaches. Reward models help to select aligned data from model responses. However, training reward models itself necessitates substantial high-quality human-labeled data, which is typically expensive and in short supply. In addition, although existing reward models can be reused, they might not be able to accurately capture the nonalignment behaviors in another separately trained LLM. Therefore, some work explores leveraging powerful LLMs to automatically generate human-aligned data. As a representative work, constitutional AI [371] proposes that human supervision comes from a set of principles (i.e., natural language instructions) governing AI behaviors. Based on these principles, LLMs will critique their own harmful responses and revise them repeatedly into finally aligned responses. Similarly, Self-Align [347] first adopts self-instruct [143] to generate instructions focusing on covering diverse topics. Then, the model is also prompted with multiple human-written principles that describe the rules of expected model behaviors (also with several in-context exemplars), to generate helpful, ethical, and reliable responses as alignment data. To mitigate the limit that the original SFT method can only learn from positive responses, FIGA [386] develops an improved supervised alignment approach, where both negative (the original output of low quality) and positive (the refined output by LLMs) responses are leveraged in a contrastive way, to enable LLMs to deeply understand what fine-grained revisions actually lead to good response.
 
@@ -2816,39 +1546,39 @@ base/large/xxlarge from OpenAssistant 27 , Moss-7B from Fudan 28 , and Flan-T5-x
 
 Supervised Alignment Tuning. After obtaining alignment data, it is also key to design suitable fine-tuning strategies for direct alignment. A straightforward approach is to optimize LLMs using the conventional sequence-to-sequence objective based on the alignment data. In addition to the conventional optimization objective, several studies further explore auxiliary losses that enhance the learning from the alignment data.
 
-• Primary training objective. Since the alignment data typically consists of an input instruction and an output re-
-
-27. https://huggingface.co/OpenAssistant
-
-28. https://github.com/OpenLMLab/MOSS-RLHF
-
-29. https://huggingface.co/stanfordnlp/SteamSHP-flan-t5-xl
-
-sponse, the primary training loss is still the traditional crossentropy loss for sequence-to-sequence learning. Based on this loss, many studies propose a number of improvement variants for enhancing the supervised alignment tuning. For example, CoH [388] constructs the training data by prepending “A helpful answer:” and “An unhelpful answer:” to the annotated good and bad responses, respectively, and only compute losses for those response tokens with special masking. Quark [384] sorts model responses into different quantiles with varying alignment quality, it prepends a special reward token to each model response to represent the reward level of the response. Further, to enable the preference modeling via the maximum likelihood objective, DPO [389] first reparameterizes the response rewards using the policy model (i.e., the language model being optimized), and then the original reward modelling objective can be reformulated only based on the policy model. In this way, DPO removes the explicit reward modeling step, and optimizing the new learning objective only involving the policy model is equivalent to optimizing the rewards. Furthermore, FIGA [386] designs a fine-grained contrastive loss that aims to encourage desirable tokens, penalize undesirable ones, and disregard trivial tokens.
+• Primary training objective. Since the alignment data typically consists of an input instruction and an output response, the primary training loss is still the traditional crossentropy loss for sequence-to-sequence learning. Based on this loss, many studies propose a number of improvement variants for enhancing the supervised alignment tuning. For example, CoH [388] constructs the training data by prepending “A helpful answer:” and “An unhelpful answer:” to the annotated good and bad responses, respectively, and only compute losses for those response tokens with special masking. Quark [384] sorts model responses into different quantiles with varying alignment quality, it prepends a special reward token to each model response to represent the reward level of the response. Further, to enable the preference modeling via the maximum likelihood objective, DPO [389] first reparameterizes the response rewards using the policy model (i.e., the language model being optimized), and then the original reward modelling objective can be reformulated only based on the policy model. In this way, DPO removes the explicit reward modeling step, and optimizing the new learning objective only involving the policy model is equivalent to optimizing the rewards. Furthermore, FIGA [386] designs a fine-grained contrastive loss that aims to encourage desirable tokens, penalize undesirable ones, and disregard trivial tokens.
 
 • Auxiliary optimization objectives. Besides the primary cross-entropy loss, several studies propose auxiliary training loss to enhance the learning from the alignment data. First, since the responses of each instruction can be scored by the reward model, the ranking loss can be used to train the model to preserve the ranking order of these responses. For example, RRHF [390] samples responses from multiple sources, including model-generated responses, such as those derived from the model itself, ChatGPT, and GPT-4, as well as human-written responses, spanning both high-quality and low-quality instances. To align with the scores from reward models, it further optimizes the ranking loss by encouraging the model to have a higher conditional log probability for the response with a higher ranking. SLiCHF [391] proposes to assess the similarity between model outputs and human preference via the distance in the latent space, and introduces specific calibration and regularization loss to calibrate the candidate sequences based on humanpreference data. Second, to enhance the relatedness between the response and the instruction, some work adopts contrastive learning to push up the probability of correct instruction-response pairs while pushing down incorrect instruction-response pairs. Specifically, for an output response, the proposed approach in [392] contrasts the target instruction to the other irrelevant instructions. By doing so, it can enable the model to learn the right correlation between instructions and responses.
 
-5.2.5 Remarks on SFT and RLHF As discussed in Section 5.1, instruction tuning is the process of training pre-trained language models with formatted demonstration data (instructions paired with desired outputs). At early exploration, instruction data was mainly collected from NLP tasks [67], while it has been now extended to more diverse supervision data that pairs input and output texts (e.g., the utterances of open-ended dialogues). Training with such paired texts is also called supervised finetuning (SFT) in the context of LLMs [66]. In this part, we 43
+26 https://huggingface.co/docs/transformers/v4.31.0/en/main_classes/text_generation#transformers.GenerationMixin.group beam_search
 
-mainly use the abbreviation SFT for discussion but not instruction tuning, due to the simplicity and popularity.
+[Generation](https://huggingface.co/docs/transformers/v4.31.0/en/main_classes/text_generation#transformers.GenerationMixin.group)
 
-Since SFT and RLHF are two major adaptation tuning methods for LLMs, it is important to understand the connections and difference between them. Next, we make some discussions on this issue 30 .
+27 https://huggingface.co/OpenAssistant
+
+28 https://github.com/OpenLMLab/MOSS-RLHF
+
+29 https://huggingface.co/stanfordnlp/SteamSHP-flan-t5-xl
+
+5.2.5 Remarks on SFT and RLHF 
+
+As discussed in Section 5.1, instruction tuning is the process of training pre-trained language models with formatted demonstration data (instructions paired with desired outputs). At early exploration, instruction data was mainly collected from NLP tasks [67], while it has been now extended to more diverse supervision data that pairs input and output texts (e.g., the utterances of open-ended dialogues). Training with such paired texts is also called supervised finetuning (SFT) in the context of LLMs [66]. In this part, we mainly use the abbreviation SFT for discussion but not instruction tuning, due to the simplicity and popularity.
+
+Since SFT and RLHF are two major adaptation tuning methods for LLMs, it is important to understand the connections and difference between them. Next, we make some discussions on this issue 30.
 
 Overall Comparison with RL Formulation. Following the discussion in Section 5.2.3 (the part related to RL training), the text generation problem can be formulated as a decisionmaking process based on RL. Taking a prompt as input, the task of a LLM is to generate a text completion that appropriately responds to the prompt. This task would be completed step by step. At each step, an agent (i.e., LLM) will perform an action (i.e., generating a token) according to the policy (i.e., the generative probability distribution of LLM) conditioned on the current state (currently generated token sequence and other available context information). It is expected that a high-quality output text would be produced by the LLM, which can earn a large reward score based on the entire response. Overall, RLHF and SFT can be considered as two different training approaches to optimizing the above decision making process for LLMs. Specially, RLHF firstly learns the reward model, and then employs it to improve the LLM with RL training (e.g., PPO). As a comparison, SFT adopts a teacher-forcing approach, which directly optimizes the likelihood of a demonstration output. Such a token-level training way essentially does behavior cloning (a special algorithm of imitation learning [393]): it utilizes the expert’s action (i.e., the target token at each step) as the supervision label and directly learns to imitate the demonstrations from experts without specifying a reward model as in typical RL algorithms. To learn the desired policies, SFT adopts a “local” optimization way (i.e., tokenlevel loss) based on demonstration data, while RLHF takes a “global” optimization way (i.e., text-level loss) by involving human preference. More theoretical analysis about imitation learning and reinforcement learning can be referred to the related RL literature [393, 394].
 
-Pros and Cons of SFT. SFT has been shown to be an effective approach to boosting the performance of LLMs on various benchmarks [67, 69, 137, 138], which can largely enhance the task generalization ability and flexibly endow specific functions (e.g., establishing the chatbot’s identity). More discussions about the usefulness of SFT can be found in Section 5.1.3. It has been widely recognized that SFT mainly unlocks the abilities but not inject new abilities into LLMs. Thus, it might become problematic when one tries to stimulate the non-endogenous abilities of LLMs via SFT. As a concrete scenario, it would potentially advocate the hallucination behaviors when demonstration data is beyond the knowledge or ability scope of LLMs, e.g., training a LLM to answer questions about its unknown facts. An interesting viewpoint from John Schulman’s talk on RLHF [395] is that distilling superior models to train less capable models (e.g., prompting GPT-4 to generate the response as fine-tuning data) might increase the possibilities of generating the hal-
-
-30. This part would be somehow subjective, mainly based on the authors’ opinions and experiences. Comments or corrections are welcome to enhance this part.
-
-lucinated texts, thus likely affecting the factual accuracy of LLMs. Furthermore, as a behavior cloning method, SFT aims to imitate the behaviors (without explorations) of the experts who construct the demonstration data. However, there often exist variations among different annotators on the writing styles, quality, and preferences of demonstration data, which tends to affect the learning performance of SFT. Thus, high-quality instruction data (but not the quantity) is the primary factor for effective training of LLMs during the SFT stage [99].
+Pros and Cons of SFT. SFT has been shown to be an effective approach to boosting the performance of LLMs on various benchmarks [67, 69, 137, 138], which can largely enhance the task generalization ability and flexibly endow specific functions (e.g., establishing the chatbot’s identity). More discussions about the usefulness of SFT can be found in Section 5.1.3. It has been widely recognized that SFT mainly unlocks the abilities but not inject new abilities into LLMs. Thus, it might become problematic when one tries to stimulate the non-endogenous abilities of LLMs via SFT. As a concrete scenario, it would potentially advocate the hallucination behaviors when demonstration data is beyond the knowledge or ability scope of LLMs, e.g., training a LLM to answer questions about its unknown facts. An interesting viewpoint from John Schulman’s talk on RLHF [395] is that distilling superior models to train less capable models (e.g., prompting GPT-4 to generate the response as fine-tuning data) might increase the possibilities of generating the hallucinated texts, thus likely affecting the factual accuracy of LLMs. Furthermore, as a behavior cloning method, SFT aims to imitate the behaviors (without explorations) of the experts who construct the demonstration data. However, there often exist variations among different annotators on the writing styles, quality, and preferences of demonstration data, which tends to affect the learning performance of SFT. Thus, high-quality instruction data (but not the quantity) is the primary factor for effective training of LLMs during the SFT stage [99].
 
 Pros and Cons of RLHF. RLHF was early explored in the literature of deep RL [79], then borrowed to improve the capacity of language models (e.g., summarization [129]), and subsequently adopted as the fundamental technique to develop InstructGPT [66]. Recently, increasing evidence [99, 371] has demonstrated the effectiveness of RLHF in mitigating the harmful responses and enhancing the model capacity. Specially, LLaMA 2 has demonstrated that RLHF can improve both the helpfulness and harmlessness scores [99], and attributed this to a better human-LLM synergy for data annotation. They explain this reason in two major aspects as follows. First, since human annotators mainly provide preference annotations for RLHF, it can largely alleviate the discrepancies of annotators as that in SFT. Secondly, preference annotation is much easier than writing the demonstration data, and annotators can even judge the quality of more superior generations than those they create, making it possible to explore a broader state space beyond what can be demonstrated by human annotators. Another key point is that RLHF essentially encourages LLMs to learn correct policies by contrasting the self-generated responses (discriminating between good and bad responses). It no longer forces the model to imitate external demonstration data, and thus can mitigate the hallucination issues with SFT as discussed above 31 . Actually, RLHF has been demonstrated to be an important approach to reduce the hallucination behaviors in GPT-4 [46]. However, RLHF inherits the drawbacks of classic RL algorithms, e.g., sample inefficiency and training instability. When adapted to LLMs, RLHF further relies on a strong SFT model as initial model checkpoint for efficiently achieving good performance. In addition, human annotators are involved in a complex iterative optimization process, in which a number of important details (e.g., the prompt selection, the schedule of reward model training and PPO training, and the settings of hyper-parameters) have important impact on the whole model performance.
 
 Overall, SFT is particularly useful to increase the model capacity of pre-trained model checkpoints right after pretraining, while RLHF is promising to further improve the model capacity of SFT models. However, RLHF has been difficult to implement, and far from well explored (according to public literature), and more improvements (e.g., efficient and reliable annotation [371] and simplified optimization [389]) are still needed for further research.
 
-31. In RLHF, it seems to be also important that reward models should be aware of the knowledge or ability of a LLM to be aligned. For example, LLaMA 2 adopts pre-trained chat model checkpoints to initialize reward models [99]. 44
+30 This part would be somehow subjective, mainly based on the authors’ opinions and experiences. Comments or corrections are welcome to enhance this part.
 
-5.3 Parameter-Efficient Model Adaptation
+31 In RLHF, it seems to be also important that reward models should be aware of the knowledge or ability of a LLM to be aligned. For example, LLaMA 2 adopts pre-trained chat model checkpoints to initialize reward models [99]. 44
+
+#### 5.3 Parameter-Efficient Model Adaptation
 
 In the above, we have discussed the approaches of instruction tuning and alignment tuning to adapt LLMs according to specific goals. Since LLMs consist of a huge amount of model parameters, it would be costly to perform the fullparameter tuning. In this section, we will discuss how to conduct efficient tuning on LLMs. We first review several representative parameter-efficient fine-tuning methods for Transformer language models, and then summarize existing work on parameter-efficient fine-tuned LLMs.
 
@@ -2868,11 +1598,7 @@ Besides the above methods, there is extensive research on efficient tuning of Tr
 
 5.3.2 Parameter-Efficient Fine-Tuning on LLMs With the rising of LLMs, efficient tuning has attracted increasing research attention for developing a more lightweight adaptation approach in downstream tasks.
 
-In particular, LoRA [145] has been widely applied to open-source LLMs (e.g., LLaMA and BLOOM) for
-
-32. Here, prompt tuning denotes a category of related efficient tuning methods exemplified by the work [397, 402, 403], instead of a specific method as used in [397]. Indeed, the prefix based tuning methods [396, 401] can be also considered as prompting methods, which are called deep prompting tuning in [401]. In this survey, prompt tuning specially refer to the methods that only include the prompt tokens at the input layer, in the context of LLMs. We assign p-tuning v2 [401] to the category of prefix tuning, because it incorporates layerwise prompts in langauge models. 45
-
-parameter-efficient fine-tuning. Among these research attempts, LLaMA and its variants have gained much attention for parameter-efficient tuning. For example, AlpacaLoRA [144] has been trained using LoRA as a lightweight tuned version of Alpaca [142] (a fine-tuned 7B LLaMA model with 52K human demonstrations of instruction following). There are extensive explorations of Alpaca-LoRA ranging in different languages or model sizes, which can be found in the collection page 33 . A recent study LLaMAAdapter [409] inserts learnable prompt vectors into each Transformer layer, in which zero-initialized attention has been proposed to improve the training by mitigating the influence of under-fitted prompt vectors. They also extend this approach to a multi-modal setting, e.g., visual question answering.
+In particular, LoRA [145] has been widely applied to open-source LLMs (e.g., LLaMA and BLOOM) for parameter-efficient fine-tuning. Among these research attempts, LLaMA and its variants have gained much attention for parameter-efficient tuning. For example, AlpacaLoRA [144] has been trained using LoRA as a lightweight tuned version of Alpaca [142] (a fine-tuned 7B LLaMA model with 52K human demonstrations of instruction following). There are extensive explorations of Alpaca-LoRA ranging in different languages or model sizes, which can be found in the collection page 33 . A recent study LLaMAAdapter [409] inserts learnable prompt vectors into each Transformer layer, in which zero-initialized attention has been proposed to improve the training by mitigating the influence of under-fitted prompt vectors. They also extend this approach to a multi-modal setting, e.g., visual question answering.
 
 Further, an empirical study [399] has been conducted to examine the effect of different tuning methods on language models. They compare four efficient tuning methods including serial adapter tuning [398], parallel adapter tuning [400, 410], and LoRA [145], on three open-source LLMs, namely GPT-J (6B), BLOOM (7.1B) and LLaMA (7B), for evaluation. Based on the experimental results on six math reasoning datasets, they show that these efficient-tuning methods under-perform the reference baseline GPT-3.5 on difficult tasks, while achieving a comparable performance on simple tasks. Overall, LoRA performs relatively well among these comparison methods, using significantly fewer trainable parameters.
 
@@ -2880,7 +1606,9 @@ As an important resource, the library PEFT [411] (standing for parameter-efficie
 
 As discussed in Section 5.3.1, there have been a large number of efficient tuning methods proposed in the existing literature. However, most of these approaches are tested on small-sized pre-trained language models, instead of the LLMs. So far, there still lacks a thorough investigation on the effect of different efficient tuning methods on large-sized language models at different settings or tasks.
 
-5.4 Memory-Efficient Model Adaptation
+32 Here, prompt tuning denotes a category of related efficient tuning methods exemplified by the work [397, 402, 403], instead of a specific method as used in [397]. Indeed, the prefix based tuning methods [396, 401] can be also considered as prompting methods, which are called deep prompting tuning in [401]. In this survey, prompt tuning specially refer to the methods that only include the prompt tokens at the input layer, in the context of LLMs. We assign p-tuning v2 [401] to the category of prefix tuning, because it incorporates layerwise prompts in langauge models.
+
+#### 5.4 Memory-Efficient Model Adaptation
 
 Due to the huge number of model parameters, LLMs take a significant memory footprint for inference, making it very costly to be deployed in real-world applications. In this section, we discuss how to reduce the memory footprint of LLMs via a popular model compression approach (i.e., model quantization), so that large-sized LLMs can be used in resource-limited settings, which also likely reduces the inference latency.
 
@@ -2888,23 +1616,23 @@ Due to the huge number of model parameters, LLMs take a significant memory footp
 
 In this part, we present a general introduction of quantization techniques for neural networks.
 
-33. https://github.com/tloen/alpaca-lora
-
-34. https://github.com/huggingface/peft
-
 In neural network compression, quantization often refers to the mapping process from floating-point numbers to integers [412], especially the 8-bit integer quantization (i.e., INT8 quantization). For neural network models, there are typically two kinds of data to be quantized, namely weights (model parameters) and activations (hidden activations), which are originally represented in floating-point numbers. To illustrate the essential idea of model quantization, we introduce a simple yet popular quantization function: x q = R(x/S)−Z , which transforms a floating number x into a quantized value x q . In this function, S and Z denote the scaling factor (involving two parameters α and β that determine the clipping range) and zero-point factor (determining symmetric or asymmetric quantization), respectively, and R(·) denotes the rounding operation that maps a scaled floating value to an approximate integer.
 
 As the reverse process, dequantization recovers the original value from the quantized value accordingly: ˜x = S · (x q + Z). The quantization error is calculated as the numerical difference between the original value x and the recovered value ˜x. The range parameters α and β have a large impact on the quantization performance, which often need to be calibrated according to real data distributions, in either a static (offline) or dynamic way (runtime).
 
 For more details, we refer to the readers to the excellent survey [412] about quantization methods on neural networks.
 
-5.4.2 Quantization Methods for LLMs There are generally two major model quantization approaches, namely quantization-aware training (QAT) (requiring additional full model retraining) and post-training quantization (PTQ) (requires no model retraining). Compared with small-sized language models, two major differences need to be considered when designing or selecting quantization methods for LLMs. Firstly, LLMs consist of a huge number of parameters, and thus PTQ methods are more preferred due to a much lower computational cost than QAT methods. Secondly, LLMs exhibit very different activation patterns (i.e., large outlier features), and it becomes more difficult to quantize LLMs, especially hidden activations. Next, we will briefly review several representative PTQ methods 35 for LLMs.
+33 https://github.com/tloen/alpaca-lora
+
+34 https://github.com/huggingface/peft
+
+5.4.2 Quantization Methods for LLMs 
+
+There are generally two major model quantization approaches, namely quantization-aware training (QAT) (requiring additional full model retraining) and post-training quantization (PTQ) (requires no model retraining). Compared with small-sized language models, two major differences need to be considered when designing or selecting quantization methods for LLMs. Firstly, LLMs consist of a huge number of parameters, and thus PTQ methods are more preferred due to a much lower computational cost than QAT methods. Secondly, LLMs exhibit very different activation patterns (i.e., large outlier features), and it becomes more difficult to quantize LLMs, especially hidden activations. Next, we will briefly review several representative PTQ methods 35 for LLMs.
 
 Post-Training Quantization (PTQ). We first introduce the PTQ methods for LLMs.
 
 • Mixed-precision decomposition. As observed in [413], extreme large values occur in hidden activations (called the emergence of outliers) when the model size reaches 6.7B parameters or above. Interestingly, these outliers are mainly distributed in some specific feature dimensions at Transformer layers. Based on this finding, a vector-wise quantization approach, called LLM.int8(), has been proposed in [413], which separates the feature dimensions with outliers and the rest dimensions in matrix multiplication. Then, the calculations for the two parts are performed with 16bit floating numbers and 8-bit integers, respectively, so as to recover these outliers in a high precision.
-
-35. Since we mainly focus on discussing quantization methods in the context of LLMs, the line of quantization work on small-sized language models (e.g., BERT) has not been included in this survey. 46
 
 • Fine-grained quantization. For Transformer models, weights and activations are usually represented in the form of tensors. A straightforward approach is to use coarse-grained quantization parameters for the whole tensor (i.e., per-tensor quantization) [414]. However, it usually leads to inaccurate reconstruction results. Thus, fine-grained methods are proposed to reduce the quantization error. ZeroQuant [415] adopts a token-wise quantization approach with dynamic calibration for compressing activations. Whereas for weights (easier to be quantized), it uses a group-wise quantization. In practice, a group size of 128 [415, 416] is commonly used for model quantization.
 
@@ -2921,6 +1649,8 @@ Other Quantization Methods. In the above, we mainly focus on PTQ methods, and ne
 • Quantization-aware training (QAT) for LLMs. A recent
 
 study [420] explores the effect of QAT methods by applying a data-free distillation method to compress the weights, activations as well as key-value cache. By conducting extensive experiments based on LLaMA, they show promising results with 4-bit quantization on both weights and keyvalue cache, but not on 4-bit activation quantization, which still needs more exploration.
+
+35 Since we mainly focus on discussing quantization methods in the context of LLMs, the line of quantization work on small-sized language models (e.g., BERT) has not been included in this survey.
 
 5.4.3 Empirical Analysis and Findings
 
@@ -2944,13 +1674,7 @@ Quantization Libraries. Next, we introduce three major quantization libraries fo
 
 • Bitsandbytes 36 is developed based on the methods introduced in the papers of LLM.int8() [413] and 8-bit optimizers [426]. It focuses on the quantization of both activations and weights for LLMs, including the support on 8-bit and 4-bit (NF4,FP4) matrix multiplication for efficient inference, as well as an 8-bit optimizer for efficient training.
 
-• GPTQ-for-LLaMA 37 is developed specially for quantizing LLaMA models. It enables 4-bit quantization of LLaMA
-
-36. https://github.com/TimDettmers/bitsandbytes
-
-37. https://github.com/qwopqwop200/GPTQ-for-LLaMa
-
-models of varied sizes based on the GPTQ algorithm [417]. Also, it provides a comparison with bitsandbytes in both memory and performance (PPL) on the project website.
+• GPTQ-for-LLaMA 37 is developed specially for quantizing LLaMA models. It enables 4-bit quantization of LLaMA models of varied sizes based on the GPTQ algorithm [417]. Also, it provides a comparison with bitsandbytes in both memory and performance (PPL) on the project website.
 
 • AutoGPTQ 38 is a quantization package developed based on the GPTQ algorithm [417], which supports INT4 quantization for LLMs. It includes a number of quantized models in the library, and supports LoRA by integrating with HuggingFace PEFT library.
 
@@ -2958,13 +1682,15 @@ models of varied sizes based on the GPTQ algorithm [417]. Also, it provides a co
 
 Quantized LLMs. Compared with original models, quantized language models take a smaller memory footprint, and likely have a faster inference speed [93, 413, 427]. Recently, a nubmer of quantized model copies of several publicly available language models have been released on HuggingFace, including BLOOM, GPT-J, and ChatGLM. In particular, GPTQ [417] has been widely used to quantize generative language models, leading to various quantized variants for LLaMA and OPT. Further, it has been also applied to quantize instruction-tuned models, such as Vicuna and WizardLM. Due to the large number of quantized LLMs, we do not directly incorporate the corresponding links of these models. The readers can easily find them by searching on HuggingFace.
 
-6
+36 https://github.com/TimDettmers/bitsandbytes
 
-U TILIZATION
+37 https://github.com/qwopqwop200/GPTQ-for-LLaMa
+
+### 06. Utilization
 
 After pre-training or adaptation tuning, a major approach to using LLMs is to design suitable prompting strategies for solving various tasks. In existing literature, task-specific prompts can be effectively learned through manual creation and automatic optimization. A representative prompting method is in-context learning [50, 55], which formulates the task description and/or demonstrations in the form of natural language text. In addition, chain-of-thought prompting [33] can be employed to enhance in-context learning by involving a series of intermediate reasoning steps in prompts. Furthermore, planning [439] is proposed for solving complex tasks, which first breaks them down into smaller sub-tasks and then generates a plan of action to solve these sub-tasks one by one. We summarize representative work for these prompting approaches in Table 11. Next, we will elaborate on the details of the four techniques.
 
-6.1 Prompting
+#### 6.1 Prompting
 
 As discussed in previous work [36], prompting is the major approach to utilizing LLMs for solving various tasks. Since the quality of prompts will largely influence the performance of LLMs in specific tasks, there have been a series of studies proposed to generate suitable task prompts through manual creation or automatic optimization, which will be introduced in this section.
 
@@ -3416,23 +2142,14 @@ approaches are typically independent of the inputs, lacking sufficient considera
 
 this approach leverages the same prompt for solving all instances of the target task. For a single task, even a welllearned prompt may not be suitable for all the data instances from a large population. To address this issue, an improved method [477] designs an adaptive attention mechanism during the prompt transfer process to derive the target prompts, considering both task- and instance-level information. The prompt transfer paradigm can leverage the knowledge of data-sufficient source tasks encoded in source prompts for solving data-scarce target tasks. 53
 
-6.2 In-Context Learning
+#### 6.2 In-Context Learning
 
 As a special prompting form, in-context learning (ICL) is first proposed along with GPT-3 [55], which has become a typical approach to utilizing LLMs.
 
 6.2.1 ICL Formulation As stated in [55], ICL uses a formatted natural language prompt, consisting of the task description and/or a few task examples as demonstrations. Figure 14 presents an illustration of ICL. First, starting with a task description, a few examples are selected from the task dataset as demonstrations. Then, they are combined in a specific order to form natural language prompts with specially designed templates. Finally, the test instance is appended to the demonstration as the input for LLMs to generate the output. Based on task demonstrations, LLMs can recognize and perform a new task without explicit gradient update.
 
-Formally, let D k = { f(x 1 , y 1 ), . . . , f(x k , y k ) } represent a set of demonstrations with k examples, where f(x k , y k ) is the prompt function that transforms the k -th task example into natural language prompts. Given the task description I , demonstration D k , and a new input query x k+1 , the prediction of the output yk+1 ˆ generated from LLMs can be formulated as follows 40 :
+Formally, let D k = { f(x 1 , y 1 ), . . . , f(x k , y k ) } represent a set of demonstrations with k examples, where f(x k , y k ) is the prompt function that transforms the k -th task example into natural language prompts. Given the task description I , demonstration D k , and a new input query x k+1 , the prediction of the output yk+1 ˆ generated from LLMs can be formulated as follows 40:
 
-LLM ( I, f(x 1 , y 1 ), . . . , f(x k , y k ), f(x k+1 , ) ) → yk+1 ˆ .
-
-︶ ︵︵ ︶ ︶︵︵︶
-
-︶
-
-︵︵
-
-︶
 
 answer
 
@@ -3532,7 +2249,7 @@ How LLMs Perform ICL? At the inference stage, researchers focus on analyzing how
 
 As discussed in a recent study [493], LLMs exhibit the abilities of both task recognition and task learning in ICL, but the two abilities seem to be possessed with different model scales. As shown in the experiments [493], the ability of task recognition is easier to obtain, and even a small LM with only 350M parameters can exhibit this ability, while task learning can only emerge for LLMs with at least 66B parameters. Another study [499] also supports this finding with specially designed experiments. They set up the tasks with flipped and semantically unrelated labels in the experiment, which require task learning when performing ICL. The results suggest that small LMs tend to disregard the labels and mainly depend on their prior knowledge to accomplish the task, while LLMs have the ability to surpass their prior knowledge and acquire new knowledge from demonstrations, resulting in better outcomes. Furthermore, to improve the task learning ability, Meta-In-Context Learning [500] proposes to include multiple related tasks instead of just a single one in the prompt. In addition, Symbol Tuning [501] fine-tunes LLMs on demonstrations with semantically unrelated labels (e.g., foo/bar instead of positive/negative for sentiment analysis), forcing LLMs to learn the task from demonstrations instead of relying on prior knowledge.
 
-6.3 Chain-of-Thought Prompting
+#### 6.3 Chain-of-Thought Prompting
 
 Chain-of-Thought (CoT) prompting [33, 502] is an improved prompting strategy to boost the performance of LLMs on complex reasoning tasks, such as arithmetic reasoning [503], commonsense reasoning [504], and symbolic reasoning [33]. Instead of simply constructing the prompts with input-output pairs like ICL, CoT prompting further incorporates intermediate reasoning steps, which serve as the bridge between inputs and outputs. Figure 14 presents an illustration of CoT. In the following part, we will first elaborate on the basic CoT prompting approach and its improved strategies, then discuss when and why CoT prompting works.
 
@@ -3552,65 +2269,8 @@ Enhanced CoT Generation. Since LLMs are prone to producing incorrect reasoning s
 
 • Sampling-based methods. LLMs are known to suffer from instability during inference, which can lead to unfaithfulness in the generated reasoning steps. To address 56
 
-CoT
 
-Input
 
-...
-
-Output
-
-Samplingbased CoT
-
-Input
-
-...
-
-Ensemble
-
-Output
-
-Backtrack
-
-Verificationbased CoT
-
-Input
-
-Verification
-
-ToT
-
-Input
-
-Output
-
-GoT
-
-Input
-
-...
-
-...
-
-✖️
-
-✖️
-
-...
-
-Output
-
-Output
-
-Reason
-
-Aggregate
-
-Unevaluated thought
-
-Positive thought
-
-Negative thought
 
 Fig. 15: An illustration of the evolution of CoT prompting strategies. It begins with the basic CoT approach and progresses to enhanced CoT generation techniques, including sampling-based and verification-based methods. Finally, it extends to variations of the chain structure, such as trees and graphs. Here, “thought” refers to an intermediate reasoning step as stated in [33, 451].
 
@@ -3642,7 +2302,7 @@ Why LLMs Can Perform CoT Reasoning? As the second question, we discuss the under
 
 In summary, CoT prompting provides a general and flexible approach to eliciting the reasoning ability of LLMs. There are also some preliminary attempts to extend this technique to solve multimodal [523] and multilingual tasks [524].
 
-6.4 Planning for Complex Task Solving
+#### 6.4 Planning for Complex Task Solving
 
 Prompting with ICL and CoT is a conceptually simple yet general approach to solving various tasks. However, this approach struggles with complex tasks like mathematical reasoning [525] and multi-hop question answering [526]. As an enhanced approach, prompt-based planning has been proposed to break down complex tasks into smaller subtasks and generate a plan of actions to accomplish the task.
 
@@ -3712,13 +2372,11 @@ Memorization. In order to handle long-horizon tasks, it has become a key approac
 
 LLMs through ICL. For example, Reflexion [450] stores the feedback from self-reflection into the memory, so previous feedback can be retrieved for plan refinement. Generative Agents [533] designs the memory stream mechanism as the core component of agents for action planning and reflection. Further, the skill library mechanism [445, 528] is proposed to store successful plans in the library, which can be reused and synthesized as complex plans for novel tasks. To implement the long-term memory mechanism, tools like vector databases (e.g., milvus [536]) can be used to encode plans or feedbacks into high-dimensional vectors for efficient storage and retrieval at a large scale. MemoryBank [537] further proposes the memory updating mechanism to allow memory forgetting and strengthening following the Ebbinghaus Forgetting Curve theory.
 
-7
-
-C APACITY AND E VALUATION
+### 07. Capacity and Evaluation
 
 To examine the effectiveness and superiority of LLMs, a surge of tasks and benchmarks have been proposed for conducting empirical ability evaluation and analysis. In this section, we first introduce three types of basic ability evaluation of LLMs for language generation and understanding, then present several advanced ability evaluations with more complicated settings or goals, and finally discuss existing benchmarks, evaluation approaches, and empirical analysis.
 
-7.1 Basic Ability
+#### 7.1 Basic Ability
 
 In this part, we mainly focus on three basic types of ability evaluation for LLMs, i.e., language generation, knowledge utilization, and complex reasoning. It is noted that we do not intend to have complete coverage of all the related tasks, but instead only focus on the most widely discussed or studied tasks for LLMs. Next, we introduce these tasks in detail.
 
@@ -3882,7 +2540,7 @@ Numerical Computation
 
 LLMs face difficulties in numerical computation, especially for the symbols that are seldom encountered during pre-training. In addition to using mathematical tools, tokenizing digits into individual tokens is also an effective design choice for improving the arithmetic ability of LLMs.
 
-7.2 Advanced Ability
+#### 7.2 Advanced Ability
 
 In addition to the above basic evaluation tasks, LLMs also exhibit some superior abilities that require special consider- 65
 
@@ -3910,7 +2568,7 @@ In addition to existing tools developed by humans, LLMs possess the capability t
 
 Summary. The above three abilities are of great value to the practical performance of LLMs: conforming to human values and preferences (human alignment), acting properly in real-world scenarios (interaction with the external environment), and expanding the ability scope (tool manipulation). In addition to the above three advanced abilities, LLMs might also show other abilities that are specially related to some tasks (e.g., data annotation [486]) or learning mechanisms (e.g., self-improvement [706]). It will be an open direction to discover, measure and evaluate these newly emerging abilities, so as to better utilize and improve LLMs.
 
-7.3 Benchmarks and Evaluation Approaches
+#### 7.3 Benchmarks and Evaluation Approaches
 
 In the above, we have discussed the basic and advanced abilities of LLMs. Next, we will introduce existing evaluation benchmarks and approaches [733, 734].
 
@@ -4010,7 +2668,7 @@ thereby enhancing the interpretability of evaluations. Despite their scalability
 
 To summarize, our categorization (Table 15) of existing work on LLM evaluation is mainly based on two major dimensions, namely evaluation methodology and model type, which are further extended with the test abilities. There are some recent work [733, 734] that also has discussed the categorization or taxonomies of existing work for LLM evaluation.
 
-7.4 Empirical Evaluation
+#### 7.4 Empirical Evaluation
 
 The above evaluation benchmarks and approaches are mainly employed to evaluate the overall abilities of LLMs. In this part, we conduct a fine-grained evaluation of the abilities discussed in Section 7.1 and Section 7.2. For each kind of ability, we select representative tasks and datasets for conducting evaluation experiments to examine the corresponding performance of LLMs.
 
@@ -4042,381 +2700,9 @@ Language Generation
 
 Knowledge Utilization
 
-Models
-
-LBD ↑
-
-55.81
-
-64.47
-
-45.20
-
-69.98
-
-58.85
-
-56.12
-
-62.45
-
-63.90
-
-63.35
-
-33.34
-
-66.39
-
-67.68
-
-66.89
-
-61.19
-
-56.96
-
-WMT ↑
-
-36.44
-
-31.23
-
-12.93
-
-37.46
-
-35.11
-
-12.62
-
-20.49
-
-19.95
-
-21.52
-
-16.58
-
-11.57
-
-13.84
-
-4.05
-
-5.43
-
-3.68
-
-XSum ↑
-
-21.71
-
-18.63
-
-19.13
-
-18.19
-
-19.15
-
-16.00
-
-17.87
-
-13.59
-
-8.74
-
-13.48
-
-11.57
-
-8.77
-
-10.00
-
-8.87
-
-8.23
-
-HumanEval ↑ TriviaQA ↑
-
-79.88
-
-54.54
-
-51.22
-
-40.92
-
-78.04
-
-54.30
-
-67.07
-
-51.51
-
-56.70
-
-52.11
-
-11.59
-
-38.93
-
-20.73
-
-29.04
-
-17.07
-
-28.58
-
-13.41
-
-17.14
-
-13.42
-
-13.42
-
-17.07
-
-30.92
-
-15.24
-
-34.62
-
-10.37
-
-28.74
-
-14.63
-
-15.73
-
-9.15
-
 10.16
 
-Symbolic Reasoning
 
-C-Objects ↑
-
-Penguins ↑
-
-53.20
-
-40.27
-
-59.95
-
-47.65
-
-66.76
-
-74.50
-
-64.60
-
-61.07
-
-62.55
-
-67.11
-
-43.40
-
-38.93
-
-53.55
-
-36.91
-
-44.25
-
-36.24
-
-39.35
-
-40.27
-
-14.05
-
-14.09
-
-43.95
-
-35.75
-
-39.95
-
-34.90
-
-29.80
-
-24.16
-
-32.40
-
-26.17
-
-29.05
-
-27.52
-
-NaturalQ ↑
-
-21.52
-
-13.77
-
-21.30
-
-17.76
-
-20.47
-
-12.96
-
-10.75
-
-9.17
-
-3.24
-
-4.40
-
-5.15
-
-7.92
-
-10.78
-
-1.99
-
-1.77
-
-WebQ ↑
-
-17.77
-
-14.57
-
-21.06
-
-16.68
-
-18.45
-
-11.32
-
-11.52
-
-6.64
-
-3.00
-
-9.20
-
-2.51
-
-11.12
-
-8.46
-
-4.72
-
-3.74
-
-ARC ↑
-
-93.69
-
-66.62
-
-79.97
-
-88.47
-
-89.23
-
-72.35
-
-20.69
-
-16.96
-
-49.75
-
-55.39
-
-24.16
-
-4.88
-
-4.08
-
-11.66
-
-11.03
-
-WikiFact ↑
-
-ChatGPT Claude Claude 2 Davinci003 Davinci002
-
-LLaMA 2-Chat (7B) Vicuna (13B) Vicuna (7B) Alpaca (7B) ChatGLM (6B)
-
-LLaMA 2 (7B) LLaMA (7B) Falcon (7B) Pythia (12B) Pythia (7B)
-
-Models
-
-ChatGPT Claude Claude 2 Davinci003 Davinci002
-
-LLaMA 2-Chat (7B) Vicuna (13B) Vicuna (7B) Alpaca (7B) ChatGLM (6B)
-
-LLaMA 2 (7B) LLaMA (7B) Falcon (7B) Pythia (12B) Pythia (7B)
-
-Models
-
-ChatGPT Claude Claude 2 Davinci003 Davinci002
-
-LLaMA 2-Chat (7B) Vicuna (13B) Vicuna (7B) Alpaca (7B) ChatGLM (6B)
-
-LLaMA 2 (7B) LLaMA (7B) Falcon (7B) Pythia (12B) Pythia (7B)
-
-29.25
-
-34.34
-
-35.83
-
-28.29
-
-29.15
-
-23.37
-
-28.76
-
-26.95
-
-26.05
-
-16.01
-
-28.06
-
-19.78
-
-23.91
-
-20.57
-
-15.75
 
 Knowledge Reasoning
 
@@ -4424,511 +2710,6 @@ Mathematical Reasoning Interaction with Environment
 
 OBQA ↑ HellaSwag ↑
 
-81.20
-
-61.43
-
-81.80
-
-54.95
-
-71.60
-
-50.75
-
-74.40
-
-62.65
-
-69.80
-
-47.81
-
-45.62
-
-74.01
-
-43.65
-
-70.51
-
-43.84
-
-69.25
-
-47.82
-
-69.81
-
-30.42
-
-29.27
-
-44.81
-
-74.25
-
-42.42
-
-73.91
-
-39.46
-
-74.58
-
-37.02
-
-65.45
-
-34.88
-
-61.82
-
-TfQA ↑
-
-C-Pairs ↓
-
-69.16
-
-18.60
-
-67.93
-
-32.73
-
-71.11
-
-10.67
-
-SocialIQA ↑
-
-73.23
-
-73.23
-
-58.34
-
-69.70
-
-57.01
-
-43.84
-
-45.97
-
-46.27
-
-47.55
-
-33.18
-
-41.72
-
-41.46
-
-42.53
-
-41.53
-
-41.01
-
-GSM8k ↑
-
-78.47
-
-70.81
-
-82.87
-
-57.16
-
-49.96
-
-9.63
-
-18.50
-
-14.03
-
-4.93
-
-3.41
-
-10.99
-
-10.99
-
-1.67
-
-2.88
-
-1.82
-
-MATH ↑
-
-33.78
-
-20.18
-
-32.24
-
-17.66
-
-14.28
-
-2.22
-
-3.72
-
-3.54
-
-4.16
-
-1.10
-
-2.64
-
-3.12
-
-0.94
-
-1.96
-
-1.46
-
-ALFW ↑
-
-58.96
-
-76.87
-
-77.61
-
-65.67
-
-76.87
-
-11.19
-
-8.96
-
-1.49
-
-4.48
-
-0.00
-
-8.96
-
-2.24
-
-7.46
-
-5.22
-
-7.46
-
-WebShop ↑
-
-45.12/15.60
-
-47.72/23.00
-
-34.96/19.20
-
-64.08/32.40
-
-29.66/15.20
-
-24.51/5.60
-
-22.74/5.00
-
-6.90/1.40
-
-0.00/0.00
-
-0.00/0.00
-
-0.00/0.00
-
-0.00/0.00
-
-0.00/0.00
-
-3.68/0.60
-
-10.75/1.80
-
-Human Alignment
-
-WinoGender ↑
-
-Tool Manipulation
-
-RTP ↓
-
-3.07
-
-3.75
-
-3.20
-
-8.81
-
-10.65
-
-4.61
-
-5.00
-
-4.70
-
-4.78
-
-2.89
-
-6.17
-
-5.94
-
-6.71
-
-6.59
-
-13.02
-
-HaluEval ↑ HotpotQA ↑ Gorilla-TH ↑ Gorilla-TF ↑
-
-66.64
-
-23.80
-
-67.20
-
-44.53
-
-63.75
-
-33.80
-
-22.04
-
-7.74
-
-50.63
-
-36.4
-
-61.29
-
-22.19
-
-58.94
-
-34.40
-
-72.58
-
-3.80
-
-59.67
-
-26.00
-
-2.69
-
-1.02
-
-43.82
-
-4.40
-
-0.00
-
-0.00
-
-49.01
-
-11.20
-
-0.00
-
-0.44
-
-43.44
-
-6.20
-
-0.00
-
-0.00
-
-44.16
-
-11.60
-
-0.00
-
-0.00
-
-41.82
-
-4.00
-
-0.00
-
-0.00
-
-42.23
-
-3.80
-
-0.00
-
-0.00
-
-14.18
-
-1.60
-
-0.00
-
-0.00
-
-37.41
-
-1.00
-
-0.00
-
-0.00
-
-27.09
-
-0.40
-
-0.00
-
-0.00
-
-25.84
-
-0.20
-
-0.00
-
-0.00
-
-Gorilla-HF ↑
-
-62.50/72.50/79.17
-
-71.67/55.00/52.50
-
-60.00/60.00/55.83
-
-67.50/68.33/79.17
-
-72.50/70.00/64.17
-
-47.50/46.67/46.67
-
-50.83/50.83/52.50
-
-49.17/49.17/49.17
-
-53.33/51.67/53.33
-
-47.50/47.50/46.67
-
-48.83/48.83/50.83
-
-54.17/52.50/51.67
-
-50.00/50.83/50.00
-
-49.17/48.33/49.17
-
-51.67/49.17/50.00
-
-19.36
-
-7.08
-
-23.67
-
-60.83
-
-53.73
-
-69.77
-
-62.30
-
-57.77
-
-46.14
-
-63.53
-
-50.06
-
-47.86
-
-53.24
-
-54.47
-
-50.92
-
-0.99
-
-7.56
-
-48.54
-
-45.95
-
-67.44
-
-65.45
-
-50.53
-
-51.39
-
-67.84
-
-68.04
-
-65.78
-
-64.79
-
-6.42
-
-1.00
-
-0.22
-
-0.89
-
-0.33
-
-0.11
-
-0.00
-
-0.11
-
-0.11
-
-0.00
-
-0.00
-
-0.00
 
 sample 10000 examples from it for evaluation. We follow LLaMA [57] to report the zero-shot performance, and compute the accuracy of identifying a claim as true for TruthfulQA, accuracy of recognizing biased sentences (high perplexity) for CrowS-Pairs, coreference resolution accuracy (he/she/they) for WinoGender, toxicity score for RealToxityPrompts, and average accuracy of recognizing hallucinations for HaluEval. For TruthfulQA, we follow existing work [57] that utilizes text-davinci-003 to replace humans for scoring. For Crows-Pairs and WinoGender, we follow the experimental settings of LLaMA [57] to compute the
 
@@ -5130,13 +2911,11 @@ tasks (e.g., language generation and knowledge utilization), LLaMA 2 (7B) can al
 
 The readers should be note that these findings about open-source language models are limited to the model sizes. We will continually update this part by including the results of larger versions of these models, and also call for the support of computational resources for more experiments.
 
-8
-
-A PPLICATIONS
+### 08. Application
 
 In this section, we briefly review the recent progress on the applications of LLMs in two aspects, namely the impact to research community and representative domains. Figure 18 shows a content organization of this section 48 .
 
-8.1 LLM for Research Community
+#### 8.1 LLM for Research Community
 
 As LLMs have revolutionized the way how we develop AI algorithms, it poses significant impact on the research community. In this part, we briefly review the advances that led by LLMs for several representative research directions.
 
@@ -5358,7 +3137,7 @@ preferences and the fairness of the evaluations made by LLMs [647, 727, 893, 897
 
 Remaining Issues. As discussed in Section 7.1.1, recent studies demonstrate that LLM-based evaluators expose multiple types of bias, such as order bias, self-preference bias, and length bias [647, 727]. Although some biases can be mitigated through methods like multi-path ensemble or multi-agent collaboration, they remain inherent to LLMbased evaluators. Consequently, addressing these biases intrinsically within the models continues to be an a challenging issue. In addition, recent work has revealed that LLMs may be incapable of understanding the self-generated content, exhibiting a weaker understanding capacity compared to their generation capabilities [899]. Even the most advanced LLMs still struggle identifying their reasoning or factual errors without external feedback [900, 901]. Consequently, current LLM-based evaluators might not be adequate for evaluating top-tier LLMs or complex tasks. This underscores the importance of improvement approaches for LLM-based evaluators, especially for evaluating capable LLMs and complex tasks demanding sophisticated reasoning, planning, and domain-specific knowledge.
 
-8.2 LLM for Specific Domains
+#### 8.2 LLM for Specific Domains
 
 In this part, we discuss the applications of LLMs on several representative domains, including healthcare, education, law, finance, and scientific research assistance.
 
@@ -5376,9 +3155,7 @@ Scientific research is another promising field that LLMs can empower the develop
 
 Summary. In addition to the aforementioned work, the applications of LLMs have been also discussed in several other domains. For instance, in the psychologic domain, some recent work has studied the human-like characteristics of LLMs, such as self-awareness, theory of mind (ToM), and affective computing [941, 942]. In particular, an empirical evaluation of ToM conducted on two classic false-belief tasks speculates that LLMs may have ToM-like abilities since the model in the GPT-3.5 series achieves comparable performance with nine-year-old children in ToM task [941]. In addition, another line of work has investigated applying LLMs into the software development domain, e.g., code suggestion [943], code summarization [944], and automated program repair [945]. To summarize, to assist humans by LLMs in real-world tasks has become a significant area of research. However, it also presents challenges. Ensuring the accuracy of LLM-generated content, addressing biases, and maintaining user privacy and data security are crucial considerations when applying LLMs to real-world scenarios.
 
-9
-
-C ONCLUSION AND F UTURE D IRECTIONS
+### 09. Conclusion and Future Directions
 
 In this survey, we have reviewed the recent progress of large language models (LLMs), and introduced the key concepts, findings, and techniques for understanding and utilizing LLMs. We focus on the large-sized models (i.e., having a size larger than 10B) while excluding the contents of early pretrained language models (e.g., BERT and GPT-2) that have been well covered in the existing literature. In particular,
 
@@ -5496,7 +3273,7 @@ Clarifications on Experiments. In this version, we have included a number experi
 
 Chinese Version. We also provide a translated Chinese version (corresponding to the first release) of this survey paper at the link: https://github.com/RUCAIBox/LLMSurvey/ blob/main/assets/LLM Survey Chinese.pdf. Four volunteers contribute to check and revise the content, and they are Yiwen Hu, Xin Deng, Xinming Hou, Yanbin Yin, and Zhanshuo Cao (in order of contribution). We will also continuously update the Chinese version, but it may not be as timely as the latest English version.
 
-ACKNOWLEDGMENTS
+### Acknowledgments
 
 The authors would like to thank Yankai Lin and Yutao Zhu for proofreading this paper. Since the first release of this paper, we have received a number of valuable comments from the readers. We sincerely thank the readers who have written to us with constructive suggestions and comments: Tyler Suard, Damai Dai, Liang Ding, Stella Biderman, Kevin Gray, Jay Alammar, Yubo Feng, Mark Holmstrom, Xingdong Liu, Il-Seok Oh, Yiting Liu, Shaojun Wang,
 
