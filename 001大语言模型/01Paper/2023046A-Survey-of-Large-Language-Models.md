@@ -929,15 +929,9 @@ Fig. 9: A comparison of the attention patterns in three mainstream architectures
 
 Encoder-decoder Architecture. The vanilla Transformer model is built on the encoder-decoder architecture [22], which consists of two stacks of Transformer blocks as the encoder and decoder, respectively. The encoder adopts stacked multi-head self-attention layers to encode the input sequence for generating its latent representations, while the decoder performs cross-attention on these representations and autoregressively generates the target sequence. Encoder-decoder PLMs (e.g., T5 [82] and BART [24]) have shown effectiveness on a variety of NLP tasks. So far, there are only a small number of LLMs that are built based on the encoder-decoder architecture, e.g., Flan-T5 [69]. We leave a detailed discussion about the architecture selection in Section 4.2.6.
 
-
-
-
 Causal Decoder Architecture. The causal decoder architecture incorporates the unidirectional attention mask, to guarantee that each input token can only attend to the past tokens and itself. The input and output tokens are processed in the same fashion through the decoder. As representative language models of this architecture, the GPT-series models [26, 55, 122] are developed based on the causal-decoder architecture. In particular, GPT-3 [55] has successfully demonstrated the effectiveness of this architecture, also showing an amazing in-context learning capability of LLMs. Interestingly, GPT-1 [122] and GPT2 [26] do not exhibit such superior abilities as those in GPT-3, and it seems that scaling plays an important role in increasing the model capacity of this model architecture. So far, the causal decoders have been widely adopted as the architecture of LLMs by various existing LLMs, such as OPT [90], BLOOM [78], and Gopher [64]. Note that both the causal decoder and prefix decoder discussed next belong to decoder-only architectures. When mentioning “decoderonly architecture”, it mainly refers to the causal decoder architecture in existing literature, unless specified.
 
 Prefix Decoder Architecture. The prefix decoder architecture (a.k.a., non-causal decoder [244]) revises the masking mechanism of causal decoders, to enable performing bidirectional attention over the prefix tokens [245] and unidirectional attention only on generated tokens. In this way, like the encoder-decoder architecture, the prefix decoders can bidirectionally encode the prefix sequence and autoregressively predict the output tokens one by one, where the same parameters are shared during encoding and decoding. Instead of pre-training from scratch, a practical suggestion is to continually train causal decoders and then convert them into prefix decoders for accelerating convergence [29], e.g., U-PaLM [118] is derived from PaLM [56]. Existing representative LLMs based on prefix decoders include GLM130B [93] and U-PaLM [118].
-
-
-
 
 Mixture-of-Experts. For the above three types of architectures, we can further extend them via the mixture-ofexperts (MoE) scaling, in which a subset of neural network weights for each input are sparsely activated, e.g., Switch Transformer [25] and GLaM [112]. The major merit is that MoE is a flexible way to scale up the model parameter while maintaining a constant computational cost [25]. It has been shown that substantial performance improvement can be observed by increasing either the number of experts or the total parameter size [246]. Despite the merits, training large MoE models may suffer from instability issues due to the complex, hard-switching nature of the routing operation. To enhance the training stability of MoE-based language models, techniques such as selectively using high-precision tensors in the routing module or initializing the model with a smaller range have been introduced [25]. More recently, there is widespread speculation that GPT-4 has been developed based on the MoE architecture, but without official verification.
 
@@ -1083,9 +1077,13 @@ To put all these discussions together, we summarize the suggestions from existin
 
 ·稀疏注意力。全注意力的一个关键挑战是二次计算复杂性，当处理长序列时，这成为一个负担。因此，提出了各种高效的变换器变体，以减少注意力机制的计算复杂性 [278, 279]。例如，GPT-3 [55] 采用了局部带状稀疏注意力（即 Factorized Attention [280]）。每个查询只能根据位置关注一部分标记，而不是整个序列。
 
+·多查询 / 分组查询注意力。多查询注意力是指不同头部在键和值上共享相同的线性变换矩阵的注意力变体 [281]。它在模型质量上只有轻微牺牲的情况下实现了更高的推理速度。采用多查询注意力的代表性模型包括 PaLM [56] 和 StarCoder [98]。为了在多查询注意力和多头注意力之间取得平衡，已经探索了分组查询注意力（GQA）[282]。在 GQA 中，将头部分配到不同的组中，同一组的头部将共享相同的变换矩阵。特别地，GQA 已经在最近发布的 LLaMA 2 模型 [99] 中采用并经过了实证测试。
 
+·FlashAttention。与大多数现有的近似注意力方法不同，这些方法为了提高计算效率而牺牲模型质量，FlashAttention [283] 提出了从 IO 感知的角度优化 GPU 上注意力模块的速度和内存消耗。现代 GPU 上存在不同级别的内存，例如，具有快速 IO 的 SRAM 和相对慢 IO 的 HBM。FlashAttention 将输入组织成块，并引入必要的重计算，以更好地利用快速内存 SRAM。作为 CUDA 中的融合内核实现，FlashAttention 已被集成到 PyTorch [197]、DeepSpeed [74] 和 Megatron-LM [75] 中。更新版本的 FlashAttention-2 [284] 进一步优化了 GPU 线程块和纠缠的工作分配，与原始 FlashAttention 相比，速度提升了大约 2 倍。
 
+·PagedAttention。观察到当 LLM 部署在服务器上时，GPU 内存主要被缓存的注意力键和值张量（称为 KV 缓存）占据。主要原因是输入长度通常不同，导致碎片化和过度预留问题。受操作系统中经典分页技术的启发，提出了 PagedAttention，以提高部署 LLMs 的内存效率和吞吐量 [285]。具体来说，PagedAttention 将每个序列划分为子序列，并将这些子序列的相应 KV 缓存分配到不连续的物理块中。分页技术提高了 GPU 利用率，并使并行采样中的内存有效共享成为可能。
 
+综合这些讨论，我们总结了现有文献中的详细配置建议。为了获得更强的泛化能力和训练稳定性，建议选择 pre RMSNorm 作为层标准化，并选择 SwiGLU 或 GeGLU 作为激活函数。此外，LN 可能不会立即在嵌入层后使用，这可能会导致性能下降。至于位置嵌入，RoPE 或 ALiBi 是更好的选择，因为它在长序列上表现更佳。
 
 ---
 
@@ -1131,9 +1129,15 @@ ALiBi：为改善变换器的外推能力，提出了 ALiBi。它类似于相对
 
 稀疏注意力：全注意力的主要挑战是二次计算复杂性，特别是在处理长序列时。因此，提出了多种高效的变换器变体以降低注意力机制的计算复杂性。例如，GPT-3 采用了局部带状稀疏注意力，每个查询只能根据位置关注序列中的一部分标记。
 
+变换器架构中的注意力机制进阶 ：不同于传统的注意力机制，近年来出现了一些新型的注意力方法。
 
+多查询 / 分组查询注意力 ：这种方法使不同的头部在键和值上共享相同的线性变换矩阵，例如在 PaLM 和 StarCoder 中应用。为平衡多查询注意力和多头注意力，提出了分组查询注意力（GQA），在 LLaMA 2 模型中得到应用。
 
+FlashAttention：不同于牺牲模型质量以提高计算效率的近似注意力方法，FlashAttention 从 IO 感知角度优化 GPU 上注意力模块的速度和内存消耗。FlashAttention 通过组织输入和重新计算，更好地利用快速内存 SRAM，已集成到 PyTorch、DeepSpeed 和 Megatron-LM 中。
 
+PagedAttention：为提高部署 LLMs 的内存效率和吞吐量，提出了 PagedAttention。它将序列划分为子序列，并将子序列的 KV 缓存分配到不连续的物理块中，提高了 GPU 利用率和内存共享效率。
+
+总结现有文献的配置建议：为获得更强的泛化能力和训练稳定性，建议选择 pre RMSNorm 进行层标准化，激活函数则使用 SwiGLU 或 GeGLU。此外，LN 可能不适合立即在嵌入层之后使用，因为可能会导致性能降低。在位置嵌入方面，RoPE 或 ALiBi 是更好的选择，因为它们在处理长序列时表现更优。
 
 4.2.3 Pre-training Tasks
 
@@ -1277,7 +1281,7 @@ The choice of architecture and pre-training tasks may incur different inductive 
 
 Why does Predicting the Next Word Works?
 
-The essence of decoder-only architecture is to accurately predict the next word for reconstructing the pre-training data. Till now, there has been no formal study that theoretically demonstrates its advantage over other architectures. An interesting explanation was from Ilya Sutskever during the interview held by Jensen Huang a . The original transcript from the interview was copied below b :
+The essence of decoder-only architecture is to accurately predict the next word for reconstructing the pre-training data. Till now, there has been no formal study that theoretically demonstrates its advantage over other architectures. An interesting explanation was from Ilya Sutskever during the interview held by Jensen Huang [a]. The original transcript from the interview was copied below [b]:
 
 Say you read a detective novel. It’s like complicated plot, a storyline, different characters, lots of events, mysteries like clues, it’s unclear. Then, let’s say that at the last page of the book, the detective has gathered all the clues, gathered all the people and saying, "okay, I’m going to reveal the identity of whoever committed the crime and that person’s name is". Predict that word. ...
 
@@ -1297,6 +1301,8 @@ More research efforts about the discussions on architectures and pre-training ob
 a. https://www.nvidia.com/en-us/on-demand/session/gtcspring23-S52092/
 
 b. https://lifearchitect.ai/ilya/
+
+[OpenAI Chief Scientist Dr Ilya Sutskever – Dr Alan D. Thompson – Life Architect](https://lifearchitect.ai/ilya/)
 
 #### 4.3 Model Training
 

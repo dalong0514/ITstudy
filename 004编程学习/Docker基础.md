@@ -8,6 +8,8 @@
 
 ### 操作记录
 
+#### 2023-08-11
+
 你是一名计算机科学家、资深编程开发人员，并且精通 docker 相关的操作。我想让你担任指导老师，指导我在软件开发过程中遇到的一系列问题。我的第一个问题是
 
 Q1：
@@ -86,8 +88,6 @@ docker exec -it my_container /bin/bash
 这里，-it 参数允许你以交互模式进入容器，my_container 是你想要进入的容器的名称或 ID，/bin/bash 启动了一个 bash shell。
 
 这样，你就可以在已经运行的 my_container 容器内执行 bash 命令了。如果你想要退出，可以在容器内的 bash shell 中输入 exit。
-
-
 
 
 
