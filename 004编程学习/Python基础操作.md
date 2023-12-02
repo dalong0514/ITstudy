@@ -14,6 +14,8 @@ conda create --name study
 conda create --name llm python=3.9
 ```
 
+conda create --name chatglm python=3.10
+
 这将创建一个包含Python 3.8的新环境。或者，如果您想安装其他包，可以这样做：
 
 ```sh
