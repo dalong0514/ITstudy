@@ -1,17 +1,3 @@
-### 跑 LLm 环境配置标准动作
-
-1、新建一个干净的虚拟环境。
-
-conda create --name llm
-
-conda create --name llm python=3.10
-
-conda create --name modelscope python=3.10
-
-2、为 M3 的 Mac 单独安装 PyTorch。
-
-pip install --pre torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/nightly/cpu
-
 ### 量化方案
 
 [li-plus/chatglm.cpp: C++ implementation of ChatGLM-6B & ChatGLM2-6B & ChatGLM3 & more LLMs](https://github.com/li-plus/chatglm.cpp)
@@ -71,7 +57,7 @@ cmake --build build -j --config Release
 
 ./build/bin/main -h
 
-针对 ChatGLM3-6B 的更多玩法，包括 Chat mode、Function call、
+针对 ChatGLM3-6B 的更多玩法，包括 Chat mode、Function call 等。
 
 ### 部署记录
 

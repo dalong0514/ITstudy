@@ -1,6 +1,8 @@
 ## 2023053How-to-Build-an-AI-Tutor
 
-How to Build an AI Tutor that Can Adapt to Any Course and Provide Accurate Answers Using Large Language Model and Retrieval-Augmented Generation
+[[2311.17696] How to Build an AI Tutor that Can Adapt to Any Course and Provide Accurate Answers Using Large Language Model and Retrieval-Augmented Generation](https://arxiv.org/abs/2311.17696)
+
+https://arxiv.org/abs/2311.17696
 
 Dong Chenxi
 
@@ -11,12 +13,6 @@ ABSTRACT:
 Artificial intelligence is transforming education through data-driven, personalized learning solutions. This paper introduces AI Tutor, an innovative web application that provides personalized tutoring in any subject using state-of-the-art Large Language Model (LLM). AI Tutor ingests course materials to construct an adaptive knowledge base tailored to the course. When students pose questions, it retrieves the most relevant information and generates detailed, conversational responses citing supporting evidence. The system is powered by advanced large language models and Retrieval-Augmented Generation (RAG) techniques for accurate, natural question answering. We present a fully-functional web interface and video demonstration that showcase AI Tutor's versatility across diverse subjects and its ability to produce pedagogically cogent responses. While an initial prototype, this work represents a pioneering step toward AI-enabled tutoring systems that can democratize access to high-quality, customized educational support.
 
 Keywords: Intelligent Tutoring Systems, Large language model, Retrieval-Augmented generation, Adaptive education, Personalized learning
-
-直接翻译：
-
-人工智能正在通过数据驱动的个性化学习解决方案转变教育。本文介绍了 AI Tutor，这是一款创新的网络应用程序，它使用最先进的大型语言模型（LLM）提供任何科目的个性化辅导。AI Tutor 摄取课程材料以构建针对课程的适应性知识库。当学生提出问题时，它检索最相关的信息，并生成详细的、对话式的回答，并引用支持证据。该系统由先进的大型语言模型和检索增强生成（Retrieval-Augmented Generation，RAG）技术提供动力，以实现准确、自然的问题回答。我们展示了一个功能齐全的网络界面和视频演示，展示了 AI Tutor 在不同学科上的多功能性，以及其产生教育上有说服力的回答的能力。虽然是一个初步原型，但这项工作代表了向 AI 启用的辅导系统迈出的开创性一步，这些系统可以民主化地获取高质量、定制化的教育支持。
-
-重述以提高易读性：
 
 本文探讨了一种名为 AI Tutor 的创新网络应用程序，它利用人工智能通过数据驱动方法实现个性化学习，从而改变教育领域。AI Tutor 采用了最先进的大型语言模型（LLM），为任何学科提供定制化的辅导服务。通过吸收课程资料，它构建了一个适应课程需求的知识库。学生提出问题时，AI Tutor 能够检索到最相关的信息，并提供详细的对话式答案，同时引用支持的证据。这一系统结合了先进的大型语言模型和检索增强生成（RAG）技术，以确保问题回答的准确性和自然性。我们还展示了 AI Tutor 的一个功能完备的网络界面和视频演示，这些演示展示了它在多个学科上的广泛适用性以及其生成教育意义上有力回答的能力。尽管 AI Tutor 目前还是一个初步的原型，但它代表了向能够为广大用户提供高质量、个性化教育支持的 AI 辅导系统迈出的重要一步。
 
@@ -29,18 +25,6 @@ A notable hindrance to the reliability of AI in educational applications is the 
 To tackle these challenges, this paper introduces AI Tutor, a web application developed upon the sophisticated infrastructure of large language models (LLMs) and retrieval-augmented generation (RAG). AI Tutor is engineered to deliver accurate, contextually relevant responses by intelligently assimilating information from course-specific materials (Lewis et al., 2020). Our system signifies a substantial leap from traditional rule-based educational methodologies, amplifying the personalization potential of AI tutoring systems. The AI Tutor distinguishes itself with a user-centric web interface that streamlines the process of uploading course materials and submitting queries. It integrates robust vector embedding and storage systems for educational content, employs similarity-based retrieval algorithms to pinpoint relevant information, and leverages the OpenAI Assistants API, combining the strengths of LLMs and RAG for sophisticated answer generation. In addition, AI Tutor provides an option for students to download records of their Q&A sessions, thus enriching their repository of learning resources.
 
 Our project has an ambitious goal: to build an AI tutoring system that gives accurate, personalized help for any school subject. We want to show that the latest AI technologies, known as large language models (LLMs) and retrievalaugmented generation (RAG), are more effective than the old-style tutoring systems that follow strict rules. At the core of our work is creating a smart system that can understand and use the materials from different courses to build a knowledge base tailored to students' needs. This is key to providing precise answers to students' questions and shows the system's strong grasp of the topics. We've also made a website that's easy to use, which shows off the wide range of skills our AI tutor has and how well it fits into the study process. This website proves that our system is adaptable and focused on helping users, marking the AI tutor's role in changing the way we think about education. With this project, we're not just proving that LLMs and RAG work well in education. We're also showing how they can significantly change how we use AI to support learning, pointing towards a future where AI is an essential part of how we learn.
-
-直接翻译：
-
-人工智能（AI）的出现在各个领域引发了一场变革浪潮，教育领域成为一个显著的受益者。AI 在提供个性化和适应性学习体验方面的无与伦比的能力，已将智能辅导系统推至现代教育范式的前沿（Kasneci 等人，2023 年）。这些由 AI 驱动的系统提供个性化反馈和互动学习模块，旨在满足每个学生独特的学习需求。然而，开发能够在不同学科领域提供一致准确和可靠回答的 AI 辅导者的挑战依然存在。
-
-AI 在教育应用中可靠性的一个显著障碍是「信息幻觉」的发生，这是一种现象，即 AI 生成的回答虽然看似有效，但与事实准确性背道而驰（Nye 等人，2023 年）。这种不一致性可能会削弱对以 AI 为中心的教育系统的信心（Kasneci 等人，2023 年）。此外，将这些系统定制以符合特定课程内容需要访问当前和相关的教育材料，这一任务通常因学术学科的多方面性质而复杂化。
-
-为应对这些挑战，本文介绍了 AI Tutor，一款基于大型语言模型（LLMs）和检索增强生成（RAG）的复杂基础设施开发的网络应用程序。AI Tutor 被设计为通过智能地吸收课程特定材料中的信息来提供准确、语境相关的回答（Lewis 等人，2020 年）。我们的系统从传统的基于规则的教育方法中显著跳跃，增强了 AI 辅导系统的个性化潜力。AI Tutor 以用户为中心的网络界面使上传课程材料和提交查询的过程变得简单。它集成了强大的向量嵌入和教育内容存储系统，采用基于相似度的检索算法来确定相关信息，并利用 OpenAI 助手 API 结合 LLMs 和 RAG 的优势进行复杂的答案生成。此外，AI Tutor 为学生提供了下载其问答记录的选项，从而丰富了他们的学习资源库。
-
-我们的项目有一个雄心勃勃的目标：建立一个可以为任何学科提供准确、个性化帮助的 AI 辅导系统。我们想展示，作为最新的 AI 技术，大型语言模型（LLMs）和检索增强生成（RAG）比遵循严格规则的传统辅导系统更有效。我们工作的核心是创建一个智能系统，它可以理解和使用不同课程的材料，构建一个针对学生需求量身定制的知识库。这是提供学生问题的精确答案的关键，也展示了系统对主题的深入掌握。我们还制作了一个易于使用的网站，展示了我们 AI 辅导员的广泛技能以及它如何适应学习过程。这个网站证明了我们的系统是适应性的，以用户为中心，标志着 AI 辅导在改变我们对教育看法方面的作用。通过这个项目，我们不仅证明了 LLMs 和 RAG 在教育中的良好运作。我们还展示了它们如何显著改变我们使用 AI 支持学习的方式，指向一个将 AI 作为我们学习方式的重要部分的未来。
-
-重述以提高易读性：
 
 人工智能（AI）的兴起已经在教育等多个领域掀起了一场变革浪潮，其中教育是明显的受益者之一。AI 的个性化和适应性学习经验提供能力无与伦比，使智能辅导系统成为现代教育模式的前沿（Kasneci 等人，2023 年）。这些系统能够为每个学生提供量身定做的反馈和互动学习模块，满足他们各自的学习需求。尽管如此，开发能够跨学科领域提供准确可靠回答的 AI 辅导者仍是一个挑战。
 
@@ -61,18 +45,6 @@ In contrast to earlier systems, such as the PAT2Math developed by Jaques et al. 
 In the landscape of AI-enabled education, Gan et al. (2019) laid a significant groundwork with their proposed framework for an AI-based math tutor. This system uniquely leveraged a modified approach to Item Response Theory (IRT) to first gauge a learner's ability, subsequently supplying custom-tailored question and answer sessions rooted in a pre-stored mathematical database. Despite the system's innovative use of natural language processing to analyze the semantic relationship of questions, it presented certain limitations. Primarily, the system's adherence to a static question database constrained its answering flexibility, often leading to repetitive and predictable responses. Additionally, the system exhibited a low tolerance for linguistic errors, struggling with sentence structures marred by typos or poor grammar. This limited its ability to accurately parse and comprehend questions that were not part of its pre-existing bank, emphasizing a critical shortcoming of the mechanism.
 
 In light of these limitations, our project turns to the latest advancements in large language models (LLMs). This state-of-the-art technology offers superior comprehension of natural language, allowing it to process student queries articulated in various manners effectively. The LLM also ensures the generation of natural, contextually appropriate responses, thus addressing and overcoming the limitations observed in earlier AI tutoring systems.
-
-直接翻译：
-
-人工智能（AI）在教育中的应用覆盖了广泛的领域，从增强课程设计到促进个性化学习体验、吸引学生和提高动力。Moore, S. 等人（2023 年）描绘了 AI 的角色，从辅助到自主不等，预测从 AI 作为教育者工具箱中的一个工具向独立教学代理的转变。目前，AI 主要扮演辅助角色，但趋势表明转向更复杂、以 AI 为中心的教育体验。Bailey 进一步探讨了将 AI 嵌入学习中的伦理、教学和社会影响，涉及隐私、偏见和创造力培养的担忧。
-
-与早期系统（如 Jaques 等人（2013 年）开发的 PAT2Math）相比，后者使用基于规则的算法指导学习者解决代数问题，我们的 AI Tutor 系统利用了 AI 的最新进展，提供了一种更加复杂和细腻的教育互动。PAT2Math 的基于规则的引擎擅长通过将学生输入与一组预定义的解决方案进行比较来提供即时反馈，但它受到其架构固有限制的约束，特别是在生成响应方面的能力不足，因为他们的数据库中不存在这些答案，而且与大型语言模型相比缺乏推理能力。
-
-在 AI 启用的教育领域，Gan 等人（2019 年）提出了一个基于 AI 的数学辅导框架，为该领域奠定了重要基础。该系统独特地利用了修改后的项目反应理论（IRT）来首先衡量学习者的能力，随后提供基于预存数学数据库的定制化问题和答案会话。尽管系统创新地使用自然语言处理分析问题的语义关系，但它呈现出某些限制。主要是，系统对静态问题数据库的遵循限制了其回答的灵活性，常常导致重复和可预测的回应。此外，系统对语言错误的容忍度较低，难以处理打字错误或语法不佳的句子结构。这限制了其准确解析和理解非其预存问题库中的问题的能力，突显了机制的关键缺陷。
-
-鉴于这些限制，我们的项目转向了大型语言模型（LLMs）的最新进展。这种最先进的技术提供了对自然语言的优越理解，使其能够有效处理以各种方式表达的学生查询。LLM 还确保了生成自然、语境适当的回应，从而解决并克服了早期 AI 辅导系统观察到的限制。
-
-重述以提高易读性：
 
 人工智能（AI）在教育领域的应用十分广泛，它不仅丰富了课程设计，还促进了个性化学习体验，增强了学生的参与度和学习动力。Moore, S. 等人（2023 年）描述了 AI 在教育中的多种角色，从辅助工具到成为独立的教学代理。目前，AI 主要在教育中扮演辅助角色，但未来趋势可能会转向更加以 AI 为中心的复杂教育体验。Bailey 在其研究中进一步探讨了将 AI 融入学习过程中的伦理、教学和社会含义，包括隐私、偏见和创造力培养等方面的问题。
 
@@ -99,26 +71,6 @@ Figure 1. Comparative Performance: GPT-3.5 and GPT-4 Surpass Human Achievement i
 Retrieval Augmented Generation (RAG) is a technique for enhancing the accuracy and reliability of LLM-generated responses by grounding the model on external sources of knowledge to supplement the LLM’s internal representation of information (Lewis et al., 2020). RAG allows LLMs to access and incorporate relevant facts from an external knowledge base, such as user uploaded files, into their responses, instead of relying solely on their pre-trained parameters or hallucinating incorrect or misleading information (Cai et al., 2022). RAG consists of two main components: a retriever and a generator. The retriever is responsible for finding and ranking the most relevant documents or passages from the knowledge base given the input query. The generator is an LLM that takes the input query and the retrieved documents or passages as context and produces a response. The generator can also learn to select the best documents or passages from the retriever’s output using an attention mechanism (Moore et al.,2023).
 
 RAG has several benefits for improving the quality and trustworthiness of LLM-generated responses. First, it ensures that the model has access to the most current, reliable, and domain-specific facts, which can improve the accuracy and relevance of the responses. Second, it provides users with the sources of the model’s responses, which can increase the transparency and verifiability of the model’s claims. Third, it reduces the need for fine-tuning the model on new data and updating its parameters, which can lower the computational and financial costs of maintaining the model (Lewis et al., 2020).
-
-直接翻译：
-
-本节提供了本项目中使用的主要概念和技术的概述，即大型语言模型（LLMs）、检索增强生成（RAG）、嵌入、向量存储、相似性搜索和修改过的提示。这些概念和技术对于开发和评估能够对教育领域的自然语言查询生成准确且相关回答的基于 AI 的系统至关重要。
-
-3.1 大型语言模型
-
-最近在自然语言处理方面的进步是由大型语言模型（LLMs）（Lewis 等人，2020 年）所推动的。这些是强大的神经网络，经过大量文本训练，能够生成连贯有意义的语言。它们非常通用，可用于翻译、总结、对话和问答等多种任务。LLMs 采用变压器架构，这种架构使用自注意机制来更好地理解文本（Shin 等人，2020 年）。为了优化其性能，这些模型最初在大型数据集上进行预训练，然后针对特定任务进行微调（Brown 等人，2020 年）。
-
-在值得注意的 LLMs 中，有 OpenAI 的 GPT 模型、谷歌的 PaLM 和 Meta 的 LLaMa。在我们的 AI Tutor 系统中，我们使用了 OpenAI 在 2023 年 11 月推出的 GPT-4-1106-preview 模型（Devlin 等人，2019 年）。这个模型的规模和复杂的训练方法使其在自然语言任务上表现出色。有趣的是，GPT-4 甚至在许多学术考试中胜过了人类，例如 SAT 和 GRE，如下图 1 所示。例如，在 SAT 数学考试中，它得分为 800 分中的 710 分，击败了 89% 的人类考生（OpenAI GPT-4 技术报告，2023 年）。这凸显了模型强大的推理能力。通过整合 GPT-4，我们的 AI Tutor 系统可以有效地理解课程材料，解读多样化的学生问题，找到相关信息，并提供自然、语境相关的回答（Chang 等人，2023 年）。这一重要升级有助于克服之前基于规则的辅导系统在处理开放式学生输入时的限制。
-
-图 1. 比较性能：GPT-3.5 和 GPT-4 在学术考试中超越人类成就
-
-3.2 检索增强生成
-
-检索增强生成（Retrieval Augmented Generation，RAG）是一种技术，通过将模型基于外部知识来源来补充 LLM 内部信息表示，增强 LLM 生成响应的准确性和可靠性（Lewis 等人，2020 年）。RAG 允许 LLMs 访问并结合来自外部知识库的相关事实，如用户上传的文件，而不是仅依赖其预训练参数或产生错误或误导性信息（Cai 等人，2022 年）。RAG 由两个主要部分组成：检索器和生成器。检索器负责根据输入查询从知识库中查找和排名最相关的文档或段落。生成器是一个 LLM，它将输入查询和检索到的文档或段落作为上下文并生成响应。生成器还可以使用注意力机制从检索器的输出中学习选择最佳的文档或段落（Moore 等人，2023 年）。
-
-RAG 对提高 LLM 生成响应的质量和可信度有几个好处。首先，它确保模型能够访问最新、最可靠、最具领域特定的事实，这可以提高响应的准确性和相关性。其次，它为用户提供了模型响应的来源，可以增加模型声明的透明度和可验证性。第三，它减少了在新数据上微调模型和更新其参数的需求，这可以降低维护模型的计算和财务成本（Lewis 等人，2020 年）。
-
-重述以提高易读性：
 
 本节概述了我们项目中使用的关键概念和技术，包括大型语言模型（LLMs）、检索增强生成（RAG）、嵌入技术、向量存储、相似性搜索和修改提示。这些都是在教育领域开发和评估基于 AI 的系统（该系统能够对自然语言查询生成准确且相关回答）的基本要素。
 
@@ -163,46 +115,6 @@ The system's operational workflow is characterized by the following sequential s
 • Session Continuation or Conclusion: Students have the option to continue the dialogue with additional questions, conclude the session, download a record of the chat history in HTML format for review, or delete the chat history for privacy.
 
 The methodology applied in the development of the AI Tutor system is a testament to the integration of advanced AI with user-centric design, aiming to transform the educational landscape through personalized, responsive tutoring.
-
-直接翻译：
-
-在本节中，我们描述了我们的 AI Tutor 系统的技术设计和实现，该系统旨在为任何课程提供准确和智能的辅导。我们还解释了如何整合 OpenAI 助手 API，该 API 提供了我们系统的核心功能。我们的 AI Tutor 系统的总体架构如下图 1 所示。
-
-图 2. AI Tutor 框架
-
-如上图 2 所示，我们的系统包含四个主要组成部分：
-
-·课程材料：这些是为 AI Tutor 提供知识基础的特定领域文档。
-
-用户可以上传任何文本格式的课程材料，例如讲义、幻灯片、教科书等。系统将在向量数据库中存储课程材料，并用于检索和生成。
-
-·学生的问题：这是用户输入到 AI Tutor 的自然语言查询。系统将使用预训练的嵌入模型将问题编码为向量表示。
-
-·AI Tutor：这是我们系统的核心组件，整合了 OpenAI 助手 API。该 API 提供以下功能：
-
-嵌入：API 使用预训练的嵌入模型将文本输入（问题和课程材料）转换为向量表示。助手 API 使用 OpenAI 嵌入。
-
-向量存储：API 将课程材料的向量表示存储在向量数据库中，以实现高效的相似性搜索和检索。
-
-基于相似性的检索：API 使用相似性搜索算法检索给定问题最相关的课程材料。
-
-检索增强生成（RAG）：API 使用增强了检索机制的大型语言模型（LLM）生成智能回复。API 支持各种 LLMs。检索机制允许 LLM 访问相关课程材料，并将其用作生成的上下文。在这个项目中，我们使用最新的 gpt-4-1106-preview 万亿参数模型来增强辅导员的 ai 能力。
-
-聊天历史管理：API 为每个用户会话维护聊天历史，这允许 LLM 生成连贯和一致的回复。API 还允许用户随时删除聊天历史。
-
-系统的操作工作流程由以下连续步骤特征化：
-
-·材料上传：用户上传课程材料，然后使用 API 的嵌入功能进行向量化，并存储在向量数据库中。
-
-·提问提交：学生向 AI Tutor 提出问题，该问题通过嵌入功能编码成向量。
-
-·响应生成：使用由学生问题和检索到的材料组成的修改提示，通过 API 的 RAG 功能生成智能响应。这个响应包括来自课程材料的引用，确保了透明性和可验证性。此外，AI Tutor 向学生展示智能回复，并更新聊天历史，以保持对话的流畅。
-
-·会话继续或结束：学生可以选择继续对话提出更多问题，结束会话，下载 HTML 格式的聊天历史记录以供回顾，或删除聊天历史以保护隐私。
-
-在 AI Tutor 系统的开发中应用的方法论证明了高级 AI 与以用户为中心的设计的整合，旨在通过个性化、响应式辅导改变教育格局。
-
-重述以提高易读性：
 
 在这一节中，我们介绍了 AI Tutor 系统的技术设计和实现，该系统的目标是为任何课程提供精确和智能化的辅导。我们还阐述了如何将 OpenAI 助手 API 整合到系统中，这个 API 是我们系统的核心功能。AI Tutor 系统的整体架构如下图 2 所示。
 
@@ -272,43 +184,6 @@ Figure 5. An example of generated Q&A record downloaded (in html format)
 
 [AI tutor demo - YouTube](https://www.youtube.com/watch?v=UH0SjqU5tVI)
 
-
-
-
-直接翻译：
-
-在本节中，我们展示了我们的 AI Tutor 项目的演示，该项目由两部分组成：网络应用视图和问答会话演示。我们展示了 AI Tutor 是如何工作的，以及它是如何根据课程材料回答不同类型的问题的。我们还评估了 AI Tutor 的性能和质量，如回答的准确性、相关性、自然性和引用。
-
-5.1. 网络应用视图
-
-我们使用 Streamlit 开发了一个网络应用程序，以展示我们的 AI Tutor 的功能。网络应用程序允许用户输入他们的 OpenAI API 密钥，上传文本格式的课程材料，并提出与课程内容相关的问题。网络应用程序还在侧边栏提供了两个按钮：一个用于删除所有已上传的课程材料，另一个用于生成可下载的问答记录 HTML 格式。网络应用程序界面如图 3 所示。
-
-图 3. AI Tutor 网络应用程序截图
-
-我们创建了一个视频演示，以说明我们的 AI Tutor 的使用和特性。视频演示展示了用户如何上传课程材料，提问以及查看 AI Tutor 的回答。视频演示还突出了答案的自然性和引用，以及问答记录的生成。视频演示可在以下链接查看：https://youtu.be/UH0SjqU5tVI?si=cVuBlwdOADq1q7gx。
-
-5.2. 问答会话演示
-
-为了展示 AI Tutor 在提供精确且相关的、以教育内容为基础的回答方面的能力，我们利用我们的网络应用发起了一个问答会话。我们上传了三个包含来自麻省理工学院开放课程（MIT OpenCourseWare）的「金融理论 I」课程材料的 PDF 文档（https://ocw.mit.edu/courses/15-401-financetheory-i-fall-2008/）。我们的查询深入探讨了课程的核心主题，提出了诸如「金融的六大原则是什么？用简单的例子向我解释。」之类的问题。AI Tutor 的回答非常有说服力，直接从上传的材料中提取，并适当地引用了相应的来源。这种互动对话在图 4 中可视化呈现。
-
-图 4. AI Tutor 问答的一个示例
-
-从上面的图 4 中，我们可以看到我们的 AI Tutor 表现有以下亮点：
-
-·准确性：对 AI Tutor 的回答进行了仔细审查，以确保其正确性和与提出的问题的一致性，确保其紧密遵循课程材料的事实内容。
-
-·相关性：对每个答案的相关性进行了评估，重点关注与正确答案的对齐，通过直接引用相关来源材料进行证实。
-
-·自然性：我们观察了 AI Tutor 回答的对话质量，评估其人类般的语调和亲和力。
-
-·引用：系统尤其在其准确引用了形成其回答的特定课程材料的能力上进行了评估。例如，如上述图 4 所示，AI Tutor 有效地引用了名为「Lecture 1: Intro and Overview」的章节与查询的概念相关。
-
-我们的 AI Tutor 的一个重要方面是其对持续学习的承诺。在每个问答会话之后，系统允许学生下载交互的全面记录。这一功能在教育背景下非常重要，为学生提供了重新审视讨论和按自己的节奏回顾回答的机会。问答记录作为一个个性化的学习指南，旨在解决学生的特定查询。它成为学习者资源的宝贵补充，特别是在需要重复参与的复杂主题背景下，下面的图 5 显示了下载的问答记录的截图。展望未来，我们提议通过整合视觉辅助工具，如图表、表格和图表，来增强 AI Tutor 的互动维度，这可以显著增强回答的可理解性和参与度。
-
-图 5. 生成的问答记录下载示例（HTML 格式）
-
-重述以提高易读性：
-
 本节中，我们展示了 AI Tutor 项目的演示，包括两部分：网络应用视图和问答会话演示。我们展示了 AI Tutor 的工作方式，以及它如何根据课程材料回答不同类型的问题。同时，我们还对 AI Tutor 的性能和质量进行了评估，包括回答的准确性、相关性、自然性和引用情况。
 
 5.1. 网络应用视图
@@ -361,18 +236,6 @@ Deploying the AI tutor in educational settings may have some ethical and societa
 
 Based on the discussion above, we can provide some recommendations for future improvements and extensions to the project. One of the recommendations is to reduce the cost of the AI tutor by exploring some alternative options for the LLM and the RAG, such as open-source or low-resource models, or by using some third-party frameworks and libraries, such as Langchain or Chroma, to reduce the implementation costs. Another recommendation is to improve the user interface design of the AI tutor to enhance the user engagement and satisfaction, such as by adding some interactive or personalized features, such as feedback and user profile. A third recommendation is to implement more scalable solutions for the AI tutor, such as by using some cloud-based or distributed platforms, such as Google Cloud or Azure, to increase the availability and accessibility of the AI tutor. A fourth recommendation is to investigate the feasibility of automated quiz generation for the AI tutor, such as by using the context of course material to provide some formative assessment for the student’s learning.
 
-直接翻译：
-
-在这个项目中，我们开发了一个 AI 辅导员，它可以基于讲师上传的课程材料回答学生的问题。AI 辅导员利用大型语言模型（LLM）和检索增强生成（RAG）技术生成基于验证信息的准确和自然的回答。我们通过网络应用和视频演示展示了我们 AI 辅导员的功能和多功能性。在这一节中，我们将讨论我们 AI 辅导员的优势和劣势，以及项目中使用的技术的局限性和挑战。我们还将讨论在教育环境中部署我们的 AI 辅导员可能产生的潜在伦理和社会影响。最后，我们将为项目的未来改进和扩展提供一些建议。
-
-6.1 AI 辅导员的优势和劣势
-
-我们 AI 辅导员的主要优势之一是它可以通过使用特定课程材料作为 RAG 技术的外部数据源来适应任何课程。这使 AI 辅导员能够提供与课程内容和目标一致的定制化回答。此外，只要领域知识文档可用且可访问，AI 辅导员可以在任何领域生成高质量的回答。我们 AI 辅导员的另一个优势是它可以利用 LLM 的力量产生自然和类似人类的回答，LLM 经过大量文本的训练，可以捕捉自然语言的细微差别。此外，AI 辅导员可以处理各种问题，如事实性、概念性或分析性问题，并为检索到的信息提供适当的引用。
-
-然而，我们的 AI 辅导员也有一些需要解决的弱点。一个弱点是 AI 辅导员不能保证提供 100% 准确的答案，因为 LLM 可能仍然受到信息幻觉或不一致的影响。因此，AI 辅导员的答案应在被接受为正确之前由讲师或其他可靠来源进行验证和确认。另一个弱点是 AI 辅导员的性能取决于学生问题的质量和清晰度，以及课程材料的可用性和相关性。如果学生的问题模糊、含糊或过于宽泛，AI 辅导员可能无法提供满意的答案。类似地，如果课程材料不完整、过时或不准确，AI 辅导员可能无法检索到正确的信息，或可能提供误导性或错误的答案。
-
-重述以提高易读性：
-
 在这个项目中，我们开发了一个 AI 辅导系统，能够基于讲师上传的课程材料回答学生的问题。这个 AI 辅导系统利用了大型语言模型（LLM）和检索增强生成（RAG）技术，生成基于经过验证的信息的准确和自然的回答。我们通过网络应用和视频演示展示了 AI 辅导系统的功能和多样性。在本节中，我们将探讨 AI 辅导系统的优点和缺点，以及项目中使用的技术的限制和挑战。我们还将讨论在教育环境中部署 AI 辅导系统可能产生的潜在伦理和社会影响，并为项目的未来发展提供一些建议。
 
 6.1 AI 辅导系统的优点和缺点
@@ -400,14 +263,6 @@ This paper introduced AI Tutor, a web application at the forefront of educationa
 8 information within this specialized database. It then applies a powerful generative model to articulate responses that are not only accurate and contextually relevant but also enriched with citations from the source material. The evaluations reveal AI Tutor's effectiveness in producing relevant, factually consistent responses, showcasing the promise of integrating sophisticated LLMs with retrieval. This underscores AI Tutor's evolution beyond limitations of prior rule-based tutoring systems.
 
 However, real-world deployment necessitates further enhancements, particularly in scalability. While the current prototype uses Streamlit's community cloud, migration to robust commercial platforms like Microsoft Azure or Google Cloud could strengthen stability for large-scale usage. Additional priorities include boosting interpretability, ethical rigor, and conducting user studies to gauge pedagogical impact. In essence, AI Tutor represents an important milestone in harnessing AI's benefits for education through an accessible, interactive platform. It lays a foundation for a new generation of intelligent tutors that can empower learners with personalized support tailored to their academic journeys. Realizing the full potential of such systems will require sustained research and responsible development. But the possibilities glimpsed by this initial effort highlight the transformative promise of AI in augmenting how we teach and learn.
-
-直接翻译：
-
-本文介绍了 AI Tutor，这是一个处于教育技术前沿的网络应用程序，利用人工智能的最新进展为任何课程提供量身定制的辅导。AI Tutor 的支撑是最新发布的 OpenAI 助手 API（2023 年 11 月发布），并由最先进的 GPT-4 模型迭代版本提供动力，确保我们的系统既是尖端的，也是强大的。AI Tutor 的创新之处在于其独特的能力，可以消化和利用教育工作者提供的课程材料，形成一个适应性向量知识库。当学生提出查询时，系统首先使用向量相似性搜索来识别这个专门数据库中最相关的信息。然后，它应用一个强大的生成模型来表达不仅准确和与语境相关，而且富含来源材料引用的回答。评估显示 AI Tutor 在产生相关、事实一致的回答方面的有效性，展示了将复杂 LLM 与检索相结合的前景。这强调了 AI Tutor 超越以往基于规则的辅导系统的局限性的进化。
-
-然而，现实世界的部署需要进一步的增强，尤其是在可扩展性方面。虽然当前的原型使用了 Streamlit 社区云，但迁移到像 Microsoft Azure 或 Google Cloud 这样的强大商业平台可能会加强大规模使用的稳定性。其他优先事项包括提高可解释性、伦理严谨性，并进行用户研究以评估教育影响。本质上，AI Tutor 代表了利用 AI 为教育带来好处的一个重要里程碑，通过一个可访问的、互动的平台。它为新一代智能导师奠定了基础，这些导师可以为学习者提供根据他们的学术旅程量身定制的个性化支持。要实现这类系统的全部潜力，需要持续的研究和负责任的开发。但这种初步努力所展示的可能性突出了 AI 在改变我们的教学和学习方式方面的变革性前景。
-
-重述以提高易读性：
 
 本文介绍了 AI Tutor，这是一款位于教育技术前沿的网络应用，利用人工智能的最新进展为任何课程提供定制化辅导。AI Tutor 基于 2023 年 11 月发布的最新 OpenAI 助手 API，并由最先进的 GPT-4 模型迭代版本提供动力，确保我们的系统既先进又强大。AI Tutor 的创新之处在于它能够消化并利用教育工作者提供的课程材料，形成一个适应性向量知识库。当学生提出问题时，系统首先使用向量相似性搜索识别专门数据库中最相关的信息，然后应用一个强大的生成模型，不仅准确和与语境相关，而且包含源材料引用的回答。评估显示，AI Tutor 在生成相关、事实一致的回答方面非常有效，展示了将复杂 LLM 与检索技术结合的潜力。这突显了 AI Tutor 超越了以往基于规则的辅导系统的局限性。
 
