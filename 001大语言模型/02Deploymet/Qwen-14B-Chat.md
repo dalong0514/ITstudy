@@ -1,17 +1,58 @@
-2023-12-04
+### api 调用
 
-下载模型文件。
-
-注意事项：下载模型的时候把代理推出来。
-
-[通义千问-14B-Chat · 模型库](https://modelscope.cn/models/qwen/Qwen-14B-Chat/files)
-
-git lfs install
-git clone https://www.modelscope.cn/qwen/Qwen-14B-Chat.git
+curl -X POST "http://127.0.0.1:8000/v1/chat/completions" \
+-H "Content-Type: application/json" \
+-d "{\"model\": \"Qwen-14B-Chat\", \"messages\": [{\"role\": \"system\", \"content\": \"You are Qwen-14B-Chat, a large language model trained by ali. Follow the user's instructions carefully. Respond using markdown.\"}, {\"role\": \"user\", \"content\": \"你好，给我讲一个故事，大概100字\"}], \"stream\": false, \"max_tokens\": 100, \"temperature\": 0.8, \"top_p\": 0.8}"
 
 
+curl -X POST "http://192.168.28.58:8000/v1/chat/completions" \
+-H "Content-Type: application/json" \
+-d "{\"model\": \"Qwen-14B-Chat\", \"messages\": [{\"role\": \"system\", \"content\": \"You are Qwen-14B-Chat, a large language model trained by ali. Follow the user's instructions carefully. Respond using markdown.\"}, {\"role\": \"user\", \"content\": \"你好，给我讲一个故事，大概100字\"}], \"stream\": false, \"max_tokens\": 100, \"temperature\": 0.8, \"top_p\": 0.8}"
 
-git remote add upstream https://github.com/QwenLM/Qwen.git
+
+
+
+### 问题汇总
+
+2023-12-05
+
+1、跑不起来。
+
+
+
+
+TypeError: BFloat16 is not supported on MPS
+
+开始一直找不到原因。
+
+问了 GPT：
+
+用mac 的 m 芯片跑大语言模型（LLM）的量化模型，比如Int4量化模型，需要做哪些额外处理。比如部署运行大语言模型Qwen-Chat (Int4)。请搜索相关信息
+
+它给了一篇文章：
+
+[挖掘 M2 Pro 32G UMA 内存潜力：在 Mac 上本地运行清华大模型 ChatGLM2-6B - 掘金](https://juejin.cn/post/7250730877372792887)
+
+里面提到：模型加载使用 to('mps') 方式
+
+tokenizer = AutoTokenizer.from_pretrained("修改为第 2 步中存放 Huggingface 模型的路径", trust_remote_code=True)
+model = AutoModel.from_pretrained("修改为第 2 步中存放 Huggingface 模型的路径", trust_remote_code=True).to('mps')
+model = model.eval()
+
+然后就改了下 cli_demo.py 的代码：
+
+    model = AutoModelForCausalLM.from_pretrained(
+        args.checkpoint_path,
+        device_map="cpu",
+        trust_remote_code=True,
+        resume_download=True,
+    ).to('mps').eval()
+
+发现可以跑了。
+
+接着去改 openai_api.py 里的代码，发现报错。试着把 .to('mps') 去掉，发现竟然可以跑。
+
+所以定位的根子原因：直接用 "cpu"，不要用原代码里的 "auto"。
 
 
 ### 量化模型
@@ -60,3 +101,29 @@ cmake --build build -j --config Release
 ./build/bin/main -h
 
 针对 ChatGLM3-6B 的更多玩法，包括 Chat mode、Function call 等。
+
+### 官方示例跑量化模型
+
+2023-12-05
+
+尝试用官方的 cli_demo.py 跑量化模型，失败了。目前还没解决。
+
+改动的地方：
+
+from transformers import AutoModelForCausalLM, AutoTokenizer, TextGenerationPipeline
+from auto_gptq import AutoGPTQForCausalLM, BaseQuantizeConfig
+
+    tokenizer = AutoTokenizer.from_pretrained(
+        args.checkpoint_path, trust_remote_code=True, resume_download=True,
+    )
+    # tokenizer = AutoTokenizer.from_pretrained(DEFAULT_CKPT_PATH, use_fast=True)
+    config = BaseQuantizeConfig(
+        bits=4,  # 将模型量化为 4-bit 数值类型
+        group_size=128,  # 一般推荐将此参数的值设置为 128
+        desc_act=False,  # 设为 False 可以显著提升推理速度，但是 ppl 可能会轻微地变差
+    )
+    model = AutoGPTQForCausalLM.from_pretrained(args.checkpoint_path, config, trust_remote_code=True).eval()
+
+
+
+
