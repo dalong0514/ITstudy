@@ -1,4 +1,60 @@
-### 01. 信息资源
+### 01. 使用
+
+2023-12-09
+
+目前最大的问题，时长多的时候经常内存占用爆掉，超 150G 了。开始以外是 2h 以上时长的原因，切割为 2h 文件后还是爆掉，现在怀疑跟说话的人数有关。
+
+解决方案尝试 1：从 large-v3 切换 large-v2 模型文件
+
+
+
+1、先转源音频文件。
+
+ffmpeg -i input.mp3 -ar 16000 -ac 1 -c:a pcm_s16le output.wav
+
+ffmpeg -i input.mkv -ar 16000 -ac 1 -c:a pcm_s16le output.wav
+
+ffmpeg -i /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20230713舒伟杰HAZOP分析培训.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20230713舒伟杰HAZOP分析培训.wav
+
+2、切割音频（超过 2h 以上的）。
+
+这个命令会返回音频的总时长（以秒为单位）。
+
+ffprobe -i /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20230713舒伟杰HAZOP分析培训.wav -show_entries format=duration -v quiet -of csv="p=0"
+
+返回了 7204 秒。
+
+假设音频的总时长为 T 秒。您可以使用下面的命令来分割它：
+
+ffmpeg -i /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20230713舒伟杰HAZOP分析培训.wav -ss 0 -t [T/2] part1.wav
+
+ffmpeg -i /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20230713舒伟杰HAZOP分析培训.wav -ss [T/2] -to T part2.wav
+
+这里，[T/2] 是音频总时长的一半。您需要根据实际的时长来替换这个值。
+
+请确保替换 [T/2] 和 T 为实际的秒数。例如，如果音频总时长为 120 秒，那么 [T/2] 就是 60 秒。
+
+ffmpeg -i /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20230713舒伟杰HAZOP分析培训.wav -ss 0 -t 3602 /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20230713舒伟杰HAZOP分析培训part1.wav
+
+ffmpeg -i /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20230713舒伟杰HAZOP分析培训.wav -ss 3602 -to 7204 /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20230713舒伟杰HAZOP分析培训part2.wav
+
+
+
+3、转录。
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/20230705舒伟杰培训HAZOP.mp3  --device mps
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20230713舒伟杰HAZOP分析培训part1.wav --device mps --transcript-path /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20230713舒伟杰HAZOP分析培训part1.json
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json
+
+
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v2 --file-name /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20230713舒伟杰HAZOP分析培训part1.wav --device mps --transcript-path /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20230713舒伟杰HAZOP分析培训part1.json
+
+
+
+### 02. 信息资源
 
 [Insanely Fast Whisper: 音频极快转录！](https://mp.weixin.qq.com/s/jGHpSyS0ceXCQa9kv_uc8w)
 
@@ -11,7 +67,7 @@
 git lfs install
 git clone https://www.modelscope.cn/AI-ModelScope/whisper-large-v3.git
 
-### 02. 问题汇总
+### 03. 问题汇总
 
 坑 1：通过 pip 安装 pipx，而不是用 brew 安装 pipx。
 
@@ -65,7 +121,7 @@ brew install ffmpeg
 
 接着继续跑，提示没安装 ffmpeg，直觉直接用 pip 安装，发现不行。问了 GPT 后改用 brew 安装，跑通了！
 
-### 03. 部署
+### 04. 部署
 
 1、安装 pipx。
 
@@ -95,20 +151,5 @@ zsh completions have been installed to:
 
 
 echo 'export PATH="/Users/Daglas/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
-
-### 04. 使用
-
-insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/20230705舒伟杰培训HAZOP.mp3  --device mps
-
-insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20231207与金玉宏交流罐区HAZOP分析模块.mp3 --device mps --transcript-path /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20231207与金玉宏交流罐区HAZOP分析模块.json
-
-
-/Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20231207与金玉宏交流罐区HAZOP分析模块.mp3
-
-
-
-20230713舒伟杰HAZOP分析培训
-
-
 
 
