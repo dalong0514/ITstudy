@@ -1,10 +1,17 @@
 ### 01. 使用
 
+2023-12-10
+
+/Users/Daglas/Movies/dalong.KnowledgeVideo/2023005AI编程课/20231210W7大作业指导分享.wav
+
+上面的音频，1h40min 的，很轻松转出来的。现在越来越怀疑与音频中有多少个人讲话有关。
+
+
 2023-12-09
 
 目前最大的问题，时长多的时候经常内存占用爆掉，超 150G 了。开始以外是 2h 以上时长的原因，切割为 2h 文件后还是爆掉，现在怀疑跟说话的人数有关。
 
-解决方案尝试 1：从 large-v3 切换 large-v2 模型文件
+解决方案尝试 1：从 large-v3 切换 large-v2 模型文件。结果：还是跑不通，一样的情况。
 
 
 
@@ -15,6 +22,10 @@ ffmpeg -i input.mp3 -ar 16000 -ac 1 -c:a pcm_s16le output.wav
 ffmpeg -i input.mkv -ar 16000 -ac 1 -c:a pcm_s16le output.wav
 
 ffmpeg -i /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20230713舒伟杰HAZOP分析培训.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20230713舒伟杰HAZOP分析培训.wav
+
+ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2023005AI编程课/20231210W7大作业指导分享.mkv -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Movies/dalong.KnowledgeVideo/2023005AI编程课/20231210W7大作业指导分享.wav
+
+
 
 2、切割音频（超过 2h 以上的）。
 
@@ -40,6 +51,11 @@ ffmpeg -i /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20230713
 
 
 
+原来可以直接切割 mkv 视频的：
+
+ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2023006阳志平相关/20230622深圳读者见面会-全.mkv -ss 0 -t 14700 /Users/Daglas/Movies/dalong.KnowledgeVideo/2023006阳志平相关/20230622深圳读者见面会-全.mkv
+
+
 3、转录。
 
 insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/20230705舒伟杰培训HAZOP.mp3  --device mps
@@ -50,7 +66,7 @@ insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v
 
 
 
-insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v2 --file-name /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20230713舒伟杰HAZOP分析培训part1.wav --device mps --transcript-path /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20230713舒伟杰HAZOP分析培训part1.json
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Movies/dalong.KnowledgeVideo/2023005AI编程课/20231210W7大作业指导分享.wav --device mps --transcript-path /Users/Daglas/Movies/dalong.KnowledgeVideo/2023005AI编程课/20231210W7大作业指导分享.json
 
 
 
