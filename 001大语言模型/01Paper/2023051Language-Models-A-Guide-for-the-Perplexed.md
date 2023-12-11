@@ -252,10 +252,6 @@ Collecting training data for most NLP tasks is quite difficult, and this often i
 
 2.2.2 从头开始创建数据集
 
-
-
-
-
 让我们考虑一个可能出现在高风险学术决策环境中的情感分析问题的变体。假设我们计划构建一个 NLP 系统，用于阅读申请大学学位项目的推荐信。该系统应评估推荐人对申请人的情感态度。表面上，这与我们之前讨论的电影评论问题类似。但这个用例引入了一些新挑战。
 
 首先，我们不太可能找到可以用来训练或评估系统的演示。推荐信极其私密；撰写它们的人假设这些信件不会被不需要阅读它们的人看到，以评估申请。如果我们在公共网络上找到推荐信，很可能它们不应该在那里（因此不道德使用），或它们是用于教授人们如何撰写或评估推荐信的合成示例（因此是人工的，可能在关键的实际方面与实际信件不同 —— 记住我们需要现实的演示）。
@@ -276,15 +272,6 @@ For almost a decade, and with a small number of exceptions, the dominant approac
 
 The first concept is a parameter. A parameter is like a single knob attached to a system: Turning the knob affects the behavior of the system, including how well it performs on the desired task. To make this concrete, let's consider an extremely simple system for filtering spam emails. Due to budgetary constraints, this system will have only one parameter. The system works as follows: it scans an incoming email and increments a counter every time it encounters an "off-color" word (e.g., an instance of one of the seven words the comedian George Carlin claimed he wasn't allowed to say on television). If the count is too high, the email is sent to the spam filter; otherwise, it goes to the inbox. How high is too high? We need a threshold, and we need to set it appropriately. Too high, and nothing will get filtered; too low, and too many messages may go to spam. The threshold is an example of a parameter.
 
-
-
-2.3 构建自然语言处理系统
-
-近十年来，除了少数例外，构建针对特定任务的自然语言处理系统的主导方法一直是基于机器学习。机器学习（ML）指的是关于数据驱动方法的理论和实践知识，这些方法用于解决人类难以承担成本的问题。随着新发现的出现、不同的性能要求的强调以及新硬件的可用，这些方法会随时间变化。关于机器学习方法的教程内容已经非常丰富，每一项新的研究进展都会迅速有新的贡献。在这里，我们介绍一些关键概念，以帮助理解当前的情况。
-
-第一个概念是参数。参数就像附着在系统上的一个单独的旋钮：调整旋钮会影响系统的行为，包括它在期望任务上的表现。为了具体说明，我们来考虑一个极其简单的用于过滤垃圾邮件的系统。由于预算限制，这个系统只有一个参数。该系统的工作原理如下：它扫描进来的电子邮件，每次遇到一个「不雅」词汇（例如，喜剧演员乔治·卡林（George Carlin）声称他在电视上不被允许说的七个词之一）就增加计数器。如果计数过高，邮件就会被发送到垃圾邮件过滤器；否则，它就会进入收件箱。何为过高？我们需要一个阈值，并且需要适当设置它。阈值太高，就不会有任何邮件被过滤；阈值太低，就可能有太多邮件被判定为垃圾邮件。阈值是参数的一个例子。
-
-
 This example neatly divides system-building problem into two separate parts:
 
 1. Deciding what parameters the system will have and how they will work. In our spam example, the system and the role of the off-color word threshold parameter are easy to explain. The term architecture (or model architecture, to avoid confusion with hardware architecture) typically refers to the decision about what parameters a model will have. For example, picture a generic-looking black box with lots of knobs on it; the box has a slot on one side for inputs and a slot on the other side for outputs. The "architecture" of that model refers to the number of knobs, how they're arranged on the box, and how their settings affect what occurs inside the box when it turns an input into an output.
@@ -292,6 +279,12 @@ This example neatly divides system-building problem into two separate parts:
 2. Setting parameter values. This corresponds to determining what value each individual knob on the box is turned to. While we likely have an intuition about how to set the parameter in the spam example, the value that works the best is probably best determined via experimentation.
 
 We now walk through how ML works in more detail and introduce some components you'll likely hear about if you follow NLP developments.
+
+2.3 构建自然语言处理系统
+
+近十年来，除了少数例外，构建针对特定任务的自然语言处理系统的主导方法一直是基于机器学习。机器学习（ML）指的是关于数据驱动方法的理论和实践知识，这些方法用于解决人类难以承担成本的问题。随着新发现的出现、不同的性能要求的强调以及新硬件的可用，这些方法会随时间变化。关于机器学习方法的教程内容已经非常丰富，每一项新的研究进展都会迅速有新的贡献。在这里，我们介绍一些关键概念，以帮助理解当前的情况。
+
+第一个概念是参数。参数就像附着在系统上的一个单独的旋钮：调整旋钮会影响系统的行为，包括它在期望任务上的表现。为了具体说明，我们来考虑一个极其简单的用于过滤垃圾邮件的系统。由于预算限制，这个系统只有一个参数。该系统的工作原理如下：它扫描进来的电子邮件，每次遇到一个「不雅」词汇（例如，喜剧演员乔治·卡林（George Carlin）声称他在电视上不被允许说的七个词之一）就增加计数器。如果计数过高，邮件就会被发送到垃圾邮件过滤器；否则，它就会进入收件箱。何为过高？我们需要一个阈值，并且需要适当设置它。阈值太高，就不会有任何邮件被过滤；阈值太低，就可能有太多邮件被判定为垃圾邮件。阈值是参数的一个例子。
 
 这个例子清晰地将系统构建问题分成两个独立的部分：
 
@@ -306,7 +299,6 @@ We now walk through how ML works in more detail and introduce some components yo
 Today, the vast majority of architectures are neural networks (sometimes called artificial neural networks to differentiate them from biological ones). For our purposes, it's not important to understand what makes neural networks special as a category of architectures. However, we should know that their main properties include (1) large numbers of parameters (at this writing, trillions) and (2) being differentiable 4 functions with respect to those parameters: addition, subtraction, exponentiation, trigonometric functions, etc., and combinations of them. A general observation about neural network architectures (but not a necessary or defining property) is that the relationship between their numerical calculations and the task-solving behavior of a model (after its parameters are set) is not explainable to human observers. This is why they are associated with the metaphor of a black box (whose internal components can't be observed or easily understood).
 
 4 We are referring to the concept from calculus. If a function is "differentiable" with respect to some numbers it uses, then calculus gives us the ability to calculate which small changes to those variables would result in the biggest change to the function.
-
 
 2.3.1 架构：神经网络
 
