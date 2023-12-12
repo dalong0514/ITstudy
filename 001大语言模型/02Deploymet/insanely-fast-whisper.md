@@ -1,5 +1,33 @@
 ### 01. 使用
 
+
+2023-12-12
+
+ffmpeg -i /Users/Daglas/Desktop/20231210HAZOP对话演示02.mkv -ss 37 -t 102 /Users/Daglas/Desktop/02.mkv
+
+
+
+使用concat过滤器
+
+如果视频流需要转码，你可以使用concat过滤器。这种方法会重新编码视频，允许你合并不同编码或格式的视频，但是会更耗时一些。
+
+创建一个文本文件（例如mylist.txt），列出所有要合并的视频文件，格式如下：
+
+file '/Users/Daglas/Desktop/01.mkv'
+file '/Users/Daglas/Desktop/02.mkv'
+
+使用ffmpeg运行concat过滤器：
+
+ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mp4
+
+ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mkv
+
+这里的-c copy参数表示使用复制模式，这意味着不对视频流和音频流进行重新编码，所以操作会很快，但前提是所有视频文件的编解码器、分辨率等都必须相同。
+
+
+
+
+
 2023-12-10
 
 /Users/Daglas/Movies/dalong.KnowledgeVideo/2023005AI编程课/20231210W7大作业指导分享.wav
