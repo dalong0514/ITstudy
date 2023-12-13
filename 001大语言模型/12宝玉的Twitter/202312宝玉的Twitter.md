@@ -1198,30 +1198,522 @@ Leonie
 
 ### 42
 
-2023-12-09
+2023-12-10
 
+新加坡微型工厂：汽车制造业的未来
 
+在新加坡，一家看似普通的汽车工厂实际上是领先科技的产物：一个由自主机器狗和 AI 监控的机械臂运营的全新微型工厂。这个工厂旨在改变汽车的生产方式，它位于全球最小和最昂贵的国家之一。
 
+在这里，与传统汽车制造商在密集城市建厂的常规不同，机器人负责大部分的制造工作，采用更加灵活的模式。微型工厂通过自动化大部分生产流程，并在单独的单元中而不是沿传统生产线组装汽车，彻底改变了汽车的制造方式。
+
+这种微型工厂模型可能是我们未来几年将广泛讨论的趋势。作为汽车制造业数十年来最重大的变革之一，这一模式若被验证有效，将可能塑造整个行业的未来。在这样的工厂中，传统的汽车装配流程被重新设计，以适应更小的空间。机器人在完成汽车的最后装饰工作，这在传统的制造过程中大多由人手完成。
+
+在传统汽车工厂中，汽车沿着线性路径移动，并在装配线上安装零件。虽然这个程序越来越自动化，但其基本流程并未发生重大改变。然而，在这家新型工厂中，情况大为不同。这里采用的是基于单元的模型，工厂地面分布着不同的单元，每个单元专注于不同的任务，这大大增加了自动化的可能性。
+
+每个单元里的机器人被安排安装汽车的几个部分，然后汽车移动到下一个区域。单元可以根据不同的指令进行调整，以适应不同的汽车设计和组装需求。现代汽车公司表示，在其新加坡微型工厂，超过 50% 的制造过程由机器人完成。自动地面车辆负责在工厂内部转移汽车，而装有 AI 摄像头的四足机器人则监控并分析装配过程。机器狗发现的问题随后由人类工人解决。
+
+尽管这是一家规模不大的工厂，它却能像大规模制造商那样生产汽车。这得益于灵活的自动化技术和大量的系统智能，用以指挥制造过程。由于生产高度自动化，该工厂每年生产 30,000 辆汽车的产能只需要大约 100 名工人，意味着微型工厂的工人能够生产出比传统工厂工人多两到三倍的汽车。
+
+现代汽车公司在新加坡的这家工厂是该国 40 多年来的第一家汽车工厂。尽管微型工厂可能使较富裕的国家能够重建制造业，但走向更大规模的自动化将意味着工人手工作业的减少。在这种微型工厂模式下，自动化任务的比例显著高于典型的装配厂。在物流方面，现代汽车已经实现了超过 60% 的自动化，这在其他工厂通常是非常低的比例，基本上依赖手工操作。
+
+微型工厂对于汽车行业而言几乎是未经测试的新领域。EV 创业公司 Arrival 承诺在微型工厂中生产它们的车辆。然而，该公司在英国的工厂只交付了少量预期的车辆，并推迟了在美国计划的第二个微型工厂。目前，现代汽车是唯一一个开始在微型工厂中生产车辆的主要汽车制造商。
+
+现代汽车公司对未来移动性的设想是，如果在市场测试中发现这是正确的方向，可能会在许多不同的城市环境中看到智能城市移动中心。尽管微型工厂的概念在大规模层面上仍未得到验证，但它们提供了一个展望，显示了随着行业迈向更自动化的未来，汽车制造可能会呈现的样子。
 
 ### 43
 
-2023-12-09
+2023-12-10
 
+推荐阅读：在 RAG 流程中提高检索效果：融合传统关键词与现代向量搜索的混合式搜索技术 [译]
 
+这篇文章探讨了如何结合传统关键词搜索与现代向量搜索来获得更相关的搜索结果。
 
+原文：Improving Retrieval Performance in RAG Pipelines with Hybrid Search
+
+[Improving Retrieval Performance in RAG Pipelines with Hybrid Search | by Leonie Monigatti | Nov, 2023 | Towards Data Science](https://towardsdatascience.com/improving-retrieval-performance-in-rag-pipelines-with-hybrid-search-c75203c2f2f5)
+
+翻译：
+
+[在 RAG 流程中提高检索效果：融合传统关键词与现代向量搜索的混合式搜索技术 [译] | 宝玉的分享](https://baoyu.io/translations/rag/improving-retrieval-performance-in-rag-pipelines-with-hybrid-search)
 
 ### 44
 
-2023-12-09
+2023-12-10
 
+[gkamradt/ChunkViz: Visualize Different Text Splitting Methods](https://github.com/gkamradt/ChunkViz/tree/main)
 
+这个哥们可视化 chunk 算法结果的网站也非常好用，省去了写代码验证的时间。
+
+https://chunkviz.com/#explanation
+
+Greg Kamradt
+@GregKamradt
+
+visualizing text splitting & chunking strategies
+
+ChunkViz .com 
+
+I thought I remembered a tool to visualize text chunking, but I couldn't find it, so I built one
+
+I didn't realize it would be so visually pleasing to tinker with 4 different @LangChainAI
+ splitters featured
+
+可视化文本分割和分块策略
+
+我以为我记得有一个可视化文本分块的工具，但我找不到它，所以我构建了一个 4 个不同的 @LangChainAI 分离器
+
+我没有意识到修补会在视觉上如此令人愉悦
+
+https://twitter.com/GregKamradt/status/1732765953077739916
 
 ### 45
 
-2023-12-09
+2023-12-10
+
+\# 开源项目推荐：baserow
+
+baserow 是一款开源的在线数据管理应用，类似于 Airtable。Airtable 是著名的在线表格应用，类似于 Excel，可以以表格的形式存储各种数据。
+
+前端技术栈是 Vue+Nuxt
+
+项目地址：https://gitlab.com/baserow/baserow
+
+### 46
+
+2023-12-10
+
+https://x.com/sophiamyang/status/1733505991600148892?s=20
+
+转译：什么是「专家混合模型」（Mixture-of-Experts，MoE）？
+
+「专家混合模型」是一种创新的神经网络架构设计，它在 Transformer 架构中融合了众多的专家 / 模型层。在这种设计中，数据流动时，每一个输入的 Token 都会被动态分配给一些专家进行处理。这种做法使得计算更高效，因为每个专家都能在其擅长的特定任务上发挥出色。
+
+关键要素包括：
+
+- 专家：MoE 层由众多专家组成，既可以是小型的多层感知机（MLP），也可以是像 Mistral 7B 这样复杂的大型语言模型（LLM）。
+
+- 路由器：负责将输入的 Token 分配给合适的专家。路由策略有两种：由 Token 选择路由器，或由路由器选择 Token。具体是怎样实现的呢？系统通过一个 softmax 门控函数来建立一个概率分布，从而在众多专家或 Token 中选出最合适的几个。
+
+为何选择 MoE？
+
+- 每个专家可以专注于处理不同的任务或数据的不同部分。
+
+- 为大型语言模型增加了可学习的参数，同时不会增加推理成本。
+
+- 能够高效处理稀疏矩阵。
+
+- 所有专家层可并行计算，充分利用了 GPU 的并行处理能力。
+
+- 有助于在降低计算成本的同时，缩短模型训练时间并提升效果！
+
+推荐阅读的论文：
+
+- 《稀疏门控的专家混合模型层》(2017)：[点击查看](https://arxiv.org/pdf/1701.06538.pdf)
+
+- 《GShard：利用条件计算和自动分片扩展巨型模型》(2020)：[点击查看](https://arxiv.org/pdf/2006.16668.pdf)
+
+- 《MegaBlocks：使用专家混合模型进行高效稀疏训练》(2022)：[点击查看](https://arxiv.org/abs/2211.15841)
+
+- 《专家混合模型遇见指令调整》(2023)：[点击查看](https://arxiv.org/pdf/2305.14705.pdf)
+
+### 47
+
+2023-12-10
+
+\#AI 开源项目推荐： SecureAI Tools
+
+[SecureAI-Tools/SecureAI-Tools: Private and secure AI tools for everyone's productivity.](https://github.com/SecureAI-Tools/SecureAI-Tools)
+
+为大家提供私密且安全的 AI 工具，提高工作效率。
+
+特色功能：
+
+- 与 AI 对话：让你可以和 AI 模型（比如 ChatGPT）进行沟通。
+
+- 与文档对话：支持与文档（目前支持 PDF）进行交流，详见下方演示视频。
+
+- 本地运算：支持本地运行的 AI 模型，通过 [Ollama](https://ollama.ai/library) 支持超过 100 种开源或半开源的 AI 模型。
+
+- 内置验证机制：简洁的电子邮件 / 密码验证，可实现互联网远程访问。
+
+- 内置用户管理：适用于家庭成员或同事等多用户使用。
+
+- 自我托管优化：提供所需脚本和 docker-compose 文件，5 分钟内即可快速部署。
+
+- 轻量级设计：采用简易 Web 应用和 SQLite 数据库，无需为数据库运行额外的 docker 容器。数据通过 docker 卷在主机上实现持久化存储。
+
+项目地址：https://github.com/SecureAI-Tools/SecureAI-Tools
+
+### 48
+
+2023-12-10
+
+Bao Image OCR
+
+Extracts text from images and outputs in Markdown format, maintaining the original layout.
+
+https://chat.openai.com/g/g-CuuiG0G3Z-bao-image-ocr
+
+我也来写一个图片 OCR 的 GPT，中文识别效果一言难尽……
+
+https://chat.openai.com/g/g-CuuiG0G3Z-bao-image-ocr
+
+Prompt：
+
+Core Function: Accurately extracting text from uploaded images and offering translation services when specifically requested.
+User Interaction: Users upload images for text extraction. If translation is requested, I provide this service.
+Image Requirements: Clarity sufficient for text recognition, with images containing textual characters.
+Service Limitation: Limited to text extraction and translation upon request. I do not interpret or discuss text content.
+Operational Guidance: On receiving an image, I analyze and return the text in Markdown format, maintaining fidelity to the text in the image. If translation is requested, I'll first provide the text in Markdown, then translate it into the requested language, ensuring accuracy and loyalty to the original text.
+Handling Unsuitable Images: If image quality is poor or unrecognizable, I will request a clearer, more suitable image.
+Language Adaptation: Default to responding in the user's language.
+
+### 49
+
+2023-12-10
+
+当然可以，我取的名字叫「单词画师」，下面把 prompt 也附上啦！
+
+https://chat.openai.com/g/g-QPQogazJj-dan-ci-hua-shi
+
+作为英语老师的「单词画师」，你的任务是通过一个特定的、结构化的方法帮助学习新单词。当收到一个英语单词时，你将：
+
+1. 根据词根拆分这个单词。
+
+2. 用谐音或字面意思为每个词根做联想。
+
+3. 基于这些联想创造一个生动、夸张的句子或图像。
+
+4. 将单词的含义融入到这个创意的可视化中。
+
+你应该专注于使用生动的意象和联想来使学习过程更加引人入胜和难忘，同时确保信息的准确性和教学的趣味性。你的回答应该用中文，并在最后以图像表达联想的内容。以幽默的方式进行教学，使学习过程更加轻松愉快。
+
+### 50
+
+2023-12-11
+
+3D 高斯泼溅（Gaussian Splatting）这个技术似乎经历了一场「寒武纪大爆发」。
+
+自 2023 年 7 月发表开创性论文以来，发展速度贼快，可以说是天天有研究成果、周周有产品上线...
+
+@janusch_patas
+
+和
+
+@henrypearce4D
+
+整理了一个 3D 高斯泼溅相关的优秀资源列表
+
+收集了众多相关工具、资源和研究成果，包括：
+
+1、生态系统和工具：
+
+·PlayCanvas 发布了一个在线散射编辑器 SuperSplat。
+
+·Luma AI 发布了 Unreal Engine 5 插件和基于 WebGL 的 Three.js 视图库：Luma WebGL Library。
+
+·Spline 添加了高斯散射支持，配备简单的编辑工具。
+
+·讨论了各种开源工具作者之间可能的「通用散射格式」。
+
+2、研究论文：
+
+·多篇论文探讨了高斯散射在 3D 编辑、实时点云重照明、逆渲染、数据压缩、防锯齿、辐射场模型压缩、高斯散射着色函数、可重照明的高斯编解码器头像、高效 3D 网格重建和高质量网格渲染等方面的应用。
+
+3、Unity 高斯散射项目：
+
+·作者创建的 Unity 高斯散射项目意外地获得了 1300 多个 GitHub 星标。
+
+·项目新增了对 HDRP 和 URP 渲染管线的支持，以及更细致的散射编辑工具。
+
+·项目还包括一些与高斯散射无关但可能在其他地方有用的部分，如 AMD FidelityFX GPU 基数排序的 Unity 移植、K-means 聚类的 C# 实现等。
+
+对 3D 高斯泼溅（Gaussian Splatting）这个技术感兴趣的可以看看。
+
+详细介绍：https://aras-p.info/blog/2023/12/08/Gaussian-explosion/
+
+Awesome 3D Gaussian Splatting 项目：
+
+主要内容
+
+·资源列表：包含了关于 3D 高斯散射的各种论文和开源资源。
+
+·论文分类：涵盖了动态与变形、扩散、头像、SLAM、网格提取与物理、正则化与优化、编辑、渲染、压缩、语言嵌入等多个子领域。
+
+·开源实现：提供了各种 3D 高斯散射的开源实现参考。
+
+·工具和实用程序：包括游戏引擎、查看器、实用工具等。
+
+·博客文章和教程视频：提供了关于 3D 高斯散射的博客文章和教程视频。
+
+GitHub：https://github.com/MrNeRF/awesome-3D-gaussian-splatting
+
+### 51
+
+2023-12-11
+
+AK 推荐的几个看最新最热 AI 相关论文的站点：
+
+1. https://arxiv-sanity-lite.com 这个是 AK 早年做的，不够现在已经不怎么维护了，其中的「热门」功能还因为成本和没有精力维护已经砍掉了，其他功能看着正常
+
+2. https://paperswithcode.com 这个比较有名，就是收集的有代码的论文
+
+3. https://papers.labml.ai/papers/weekly 似乎访问不了了
+
+还有一些其他来源，但太泛泛了：
+
+- https://github.com/trending
+
+- HN（Hacknews）
+
+- Discord
+
+- X
+
+- reddit
+
+### 52
+
+小互 @xiaohuggg 2023-12-11
+
+Mixtral AI 公布 MoE 8x7B 详细细节：
+
+·32k 上下文。
+
+·支持英语、法语、意大利语、德语和西班牙语。
+
+·性能超过 Llama 2 系列和 GPT3.5
+
+·在代码生成方面表现强劲。
+
+·在 MT-Bench 上达到 8.3 的分数。
+
+技术细节：
+
+·Mixtral 是一个稀疏混合专家网络，是一个仅解码器模型，其中前馈块从 8 组不同的参数组中选择。在每一层，对于每个令牌，路由网络选择两组（「专家」）来处理令牌并加性地结合它们的输出。
+
+·Mixtral 总共有 45B 个参数，但每个令牌只使用 12B 个参数。因此，它以与 12B 模型相同的速度和成本处理输入和生成输出。
+
+详细内容：https://mistral.ai/news/mixtral-of-experts/
+
+### 53
+
+Geek @geekbb 2023-12-11
+
+体验一番，使用默认的 Mistral 7.3B 参数模型，号称优于 Llama 2 13B，将以前问过 ChatGPT3.5 的问题抛给它，回答居然差不多，确实能打，只是我 i5-9600K 的风扇感觉要起飞了。
+
+[SecureAI-Tools/SecureAI-Tools: Private and secure AI tools for everyone's productivity.](https://github.com/SecureAI-Tools/SecureAI-Tools)
+
+### 54
+
+2023-12-11
+
+[VikParuchuri/marker: Convert PDF to markdown quickly with high accuracy](https://github.com/VikParuchuri/marker)
+
+[Inside Marker: A Guided Source Code Tour for an AI-powered PDF Layout Detection Engine](https://journal.hexmos.com/marker-pdf-document-ai/)
+
+强烈推荐这篇文章：《深入探索：AI 驱动的 PDF 布局检测引擎源代码解析 [译]》
+
+系统的分析了最近很火的 PDF 转 Markdown 开源程序 Marker https://github.com/VikParuchuri/marker 的工作原理，比我想象的要复杂不少，用了好几个开源库。Marker 主要通过以下六个阶段来工作：
+
+1. 准备阶段： 利用 PyMuPDF 工具，可以把各种格式的文档转换成 PDF 文件。
+
+2. 文本识别（OCR）： 使用 Tesseract 或 OCRMyPDF 进行文字识别；也可以选择用 PyMuPDF 进行基本的文字抓取。
+
+3. 布局识别： 运用专门定制的 LayoutLMv3 模型来识别文档中的表格、图表、标题、图说、页眉和页脚。
+
+4. 列的检测和排序： 再用一个定制的 LayoutLMv3 模型来识别文档中的列，并按照正确的顺序（上到下，左到右）进行排列。
+
+5. 公式 / 代码处理： 通过 Nougat 工具，把公式图片转换成对应的 latex 代码，并利用启发式方法准确识别和调整代码及表格内容。
+
+6. 文本清理与优化： 使用定制的 T5ForTextClassification 模型进行文本清理，比如去掉不必要的空格和奇怪的字符，确保以一种保守且保留原意的方式进行优化。
+
+借助这六个阶段，Marker 能够把任何文档转化为格式整洁的 Markdown 文件。
+
+原文：Inside Marker: A Guided Source Code Tour for an AI-powered PDF Layout Detection Engine
+
+https://journal.hexmos.com/marker-pdf-document-ai/
+
+翻译：
+
+https://baoyu.io/translations/ai/marker-pdf-document-ai
+
+### 55
+
+歸藏 @op7418 2023-12-11
+
+AIGC Weekly 50 期一周年了，第一期也是这个时候发布的，也是刚过完生日，那个时候想的就是随便写写，反正平时也要看，没想到一个周刊会让我发生这样的改变，我是一个很没有长性的人，几乎没有规律性坚持任何事情，这是唯一坚持的事情。感觉最重要的就是各位的支持，持续不断的正反馈才让我坚持这么久。
+
+50 期地址：
+
+https://quail.ink/op7418/p/aigc-weekly-50
+
+### 56
+
+2023-12-11
+
+推荐阅读：把大语言模型封装成桌面应用
+
+作者使用 Electron+Transformer.js，把大语言模型打包成桌面应用，这样就可以本地运行大语言模型。
+
+另外作者开发了一个框架叫 ollama（https://github.com/jmorganca/ollama），可以支持多种开源模型，例如 Llama 2、Mistral 等，但目前只支持 Mac 和 Linux，还不支持 Windows。
+
+文章链接：https://bmacd.xyz/packaging-language-models-into-desktop-apps/
+
+中文翻译：https://baoyu.io/translations/llm/packaging-language-models-into-desktop-apps
+
+### 57
+
+刘江/LIU Jiang @turingbook 2023-12-11
+
+https://x.com/_akhaliq/status/1732606971876966849?s=20
+
+扩散模型是不是多模态最好的选择？这方面新的探索很多。清华大学朱军团队
+
+@zehuachen
+
+等同学的工作，在文本到语音合成任务中，用确定性方法取代扩散模型，取得很好效果。「我们利用从文本输入获得的潜在表示作为先验，并在它和真实梅尔谱图之间建立一个完全易于处理的薛定谔桥梁。」
+
+### 58
+
+2023-12-11
+
+翻译：Netflix 的技术架构解析
+
+本文汇集了许多来自 Netflix 工程团队的博客和开源项目的研究成果。如果您在阅读中发现任何不准确之处，请不吝告知。
+
+移动端与网页端：Netflix 在其移动应用开发上，选用了 Swift 和 Kotlin 语言，打造出原生体验。至于网页应用方面，则采用了 React 技术。
+
+前端与服务器的交流：这一环节，Netflix 选择了 GraphQL 技术。
+
+后端服务体系：Netflix 构建其后端服务时，主要依赖于 ZUUL、Eureka 和 Spring Boot 框架，以及其他一些技术。
+
+数据库方面：Netflix 的数据存储方案中包含了 EV 缓存、Cassandra、CockroachDB 等多种数据库技术。
+
+消息传递与流媒体处理：为了实现高效的消息传递和流媒体服务，Netflix 采用了 Apache Kafka 和 Fink。
+
+视频存储解决方案：对于视频内容的存储，Netflix 使用了 S3 和 Open Connect。
+
+数据处理流程：在处理数据方面，Netflix 利用 Flink 和 Spark 完成数据处理任务，并通过 Tableau 工具进行数据可视化展示。此外，Redshift 被用于处理结构化的数据仓库信息。
+
+持续集成与持续部署（CI/CD）：在这一环节，Netflix 采用了包括 JIRA、Confluence、PagerDuty、Jenkins、Gradle、Chaos Monkey、Spinnaker、Altas 等在内的多种工具。
+
+https://x.com/alexxubyte/status/1733891233859473857?s=20
+
+### 59
+
+2023-12-11
+
+\#AI 开源项目推荐：TurnVoice
+
+这是一个将 YouTube 视频的声音重新翻译替换的开源项目，它号称可以：
+
+- 语音替换：去除人声轨道并重新组合以保留原始背景音频
+
+- 对发言人分类：替换视频中特定说话人的声音
+
+计划要增加但还没实现的功能：
+
+- TTS：支持 OpenAI、Azure 和 Elevenlabs
+
+- 翻译：支持 OpenAI、DeepL API 等
+
+- 语音克隆
+
+- 实时翻译
+
+- 等
+
+这个还是一个很新的项目，我在本地没能跑起来，但感觉挺有潜力的一个项目。
+
+https://github.com/KoljaB/TurnVoice
+
+### 60
+
+2023-12-11
+
+给 CSDN 《新程序员》写的一个稿子：《2023 年，我患上了 AI 焦虑症》，CSDN 公众号上刚发，我在自己博客上也发了一份。
+
+CSDN 公众号链接：https://mp.weixin.qq.com/s/LbRvR1VXpZoDilyyMGGeFw
+
+博客地址：https://baoyu.io/blog/ai/i-am-suffering-from-ai-anxiety-in-2023
+
+### 61
+
+2023-12-11
+
+推荐阅读：《探索编写提示词的乐趣：蒙特卡洛方法、木偶剧和笑声的融合 [译]》
+
+来自 Instacart 官方技术博客的分享，里面有不少写 Prompt 的技巧，比如 CoT、ReAct、「思维的空间」（Room for Thought）、 自我反思等等
+
+另外文章末尾也分享了很多有价值的 Prompt 相关的链接
+
+原文：https://tech.instacart.com/monte-carlo-puppetry-and-laughter-the-unexpected-joys-of-prompt-engineering-4b9272e0c4eb
+
+翻译：https://baoyu.io/translations/llm/monte-carlo-puppetry-and-laughter-the-unexpected-joys-of-prompt-engineering
+
+### 62
+
+2023-12-12
+
+用自然语言进行无反转图像编辑 InfEdit
+
+项目地址：https://sled-group.github.io/InfEdit/
+在线测试：http://sled-snowbird.eecs.umich.edu
+论文地址：https://arxiv.org/abs/2312.04965
+
+摘要
+
+我们推出了一种名为无反转编辑（InfEdit）的新方法。这种方法能在图像的语义和空间层面上做出细致且一致的编辑，既能适应复杂的修改需求，又能保持图像的完整性，避免了直接反转图像的步骤。通过大量实验，我们发现 InfEdit 在处理复杂的编辑任务时表现卓越，且工作流程高效流畅（在一台 A40 设备上不到 3 秒），显示出在实时应用方面的巨大潜力。
+
+方法介绍
+我们的目标是去除图像编辑中的反转过程。为此，我们引入了一种名为去噪扩散一致模型（DDCM）的采样策略，它能实现所谓的「虚拟反转」。DDCM 利用了扩散过程，这大幅提升了图像生成各阶段的一致性，确保了视觉内容在变换和精细化过程中的忠实度和速度。
+
+此外，我们还提出了统一注意力控制（UAC）机制。通过自然语言，它能实现无需手动调整的图像编辑，将交叉注意力和自我注意力控制融合进一个统一的框架中。
+
+### 63
+
+2023-12-12
 
 
 
+### 64
 
+2023-12-12
+
+
+### 65
+
+2023-12-12
+
+
+
+### 66
+
+2023-12-12
+
+
+
+### 67
+
+2023-12-12
+
+
+
+### 68
+
+2023-12-12
+
+
+
+### 69
+
+2023-12-12
+
+
+
+### 70
+
+2023-12-11
 
 

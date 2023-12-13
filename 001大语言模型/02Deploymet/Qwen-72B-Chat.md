@@ -11,14 +11,16 @@
 
 跑 API：
 
+./server -m /Users/Daglas/dalong.datasets/qwen72b-chat-q4_0.gguf -c 4096 --host 0.0.0.0
+
 ./server -m /Users/Daglas/dalong.datasets/qwen72b-chat-q4_0.gguf -c 8192 --host 0.0.0.0
 
-./server -m /Users/Daglas/dalong.datasets/qwen72b-chat-q4_0.gguf -c 4096 --host 0.0.0.0
+make -j && ./server -m /Users/Daglas/dalong.datasets/qwen72b-chat-q4_0.gguf -c 4096 --host 0.0.0.0
 
 
 跑 CLI：
 
-./main -m /Users/Daglas/dalong.datasets/qwen72b-chat-q4_0.gguf -n 8192 --color -i -cml -f prompts/chat-with-qwen.txt
+./main -m /Users/Daglas/dalong.datasets/qwen72b-chat-q4_0.gguf -n 4096 --color -i -cml -f prompts/chat-with-qwen.txt
 
 
 
@@ -124,7 +126,7 @@ python convert-hf-to-gguf.py --outfile /Users/Daglas/dalong.datasets/qwen72b-cha
 
 ./server -m /Users/Daglas/dalong.datasets/qwen72b-chat-q4_0.gguf -c 4096 --host 0.0.0.0
 
-./main -m /Users/Daglas/dalong.datasets/qwen72b-chat-q4_0.gguf -n 512 --color -i -cml -f prompts/chat-with-qwen.txt
+./main -m /Users/Daglas/dalong.datasets/qwen72b-chat-q4_0.gguf -n 4096 --color -i -cml -f prompts/chat-with-qwen.txt
 
 ###  做 API 接口
 
@@ -577,6 +579,116 @@ def completion():
         return Response(generate(), mimetype='text/event-stream', headers={"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "*"}) 
 
 ```
+
+### 问题汇总
+
+1、中文有部分乱码。
+
+2023-12-13
+
+前面几天找了半天没解决，今天总算有些起色。
+
+GPT：
+
+如果你的 HTTP 响应头部没有设置正确的字符集，那么可能会导致解码问题。你可以尝试在请求头中设置 Accept-Charset 为 UTF-8，告诉服务器你期望的响应字符集是 UTF-8。
+
+以下是修改后的代码：
+
+在这段代码中，我添加了一个名为 headers 的字典，其中包含一个 Accept-Charset 键，其值为 UTF-8。然后，我在每个 requests.request 调用中添加了 headers=headers，以将这些头部信息发送给服务器。这可能可以解决你的问题。
+
+修改后还是不想，后面又给了方案。
+
+如果你的数据源是 UTF-8 编码的 JSON，但在解码时仍然出现乱码，那么可能的原因是数据源在发送数据时没有正确地编码数据，或者在传输过程中数据被损坏。
+
+在这种情况下，你可以尝试使用 Python 的 codecs 库来解码数据。codecs 库提供了一种更强大的解码方法，可以处理一些复杂的编码问题。
+
+以下是修改后的代码：
+
+在这段代码中，我首先导入了 codecs 库。然后，我将 line.decode('utf-8') 替换为 codecs.decode(line, 'utf-8', 'ignore')。这将使用 codecs 库的解码方法来解码数据，而不是 Python 内置的解码方法。这可能可以解决你的问题。
+
+这版修改后明显乱码比之前的少了。
+
+备注：实验过，仅仅修改使用 codecs 库乱码还是多的，上面 2 个修改结合一起用才有效。
+
+
+
+
+```py
+import codecs
+
+@app.post("/v1/chat/completions")
+async def chat_completions(request: Request, body: ChatCompletionBody):
+    if (args.api_key != "" and request.headers["Authorization"].split()[1] != args.api_key):
+        raise HTTPException(status_code=403)
+    stream = body.stream
+    tokenize = body.tokenize
+    postData = make_postData(body.model_dump(), chat=True, stream=stream)
+
+    headers = {'Accept-Charset': 'UTF-8'}
+
+    promptToken = []
+    if (tokenize):
+        tokenData = requests.request("POST", urllib.parse.urljoin(args.llama_api, "/tokenize"), data=json.dumps({"content": postData["prompt"]}), headers=headers).json()
+        promptToken = tokenData["tokens"]
+
+    if (not stream):
+        data = requests.request("POST", urllib.parse.urljoin(args.llama_api, "/completion"), data=json.dumps(postData), headers=headers)
+        print(data.json())
+        resData = make_resData(data.json(), chat=True, promptToken=promptToken)
+        return JSONResponse(content=resData)
+    else:
+        def generate():
+            data = requests.request("POST", urllib.parse.urljoin(args.llama_api, "/completion"), data=json.dumps(postData), headers=headers, stream=True)
+            time_now = int(time.time())
+            resData = make_resData_stream({}, chat=True, time_now=time_now, start=True)
+            yield 'data: {}\n\n'.format(json.dumps(resData))
+            for line in data.iter_lines():
+                if line:
+                    decoded_line = codecs.decode(line, 'utf-8', 'ignore')
+                    resData = make_resData_stream(json.loads(decoded_line[6:]), chat=True, time_now=time_now)
+                    yield 'data: {}\n\n'.format(json.dumps(resData))
+        return StreamingResponse(generate(), media_type='text/event-stream')
+```
+
+使用codecs 库有效，中文乱码明显少了很多。但还存在很少量的乱码。请根据你的经验分析可能的原因，并给出解决方案
+
+如果使用 codecs 库后中文乱码问题得到了改善，但仍然存在少量乱码，那么可能的原因有以下几点：
+
+数据源在发送数据时没有正确地编码数据。这可能是因为数据源在处理某些特殊字符时出现了问题，或者数据源使用的编码方法与你的解码方法不完全匹配。
+
+在传输过程中数据被损坏。这可能是因为网络问题，或者是因为数据在传输过程中被修改。
+
+你的解码方法没有完全匹配数据源的编码方法。这可能是因为数据源使用了一种特殊的编码方法，或者是因为数据源在编码数据时使用了一些特殊的设置。
+
+针对这些可能的原因，你可以尝试以下解决方案：
+
+联系数据源的提供者，询问他们是否可以提供更详细的编码信息，或者是否可以调整他们的编码方法以更好地匹配你的解码方法。
+
+尝试使用其他的解码方法。Python 的 codecs 库提供了多种解码方法，你可以尝试使用其他的解码方法来看是否可以解决问题。
+
+如果可能，尝试使用其他的传输方法。例如，如果你现在是通过 HTTP 获取数据，你可以尝试使用 HTTPS 来看是否可以解决问题。
+
+如果数据源的编码方法是可配置的，你可以尝试调整编码设置来看是否可以解决问题。
+
+希望这些信息对你有所帮助。
+
+
+
+提供背景信息供参考：数据源的提供者的使用者是用 C++些的 http 接口，其接口的源代码如下：
+
+从你提供的 C++ 代码来看，这段代码使用了 httplib 库来处理 HTTP 请求和响应。在处理 POST 请求 "/v1/chat/completions" 时，它会解析请求体中的 JSON 数据，然后请求一个任务完成，并根据任务的结果设置响应的内容。
+
+如果你在接收这个接口的响应时遇到了乱码问题，那么可能的原因是这个接口在设置响应内容时没有正确地编码数据。在 C++ 中，字符串的编码通常是由程序员手动控制的，如果程序员没有正确地处理编码问题，那么可能会导致乱码。
+
+你可以尝试以下解决方案：
+
+联系这个接口的开发者，询问他们是否可以提供更详细的编码信息，或者是否可以调整他们的编码方法以更好地匹配你的解码方法。
+
+在你的代码中添加一些调试信息，例如打印出你接收到的原始数据，这可以帮助你更好地理解问题的原因。
+
+如果可能，尝试使用其他的 HTTP 客户端库来接收数据，看是否可以解决问题。不同的 HTTP 客户端库可能会有不同的处理方式，可能会有一些库可以更好地处理你的问题。
+
+希望这些信息对你有所帮助。
 
 
 
