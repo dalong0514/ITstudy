@@ -4,12 +4,23 @@
 
 下载模型文件：
 
+[ggerganov/whisper.cpp at main](https://huggingface.co/ggerganov/whisper.cpp/tree/main)
+
 [whisper-large-v3 · 模型库](https://www.modelscope.cn/models/AI-ModelScope/whisper-large-v3/summary)
 
 git lfs install
 git clone https://www.modelscope.cn/AI-ModelScope/whisper-large-v3.git
 
 ### 02. 操作记录
+
+./main -oj -l zh -m /Users/Daglas/dalong.datasets/ggml-large-v3.bin -f /Users/Daglas/Desktop/20200526电气培训.wav
+
+./main -oj -l auto -m /Users/Daglas/dalong.datasets/ggml-large-v3-q5_0.bin -f /Users/Daglas/Desktop/20200526电气培训.wav
+
+
+
+
+
 
 1、构建。
 

@@ -1,5 +1,14 @@
 ### 01. 使用
 
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/20200526电气培训.wav --device mps --transcript-path /Users/Daglas/Desktop/20200526电气培训.json
+
+
+
+
+/Users/Daglas/Desktop/20200526电气培训.wav
+
+
+
 
 2023-12-12
 
@@ -54,6 +63,10 @@ ffmpeg -i /Users/Daglas/Music/dalong.knowledgeAudio/2023001数智设计/20230713
 ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2023005AI编程课/20231210W7大作业指导分享.mkv -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Movies/dalong.KnowledgeVideo/2023005AI编程课/20231210W7大作业指导分享.wav
 
 
+ffmpeg -i /Users/Daglas/Desktop/20200526电气培训.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/20200526电气培训.wav
+
+
+
 
 2、切割音频（超过 2h 以上的）。
 
@@ -92,7 +105,7 @@ insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v
 
 insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json
 
-
+/Users/Daglas/Desktop/20200526电气培训.wav
 
 insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Movies/dalong.KnowledgeVideo/2023005AI编程课/20231210W7大作业指导分享.wav --device mps --transcript-path /Users/Daglas/Movies/dalong.KnowledgeVideo/2023005AI编程课/20231210W7大作业指导分享.json
 

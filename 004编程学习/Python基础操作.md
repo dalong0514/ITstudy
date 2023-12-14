@@ -1,5 +1,21 @@
 ## 0201. Python 基础
 
+
+
+2023-12-14
+
+conda 原来是可以初始化的。
+
+conda init
+
+这个命令会初始化 conda，并且在你的 shell 配置文件中添加必要的配置，这样 conda 命令就可以在任何新的终端会话中使用了。
+
+按理说，初始化后直接用 conda activate 可以激活虚拟环境的，但目前报错。只能用：
+
+source ~/miniconda3/bin/activate
+
+
+
 2023-11-28
 
 在Conda中创建一个新的虚拟环境非常简单。您只需要打开终端（在Windows上是命令提示符或Anaconda Prompt），然后使用以下命令：

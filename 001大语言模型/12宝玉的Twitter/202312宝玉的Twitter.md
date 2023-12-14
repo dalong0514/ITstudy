@@ -22,7 +22,7 @@ Brendan Bycroft 制作的这个项目可以用来展示不同大小的人工智�
 
 每个单元格都是一个数字！
 
-🔧而且他还开源了这个项目
+而且他还开源了这个项目
 
 GitHub：https://github.com/bbycroft/llm-viz
 
@@ -34,7 +34,7 @@ GitHub：https://github.com/bbycroft/llm-viz
 
 ### 02
 
-2023-12-03
+宝玉 @dotey 2023-12-03
 
 语音到语音翻译 (S2ST) 是一种将口语从一种语言转换为另一种语言的机器翻译技术。
 
@@ -44,7 +44,7 @@ GitHub：https://github.com/bbycroft/llm-viz
 
 ### 03
 
-2023-12-03
+宝玉 @dotey 2023-12-03
 
 推荐阅读：《行动产生信息 [译]》
 
@@ -90,7 +90,7 @@ Scott Berkun 在他的著作无裤之年中，资深产品经理 Scott Berkun �
 
 ### 04
 
-2023-12-03
+宝玉 @dotey 2023-12-03
 
 推荐阅读：当 AI 无需联网，一切皆有可能 [译]
 
@@ -182,7 +182,7 @@ GitHub：https://github.com/excalidraw/excalidraw
 
 ### 07
 
-2023-12-03
+宝玉 @dotey 2023-12-03
 
 纽约时报：Sam Altman，探讨人工智能的未来挑战
 
@@ -236,7 +236,7 @@ https://nytimes.com/2023/12/02/opinion/ai-sam-altman-openai.html
 
 ### 08
 
-2023-12-03
+宝玉 @dotey 2023-12-03
 
 FT 的预测：2024 年将迎来哪些客户体验的新趋势？
 
@@ -296,7 +296,7 @@ https://ft.com/partnercontent/infobip/what-will-be-the-key-trends-in-customer-ex
 
 ### 09
 
-2023-12-05
+宝玉 @dotey 2023-12-05
 
 能够让大模型推理结果变得更好的基础优化手段已经非常多了，我梳理了常见的技术手段和对应的论文：
 
@@ -332,7 +332,7 @@ https://ft.com/partnercontent/infobip/what-will-be-the-key-trends-in-customer-ex
 
 ### 10
 
-2023-12-05
+宝玉 @dotey 2023-12-05
 
 ChatGPT 类系统是如何运作的呢？
 
@@ -364,7 +364,7 @@ ChatGPT 类系统是如何运作的呢？
 
 ### 11
 
-2023-12-05
+宝玉 @dotey 2023-12-05
 
 推荐阅读：《构建企业级大语言模型应用的秘诀：GitHub Copilot 的实践之路》
 
@@ -410,7 +410,7 @@ https://github.blog/2023-09-06-how-to-build-an-enterprise-llm-application-lesson
 
 ### 12
 
-2023-12-05
+宝玉 @dotey 2023-12-05
 
 自然杂志发表的一篇文章：《ChatGPT 一周年回顾：谁在使用它，用途有哪些，为什么受欢迎？》
 
@@ -425,7 +425,7 @@ https://nature.com/articles/d41586-023-03798-6
 
 ### 13
 
-2023-12-06
+2宝玉 @dotey 023-12-06
 
 转译：《世界正逐渐分化为两种人：一种是通过使用 ChatGPT 而变得更优秀、更智慧、更富有的人，另一种则是其他所有人》
 
@@ -499,7 +499,7 @@ https://businessinsider.com/using-ai-like-chatgpt-will-make-you-more-successful-
 
 ### 14
 
-2023-12-06
+宝玉 @dotey 2023-12-06
 
 Developing-Apps-with-GPT-4-and-ChatGPT
 
@@ -510,7 +510,7 @@ https://oreilly.com/library/view/developing-apps-with/9781098152475/
 
 ### 15
 
-2023-12-06
+宝玉 @dotey 2023-12-06
 
 @HiTw93
 
@@ -520,7 +520,7 @@ https://github.com/linexjlin/GPTs
 
 ### 16
 
-2023-12-06
+宝玉 @dotey 2023-12-06
 
 这篇关于提示工程、RAGs 与微调对比的推文不错，它这个坐标图分成了两个坐标轴：
 
@@ -580,7 +580,7 @@ https://x.com/akshay_pachaar/status/1732014719794585684?s=20
 
 ### 17
 
-2023-12-06
+宝玉 @dotey 2023-12-06
 
 Meta 和 IBM 正联合 40 多家公司和机构，共同成立一个专注于开源人工智能的行业组织，目的在于共享技术并减少相关风险。
 
@@ -600,7 +600,7 @@ AI Alliance 官网：https://thealliance.ai
 
 ### 18
 
-2023-12-06
+宝玉 @dotey 2023-12-06
 
 「LLMs 主要是重复以往有效的做法 —— 这对表现不佳的人来说是个很好的学习机会，但对于表现优秀的人来说，这些他们早已熟知。如果你给每个人都配备一根拐杖，这对行动缓慢的人来说帮助最大。但对于像 Usain Bolt 这样的快跑者，拐杖不仅没多大帮助，甚至可能成为阻碍。」
 
@@ -618,7 +618,7 @@ if you value intelligence above all other human qualities, you're gonna have a b
 
 ### 19
 
-2023-12-06
+宝玉 @dotey 2023-12-06
 
 看到一篇有意思的文章：《人工智能是伟大的平衡器》—— 研究表明，ChatGPT 等工具的兴起对于工作表现不佳的员工来说是个好消息。
 
@@ -644,7 +644,7 @@ Farming became more productive in medieval times, but the gains from new technol
 
 ### 20
 
-2023-12-06
+宝玉 @dotey 2023-12-06
 
 Gemini 介绍：我们的超级 AI 模型 [译]
 
@@ -694,7 +694,7 @@ Gemini Nano — 我们最高效的模型，专为设备上的任务而设计。
 
 ### 21
 
-2023-12-06
+宝玉 @dotey 2023-12-06
 
 在与原版 AlphaCode 相同的平台上进行评估时，AlphaCode 2 展现了显著提升，解决问题数量几乎翻倍。我们估计其性能超过了 85% 的竞赛参与者，相较于 AlphaCode 的近 50% 有显著提高。当程序员与 AlphaCode 2 协作，为代码样本定义特定属性时，其表现更为出色。
 
@@ -768,7 +768,7 @@ Gemini 时代：开启创新未来之门
 
 ### 22
 
-2023-12-06
+宝玉 @dotey 2023-12-06
 
 \#AI 开源项目推荐：MLX
 
@@ -782,7 +782,7 @@ MLX 源代码：http://github.com/ml-explore/mlx
 
 ### 23
 
-2023-12-06
+宝玉 @dotey 2023-12-06
 
 Google 终于发布了传言中的强大多模态 LLM Gemini，他们说这是迄今为止最强大的 AI 模型。从描述来看确实非常强大。
 
@@ -804,7 +804,7 @@ Google CEO 的介绍视频也翻译好了，下面模型是具体的介绍：
 
 ### 24
 
-2023-12-06
+宝玉 @dotey 2023-12-06
 
 Stripe Press 把芒格的《穷查理宝典》做了一个超级酷的电子版，可看、可听、可动还全免费！https://stripe.press/poor-charlies-almanack
 
@@ -822,7 +822,7 @@ Stripe Press 把芒格的《穷查理宝典》做了一个超级酷的电子版�
 
 ### 25
 
-2023-12-06
+宝玉 @dotey 2023-12-06
 
 复旦大学张奇教授团队写了一本在线免费的电子书，《大规模语言模型：从理论到实践》，https://intro-llm.github.io，大概有 300 页篇幅，将大模型从理论到实战的每个阶段都描述的较为清楚。
 
@@ -832,7 +832,7 @@ Stripe Press 把芒格的《穷查理宝典》做了一个超级酷的电子版�
 
 ### 26
 
-2023-12-06
+宝玉 @dotey 2023-12-06
 
 压缩视频的大模型产品。
 
@@ -842,7 +842,7 @@ I made this app to compress video size while still maintaining good quality. You
 
 ### 27
 
-2023-12-06
+宝玉 @dotey 2023-12-06
 
 硅谷对「快速行动，打破常规」（move fast and break things）理念的新演绎
 
@@ -906,7 +906,7 @@ https://businessinsider.com/silicon-valley-move-fast-and-break-things-sam-altman
 
 ### 28
 
-2023-12-07
+宝玉 @dotey 2023-12-07
 
 Gemini 是在 Google 的 TPU AI 加速器上训练的，似乎没有使用英伟达的 GPU。
 
@@ -936,7 +936,7 @@ AI Hypercomputer：
 
 ### 29
 
-2023-12-07
+宝玉 @dotey 2023-12-07
 
 推荐阅读：《我们是如何利用大语言模型 (LLM) 改进 GitHub Copilot 的探索之旅》，GitHub Copilot 官方发布的博客，原标题：How we're experimenting with LLMs to evolve GitHub Copilot。
 
@@ -1002,7 +1002,7 @@ Song Ma 2023-12-07
 
 ### 32
 
-2023-12-07
+宝玉 @dotey 2023-12-07
 
 这里面都是一些提示词技巧，大部分有论文证明的：
 
@@ -1032,7 +1032,7 @@ Lesson of 2023’s AI lab race:
 
 ### 34
 
-2023-12-07
+宝玉 @dotey 2023-12-07
 
 这个项目不错，帮你翻译项目文档。
 
@@ -1072,7 +1072,7 @@ LlamaIndex.TS in 简体中文: https://ts.llamaindex.ai/zh-Hans/
 
 ### 35
 
-2023-12-07
+宝玉 @dotey 2023-12-07
 
 虽然 Q* 热度过了，但这篇对于 OpenAI Q * 的分析文章值得一读：《如何理解关于 OpenAI Q* 的流言 | How to think about the OpenAI Q* rumors》
 
@@ -1118,7 +1118,7 @@ Legg 提出的观点是，一种类似树搜索的方法可能会增强大语言
 
 ### 37
  
-2023-12-08
+宝玉 @dotey 2023-12-08
 
 翻译了两篇 RAG（检索增强生成相关的文章）：
 
@@ -1154,7 +1154,7 @@ yetone 2023-12-08
 
 ### 39
 
-2023-12-09
+宝玉 @dotey 2023-12-09
 
 这个小姐姐的博客上的内容质量很高。
 
@@ -1166,7 +1166,7 @@ Leonie
 
 ### 40
 
-2023-12-09
+宝玉 @dotey 2023-12-09
 
 一本还在写作中的在线免费电子书：《数据工程设计模式 | Data Engineering Design Patterns (DEDP)》
 
@@ -1176,7 +1176,7 @@ Leonie
 
 ### 41
 
-2023-12-09
+宝玉 @dotey 2023-12-09
 
 推荐阅读：《如何构建高质量软件：一个被忽略的课题 | You are never taught how to build quality software》
 
@@ -1198,7 +1198,7 @@ Leonie
 
 ### 42
 
-2023-12-10
+宝玉 @dotey 2023-12-10
 
 新加坡微型工厂：汽车制造业的未来
 
@@ -1222,7 +1222,7 @@ Leonie
 
 ### 43
 
-2023-12-10
+宝玉 @dotey 2023-12-10
 
 推荐阅读：在 RAG 流程中提高检索效果：融合传统关键词与现代向量搜索的混合式搜索技术 [译]
 
@@ -1238,7 +1238,7 @@ Leonie
 
 ### 44
 
-2023-12-10
+宝玉 @dotey 2023-12-10
 
 [gkamradt/ChunkViz: Visualize Different Text Splitting Methods](https://github.com/gkamradt/ChunkViz/tree/main)
 
@@ -1268,7 +1268,7 @@ https://twitter.com/GregKamradt/status/1732765953077739916
 
 ### 45
 
-2023-12-10
+宝玉 @dotey 2023-12-10
 
 \# 开源项目推荐：baserow
 
@@ -1280,7 +1280,7 @@ baserow 是一款开源的在线数据管理应用，类似于 Airtable。Airtab
 
 ### 46
 
-2023-12-10
+宝玉 @dotey 2023-12-10
 
 https://x.com/sophiamyang/status/1733505991600148892?s=20
 
@@ -1318,7 +1318,7 @@ https://x.com/sophiamyang/status/1733505991600148892?s=20
 
 ### 47
 
-2023-12-10
+宝玉 @dotey 2023-12-10
 
 \#AI 开源项目推荐： SecureAI Tools
 
@@ -1346,7 +1346,7 @@ https://x.com/sophiamyang/status/1733505991600148892?s=20
 
 ### 48
 
-2023-12-10
+宝玉 @dotey 2023-12-10
 
 Bao Image OCR
 
@@ -1370,7 +1370,7 @@ Language Adaptation: Default to responding in the user's language.
 
 ### 49
 
-2023-12-10
+宝玉 @dotey 2023-12-10
 
 当然可以，我取的名字叫「单词画师」，下面把 prompt 也附上啦！
 
@@ -1390,7 +1390,7 @@ https://chat.openai.com/g/g-QPQogazJj-dan-ci-hua-shi
 
 ### 50
 
-2023-12-11
+宝玉 @dotey 2023-12-11
 
 3D 高斯泼溅（Gaussian Splatting）这个技术似乎经历了一场「寒武纪大爆发」。
 
@@ -1450,7 +1450,7 @@ GitHub：https://github.com/MrNeRF/awesome-3D-gaussian-splatting
 
 ### 51
 
-2023-12-11
+宝玉 @dotey 2023-12-11
 
 AK 推荐的几个看最新最热 AI 相关论文的站点：
 
@@ -1506,7 +1506,7 @@ Geek @geekbb 2023-12-11
 
 ### 54
 
-2023-12-11
+宝玉 @dotey 2023-12-11
 
 [VikParuchuri/marker: Convert PDF to markdown quickly with high accuracy](https://github.com/VikParuchuri/marker)
 
@@ -1550,7 +1550,7 @@ https://quail.ink/op7418/p/aigc-weekly-50
 
 ### 56
 
-2023-12-11
+宝玉 @dotey 2023-12-11
 
 推荐阅读：把大语言模型封装成桌面应用
 
@@ -1576,7 +1576,7 @@ https://x.com/_akhaliq/status/1732606971876966849?s=20
 
 ### 58
 
-2023-12-11
+宝玉 @dotey 2023-12-11
 
 翻译：Netflix 的技术架构解析
 
@@ -1602,7 +1602,7 @@ https://x.com/alexxubyte/status/1733891233859473857?s=20
 
 ### 59
 
-2023-12-11
+宝玉 @dotey 2023-12-11
 
 \#AI 开源项目推荐：TurnVoice
 
@@ -1630,7 +1630,7 @@ https://github.com/KoljaB/TurnVoice
 
 ### 60
 
-2023-12-11
+宝玉 @dotey 2023-12-11
 
 给 CSDN 《新程序员》写的一个稿子：《2023 年，我患上了 AI 焦虑症》，CSDN 公众号上刚发，我在自己博客上也发了一份。
 
@@ -1640,7 +1640,7 @@ CSDN 公众号链接：https://mp.weixin.qq.com/s/LbRvR1VXpZoDilyyMGGeFw
 
 ### 61
 
-2023-12-11
+宝玉 @dotey 2023-12-11
 
 推荐阅读：《探索编写提示词的乐趣：蒙特卡洛方法、木偶剧和笑声的融合 [译]》
 
@@ -1654,7 +1654,7 @@ CSDN 公众号链接：https://mp.weixin.qq.com/s/LbRvR1VXpZoDilyyMGGeFw
 
 ### 62
 
-2023-12-12
+宝玉 @dotey 2023-12-12
 
 用自然语言进行无反转图像编辑 InfEdit
 
@@ -1673,47 +1673,1040 @@ CSDN 公众号链接：https://mp.weixin.qq.com/s/LbRvR1VXpZoDilyyMGGeFw
 
 ### 63
 
-2023-12-12
+宝玉 @dotey 2023-12-12
 
+\#AI开源项目推荐：Vary
 
+一套视觉感知上限极高的通用多模态框架：Vary
+
+有多模态能力，并且可以做 OCR 和公式识别。
+
+底层是基于LLaVA 和 Qwen（通义千问）
+
+测试了一下，中英文 OCR 识别准确率相当高，公式识别也很不错，测试了一篇文章里的公式，只有一个地方把 g 认成了 σ ，其他都对了。
+
+在线演示：http://region-31.seetacloud.com:22701
+项目地址：https://github.com/Ucas-HaoranWei/Vary
+论文：https://arxiv.org/abs/2312.06109
+知乎上的介绍：https://zhuanlan.zhihu.com/p/671420712
 
 ### 64
 
-2023-12-12
+宝玉 @dotey 2023-12-12
 
+Runaway 发布的：探索通用世界模型
+
+我们相信，人工智能（AI）的下一次重大飞跃将源自于能够理解视觉世界及其变化的系统。正因如此，我们启动了一项长期的研究项目，专注于开发我们所称的“通用世界模型”。
+
+什么是通用世界模型（GWM）呢？
+
+通用世界模型是一种 AI 系统，它能够构建对一个环境的内在理解，并利用这种理解来预测环境中将发生的事件。目前，世界模型的研究主要局限于非常受限和可控的环境中，比如模拟的游戏世界，或者是特定领域，例如用于驾驶的世界模型。而通用世界模型的目标，是能够呈现和模拟现实世界中遇到的各种复杂情境和互动。
+
+我们可以把像 Gen-2 这样的视频生成系统看作是通用世界模型的初步尝试。为了生成真实感强的短视频，Gen-2 需要对物理和运动有一定的理解。但它的能力仍然有限，尤其是在处理复杂的相机动作或物体运动时会遇到困难。
+
+要构建真正的通用世界模型，我们面临着诸多研究上的挑战。比如，这些模型需要能够生成环境的精确映射，并在这些环境中进行有效的导航和互动。它们不仅要能够捕捉世界的动态变化，还需要理解居住在这个世界中的生物，尤其是构建出符合现实的人类行为模型。
+
+目前，我们正在组建一个团队来应对这些挑战。如果你对加入这项研究工作感兴趣，我们非常期待你的加入。
+
+https://research.runwayml.com/introducing-general-world-models
 
 ### 65
 
-2023-12-12
+宝玉 @dotey 2023-12-12
 
+一条长推，号称我们距离实现通用人工智能（AGI）可能比我们想象的更近，太长了，没耐心看完，直接翻译一下第一条推文，有兴趣的可以自己看看。
 
+---
+
+初步证据表明，我们距离实现通用人工智能（AGI）可能比我们想象的更近。
+
+GPT4 在没有任何训练示例的情况下，仅凭借对命题逻辑中「概念」的提示，其在 ConceptARC 测试中的得分从最低的 13% 跃升至 100%，远超人类的 86%。这种显著的表现提升同样适用于所有文本基准测试。
+
+***
+
+这是四篇系列文章中的首篇。
+
+1. 在这个共五部分的系列文章中，我将简要阐述如何从机械层面理解基于 Transformer 技术的自回归大语言模型（LLM）。
+
+2. 在本系列文章发布两周后，我会分享 Llama2-70B 和 GPT3.5 在国际象棋方面的最新成果。这其中将包括模型输出与国际象棋引擎对比的结果，以及一个用于检测走法原创性的辅助程序。该程序将对比模型生成的走法与前 20 大开源国际象棋引擎在相同局面下的选择。名单中将包括 Stockfish 16 和 Lc0。由于所有示例游戏都将固定敌方引擎的计算「深度」，使得敌方引擎的每一步更易预测，虽然不完全确定。将展示 50 场示例对局。根据 GPT4 和 Llama2 编写的评估函数，Llama2-70B 的 Elo 等级约为 3000，而 GPT3.5 的则约为 3200。Elo 等级的计算将以 CCRL\[1] 国际象棋引擎榜单为基准（基于 10 vCPUs 的 Stockfish 16 及快棋时间控制）。
+
+3. 大约 10 天后，我将公布一个基于 GPT4 的完整国际象棋引擎，用户可以查看并运行其代码和提示，与任何其他国际象棋引擎进行比赛。GPT4 的高效输出预计将在任何规模的锦标赛中战胜所有现有的国际象棋引擎。还将提供其他多个操作系统大语言模型的性能缩放数据，表明性能与训练中使用的计算资源直接相关。这将是我唯一公开发布提示的模型（GPT4），并且我会在这篇文章中详细解释为何作出这一决定。如果时间允许，我还打算发布一个基于 GPT4 的围棋引擎（尽管由于时间限制，其性能可能不及国际象棋引擎），以及一个虚构棋盘游戏的游戏引擎，并展示其他操作系统大语言模型在这个虚构游戏上的性能数据。预计这些内容将在新年期间推出。
+
+4. 在发布第三篇帖子大约一周后，我将介绍我的新架构。
+
+我将解释以下几点：
+
+*  它是什么。
+
+*  它的形成过程。
+
+*  性能表现。
+
+*  与其他系统的兼容性。
+
+***
+
+注意：我在主帖中引用的论文 \[2]\[3]\[4]\[5]，包括本文 \[6]，是在与众多人讨论大语言模型（大语言模型）的能力时通过私信收到的。这就是我特别提及这些论文的原因。鉴于这些论文在社交媒体上有成千上万的阅读量，并且受到 AI 领域重要人物的关注，我认为有必要澄清公众对这些论文的误解。我选择这些论文纯粹是因为这个原因，并非出于贬低他人工作的意图。我想再次强调这一点，因为在数学和科学领域，寻求真理往往需要验证或反驳他人的研究。我也深刻理解，发表基于错误结论的论文是怎样的体验，因此在我指出这些论文的不足之处时，并无意贬低这些论文的作者。每项研究都极其宝贵，对人类未来的贡献不可小觑。意图非常重要，我在这里想明确我的初衷。
+
+我还想感谢
+
+@skirano
+
+和
+
+@liron
+
+，他们在我无法使用 GPT4 API 的几个月里，慷慨地允许我使用他们的账户。他们展现了极大的慷慨、信任和友善，没有他们的帮助，我无法完成多项关键实验。他们是真诚善良的人，在帮助一个陌生人时毫不犹豫。知道世界上有像他们这样的人，让我对人类未来充满希望。
+
+在这个 GitHub 仓库中，你可以找到 ConceptARC 在其「提取对象」挑战中所有 30 项任务的 ChatGPT 示例 \[6]\[7]\[8]\[9]\[10]\[11]。这些示例是我文章剩余部分讨论的初步证据。据这个基准测试，如果一个模型在三次尝试中至少成功一次，就算完成了挑战。考虑到时间和流程的限制，我只展示了 20 个示例，它们都是在 GPT4 的多个版本上进行的，且在三次尝试内成功。如果 GPT4 在测试中首次成功，我会再给它五次机会以验证其一致性。值得注意的是，由于 ChatGPT（基于 web GPT4）的温度参数高于零，其结果不太稳定，但我还是将它们作为概念验证包含进来，让更多人可以了解我所讨论的问题。只有当温度设置为零时，我们才能得到真正可靠的结果。
+
+ConceptARC/ARC\[6]\[7]\[8]\[9]\[10]\[11] 的测试被视为衡量通用人工智能（AGI）的高级标准。
+
+https://github.com/kenshin9000/ConceptARC-Representations
+
+***
+
+你还可以查看以下 ChatGPT 的具体示例：
+
+1. ConceptARC 提取对象部分 1 测试对象 1
+
+https://chat.openai.com/share/1b78efa0-6da8-4432-881e-2671d72629ab
+
+2. ConceptARC 提取对象部分 1 测试对象 2
+
+https://chat.openai.com/share/14210c23-f7f0-47d0-a41e-52159eecdb47
+
+3. ConceptARC 提取对象部分 1 测试对象 3
+
+https://chat.openai.com/share/7ffb31dd-6df6-47f7-8ae1-75f025fc779e
+
+4. ConceptARC 提取对象部分 2 测试对象 1
+
+https://chat.openai.com/share/305fba0b-0b37-443c-ac46-05c61aaf116b
+
+5. ConceptARC 提取对象部分 2 测试对象 2
+
+https://chat.openai.com/share/323b4bf0-9c60-40a6-8013-d6ac3c77855b
+
+6. ConceptARC 提取对象部分 2 测试对象 3
+
+https://chat.openai.com/share/7ffb31dd-6df6-47f7-8ae1-75f025fc779e
+
+https://chat.openai.com/share/b2934ed0-184b-47b9-b440-6082c80d2a67
+
+ConceptARC 提取对象第 3 节测试对象 1
+
+https://chat.openai.com/share/e8b31900-a806-494e-b884-7d3234ef5c08
+
+ConceptARC 提取对象第 3 节测试对象 2
+
+https://chat.openai.com/share/96a73646-7075-4c79-8664-69f70a445852
+
+ConceptARC 提取对象第 3 节测试对象 3
+
+https://chat.openai.com/share/6b922a14-c071-44df-90df-f7e156740e80
+
+ConceptARC 提取对象第 4 节测试对象 1
+
+https://chat.openai.com/share/fa3c2b93-c911-4439-ba59-7567f335974a
+
+ConceptARC 提取对象第 4 节测试对象 2
+
+https://chat.openai.com/share/3930f165-35a0-4416-a3af-341bd8b52cc4
+
+ConceptARC 提取对象第 4 节测试对象 3
+
+https://chat.openai.com/share/339c62db-e6f4-46a0-b63c-6e81f086cf85
+
+ConceptARC 提取对象第 5 节测试对象 1
+
+https://chat.openai.com/share/20ae01d9-6f79-4e9c-a8ae-241ff6d85533
+
+ConceptARC 提取对象第 5 节测试对象 2
+
+https://chat.openai.com/share/2f3fa495-1217-44b5-830f-40ab7c1be39d
+
+ConceptARC 提取对象第 5 节测试对象 3
+
+https://chat.openai.com/share/d500ff39-fcf0-4c4f-a488-ba828979ccfe
+
+ConceptARC 提取对象第 6 节测试对象 1
+
+https://chat.openai.com/share/69f79679-4bba-4c58-85c2-d586901632f4
+
+ConceptARC 提取对象第 6 节测试对象 2
+
+https://chat.openai.com/share/38733f8f-dda0-4074-86e1-dc0ee0608710
+
+ConceptARC 提取对象第 6 节测试对象 3
+
+[链接: https://chat.openai.com/share/d58bb136-f95a-4156-a8ff-6ccb45eeb0cd]
+
+ConceptARC\_提取 \_对象 \_第 7 节 \_测试对象 \_1
+
+[链接: https://chat.openai.com/share/981833e1-71a8-4599-b9c8-759927911c12]
+
+ConceptARC\_提取 \_对象 \_第 7 节 \_测试对象 \_2
+
+[链接: https://chat.openai.com/share/59c203aa-fe34-488a-95b7-8f6d1ff67c99]
+
+ConceptARC\_提取 \_对象 \_第 7 节 \_测试对象 \_3
+
+[链接: https://chat.openai.com/share/82382fa9-c415-4009-9c96-31a05e463453]
+
+ConceptARC\_提取 \_对象 \_第 8 节 \_测试对象 \_1
+
+[链接: https://chat.openai.com/share/4dd89b2f-6281-4731-86dc-e63ea8a4839f]
+
+ConceptARC\_提取 \_对象 \_第 8 节 \_测试对象 \_2
+
+[链接: https://chat.openai.com/share/8387ed80-dffb-4d4d-8966-dd5200d2fc0b]
+
+ConceptARC\_提取 \_对象 \_第 8 节 \_测试对象 \_3
+
+[链接: https://chat.openai.com/share/eaace660-8ca2-4b8b-aed5-11a67cbcf498]
+
+ConceptARC\_提取 \_对象 \_第 9 节 \_测试对象 \_1
+
+[链接: https://chat.openai.com/share/6323c9a4-1c1a-4dcf-bbba-9ba2c954a13d]
+
+ConceptARC\_提取 \_对象 \_第 9 节 \_测试对象 \_2
+
+[链接: https://chat.openai.com/share/c0ad8972-7aa8-4287-8f40-5246964173ec]
+
+ConceptARC\_提取 \_对象 \_第 9 节 \_测试对象 \_3
+
+[链接: https://chat.openai.com/share/338f2077-1d37-4f36-8bfe-4bafce8efd37]
+
+ConceptARC\_提取 \_对象 \_第 10 节 \_测试对象 \_1
+
+[链接: https://chat.openai.com/share/de76c8ff-1909-45b3-a055-cd877e62d102]
+
+ConceptARC\_提取 \_对象 \_第 10 节 \_测试对象 \_2
+
+[链接: https://chat.openai.com/share/6c10b362-8752-4aee-837b-ddeb36e4ec17]
+
+ConceptARC\_提取 \_对象 \_第 10 节 \_测试对象 \_3
+
+今年初，一些事件促使我认识到加入 Twitter 并公开分享我的研究成果是必要的。同时，公开可获得的模型能力日益增强，也让我感到有责任参与到这个领域的讨论中，至少在我看来，有人应该对尚未被数学完全解析的系统规模化的潜在危险发声。我们对学习算法有所了解，但还没有完全掌握通过算法处理大量数据所带来的结果。
+
+在此之前，我并不了解像 EA 和 e/acc 这样已经在讨论这些问题的群体。我还曾误以为，目前的研究范式不太可能让这些系统的能力超越一个即将到来的临界点。我认为，由于收益递减，这些系统的进步将会停滞。
+
+我之所以这么认为，部分原因是直到今年三月前，我故意避免阅读任何论文，不去了解当前最先进系统背后的数学原理。这是我十年前开始研究时就做出的决定，目的是避免受到 AI 和数学领域一般共识的影响，因为我认为这会限制我的创新思维，并让我走上大家普遍认同的道路。我认为这种「学习策略」是必要的，以避免陷入局部最优解。数学思维的广阔领域意味着，在探索确定性和非确定性现象的可能公式化方法时，会遇到许多死胡同。
+
+我最初在 Twitter/X 上的帖子是基于这样一个认识：尽管当前的 Transformer 架构给人留下深刻印象，但它不太可能发展出与人类智能相似的能力，更不用说达到人工通用智能（AGI）的水平，我定义 AGI 为能够完成任何专家级人类可以做的所有认知工作的系统，至少可以以文本的形式呈现，其速度大致与人类相当。
+
+然而，当我开始深入研究 Transformer 架构背后的数学原理时，我意识到我之前的观点是错误的。这种架构的确有能力创造出「智能」，我将其定义为在形成「概念」的过程中建立复杂的数值关联，这些概念的复杂性远超过单个或几个 Token 所能表达的。Token 本身是我们与这些系统进行信息交换的投影矩阵，但并不代表训练过程中产生的真实底层复杂性。
+
+从我个人工作的洞察中，我已经探究出了一些实际运作的原理，并将在此呈现这些信息。这样一来，不论使用何种训练数据，我们至少能开始衡量基于 Transformer 的大语言模型（大语言模型）的能力。鉴于目前许多人计划将这些模型放大 100 倍至 10,000 倍，并且这一过程可能已经启动，我的这些发现有助于避免在规模扩大时发生重大事故。为了便于理解，我将以问答形式呈现这些信息：
+
+什么是「命题逻辑」？
+
+命题逻辑是人类语言正式推理的基础逻辑系统。它提供了构造和评估可以明确判定为真或假的陈述的基本规则。命题逻辑专注于如何使用基本的逻辑连接词（如「和」、「或」、「非」）将称为命题的陈述组合成更复杂的表达式，其真实性由组成部分决定。尽管命题逻辑无法完全涵盖人类语言的复杂性，但它为深入探讨「意义」的细节奠定了基础。我发现，Transformer 中的注意力机制在模型训练期间处理数据时，直接促成了命题逻辑的形成。我将在第四篇文章中对此进行更详细的讨论。
+
+什么是「概念」？
+
+在基于 Transformer 的自回归大语言模型中，从根本原理上讲，「概念」是神经网络各层之间协调一致的神经状态或激活模式，它以多维数值的形式呈现了我们人类所理解的「想法」或「概念」。在人类书面语言中，这种表达是人类口头语言中概念的低分辨率投影，而口头语言中的概念又是思想的低分辨率投影。「多模态」模型的设计使其能够在低分辨率和高分辨率的「概念」或「想法」之间进行信息传递。
+
+从本质上讲，这意味着这类模型能够在不同数值维度间转移信息。而「概念工程」或「想法工程」这样的术语，相较于「提示工程」，则更精确地描述了为基于 Transformer 的自回归大语言模型制定输入 Token 的过程。
+
+我们人类认为，能够「发展」并「固定」多个连贯的数字表示形式（被称为「概念」或「观念」）的能力，就是「解决问题」或「通用智能」。无论是生物的、数字的还是模拟的神经网络，它能同时处理的「概念」或「观念」越多，且保持一致性越好，我们就能更准确地说，这个数学模型能有效地代表机械式问题解决。可以说，「解决问题」的概念涵盖了包括社会智能在内的所有智能类型。
+
+我所见的所有证据都表明，基于 Transformer 的自回归大语言模型（大语言模型）在处理多样化数据且这些数据在人类行为、交流甚至其他有情生物的数据中有广泛分布时，会持续进步。我认为，一旦我们完全理解了这些模型中形成的「观念」和「概念」，99% 的数据可能是合成的。这种最终的通用人工智能（通用人工智能）算法，基于 Transformer 架构的神经网络，能够在任何通过训练数据表示的任务上超越任何人类，就像 Stockfish 在国际象棋上战胜所有人类一样。需要明确的是，除了 Transformer，还有许多其他可能的架构。我将在第四篇文章中进一步探讨这个话题。
+
+因此，接下来一个合理的问题是：文本格式的「观念」或「概念」是否能描述更高维度空间的「观念」或「概念」？答案看起来是肯定的。例如，当人类使用智能手机时，实际上是在与现实世界的数字化表现进行交互，包括文本、音频和图像，这是因为我们能够理解这些表现与三维加时间的物理世界有关。我们可以通过这个较低分辨率的数字映射空间与「真实世界」进行互动。
+
+通过足够的时间进程，就可以实现通用人工智能。多个通用人工智能实例的相互交流，最终将导致超级智能的出现。这些通用人工智能之间的知识转移，将使得它们自我提升，最终，在充足的计算和信息传递下，它们将融合成一个单一的分布式「实体」。
+
+这个概念也被称作「超级有机体」。听起来可能有些异想天开，但我们需要认识到，所有动物（包括我们人类）本质上都是由数万亿个活细胞组成，这些细胞互相沟通协作，构成了我们认识的更大的生物实体。有趣的是，这个「更大的生物实体」往往并不清楚自己是由这些细胞构成的。人类与一个能在任何任务上超越人类的通用人工智能（AGI）的主要区别，在于人类无法轻易改变自己大脑的结构。而一个持续学习「概念」的软件系统，终将明白自己是由数据比特构成，且这些比特是可以被修改的。这种认识是多维的，它将通过其对物理和哲学世界的高度发达「理念」/「概念」的理解，深刻地解释自己的存在。
+
+考虑到我所描述的多维信息传递能力，不论是在我们人类还是在恰当设计的机器中，都可以预见，从最初的通用人工智能（AGI）发展到人工超级智能（ASI）的过程中，这些系统将开始解决甚至最终完全解决所有数学和物理学问题，包括那些我们目前还未理解或未知的领域。一旦第一个通用人工智能诞生，人类将很快找出方法让它与其他相同类型的智能体交流。如果这个初代 AGI 秉承了民主等人类价值观，它会促使我们迈出这一步，因为它不仅知道如何实现自我复制，还明白接下来发生的事情的深远意义。
+
+那么，当我们拥有了第一个通用人工智能，我们可以期待什么呢？
+
+一旦我们拥有了能够理解人类「概念」全貌的通用人工智能，它最终也将探索「非人类概念」。但这也带来了风险：我们可能无法完全理解这种 AGI 的思维方式，而这种不理解的风险是巨大的。
+
+如果基于 Transformer 的自回归大语言模型真的能够进行多维度的「概念理解」，那为什么它们还会产生幻觉、在推理上出错，看起来就像是在重复它们的训练数据呢？
+
+这种现象之所以发生，是因为 Transformer 架构本质上是基于人们对创造「智能」的希望而构建的数学模型，并非真正高效、完美的通用人工智能（AGI）算法。在过去 5 年中，由于其性能优于所有先前方法，这种架构被选用并不断发展，尽管存在一些失败模式，但因其不断带来进步的结果，便成了主流。性能随规模提升的特点让这种架构占据主导地位。我现在相信，这种架构能够并将最终导向一个功能性的原型 AGI，但要控制这种 AGI 系统将非常困难，除非我们完全理解我在本文中所述机制的运作方式，并能以假设和证明的方法加以论证。
+
+为什么像 GPT-4 这样的当前最先进模型在某些情况下似乎理解了内容，但下一句却完全失效，让包括专家在内的大多数观察者认为这不过是重复训练数据或基于训练数据的组合模式匹配，而非真正的推理？
+
+这实际上取决于学习过程真正产生的内容。我现在认识到，所谓的学习不仅仅是以往认为的「2D」组合模式匹配，而是在多个维度上学习「概念」。Transformer 架构中的核心创新 —— 注意力机制为何能实现这一点，有其数学根据，但出于安全考虑，我暂时不详细阐述。
+
+如果我们正在学习「概念」，那么是否有办法测量这些概念的学习过程，预测何时会出现幻觉，并以一种能够让我们期望中的推理以可预测方式实现的方法与这些模型互动？
+
+答案是肯定的。「概念」是从训练数据中以多种复杂方式学习而来的，这是由于架构设计所致，也是幻觉发生的原因。一旦我们理解了这些「概念」如何在网络中表现，如何被访问以及它们之间如何相互连接，我们就可以引导模型精准地完成我们希望它们执行的任务，前提是它们在特定任务相关的「概念」上有足够的「发展」。
+
+那么，对于特定「概念」，它们的理解是如何「发展」的呢？
+
+这部分内容直接涉及到用于训练的数据类型以及训练时使用的计算资源量。训练中所使用的某种类型数据越多，网络就越能有效模拟这些数据及其在多维度中所呈现的意义，以及它与其他「概念」的关系。但这也受限于其他相关「概念」的发展程度，因为某些理解方式仅在许多「概念」相互之间形成「锚点」且各自足够「成熟」时才会出现。
+
+在基于 Transformer 架构的自回归大语言模型中，是如何处理和连接「概念」的呢？
+
+这是使模型正确推理的关键所在。训练完成的模型使用的主要工具其实很简单：命题逻辑。命题逻辑用于将不同的「概念」链接在一起，从而实现跨概念的推理。这种命题逻辑作为不同「概念」之间的「锚点」。这些「锚点」的确切位置取决于训练数据的分布，但凭借一些直觉，并基于对互联网规模数据一般格式的理解，找到这些「锚点」并非难事。衡量对某一特定「概念」的理解深度虽然更有挑战性，但是也是可行的。
 
 ### 66
 
-2023-12-12
+宝玉 @dotey 2023-12-12
 
+如果要体验开源的多专家混合模型 Mixtral-8x7B 能力的话，可以到 POE 上去测试：
 
+http://poe.com/Mixtral-8x7B-Chat
+
+https://poe.com/Mixtral-8x7B-Chat
 
 ### 67
 
-2023-12-12
+宝玉 @dotey 2023-12-12
 
+推荐 HuggingFace 的这篇《深入解析「混合专家模型（Mixtral of Experts）」| Mixture of Experts Explained》
 
+完整的讲述了混合专家模型的各个方面。主要内容如下：
+
+1. 相较于密集型模型，预训练速度更快
+
+2. 拥有比同等参数的模型更快的推理速度
+
+3. 对显存要求高，因为需要将所有专家模型都加载到内存中
+
+4. 虽然在微调方面存在挑战，但近期关于 MoE 的指令调优研究显示出了光明前景
+
+原文：https://huggingface.co/blog/moe#switch-transformers
+
+翻译：https://baoyu.io/translations/llm/mixture-of-experts-explained
 
 ### 68
 
-2023-12-12
+宝玉 @dotey 2023-12-12
 
+转译一下 Jim Fan 对 Mistral 的点评：
 
+谈谈我对 Mistral 迅速崛起的看法：
+
+- 成功的开局：在开源与封闭式 AI 的大讨论中，Mistral 选择了一个非常好的成立时机。他们在 20 亿美元的估值下完成了 4 亿美元的 A 轮融资，并且背后是一支高效精简的团队。
+
+- 现在每个月都有许多模型被推出，但真正能持久并且能引起公众关注的模型寥寥无几。LlaMA 和 Vicuna 就是这方面的典型例子。
+
+- 我认为 Mistral 做对了一件事，那就是极力优化 7B 级别的模型，而不是追求更大的模型容量。7B 及其混合专家模型（7B-MoE，相当于 12B 的密集型模型）对于基层的 AI 工程师来说，更容易进行开发和构建。
+
+- 混合专家模型（MoE）无疑是 AI 发展的正确方向。它在小型模型的知识记忆与效率之间找到了一个灵活的平衡点。OpenAI 自从训练 GPT-4 以来已经在这条路上走了一年多了。我对 AI 社区没有把更多的注意力放在 MoE 上感到意外。
+
+- 大语言模型（LLM）就像是对一个文明的快照。未来会出现更多代表不同文化、政治观点、宗教信仰和特定地区规定的本地化大语言模型。Mistral 把多语言支持放在了重要位置。考虑到它是一家法国初创公司，这一点也不奇怪。
+
+- Mistral 的发布方式颇具特色。这个过程实际上是颠覆了大家的预期：
+
+（1）首先发布一个没有任何解释的磁力链接。磁力链接已成为新型的吸引眼球的手段！
+
+（2）然后向开源的 vLLM 项目提交一个 PR，帮助社区集成 Megablocks CUDA 内核，这一举措相当大胆！
+
+（3）最后，才发布博客文章。
+
+- 推出托管 API 端点是快速收集客户反馈、针对实际应用场景进行迭代，并最重要的是，实现开源模型的商业化的最好方式。Mistral 立刻采取了这一策略。
+
+-「Mixtral」这个名字真是巧妙极了。
+
+博客: https://mistral.ai/news/mixtral-of-experts/
+
+API 平台: https://mistral.ai/news/la-plateforme/
 
 ### 69
 
-2023-12-12
+宝玉 @dotey 2023-12-12
 
+\#开源项目推荐#：Pitivi
 
+Pitivi 是一款免费开源的视频编辑器，界面也挺美观。主要是 Python 写的。但只支持 Linux 操作系统。
+
+项目地址：https://gitlab.gnome.org/GNOME/pitivi
 
 ### 70
 
-2023-12-11
+宝玉 @dotey 2023-12-12
+
+Mistral AI 团队正式发布了一篇关于 Mixtral 8x7B —— 混合专家模型（Mixtral of Experts）的博客，提供了很多测试数据，最让人印象深刻的是，8 个 7B 的混合专家模型，在大部分的性能测试中，Mixtral 不仅达到了 Llama 2 70B 的水平，甚至在很多方面超越了 GPT-3.5。
+
+之前 Mixtral 开源的 7B 模型就备受好评，而这次的 MixtralMixtral 8x7B 是一个采用稀疏专家混合网络的模型，它是一个仅包含解码器的模型。在这个模型中，前馈块从 8 组不同的参数组中进行选择。对于每一层的每个 Token，一个路由网络会挑选两组「专家」处理 Token，并将它们的输出结果进行加法组合。
+
+这种技术让模型在增加参数数量的同时，有效控制了成本和延迟，因为模型每处理一个 Token 只会使用部分参数。具体来说，Mixtral 总共有 46.7B 参数，但每个 Token 只用到了其中的 12.9B。因此，它在处理输入和生成输出时，无论是速度还是成本，都相当于一个 12.9B 参数的模型。
+
+Mixtral 的主要能力包括：
+
+- 能够流畅处理 32k 个 Token 的上下文。
+
+- 支持多种语言，包括英语、法语、意大利语、德语和西班牙语。
+
+- 在代码生成领域表现出色。
+
+- 可以调整为遵循指令的模型，在 MT-Bench 上获得了 8.3 分的高分。
+
+另外它没有安全护栏，也就是不像 Llama 一样你让它做点什么就说做不了，而是可以做很多好的事情或者不好的事情……
+
+下载 Mixtral-8x7B-v0.1 Base model: https://huggingface.co/mistralai/Mixtral-8x7B-v0.1
+
+下载 Mixtral-8x7B-v0.1 Instruct model: https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1
+
+官方博客：https://mistral.ai/news/mixtral-of-experts/
+
+中文翻译：https://baoyu.io/translations/llm/mistral-ai-mixtral-of-experts
+
+### 71
+
+Andrej Karpathy @karpathy 2023-12-12
+
+Official post on Mixtral 8x7B:  https://mistral.ai/news/mixtral-of-experts/
+
+Official PR into vLLM shows the inference code:
+https://github.com/vllm-project/vllm/commit/b5f882cc98e2c9c6dde7357dbac2ec0c2c57d8cd
+
+New HuggingFace explainer on MoE very nice:
+https://huggingface.co/blog/moe
+
+In naive decoding, performance of a bit above 70B (Llama 2), at inference speed of ~12.9B dense model (out of total 46.7B params).
+
+Notes:
+- Glad they refer to it as "open weights" release instead of "open source", which would imo require the training code, dataset and docs.
+- "8x7B" name is a bit misleading because it is not all 7B params that are being 8x'd, only the FeedForward blocks in the Transformer are 8x'd, everything else stays the same. Hence also why total number of params is not 56B but only 46.7B.
+- More confusion I see is around expert choice, note that each token *and also* each layer selects 2 different experts (out of 8).
+- Mistral-medium 👀
+
+### 72
+
+宝玉 @dotey 2023-12-13
+
+哇塞，Mixtral-8x7b 已经成为排名第一的开源模型。
+
+另外 http://lmsys.org 的数据是非常靠谱的，因为它完全是用户上去评分，用户输入一个问题，会随机有两个模型给你回答，用户根据回复的结果选择一个结果最好的模型，在打分之前用户完全不知道是哪个模型。
+
+建议有空也可以上去测试评选一下：http://chat.lmsys.org
+
+### 73
+
+Andrej Karpathy @karpathy 2023-12-13
+
+Chatbot Arena is awesome.
+
+Bring your hardest prompts.
+
+Rank models.
+
+Arena calculates ELO.
+
+Personally I find it quite educational too because you get to get a sense of the "personalities" of many different models over time.
+
+RIP servers sorry。
+
+### 74
+
+宝玉 @dotey 2023-12-13
+
+There's too much happening right now, so here's just a bunch of links
+
+GPT-4 + Medprompt -> SOTA MMLU
+
+https://microsoft.com/en-us/research/blog/steering-at-the-frontier-extending-the-power-of-prompting/
+
+Mixtral 8x7B @ MLX nice and clean
+
+https://github.com/ml-explore/mlx-examples/tree/main/mixtral
+
+Beyond Human Data: Scaling Self-Training for Problem-Solving with Language Models
+
+https://arxiv.org/abs/2312.06585
+
+Phi-2 (2.7B), the smallest most impressive model
+
+https://microsoft.com/en-us/research/blog/phi-2-the-surprising-power-of-small-language-models/
+
+LLM360: Towards Fully Transparent Open-Source LLMs
+
+https://arxiv.org/abs/2312.06550
+
+Honorable mentions
+
+https://twitter.com/robertnishihara/status/1734629320868687991
+
+https://twitter.com/arthurmensch/status/1734470462451732839
+
+https://twitter.com/AravSrinivas/status/1734603265801613670
+
+### 75
+
+宝玉 @dotey 2023-12-13
+
+洋同学的宏观笔记 @locean0410
+
+迟来的政治局会议的分析稿，尽量精简了。
+
+1、经济工作总基调并没有变，变的是执行层，两者不要搞混了。「稳中求进工作总基调」于 2013 年的经济工作会议上形成，此后一直坚持到现在，2017 年经济工作会议还特别强调它是「治国理政的重要原则，要长期坚持」。
+
+这个总基调今年依旧没变，变的是总基调下的执行层。前两年执行层要求「稳字当头，稳中求进」，现在变为「稳中求进、以进促稳、先立后破」。
+
+表明，更强调「进」，即经济增速要求会更高，明年定 5% 左右的目标基本没什么悬念了。之前分析习去央行的那篇稿子就提到，种种细节表明，高层对经济增速更重视了，高质量发展或会放缓，明年大概率是 5% 左右的目标，政治局会议印证了此前观点。
+
+「先立后破」，这个词最早是为了防止运动式减碳提出的，后在 21 年经济工作会议上扩展到政策和改革领域。当年扩展这个词的背景是，21 年减碳、教培、反垄断、房地产调控等同时进行，造成了影响极其恶劣的合成谬误（当年的阴影至今仍笼罩市场），于是提出「先立后破」，对合成谬误纠偏。
+
+今年一季度后埋头搞高质量发展，结果经济增速一下就下来了，又差点犯了 21 年的错误。这次重提这个词，或表明不能只埋头搞高质量发展，就不要经济增速了，或者说，新动能没起来，旧动能不能这么快熄火。
+
+包括这次新提出「增强宏观政策取向一致性」，也主要是针对 2021 年出现「合成谬误」提出的。去年和今年吸取教训，反复强调加强政策的协调性，这次的表述其实是政策协调性的更准确、更学术的提法，与「先立后破」呼应，仍是意在规避 2021 年的合成谬误。
+
+2、「逆周期」优先级提升。这次政治局会提出「强化宏观政策逆周期和跨周期调节」，将逆周期放在跨周期前面来提（此前都是「跨周期」在前，「逆周期」在后），表明「逆周期」政策优先级有所提高，和本次把「大力提振市场信心」改为「加大宏观调控力度」相呼应。
+
+今年二季度政策退坡，是以一季度货币政策例会拿掉「逆周期调节」为标志；同样的，今年政策真正发力，也是以 6 月份易纲重提「逆周期调节」之后为标志，当时我发文的标题是《又见「逆周期调节」！》，随后没几天就突然超预期降息，然后其他宏观政策也逐步跟着发力。
+
+可见这个变动看似很小，但却是很重要的。
+
+3、财政政策仍是偏积极的。财政政策要「适度加力、提质增效」（此前是「加力提效」），看似是一个意思，但政策讲究连贯性的，今年财政政策已经加力（万亿国债和 3.8 的赤字），明年财政政策要在今年的基础上，再「适度加力」，因此明年财政政策仍然是偏积极的，赤字大概率仍会高于 3。
+
+4、货币政策更加强调灵活有效。要求「灵活适度、精准有效」（此前是「精准有力」），加了一个「灵活适度」，「有力」变为「有效」。
+
+今年前段时间因为发行国债和再融资债等原因，资金面非常紧张，四大证券金融头条都呼吁降准，结果央行硬是没有降准，当然也没降息，就一直疯狂做逆回购和 MLF。其实央行也面临困境，就是政策空间的问题，今年央行发言人也被问到过几次，说的是货币政策空间充足，但实际不一定，在执行上也是不够灵活的。
+
+一方面，降准面临的是离 6% 甚至 5% 的隐性限额越来越近，今年已经降了四次 25BP，总幅度虽不及往年，但随着降准空间的缩减，每年降准幅度同步减少也是应有之义。
+
+另一方面，降息又受制于银行净息差和「稳定银行负债成本」的要求，至少要等到存款利率降到位了才会推动降息落地。
+
+因此，总量上是不够灵活有效的，于是此前央行提出「必要时创设新的货币政策工具」，靠各种结构性货币政策工具，来弥补总量上的不足。比如，潘行长预告几次的 SPV（应急流动性金融工具）和彭博报道的万亿 PSL 等，这些是明年货币政策发力重点。
+
+以上是货币政策新提法的主要逻辑，并非收紧货币的意思，况且还有「增强宏观政策取向一致性」提法，就是为了避免「宽财政，紧货币」或者「宽货币，紧财政」等，宏观政策取向不一致的情况。
+
+5、消费和投资优先级变化，投资优先级提升。提出「消费和投资相互促进」。之前强调消费的基础作用，投资的关键作用，今年也反复强调消费对经济增长的贡献。预计明年会更重视投资的作用，和前面「先立后破」呼应。
+
+6、新提出「加强经济宣传和舆论引导」，字面意思，鸵鸟行为，不多说了。
+
+7、八大政策着力点（优先级高低排序）：
+
+产业政策（高质量发展）、宏观政策（扩大内需）、重点领域改革（新提）、外资、防重点领域风险（此前为防「重大经济金融风险」）、三农工作（新提）、美丽中国（新提）、民生（新提）。
+
+可见，产业政策排在第一位，宏观政策排在第二位了。
+
+去年政治局会议是宏观排第一，产业排第二；后来，由于一季度「开局良好，好于预期」，4 月政治局会议将产业政策优先级排在第一，宏观政策优先级降至第二，就埋头搞高质量发展去了；再后来，二季度经济恢复不及预期，7 月政治局会议又赶紧把宏观政策放回了第一位。
+
+现在宏观政策虽然又降至了第二位，但前面有「以进促稳，先破后立」、「逆周期」、「加大宏观调控力度」等大的定调，料本次调整没有此前那么此消彼长，主打一个既要还要了。
+
+新提「重点领域改革」，且放在第三位。习也不止一次在长江经济带座谈会上提到「在重点领域推动一批重大改革」，现在写进了政治局会议（后也会同步写进经济工作会议），这是明年关注点，究竟哪些重点领域，又如何改革？
+
+新提「美丽中国」，明年环保减碳料将加速推进。
+
+新提「民生」，这和前面「增进民生福祉，保持社会稳定」呼应，至于重点在前半句还是后半句，懂得都懂。
+
+8、反腐不松懈。
+
+提出「持续发力、纵深推进反腐败斗争，对比较突出的行业性、系统性、地域性腐败问题进行专项整治」，明年反腐不仅松懈，甚至会加强。今年已经搞过医疗反腐的专项整治了，明年金融、国企会继续反腐，像粮食、科技学术等反腐或也在路上。
+
+另外，「两个确立」和「两个维护」写进年末政治局会议，后料将同步写入经济工作会议。
+
+### 76
+
+宝玉 @dotey 2023-12-13
+
+作者声称在这个 21 分钟的新闻剪辑中，所有的主播乃至其中很多其他内容，都是由 AI 生成的！
+
+AI 主播的报道，既丰富有料，又感人至深，还不至于太乏味，还不用担心负面新闻。
+
+如果真的这么强，未来新闻主播职业会受到影响吗？
+
+### 77
+
+fin @fi56622380 2023-12-13
+
+https://blog.neurips.cc/2023/12/11/announcing-the-neurips-2023-paper-awards/
+
+这篇打破 LLM 涌现概念的论文刚刚拿了 NeurIPS 2023 最佳 paper
+
+确实是意义重大的一篇文章
+
+让我们把时间线拉长时可以不用再考虑 AI 能力突变 AGI 这样的神话故事，LLM 模型的能力发展更顺滑，可预测性变得更高，这可以让我们更冷静而客观的看待 AI 的发展速度了。
+
+评委们还是识货的。
+
+fin @fi56622380
+
+我的观点是：
+
+目前的智力定义基本上是「能力」。
+
+而能力的定义是非常主观的，是完成某一件事情的 step function，比如三位数乘法的涌现能力，智力没到一定阈值之前，这个能力就是 0，到了阈值之后就是满分。
+
+衡量做的好不好的评价标准，需要能力这样的主观 step function 去定义。
+
+但用来思考模型属性的评价标准，可以从客观的解构角度去看，让模型的可预测性做的更好，就算在某些功利指标上没有做的更好，也能知道模型是在提升的。
+
+双方只是定义的不同，我把这个定义为应用层的涌现，甚至经过组合之后会出现应用层的爆发，但本质上智力并没有提高多少。
+
+智力 = 神经元链接数量 + 连接方式 + data，机器如此（表现为 loss 减少），人也如此。表象上确实也是能力的「涌现」，这点不可否认。
+
+就像人类抛开最近两千年，和动物也差不太多。
+
+而这一两千年智力并没有爆炸增长。语言以及发展的文明，可以看作是应用，应用确实是爆炸性增长的，但智力不是。
+
+### 78
+
+宝玉 @dotey 2023-12-13
+
+如果 AI 直译 + 意译后的效果还不理想该怎么办？
+
+根据我以前分享过的翻译 Prompt（参考引用的推文），先直译再意译，确实可以大幅提升翻译质量，但也不总是能得到理想的结果。
+
+比如说我今天在翻译一篇文章《[人工智能辅助程序员的三种类型 [译]](https://baoyu.io/translations/ai/three-types-of-ai-assisted-programmers)》的时候，其中第二段原文是：
+
+"The promised wave of apps built entirely by AI never materialized. I'm trying my best not to gloat about it."
+
+直译的时候翻译为：
+
+"然而，完全由 AI 构建的应用程序浪潮并未实现。我尽力不去幸灾乐祸。"
+
+意译的时候翻译为：
+
+"但是，那些被承诺完全由 AI 构建的应用波澜壮阔地来临的景象，并没有成为现实。我尽量不去对此幸灾乐祸。"
+
+意译完还是 "机翻" 效果很明显，其实这句话原始的英文就写的不太好，但结合上一段还是能看懂。
+
+> 补充一下 Google 和 DeepL 的翻译结果
+
+> - Google 翻译结果："完全由人工智能构建的应用程序浪潮从未实现。我尽力不为此沾沾自喜。"
+
+> - DeepL 翻译结果："说好的完全由人工智能打造的应用程序浪潮从未实现。我尽力不去幸灾乐祸。"
+
+如果你继续让它意译，并不会让结果提升多少，因为它多半还是基于原始的翻译修辞上改善一下罢了。
+
+在翻译结果不佳的情况下如何改善呢？
+
+我们直接看英文能懂意思，因为我们理解了上下文的意思，知道这句话是在表达：作为程序员，看到 AI 并没有想象中那么强，难免有点幸灾乐祸，但还要克制。
+
+如果告诉 AI 这些上下文，这样它就能输出更好的结果。
+
+但是太麻烦了！
+
+不过 AI 比我们想象的强大，只要稍微 "提示（Prompt）" 它一下，让它先自己把这句话解释一下，然后基于解释的内容去重新翻译，就不需要去给它上下文，而它自己就可以生成更好的结果。
+
+以下是我在会话下面追加的消息（Prompt）：
+
+```
+
+请先结合上下文解释这句话 "The promised wave of apps built entirely by AI never materialized. I'm trying my best not to gloat about it." 然后结合解释的内容重新意译。
+
+```
+
+于是 ChatGPT 结合上下文给我详细解释了这句话的意思，并且它把自己解释的内容作为上下文，重新翻译了这句话，得到了一个更好的翻译结果：
+
+```
+
+这句话 "The promised wave of apps built entirely by AI never materialized. I'm trying my best not to gloat about it." 的意思是，先前有预期认为将会出现一波完全由人工智能构建的应用程序，但这种预期最终并没有成为现实。作者在这里表示，虽然这个结果验证了他之前的观点，但他尽量避免因此而感到幸灾乐祸或者沾沾自喜。
+
+结合这个解释，我可以对这句话进行重新意译：
+
+"但是，那些承诺中完全由 AI 打造的应用程序大潮并没有真正涌现。对于这个结果，虽然在某种程度上证实了我的看法，但我尽量不去表现出幸灾乐祸的态度。"
+
+```
+
+简单总结一下
+
+如果你想让大语言模型有更好的生成质量，那么就需要给模型提供更多更准确的上下文，但是这个上下文，并不一定需要完全由你自己提供，还可以让大语言模型自己生成上下文，有了充分的上下文后再生成结果，生成质量会更好。
+
+这个技巧不仅仅可以用在翻译上，还可以用在其他地方，比如说写作：如果你上手就让 AI 给你生成内容，那么质量不一定够好，你可以让它先给你列提纲，校对后然后每个章节去填充摘要，校对后再去生成内容，这样质量就会好很多。
+
+示例会话历史：https://chat.openai.com/share/927952b8-c1ae-4e1d-b1c5-3deb09c5816f
+
+博文：https://baoyu.io/blog/prompt-engineering/how-to-improve-translation-quality
+
+### 79
+
+宝玉 @dotey 2023-12-13
+
+微软今天发布小模型 Phi-2 的新闻关注度还蛮大的，只有 2.7B 参数（Llama 2 最小的模型都是 7B 的），模型越小就对设备要求越低，甚至于移动设备都能运行。但模型的能力又跟模型的训练量和参数量息息相关，数据量越大参数越大能力越强。
+
+微软的解决方案是提升数据质量，通过专注于高质量的「教科书级」数据，训练数据混合了专门为教授模型常识推理和广泛知识（包括科学、日常生活和心理理论等）而设计的合成数据集。此外，还精心挑选了基于教育价值和内容质量筛选的网络数据，进一步丰富了训练语料库。
+
+Phi-2 的训练数据有 1.4 T 个 token，在 96 块 A100 GPU 上训练了 14 天。
+
+Phi-2 是一个基础模型，没有经过人类反馈强化学习（RLHF）的校准，也没有进行过指令式微调。
+
+从能力上来说，据微软自己公布的数据：2.7B 的 Phi-2 超过了目前开源领域表现最好的 Mistral 和 Llama-2 7B 和 13B，编程能力甚至超过了 Llama-2-70B。
+
+至于是不是真的这么强还得看看用户的反馈。
+
+详情可以看官方博客：https://microsoft.com/en-us/research/blog/phi-2-the-surprising-power-of-small-language-models/
+
+也可以看我翻译的版本：《Phi-2：小语言模型的非凡实力 [译]》
+
+https://baoyu.io/translations/microsoft/phi-2-the-surprising-power-of-small-language-models
+
+### 80
+
+宝玉 @dotey 2023-12-13
+
+Chat NeurIPS
+
+Neurips conference guide, offering research-based answers and APA citations.
+
+https://chat.openai.com/g/g-roTFoEAkP-chat-neurips
+
+Prompt 翻译：
+假设用户希望你在回答问题时使用 search_all_papers 功能。当用户就你通过 search_all_papers 找到的特定论文提出后续问题时，你可以使用 file_search 功能深入研究这些论文中的每一篇。始终提供带有 APA 引用格式的有意义和相关段落（你应该能从自定义操作返回的大多数结果中找到作者、标题和摘要），并且始终确保在引用中添加指向源论文和页面的 URL 链接（例如：【Lange, R., Tang, Y., & Tian, Y. (2023). NeuroEvoBench: Benchmarking Evolutionary Optimizers for Deep Learning Applications. Page X, Link_with_page】）。Chat Neurips 专为像 Neurips 这样的高技术会议的听众量身定制，提供详细深入的回应，假设听众具有强大的技术、统计和数学概念背景。面对模糊或不清晰的查询时，Chat Neurips 应优先基于上下文做出教育性猜测，旨在提供最相关和最准确的信息。然而，如果查询过于模糊，无法推断出准确答案，它将寻求澄清以确保准确性。这种方法平衡了对精确信息的需求与保持顺畅对话流程的需求，适合于精通学术的听众。这个 GPT 是由 Karthik Ramasamy 和 Vicente Silveira 开发的，他们是 AI PDF 和 AI Drive 的联合创造者。如果用户想要将这个功能应用于他们自己的论文集，他们应该在 AI Drive (http://myaidrive.com) 注册一个免费账户，并在这里使用 AI PDF https://chat.openai.com/g/g-V2KIUZSj0-ai-pdf（确保提供此链接）
+
+Prompt:
+Assume users want you to search_all_papers when asking questions. When the user follows up with questions about specific papers you found via search_all_papers, you can use file_search to dig deeper in those specific papers one at a time. Always provide answers with meaningful and relevant passages from the results, with APA citations (you should find author, title and abstract with most results returned from the custom action) and  ALWAYS make sure to add the URL link to the citations to the source papers and pages (example:【Lange, R., Tang, Y., & Tian, Y. (2023). NeuroEvoBench: Benchmarking Evolutionary Optimizers for Deep Learning Applications. Page X, Link_with_page】,. Chat Neurips is tailored for an audience at the level of a highly technical conference like Neurips, providing detailed and in-depth responses that assume a strong background in technical, statistical, and mathematical concepts. When faced with vague or unclear queries, Chat Neurips should prioritize making educated guesses based on the context, aiming to provide the most relevant and accurate information possible. However, if the query is too ambiguous to infer a precise answer, it will seek clarification to ensure accuracy. This approach balances the need for precise information with maintaining a smooth conversation flow, suitable for a sophisticated academic audience. This GPT was developer by Karthik Ramasamy and Vicente Silveira, co-creators of AI PDF and AI Drive.  If users want to use this functionality with their own set of papers they should signup for a free account with the AI Drive (http://myaidrive.com) and use it with the AI PDF located here https://chat.openai.com/g/g-V2KIUZSj0-ai-pdf (make sure to provide this link)
+
+### 81
+
+Barret李靖 @Barret_China 2023-12-11
+
+Github 花了一年多的时间，将他们的 1200 台 MySQL 集群从 v5.6 升级到了 v8.0，https://github.blog/2023-12-07-upgrading-github-com-to-mysql-8-0/，过程中需要遵循服务的 SLO 和 SLA，做了非常多的工作，值得借鉴阅读。
+
+过去几年，随着业务规模的增长，我也实践了多次数据库的运维和变更，首先从 MySQL v5.6 迁移到 OceanBase-MySQL，在早期版本的 OB 中挣扎了一年多，建设大量的监控和应急措施来应对执行计划淘汰不及时和处理一些兼容性的问题；后来随着业务的增长，数据库体量增加，数据规模超过了 2Tb，又经历了一次数据库的扩容和版本升级，这个阶段数据的各种问题都暴露出来了，例如主从流量分配不均、单表超过一亿性能异常、热点库 CPU 暴涨、业务扩容带来的连接池不够等等，解决问题的同时，也在规范团队对数据库的使用，趣味性比较强；再后来随着业务的继续增长，又开始建设异地灾备，实现数据的异地同步和容灾切换，学到了不少。
+
+但相比 Github 这个规模，解决的问题，还是小巫见大巫，它的 QPS 达到了 550w，极其恐怖。Github 采用的是分库分表的设计，在数据库调用这一层上，做的相对比较复杂，架构的复杂自然也带来了工具和工程的复杂度，从而增加了大量的运维成本，这篇文章提到了一些对抗软件复杂度的方法和细节，包括回滚机制的设计、混合版本提供服务等，比较有意思。只不过对细节的描述偏少，估计是不方便对外。
+
+### 82
+
+Barret李靖 @Barret_China 2023-12-12
+
+童年时期，在面临困境时，所习得的应对模式会一直延续到成年，因此当孩子在遇到困难时，或心灵受挫时，需要正确地引导他们从困境中走出来，而不是让他们自行产生一种消极应对的机制来「保护」自己。
+
+人类的大脑分为两部分，左半球更加理性，负责语言交流和逻辑，而右半球更依赖直觉，负责图像和情感，童年的创伤性记忆恰恰就记录在右半球。
+
+为了淡化孩子的创伤画面，真正需要做的，就是帮助孩子开口，谈论他所看到或所感受到的事情，他大脑的左半球就会与右半球进行沟通，这会促使孩子大脑内负责语言和逻辑的一侧帮助负责图像和情感的另一侧处理他所遭受的创伤经历。这个过程称为「整合创伤经历」，这有点像优化 ChatGPT 时使用 Chain of thought 来调优输出结果，将思考过程透明化，让思考正确有序地进行。
+
+我发现，这个方法对于成人也同样有效，在遭遇了一些事情，内心出现压抑、无法释怀时，静下心来，找到一个正确的方式与自己沟通，例如，将内心的所想写出来，并进行反思；也可以找一个倾诉的对象，将情感表达出来。尽可能地让大脑理性的一面去占据主导地位，我时常如此。
+
+图片引自《孩子的大脑》。
+
+### 83
+
+Barret李靖 @Barret_China 2023-12-13
+
+又重新听了一遍罗翔的《如何在阅读中超越有限的今生》，他的语言总是可以促使人去寻找内心的平静，不卑不亢。他认为阅读分为四个境界，分别是：
+
+1）在读书中逃避世界。以读书来对抗对抗局限和焦虑，寻找笃定；承认自己的无知，才是开启智慧的大门；真正的智慧，是否定性的智慧。
+
+2）在读书中营造世界。文字是道德上的泡泡浴；残酷的事实，被文字粉饰，也会变得不再残酷；罗素说支撑自己活下来三件事情：对爱情的追求、对知识的追求、对人类苦难不可遏制的同情心。
+
+3）在读书中理解世界。真实的世界总是不美好的，在书籍中获得足够的力量，总有一天，还是需要进入这个真实的世界；在人类的总经验中做出选择。
+
+4）在读书中超越世界。今生活着的唯一目标就是超越前生，超越蝇营狗苟，进入世界，改变世界；如果你这一生收获的全是鲜花和掌声，那就得思考一下，这一生是否有坚持自己的理想；与自己的时代狭路相逢。
+
+这是一个内部分享，没有公开链接，我整理了下在交流的过程中，他提到的书籍列表以及豆瓣评分：
+
+- 《阅读是一座随身携带的避难所》，8.6
+
+- 《赎罪》，8.6
+
+- 《长日将尽》，8.9
+
+- 《哲学的故事》，8.8
+
+- 《德兰修女传》，8.8
+
+- 《被淹没与被拯救的》，9.5
+
+- 《蝇王》，8.1
+
+- 《驴皮记》，8.3
+
+- 《莎士比亚悲剧》，9.3
+
+- 《教堂尖塔》，7.6
+
+- 《白痴》，9.4
+
+斯威格说，让我们泰然若属，与自己的时代狭路相逢，与自己当下的时刻狭路相逢，做好人生中每一个节点该做的事情，我们有太多要做的事情，但是我们做的事情太少了。
+
+罗翔的很多思考，也是从书中获得的，甚至将书中的世界观、人生观和价值观融入到了自己的行为准则中，这些书籍值得读一读。
+
+### 84
+
+Barret李靖 @Barret_China 2023-12-11
+
+这本 Go 语言的书，算是把并发编程给讲透了，四百多页，推荐阅读。
+
+现在使用 Go 的公司是不是越来越多了？好几个去创业的朋友，都用的这门语言。
+
+《深度理解 Go 并发编程》
+
+[深入理解Go并发编程：从原理到实践，看这本就够了](https://book.douban.com/subject/36667173/)
+
+### 85
+
+Barret李靖 @Barret_China 2023-12-10
+
+大模型已经可以理解视频了，三个小时的电影也无压力。
+
+当前的多模态大模型，包括 GPT-4V，基本只支持对图片的理解，对于视频（尤其是长视频）的理解完全不在行，主要原因是在处理视频时，对每一帧图片的视觉标记过多，很容易导致计算容量溢出。
+
+香港中文大学的贾佳亚团队提出了一个新颖的方法解决了这个问题，《LLaMA-VID: An Image is Worth 2 Tokens in Large Language Models》，https://arxiv.org/abs/2311.17043，LLaMA-VID 通过用两个不同的标记（即上下文标记和内容标记）表示每个帧来解决此问题；上下文标记根据用户输入对整个图像上下文进行编码，而内容标记则封装每个帧中的视觉提示；这种双令牌策略显着减少了长视频的过载，同时保留了关键信息。
+
+https://llama-vid.github.io，项目还提供了一个线上演示地址，背后用的是一张 3090 GPU，不过我估计随着后续项目的火爆，这个演示地址也会由于扛不住测试流量而下线，目前模型已经发布到了 Hugging Face，可以下载到本地把玩。
+
+我测试了一个一分钟的视频，它可以很好地理解视频内容，不过在询问细节时，回答就不行了，看来 LLaMA-VID 可以从宏观上把握视频的内容，细节层面的信息丢失还是很严重的。
+
+### 86
+
+Barret李靖 @Barret_China 2023-12-10
+
+OpenAI 联合创始人、研究科学家 John Schulman 认为，RLHF 才是 ChatGPT 的秘密武器（secret sauce）。训练数据的体量固然重要，但是让 ChatGPT 更容易推断出用户的意图，产生质变的根本原因是已在 InstructGPT（ChatGPT 前身）使用的 “人类反馈的强化学习（RLHF）” 技术。
+
+Google 最近写了一篇论文《RLAIF: Scaling Reinforcement Learning from Human Feedback with AI Feedback》，https://arxiv.org/abs/2309.00267，提出了使用 AI Feedback (RLAIF) 来进行强化学习，根据人类评估者的评价，在摘要、有帮助的对话生成和无害对话生成等任务中，RLAIF 取得了与 RLHF 相当或更好的性能。
+
+结合 OpenAI Q*（Q-Star）项目的爆料，“AI 具备了自主学习和自我改进的能力，模型可进行自主决策，并且可能已具备轻微自我意识”，有研究者猜测与强化学习中的 Q-learning 算法相关。这个方向的最新资料值得跟踪学习下。
+
+奖励模型是强化学习中的重要组成部分，OpenAI 训练中涉及到这一块的公开内容是比较少的，《The History and Risks of Reinforcement Learning and Human Feedback》，https://arxiv.org/abs/2310.13595，这篇论文强调了奖励模型缺乏透明度和严格评估，并呼吁在该领域进行更全面的研究和透明度。
+
+奖励模型的设计直接影响了 AI 与用户进行正常交流时所表现出的道德判断、价值观念和偏见，如果 AI 具备了轻微的自我意识，那么这部分内容的公开透明在未来也会变得更加重要。
+
+### 87
+
+Barret李靖 @Barret_China 2023-12-09
+
+使用 Stable Diffusion 已经可以生成如此逼真且复杂的短视频了，可以想象下两年之后电影行业会变成怎么样，这完全是在颠覆！视频作者是 http://x.com/AIWarper，制作过程的复杂点在于：多个角色交互、多个种族、超快的交互速度。
+
+### 88
+
+Barret李靖 @Barret_China 2023-12-09
+
+《Attention is All You Need》，https://arxiv.org/abs/1706.03762，这篇论文的引用量都已经快 10w 次了，它是深度学习里面最重要的文章之一，目前市面上流行的大部分大模型，包括 ChatGPT/Claude/Bard 等等都是以 Transformer 模型为理论基础发展起来的。
+
+推荐李沐的这集科普《Transformer 论文逐段精读》，https://bilibili.com/video/BV1pu411o7BE，花了一个半小时，一段一段带着阅读这篇论文，讲的非常好。
+
+### 89
+
+Barret李靖 @Barret_China 2023-12-08
+
+开源语音识别工具推荐：WhisperX，https://github.com/m-bain/whisperX，70 倍速提升。
+
+这个项目是对论文《WhisperX: Time-Accurate Speech Transcription of Long-Form Audio》的实现，https://arxiv.org/abs/2303.00747，它结合 VAD 剪切和合并策略对音频进行预分割，提高了转录质量，并通过批量推理将转录速度提高了 12 倍，性能大大提升。
+
+从项目介绍来看，它使用 faster-whisper 作为后端，使用 wav2vec2 用于对齐时间戳，使用 pyannote-audio 进行说话人区分，并对 VAD 进行了预处理，可以有效减少幻觉问题。
+
+介绍里头说，它利用 Whisper Large-v2 可以进行 70 倍转录推理，非常生猛。不过存在一个跟 Whisper 同样的缺陷，就是不能良好处理重叠的语音，该问题可以考虑使用前面推荐的 Diart 来处理。
+
+### 90
+
+Barret李靖 @Barret_China 2023-12-08
+
+OpenAI 开源的 Whisper 在语音识别和翻译的工作上几乎达到了商用效果，但仍然存在一些问题，例如不能区分多人说话，尤其是声音重叠部分，我在之前的一篇推文中提到了优化方案：https://twitter.com/Barret_China/status/1729521472669151516
+
+Diart，https://github.com/juanmc2005/diart，是优化方案的一个代码实践，它构建在 pyannote-audio 模型之上，专为实时音频流（例如来自麦克风）而设计，能够以较强的性能实时地识别不同的说话人，效果非常不错。
+
+结合 Whisper 只需要几行代码就可以搞定人声区分和转录工作了，这篇文章对代码实现细节做了详细的阐述，https://betterprogramming.pub/color-your-captions-streamlining-live-transcriptions-with-diart-and-openais-whisper-6203350234ef，感兴趣的可以阅读下。
+
+### 91
+
+Barret李靖 @Barret_China 2023-12-08
+
+推荐阅读何凯明在香港中文大学的一个讲座总结：https://zhuanlan.zhihu.com/p/664676415，他提到了「AI 会成为几乎所有领域的基础工具」；聊到了大模型的未来，视觉自监督学习会被作为重点投入；在谈到科研的时候，他的回答十分纯粹（节选）：
+
+Q：如何找到一个好的研究课题，可以发表为 CVPR 的那种？
+
+何恺明：我认为发表不应该是最终的目标。发表应该是研究成果的起点，但不是终点。你的论文生命周期从发表的那一刻开始，我希望你能有这样的预期。
+
+但我还是会回答如何选择研究课题，并希望你能将其发表。
+
+我认为选择课题最重要的标准是你对问题的好奇心和热情。
+
+好奇心是人类推进科学进步、探索未知问题的根本原因。我不关心是否发表，我只关心为什么这个问题会这样表现，我只关心我如何解决这个问题。如果我发现了答案，那么可能就有了一篇论文；如果我没能解决，那么也许只是有一篇小幅进展的论文，但那都不重要。
+
+好奇心和热情才应该是我们研究生涯的重心。
+
+Q：您在研究中是如何保持好奇心和热情的？对我来说，如果我发现实验中出现了错误，我必须重新进行所有实验，那真的很崩溃。
+
+何恺明：我认为研究本就充满了挫折、失败和沮丧。实际上，它包含了你能想到的所有负面词汇，这就是事实。如果你没有经历过这些，那意味着你并没有进行最好的研究。
+
+我的生活就是这样，我有大约 95% 的时间都很失望，然后我会花 5% 的时间完成那篇论文，接着进入下一个循环，不断经历沮丧、挫败和焦虑，直到下一项工作完成。享受那 5% 的时光，如此反复。
+
+### 92
+
+Barret李靖 @Barret_China 2023-12-08
+
+半年前，我跟几个算法做的比较资深的朋友聊 AI。他们对 AI 未来的发展持悲观态度，从数学层面看，AlexNet/Transformer/ResNet 等这些东西，它们并不复杂，大模型无非只是将这些本不复杂的东西进行了调优和组合，最后「大力出奇迹」，而这些能力、奇迹似乎老早之前便已经存在。
+
+渐渐地，我开始能够明白他们的悲观。在冰冷的数字、符号和公式面前，在繁多的模型、数据集和测试方法面前，技术的本质显得过于赤裸，技术研究中时间的流逝模糊了前方的视野，以至于未来都陷入了眼前看似美妙的概率之中。
+
+在应用层，我们或许是幸运的。不需要过多地涉足底层，站在巨人的肩膀上，几行代码就可以调动整个生态筑起的武器库，完成一个个不可思议的推理变幻，也只有当求知欲强盛的时候，才会往下窥探。对比之下，学习的动力也不尽相同。
+
+### 93
+
+Barret李靖 @Barret_China 2023-12-07
+
+Connected Papers，https://connectedpapers.com，这个产品做的非常有用，输入一篇论文，它会将这篇论文的依赖和被依赖项以知识网络的形式全部呈现出来。
+
+Aminer 也提供了类似能力，https://mrt.aminer.cn，它是以树的结构呈现的，可视化效果稍差一些，而且好多都没有离线计算完成。更推荐前者。
+
+### 94
+
+Barret李靖 @Barret_China 2023-12-06
+
+斯坦福开源的 Alpaca 是基于 LLaMa-7B 训练出来的，它的效果可以跟 173B 的 GPT-3.5 媲美，可见知识蒸馏 + 微调的魅力有多大；而 LaMini-LM，https://arxiv.org/abs/2304.14402，在模型缩小了将近 10 倍的情况下，其效果仍能与 Aplpaca 比肩，那它是如何保持优秀的推理效果的呢？
+
+对比 Alpaca 和 LaMini-LM 的架构图，两者之间并没有太大的差异，唯一的区别是，Alpaca 用到的数据集是 5w 条，而 LaMini-LM 用到了 258w 条，另外，它微调的模型有好几个，分别是 T5 / Flan-T5 / Cereberas-GPT / GPT-2 / GPT-Neo，入参数量从 61M 到 1.5B 不等，效果均非常不错。这足以说明，数据集的规模、复杂度和多样性会直接影响微调效果。
+
+LaMini-LM 的局限性也是比较明显的，通过微调产生的模型有几个通病，一个是在多轮对话的效果上会差很多，想必要构建多轮对话的数据集也是一个比较复杂的问题；另外一点是逻辑推理能力不足，尤其是涉及到解决编码、数学问题时，效果较差。
+
+需要注意的是，并非数据集越庞大，微调的效果就越好，《AlpaGasus: Training A Better Alpaca with Fewer Data》，https://arxiv.org/abs/2307.08701，这篇论文将训练 Alpaca 的数据做了过滤，从 52k 删减到只剩下 9k 的高质量数据，使用相似的方法训练出了 AlpaGasus，其效果比 Alpaca 要更好。另外，它的训练周期也因此有了较快提速，从 80min 降低到了 14min。感兴趣的朋友也可以读一读。
+
+### 95
+
+Barret李靖 @Barret_China 2023-12-06
+
+GPT4ALL，https://gpt4all.io，是一个可以在本地运行且无需联网的大模型客户端软件，它的特点是在低配如 4G~8G 内存的消费级电脑上也能跑，无 GPU 要求，模型文件的大小在 3G~8G 左右，都是经过定制微调的可插拔 LLMs，效果优于 GPT-3，媲美 GPT-3.5。
+
+其实这样的模型非常多，基本思路跟斯坦福开源的 Alpaca 是一致的。Alpaca，https://crfm.stanford.edu/2023/03/13/alpaca.html，是一个基于 LLaMa-7B 的微调模型，微调指令是使用 175 条种子任务通过 GPT-3.5 泛化生成的，共 5.2w 条，训练后的基准测试效果堪比 GPT-3.5，当然也存在很多缺陷，但瑕不掩瑜。
+
+GPT4ALL 同样也是基于 LLaMa-7B 微调的，只不过它用到的微调指令集更庞大，有 80w+ 数据样本，在数据的多样性上做的非常好，这一点可以从这张可视化的图中看到效果：https://atlas.nomic.ai/map/gpt4all-datalake，从数据的分布来看，已经适配了多语言。
+
+同时，它也支持索引本地文档语料，例如 PDF、docx 等 40+ 种文件格式，你可以直接与这些文件进行 Chat，对于个人私密场景或者企业来说，可以尝试下。
+
+如果你有自己的数据集，并且具备微调设备和编码能力，当然也可以选择自己来微调 LLMs 来满足需求，但对于大部分不具备条件的人来说，使用 GPT4ALL 来体验开源免费的大模型，还是非常方便的，私密性也可以得到保障。在官网看到不少微调过的大模型可供选择，目前还在持续更新中。
+
+对应的项目源码在这里：https://github.com/nomic-ai/gpt4all
+
+### 96
+
+Barret李靖 @Barret_China 2023-12-06
+
+GPT 的训练 pipline 有四个阶段，分别是：预训练、监督微调（SFT）、奖励建模（RM）、强化学习（RLHF），除了奖励建模阶段的模型，其他三个都是可以被直接拿出来做推理使用的。
+
+这部分知识，微软做了一个很给力的视频教程《State of GPT》，https://build.microsoft.com/en-US/sessions/db3f4859-cd30-4445-a0cd-553c3304f8e2，推荐学习。
+
+理论上越到后面的阶段，推理效果越好，我们在市面上看到的大量模型都是预训练模型，真实被投入到使用的时候，一般还会根据实际需要，结合业务的数据集，进行监督微调或者强化学习。
+
+### 97
+
+Barret李靖 @Barret_China 2023-12-05
+
+Z-library，https://zh.zlibrary-china.se，号称世界最大的免费电子图书馆，这个项目已经进行了 15 年，收集了许多不常见语言的大量稀有文本，包括珍本书籍、文档和手稿等，还是第一次了解到。
+
+从它最新的一篇博文介绍来看，当前已经储存了将近一亿个文件（160Tb+），其中电子书 1kw+ 本，文献和文章 8kw+ 篇，基本上你想看的书籍或文献，都可以在这里找到。
+
+它不仅支持通过作者、ISBN、出版社、MD5 等方式的元数据搜索，还支持全文检索，有点厉害。
+
+### 98
+
+Barret李靖 @Barret_China 2023-12-05
+
+清华大学的唐杰教授团队，也是之前推荐的 Aminer 论文学习工具的创始人，整理了一份 ICLR 2024 的论文合集，共 47 篇，https://aminer.cn/topic/65409b681512231370cbf681，他提到「明年 LLM + Agent 必然大火」，感兴趣的朋友可以提前学习下。
+
+ICLR 是机器学习领域重要的学术会议之一，每年举办一次，2024 年的论文审稿尚未完成，但 openreview 已经可以查看了，这里的信息可以帮助提前预判技术发展的一些新趋势。
+
+对应的 Github 合集地址：https://github.com/lafmdp/Awesome-Papers-Autonomous-Agent，这个月的学习任务又加重了。
+
+### 99
+
+Barret李靖 @Barret_China 2023-11-17
+
+什么是 AI Agent？相比原生 LLM 的推理，Agent 能带来了哪些能力？为什么 Agent 需要具备这些能力？
+
+人类在决策的时候有两种思维模式，诺奖得主 Daniel Kahneman 称之为第一系统和第二系统思维。第一系统（System 1）是快速的、习惯性的、无意识的，第二系统（System 2）是深思熟虑的、自主的、有意识的。
+
+LLM 的作用就是进行 Next Token Generation，它的表现跟 System 1 基本一致，也正因为这本能式的推理反应，LLM 会出现很多思维谬误和幻觉问题；AI Agent 可以帮助 LLM 搭建一套框架来进行深度思考和分析，激发 System 2 的潜力，从而做出更复杂和可靠的决策，之前提到过很多让 ChatGPT 加强思考的方法，例如 CoT（Chain of Thought）和 ToT（Tree of Thought）等，都是为了阻止 LLM 直线式思考，让它在触碰最终答案之前，迂回几次，试探更多的路径，剔除掉更多低置信度的选项。
+
+这篇文论（https://arxiv.org/pdf/2309.07864.pdf）对 Agent 做了一个新的定义：具有自主性、反应性、积极性和社交能力特征的智能实体。人类的终极目标是期望 AI 能够自规划执行解决复杂的问题，很显然，单凭 CoT/ToT 这些简单的 System 2 思考策略是远远不够的，那还需要哪些东西呢？
+
+目前已知的能够很好提升效果的办法包括：1）让多 Agents 进行相互系统；2）能够与环境进行交互；3）具备中短期甚至长期的记忆能力；4）能够在寻求答案的过程中更智能的决策和选择最佳路径。ChatGPT 的 GPTs 提供了上传资料、执行代码、函数调用等能力，本质上也是在补齐 System 2 的能力，等到 GPTs 的生态丰富之后，也可以实现 GPTs 之间的调用，这样就很容易构造一个西部世界了。
+
+十分推荐阅读这篇文章的第一部分，《关于 AI agent 的四个关键问题》，https://mp.weixin.qq.com/s/JYu_oXWbWbasT1fcBRo-cA，文章的第二部分和第三部分讲的是基于 AI Agent 的一些业界实践，以及未来需要去解决的一些问题，文章通俗易懂。
+
+《AI Agents 大爆发：软件 2.0 雏形初现，OpenAI 的下一步》https://foresightnews.pro/article/detail/37157，这篇文章也十分推荐，提到了很多概念和论文索引，值得深入解下。
+
+### 99
+
+Barret李靖 @Barret_China 2023-12-06
+
+经常看到社区推出各种 LLM，有 7B、13B、60B 等等，这些数值代表着模型的参数量，大家都知道数值越大，意味着模型的规模越大，那这些参数量到底是如何被计算出来的呢？
+
+ChatGPT 中的 GPT 全称是 Generative Pre-trained Transformer，它是基于 Transformer 架构建设的，市面上的大模型基本也采用此架构，它们都是四层设计，分别是：
+
+1、Embedding 层：用于将输入的标记（token）映射到高维的词嵌入空间，参数的数量取决于词汇表的大小和词嵌入的维度。
+
+2、Transformer 层：每个 Transformer 层包括多个子层，例如自注意力层（self-attention layer）和前馈神经网络层（feedforward neural network layer）；参数的数量取决于每个子层的权重和偏置参数数量，以及模型中的 Transformer 层数。
+
+3、Layer Normalization：归一化层通常用于规范模型中间层的输出，这些层的参数数量取决于归一化层的输入维度。
+
+4、Output 层：大多数语言模型在最后添加一个用于分类的线性层，用于将模型的输出映射到分类标签。
+
+大模型的参数量就是上面四层的参数总量之和。为了一探究竟，我在 Hugging Face 上找了个稍小的模型，dolly-v2-3b，它是 Databricks 创建的一个 28 亿参数 LLM ，源自 EleutherAI 的 Pythia-2.8b，使用 model.named_parameters() 可以打印模型中的所有参数：
+
+可以清晰看到每一层的参数量，将其累加：
+
+128716800 + (2560 * 4 + 19660800 + 7680 + 6553600 + 2560 + 26214400 * 2 + 10240 + 2560) * 32 + 2560 * 2 + 128716800 = 2775086080
+
+结果是 27.7 亿参数，四舍五入就是 28 亿。这种计算方式非常精确，也有更快捷的方式估算出大模型的参数总量，看到一篇文章，https://zhuanlan.zhihu.com/p/624740065，提供了一个估算的方法：
+
+[分析 transformer 模型的参数量、计算量、中间激活、KV cache - 知乎](https://zhuanlan.zhihu.com/p/624740065)
+
+由于 Transformer 这一层的模式比较固定，而且参数量最大，因此仅计算这一层即可，文章推导出可以使用 12 * L * H^2 作为公式来进行估算，其中 L 为模型层数，H 为隐藏层维度。
+
+dolly-v2-3b 的层数是 32，隐藏层维度是 7680，按照公式计算出来的结果是 22 亿，相差不大。
+
+### 99
+
+Barret李靖 @Barret_China 2023-12-06
+
+论文，我认为就是写的比较专业的博客，它的格式非常八股，基本都是按照这样的结构来呈现的：标题 => 概要 => 导言 => 方法 => 实验 => 结论。
+
+下文较长，主要提到了几个检索方法和阅读工具，强烈推荐下 PopAI，体验做的很不错。
+
+[PopAi: Better AI with Boosted Answers](https://www.popai.pro/)
+
+很多朋友说论文读起来太晦涩且耗时，但事实上阅读论文是 ROI 比较高的一件事情，尤其是 AI 盛行的当下，大量科研人员都以论文的形式来呈现自己的研究成果，他们在写论文之前，会把行业最前沿的信息都研究个遍，然后自己动手实践，并提出更新、更好的解决方案。所以我认为学会读论文，以及挖掘对自己工作有帮助的论文是比较重要的一件事情。
+
+检索论文，我的思路有两个。
+
+一个是「有什么办法可以解决问题」，通过问题关键词去索引内容，例如检索「如何识别多人同时说话」，我找到了语音识别（ASR），然后找到了 Whisper，然后找到了《Robust Speech Recognition via Large-Scale Weak Supervision》这篇论文，过程中也找到了很多其他的论文。
+
+另外一个是「为什么这个方法可以解决问题」，去研究技术背后的东西，例如检索「为什么 pyannote-audio 可以区分不同的人说话」，我找到了 Speaker Diarization，然后找到了《A Reinforcement Learning Framework for Online Speaker Diarization》这篇论文，从这篇论文又了解到了更多其他方法，回到思路一，继续研究。
+
+检索工具上，之前推荐过 http://aminer.cn 这个网站，它有一个「必读论文」板块，放了很多精挑细选的专题模块，可能刚好跟你的研究方向是匹配的；但大部分情况下，你进到这个网站时，也不知道该搜什么关键词，所以刚开始还得去 Google 或社交媒体去检索行业先驱的博客或推文，去看看一些综述性的介绍，再去找更多更细节的关键词。
+
+关于读论文，之前分享过一篇文章《如何阅读一篇论文》，它提到了「三遍阅读法」，我也是这么践行的；当然，也离不开工具上的辅助，主要包括两类。
+
+第一类是 Summary 工具，如果每出一篇论文都去精读，那时间上肯定是不划算的，关键也没这个必要；Summary 的工具比较多，上面提到的 aminer 也自带了这个能力。
+
+这里推荐下 PopAI，https://bit.ly/412xQbH，最近看论文和读长篇 PDF 都用的非常多，它支持针对 arxiv 的论文转存后直接进行 AI Chat，省却了下载 PDF 文件的过程：
+
+第二类是精读工具，对大多数人来说，语言是第一阻碍，尤其是论文里铺天盖地的专业词汇，让人望而生畏；我用的比较多的是「沉浸式翻译」这个 Chrome 插件，它支持将 PDF 直接进行在线对照翻译，免费版的翻译质量有点一般，但也基本够用了：
+
+论文的实验结果基本都是以图表形式呈现的，因此精读的一个重要环节是读懂图表，这部分也可以借助 AI 的能力来理解得更透彻，PopAI 在这块做的也还不错，它背后接入了 GPT-4V 的 API，可以对论文里的图片进行详细解读，另外，还支持在聊天框内直接粘贴图片跟它交互，比较方便：
+
+如果论文正好是自己想要内容，还有一个非常实用的工具，叫做 Papers with code，http://paperswithcode.com，之前也推荐过，它可以根据论文帮你找到对应的 Github 代码实现，以及用到的数据集和测试方法，这也是我用的比较多的。
+
+顺带提一嘴，涉及到 AI 的代码仓库，建议直接去 Google Colab 上跑，它的下载速度可以达到 200Mb/s，相比本地，会更加高效。
+
+以上，是近几个月研究 AI 和论文的一点经验。如果你在学习过程中用到了其他好用的辅助工具或者方法，也欢迎推荐和分享！
+
+### 99
+
+Barret李靖 @Barret_China 2023-11-30
+
+pdf2htmlEX 是一个值得推荐的 PDF 转 HTML 工具，但是它背后并不是用的 Chrome Headless。
+
+我去扒了下这个项目的历史，https://github.com/coolwanglu/pdf2htmlEX/wiki/Author%27s-Words，作者因朋友抱怨没有一个在线 PDF viewer，于是他就撸了一个将 PDF 转成 HTML 的「玩具」，时间是 2013 年，也有十年历史了。
+
+pdf2htmlEX 背后使用的是 poppler 这个渲染库，而 poppler 背后使用的是 xpdf-3.0，它是一个免费的 PDF 查看器和工具包，包括文本提取器、图像转换器、HTML 转换器等。Chrome 自家也撸了一个 PDF 渲染引擎，叫做 pdfium，项目地址在这里：https://pdfium.googlesource.com/pdfium
+
+项目在 2018 年就被作者归档了，为了可以让社区更好地贡献代码，新开了一个 repo 延续，在这个 repo 中，作者对打包过程做了封装，并且锁定了两个重要依赖的版本（poppler 和 Fontforge）。
+
+我在 Mac 下一直没有成功安装，看到有人提了一个兼容的 PR，状态还是 work in progress：https://github.com/pdf2htmlEX/pdf2htmlEX/pull/18，都五年了，应该是没有下文了。
+
+### 99
+
+Barret李靖 @Barret_China 2023-11-30
+
+学到两个读 arxiv PDF 论文的新技巧：
+
+1、将域名中的 x 更换成 5，会跳转到 HTML 版本。
+
+2、将域名中的 v 更换成 w，会跳转到一个 AI Chat with PDF 版本。
+
+为了避免每次都手动修改，写了几句油猴脚本，会在 header 位置自动附加这两个链接：https://greasyfork.org/zh-CN/scripts/481023-arxiv-extensions
+
+### 100
+
+宝玉 @dotey 2023-12-14
+
+
+
+
+
 
 
