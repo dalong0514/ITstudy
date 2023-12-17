@@ -8,6 +8,19 @@ insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v
 /Users/Daglas/Desktop/20200526电气培训.wav
 
 
+2023-12-17
+
+转音频格式：
+
+ffmpeg -i /Users/Daglas/Music/dalong.knowledgeAudio/2023004公司相关/20231216公司智慧管理研究会01.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Music/dalong.knowledgeAudio/2023004公司相关/20231216公司智慧管理研究会01.wav
+
+切割音频：
+
+ffmpeg -i /Users/Daglas/Music/dalong.knowledgeAudio/2023004公司相关/20231216公司智慧管理研究会01.wav -ss 760 -t 860 /Users/Daglas/Desktop/output.wav
+
+转录：
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json
 
 
 2023-12-12

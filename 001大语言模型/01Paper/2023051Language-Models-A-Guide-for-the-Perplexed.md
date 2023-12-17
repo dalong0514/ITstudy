@@ -306,9 +306,6 @@ Today, the vast majority of architectures are neural networks (sometimes called 
 
 4 我们指的是微积分中的概念。如果一个函数对于它使用的一些数字是「可微分的」，那么微积分就给了我们能力，可以计算对这些变量进行哪些小的改变会导致对函数的最大改变。
 
-
-
-
 2.3.2 Choosing values for all the parameters: Minimizing a loss function 
 
 In order to work well, a neural network needs to have its parameters set to useful values (i.e., values that will work well together to mathematically transform each input into an output close to the input's correct answer). But how do we choose parameters' values when we have so many we need to decide? In this section, we describe the general strategy that we use in NLP.
@@ -316,15 +313,6 @@ In order to work well, a neural network needs to have its parameters set to usef
 Imagine yourself in the following (admittedly not recommended) scenario. At night, and with no GPS or source of light on you, you are dropped in a random location somewhere over the Cascade Range in Washington State with the instructions to find the deepest valley you can (without just waiting for morning). You move your feet to estimate the steepest downward direction. You take a small, careful step in that direction and repeat until you seem to be in a flat place where there's no direction that seems to take you farther downward.
 
 Machine learning (and, by extension, NLP) views the setting of parameter values as a problem of numerical optimization, which has been widely studied for many years by mathematicians, statisticians, engineers, and computer scientists. One of the tools of machine learning is an automated procedure that frames the parameter value-setting problem like that terrifying hike. Recall that we said that neural networks need to be differentiable with respect to their parameters— that is, they need to be set up to allow calculus to tell us which tiny change to each parameter will result in the steepest change of something calculated using the neural network's output. In our nighttime hike scenario, at each step, we make a tiny adjustment to our north-south and east-west coordinates (i.e., position on the map). To adjust the parameters of our neural network, we will consider our current set of parameters our "coordinates" and likewise repeatedly make tiny adjustments to our current coordinates. But what does it mean to move "down" in this context? Ideally, moving "down" should correspond to our neural network producing outputs that better match our data. How can we define a function—our "landscape"— such that this is true?
-
-2.3.2 为所有参数选择值：最小化损失函数
-
-为了良好工作，神经网络需要将其参数设定为有用的值（即，能够共同作用将每个输入数学转换为接近输入正确答案的输出的值）。但当我们有如此多的参数需要决定时，我们如何选择参数的值呢？在这一部分中，我们将描述在 NLP 中使用的一般策略。
-
-想象自己处于以下（当然不建议的）情景中。在夜晚，没有 GPS 或任何光源，你被随机放在华盛顿州喀斯喀特山脉的某个地方，并被指示找到你能找到的最深的山谷（而不是等待早晨）。你移动脚来估计最陡峭的下行方向。你朝那个方向小心地迈出一小步，然后重复这个过程，直到你似乎处于一个平坦的地方，那里没有任何方向似乎能让你更深入地下行。
-
-机器学习（以及 NLP）将参数值的设定视为数值优化问题，这个问题已经被数学家、统计学家、工程师和计算机科学家广泛研究了许多年。机器学习的一个工具是一个自动化程序，将参数值设定问题框架化，就像那次恐怖的徒步旅行一样。回想一下我们说过的，神经网络需要对它们的参数可微分 —— 也就是说，它们需要被设定为允许微积分告诉我们每个参数的哪个微小变化会导致使用神经网络的输出计算出的某个东西的最陡峭变化。在我们夜间徒步的场景中，每一步，我们都会对我们的南北和东西坐标（即地图上的位置）进行微小调整。为了调整我们神经网络的参数，我们将考虑我们当前的参数集合作为我们的「坐标」，并同样反复对我们当前的坐标进行微小调整。但在这个上下文中，向「下」移动意味着什么？理想情况下，向「下」移动应该对应于我们的神经网络产生更好地匹配我们数据的输出。我们如何定义一个函数 —— 我们的「地形」—— 使得这成为真实？
-
 
 A loss function is designed for precisely this purpose: to be lower when a neural network performs better. In short, a loss function evaluates how well a model's output resembles a set of target values (our training data), with a higher "loss" signifying a higher error between the two. The more dissimilar the correct output is from the model's produced output, the higher the loss value should be; if they match, it should return zero. This means a loss function should ideally be closely aligned to our evaluation method.5
 
@@ -339,6 +327,17 @@ By performing the following procedure, we are able to train a neural-network-bas
 This method is known as (stochastic) gradient descent (SGD), since the direction that calculus gives us for each parameter is known as the "gradient."
 
 Leaving aside some important details (for example, how to efficiently calculate the gradients using calculus, working out precisely when to stop, exactly how much to change the parameter values in step 3, and some tricks that make the algorithm more stable), this method has proven effective for choosing parameter values in modern model architectures and in their predecessors.
+
+2.3.2 为所有参数选择值：最小化损失函数
+
+为了良好工作，神经网络需要将其参数设定为有用的值（即，能够共同作用将每个输入数学转换为接近输入正确答案的输出的值）。但当我们有如此多的参数需要决定时，我们如何选择参数的值呢？在这一部分中，我们将描述在 NLP 中使用的一般策略。
+
+想象自己处于以下（当然不建议的）情景中。在夜晚，没有 GPS 或任何光源，你被随机放在华盛顿州喀斯喀特山脉的某个地方，并被指示找到你能找到的最深的山谷（而不是等待早晨）。你移动脚来估计最陡峭的下行方向。你朝那个方向小心地迈出一小步，然后重复这个过程，直到你似乎处于一个平坦的地方，那里没有任何方向似乎能让你更深入地下行。
+
+机器学习（以及 NLP）将参数值的设定视为数值优化问题，这个问题已经被数学家、统计学家、工程师和计算机科学家广泛研究了许多年。机器学习的一个工具是一个自动化程序，将参数值设定问题框架化，就像那次恐怖的徒步旅行一样。回想一下我们说过的，神经网络需要对它们的参数可微分 —— 也就是说，它们需要被设定为允许微积分告诉我们每个参数的哪个微小变化会导致使用神经网络的输出计算出的某个东西的最陡峭变化。在我们夜间徒步的场景中，每一步，我们都会对我们的南北和东西坐标（即地图上的位置）进行微小调整。为了调整我们神经网络的参数，我们将考虑我们当前的参数集合作为我们的「坐标」，并同样反复对我们当前的坐标进行微小调整。但在这个上下文中，向「下」移动意味着什么？理想情况下，向「下」移动应该对应于我们的神经网络产生更好地匹配我们数据的输出。我们如何定义一个函数 —— 我们的「地形」—— 使得这成为真实？
+
+
+
 
 损失函数正是为了这个目的而设计的：当神经网络表现得更好时，损失值更低。简而言之，损失函数评估模型的输出与一组目标值（我们的训练数据）的相似程度，较高的「损失」表示两者之间的误差较大。模型产生的输出与正确输出的差异越大，损失值应该越高；如果它们匹配，则应返回零。这意味着损失函数理想情况下应与我们的评估方法紧密对齐。5
 

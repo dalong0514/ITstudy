@@ -5,6 +5,13 @@
 [‌⁣⁢​​​​‌‬‬⁤‌⁣⁡‬​​‌231026 llama.cpp 极简 - 飞书云文档](https://xnboqt31tz.feishu.cn/wiki/NOxqwfLrMispPokB6HccY2xznOc)
 
 
+### mlx 上运行 Phi-2
+
+
+
+
+
+
 ### 问题汇总
 
 1、mlx 包装不上。
