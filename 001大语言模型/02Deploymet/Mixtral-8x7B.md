@@ -59,6 +59,12 @@ python convert.py /Users/Daglas/dalong.datasets/Mixtral-8x7B-Instruct-v0.1 \
            /Users/Daglas/dalong.datasets/mixtral-instruct-8x7b-q4_0.gguf \
            q4_0
 
+\# quantize to Q5_k_m
+./quantize /Users/Daglas/dalong.datasets/mixtral-instruct-8x7b.gguf \
+           /Users/Daglas/dalong.datasets/mixtral-instruct-8x7b-q5_k_m.gguf \
+           q5_k_m
+
+
 4、运行。
 
 ./main -m /Users/Daglas/dalong.datasets/mixtral-instruct-8x7b-q4_0.gguf -n 4096 --color -i -cml -f prompts/chat-with-qwen.txt

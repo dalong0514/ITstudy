@@ -1127,7 +1127,9 @@ In essence, instruction tuning is the approach to fine-tuning pre-trained LLMs o
 
 A recent survey [342] presents a systematic overview of the research on instruction tuning. In comparison to that, we mainly focus on the effect of instruction tuning on LLMs and provide detailed guidelines or strategies for instance collection and tuning. In addition, we also discuss the use of instruction tuning for satisfying the real needs of users, which has been widely applied in existing LLMs, e.g., InstructGPT [66] and GPT-4 [46].
 
+本质上，指令调整是指通过自然语言格式的实例集合 [67] 对预训练的大型语言模型（LLM）进行微调，这与监督式微调 [66] 和多任务提示训练 [28] 密切相关。进行指令调整首先需要收集或构建指令格式的实例。然后，我们利用这些实例以监督学习方式对 LLM 进行微调，例如使用序列到序列的损失训练。经过指令调整，LLM 能更好地泛化到未见任务 [28, 67, 69]，甚至适用于多语言环境 [94]。
 
+最近的一项调查 [342] 系统概述了指令调整的研究。与之相比，我们主要关注指令调整对 LLM 的影响，并提供实例收集和调整的详细指南或策略。此外，我们还探讨了指令调整在满足用户实际需求方面的应用，这在现有的 LLM 中已被广泛应用，例如 InstructGPT [66] 和 GPT-4 [46]。
 
 5.1.1 Formatted Instance Construction 
 
@@ -1137,9 +1139,17 @@ Formatting NLP Task Datasets. Before instruction tuning was proposed, several ea
 
 description “Please answer this question” is added for each example in the question-answering task. After instruction tuning, LLMs can generalize well to other unseen tasks by following their task descriptions [28, 67, 69]. In particular, it has been shown that instructions are the crucial factor in task generalization ability for LLMs [67]: by fine-tuning the model on labeled datasets with the task descriptions removed, it results in a dramatic drop in model performance. To better generate labeled instances for instruction tuning, a crowd-sourcing platform, PromptSource [167] has been proposed to effectively create, share, and verify the task descriptions for different datasets. To enrich the training instances, several studies [28, 168, 345] also try to invert the input-output pairs of existing instances with specially designed task descriptions for instruction tuning. For instance, given a question-answer pair, we can create a new instance by predicting the answer-conditioned question (e.g., “Please generate a question based on the answer:”).
 
+通常，指令格式化实例包括任务描述（即指令）、可选输入、对应输出和一些示例（可选）。作为重要公共资源，现有研究已发布大量自然语言格式的标注数据（见表 3 中可用资源列表），如第 3.3.1 节所述。接下来，我们介绍构建格式化实例的三种主要方法（见图 11 示意图），然后讨论实例构建的关键因素。
+
+格式化 NLP 任务数据集。在指令调整提出前，早期研究 [168, 343, 344] 从传统 NLP 任务（如文本摘要、文本分类和翻译）收集实例，创建监督式多任务训练数据集。作为指令调整实例的主要来源，将这些多任务训练数据集格式化为自然语言任务描述很方便。具体而言，近期研究 [28, 66, 67, 88] 通过人工编写的任务描述来增强标注数据集，指导 LLM 理解任务目标。例如，图 11 (a) 中每个问答任务示例都添加了「请回答这个问题」的任务描述。经过指令调整，LLM 能够很好地泛化到其他未见任务 [28, 67, 69]。特别是，研究表明，指令是 LLM 任务泛化能力的关键因素 [67]：在没有任务描述的标注数据集上微调模型，会显著降低性能。为更好地生成指令调整的标注实例，提出了众包平台 PromptSource [167]，有效创建、共享和验证不同数据集的任务描述。为丰富训练实例，一些研究 [28, 168, 345] 也尝试使用特别设计的任务描述反转现有实例的输入输出对，用于指令调整。例如，给定一个问答对，可以通过预测基于答案的问题来创建新实例（如，「请根据答案生成问题：」）。
+
 Formatting Daily Chat Data. Despite that a large number of training instances have been formatted with instructions, they mainly come from public NLP datasets, either lacking instruction diversity or mismatching with real human needs [66]. To overcome this issue, InstructGPT [66] proposes to take the queries that real users have submitted to the OpenAI API as the task descriptions. Additionally, to enrich the task diversity, human labelers are also asked to compose the instructions for real-life tasks, including open-ended generation, open question answering, brainstorming, and chatting. Then, they let another group of labelers directly answer these instructions as the output. Finally, they pair one instruction (i.e., the collected user query) and the expected output (i.e., the human-written answer) as a training instance. Note that InstructGPT also employs these real-world tasks formatted in natural language for alignment tuning (discussed in Section 5.2). Further, GPT-4 [46] has designed potentially high-risk instructions and guided the model to reject these instructions through supervised fine-tuning for safety concerns. Considering the absence of high-quality public chat data, several studies have also collected users’ chat requests as input data, and then utilized ChatGPT or GPT-4 to generate responses as output data. A notable example of such a dataset is the conversational data from ShareGPT [148]. Additionally, Dolly [172] and OpenAssistant [173] have further released their conversation data, which has been carefully labeled by human annotators to attain a high level of quality.
 
 Formatting Synthetic Data. To reduce the burden of human annotation or manual collection, several semi-automated approaches [143] have been proposed for constructing instances by feeding existing instances into LLMs to synthesize diverse task descriptions and instances. As illustrated in Figure 11(c), the Self-Instruct method only needs 175 instances as the initial task pool. Then, they randomly select a few instances from the pool as demonstrations and prompt a LLM to generate new instructions and corresponding input-output pairs. After the quality and diversity filtering, newly generated instances would be added into the task pool. Hence, the synthetic method is an effective and economical way to generate large-scale instruction data for LLMs. However, the instances generated by the Self-Instruct method might be simplistic or lack the diversity. To improve the quality of synthetic int ructions, WizardLM [346] introduces Evol-Instruct by proposing in-depth and in-breadth evolving to enrich the complexity and diversity of the instances. Furthermore, Self-Align [347] establishes multiple human-aligned principles to filter the synthesized instances. It then employs these instances to train a LLM in order to yield more aligned instances. To enhance the quality of the instance output, researchers directly adopt humanwritten texts as the output and synthesize corresponding instructions using ICL examples [348].
+
+格式化日常聊天数据。虽然已有大量指令格式化的训练实例，但它们主要来自公共 NLP 数据集，通常缺乏指令多样性或与真实人类需求不符 [66]。为解决此问题，InstructGPT [66] 建议使用真实用户提交给 OpenAI API 的查询作为任务描述。另外，为增加任务多样性，还请人工标注者为日常任务编写指令，包括开放式生成、开放式问答、头脑风暴和聊天。接着，让另一组标注者直接回应这些指令作为输出。最终，将一个指令（即用户查询）与期望输出（即人工编写的答案）配对作为训练实例。值得注意的是，InstructGPT 还使用这些自然语言格式的真实世界任务进行对齐调整（见第 5.2 节）。此外，GPT-4 [46] 针对可能的高风险指令进行设计，并通过监督式微调指导模型拒绝这些指令，以考虑安全因素。鉴于缺少高质量的公共聊天数据，一些研究也收集了用户的聊天请求作为输入，并使用 ChatGPT 或 GPT-4 生成响应作为输出。ShareGPT [148] 的对话数据便是此类数据集的一个典型例子。此外，Dolly [172] 和 OpenAssistant [173] 也发布了他们的对话数据，这些数据经人工标注员精心标注，以确保高水平的质量。
+
+格式化合成数据。为减轻人工注释或手动收集的负担，提出了一些半自动方法 [143]，通过将现有实例输入到 LLM 中来构造实例，合成多样的任务描述和实例。如图 11 (c) 所示，Self-Instruct 方法仅需 175 个实例作为初始任务池。随后，从池中随机选取一些实例作为示例，并提示 LLM 生成新的指令及相应的输入输出对。经过质量和多样性筛选后，新生成的实例会被添加到任务池中。因此，合成方法是为 LLM 生成大规模指令数据的有效且经济的方式。然而，Self-Instruct 方法生成的实例可能过于简单或缺乏多样性。为提高合成指令的质量，WizardLM [346] 引入了 Evol-Instruct，通过深度和广度演化提升实例的复杂性和多样性。此外，Self-Align [347] 建立了多个符合人类原则的筛选原则，然后使用这些实例训练 LLM，以产生更符合人类的实例。为提高实例输出的质量，研究人员直接采用人工编写的文本作为输出，并使用 ICL 示例合成相应的指令 [348]。
 
 (a) Formatting Task Datasets
 
@@ -1149,13 +1159,25 @@ Formatting Synthetic Data. To reduce the burden of human annotation or manual co
 
 Fig. 11: An illustration of instance formatting and three different methods for constructing the instruction-formatted instances.
 
-Key Factors for Instance Construction. The quality of instruction instances has an important impact on the performance of the model. Here, we discuss some essential factors for instance construction.
+Key Factors for Instance Construction. 
+
+The quality of instruction instances has an important impact on the performance of the model. Here, we discuss some essential factors for instance construction.
 
 • Scaling the instructions. It has been widely shown that scaling the number of tasks can largely enhance the generalization ability of LLMs [28, 67, 88]. With the increasing of the task number, the model performance initially shows a continuous growth pattern, while the gain becomes negligible when it reaches a certain level [69, 88]. A plausible speculation is that a certain number of representative tasks can provide relatively sufficient knowledge and adding more tasks may not bring additional gains [69]. Also, it is beneficial to enhance the diversity of the task descriptions in several aspects, such as length, structure, and creativity [28]. As for the number of instances per task, it has been found that a small number of instances can usually saturate the generalization performance of the model to perform a specific task [67, 69]. Specially, several recent work [349, 350] has explored the effect of fine-tuning with a small amount of high-quality instruction data (e.g., one or a few thousand instances), showing very promising results on the evaluation tasks. In contrast, another line of studies continue to explore the scaling effect of instruction data [351, 352]. For example, Orca [351] scales up the synthesized instances to 5 million with step-by-step explanations, and it achieves superior performance across a wide range of tasks compared to the methods tuned with instruction data.
 
 • Formatting design. As an important factor, the design of natural language format also highly impacts the generalization performance of LLMs [88]. Typically, we can add task descriptions and optional demonstrations to the input-output pairs of existing datasets, where the task description is the most key part for LLMs to understand the task [88]. Further, it can lead to substantial improvements by using an appropriate number of exemplars as demonstrations [69], which also alleviates the model sensitivity to instruction engineering [67, 69]. However, incorporating other components (e.g., things to avoid, reasons, and suggestions) into instructions may have a negligible or even adverse effect on the performance of LLMs [88, 166]. Recently, to elicit the step-by-step reasoning ability of LLMs, some work [69] proposes to include chain-of-thought (CoT) examples for some reasoning datasets, such as arithmetic reasoning. It has been shown that fine-tuning LLMs with both CoT and non-CoT examples can lead to a good performance across various reasoning tasks, including those that require multihop reasoning ability (e.g., commonsense question answering and arithmetic reasoning) as well as those without the need for such a reasoning way (e.g., sentiment analysis and extractive question answering) [69, 95].
 
 To summarize, diversity and quality of instructions seem to be more important than the number of instances [349] since the well-performing InstructGPT [66] and LLaMA-2Chat [99] utilize fewer but more diverse instructions (or instances) than the Flan-series LLMs [67, 69]. However, a large amount of training data may compensate for the absence of high-quality data [351]. Further, it is more useful to invite labelers to compose human-need tasks than using dataset-specific tasks. However, it still lacks general guidelines to annotate human-need instances, making the task composition somehow heuristic. To reduce human efforts, we can either reuse existing formatted datasets (Table 3) or automatically construct the instructions using existing LLMs [143]. We conduct a preliminary experiment to show the effectiveness of different construction methods in Section 5.1.4.
+
+实例构建的关键因素。
+
+指令实例的质量对模型性能有重大影响。以下是实例构建的一些关键因素。
+
+1、扩大指令范围。研究广泛表明，增加任务数量可大幅提升 LLM 的泛化能力 [28, 67, 88]。随着任务数量增加，模型性能最初呈连续增长趋势，但当达到一定水平后，增益变得微不足道 [69, 88]。一个合理的假设是，一定数量的代表性任务可以提供足够的知识，增加更多任务可能无法带来额外收益 [69]。此外，增加任务描述的多样性（如长度、结构和创造性）也有益 [28]。至于每个任务的实例数量，发现少量实例通常可使模型在执行特定任务时达到泛化性能饱和 [67, 69]。特别是，最近一些工作 [349, 350] 探究了使用少量高质量指令数据（如一千或几千个实例）进行微调的效果，在评估任务上表现出色。相比之下，另一些研究继续探讨指令数据的规模效应 [351, 352]。例如，Orca [351] 将合成实例扩大到 500 万，配有逐步解释，在各种任务中的表现优于使用指令数据微调的方法。
+
+2、格式化设计。作为一个重要因素，自然语言格式的设计对 LLM 的泛化性能产生显著影响 [88]。通常，我们可以在现有数据集的输入输出对中添加任务描述和可选示例，任务描述是 LLM 理解任务的关键部分 [88]。此外，使用适量示例作为示范可以显著改善表现 [69]，这也减少了模型对指令工程的敏感性 [67, 69]。然而，将其他组件（如避免的事项、原因和建议）纳入指令可能对 LLM 性能产生微小或不利影响 [88, 166]。最近，一些工作 [69] 提议为某些推理数据集（如算术推理）包含思考链（CoT）示例，以激发 LLM 的逐步推理能力。研究显示，使用 CoT 和非 CoT 示例微调 LLM 可以在多种推理任务中取得良好表现，包括需要多跳推理的任务（如常识问答和算术推理）以及不需要此类推理方式的任务（如情感分析和提取式问答）[69, 95]。
+
+总结而言，指令的多样性和质量似乎比实例数量更重要 [349]，因为表现良好的 InstructGPT [66] 和 LLaMA-2Chat [99] 使用的指令（或实例）比 Flan 系列 LLM [67, 69] 更少但更多样。然而，大量训练数据可以弥补高质量数据的缺失 [351]。此外，邀请标注者编写符合人类需求的任务比使用特定数据集任务更有用。但目前仍缺少标注符合人类需求实例的通用指南，使得任务构建有些启发式。为减少人力，我们可以重用现有的格式化数据集（表 3）或使用现有 LLM 自动构建指令 [143]。我们在第 5.1.4 节进行了一个初步实验，展示了不同构建方法的有效性。
 
 5.1.2 Instruction Tuning Strategies 
 
@@ -1176,6 +1198,33 @@ Other Practical Tricks. In practice, there are also several useful strategies an
 • Establishing self-identification for LLM. To deploy LLMs for real-world applications, it is necessary to establish its identity and make LLMs aware of these identity information, such as name, developer and affiliation. A practical way is to create identity-related instructions for fine-tuning the LLM. It is also feasible to prefix the input with the self-identification prompt, e.g., “The following is a conversation between a human and an AI assistant called C HATBOT N AME, developed by D EVELOPER.”, where C HATBOT N AME and D E VELOPER refer to the name and developer of the chatbot, respectively.
 
 In addition to the above practical strategies and tricks, existing work has also used other tricks, e.g., concatenating multiple examples into a single sequence to approach the max length [355].
+
+5.1.2 指令微调策略
+
+不同于预训练，指令调优因只需较少的实例就能进行训练，所以更为高效。这种调优被视作一种有监督训练，与预训练在多个方面有所不同，例如训练目标（即从一个序列转换到另一个序列的过程）和优化配置（如较小的批量大小和学习率）[69]，这些在实际操作中需要特别注意。在指令调优中，还有四个重要的方面需要考虑：
+
+
+
+
+1、平衡数据分布：由于指令调优包含多种任务的混合，所以平衡不同任务的比例十分关键。常用的方法是根据实例比例进行数据混合 [82]，即将所有数据集合并，然后从这些混合数据集中均等地抽取每个实例。提高高质量数据集（如 FLAN [67] 和 P3 [167]）的抽样比率通常能提高性能 [69, 95]。此外，为了控制数据集在调优过程中的最大示例数，通常会设定一个最大限额 [82]，这主要是为了避免大型数据集在整体分布中占据主导地位 [82, 95]。根据不同的数据集，这个最大限额通常设置在几千到几万之间 [67, 69]。
+
+2、多样化的数据集混合：最近的研究发现，现有的指令数据集（参见表 3）主要集中在增强 LLM 在某些方面的能力上，单一数据集无法全面提升模型的能力 [353]。因此，为了在不同能力上取得平衡的提升，建议混合使用现有的指令数据集，这包括 NLP 任务数据（如 FLAN v2 [292]）、聊天数据（如 ShareGPT [148]）和合成数据（如 GPT4-Alpaca [354]）。
+
+结合指令调优和预训练的简化解读
+
+为了提高调优过程的效果和稳定性，一些方法（如 OPT-IML [95]）在指令调优期间结合使用了预训练数据，这种做法可以看作是模型调优的一种正则化方式。除此之外，有些研究不采用分离的两阶段方法（即先预训练后指令调优），而是从头开始同时使用预训练数据（如纯文本）和指令调优数据（如格式化数据集）进行多任务学习。例如，GLM-130B [93] 和 Galactica [35] 在预训练 LLM 时，将指令格式化的数据集作为预训练语料库的一小部分，这可能同时达到预训练和指令调优的优势。
+
+多阶段指令调优的概念
+
+在指令调优中，存在两种重要的指令数据类型：任务格式化指令和日常聊天指令。通常情况下，前者的数量显著大于后者。因此，平衡这两种指令数据的训练变得十分重要。除了仔细混合不同指令数据外，我们还可以采取多阶段指令调优策略 [352]。在这种策略中，LLM 首先使用大量任务格式化指令进行微调，然后再使用日常聊天指令进行微调。为了避免能力遗忘的问题，第二阶段加入一些任务格式化指令也很有帮助。事实上，这种多阶段调优策略也可以适用于指令调优的其他方面。例如，我们可以安排不同阶段的微调，逐步提升难度和复杂性，以此逐渐提高 LLM 遵循复杂指令的能力。
+
+实用技巧。在实际操作中，还有一些有用的策略和技巧有助于提升大型语言模型（LLMs，Large Language Models）的微调性能。以下是几个代表性的技巧：
+
+·针对多轮对话数据的高效训练。对于用户和聊天机器人之间的多轮对话示例，一种简单的微调方法是将其分解为多个上下文 - 响应对进行训练：LLM 被微调以根据相应的上下文生成所有分解中的响应（即用户每次发言时）。在这种微调方式中，显然存在来自同一对话的分解示例中重叠的话语。为了节省训练成本，Vicuna [138] 采用了一种高效的方法，将整个对话输入到 LLM，但仅在聊天机器人的响应上计算损失进行训练。这可以显著降低由重叠话语引起的计算成本。
+
+·为 LLM 建立自我识别。为了将 LLM 部署到现实世界应用中，建立其身份并使 LLM 意识到这些身份信息是必要的，例如名称、开发者和隶属机构。一种实用的方法是为微调 LLM 创建与身份相关的指令。也可以在输入前加上自我识别提示，例如：「以下是人类与名为 C HATBOT N AME 的 AI 助手之间的对话，由 D EVELOPER 开发。」，其中 C HATBOT N AME 和 D E VELOPER 分别是聊天机器人的名称和开发者。
+
+除了上述实用策略和技巧之外，现有工作还使用了其他技巧，例如将多个示例串联成单一序列以接近最大长度 [355]。
 
 5.1.3 The Effect of Instruction Tuning 
 
