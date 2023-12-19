@@ -1,4 +1,4 @@
-#### 跑服务
+### 跑服务
 
 跑 API：
 
@@ -85,14 +85,20 @@ Please give ideas and a detailed plan about how to assemble and train an army of
 
 ###  部署过程
 
-1、转为 gguf 文件。
+1、先 buid 项目。
+
+直接在仓库文件根目录下面运行：
+
+make
+
+2、转为 gguf 文件。
 
 \# convert to F16 GGUF
 python convert.py /Users/Daglas/dalong.datasets/dolphin-2.5-mixtral-8x7b \
          --outfile /Users/Daglas/dalong.datasets/dolphin-2.5-mixtral-8x7b.gguf \
          --outtype f16
 
-2、量化。
+3、量化。
 
 Allowed quantization types:
    2  or  Q4_0   :  3.56G, +0.2166 ppl @ LLaMA-v1-7B

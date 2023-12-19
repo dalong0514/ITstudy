@@ -1195,34 +1195,25 @@ Other Practical Tricks. In practice, there are also several useful strategies an
 
 • Efficient training for multi-turn chat data. Given a multiturn chat example (the conversation between a user and chatbot), a straightforward fine-tuning way is to split it into multiple context-response pairs for training: a LLM is finetuned to generate the response based on the corresponding context for all splits (i.e., at each utterance from the user). In such a fine-tuning way, it is apparent that there exist overlapping utterances in the split examples from a conversation. To save the training cost, Vicuna [138] has adopted an efficient way that feeds the whole conversation into the LLM, but relies on a loss mask that only computes the loss on the responses of the chatbot for training. It can significantly reduce the compute costs derived from the overlapped utterances.
 
-• Establishing self-identification for LLM. To deploy LLMs for real-world applications, it is necessary to establish its identity and make LLMs aware of these identity information, such as name, developer and affiliation. A practical way is to create identity-related instructions for fine-tuning the LLM. It is also feasible to prefix the input with the self-identification prompt, e.g., “The following is a conversation between a human and an AI assistant called C HATBOT N AME, developed by D EVELOPER.”, where C HATBOT N AME and D E VELOPER refer to the name and developer of the chatbot, respectively.
+• Establishing self-identification for LLM. To deploy LLMs for real-world applications, it is necessary to establish its identity and make LLMs aware of these identity information, such as name, developer and affiliation. A practical way is to create identity-related instructions for fine-tuning the LLM. It is also feasible to prefix the input with the self-identification prompt, e.g., “The following is a conversation between a human and an AI assistant called CHATBOTNAME, developed by DEVELOPER.”, where CHATBOTNAME and DEVELOPER refer to the name and developer of the chatbot, respectively.
 
 In addition to the above practical strategies and tricks, existing work has also used other tricks, e.g., concatenating multiple examples into a single sequence to approach the max length [355].
 
 5.1.2 指令微调策略
 
-不同于预训练，指令调优因只需较少的实例就能进行训练，所以更为高效。这种调优被视作一种有监督训练，与预训练在多个方面有所不同，例如训练目标（即从一个序列转换到另一个序列的过程）和优化配置（如较小的批量大小和学习率）[69]，这些在实际操作中需要特别注意。在指令调优中，还有四个重要的方面需要考虑：
+不同于预训练，指令微调因只需较少的实例就能进行训练，所以更为高效。这种调优被视作一种有监督训练，与预训练在多个方面有所不同，例如训练目标（即从一个序列转换到另一个序列的过程）和优化配置（如较小的批量大小和学习率）[69]，这些在实际操作中需要特别注意。在指令微调中，还有四个重要的方面需要考虑：
 
+1、平衡数据分布：由于指令微调包含多种任务的混合，所以平衡不同任务的比例十分关键。常用的方法是根据实例比例进行数据混合 [82]，即将所有数据集合并，然后从这些混合数据集中均等地抽取每个实例。提高高质量数据集（如 FLAN [67] 和 P3 [167]）的抽样比率通常能提高性能 [69, 95]。此外，为了控制数据集在调优过程中的最大示例数，通常会设定一个最大限额 [82]，这主要是为了避免大型数据集在整体分布中占据主导地位 [82, 95]。根据不同的数据集，这个最大限额通常设置在几千到几万之间 [67, 69]。最近的研究发现，现有的指令数据集（参见表 3）主要集中在增强 LLM 在某些方面的能力上，单一数据集无法全面提升模型的能力 [353]。因此，为了在不同能力上取得平衡的提升，建议混合使用现有的指令数据集，这包括 NLP 任务数据（如 FLAN v2 [292]）、聊天数据（如 ShareGPT [148]）和合成数据（如 GPT4-Alpaca [354]）。
 
+2、结合指令微调和预训练。为了提高调优过程的效果和稳定性，一些方法（如 OPT-IML [95]）在指令微调期间结合使用了预训练数据，这种做法可以看作是模型调优的一种正则化方式。除此之外，有些研究不采用分离的两阶段方法（即先预训练后指令微调），而是从头开始同时使用预训练数据（如纯文本）和指令微调数据（如格式化数据集）进行多任务学习。例如，GLM-130B [93] 和 Galactica [35] 在预训练 LLM 时，将指令格式化的数据集作为预训练语料库的一小部分，这可能同时达到预训练和指令微调的优势。
 
+3、多阶段指令微调。在指令微调中，存在两种重要的指令数据类型：任务格式化指令和日常聊天指令。通常情况下，前者的数量显著大于后者。因此，平衡这两种指令数据的训练变得十分重要。除了仔细混合不同指令数据外，我们还可以采取多阶段指令微调策略 [352]。在这种策略中，LLM 首先使用大量任务格式化指令进行微调，然后再使用日常聊天指令进行微调。为了避免能力遗忘的问题，第二阶段加入一些任务格式化指令也很有帮助。事实上，这种多阶段调优策略也可以适用于指令微调的其他方面。例如，我们可以安排不同阶段的微调，逐步提升难度和复杂性，以此逐渐提高 LLM 遵循复杂指令的能力。
 
-1、平衡数据分布：由于指令调优包含多种任务的混合，所以平衡不同任务的比例十分关键。常用的方法是根据实例比例进行数据混合 [82]，即将所有数据集合并，然后从这些混合数据集中均等地抽取每个实例。提高高质量数据集（如 FLAN [67] 和 P3 [167]）的抽样比率通常能提高性能 [69, 95]。此外，为了控制数据集在调优过程中的最大示例数，通常会设定一个最大限额 [82]，这主要是为了避免大型数据集在整体分布中占据主导地位 [82, 95]。根据不同的数据集，这个最大限额通常设置在几千到几万之间 [67, 69]。
+4、其他实用技巧。在实际操作中，还有一些有用的策略和技巧有助于提升大型语言模型（LLMs，Large Language Models）的微调性能。以下是几个代表性的技巧：
 
-2、多样化的数据集混合：最近的研究发现，现有的指令数据集（参见表 3）主要集中在增强 LLM 在某些方面的能力上，单一数据集无法全面提升模型的能力 [353]。因此，为了在不同能力上取得平衡的提升，建议混合使用现有的指令数据集，这包括 NLP 任务数据（如 FLAN v2 [292]）、聊天数据（如 ShareGPT [148]）和合成数据（如 GPT4-Alpaca [354]）。
+1）针对多轮对话数据的高效训练。对于用户和聊天机器人之间的多轮对话示例，一种简单的微调方法是将其分解为多个上下文-响应对进行训练：LLM 被微调以根据相应的上下文生成所有分解中的响应（即用户每次发言时）。在这种微调方式中，显然存在来自同一对话的分解示例中重叠的话语。为了节省训练成本，Vicuna [138] 采用了一种高效的方法，将整个对话输入到 LLM，但仅在聊天机器人的响应上计算损失进行训练。这可以显著降低由重叠话语引起的计算成本。
 
-结合指令调优和预训练的简化解读
-
-为了提高调优过程的效果和稳定性，一些方法（如 OPT-IML [95]）在指令调优期间结合使用了预训练数据，这种做法可以看作是模型调优的一种正则化方式。除此之外，有些研究不采用分离的两阶段方法（即先预训练后指令调优），而是从头开始同时使用预训练数据（如纯文本）和指令调优数据（如格式化数据集）进行多任务学习。例如，GLM-130B [93] 和 Galactica [35] 在预训练 LLM 时，将指令格式化的数据集作为预训练语料库的一小部分，这可能同时达到预训练和指令调优的优势。
-
-多阶段指令调优的概念
-
-在指令调优中，存在两种重要的指令数据类型：任务格式化指令和日常聊天指令。通常情况下，前者的数量显著大于后者。因此，平衡这两种指令数据的训练变得十分重要。除了仔细混合不同指令数据外，我们还可以采取多阶段指令调优策略 [352]。在这种策略中，LLM 首先使用大量任务格式化指令进行微调，然后再使用日常聊天指令进行微调。为了避免能力遗忘的问题，第二阶段加入一些任务格式化指令也很有帮助。事实上，这种多阶段调优策略也可以适用于指令调优的其他方面。例如，我们可以安排不同阶段的微调，逐步提升难度和复杂性，以此逐渐提高 LLM 遵循复杂指令的能力。
-
-实用技巧。在实际操作中，还有一些有用的策略和技巧有助于提升大型语言模型（LLMs，Large Language Models）的微调性能。以下是几个代表性的技巧：
-
-·针对多轮对话数据的高效训练。对于用户和聊天机器人之间的多轮对话示例，一种简单的微调方法是将其分解为多个上下文 - 响应对进行训练：LLM 被微调以根据相应的上下文生成所有分解中的响应（即用户每次发言时）。在这种微调方式中，显然存在来自同一对话的分解示例中重叠的话语。为了节省训练成本，Vicuna [138] 采用了一种高效的方法，将整个对话输入到 LLM，但仅在聊天机器人的响应上计算损失进行训练。这可以显著降低由重叠话语引起的计算成本。
-
-·为 LLM 建立自我识别。为了将 LLM 部署到现实世界应用中，建立其身份并使 LLM 意识到这些身份信息是必要的，例如名称、开发者和隶属机构。一种实用的方法是为微调 LLM 创建与身份相关的指令。也可以在输入前加上自我识别提示，例如：「以下是人类与名为 C HATBOT N AME 的 AI 助手之间的对话，由 D EVELOPER 开发。」，其中 C HATBOT N AME 和 D E VELOPER 分别是聊天机器人的名称和开发者。
+2）为 LLM 建立自我识别。为了将 LLM 部署到现实世界应用中，建立其身份并使 LLM 意识到这些身份信息是必要的，例如名称、开发者和隶属机构。一种实用的方法是为微调 LLM 创建与身份相关的指令。也可以在输入前加上自我识别提示，例如：「以下是人类与名为 CHATBOTNAME 的 AI 助手之间的对话，由 DEVELOPER 开发。」，其中 CHATBOTNAME 和 DEVELOPER 分别是聊天机器人的名称和开发者。
 
 除了上述实用策略和技巧之外，现有工作还使用了其他技巧，例如将多个示例串联成单一序列以接近最大长度 [355]。
 
@@ -1230,17 +1221,23 @@ In addition to the above practical strategies and tricks, existing work has also
 
 In this part, we discuss the effect of instruction tuning on LLMs in three major aspects.
 
-Performance Improvement. Despite being tuned on a moderate number of instances, instruction tuning has become an important way to improve or unlock the abilities of LLMs [69]. Recent studies have experimented with language models in multiple scales (ranging from 77M to 540B), showing that the models of different scales can all benefit from instruction tuning [69, 345], yielding improved performance as the parameter scale increases [94]. Further, smaller models with instruction tuning can even perform better than larger models without fine-tuning [28, 69]. Besides the model scale, instruction tuning demonstrates consistent improvements in various model architectures, pre-training 35
+Performance Improvement. Despite being tuned on a moderate number of instances, instruction tuning has become an important way to improve or unlock the abilities of LLMs [69]. Recent studies have experimented with language models in multiple scales (ranging from 77M to 540B), showing that the models of different scales can all benefit from instruction tuning [69, 345], yielding improved performance as the parameter scale increases [94]. Further, smaller models with instruction tuning can even perform better than larger models without fine-tuning [28, 69]. Besides the model scale, instruction tuning demonstrates consistent improvements in various model architectures, pre-training objectives, and model adaptation methods [69]. In practice, instruction tuning offers a general approach to enhancing the abilities of existing language models [69] (including small-sized PLMs). Also, it is much less costly than pretraining, since the amount of instruction data required by LLMs is significantly smaller than pre-training data.
 
 TABLE 8: Basic statistics of the required number of GPUs, tuning time, batch size (denoted as BS) per device (full tuning and LoRA tuning), and inference rate (the number of generated tokes per second). Our experiments are conducted based on two Linux servers having 8 A800-80G SXM4 GPUs with 6 NVSwitch and 8 3090-24G GPUs, respectively. The major difference between A800 and A100 lies in the NVLink interconnect speed. Thus, our estimations about training and inference efficiency would be slightly improved for A100, while the rest memory consumption would remain the same. For full tuning experiments, we use data parallel training, ZeRO Stage 3, BF16, and gradient checkpointing. Additionally, the LoRA tuning can be executed on one 80G GPU utilizing INT8 quantization with the rank setting set to 16. All the experiments are conducted with Alpaca-52K dataset by training LLaMA models three epochs. The max sequence length for both training settings is set to 512. The inference experiments are performed with the batch size set to 1.
 
-objectives, and model adaptation methods [69]. In practice, instruction tuning offers a general approach to enhancing the abilities of existing language models [69] (including small-sized PLMs). Also, it is much less costly than pretraining, since the amount of instruction data required by LLMs is significantly smaller than pre-training data.
-
 Task Generalization. Instruction tuning encourages the model to understand natural language instructions for task completion. It endows LLMs with the ability (often considered as an emergent ability) to follow human instructions [31] to perform specific tasks without demonstrations, even on unseen tasks [69]. A large number of studies have confirmed the effectiveness of instruction tuning to achieve superior performance on both seen and unseen tasks [95, 345]. Also, instruction tuning has been shown to be useful in alleviating several weaknesses of LLMs (e.g., repetitive generation or complementing the input without accomplishing a certain task) [66, 69], leading to a superior capacity to solve real-world tasks for LLMs. Furthermore, LLMs trained with instruction tuning can generalize to related tasks across languages. For example, BLOOMZ-P3 [94] is fine-tuned based on BLOOM [78] using English-only task collection P3 [167]. Interestingly, BLOOMZ-P3 can achieve a more than 50% improvement in multilingual sentence completion tasks compared to BLOOM, which shows that instruction tuning can help LLMs acquire general task skills from English-only datasets and transfer such skills into other languages [94]. In addition, it has been found that using English-only instructions can produce satisfactory results on multilingual tasks [94], which helps reduce the effort of instruction engineering for a specific language.
 
-Domain Specialization. Existing LLMs have showcased superior capabilities in traditional NLP tasks (e.g., generation and reasoning) and daily questions. However, they may still lack domain knowledge to accomplish specific tasks, such as medicine, law, and finance (See Section 8 for a detailed discussion of LLMs in different applications). Instruction tuning is an effective approach to adapting existing general LLMs to be domain-specific experts. For instance, researchers propose to fine-tune Flan-PaLM [69] using medical datasets to create Med-PaLM [356], a medical knowledge assistant that achieves performance levels comparable to
+Domain Specialization. Existing LLMs have showcased superior capabilities in traditional NLP tasks (e.g., generation and reasoning) and daily questions. However, they may still lack domain knowledge to accomplish specific tasks, such as medicine, law, and finance (See Section 8 for a detailed discussion of LLMs in different applications). Instruction tuning is an effective approach to adapting existing general LLMs to be domain-specific experts. For instance, researchers propose to fine-tune Flan-PaLM [69] using medical datasets to create Med-PaLM [356], a medical knowledge assistant that achieves performance levels comparable to those of expert clinicians. Furthermore, a recent study [357] fine-tunes FLAN-T5 to support e-commerce recommender systems with natural language instructions, showing strong performance in a variety of recommendation tasks. There are also several open-sourced medical models instructiontuned based on LLaMA [57], such as BenTsao [358]. Also, researchers explore instruction tuning on law [359], finance [360], and arithmetic computation [361].
 
-those of expert clinicians. Furthermore, a recent study [357] fine-tunes FLAN-T5 to support e-commerce recommender systems with natural language instructions, showing strong performance in a variety of recommendation tasks. There are also several open-sourced medical models instructiontuned based on LLaMA [57], such as BenTsao [358]. Also, researchers explore instruction tuning on law [359], finance [360], and arithmetic computation [361].
+在这一部分中，我们讨论了对大型语言模型（LLMs）进行指令调整在三个主要方面的效果。
+
+1、性能提升。尽管是在适度数量的实例上进行调整，指令调整已成为一种重要的方式，用于提高或解锁 LLMs 的能力 [69]。近期的研究对不同规模（从 77M 到 540B）的语言模型进行了实验，显示不同规模的模型都能从指令调整中受益 [69, 345]，随着参数规模的增加，性能得到提升 [94]。此外，较小的模型经过指令调整后，甚至可以比没有进行微调的较大模型表现得更好 [28, 69]。除了模型规模外，指令调整在不同的模型架构、预训练目标和模型适应方法上都表现出了一致的改进 [69]。在实践中，指令调整提供了一种通用的方法来增强现有语言模型的能力 [69]（包括小型预训练语言模型 PLMs）。而且，与预训练相比，它的成本要低得多，因为 LLMs 所需的指令数据量远小于预训练数据量。
+
+表 8：所需 GPU 数量、调整时间、每设备批量大小（标记为 BS，包括完整调整和 LoRA 调整）以及推理速率（每秒生成的 token 数量）的基本统计数据。我们的实验是基于两台 Linux 服务器进行的，分别配备了 8 个 A800-80G SXM4 GPU 和 8 个 3090-24G GPU，它们的主要区别在于 NVLink 互连速度。因此，对于 A100，我们对训练和推理效率的估计会略有提高，而剩余的内存消耗则保持不变。对于完整调整实验，我们采用了数据并行训练、ZeRO 第 3 阶段、BF16 和梯度检查点技术。此外，LoRA 调整可以在单个 80G GPU 上执行，使用 INT8 量化，排名设置为 16。所有实验都是在 Alpaca-52K 数据集上进行的，通过训练 LLaMA 模型三个周期来完成。两种训练设置的最大序列长度均设置为 512。推理实验是以批量大小设置为 1 进行的。
+
+2、任务泛化。指令调整鼓励模型理解自然语言指令以完成任务。它赋予大型语言模型（LLMs）能力（通常被认为是新出现的能力），使其能够根据人类指令 [31] 执行特定任务，即使是未见过的任务 [69]。大量研究证实，指令调整在完成已见和未见任务上都能实现卓越的性能 [95, 345]。同时，指令调整已显示出有助于缓解 LLMs 的若干弱点（例如，重复生成或补充输入而不完成特定任务） [66, 69]，使 LLMs 具备解决现实世界任务的更强大能力。此外，经过指令调整训练的 LLMs 可以泛化到跨语言的相关任务上。例如，BLOOMZ-P3 [94] 是基于 BLOOM [78] 并使用仅英语的任务集 P3 [167] 进行微调的，与 BLOOM 相比，在多语言句子完成任务上可以实现 50% 以上的改进，这表明指令调整可以帮助 LLMs 从仅英语数据集中获取通用任务技能，并将这些技能转移到其他语言 [94]。此外，研究发现，使用仅英语指令可以在多语言任务上取得令人满意的结果 [94]，有助于减少为特定语言进行指令工程的工作量。
+
+3、领域专业化。现有 LLMs 在传统自然语言处理任务（例如生成和推理）以及日常问题上展示出卓越能力。然而，它们可能在完成特定领域任务（如医学、法律和金融）方面仍缺乏必要的知识（详见第 8 节 LLMs 在不同应用中的详细讨论）。指令调整是一种有效的方法，可以将现有的通用 LLMs 适配成特定领域的专家。例如，研究者提出使用医疗数据集对 Flan-PaLM [69] 进行微调，创建了医疗知识助理 Med-PaLM [356]，其性能与专业临床医生相当。此外，最近的一项研究 [357] 对 FLAN-T5 进行了微调，以支持带有自然语言指令的电子商务推荐系统，在各种推荐任务中表现出色。还有一些基于 LLaMA [57] 进行指令调整的开源医疗模型，例如 BenTsao [358]。研究人员还在法律 [359]、金融 [360] 和算术计算 [361] 等领域探索了指令调整。
 
 5.1.4 Empirical Analysis for Instruction Tuning 
 
@@ -1254,11 +1251,31 @@ Instruction Datasets. According to the discussion in Section 5.1.1, we mainly co
 
 • Synthetic instructions. In addition to reusing existing instructions, we can also automatically synthesize massive instructions using LLMs. We adopt the popular synthetic instruction dataset Self-Instruct-52K [143], consisting of 52K instructions paired with about 82K instance inputs and outputs. These generated instructions have a similar data distribution as the human-written seed tasks (e.g., grammar checking, brainstorming).
 
+使用不同指令集对大型语言模型（LLMs）进行微调通常会导致在下游任务上表现不同。在这一节中，我们将探讨在微调 LLMs（即 LLaMA (7B) 和 LLaMA (13B) 25）时不同类型指令的影响，以及检验几种指令改进策略的有用性。
+
+指令数据集。根据第 5.1.1 节的讨论，我们主要考虑以下三种常见类型的指令：
+
+1、特定任务指令。对于第一种类型的指令，我们采用最常用的多任务指令数据集 FLAN-T5 [69]，该数据集包含 1,836 个任务和超过 15M 条指令，它结合了先前工作中的四种数据混合。
+
+2、日常聊天指令。这种类型的指令是用户关于日常生活的对话，更贴近现实生活场景。我们采用 ShareGPT 指令集，包含 63K 条真实用户指令。它已被用作 Vicuna 的核心指令。
+
+3、合成指令。除了重用现有指令外，我们还可以使用 LLMs 自动合成大量指令。我们采用流行的合成指令数据集 Self-Instruct-52K [143]，包含 52K 条指令以及约 82K 个实例的输入和输出。这些生成的指令具有与人工编写的种子任务（如语法检查、头脑风暴）相似的数据分布。
+
 As the original FLAN-T5 dataset is very large (i.e., over 15M), we randomly sample 80,000 instructions from it for conducting a fair comparison with other instruction datasets (i.e., ShareGPT and Self-Instruct-52K) at a similar scale. In our experiments, we test on each individual instruction set to explore their own effects and also examine their combinatorial effects on model performance.
 
 TABLE 9: Results of instruction-tuning experiments (all in a single-turn conversation) based on the LLaMA (7B) and LLaMA (13B) model under the chat and QA setting. We employ four instruction improvement strategies on the Self-Instruct-52K dataset, i.e., enhancing the complexity (w/ complexity), increasing the diversity (w/ diversity), balancing the difficulty (w/ difficulty), and scaling the instruction number (w/ scaling). ∗ Since we select the LLaMA (7B)/(13B) model fine-tuned on Self-Instruct-52K as the baseline, we omit the win rate of the fine-tuned model with Self-Instruct-52K against itself.
 
 Improvement Strategies. Although real-world instructions from human users are more suitable for fine-tuning LLMs, it is difficult to collect them at a large scale. As alternatives to human-generated instructions, most existing research mainly adopts synthetic instructions generated by LLMs. However, there are some potential problems with synthetic instructions, such as poor topic diversity and uneven instruction difficulty (either too simple or too difficult). Thus, it is necessary to improve the quality of the synthetic instructions. Next, we summarize four major improvement strategies widely used in existing work as follows:
+
+
+
+
+
+原始的 FLAN-T5 数据集非常庞大（即超过 15M 条指令），因此我们随机抽取了 80,000 条指令，以便与其他指令数据集（即 ShareGPT 和 Self-Instruct-52K）进行公平比较，保持类似的规模。在我们的实验中，我们测试了每个单独的指令集以探索它们自身的效果，并检验它们对模型性能的组合效果。
+
+表 9：基于 LLaMA (7B) 和 LLaMA (13B) 模型在聊天和问答设置下进行的指令调整实验结果（全部为单轮对话）。我们在 Self-Instruct-52K 数据集上应用了四种指令改进策略，即增加复杂度（w/complexity）、提高多样性（w/diversity）、平衡难度（w/difficulty）和扩大指令数量（w/scaling）。* 由于我们选择基于 Self-Instruct-52K 微调的 LLaMA (7B)/(13B) 模型作为基准，因此省略了基于 Self-Instruct-52K 对自身微调模型的胜率。
+
+改进策略。虽然来自人类用户的现实世界指令更适合用于微调 LLMs，但在大规模收集这些指令方面存在困难。作为人类生成指令的替代品，大多数现有研究主要采用 LLMs 生成的合成指令。然而，合成指令存在一些潜在问题，例如主题多样性差和指令难度不均衡（要么太简单，要么太难）。因此，提高合成指令的质量是必要的。接下来，我们将总结现有工作中广泛使用的四种主要改进策略：
 
 • Enhancing the instruction complexity. As discussed in existing work [346], enhancing the complexity of instructions can improve the model capacity of LLMs in following complex instructions, e.g., including more task demands or requiring more reasoning steps. To validate this strategy, we follow WizardLM [346] by gradually increasing the complexity levels, e.g., adding constraints, increasing reasoning steps, and complicating the input. We leverage the publicly released WizardLM-70K instructions [346] as the complexity-enhanced instruction dataset, which has been generated via the above enhancement approach based on the Self-Instruct-52K dataset [346].
 
@@ -1270,25 +1287,43 @@ Following YuLan-Chat [352], we employ ChatGPT to rewrite the instructions from S
 
 • Balancing the instruction difficulty. As the synthetic instructions tend to contain too easy or too hard ones, it is likely to result in training instability or even overfitting for LLMs. To explore the potential effects, we leverage the perplexity score of LLMs to estimate the difficulty of instructions and remove too easy or too hard instructions. To generate the same scale of instructions for fair comparison, we adopt a LLaMA (7B) model to compute the perplexity for the 220K instructions from the large instruction dataset, and then keep 70K instructions of moderate perplexity scores as the difficulty-balanced dataset.
 
+·增强指令复杂度。如现有工作 [346] 所讨论的，提高指令的复杂度可以改善 LLMs 遵循复杂指令的能力，例如包括更多任务要求或需要更多推理步骤。为验证这一策略，我们按照 WizardLM [346] 的做法，逐步增加复杂度等级，如添加约束、增加推理步骤和复杂化输入。我们利用公开发布的 WizardLM-70K 指令集 [346] 作为增强复杂度的指令数据集，这些指令是基于 Self-Instruct-52K 数据集 [346] 通过上述增强方法生成的。
+
+·提升主题多样性。除了复杂度，提高指令数据集的主题多样性有助于激发 LLMs 在真实世界中处理不同任务的不同能力 [347]。然而，直接控制自我指导过程来生成多样化的指令是困难的。
+
+遵循 YuLan-Chat [352] 的方法，我们使用 ChatGPT 重写 Self-Instruct-52K 数据集中的指令，通过特定提示使它们适应 293 个主题。最终，我们获得了 70K 条增加多样性的指令集。
+
+·扩大指令数量。除了上述方面，指令的数量也是影响模型性能的重要因素。特别是，使用更多指令可以扩大任务知识范围，提升 LLMs 遵循指令的能力 [69]。为检验此策略，我们从 MOSS 项目 [362] 发布的合成指令集中抽取新指令，因为它们同样是通过自我指导方法 [143] 合成的。我们将它们与 SelfInstruct-52K 数据集混合，形成一个包含 220K 指令的更大数据集。
+
+·平衡指令难度。由于合成指令往往包含太简单或太困难的内容，这可能导致 LLMs 训练不稳定或过拟合。为探索潜在影响，我们利用 LLMs 的困惑度得分来估计指令难度，并移除太简单或太困难的指令。为了公平比较生成同等规模的指令，我们使用 LLaMA (7B) 模型计算大型指令数据集中 220K 指令的困惑度，然后保留 70K 条中等困惑度得分的指令作为难度平衡的数据集。
+
 Experimental Setup. To conduct the experiments on the effect of instruction data, we leverage these new instruction datasets for tuning LLaMA, a popular LLM backbone that has been widely used for instruction-tuning. We use the code from YuLan-Chat [352] for our experiments, and train LLaMA 7B and 13B on a server of 8 A800-80G GPUs. All the hyper-parameters settings remain the same as Stanford Alpaca. To better evaluate the instruction following ability of fine-tuned models, we consider two settings, namely Chat setting and QA setting. The chat setting mainly utilizes user instructions and queries from daily chat, whereas the QA setting mainly employs question answering examples from existing NLP datasets. The evaluation on the chat setting is conducted based on the AlpacaFarm evaluation set [363]. Instead of using a full pairwise comparison, we select the LLaMA 7B and 13B models fine-tuned on SelfInstruct-52K as the reference baselines, and then compare them with other fine-tuned LLaMA 7B and 13B models using different instructions, respectively. Since our focus is to examine the usefulness of different strategies to generate the instructions, the model fine-tuned on Self-Instruct-52K can serve as a good reference. Following AlpacaFarm [363], for each comparison, we employ ChatGPT to automatically annotate which response from two compared models each time is the best for the user query, and report the win rate (%) as the evaluation metric. For the QA setting, we select two benchmarks, MMLU [364] and BBH [365], and evaluate the accuracy based on their default settings by using heuristic rules to parse the answers from these LLMs.
 
-For both instruction tuning and evaluation, we adopt the following prompt: “The following is a conversation between a human and an AI assistant. The AI assistant gives helpful, detailed, and polite answers to the user’s questions. \ n [ | Human | ]: { input }\ n[ | AI | ]:”. To reproduce our results, we release the code and data at the link: https://github.com/ RUCAIBox/LLMSurvey/tree/main/Experiments.
+For both instruction tuning and evaluation, we adopt the following prompt: “The following is a conversation between a human and an AI assistant. The AI assistant gives helpful, detailed, and polite answers to the user’s questions. \n[|Human|]:{input}\n[|AI|]:”. To reproduce our results, we release the code and data at the link: https://github.com/ RUCAIBox/LLMSurvey/tree/main/Experiments.
+
+实验设置。为了研究指令数据的效果，我们利用这些新的指令数据集来调整 LLaMA，这是一种流行的用于指令调整的大型语言模型（LLM）骨干网络。我们使用了 YuLan-Chat [352] 的代码进行实验，并在配备 8 个 A800-80G GPU 的服务器上训练 LLaMA 7B 和 13B。所有超参数设置保持与 Stanford Alpaca 相同。为了更好地评估微调模型的遵循指令能力，我们考虑了两种设置，即聊天设置和问答（QA）设置。聊天设置主要使用日常聊天中的用户指令和查询，而问答设置主要使用现有自然语言处理（NLP）数据集中的问答示例。聊天设置的评估是基于 AlpacaFarm 评估集 [363] 进行的。我们没有进行完整的成对比较，而是选择基于 SelfInstruct-52K 微调的 LLaMA 7B 和 13B 模型作为参考基线，然后分别将它们与使用不同指令微调的其他 LLaMA 7B 和 13B 模型进行比较。由于我们的重点是检验生成指令的不同策略的用处，所以基于 Self-Instruct-52K 微调的模型可以作为一个好的参
+
+考。根据 AlpacaFarm [363] 的方法，对于每次比较，我们使用 ChatGPT 自动注明两个比较模型中哪一个对用户查询的响应最佳，并报告胜率（%）作为评估指标。对于问答设置，我们选择了两个基准测试，MMLU [364] 和 BBH [365]，并根据它们的默认设置评估准确率，使用启发式规则从这些 LLMs 中解析答案。
+
+对于指令调整和评估，我们采用以下提示：「以下是人类和 AI 助手之间的对话。AI 助手给出有帮助的、详细的、礼貌的回答。\n [|Human|]:{input}\n [|AI|]:」。为了重现我们的结果，我们在以下链接发布了代码和数据：https://github.com/RUCAIBox/LLMSurvey/tree/main/Experiments。
 
 Results and Analysis. The results using different instruction datasets based on 7B and 13B LLaMA are in Table 9. Next, we summarize and analyze our findings in detail.
 
 • Task-formatted instructions are more proper for the QA setting, but may not be useful for the chat setting. By comparing the performance of instruction tuning using FLAN-T5 with that of ShareGPT and Self-Instruct-52K, we can observe that FLAN-T5 mostly achieves a better performance on QA benchmarks while underperforms ShareGPT on the chat setting. The reason is that FLAN-T5 is composed of a mixture of instructions and examples from existing NLP tasks, e.g., translation and reading comprehension. As a result, LLaMA fine-tuned with FLAN-T5 performs better on QA tasks, but poorly on user queries. In contrast, ShareGPT consists of real-world human-ChatGPT conversations, which is able to better elicit LLaMA to follow user instructions in daily life, while may not be suitable for accomplishing the QA tasks.
 
-• A mixture of different kinds of instructions are helpful to improve the comprehensive abilities of LLMs. After mixing the three kinds of instructions for fine-tuning, we can see that the derived LLaMA variant (with FLAN-T5, ShareGPT and Self-Instruct-52K) performs well in both task settings. In MMLU, the performance of LLaMA (7B) can surpass the ones using individual instruction set by a large margin, i.e.,
+• A mixture of different kinds of instructions are helpful to improve the comprehensive abilities of LLMs. After mixing the three kinds of instructions for fine-tuning, we can see that the derived LLaMA variant (with FLAN-T5, ShareGPT and Self-Instruct-52K) performs well in both task settings. In MMLU, the performance of LLaMA (7B) can surpass the ones using individual instruction set by a large margin, i.e., 43.69 vs. 38.58 (FLAN-T5). It shows that mixing multiple sources of instruction datasets is helpful to improve the performance of instruction-tuned LLMs, which scales the instruction number as well as increases the diversity.
 
-43.69 vs. 38.58 (FLAN-T5). It shows that mixing multiple sources of instruction datasets is helpful to improve the performance of instruction-tuned LLMs, which scales the instruction number as well as increases the diversity.
 
-• Enhancing the complexity and diversity of instructions leads to an improved model performance. By increasing the
 
-complexity and diversity of the Self-Instruct-52K dataset respectively, the chat and QA performance of LLaMA can be consistently improved, e.g., from 37.52 to 39.73 in MMLU for LLaMA (7B). It demonstrates that both strategies are useful to improve the instruction following ability of LLMs. Further, we can see that improving the complexity yields a larger performance improvement on QA tasks. The reason is that the QA tasks mostly consist of difficult questions for evaluating LLMs, which can be better solved by LLMs that have learned complex instructions at the fine-tuning stage.
+
+• Enhancing the complexity and diversity of instructions leads to an improved model performance. By increasing the complexity and diversity of the Self-Instruct-52K dataset respectively, the chat and QA performance of LLaMA can be consistently improved, e.g., from 37.52 to 39.73 in MMLU for LLaMA (7B). It demonstrates that both strategies are useful to improve the instruction following ability of LLMs. Further, we can see that improving the complexity yields a larger performance improvement on QA tasks. The reason is that the QA tasks mostly consist of difficult questions for evaluating LLMs, which can be better solved by LLMs that have learned complex instructions at the fine-tuning stage.
 
 • Simply increasing the number of instructions may not be that useful, and balancing the difficulty is not always helpful. As the results shown in Table 9, balancing the difficulty and increasing the number of fine-tuning instructions are not very helpful in our experiments. Especially for scaling the instruction number, it even hurts the performance, e.g., a decrease from 29.81 to 26.63 in BBH for LLaMA (7B). It shows that simply scaling the number of synthesized instructions without quality control may not be effective to improve the performance. Furthermore, fine-tuning with the instructions of moderate difficulty also performs well in the chat setting, while slightly decreasing the performance in the QA setting. A possible reason is that we filter complex and hard instructions with large perplexity scores, hurting the model performance in answering complex questions.
 
 • A larger model scale leads to a better instruction following performance. By comparing the performance of LLaMA (7B) and LLaMA (13B) models fine-tuned with the same set of instruction data, we can see that LLaMA (13B) mostly achieves a better performance. It indicates that scaling the model size is helpful for improving the instruction following capability. Besides, we can see that the QA performance has been improved a lot, e.g., from 38.11 to 47.49 in MMLU. It is likely because that the larger models generally have better knowledge utilization and reasoning capability [33, 55], which can accurately answer more complex questions.
+
+
+
 
 Instruction Tuning Suggestions
 
