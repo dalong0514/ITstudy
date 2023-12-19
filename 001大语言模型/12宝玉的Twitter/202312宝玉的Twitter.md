@@ -2690,7 +2690,11 @@ pdf2htmlEX 背后使用的是 poppler 这个渲染库，而 poppler 背后使用
 
 ### 99
 
-Barret李靖 @Barret_China 2023-11-30
+2023-11-30
+
+Barret李靖 
+
+@Barret_China
 
 学到两个读 arxiv PDF 论文的新技巧：
 
@@ -2702,11 +2706,468 @@ Barret李靖 @Barret_China 2023-11-30
 
 ### 100
 
-宝玉 @dotey 2023-12-14
+2023-12-14
+
+linear uncle
+
+@LinearUncle
+
+重大利好，ollama 支持多模态了（视觉模型），今天刚更新：
+
+llava https://ollama.ai/library/llava
+
+bakllava https://ollama.ai/library/bakllava
+
+公司电脑是 Windows，我只能回家试了。
+
+可以做很多有意思的事情，例如用视觉模型控制浏览器那个项目，是不是就可以省钱了。
+
+### 101
+
+2023-12-14
+
+歸藏
+
+@op7418
+
+终于出现完全产品化的为个人炼制模型并提供服务的产品了。Delphi 这个应用可以将你所有的视频、播客、PDF、博客文章等信息训练为一个你的分身，并且你可以用你的分身对外提供咨询服务。
+
+支持文字、语音甚至视频沟通。
+
+你的分身会用你的语气和你上传内容的知识跟你的粉丝对话，同时还支持对话内容的数据分析帮你优化分身跟粉丝的交流。
+
+看了一下价格最便宜的套餐每个月 25，不过需要跟他们 CEO 视频获得引导才能创建，感觉这个会议也不是真人只是他们 CEO 的分身，来炫耀技术的。
+
+网站：https://delphi.ai
+
+### 102
+
+2023-12-14
+
+宝玉
+
+@dotey
+
+德国媒体集团 Axel Springer 近日宣布，它将与 OpenAI 合作。在这一合作中，ChatGPT 将被授权摘要 Axel Springer 旗下媒体的最新文章，包括那些置于付费墙后的内容。作为交换，OpenAI 将为使用这些材料支付费用。
+
+Axel Springer 是知名媒体 Business Insider 和 Politico 的出版商。该公司表示，通过这次合作，ChatGPT 将能够提供包括德国小报 Bild 在内的 Axel Springer 媒体品牌的全球新闻内容摘要。
+
+该聊天机器人提供的回答不仅包括通常需付费才能看到的内容，还会附上完整文章的链接，以便用户获得更多信息和确保透明度。Axel Springer 的一位发言人向 AFP 透露，该公司将因向美国人工智能公司提供内容而获得报酬。这项多年有效的协议不涉及任何独家条款，双方均可自由签订新的合作协议。
+
+与此同时，其他媒体公司则采取了不同的策略，如 CNN、纽约时报、迪士尼（ABC 的母公司）、彭博社和卫报，它们都阻止了 ChatGPT 的网络爬虫获取他们的内容，以免这些内容被用来训练聊天机器人的文章写作能力。OpenAI 曾因涉嫌使用受版权保护的作品训练 ChatGPT 而遭到多次起诉，但公司对此予以否认。
+
+ChatGPT 的早期版本只能生成基于 2021 年及以前信息的回应。OpenAI 近几个月采取了措施，让聊天机器人能够接入更多当前信息。
+
+Axel Springer 的发言人提到，随着 Google 和 Facebook 等平台的兴起，媒体公司错失了建立新收入来源的机会，如今仍在努力追赶。Axel Springer 的 CEO Mathias Döpfner 表示，与 OpenAI 的合作是一次前所未有的尝试。
+
+Döpfner 强调，他们希望通过探索 AI 加持的新闻业，将新闻的质量、社会影响力和商业模式提升到一个新高度。他此前曾警告 AI 可能会「取代」新闻业，同时该集团也在积极探索自己的 AI 驱动项目。
+
+OpenAI 的首席运营官 Brad Lightcap 表示，通过与 Axel Springer 的合作，他们希望能够为大众提供通过 AI 工具获取高质量、实时新闻内容的新途径。
+
+虽然像 ChatGPT 这样的 AI 聊天机器人能在几秒内生成文章、诗歌等，但也存在一个问题，那就是它们可能会在回应用户查询时重复传播错误、无意义或冒犯性的信息，这被称为「AI 幻觉」。
+
+以上内容转译自：
+
+http://theguardian.com/technology/2023/dec/13/openai-axel-springer-chatgpt-story-writing-business-insider-politico
+
+### 103
+
+2023-12-14
+
+宝玉
+
+@dotey
+
+推荐阅读，比尔盖茨新写的一篇博客：《人工智能即将全面改变我们使用电脑的方式 [译] | AI is about to completely change how you use computers》
+
+在文章里面，比尔盖茨认为人工智能即将全面改变我们使用电脑的方式并彻底重塑软件行业。并且他还自嘲了当年 Office 推出的傻傻的回形针机器人：我们在 Microsoft Office 中推出后又取消的数字助理回形针 Clippy，至今仍是人们的笑料！
+
+但他无比看好未来的 AI 智能体，相信未来五年每个人都能拥有一个自己的 AI 助理。
+
+原文：https://gatesnotes.com/AI-agents
+
+译文：https://baoyu.io/translations/ai/ai-is-about-to-completely-change-how-you-use-computers
+
+### 104
+
+2023-12-14
+
+宝玉
+
+@dotey
+
+根据这位博主的测试，mistral-medium 的代码生成能力在一些案例中甚至超过 GPT-4，并且成本只有 GPT-4 的 3 成！
+
+先保持观望，但是很期待更多测试。
+
+### 105
+
+2023-12-14
+
+宝玉
+
+@dotey
+
+推荐阅读：《人工智能辅助程序员的三种类型 [译]》
+
+详见：ITStduy => 001大语言模型 => Article => 20231218人工智能辅助程序员的三种类型
+
+原文：
+
+[Three types of AI-assisted programmers - Stack Overflow](https://stackoverflow.blog/2023/12/11/three-types-of-ai-assisted-programmers/)
+
+中文翻译：
+
+[人工智能辅助程序员的三种类型 [译] | 宝玉的分享](https://baoyu.io/translations/ai/three-types-of-ai-assisted-programmers)
+
+### 106
+
+2023-12-14
+
+宝玉
+
+@dotey
+
+推荐阅读：《大语言模型 API 市场的变迁之路 [译]》
+
+详见：ITStduy => 001大语言模型 => Article => 大语言模型API市场的变迁之路
+
+原文：
+
+https://artfintel.com/p/the-evolution-of-the-llm-api-market-dcf
+
+翻译：
+
+[大语言模型 API 市场的变迁之路 [译] | 宝玉的分享](https://baoyu.io/translations/ai/the-evolution-of-the-llm-api-market)
+
+部分摘录：
+
+在钢铁制造的世界里，历史上，钢材主要在庞大的综合钢铁厂中生产，它们生产高品质的钢材，保持着合理的利润。然而，电动小型钢厂的出现改变了这一格局。这些小型钢厂最初以较低的成本生产低质量的钢材。大型钢铁厂商对此不予理会，继续专注于制造高品质、高利润的钢材。但随着时间的推进，这些电动小型钢厂逐渐掌握了生产更高品质钢材的技术，向高端市场发展，并最终推翻了大型综合钢厂的统治（例如，美国钢铁公司 —— 曾是美国市值第 16 大的企业 —— 在 2014 年被移出标普 500 指数）。
+
+LLM（大语言模型）的比喻很直观。大型实验室致力于开发性能最优的模型，虽然它们昂贵但效果卓越，超越所有其他模型。但这也意味着高昂的成本，为了支付这些 $900k 工程师的薪水，你得有足够的利润。在市场的另一端，由 Meta 和 r/LocalLlama 领衔的开源社区正在制作高质量的模型，并探索如何在超低功耗的设备上运行这些模型。预计，开源重量级模型会在保持质量的同时降低成本，对大型实验室的利润造成压力。例如，Together 推出的 Mixtral 托管版本，价格比 Mistral 自家版本低 70%。
+
+---
+
+因此，市场将分为两部分：高端市场将拥有价格更高、质量更好的模型，而低端市场则有价格更低、质量较差的模型。对于开源重量级模型，我们可以预见它们的价格将会趋近于 GPU 和电力的成本，随着 GPU 市场竞争的加剧，这可能最终仅限于电力成本。
+
+---
+
+因此，结论是，只要任务足够简单，能够被开放重量模型解决，LLM API 市场将趋向于最低成本。如果你的任务极其复杂，需要最优秀的模型，你只能选择支付给 OpenAI。对于其他人，微调过的 Mistral 7B 是一个不错的选择。
+
+### 107
+
+2023-12-14
+
+宝玉
+
+@dotey
+
+借助苹果前些天开源的 MLX https://weibo.com/1727858283/NvRZDhLe1，Mixtral 8x7B 也可以在 M2 Ultra / M3 Max 上运行！
+
+苹果的官方教程：https://github.com/ml-explore/mlx-examples/tree/main/mixtral
+
+### 108
+
+2023-12-14
+
+宝玉
+
+@dotey
+
+今天 Google 的 Gemini Pro 通过 Gemini API 上线，并且提供了 API 访问，同时还有一个开发者的利好：目前 Gemini Pro 可免费使用！
+
+Gemini API 地址：http://ai.google.dev https://ai.google.dev
+
+有关 Gemini Pro 的一些细节：
+
+- 在专业的基准测试中，Gemini Pro 的表现超越了其他同类模型。
+
+- 当前版本配备了 32K 文本上下文窗口，未来将推出拥有更广阔上下文窗口的版本。
+
+- 目前，Gemini Pro 可免费使用（存在一定使用限制），并且其定价将十分有竞争力。
+
+- 它具备丰富的功能，包括函数调用、数据嵌入、语义检索、自定义知识嵌入以及聊天功能。
+
+- 它支持全球超过 180 个国家和地区的 38 种语言。
+
+- 在今日发布的版本中，Gemini Pro 可处理文本输入并生成文本输出。我们还推出了一个专门的 Gemini Pro 视觉多模态终端，能够处理图像和文本输入，输出文本。
+
+- Gemini Pro 提供了多种 SDK，以便开发者在不同平台上构建应用，包括 Python、Android (Kotlin)、Node.js、Swift 和 JavaScript。
+
+Gemini Pro 提供了易于使用的 SDK，助力开发者在任何平台上快速构建应用。
+
+另外 Google 还提供了一个免费的在线开发工具 Google AI Studio，你可以用它快速构建 Gemini 应用。
+
+Google AI Studio ：https://makersuite.google.com
+
+最后是 Gemini Pro 定价策略，
+
+Gemini Pro
+
+INPUT
+
+$0.00025 / 1K characters
+
+$0.0025 / image
+
+OUTPUT
+
+$0.0005 / 1K characters
+
+对比一下 GPT-3.5 价格：
+
+gpt-3.5-turbo-1106
+
+INPUT
+
+$0.0010 / 1K tokens
+
+OUTPUT
+
+$0.0020 / 1K tokens
+
+但两者的计算单位不一样，Google 是按字符，OpenAI 是按 Token，如果是中文那 Google 便宜不少，如果是英文两者价格差不多。
+
+更多详细内容可以参考其官方博客：https://blog.google/technology/ai/gemini-api-developers-cloud/
+
+如果你更喜欢中文版本可以参考我的翻译：https://baoyu.io/translations/google/gemini-api-developers-cloud
+
+### 109
+
+2023-12-14
+
+AK
+
+@_akhaliq
+
+Microsoft releases Phi-2 on @huggingface
+
+model: https://huggingface.co/microsoft/phi-2
+
+a 2.7 billion-parameter language model that demonstrates outstanding reasoning and language understanding capabilities, showcasing state-of-the-art performance among base language models with less than 13 billion parameters. On complex benchmarks Phi-2 matches or outperforms models up to 25x larger, thanks to new innovations in model scaling and training data curation.
+
+Microsoft 于 @huggingface 发布 Phi-2
+
+型号：
+
+https://huggingface.co/microsoft/phi-2
+
+27 亿参数的语言模型，展现出出色的推理和语言理解能力，展示了少于 130 亿参数的基础语言模型中最先进的性能。在复杂的基准测试中，得益于模型扩展和训练数据管理方面的新创新，Phi-2 的性能可与大 25 倍的模型相匹配或优于。
+
+### 110
+
+2023-12-14
+
+宝玉
+
+@dotey
+
+现在已经可以在 iPhone 或 iPad 上本机离线运行开源的 Mistral-7B 大语言模型了！
+
+需要借助 LLMFarm（http://llmfarm.site https://llmfarm.site ），一个支持 Apple Silicon 技术的开源客户端。对于设备的要求是：
+
+- 一台至少配备 M1 + 8GB RAM 的 iPad 或 iPhone
+
+- 至少 8GB 的可用本地存储空间
+
+在本机运行大语言模型有几个好处：
+
+1. 无需联网
+
+2. 不用担心隐私泄露
+
+缺点就是能力要弱一些，机器配置不够高速度也不会太快。但多一些选择总是好的！
+
+如果你想看详细的安装教程，可以看这个链接：
+
+https://linkedin.com/pulse/using-llms-locally-ipad-iphone-maciek-j% C4%99drzejczyk-cd0zf/
+
+中文翻译：
+
+https://baoyu.io/translations/llm/using-llms-locally-ipad-iphone
+
+### 111
+
+2023-12-14
+
+宝玉
+
+@dotey
+
+如果机器人的发展没有跟上，AI 也就只能帮我们写写画画，但如果多模态机器人也同步发展，未来可以做的事情就太多了。
+
+按照 Jim Fan 对多模态机器人的定义：「它们能够处理文本、视频、音频、触觉、本体感知（包括位置、方向、运动感知），甚至未来可能还包括嗅觉和触觉。它们的输出是类似人类的运动控制。」
+
+### 112
+
+2023-12-13
+
+阑夕
+
+@foxshuo
+
+TikTok 的电商业务在印尼遭到强制关停之后用了 60 天绝境翻盘的过程真是跌宕起伏，从前因后果来看也堪称是中国出海公司应对地缘政治冲突的教科书级操作，非常值得记上一笔。
+
+首先是印尼这个国家，如果不做外贸行业的话，可能不太会有人会感兴趣，但事实上，单论人口规模而言，印尼排在全球第四，仅次于印中美，这个狭长的群岛国家拥有 2.8 亿的稠密人口。
+
+比人口更关键的，是印尼的社会节奏很慢，国民对于闲暇的重视远胜劳动，被视为全球最懒散的国家之一，由此产生的一个副作用，则是印尼人对社交媒体的依赖度全球居首，人均消费时长甚至高于中国和美国这样的互联网大国。
+
+所以「得印尼者得东南亚」，一直以来都是互联网公司推进国际化时的一个共识，TikTok 在印尼的月活跃用户高达 1.25 亿，仅次于美国，也相当于 40% 的印尼人口都在用 TikTok。
+
+而 TikTok Shop（TikTok 的电商业务，以直播带货为主）去年拿下了印尼 5% 的市场份额，而这 5% 的市场份额换算成 GMV，又差不多占到了 TikTok 东南亚全部电商的 60%，你们可以感受一下这两个比例，有多说明印尼市场的重要性。
+
+然后，TikTok 在今年 10 月被迫下线了印尼的全部电商业务，这在当时引起的震动和危机，也可以说是 TikTok 史上前所未有的，连美国都没有真的成功关掉 TikTok 的任何业务。
+
+然后才有了接下来精彩纷呈的 60 天。（1/n）
+
+### 113
+
+2023-12-14
+
+宝玉
+
+@dotey
+
+这次的课程是关于 RLHF 的，人类反馈强化学习
+
+Andrew Ng
+
+@AndrewYNg
+
+New short course on Reinforcement Learning from Human Feedback! RLHF is one of the key techniques that led to the rise of modern LLMs. It is used to align LLMs with human preferences, to make them more honest, helpful and harmless, by
+
+(i) learning a reward function that mimics human preferences, as expressed in human-provided labels, then,
+
+(ii) tuning an LLM to generate outputs that receive a high reward.
+
+In this course, taught by Nikita Namjoshi, Developer Advocate for GenAI at @googlecloud, you'll learn the details of how RLHF works, including how to apply it to tune an LLM for your own applications. You'll also use an open source library to tune a base LLM to align with human preferences expressed in a training set, and evaluate the tuned model by comparing its responses before and after RLHF-tuning.
+
+Please sign up here!
+
+https://deeplearning.ai/short-courses/reinforcement-learning-from-human-feedback/
+
+探索强化学习人类反馈（RLHF）的新短期课程！RLHF 是推动现代大型语言模型（LLMs）迅速发展的关键技术之一。通过学习模仿人类偏好的奖励函数（这些偏好反映在人类提供的标签中）以及调整 LLM 以产出获得高奖励的内容，RLHF 帮助 LLMs 更加符合人类偏好，使它们更诚实、有益且无害。
+
+在这个由谷歌云（Google Cloud）的 GenAI 开发倡导者 Nikita Namjoshi 主讲的课程中，你将深入了解 RLHF 的工作原理以及如何将其应用于你自己的 LLM 项目。课程还包括使用开源库对基础 LLM 进行调整，使其与训练集中表达的人类偏好相一致，并通过对比 RLHF 调整前后的模型响应来评估调整效果。
+
+欢迎报名参加这个课程，请点击这里！
+
+### 114
+
+2023-12-14
+
+小互
+
+@xiaohuggg
+
+CopilotKit：一个开源项目，可以在任何基于 React 的 Web 应用中构建内嵌的 AI 聊天机器人和 AI 驱动的文本区域。
+
+主要特点：
+
+- 内嵌 AI 聊天机器人：机器人可以理解应用的当前状态，并在应用内执行操作。
+
+- AI 驱动的文本区域：提供 AI 生成和编辑文本的功能，可以替换任何标准的 <textarea /> 文本输入区域
+
+- 自动上下文感知：根据上下文自动完成建议
+
+- 全面的定制化：允许完全定制提示工程和 UI 设计
+
+- 支持多种模型：可以与不同的前端和后端 SDK 结合，支持多种大语言模型。
+
+使用场景：
+
+文本生成和编辑：在应用中提供 AI 辅助的文本生成和编辑功能，例如自动完成和内容生成。
+
+交互式聊天机器人：创建可以与应用前端和后端以及第三方服务交互的聊天机器人。
+
+总之：CopilotKit 是一个为 React 开发者提供强大 AI 集成能力的工具集，通过简化 AI 功能的集成过程，使得创建交互式和智能的 Web 应用变得更加容易。
+
+GitHub：https://github.com/CopilotKit/CopilotKit
+
+### 115
+
+2023-12-14
+
+歸藏
+
+@op7418
+
+哈哈我就知道 Visual Electric 一个 AI 画图应用做一个白板就是为了这个拼贴功能，现在终于来了。
+
+你现在可以把生成图片的内容抠出来放到另一张生成的图片上选中两张或者多张图片重新进行生成。
+
+比如视频里把宇航员抠出来换到了另一个背景里。
+
+### 116
+
+2023-12-14
+
+indigo
+
+@indigo11
+
+向 ARK Invest 学习，a16z 也开始发年度 Big Ideas 了！这篇关于 2024 Tech 创新的预测中，虽然没有 AI 的单独介绍，但 AI 确贯穿生物健康、消费技术、Crypto、Fintech、游戏、企业与基础设施、还有美国的国防与安全产业 https://a16z.com/big-ideas-in-tech-2024/
+
+结合我自己的判断，把 2024 的 AI 趋势分享一下：
+
+- 语音优先的应用将开始融入我们的生活；
+
+- 消费级 AI 的战场从拼模型转向用户体验；
+
+- 我们需要量身定制的 AI 助手：ChatGPT 也许是最通用的，但它不太可能 "胜任" 所有任务。新公司会围绕使用场景打造新模型 or 工作流，用户需要定制化，而且越窄越好，这也是新机会；
+
+- GenAI 将创作的边际成本降至近乎为零，我们将看到全新的消费行为出现：Midjourney、Runway、Eleven Labs、Glif 这些新的创作工具会更多融入到创意工作流中，用户也会消费更多的 GenAI 内容，新模型和新界面将会继续涌现。AI 将帮我们再造创意；
+
+- AI 将为金融与顾问服务产业提供动力：随着 GenAI 和 LLM 的发展，更多的工作可以实现自动化，包括管理任务、研究过程（收集和摄取数据、搜索信息）、总结以及生成报告。利用 LLM 的初创公司将捕获现有操作系统难以收集的数据，同时自动标记和存储这些数据，我们可能会看到一直由软件寡头垄断的细分市场进入一个新时代；
+
+- AI 将推动拉美中小企业走向数字化：许多拉丁美洲的商家都使用 WhatsApp 来提供客户服务和支持。这些交互主要涉及消费者期望快速响应的任务，例如报价、排期和物流。目前，商家的响应时间可能会根据代表的可用性和请求的复杂性大相径庭。AI 助手可以大大简化这些耗时的任务，为商家和消费者创造价值；
+
+- LLM 让我们有机会建立一个更智能的 RPA 系统：系统可以根据上下文理解输入和执行的操作，并能够动态调整，从而创建一个更强大的解决方案；
+
+- 我们将在 2024 看到第一批 AI 优先设计的游戏：它们会利用 LLM 来实现新颖游戏系统和互动机制，游戏世界本身将不再是渲染出来的，而是在运行时利用神经网络生成的；
+
+- 我们与 AI 的对话将和 FaceTime 对话一样自然：随着响应延迟的降低、文本到语音技术的进步以及音频驱动的面部动画，我们与 AI 伙伴的对话将越来越具有感知力、存在感和个性化。娱乐将继续从被动体验向主动体验转变，电视节目和互动游戏之间的界限将变得越来越模糊；
+
+- 去中心化的开源 Crypto 网络将使 AI 创新民主化，而不是集中化；
+
+- AI 模型将寻求可解释性，这个在高安全领域十分必要，例如机器人和自动驾驶；
+
+### 117
+
+2023-12-14
+
+歸藏
+
+@op7418
+
+昨晚 AI 图像生成工具 Visual Electric 发布了两个非常强大的功能。
+
+一个是可以将生成的多张图像组合进行重绘；
+
+另一个是可以用几张图片快速自定义图像生成风格进行使用（类似 Lora 训练）。
+
+将 AI 图像创作流程的门槛变的非常低。接下来我会用下面几张图的制作过程来演示教学一下这两个功能。
+
+### 118
+
+2023-12-14
+
+宝玉
+
+@dotey
+
+现在最火的开源大语言模型当属 mixtral-8x7 了，已经有人基于它微调了一个完全无审查无防护的版本 dolphin-2.5-mixtral-8x7 ，再也不用担心：「作为一个 AI 助手，我不能……」
+
+模型下载地址：
+
+[ehartford/dolphin-2.5-mixtral-8x7b · Hugging Face](https://huggingface.co/ehartford/dolphin-2.5-mixtral-8x7b)
+
+### 119
+
+2023-12-14
 
 
 
+### 120
 
-
-
-
+2023-12-14

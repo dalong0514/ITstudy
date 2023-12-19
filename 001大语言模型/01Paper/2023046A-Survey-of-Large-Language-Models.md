@@ -10,12 +10,6 @@ Abstract—Ever since the Turing Test was proposed in the 1950s, humans have exp
 
 Index Terms—Large Language Models; Emergent Abilities; Adaptation Tuning; Utilization; Alignment; Capacity Evaluation
 
-直译：
-
-自 20 世纪 50 年代图灵测试被提出以来，人类就开始探索机器掌握语言智能。语言本质上是一个复杂、错综复杂的人类表达系统，受制于语法规则。开发能够理解和掌握语言的人工智能（AI）算法构成了一项重大挑战。作为主要方法，语言建模在过去二十年中被广泛研究，用于语言理解和生成，从统计语言模型发展到神经语言模型。最近，通过在大规模语料库上预训练变压器模型，提出了预训练语言模型（PLMs），在解决各种自然语言处理（NLP）任务方面展现出强大能力。由于研究人员发现模型缩放可以带来提高的模型容量，他们进一步研究了通过增加参数规模到更大尺寸的缩放效果。有趣的是，当参数规模超过一定水平时，这些扩大的语言模型不仅取得了显著的性能改进，还展现出一些小规模语言模型（例如 BERT）中不存在的特殊能力（例如，上下文学习）。为了区分不同参数规模的语言模型，研究界为大规模（例如，包含数十亿或数百亿参数）的 PLMs 创造了大型语言模型（LLM）这一术语。最近，LLM 的研究已经得到了学术界和工业界的大力推进，而 ChatGPT（基于 LLM 开发的强大 AI 聊天机器人）的推出是显著的进展，引起了社会的广泛关注。LLM 的技术演变对整个 AI 社区产生了重要影响，这将彻底改变我们开发和使用 AI 算法的方式。考虑到这一快速的技术进展，本调查回顾了 LLM 的最新进展，介绍了背景、关键发现和主流技术。特别是，我们专注于 LLM 的四个主要方面，即预训练、适应性调整、利用和容量评估。此外，我们还总结了开发 LLM 的可用资源，并讨论了未来方向的剩余问题。本调查提供了关于 LLM 的最新文献综述，对研究人员和工程师都是有用的资源。
-
-意译：
-
 从 1950 年代图灵测试提出开始，人类就致力于实现机器对语言智能的掌握。语言是一个基于语法规则的复杂表达系统，为 AI 算法的开发提出了挑战。在过去 20 年，语言建模成为了理解和生成语言的关键方法，从统计模型发展到神经网络模型。最近，研究人员通过在大型语料库上预训练变压器模型，开发了预训练语言模型（PLMs），这些模型在多种自然语言处理（NLP）任务中表现出色。研究还发现，增加模型的参数规模可以提高其性能。当参数规模超过一定阈值时，这些大型语言模型不仅性能显著提升，还展现了小型模型（如 BERT）所不具备的特殊能力，比如上下文学习。因此，研究界将这类大规模的 PLMs 称为大型语言模型（LLM），它们可能包含数十亿甚至数百亿参数。最近，学术界和工业界对 LLM 的研究取得了显著进展，其中最引人注目的是 ChatGPT 的推出，这是一款基于 LLM 的先进 AI 聊天机器人，引起了社会广泛关注。LLM 的技术进步对 AI 领域产生了深远影响，将改变我们开发和使用 AI 算法的方式。鉴于这些快速的技术发展，本文回顾了 LLM 的最新研究进展，涵盖了其背景、关键发现和主要技术，特别关注预训练、适应性调整、应用和性能评估。同时，我们也概述了 LLM 开发的可用资源，并探讨了未来研究的方向。本文为研究人员和工程师提供了最新的 LLM 文献综述，是一份宝贵的资源。
 
 ### 01. Introduction
@@ -29,20 +23,6 @@ Language is a prominent ability in human beings to express and communicate, whic
 Technically, language modeling (LM) is one of the major approaches to advancing language intelligence of machines. In general, LM aims to model the generative likelihood of word sequences, so as to predict the probabilities of future (or missing) tokens. The research of LM has received extensive attention in the literature, which can be divided into four major development stages:
 
 • Statistical language models (SLM). SLMs [6–9] are developed based on statistical learning methods that rose in the 1990s. The basic idea is to build the word prediction model based on the Markov assumption, e.g., predicting the next word based on the most recent context. The SLMs with a fixed context length n are also called n-gram language models, e.g., bigram and trigram language models. SLMs have been widely applied to enhance task performance in information retrieval (IR) [10, 11] and natural language processing (NLP) [12–14]. However, they often suffer from the curse of dimensionality: it is difficult to accurately estimate high-order language models since an exponential number of transition probabilities need to be estimated. Thus, specially designed smoothing strategies such as back-off estimation [15] and Good–Turing estimation [16] have been introduced to alleviate the data sparsity problem.
-
-直译：
-
-我的语言的限制就意味着我的世界的限制。
-
-—— 路德维希·维特根斯坦
-
-语言是人类表达和交流的重要能力，这种能力在早期童年发展并在一生中不断演变 [3, 4]。然而，机器不能自然地掌握理解和以人类语言形式交流的能力，除非装备了强大的人工智能（AI）算法。实现这一目标，即使机器能够像人类一样阅读、写作和交流，一直是一个长期的研究挑战 [5]。
-
-在技术上，语言建模（LM）是提高机器语言智能的主要方法之一。总体而言，LM 旨在建模词序列的生成可能性，以预测未来（或缺失）词汇的概率。LM 的研究在文献中受到广泛关注，可分为四个主要发展阶段：
-
-·统计语言模型（SLM）。SLM [6–9] 是基于 20 世纪 90 年代兴起的统计学习方法开发的。基本思想是基于马尔可夫假设构建词预测模型，例如，根据最近的上下文预测下一个词。固定上下文长度 n 的 SLMs 也称为 n-gram 语言模型，例如，二元和三元语言模型。SLMs 已广泛应用于信息检索（IR）[10, 11] 和自然语言处理（NLP）[12–14] 中以提高任务性能。然而，它们通常受到维数诅咒的困扰：由于需要估计指数数量的转移概率，因此难以准确估计高阶语言模型。因此，特别设计了平滑策略，如回退估计 [15] 和古德 - 图灵估计 [16]，以减轻数据稀疏问题。
-
-意译：
 
 我的语言的界限就是我的世界的界限。
 
@@ -60,16 +40,6 @@ Technically, language modeling (LM) is one of the major approaches to advancing 
 
 • Large language models (LLM). Researchers find that scaling PLM (e.g., scaling model size or data size) often leads to an improved model capacity on downstream tasks (i.e., following the scaling law [30]). A number of studies have explored the performance limit by training an ever larger PLM (e.g., the 175B-parameter GPT-3 and the 540Bparameter PaLM). Although scaling is mainly conducted in model size (with similar architectures and pre-training tasks), these large-sized PLMs display different behaviors from smaller PLMs (e.g., 330M-parameter BERT and 1.5Bparameter GPT-2) and show surprising abilities (called emergent abilities [31]) in solving a series of complex tasks. For example, GPT-3 can solve few-shot tasks through in-context learning, whereas GPT-2 cannot do well. Thus, the research community coins the term “large language models (LLM)”1  for these large-sized PLMs [32–35], which attract increasing research attention (See Figure 1). A remarkable application of LLMs is ChatGPT 2 that adapts the LLMs from the GPT series for dialogue, which presents an amazing conversation ability with humans. We can observe a sharp increase of the arXiv papers that are related to LLMs after the release of ChatGPT in Figure 1.
 
-直译：
-
-·神经语言模型（NLM）。NLM [1, 17, 18] 通过神经网络来描述词序列的概率，例如，多层感知机（MLP）和循环神经网络（RNN）。作为显著的贡献，[1] 中的工作引入了词的分布式表示概念，并建立了基于聚合上下文特征（即分布式词向量）的词预测函数。通过扩展学习文本数据有效特征的想法，开发了一种通用的神经网络方法，为各种 NLP 任务构建了统一的端到端解决方案 [2]。此外，word2vec [19, 20] 提出了构建简化的浅层神经网络来学习分布式词表示，这在各种 NLP 任务中被证明非常有效。这些研究开创了使用语言模型进行表示学习（超越词序列建模）的用途，对 NLP 领域产生了重要影响。
-
-·预训练语言模型（PLM）。作为早期尝试，ELMo [21] 提出了通过首先预训练双向 LSTM（biLSTM）网络（而不是学习固定的词表示），然后根据特定下游任务对 biLSTM 网络进行微调，来捕获上下文感知的词表示。此外，基于具有自注意力机制的高度并行化的变压器架构 [22]，通过在大规模未标记语料库上预训练双向语言模型，并设计特殊的预训练任务，提出了 BERT [23]。这些预训练的上下文感知词表示作为通用的语义特征非常有效，极大地提高了 NLP 任务的性能水平。这项研究激发了大量后续工作，建立了「预训练和微调」学习范式。遵循这一范式，开发了大量关于 PLM 的研究，引入了不同的架构 [24, 25]（例如，GPT-2 [26] 和 BART [24]）或改进的预训练策略 [27–29]。在这一范式中，通常需要对 PLM 进行微调以适应不同的下游任务。
-
-·大型语言模型（LLM）。研究人员发现，对 PLM 进行扩展（例如，扩大模型大小或数据大小）通常会提高下游任务的模型容量（即遵循缩放法则 [30]）。许多研究通过训练更大的 PLM（例如，175B 参数的 GPT-3 和 540B 参数的 PaLM）探索了性能极限。尽管扩展主要在模型大小上进行（具有相似的架构和预训练任务），但这些大型 PLM 表现出与较小的 PLM（例如，330M 参数的 BERT 和 1.5B 参数的 GPT-2）不同的行为，并展示了解决一系列复杂任务的惊人能力（称为涌现 [31]）。例如，GPT-3 可以通过上下文学习解决小样本任务，而 GPT-2 则做不到。因此，研究界为这些大型 PLM 创造了「大型语言模型（LLM）」这一术语 [32–35]，这引起了越来越多的研究关注（见图 1）。LLM 的一个显著应用是 ChatGPT 2，它将 GPT 系列的 LLM 适应于对话，表现出与人类惊人的对话能力。在图 1 中，我们可以观察到在 ChatGPT 发布后与 LLM 相关的 arXiv 论文数量急剧增加。
-
-意译：
-
 ·神经语言模型（NLM）。NLM [1, 17, 18] 通过神经网络描述词序列的概率，如多层感知机（MLP）和循环神经网络（RNN）。[1] 中的研究引入了词的分布式表示概念，基于聚合上下文特征构建词预测函数。这种方法为文本数据的特征学习提供了一种通用的神经网络方法，用于各种 NLP 任务的端到端解决方案 [2]。word2vec [19, 20] 通过构建简化的浅层神经网络来学习分布式词表示，在多种 NLP 任务中表现出色。这些研究开辟了利用语言模型进行表示学习的新途径，对 NLP 领域产生了重要影响。
 
 ·预训练语言模型（PLM）。ELMo [21] 作为早期尝试，通过首先预训练双向 LSTM 网络，然后针对特定下游任务进行微调，捕获了上下文感知的词表示。基于具有自注意力机制的变压器架构 [22]，BERT [23] 通过预训练双向语言模型，并设计了特殊的预训练任务，在大规模未标记语料库上表现出色。这些预训练的上下文感知词表示作为通用语义特征，显著提升了 NLP 任务的性能。这项研究启发了许多后续工作，奠定了「预训练和微调」学习范式。在这一范式下，开发了众多 PLM 研究，引入了不同的架构 [24, 25]（如 GPT-2 [26] 和 BART [24]）或改进的预训练策略 [27–29]。在这种模式下，通常需要对 PLM 进行微调以适应不同的下游任务。
@@ -84,14 +54,6 @@ Fig. 1: The trends of the cumulative numbers of arXiv papers that contain the ke
 
 Fig. 2: An evolution process of the four generations of language models (LM) from the perspective of task solving capacity. Note that the time period for each stage may not be very accurate, and we set the time mainly according to the publish date of the most representative studies at each stage. For neural language models, we abbreviate the paper titles of two representative studies to name the two approaches: NPLM [1] (“A neural probabilistic language model”) and NLPS [2] (“Natural language processing (almost) from scratch”). Due to the space limitation, we don’t list all representative studies in this figure.
 
-直译：
-
-图 1：自 2018 年 6 月起包含关键词「语言模型」，自 2019 年 10 月起包含关键词「大型语言模型」的 arXiv 论文累积数量趋势。通过按月查询标题或摘要中的关键词进行精确匹配来计算统计数据。我们为这两个关键词设置了不同的 x 轴范围，因为「语言模型」更早被探索。我们标记了与 LLM 研究进展中重要里程碑对应的点。ChatGPT 发布后出现了急剧增长：标题或摘要中包含「大型语言模型」的 arXiv 论文平均每天发布数量从每天 0.40 篇增加到每天 8.58 篇（图 1 (b)）。
-
-图 2：从任务解决能力的角度，展示了四代语言模型（LM）的演变过程。请注意，每个阶段的时间周期可能不是非常准确，我们主要根据每个阶段最具代表性研究的发布日期来设置时间。对于神经语言模型，我们缩写了两项代表性研究的论文标题来命名两种方法：NPLM [1]（「神经概率语言模型」）和 NLPS [2]（「（几乎）从头开始的自然语言处理」）。由于空间限制，我们没有在此图中列出所有代表性研究。
-
-意译：
-
 图 1：从 2018 年 6 月起跟踪包含「语言模型」关键词，从 2019 年 10 月起跟踪包含「大型语言模型」关键词的 arXiv 论文的累积数量趋势。这些统计数据是通过每月在论文标题或摘要中查询这些关键词进行精确匹配计算得出的。由于「语言模型」较早被研究，我们为这两个关键词设置了不同的 x 轴范围。我们标记了 LLM 研究进展中的重要里程碑。ChatGPT 发布后，包含「大型语言模型」关键词的 arXiv 论文的平均日发表数量从每天 0.40 篇增加到每天 8.58 篇（见图 1 (b)）。
 
 图 2：从任务解决能力的角度出发，展示了四代语言模型（LM）的发展过程。每个阶段的时间可能不是非常准确，我们主要根据每个阶段最具代表性的研究发布日期来确定时间。对于神经语言模型，我们简化了两项代表性研究的论文标题来命名两种方法：NPLM [1]（神经概率语言模型）和 NLPS [2]（几乎从零开始的自然语言处理）。由于篇幅限制，我们没有在图中列出所有代表性研究。
@@ -99,14 +61,6 @@ Fig. 2: An evolution process of the four generations of language models (LM) fro
 As discussed before, language model is not a new technical concept specially for LLMs, but has evolved with the advance of artificial intelligence over the decades. Early language models mainly aim to model and generate text data, while latest language models (e.g., GPT-4) focus on complex task solving. From language modeling to task solving, it is an important leap in scientific thinking, which is the key to understand the development of language models in the research history. From the perspective of task solving, the four generations of language models have exhibited different levels of model capacities. In Figure 2, we describe the evolution process of language models in terms of the task solving capacity. At first, statistical language models mainly assisted in some specific tasks (e.g., retrieval or speech tasks), in which the predicted or estimated probabilities can enhance the performance of task-specific approaches. Subsequently, neural language models focused on learning task-agnostic representations (e.g., features), aiming to reduce the efforts for human feature engineering. Furthermore, pre-trained language models learned context-aware representations that can be optimized according to downstream tasks. For the latest generation of language model, LLMs are enhanced by exploring the scaling effect on model capacity, which can be considered as general-purpose task solvers. To summarize, in the evolution process, the task scope that can be solved by language models have been greatly extended, and the task performance attained by language models have been significantly enhanced.
 
 In the existing literature, PLMs have been widely discussed and surveyed [36–39], while LLMs are seldom reviewed in a systematic way. To motivate our survey, we first highlight three major differences between LLMs and PLMs. First, LLMs display some surprising emergent abilities that may not be observed in previous smaller PLMs. These abilities are key to the performance of language models on complex tasks, making AI algorithms unprecedently powerful and effective. Second, LLMs would revolutionize the way that humans develop and use AI algorithms. Unlike small PLMs, the major approach to accessing LLMs is through the prompting interface (e.g., GPT-4 API). Humans have to understand how LLMs work and format their tasks in a way that LLMs can follow. Third, the development of LLMs no longer draws a clear distinction between research and engineering. The training of LLMs requires extensive practical experiences in large-scale data processing and distributed parallel training. To develop capable LLMs, researchers have to solve complicated engineering issues, working with engineers or being engineers.
-
-直译：
-
-正如之前讨论的，语言模型并不是专门针对 LLM 的新技术概念，而是随着几十年来人工智能的进步而演化。早期的语言模型主要旨在建模和生成文本数据，而最新的语言模型（例如 GPT-4）专注于解决复杂任务。从语言建模到任务解决，是科学思维的重要跳跃，这是理解研究历史中语言模型发展的关键。从任务解决的角度来看，四代语言模型展现了不同层次的模型能力。在图 2 中，我们描述了从任务解决能力的角度来看语言模型的演变过程。首先，统计语言模型主要协助完成一些特定任务（例如，检索或语音任务），其中预测或估计的概率可以提高特定任务方法的性能。随后，神经语言模型专注于学习与任务无关的表示（例如，特征），旨在减少人类特征工程的努力。进一步，预训练语言模型学习了可以根据下游任务优化的上下文感知表示。对于最新一代的语言模型，LLM 通过探索对模型容量的缩放效应得到增强，可以被视为通用任务解决器。总之，在演变过程中，语言模型能解决的任务范围已经大大扩展，而语言模型所达到的任务性能也得到了显著提升。
-
-在现有文献中，PLM 已被广泛讨论和调查 [36–39]，而 LLM 很少以系统方式进行回顾。为了激发我们的调查，我们首先强调 LLM 和 PLM 之间的三个主要区别。首先，LLM 展示了一些令人惊讶的涌现，这些能力在之前较小的 PLM 中可能未被观察到。这些能力是语言模型在复杂任务上性能的关键，使 AI 算法前所未有地强大和有效。其次，LLM 将改变人类开发和使用 AI 算法的方式。与小型 PLM 不同，访问 LLM 的主要方式是通过提示界面（例如，GPT-4 API）。人类必须理解 LLM 如何工作，并以 LLM 能够遵循的方式格式化他们的任务。第三，LLM 的发展不再在研究和工程之间划清界限。LLM 的训练需要在大规模数据处理和分布式并行训练方面的广泛实践经验。为了开发能力强大的 LLM，研究人员必须解决复杂的工程问题，与工程师合作或成为工程师。
-
-意译：
 
 正如先前所讨论的，语言模型不是仅针对 LLM 的新技术概念，而是随着数十年来人工智能的发展而演变的。早期语言模型主要用于建模和生成文本数据，而最新的语言模型（如 GPT-4）则专注于解决复杂任务。从语言建模到任务解决，这是科学思维的重大飞跃，也是理解语言模型发展历程的关键。从任务解决的角度看，四代语言模型展示了不同层次的能力。在图 2 中，我们从任务解决能力的角度描述了语言模型的演变过程。
 
@@ -118,14 +72,6 @@ Nowadays, LLMs are posing a significant impact on the AI community, and the adve
 
 Despite the progress and impact, the underlying principles of LLMs are still not well explored. Firstly, it is mysterious why emergent abilities occur in LLMs, instead of smaller PLMs. As a more general issue, there lacks a deep, detailed investigation of the key factors that contribute to the superior abilities of LLMs. It is important to study when and how LLMs obtain such abilities [47]. Although there are some meaningful discussions about this problem [31, 47], more principled investigations are needed to uncover the “secrets“ of LLMs. Secondly, it is difficult for the research community to train capable LLMs. Due to the huge demand of computation resources, it is very costly to carry out repetitive, ablating studies for investigating the effect of various strategies for training LLMs. Indeed, LLMs are mainly trained by industry, where many important training details (e.g., data collection and cleaning) are not revealed to the public. Thirdly, it is challenging to align LLMs with human values or preferences. Despite the capacities, LLMs are also likely to produce toxic, fictitious, or harmful contents. It requires effective and efficient control approaches to eliminating the potential risk of the use of LLMs [46].
 
-直译：
-
-如今，LLM 对 AI 社区产生了显著影响，ChatGPT 和 GPT-4 的出现促使人们重新思考人工通用智能（AGI）的可能性。OpenAI 发表了一篇名为「规划 AGI 及其未来」的技术文章，讨论了接近 AGI 的短期和长期计划 [40]，而一篇更近期的论文则认为 GPT-4 可能被视为 AGI 系统的早期版本 [41]。LLM 的快速进展正在革新 AI 的研究领域。在 NLP 领域，LLM 可以作为通用语言任务解决器（在某种程度上），研究范式已向使用 LLM 转变。在 IR 领域，传统搜索引擎正面临通过 AI 聊天机器人（即 ChatGPT）进行信息检索的新挑战，而 New Bing 3 展示了基于 LLM 增强搜索结果的初步尝试。在 CV 领域，研究人员试图开发类似 ChatGPT 的视觉语言模型，以更好地服务于多模态对话 [42–45]，GPT-4 [46] 已通过整合视觉信息支持多模态输入。这一新技术浪潮可能会导致基于 LLM 的实际应用生态系统的繁荣。例如，Microsoft 365 正被 LLM（即 Copilot）赋能以自动化办公工作，OpenAI 支持在 ChatGPT 中使用插件来实现特殊功能。
-
-尽管取得了进展和影响，但 LLM 的基本原理仍未得到充分探索。首先，为什么 LLM 中出现涌现而较小的 PLM 中则没有，这一点仍是一个谜。作为一个更普遍的问题，缺乏对 LLM 卓越能力的关键因素进行深入、详细调查。研究 LLM 何时以及如何获得这些能力是重要的 [47]。尽管关于这个问题有一些有意义的讨论 [31, 47]，但需要更有原则性的调查来揭示 LLM 的「秘密」。其次，研究社区很难训练出有能力的 LLM。由于巨大的计算资源需求，进行重复的、消融性的研究以探索训练 LLM 的各种策略的效果非常昂贵。事实上，LLM 主要由工业界训练，其中许多重要的训练细节（例如，数据收集和清洗）并未向公众披露。第三，使 LLM 与人类价值观或偏好保持一致是一个挑战。尽管 LLM 具有能力，但它们也可能产生有毒的、虚构的或有害的内容。需要有效而高效的控制方法来消除使用 LLM 的潜在风险 [46]。
-
-意译：
-
 当今，LLM 对 AI 领域产生了重大影响，ChatGPT 和 GPT-4 的推出使人们重新思考人工通用智能（AGI）的可能性。OpenAI 发表了一篇名为「规划 AGI 及其未来」的技术文章，讨论了接近 AGI 的短期和长期计划 [40]，一篇更近期的论文甚至认为 GPT-4 可能是 AGI 系统的早期版本 [41]。LLM 的迅速发展正在彻底改变 AI 的研究领域。在 NLP 领域，LLM 可以在一定程度上作为通用语言任务解决器，研究范式正在向使用 LLM 转变。在 IR 领域，传统搜索引擎正面临 AI 聊天机器人（如 ChatGPT）提出的新型信息检索方式的挑战，而 New Bing 3 则展示了基于 LLM 增强搜索结果的初始尝试。在计算机视觉（CV）领域，研究人员正努力开发类似 ChatGPT 的视觉语言模型，以更好地服务多模态对话 [42–45]，GPT-4 [46] 已支持通过整合视觉信息的多模态输入。这一新技术浪潮有可能催生基于 LLM 的实际应用的繁荣生态系统。例如，Microsoft 365 正在通过 LLM（如 Copilot）实现办公自动化，而 OpenAI 支持在 ChatGPT 中使用插件来实现特殊功能。
 
 尽管取得了进步并产生了影响，LLM 的基本原理仍有待深入探索。首先，为何 LLM 展现出的涌现在较小的 PLM 中未观察到，这仍是个谜。更广泛地说，缺乏对促成 LLM 卓越能力的关键因素的深入详细调查。研究 LLM 何时以及如何获得这些能力是至关重要的 [47]。虽然已有一些有意义的讨论 [31, 47]，但需要更系统的研究来揭示 LLM 的「秘密」。其次，对研究社区而言，训练出能力强大的 LLM 极为困难。由于巨大的计算资源需求，进行重复、消融性研究以探索训练 LLM 的各种策略非常昂贵。实际上，LLM 主要由工业界进行训练，其中许多重要的训练细节（如数据收集和清洗）尚未向公众公开。第三，使 LLM 与人类价值观或偏好保持一致是一个挑战。尽管 LLM 功能强大，但它们也可能产生有害、虚构或有害内容。需要有效且高效的控制方法来消除使用 LLM 的潜在风险 [46]。
@@ -135,14 +81,6 @@ Faced with both opportunities and challenges, it needs more attention on the res
 The remainder of this survey is organized as follows: Section 2 introduces the background for LLMs and the evolution of GPT-series models, followed by the summarization of available resources for developing LLMs in Section 3. Sections 4, 5, 6, and 7 review and summarize the recent progress from the four aspects of pre-training, adaptation, utilization, and capacity evaluation, respectively. Then, Section 8 discusses the practical guide for prompt design, and Section 9 reviews the applications of LLMs in several representative domains. Finally, we conclude the survey in Section 10 by summarizing the major findings and discuss the remaining issues for future work.
 
 [RUCAIBox/LLMSurvey: The official GitHub page for the survey paper "A Survey of Large Language Models".](https://github.com/RUCAIBox/LLMSurvey)
-
-直译：
-
-面对机遇和挑战，LLM 的研究和发展需要更多的关注。为了提供对 LLM 的基本理解，本调查对 LLM 最近的进展进行了文献回顾，涵盖了四个主要方面，包括预训练（如何预训练出一个有能力的 LLM）、适应性（如何有效地适应预训练的 LLM 以便更好地使用）、利用（如何使用 LLM 解决各种下游任务）和能力评估（如何评估 LLM 的能力和现有的经验发现）。我们彻底梳理了文献，并总结了 LLM 的关键发现、技术和方法。对于这项调查，我们还通过收集支持 LLM 的资源，在 https://github.com/RUCAIBox/LLMSurvey 创建了一个 GitHub 项目网站。我们也注意到了一些与 PLM 或 LLM 相关的评论文章 [32, 36, 38, 39, 43, 48–54]。这些论文要么讨论 PLM，要么讨论 LLM 的某些特定（或一般）方面。与它们相比，我们关注于开发和使用 LLM 的技术和方法，并提供了关于 LLM 重要方面的相对全面的参考。
-
-本调查的剩余部分安排如下：第 2 节介绍了 LLM 的背景和 GPT 系列模型的演变，接着在第 3 节总结了开发 LLM 的可用资源。第 4、5、6 和 7 节分别回顾和总结了预训练、适应性、利用和能力评估四个方面的最新进展。然后，第 8 节讨论了提示设计的实用指南，第 9 节回顾了 LLM 在几个代表性领域的应用。最后，我们在第 10 节通过总结主要发现并讨论未来工作的剩余问题来结束这项调查。
-
-意译：
 
 面对机遇与挑战，对 LLM 的研究和发展需投入更多关注。为了提供对 LLM 的基础理解，本调查回顾了 LLM 的最新进展，涵盖四个主要方面：预训练（如何预训练一个强大的 LLM）、适应性（如何有效适应预训练的 LLM 以便更好使用）、利用（如何使用 LLM 解决各种下游任务）以及能力评估（如何评估 LLM 的能力和现有的经验性发现）。我们对文献进行了全面梳理，总结了 LLM 的关键发现、技术和方法。此外，我们还在 https://github.com/RUCAIBox/LLMSurvey 上创建了一个 GitHub 项目网站，收集了支持 LLM 的资源。我们也注意到了一些与 PLM 或 LLM 相关的综述文章 [32, 36, 38, 39, 43, 48–54]。这些论文要么聚焦于 PLM，要么探讨 LLM 的特定或一般方面。与它们相比，我们专注于开发和使用 LLM 的技术和方法，并提供了关于 LLM 重要方面的较为全面的参考资料。
 
@@ -176,14 +114,6 @@ Typically, large language models (LLMs) refer to Transformer language models tha
 
 Formulation of Scaling Laws for LLMs. Currently, LLMs are mainly built upon the Transformer architecture [22], where multi-head attention layers are stacked in a very deep neural network. Existing LLMs adopt similar Transformer architectures and pre-training objectives (e.g., language modeling) as small language models. However, LLMs significantly extend the model size, data size, and total compute (orders of magnification). Extensive research has shown that scaling can largely improve the model capacity of LLMs [26, 55, 56]. Thus, it is useful to establish a quantitative approach to characterizing the scaling effect. Next, we introduce two representative scaling laws for Transformer language models [30, 34].
 
-直译：
-
-通常，大型语言模型（LLM）指的是包含数百亿（或更多）参数的变压器语言模型 [4]，它们在大量文本数据上进行训练 [32]，例如 GPT-3 [55]、PaLM [56]、Galactica [35] 和 LLaMA [57]。LLM 展现了强大的理解自然语言和解决复杂任务（通过文本生成）的能力。为了快速了解 LLM 如何工作，本部分介绍了 LLM 的基本背景，包括缩放法则、涌现和关键技术。
-
-LLM 的缩放法则构建。目前，LLM 主要建立在变压器架构 [22] 之上，其中多头注意力层在非常深的神经网络中堆叠。现有的 LLM 采用与小型语言模型相似的变压器架构和预训练目标（例如，语言建模）。然而，LLM 显著扩展了模型规模、数据规模和总计算量（数量级）。广泛的研究表明，缩放可以大大提高 LLM 的模型容量 [26, 55, 56]。因此，建立一种量化方法来描述缩放效应是有用的。接下来，我们将介绍两个变压器语言模型的代表性缩放法则 [30, 34]。
-
-意译：
-
 一般来说，大型语言模型（LLM）是指那些包含数百亿（甚至更多）参数的变压器语言模型，这些模型在大量文本数据上接受训练，如 GPT-3 [55]、PaLM [56]、Galactica [35] 和 LLaMA [57] 等。LLM 展现出强大的自然语言理解和复杂任务解决能力（通过文本生成）。为了快速理解 LLM 的工作原理，本部分介绍了 LLM 的基本背景，包括缩放法则、涌现和关键技术。
 
 构建 LLM 的缩放法则。目前，LLM 主要基于变压器架构 [22]，在该架构中，多头注意力层被堆叠在非常深的神经网络中。现有的 LLM 采用类似于小型语言模型的变压器架构和预训练目标（例如语言建模）。然而，LLM 在模型规模、数据规模和总计算量上进行了显著扩展（数量级上的增加）。大量研究表明，通过缩放可以显著提高 LLM 的模型容量 [26, 55, 56]。因此，建立一种量化方法来描述缩放效应非常重要。下面，我们将介绍变压器语言模型的两个代表性缩放法则 [30, 34]。
@@ -202,16 +132,6 @@ where E = 1.69, A = 406.4, B = 410.7, α = 0.34 and β = 0.28. By optimizing the
 
 where a = α+ α , b = α+ β and G is a scaling coefficient that β β can be computed by A, B , α and β . As analyzed in [34], given an increase in compute budget, the KM scaling law favors a larger budget allocation in model size than the data size, while the Chinchilla scaling law argues that the two sizes should be increased in equal scales, i.e., having similar values for a and b in Equation (3).
 
-直译：
-
-·KM 缩放法则 5。2020 年，Kaplan 等人 [30]（OpenAI 团队）首次提出模拟神经语言模型的模型性能与三个主要因素的幂律关系，即模型规模（N）、数据集规模（D）和训练计算量（C）。给定一个计算预算 c，他们实证地提出了三个基本的缩放法则公式 [6]：
-
-其中 L (·) 表示以 nats 为单位的交叉熵损失，OpenAI 的后续研究 [58] 表明，语言建模损失可以分解为两部分，即不可减少的损失（真实数据分布的熵）和可减少的损失（真实和模型分布之间的 KL 散度的估计）。这三个法则是通过拟合模型性能与不同数据规模（22M 到 23B 个词汇）、模型规模（768M 到 1.5B 个非嵌入参数）和训练计算量，在一些假设下得出的（例如，分析一个因素时不应受其他两个因素的限制）。他们表明，模型性能与这三个因素有强烈的依赖关系。
-
-·奇努拉缩放法则。作为另一项代表性研究，Hoffmann 等人 [34]（谷歌 DeepMind 团队）提出了一种替代形式的缩放法则，以指导 LLM 的计算最优训练。他们通过改变更大范围的模型规模（70M 到 16B）和数据规模（5B 到 500B 个词汇），并拟合了一个类似的缩放法则，但系数不同，如下 [34]：
-
-意译：
-
 ·KM 缩放法则。2020 年，Kaplan 等人 [30]（OpenAI 团队）首次提出了一种模型，用来描述神经语言模型性能与三个主要因素之间的幂律关系，这三个因素是模型规模（N）、数据集规模（D）和训练计算量（C）。在给定的计算预算 c 下，他们提出了三个基本的缩放法则公式 [6]：
 
 其中 L (·) 表示以纳特（nats）为单位的交叉熵损失。OpenAI 的后续研究 [58] 显示，语言建模的损失可以分解为两部分：不可减少的损失（即真实数据分布的熵）和可减少的损失（即真实和模型分布之间的 KL 散度的估计值）。这三个法则是通过拟合模型性能与不同数据规模（从 22M 到 23B 个词汇）、模型规模（从 768M 到 1.5B 个非嵌入参数）和训练计算量，在某些假设（例如，分析一个因素时不受其他两个因素的限制）下得出的。研究表明，模型性能与这三个因素有着强烈的依赖关系。
@@ -221,14 +141,6 @@ where a = α+ α , b = α+ β and G is a scaling coefficient that β β can be c
 Discussion on Scaling Laws. After introducing the formulations, we continue to discuss scaling law in the following two aspects, to enhance its understanding:
 
 • Predictable scaling. In practice, scaling law can be used to instruct the training of LLMs, and it has been proven feasible to reliably estimate the performance of larger models based on that of smaller models, called predictable scaling [46]. The benefits of predictable scaling for training LLMs are mainly twofold. Firstly, for large models, it is infeasible to rigorously examine various training tricks or variants, and it would be very helpful if experiences gained from small models could also apply to large models. For instance, small proxy models can be trained to find the optimal schedule of the data mixture for large models [59]. Secondly, the training of large-scale models takes a long time, often suffering from issues such as training loss spike, and scaling law can be employed to monitor the training status of LLMs, e.g., identifying abnormal performance at an early time. Despite that scaling law characterizes a smooth trend of performance increase (or loss decrease), it also indicates that diminishing returns 7 might occur as model scaling. An empirical study [58] from the OpenAI team has shown that representation quality or semantic content can still effectively improve even if approaching the point of diminishing returns (i.e., approaching the irreducible loss) [58]. This finding suggests that training large models are promising for improving the performance of downstream tasks. To further explore scaling effect, a potential issue is that the amount of available data for training LLMs is actually limited. With the ever-increasing model scale, the public text data would be soon “exhausted” for LLMs [60]. Thus, it will be meaningful to study how scaling laws apply to a data-constrained regime [61], where data repetition or augmentation might be useful to alleviate data scarcity.
-
-直译：
-
-关于缩放法则的讨论。在介绍了公式之后，我们接着从以下两个方面讨论缩放法则，以加深对其的理解：
-
-·可预测的缩放。在实践中，缩放法则可以用来指导 LLM 的训练，并且已被证明基于较小模型的性能可靠估计更大模型的性能，这被称为可预测的缩放 [46]。训练 LLM 时，可预测的缩放的好处主要有两方面。首先，对于大型模型，严格检验各种训练技巧或变体是不可行的，如果从小模型获得的经验也能适用于大模型，那将非常有帮助。例如，可以训练小型代理模型来找到大型模型的数据混合的最佳计划 [59]。其次，大规模模型的训练需要很长时间，常常遭遇诸如训练损失突增等问题，缩放法则可以用来监控 LLM 的训练状态，例如，及早识别异常性能。尽管缩放法则表征了性能增加（或损失减少）的平滑趋势，它也表明随着模型缩放，可能会出现收益递减 [7]。OpenAI 团队的一项实证研究表明，即使接近收益递减点（即接近不可减少的损失），表示质量或语义内容仍然可以有效提高 [58]。这一发现表明，训练大型模型对提高下游任务的性能具有潜力。为了进一步探索缩放效应，一个潜在问题是训练 LLM 的可用数据实际上是有限的。随着模型规模的不断增长，公共文本数据将很快被 LLM「耗尽」[60]。因此，研究缩放法则如何适用于数据受限制的情况 [61] 将是有意义的，其中数据重复或增强可能有助于缓解数据稀缺。
-
-意译：
 
 关于缩放法则的讨论。在介绍了公式之后，我们将从以下两个方面进一步讨论缩放法则，以加深对其的理解：
 
@@ -240,14 +152,6 @@ Discussion on Scaling Laws. After introducing the formulations, we continue to d
 
 Emergent Abilities of LLMs. In the literature [31], emergent abilities of LLMs are formally defined as “the abilities that are not present in small models but arise in large models”, which is one of the most prominent features that distinguish LLMs from previous PLMs. It further introduces a notable characteristic when emergent abilities occur [31]: performance rises significantly above random when the scale reaches a certain level. By analogy, such an emergent pattern has close connections with the phenomenon of phase transition in physics [31, 63]. In principle, emergent abilities can be defined in relation to some complex tasks [31, 64], while we are more concerned with general abilities that can be applied to solve a variety of tasks. Here, we briefly introduce three typical emergent abilities for LLMs and representative models that possess such an ability 8.
 
-直译：
-
-·任务级可预测性。目前关于缩放法则的研究大多从语言建模损失的角度进行（例如，每个词汇的交叉熵损失，以纳特为单位 [30]），而在实践中，我们更关心 LLM 在实际任务上的性能。因此，一个基本问题是语言建模损失的减少如何转化为任务性能的提高 [58]。直观上，语言建模损失较小的模型倾向于在下游任务上表现更好，因为语言建模损失可以被视为对整体模型容量的一般性衡量。GPT-4 [46] 报告称，一些能力（例如，编程能力）可以通过缩放法则准确预测。尽管如此，读者应该意识到，语言建模损失的直接减少并不总是表明在下游任务上模型性能的改善。特别是，对于某些任务，可能会出现逆向缩放现象，即当语言建模损失减少时，任务性能出人意料地变差 [62]。总的来说，探索和描述任务级缩放法则更为困难，因为它可能还依赖于与任务相关的信息（任务指标、任务难度等）。此外，根据缩放法则，一些能力（例如，上下文学习 [55]）是不可预测的，只有当模型规模超过一定水平时才能观察到（如下所述）。
-
-LLM 的涌现。在文献中 [31]，LLM 的涌现被正式定义为「在小型模型中不存在但在大型模型中出现的能力」，这是区别 LLM 和以前 PLM 的最显著特征之一。当涌现出现时，它进一步引入了一个显著特征 [31]：当规模达到一定水平时，性能显著高于随机水平。类比地，这种突现模式与物理学中的相变现象密切相关 [31, 63]。原则上，涌现可以定义为与一些复杂任务相关 [31, 64]，而我们更关注可以应用于解决各种任务的通用能力。在这里，我们简要介绍三种 LLM 的典型涌现和具有此类能力的代表性模型 [8]。
-
-意译：
-
 ·任务级可预测性。目前的缩放法则研究大多从语言建模损失的角度进行（例如，每个词汇的交叉熵损失，以纳特为单位 [30]），但在实际应用中，我们更关心 LLM 在具体任务上的表现。因此，一个关键问题是语言建模损失的减少如何转化为任务性能的提升 [58]。直观上，语言建模损失较小的模型倾向于在下游任务上有更好的表现，因为语言建模损失可以被视为整体模型容量的一般性指标。GPT-4 [46] 报告称，某些能力（例如编程能力）可以通过缩放法则准确预测。尽管如此，需要注意的是，语言建模损失的直接降低并不总能指示下游任务上模型性能的改进。特别是，在某些任务中可能出现逆向缩放现象，即随着语言建模损失的减少，任务性能反而变差 [62]。总体来说，探索和描述任务级别的缩放法则更为困难，因为它可能还依赖于与任务相关的信息（如任务指标、任务难度等）。此外，一些能力（如上下文学习 [55]）根据缩放法则是不可预测的，这些能力只有在模型规模超过一定水平时才会显现（如下所述）。
 
 LLM 的涌现。在文献中 [31]，LLM 的涌现被正式定义为「在小型模型中不存在但在大型模型中出现的能力」，这是区分 LLM 和之前 PLM 的最显著特点之一。当涌现出现时，它呈现出一个显著的特征 [31]：当模型规模达到一定水平时，性能会显著高于随机水平。类比地，这种突现模式与物理学中的相变现象密切相关 [31, 63]。从原理上讲，涌现可以与某些复杂任务相关联 [31, 64]，但我们更关注那些可以应用于解决多种任务的通用能力。在这里，我们将简要介绍三种 LLM 的典型涌现及具有这些能力的代表性模型 [8]。
@@ -257,14 +161,6 @@ LLM 的涌现。在文献中 [31]，LLM 的涌现被正式定义为「在小型�
 • Instruction following. By fine-tuning with a mixture of multi-task datasets formatted via natural language descriptions (called instruction tuning), LLMs are shown to perform well on unseen tasks that are also described in the form of instructions [28, 66, 67]. With instruction tuning, LLMs are enabled to follow the task instructions for new tasks without using explicit examples, thus having an improved generalization ability. According to the experiments in [67], instruction-tuned LaMDA-PT [68] started to significantly outperform the untuned one on unseen tasks when the model size reached 68B, but not for 8B or smaller model sizes. A recent study [69] found that a model size of 62B is at least required for PaLM to perform well on various tasks in four evaluation benchmarks (i.e., MMLU, BBH, TyDiQA and MGSM), though a much smaller size might suffice for some specific tasks (e.g., MMLU).
 
 • Step-by-step reasoning. For small language models, it is usually difficult to solve complex tasks that involve multiple reasoning steps, e.g., mathematical word problems. In contrast, with the chain-of-thought (CoT) prompting strategy [33], LLMs can solve such tasks by utilizing the prompting mechanism that involves intermediate reasoning steps for deriving the final answer. This ability is speculated to be potentially obtained by training on code [33, 47]. An empirical study [33] has shown that CoT prompting can bring performance gains (on arithmetic reasoning benchmarks) when applied to PaLM and LaMDA variants with a model size larger than 60B, while its advantage over the standard prompting becomes more evident when the model size exceeds 100B. Furthermore, the performance improvement with CoT prompting seems to be also varied for different tasks, e.g., GSM8K > MAWPS > SWAMP for PaLM [33].
-
-直译：
-
-·上下文学习。上下文学习（ICL）能力是由 GPT-3 [55] 正式引入的：假设语言模型已经提供了自然语言指令和 / 或若干任务示例，它可以通过补全输入文本的词序列来为测试实例生成预期输出，而无需额外的训练或梯度更新 [9]。在 GPT 系列模型中，175B 的 GPT-3 模型一般表现出较强的 ICL 能力，而 GPT-1 和 GPT-2 模型则不然。这种能力也依赖于具体的下游任务。例如，对于 13B 的 GPT-3，在算术任务（如三位数加减法）上可以表现出 ICL 能力，但 175B 的 GPT-3 甚至在波斯语问答任务上也表现不佳 [31]。
-
-·遵循指令。通过使用自然语言描述格式化的多任务数据集进行微调（称为指令调整），LLM 被证明可以在未见过的任务上表现良好，这些任务也以指令的形式描述 [28, 66, 67]。通过指令调整，LLM 能够在没有使用明确示例的情况下遵循新任务的指令，从而提高了其泛化能力。根据 [67] 中的实验，指令调整后的 LaMDA-PT [68] 开始在未见过的任务上显著超越未调整的模型，当模型大小达到 68B 时，但 8B 或更小的模型大小则没有这种效果。最近的一项研究 [69] 发现，PaLM 至少需要 62B 的模型大小才能在四个评估基准（即 MMLU、BBH、TyDiQA 和 MGSM）上的各种任务中表现良好，尽管对于某些特定任务（例如 MMLU）较小的模型大小可能就足够了。
-
-意译：
 
 1、上下文学习。上下文学习（ICL）能力由 GPT-3 [55] 首次正式引入：假定语言模型已被赋予自然语言指令和 / 或一些任务示例，它能够通过完成输入文本的词序列为测试实例生成预期输出，而无需额外训练或梯度更新 [9]。在 GPT 系列模型中，175B 的 GPT-3 模型普遍显示出较强的 ICL 能力，而 GPT-1 和 GPT-2 模型则不是这样。这种能力也取决于特定的下游任务。例如，对于 13B 的 GPT-3，ICL 能力可以在算术任务（如三位数加减法）中显现，但 175B 的 GPT-3 甚至在波斯语问答任务上也表现不佳 [31]。
 
@@ -373,6 +269,7 @@ Capacity Enhancement. Due to the strong capacities, GPT3 has been the base model
 • Human alignment. The related research of human alignment can be dated back to the year 2017 (or earlier) for OpenAI: a blog article entitled “learning from human preferences” 18 was posted on the OpenAI blog describing a work that applied reinforcement learning (RL) to learn from the preference comparisons annotated by humans [79] (similar to the reward training step in the aligning algorithm of InstructGPT in Figure 12). Shortly after the release of this RL paper [79], the paper of the Proximal Policy Optimization (PPO) [128] was published in July 2017, which now has been the foundational RL algorithm for learning from human preferences [66]. Later in January 2020, GPT-2 was finetuned using the aforementioned RL algorithms [79, 128], which leveraged human preferences to improve the capacities of GPT-2 on NLP tasks. In the same year, another work [129] trained a summarization model for optimizing human preferences in a similar way. Based on these prior work, InstructGPT [66] was proposed in January 2022 to improve the GPT-3 model for human alignment, which formally established a three-stage reinforcement learning from human feedback (RLHF) algorithm. Note that it seems that the wording of “instruction tuning” has seldom been used in OpenAI’s paper and documentation, which is substituted by supervised fine-tuning on human demonstrations (i.e., the first step of the RLHF algorithm [66]). In addition to improving the instruction following capacity, the RLHF algorithm is particularly useful to mitigate the issues of generating harm or toxic content for LLMs, which is key to the safe deployment of LLMs in practice. OpenAI describes their approach to alignment research in a technical article [130], which has summarized three promising directions: “training AI systems to use human feedback, to assist human evaluation and to do alignment research”.
 
 能力增强。由于其强大的能力，GPT-3 已成为 OpenAI 开发更有能力的 LLM 的基础模型。总体来说，OpenAI 探索了两种主要方法来进一步改进 GPT-3 模型，即在代码数据上训练和与人类偏好对齐，具体如下。
+
 
 
 
@@ -813,14 +710,6 @@ After data preprocessing, it is essential to design suitable strategies to sched
 
 Data Mixture. Since each kind of data source is closely related to the development of certain capacities for LLMs (referring to the discussions in Section 4.1), it is important to set a suitable distribution to mix these data. The data mixture is generally set in a global level (i.e., the distribution of the entire pre-training data), and can be also locally set to varied proportions at different training stages. During pre-training, data samples from different sources would be selected according to the mixture proportions: more data will be sampled from a data source with a larger weight. Typically, existing LLMs such as LLaMA [57] may employ upsampling or downsampling on the full data of each source to create specific data mixtures as pre-training data. As Figure 6 illustrates, existing LLMs use different data mixtures to construct the pre-training data. As a representative model, the pre-training data of LLaMA [57] mainly consists of webpages (over 80%), alongside 6.5% of code-heavy data from GitHub and StackExchange, 4.5% from books, and 2.5% of scientific data sourced from arXiv, which has become an important reference for training general-purpose LLMs. Furthermore, special data mixtures can be used to facilitate different purposes. For example, Falcon [141] is trained on pure webpages, and CodeGen [86] largely increases the amount of code data. In practice, data mixture is often determined empirically, and we summarize several common strategies for finding an effective data mixture as follows:
 
-直译：
-
-在数据预处理之后，设计合适的策略来安排这些多源数据进行大型语言模型（LLMs）的预训练至关重要。通常，对于数据安排有两个关键方面需要密切关注：每个数据源的比例（数据混合）和每个数据源被安排用于训练的顺序（数据课程）。接下来，我们将详细讨论这两个方面。数据安排的示意图在图 8 中展示。
-
-数据混合。由于每种数据源都与 LLMs 某些能力的发展密切相关（参考第 4.1 节的讨论），设置合适的分布以混合这些数据是重要的。数据混合通常在全局级别上设置（即整个预训练数据的分布），并且可以在不同的训练阶段以不同的比例局部设置。在预训练期间，将根据混合比例从不同源中选择数据样本：权重较大的数据源将被采样更多数据。通常，现有的 LLMs 如 LLaMA [57] 可能会对每个源的全部数据进行上采样或下采样，以创建特定的数据混合作为预训练数据。正如图 6 所示，现有的 LLMs 使用不同的数据混合构造预训练数据。作为一个代表性模型，LLaMA [57] 的预训练数据主要由网页（超过 80%）组成，外加来自 GitHub 和 StackExchange 的 6.5% 代码密集型数据，4.5% 来自书籍的数据，以及 2.5% 来自 arXiv 的科学数据，这已成为训练通用目的 LLMs 的重要参考。此外，特殊的数据混合可以用于促进不同的目的。例如，Falcon [141] 仅在网页上进行训练，而 CodeGen [86] 则大量增加代码数据。在实践中，数据混合通常是经验性地确定的，我们总结了以下几种寻找有效数据混合的常见策略：
-
-意译：
-
 在数据预处理之后，为大型语言模型（LLMs）的预训练制定合适的多源数据调度策略非常关键。在数据调度中，有两个重要方面需要特别关注：每个数据源的比重（数据混合）和各数据源用于训练的安排顺序（数据课程）。下面，我们将详细探讨这两个方面，相关的数据安排示意图见图 8。
 
 数据混合的策略：由于每种数据源都与 LLMs 的特定能力发展密切相关，因此确定适当的数据混合分布非常重要。数据混合通常在全局层面上设置，即整个预训练数据的分布，同时也可以在不同训练阶段局部调整比例。
@@ -832,16 +721,6 @@ Data Mixture. Since each kind of data source is closely related to the developme
 • Optimizing data mixtures. In addition to manually setting the data mixtures, several studies have proposed to optimize the data mixtures for improving the model pretraining [59, 231]. Given the target downstream tasks, one can select pre-training data with either higher proximity in the feature space [231] or those that provide positive influences on downstream task performance [232]. Further, to reduce the reliance of target tasks, DoReMi [59] first trains a small reference model using given initial domain weights, and then trains another small proxy model, upweighting the domains on which the greatest discrepancies in likelihood between the two models are observed. Finally, the learned domain weights of the proxy model are applied to train a much larger LLM. In a more simple way, one can train several small language models with different data mixtures, and select the data mixture that leads to the most desirable performance. However, an assumption made in this approach is, when trained in a similar way, small models would resemble with large models in model abilities or behaviors, which may not always hold in practice.
 
 • Specializing the targeted abilities. The model capacities of LLMs heavily rely on data selection and mixture, and one can boost the proportions of specific data sources to enhance certain model abilities [64, 212]. For example, the mathematical reasoning and coding abilities can be specially enhanced by training with more mathematical texts and code data, respectively. Furthermore, experimental results on the LAMBADA dataset [233] show that increasing the proportion of books data can improve the model capacity in capturing long-term dependencies from text, and increasing the proportion of the C4 dataset [82] leads to performance improvement on the C4 validation dataset [64]. Generally, it is important to identify more implicit relations between data sources and model abilities. To enhance specific skills such as mathematics and coding in LLMs, or to develop specialized LLMs, a practical way is to employ a multi-stage training approach, e.g., general and skill-specific data can be scheduled at two consecutive stages. This approach of training LLMs on varying sources or proportions of data across multiple stages is also known as “data curriculum”, which will be introduced below.
-
-直译：
-
-增加数据来源的多样性。近期研究实证表明，过度训练某一领域的数据会降低大型语言模型（LLMs）在其他领域的泛化能力 [35, 64]。相反，增加数据来源的异质性（例如，包括多样化的数据源）对于提升 LLMs 的下游任务性能至关重要 [212, 229, 230]。为了进一步检验不同数据来源的影响，一些研究通过逐一移除每个数据来源，并使用特别策划的数据集对 LLMs 进行预训练 [212]。研究表明，删除异质性高的数据来源（例如，网页）比删除异质性低的数据来源（例如，学术语料库）对 LLM 的能力影响更严重。
-
-优化数据混合。除了手动设置数据混合外，一些研究提出优化数据混合以改善模型预训练 [59, 231]。考虑到目标下游任务，可以选择具有更高特征空间接近度 [231] 的预训练数据，或者选择对下游任务性能有积极影响的数据 [232]。此外，为了减少对目标任务的依赖，DoReMi [59] 首先使用给定的初始领域权重训练一个小型参考模型，然后训练另一个小型代理模型，增加两个模型之间观察到的最大似然差异领域的权重。最后，代理模型学习到的领域权重被应用于训练更大的 LLM。更简单的方法是，用不同的数据混合训练几个小型语言模型，并选择导致最理想性能的数据混合。然而，这种方法的一个假设是，以类似方式训练的小模型在模型能力或行为上会与大型模型相似，这在实践中可能并不总是成立。
-
-专门化目标能力。LLMs 的模型容量在很大程度上取决于数据选择和混合，可以通过增加特定数据来源的比例来增强某些模型能力 [64, 212]。例如，通过训练更多数学文本和代码数据，可以特别增强数学推理和编码能力。此外，对 LAMBADA 数据集 [233] 的实验结果表明，增加图书数据的比例可以提高模型捕捉文本中长期依赖关系的能力，增加 C4 数据集 [82] 的比例可以改善在 C4 验证数据集 [64] 上的性能。总的来说，识别数据来源与模型能力之间更隐蔽的关系是重要的。为了在 LLMs 中增强诸如数学和编码等特定技能，或者开发专门化的 LLMs，一种实用的方法是采用多阶段训练方法，例如，可以在两个连续阶段安排通用和技能特定的数据。这种在多个阶段使用不同来源或比例的数据训练 LLMs 的方法也被称为「数据课程」，将在下文中介绍。
-
-意译：
 
 数据来源多样化的重要性：最新研究显示，专注于特定领域的大量数据训练可能削弱大型语言模型（LLMs）在其他领域的泛化能力。相对地，包括多种不同类型数据源来提升数据源异质性对于增强 LLMs 在后续任务中的表现至关重要。为了深入了解不同数据源的影响，有研究通过逐一移除各种数据源，并用精选数据集对 LLMs 进行预训练。结果发现，移除异质性高的数据源（如网页内容）比移除异质性低的数据源（如学术文献）对 LLMs 的性能影响更大。
 
@@ -858,22 +737,6 @@ Data Curriculum. After preparing the data mixture, it is important to schedule t
 • Long context. Long context modeling is an important ability for LLMs, and many studies have explored extending the context windows of LLMs via continually training [235, 238]. With modifications on position embeddings (i.e., position interpolation) of RoPE-based LLMs [57, 99, 240], CodeLLaMA further extends the context window of LLaMA 2 (2.5T tokens with 4K context window → 20B tokens with 16K context window). LongLLaMA [238] also achieves longer context window with the help of external memory and a unique training objective (1T tokens with 2K context window → 10B tokens with 8K context window).
 
 We utilize the symbol “ → ” to represent the data order in data curriculum. For example, “2T webpage tokens → 500B code tokens” means that the LLM is firstly trained with 2T webpage tokens and subsequently with 500B code data tokens.
-
-直译：
-
-数据课程。准备好数据混合后，安排特定数据呈现给 LLMs 进行预训练的顺序非常重要。研究表明，在某些情况下，按照技能集序列学习（例如，基础技能 → 目标技能）比直接从仅聚焦于目标技能的语料库学习更有效 [234, 235]。遵循课程学习的理念 [236]，数据课程已被提出并广泛应用于模型预训练 [234, 235, 237, 238]。其目的是以特定顺序组织 LLMs 的预训练数据的不同部分，例如，从简单 / 通用的示例开始，逐步引入更具挑战性 / 专业化的内容。更广泛地说，它还可以指在预训练期间对不同来源的数据比例进行自适应调整。关于数据课程的现有研究主要集中在持续预训练上，如专业化的编码 LLMs（例如，CodeLLaMA [235]）或长上下文 LLMs（例如，LongLLaMA [238]）。然而，关于通用 LLMs（例如，LLaMA）的数据课程，文献中仍缺乏更详细的报告。确定数据课程的一种实用方法是监测基于特别构建的评估基准的 LLMs 关键能力的发展，然后在预训练期间自适应调整数据混合。接下来，我们以三种常见能力为例介绍数据课程如何应用于持续预训练。
-
-·编码。为了提高 LLMs 的编码能力，基于 LLaMA 2 [99]（2T 通用标记 → 500B 代码密集型标记）开发了 CodeLLaMA [235]，旨在提高代码生成能力，并保留自然语言理解技能。CodeLLaMA 还提供了进一步专门化为特定编程语言的版本，即 CodeLLaMA-Python（2T 通用标记 → 500B 代码密集型标记 → 100B Python 密集型标记）。
-
-·数学。Llemma [239] 被提出用于增强通用 LLMs 的数学能力。它基于 CodeLLaMA 开发。尽管 CodeLLaMA [235] 主要关注编码能力，但实验表明，它在数学基准测试上比其基础模型 LLaMA 2 表现更好 [239]。基于 CodeLLaMA，Llemma 继续在科学论文、包含数学文本和代码的网页数据混合物上进行训练（2T 通用标记 → 500B 代码密集型标记 → 50∼200B 数学密集型标记）。需要注意的是，Llemma 的预训练数据还包含 5% 的通用领域数据，作为一种规范化形式。
-
-·长上下文。长上下文建模是 LLMs 的一个重要能力，许多研究通过持续训练探索了扩展 LLMs 的上下文窗口 [235, 238]。CodeLLaMA 对基于 RoPE 的 LLMs [57, 99, 240] 的位置嵌入（即，位置插值）进行修改，进一步扩展了 LLaMA 2 的上下文窗口（2.5T 标记，4K 上下文窗口 → 20B 标记，16K 上下文窗口）。LongLLaMA [238] 也借助外部存储和独特的训练目标实现了更长的上下文窗口（1T 标记，2K 上
-
-下文窗口 → 10B 标记，8K 上下文窗口）。
-
-我们使用符号「→」来表示数据课程中的数据顺序。例如，「2T 网页标记 → 500B 代码数据标记」意味着 LLM 首先用 2T 网页标记进行训练，随后使用 500B 代码数据标记。
-
-意译：
 
 数据课程策略。在准备好数据混合后，规划特定数据在预训练 LLMs 过程中的呈现顺序非常重要。研究发现，在某些情况下，按技能集序列学习（例如，从基础技能到目标技能）比直接从专注于目标技能的语料库中学习更为有效。基于课程学习理念，数据课程已被提出并广泛用于模型预训练。其目的是以特定顺序组织 LLMs 的预训练数据，比如从简单、通用的例子开始，逐渐引入更有挑战性、专业化的内容。更广义上，它还涉及在预训练期间自适应调整不同数据源的比例。目前的研究主要聚焦于持续预训练，如专门化的编程 LLMs 或长上下文 LLMs。然而，对于通用 LLMs（如 LLaMA）的数据课程，文献中还缺乏更详细的报告。确定数据课程的一个实用方法是监测 LLMs 关键能力的发展，并基于特别构建的评估基准在预训练期间自适应调整数据混合。下面，我们将以三个常见能力为例，介绍数据课程如何应用于持续预训练。
 
@@ -894,18 +757,6 @@ In this part, we summarize the general procedure and key points to prepare pre-t
 • Data cleaning. After data collection, it is crucial to clean the raw corpus to enhance its quality as possible. First, deduplication is commonly used in existing work [99, 141, 229]. Second, low-quality text, toxic content, and data with privacy concerns should be removed at different granularities (e.g., document, passage or sentence). In practice, both heuristic and classifier-based methods can be employed for quality and toxicity filtering (e.g., CCNet [241], fastText [242], and Data-Juicer [243]). Third, with the cleaned data, one can further unify or specify the format for pretraining data, and perform the tokenization by training the tokenizer on the filtered and deduplicated corpus with libraries like SentencePiece [226].
 
 • Data scheduling. With the preprocessed data, the next step is to determine the data mixture and the specific order of data for pre-training LLMs. To determine both settings, a practical way is to first train several small language models with multiple candidate plans and then select a good plan among them [59]. Overall, it is more difficult to find a suitable data curriculum. In practice, one can monitor the performance of intermediate model checkpoints on specific evaluation benchmarks, and dynamically tune the data mixture and distribution during pre-training. In this process, it is also useful to explore the potential relations between data sources and model abilities to instruct the design of data curriculum.
-
-直译：
-
-在这部分中，我们总结了为 LLMs 准备预训练数据的一般程序和关键点，详细内容分为以下三个方面。
-
-·数据收集。建议在预训练数据中包含多种数据来源。尽管 Falcon [141] 表明单独使用网页就可以训练出强大的 LLMs，但更典型的做法是同时整合包括代码、书籍、科学论文等在内的多种高质量文本。如果 LLM 专门具备某项技能，相应数据源的比例应相应增加。例如，Gopher [64] 和 Chinchilla [34] 训练时大约 40% 的数据来自书籍。PaLM [44] 和 LaMDA [68] 使用了大约 50% 的对话数据。
-
-·数据清理。在数据收集之后，清理原始语料库以提高其质量至关重要。首先，去重在现有工作中是常用的 [99, 141, 229]。其次，应该在不同的粒度上（例如，文档、段落或句子）移除低质量文本、有害内容和有隐私问题的数据。在实践中，可以使用启发式和基于分类器的方法进行质量和有害内容过滤（例如，CCNet [241]、fastText [242] 和 Data-Juicer [243]）。第三，使用清理后的数据，可以进一步统一或指定预训练数据的格式，并使用像 SentencePiece [226] 这样的库在过滤和去重后的语料库上训练分词器。
-
-·数据调度。使用预处理后的数据，下一步是确定预训练 LLMs 的数据混合和特定顺序。为了确定这两个设置，一种实用的方法是首先用多个候选计划训练几个小型语言模型，然后从中选择一个好的计划 [59]。总的来说，找到合适的数据课程更为困难。在实践中，可以监控中间模型检查点在特定评估基准上的性能，并在预训练期间动态调整数据混合和分布。在这个过程中，探索数据来源与模型能力之间的潜在关系对于指导数据课程的设计也是有用的。
-
-意译：
 
 在这部分，我们概括了为大型语言模型（LLMs）准备预训练数据的一般流程和关键要点，具体分为以下三个方面。
 
@@ -936,32 +787,6 @@ Prefix Decoder Architecture. The prefix decoder architecture (a.k.a., non-causal
 Mixture-of-Experts. For the above three types of architectures, we can further extend them via the mixture-ofexperts (MoE) scaling, in which a subset of neural network weights for each input are sparsely activated, e.g., Switch Transformer [25] and GLaM [112]. The major merit is that MoE is a flexible way to scale up the model parameter while maintaining a constant computational cost [25]. It has been shown that substantial performance improvement can be observed by increasing either the number of experts or the total parameter size [246]. Despite the merits, training large MoE models may suffer from instability issues due to the complex, hard-switching nature of the routing operation. To enhance the training stability of MoE-based language models, techniques such as selectively using high-precision tensors in the routing module or initializing the model with a smaller range have been introduced [25]. More recently, there is widespread speculation that GPT-4 has been developed based on the MoE architecture, but without official verification.
 
 Emergent Architectures. The conventional Transformer architectures typically suffer from quadratic computational complexity. Because of this, efficiency has become an important issue when training and making inference with long inputs. To improve efficiency, some studies aim to devise new architectures for language modeling, including parameterized state space models (e.g., S4 [247], GSS [248], and H3 [249]), long convolutions like Hyena [250], and Transformer-like architectures that incorporate recursive update mechanisms (e.g., RWKV [251] and RetNet [252]). The key merits of these new architectures are twofold. First, these models can generate outputs recursively like RNNs, meaning that they only need to refer to the single previous state during decoding. It makes the decoding process more efficient as it eliminates the need to revisit all previous states as in conventional Transformers. Second, these models have the capacity to encode an entire sentence in parallel like Transformers. This contrasts with conventional RNNs which has to encode sentences on a token-by-token basis. Thus, they can benefit from the parallelism of GPUs with techniques such as Parallel Scan [253, 254], FFT [250, 251], and Chunkwise Recurrent [252]. These techniques enable models with these new architectures to be trained in a highly parallel and efficient manner.
-
-直译：
-
-在本节中，我们回顾了大型语言模型（LLMs）的架构设计，即主流架构、预训练目标和详细配置。表 5 展示了一些具有公开详细信息的代表性 LLMs 的模型卡片。
-
-4.2.1 典型架构
-
-由于其出色的并行化能力和容量，变换器（Transformer）架构 [22] 已成为开发各种 LLMs 的事实标准，使得将语言模型扩展到数百亿或数千亿参数成为可能。一般来说，现有 LLMs 的主流架构大致可以分为三种主要类型，即编码器 - 解码器、因果解码器和前缀解码器，如图 9 所示。
-
-表 5：一些选定 LLMs 的模型卡片，包含公开配置细节。这里，PE 表示位置嵌入，#L 表示层数，#H 表示注意力头数，d model 表示隐藏状态的大小，MCL 表示训练中的最大上下文长度。
-
-图 9：三种主流架构中注意力模式的比较。这里，蓝色、绿色、黄色和灰色的圆角矩形分别表示前缀标记之间的注意力、前缀和目标标记之间的注意力、目标标记之间的注意力和屏蔽注意力。
-
-编码器 - 解码器架构。原始的变换器模型基于编码器 - 解码器架构 [22]，由两组变换器块组成，分别作为编码器和解码器。编码器采用堆叠的多头自注意力层对输入序列进行编码，生成其潜在表示，而解码器对这些表示执行交叉注意力，并自回归地生成目标序列。编码器 - 解码器 PLMs（例如，T5 [82] 和 BART [24]）在多种 NLP 任务上显示出有效性。迄今为止，基于编码器 - 解码器架构构建的 LLMs 数量不多，例如，Flan-T5 [69]。我们将在第 4.2.6 节对架构选择进行详细讨论。
-
-因果解码器架构。因果解码器架构采用单向注意力遮罩，以确保每个输入标记只能关注过去的标记和它本身。输入和输出标记通过解码器以相同方式处理。作为这种架构的代表性语言模型，GPT 系列模型 [26, 55, 122] 是基于因果解码器架构开发的。特别是，GPT-3 [55] 成功地展示了这种架构的有效性，同时展现了 LLMs 惊人的上下文学习能力。有趣的是，GPT-1 [122] 和 GPT-2 [26] 并没有表现出像 GPT-3 那样的卓越能力，似乎在增加这种模型架构的模型容量方面，规模扩大起着重要作用。迄今为止，因果解码器已被广泛采用为各种现有 LLMs 的架构，如 OPT [90]、BLOOM [78] 和 Gopher [64]。值得注意的是，因果解码器和接下来讨论的前缀解码器都属于仅解码器架构。在现有文献中，提到「仅解码器架构」时，主要指的是因果解码器架构，除非另有说明。
-
-前缀解码器架构。前缀解码器架构（又称非因果解码器 [244]）修订了因果解码器的遮罩机制，使其能够对前缀标记进行双向注意力处理 [245]，并仅对生成的标记进行单向注意力处理。这样，像编码器 - 解码器架构一样，前缀解码器可以双向编码前缀序列并自回归地逐个预测输出标记，编码和解码过程中共享相同的参数。作为一种实用建议，可以持续训练因果解码器，然后将其转换为前缀解码器以加速收敛 [29]，例如，U-PaLM [118] 是基于 PaLM [56] 派生的。基于前缀解码器的现有代表性 LLMs 包括 GLM130B [93] 和 U-PaLM [118]。
-
-专家混合。对于上述三种类型的架构，我们可以通过专家混合（MoE）扩展来进一步扩展它们，在这种扩展中，每个输入的一部分神经网络权重被稀疏激活，例如，Switch Transformer [25] 和 GLaM [112]。其主要优点是 MoE 是一种灵活的方法，可以在保持恒定计算成本的同时扩大模型参数 [25]。已经显示，通过增加专家数量或总参数大小可以观察到显著的性能提升 [246]。尽管有这些优点，由于路由操作的复杂、硬切换特性，训练大型 MoE 模型可能会遇到不稳定性问题。为了增强基于 MoE 的语言模型的训练稳定性，已经引入了诸如在路由模块中选择性使用高精度张量或使用较小范围初始化模型等技术 [25]。最近，广泛猜测 GPT-4 是基于 MoE 架构开发的，但没有官方验证。
-
-新兴架构。传统的变换器架构通常遭受二次计算复杂性的困扰。因此，在训练和使用长输入进行推理时，效率成为一个重要问题。为了提高效率，一些研究旨在设计新的语言建模架构，包括参数化状态空间模型（例如，S4 [247]、GSS [248] 和 H3 [249]）、类似长卷积的 Hyena [250]，以及结合递归更新机制的变换器类架构（例如，RWKV [251] 和 RetNet [252]）。这些新架构的主要优点有两个。首先，这些模型可以像 RNNs 一样递归生成输出，这意味着它们只需要在解码过程中引用单个先前状态。这使得解码过程更高效，因为它消除了像传统变换器那样需要重访所有先前状态的需要。其次，这些模型具有像变换器一样并行编码整个句子的能力。这与传统 RNNs 形成对比，后者必须逐个标记地编码句子。因此，它们可以利用 GPU 的并行性，并结合 Parallel Scan [253, 254]、FFT [250, 251] 和 Chunkwise Recurrent [252] 等技术。这些技术使得采用这些新架构的模型可以以高度并行和高效的方式进行训练。
-
----
-
-意译：
 
 在这一节，我们将重点介绍大型语言模型（LLMs）的架构设计，包括主流的架构类型、预训练目标和详细配置。表 5 中展示了一些公开配置详细信息的代表性 LLMs 的模型卡片。
 
@@ -1032,62 +857,6 @@ Attention. Attention mechanism is a critical component of Transformer. It allows
 • PagedAttention. It has been observed when LLM are deployed on servers, GPU memory is largely occupied by cached attention key and value tensors (called KV cache). The major reason is that the input lengths are often varied, leading to fragmentation and over-reservation issues. Inspired by the classic paging technique in operating systems, PagedAttention has been proposed to improve the memory efficiency and throughput of deployed LLMs [285]. In detail, PagedAttention partitions each sequence into subsequences, and the corresponding KV caches of these subsequences are allocated into non-contiguous physical blocks. The paging technique increases the GPU utilization and enables efficient memory sharing in parallel sampling.
 
 To put all these discussions together, we summarize the suggestions from existing literature for detailed configuration. For stronger generalization and training stability, it is suggested to choose the pre RMSNorm for layer normalization, and SwiGLU or GeGLU as the activation function. In addition, LN may not be used immediately after embedding layers, which is likely to incur performance degradation. As for position embeddings, RoPE or ALiBi is a better choice since it performs better on long sequences.
-
-直译：
-
-自变换器（Transformer）[22] 推出以来，已经提出了各种改进，以增强其训练稳定性、性能和计算效率。在这一部分，我们将讨论变换器四个主要部分的相应配置，包括标准化、位置嵌入、激活函数和注意力与偏置。为了使这项调查更加自足，我们在表 6 中详细呈现了这些配置的公式。
-
-标准化方法。预训练 LLMs 的训练不稳定性是一个挑战性问题。为了缓解这一问题，标准化是一种广泛采用的策略，用于稳定神经网络的训练。在原始的变换器（Transformer）[22] 中，使用了 LayerNorm [256]。最近，提出了几种高级标准化技术作为 LayerNorm 的替代品，例如，RMSNorm 和 DeepNorm。
-
-·LayerNorm。在早期研究中，BatchNorm [265] 是一种常用的标准化方法。然而，它难以处理长度可变的序列数据和小批量数据。因此，引入了 LayerNorm [256] 来进行逐层标准化。具体来说，计算每层所有激活的均值和方差，以重新定位和重新调整激活。
-
-·RMSNorm。为了提高 LayerNorm（LN）的训练速度，提出了 RMSNorm [257]，通过仅使用激活之和的均方根（RMS）重新调整激活，而不是均值和方差。相关研究已经证明了其在变换器 [266] 的训练速度和性能上的优越性。采用 RMSNorm 的代表性模型包括 Gopher [64] 和 Chinchilla [34]。
-
-·DeepNorm。微软提出的 DeepNorm [258] 旨在稳定深度变换器的训练。通过将 DeepNorm 作为残差连接，可以将变换器扩展到 1000 层 [258]，这已经显示出稳定性和良好性能的优势。它已被 GLM-130B [93] 采用。
-
-标准化位置。除了标准化方法之外，标准化位置在 LLMs 中也起着至关重要的作用。标准化位置通常有三种选择，即 post-LN、pre-LN 和 sandwich-LN。
-
-·Post-LN。Post-LN 用于原始的变换器（Transformer）[22]，放置在残差块之间。然而，现有工作发现，带有 post-LN 的变换器训练往往因为输出层附近的大梯度而不稳定 [267]。因此，除了与其他策略结合使用（例如，在 GLM130B [93] 中将 post-LN 与 pre-LN 结合）之外，现有 LLMs 很少采用 post-LN。
-
-·Pre-LN。与 post-LN 不同，pre-LN [268] 在每个子层之前应用，并且在最终预测之前放置一个额外的 LN。与 post-LN 相比，带有 pre-LN 的变换器在训练中更稳定。然而，其性能比带有 post-LN 的变体差 [269]。尽管性能下降，但大多数 LLMs 仍采用 pre-LN，因为它具有训练稳定性。然而，一个例外是，当训练超过 100B 参数的模型时，在 GLM 中发现 pre-LN 不稳定 [93]。
-
-表 6：网络配置的详细公式。这里，Sublayer 表示变换器层中的 FFN 或自注意力模块，d 表示隐藏状态的大小，p i 表示位置 i 处的位置嵌入，A ij 表示查询和键之间的注意力得分，r i−j 表示基于查询和键之间偏移量的可学习标量，R Θ,t 表示旋转度为 t·Θ 的旋转矩阵。
-
-·Sandwich-LN。基于 pre-LN，Sandwich-LN [255] 在残差连接之前增加了额外的 LN，以避免变换器层输出中的值爆炸问题。然而，已发现 Sandwich-LN 有时无法稳定 LLMs 的训练，并可能导致训练崩溃 [93]。
-
-激活函数。为了获得良好的性能，还需要在前馈网络中正确设置激活函数。在现有的 LLMs 中，广泛使用 GeLU 激活函数 [270]。特别是在最新的 LLMs（例如，PaLM 和 LaMDA）中，也采用了 GLU 激活 [262, 271] 的变体，特别是 SwiGLU 和 GeGLU 变体，在实践中通常能获得更好的性能 [266]。然而，与 GeLU 相比，它们在前馈网络中需要额外的参数（大约 50%）[272]。
-
-位置嵌入。由于变换器中的自注意力模块对置换是等变的，因此采用位置嵌入（PE）来注入绝对或相对位置信息，用于建模序列。
-
-·绝对位置嵌入。在原始变换器（Transformer）[22] 中，采用了绝对位置嵌入。在编码器和解码器的底部，将绝对位置嵌入添加到输入嵌入中。在原始变换器 [22] 中提出了两种绝对位置嵌入的变体，即正弦和学习位置嵌入，后者在现有的预训练语言模型中更为常用。
-
-·相对位置嵌入。与绝对位置嵌入不同，相对位置嵌入是根据键和查询之间的偏移生成的 [273]。Transformer-XL [274, 275] 中引入了一种流行的相对 PE 变体。键和查询之间的注意力得分计算被修改为引入对应于相对位置的可学习嵌入。T5 [82] 进一步简化了相对位置嵌入，随后被 Gopher [64] 采用。具体来说，它在注意力得分中添加了可学习的标量，这些标量基于查询和键的位置之间的距离计算。与绝对 PE 相比，带有相对位置嵌入的变换器可以泛化到比训练序列更长的序列，即外推 [264]。
-
-·旋转位置嵌入。旋转位置嵌入（RoPE）[263] 根据每个键或查询的绝对位置设置特定的旋转矩阵。键和查询之间的得分可以通过相对位置信息计算（表 6）。RoPE 将查询和键向量中的每对连续元素组合为一个维度，因此对于原始长度为 d 的嵌入，有 d/2 个维度。对于每个维度 i ∈ {1, . . . , d/2}，所涉及的元素对将根据旋转角度 t·θ i 旋转，其中 t 表示位置索引，θ i 是该维度的基础。根据正弦位置嵌入 [22]，RoPE 将基础 θ i 定义为基数 b（默认设为 10000）的指数。
-
-此外，最近的一项研究 [276] 定义了每个维度旋转一个周期（2π）所需的距离为波长：
-
-由于其出色的性能和长期衰减特性，RoPE 在最新的 LLMs 中得到了广泛应用，例如 PaLM [56] 和 LLaMA [57]。基于 RoPE，xPos [277] 进一步改善了变换器的平移不变性和长度外推能力。在旋转角度向量的每个维度上，xPos 添加了一个特殊的指数衰减，当基数较大时衰减更小。它可以缓解训练过程中随着距离增加而出现的不稳定现象。
-
-·ALiBi。ALiBi [264] 被提出用于改善变换器的外推能力。类似于相对位置嵌入，它通过基于键和查询之间的距离的惩罚来偏置注意力得分。与 T5 [82] 等相对位置嵌入方法不同，ALiBi 中的惩罚得分是预定义的，没有任何可训练参数。[264] 中的实证结果表明，ALiBi 在处理比训练序列更长的序列时具有比诸如正弦 PE [22]、RoPE [263] 和 T5 偏置 [82] 等流行位置嵌入方法更好的外推性能。此外，已经证明 ALiBi 还可以提高 BLOOM [78] 的训练稳定性。
-
-注意力。注意力机制是变换器的关键组成部分。它允许序列中的标记相互作用并计算输入和输出序列的表示。
-
-·全注意力。在原始的变换器（Transformer）[22] 中，注意力机制以成对方式进行，考虑序列中所有标记对之间的关系。它采用了缩放点积注意力，其中隐藏状态被映射为查询、键和值。此外，变换器使用多头注意力而不是单一注意力，通过不同的头部中的不同投影来投影查询、键和值。每个头部输出的串联被视为最终输出。
-
-·稀疏注意力。全注意力的一个关键挑战是二次计算复杂性，当处理长序列时，这成为一个负担。因此，提出了各种高效的变换器变体，以减少注意力机制的计算复杂性 [278, 279]。例如，GPT-3 [55] 采用了局部带状稀疏注意力（即 Factorized Attention [280]）。每个查询只能根据位置关注一部分标记，而不是整个序列。
-
-·多查询 / 分组查询注意力。多查询注意力是指不同头部在键和值上共享相同的线性变换矩阵的注意力变体 [281]。它在模型质量上只有轻微牺牲的情况下实现了更高的推理速度。采用多查询注意力的代表性模型包括 PaLM [56] 和 StarCoder [98]。为了在多查询注意力和多头注意力之间取得平衡，已经探索了分组查询注意力（GQA）[282]。在 GQA 中，将头部分配到不同的组中，同一组的头部将共享相同的变换矩阵。特别地，GQA 已经在最近发布的 LLaMA 2 模型 [99] 中采用并经过了实证测试。
-
-·FlashAttention。与大多数现有的近似注意力方法不同，这些方法为了提高计算效率而牺牲模型质量，FlashAttention [283] 提出了从 IO 感知的角度优化 GPU 上注意力模块的速度和内存消耗。现代 GPU 上存在不同级别的内存，例如，具有快速 IO 的 SRAM 和相对慢 IO 的 HBM。FlashAttention 将输入组织成块，并引入必要的重计算，以更好地利用快速内存 SRAM。作为 CUDA 中的融合内核实现，FlashAttention 已被集成到 PyTorch [197]、DeepSpeed [74] 和 Megatron-LM [75] 中。更新版本的 FlashAttention-2 [284] 进一步优化了 GPU 线程块和纠缠的工作分配，与原始 FlashAttention 相比，速度提升了大约 2 倍。
-
-·PagedAttention。观察到当 LLM 部署在服务器上时，GPU 内存主要被缓存的注意力键和值张量（称为 KV 缓存）占据。主要原因是输入长度通常不同，导致碎片化和过度预留问题。受操作系统中经典分页技术的启发，提出了 PagedAttention，以提高部署 LLMs 的内存效率和吞吐量 [285]。具体来说，PagedAttention 将每个序列划分为子序列，并将这些子序列的相应 KV 缓存分配到不连续的物理块中。分页技术提高了 GPU 利用率，并使并行采样中的内存有效共享成为可能。
-
-综合这些讨论，我们总结了现有文献中的详细配置建议。为了获得更强的泛化能力和训练稳定性，建议选择 pre RMSNorm 作为层标准化，并选择 SwiGLU 或 GeGLU 作为激活函数。此外，LN 可能不会立即在嵌入层后使用，这可能会导致性能下降。至于位置嵌入，RoPE 或 ALiBi 是更好的选择，因为它在长序列上表现更佳。
-
----
-
-意译：
 
 变换器架构中的标准化方法：自变换器（Transformer）推出以来，为了增强其训练稳定性、性能和计算效率，提出了多种改进。我们将探讨变换器中四个主要部分的配置，包括标准化、位置嵌入、激活函数和注意力与偏置。特别地，标准化方法是解决预训练 LLMs 训练不稳定性的关键策略。
 
@@ -1350,13 +1119,19 @@ Overall Training Suggestion. In practice, the above training techniques, especia
 
 After pre-training, LLMs can acquire the general abilities for solving various tasks. However, an increasing number of studies have shown that LLM’s abilities can be further adapted according to specific goals. In this section, we introduce two major approaches to adapting pre-trained LLMs, namely instruction tuning and alignment tuning. The former approach mainly aims to enhance (or unlock) the abilities of LLMs, while the latter approach aims to align the behaviors of LLMs with human values or preferences. Further, we will also discuss efficient tuning and quantization for model adaptation in resource-limited settings. In what follows, we will introduce the four parts in detail.
 
+预训练后，大型语言模型（LLM）能够处理多种任务。但越来越多研究发现，这些模型的能力可根据特定目标进行进一步调整。本节将探讨两种主要的预训练大型语言模型调整方法：指令调整和对齐调整。指令调整主要用于增强（或解锁）模型能力，而对齐调整则旨在使模型行为与人类价值观或偏好一致。我们还会讨论在资源有限情况下的高效调整和模型量化策略。下面将详细介绍这四部分内容。
+
 #### 5.1 Instruction Tuning
 
 In essence, instruction tuning is the approach to fine-tuning pre-trained LLMs on a collection of formatted instances in the form of natural language [67], which is highly related to supervised fine-tuning [66] and multi-task prompted training [28]. In order to perform instruction tuning, we first need to collect or construct instruction-formatted instances. Then, we employ these formatted instances to fine-tune LLMs in a supervised learning way (e.g., training with the sequence-to-sequence loss). After instruction tuning, LLMs can demonstrate superior abilities to generalize to unseen tasks [28, 67, 69], even in a multilingual setting [94].
 
 A recent survey [342] presents a systematic overview of the research on instruction tuning. In comparison to that, we mainly focus on the effect of instruction tuning on LLMs and provide detailed guidelines or strategies for instance collection and tuning. In addition, we also discuss the use of instruction tuning for satisfying the real needs of users, which has been widely applied in existing LLMs, e.g., InstructGPT [66] and GPT-4 [46].
 
-5.1.1 Formatted Instance Construction Generally, an instruction-formatted instance consists of a task description (called an instruction), an optional input, the corresponding output, and a small number of demonstrations (optional). As important public resources, existing studies have released a large number of labeled data formatted in natural language (see the list of available resources in Table 3) as introduced in Section 3.3.1. Next, we introduce three major methods for constructing formatted instances (see an illustration in Figure 11) and then discuss several key factors for instance construction.
+
+
+5.1.1 Formatted Instance Construction 
+
+Generally, an instruction-formatted instance consists of a task description (called an instruction), an optional input, the corresponding output, and a small number of demonstrations (optional). As important public resources, existing studies have released a large number of labeled data formatted in natural language (see the list of available resources in Table 3) as introduced in Section 3.3.1. Next, we introduce three major methods for constructing formatted instances (see an illustration in Figure 11) and then discuss several key factors for instance construction.
 
 Formatting NLP Task Datasets. Before instruction tuning was proposed, several early studies [168, 343, 344] collected the instances from a diverse range of traditional NLP tasks (e.g., text summarization, text classification, and translation) to create supervised multi-task training datasets. As a major source of instruction tuning instances, it is convenient to format these multi-task training datasets with natural language task descriptions. Specifically, recent work [28, 66, 67, 88] augments the labeled datasets with human-written task descriptions, which instructs LLMs to understand the tasks by explaining the task goal. For example, in Figure 11(a), a task
 

@@ -1,12 +1,3 @@
-## Qwen-72B-Chat
-
-[Qwen/Qwen-72B · Hugging Face](https://huggingface.co/Qwen/Qwen-72B)
-
-[QwenLM/Qwen: The official repo of Qwen (通义千问) chat & pretrained large language model proposed by Alibaba Cloud.](https://github.com/QwenLM/Qwen/tree/main)
-
-[Qwen/README\_CN.md at main · QwenLM/Qwen](https://github.com/QwenLM/Qwen/blob/main/README_CN.md)
-
-
 ### 跑服务
 
 跑 API：
@@ -56,10 +47,24 @@ Command line options:
 --mmproj MMPROJ_FILE: Path to a multimodal projector file for LLaVA.
 
 
+####  CLI 运行
+
+./server -m /Users/Daglas/dalong.datasets/qwen72b-chat-q8_0.gguf -c 4096 --host 0.0.0.0
 
 
+./server -m /Users/Daglas/dalong.datasets/qwen72b-chat-q4_0.gguf -c 4096 --host 0.0.0.0
 
-### 下载模型文件
+./main -m /Users/Daglas/dalong.datasets/qwen72b-chat-q4_0.gguf -n 4096 --color -i -cml -f prompts/chat-with-qwen.txt
+
+### Qwen-72B-Chat
+
+[Qwen/Qwen-72B · Hugging Face](https://huggingface.co/Qwen/Qwen-72B)
+
+[QwenLM/Qwen: The official repo of Qwen (通义千问) chat & pretrained large language model proposed by Alibaba Cloud.](https://github.com/QwenLM/Qwen/tree/main)
+
+[Qwen/README\_CN.md at main · QwenLM/Qwen](https://github.com/QwenLM/Qwen/blob/main/README_CN.md)
+
+#### 下载模型文件
 
 2023-12-04
 
@@ -118,15 +123,6 @@ python convert-hf-to-gguf.py --outfile /Users/Daglas/dalong.datasets/qwen72b-cha
 
 \# chat with Qwen models
 ./build/bin/main -m qwen7b-chat-q4_0.gguf -n 512 --color -i -cml -f prompts/chat-with-qwen.txt
-
-###  CLI 运行
-
-./server -m /Users/Daglas/dalong.datasets/qwen72b-chat-q8_0.gguf -c 4096 --host 0.0.0.0
-
-
-./server -m /Users/Daglas/dalong.datasets/qwen72b-chat-q4_0.gguf -c 4096 --host 0.0.0.0
-
-./main -m /Users/Daglas/dalong.datasets/qwen72b-chat-q4_0.gguf -n 4096 --color -i -cml -f prompts/chat-with-qwen.txt
 
 ###  做 API 接口
 
