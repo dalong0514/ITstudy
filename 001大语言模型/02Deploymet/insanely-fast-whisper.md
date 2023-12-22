@@ -1,6 +1,19 @@
 ### 01. 使用
 
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Movies/dalong.KnowledgeVideo/2023020卢菁大模型教程/0401卢菁-模型微调实战和经验分享.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json
+
+
+
 insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/20200526电气培训.wav --device mps --transcript-path /Users/Daglas/Desktop/20200526电气培训.json
+
+
+
+
+ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2023020卢菁大模型教程/0401卢菁-模型微调实战和经验分享.mp4 -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Movies/dalong.KnowledgeVideo/2023020卢菁大模型教程/0401卢菁-模型微调实战和经验分享.wav
+
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Movies/dalong.KnowledgeVideo/2023020卢菁大模型教程/0101卢菁-ChatGLM-ChatGPT.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json
+
 
 
 
@@ -138,6 +151,35 @@ git lfs install
 git clone https://www.modelscope.cn/AI-ModelScope/whisper-large-v3.git
 
 ### 03. 问题汇总
+
+2023-12-21
+
+1、版本从 0.0.10 升级到 0.0.13 后导致用不了。
+
+怀疑作者升版没考虑 mac 都一些东西。
+
+解决方案：退回到 0.0.10 版本。
+
+方法 1：
+
+pipx install insanely-fast-whisper==0.0.10
+
+报信息，已经存在了 0.0.13 版本，改为强制安装。
+
+pipx install insanely-fast-whisper==0.0.10 --force
+
+退回老版本问题就解决了，也就没用方法 2 了。
+
+方法 2：用 mac 的时光机器把虚拟环境中的 insanely-fast-whisper 包退回去。
+
+路径：
+
+/Users/Daglas/.local/pipx/venvs/insanely-fast-whisper
+
+
+
+
+2023-12-05
 
 坑 1：通过 pip 安装 pipx，而不是用 brew 安装 pipx。
 

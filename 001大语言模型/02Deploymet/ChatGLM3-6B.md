@@ -1,3 +1,8 @@
+### 跑模型
+
+MODEL=/Users/Daglas/dalong.datasets/chatglm3-6b-32k-ggml_q8_0.bin uvicorn chatglm_cpp.openai_api:app --host 0.0.0.0 --port 8000
+
+
 ### 量化方案
 
 [li-plus/chatglm.cpp: C++ implementation of ChatGLM-6B & ChatGLM2-6B & ChatGLM3 & more LLMs](https://github.com/li-plus/chatglm.cpp)
@@ -60,6 +65,64 @@ cmake --build build -j --config Release
 针对 ChatGLM3-6B 的更多玩法，包括 Chat mode、Function call 等。
 
 ### 部署记录
+
+#### chaglm.cpp 部署
+
+1、下载仓库。
+
+[li-plus/chatglm.cpp: C++ implementation of ChatGLM-6B & ChatGLM2-6B & ChatGLM3 & more LLMs --- li-plus/chatglm.cpp：ChatGLM-6B & ChatGLM2-6B & ChatGLM3 及更多法学硕士的 C++ 实现](https://github.com/li-plus/chatglm.cpp)
+
+git clone --recursive https://github.com/li-plus/chatglm.cpp.git && cd chatglm.cpp
+
+如果您在克隆存储库时忘记了 --recursive 标志，请在 chatglm.cpp 文件夹中运行以下命令：
+
+git submodule update --init --recursive
+
+2、量化。
+
+python chatglm_cpp/convert.py -i /Users/Daglas/dalong.datasets/chatglm3-6b-32k -t q8_0 -o /Users/Daglas/dalong.datasets/chatglm3-6b-32k-ggml_q8_0.bin
+
+python chatglm_cpp/convert.py -i /Users/Daglas/dalong.datasets/chatglm3-6b-32k -t q4_0 -o /Users/Daglas/dalong.datasets/chatglm3-6b-32k-ggml_q4_0.bin
+
+3、构建和运行。
+
+使用 CMake 编译项目：
+
+cmake -B build
+cmake --build build -j --config Release
+
+4、运行。
+
+./build/bin/main -m /Users/Daglas/dalong.datasets/chatglm3-6b-32k-ggml_q8_0.bin -p 你好
+\# 你好👋！我是人工智能助手 ChatGLM-6B，很高兴见到你，欢迎问我任何问题。
+
+./build/bin/main -m /Users/Daglas/dalong.datasets/chatglm3-6b-32k-ggml_q8_0.bin -i
+
+5、跑 api 接口
+
+跑 OpenAI 模式的 API：
+
+MODEL=/Users/Daglas/dalong.datasets/chatglm3-6b-32k-ggml_q8_0.bin uvicorn chatglm_cpp.openai_api:app --host 0.0.0.0 --port 8000
+
+验证：
+
+curl http://127.0.0.1:8000/v1/chat/completions -H 'Content-Type: application/json' \
+    -d '{"messages": [{"role": "user", "content": "你好"}]}'
+
+跑 langchain 模式的 API：
+
+MODEL=/Users/Daglas/dalong.datasets/chatglm3-6b-32k-ggml_q8_0.bin uvicorn chatglm_cpp.langchain_api:app --host 0.0.0.0 --port 8000
+
+验证：
+
+curl http://127.0.0.1:8000 -H 'Content-Type: application/json' -d '{"prompt": "你好"}'
+
+注意事项：不能直接在仓库根目录文件里跑上面启动的服务，要在上层文件或其他路径文件里跑。
+
+
+
+
+#### 官方常规部署
 
 1、为 M3 的 Mac 单独安装 PyTorch。
 

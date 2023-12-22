@@ -123,6 +123,10 @@ make
 
 python convert-hf-to-gguf.py /Users/Daglas/dalong.datasets/Qwen-72B-Chat --outfile /Users/Daglas/dalong.datasets/qwen72b-chat-f16.gguf --outtype f16
 
+
+
+python convert-hf-to-gguf.py /Users/Daglas/dalong.datasets/chatglm3-6b-32k --outfile /Users/Daglas/dalong.datasets/chatglm3-6b-32k-f16.gguf --outtype f16
+
 3、量化。
 
 ./quantize /Users/Daglas/dalong.datasets/qwen72b-chat-f16.gguf /Users/Daglas/dalong.datasets/qwen72b-chat-q4_0.gguf q4_0
