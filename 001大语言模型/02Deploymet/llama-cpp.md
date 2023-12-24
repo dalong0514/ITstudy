@@ -1,3 +1,33 @@
+
+
+
+### DeepSeek
+
+2023-12-23
+
+
+python convert.py /Users/Daglas/dalong.datasets/Yi-34B-Chat --outfile /Users/Daglas/dalong.datasets/yi-34b-chat.gguf --outtype f16 --padvocab
+
+
+
+1、转 gguf 文件。
+
+直接用之前转千问的，报错不支持。
+
+python convert-hf-to-gguf.py /Users/Daglas/dalong.datasets/deepseek-llm-67b-chat --outfile /Users/Daglas/dalong.datasets/deepseek-llm-67b-chat.gguf --outtype f16
+
+然后用 convert.py 转，也有问题，不过提示可以加上选项 --padvocab，加上后转成功了。
+
+python convert.py /Users/Daglas/dalong.datasets/deepseek-llm-67b-chat --outfile /Users/Daglas/dalong.datasets/deepseek-llm-67b-chat.gguf --outtype f16 --padvocab
+
+2、量化。
+
+./quantize /Users/Daglas/dalong.datasets/deepseek-llm-67b-chat.gguf /Users/Daglas/dalong.datasets/deepseek-llm-67b-chat-q5_k_m.gguf q5_k_m
+
+3、跑 API。
+
+./server -m /Users/Daglas/dalong.datasets/deepseek-llm-67b-chat-q5_k_m.gguf -c 4096 --host 0.0.0.0
+
 ### 跑服务
 
 跑 API：

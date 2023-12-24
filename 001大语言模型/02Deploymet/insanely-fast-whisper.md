@@ -1,5 +1,18 @@
 ### 01. 使用
 
+2023-12-23
+
+ffmpeg -i /Users/Daglas/Desktop/W2Ch04抽样阅读20231223.mkv -ss 0 -t 5415 /Users/Daglas/Desktop/output.mkv
+
+ffmpeg -i /Users/Daglas/Desktop/W2Ch04抽样阅读20231223.mkv -ss 5415 -t 5585 /Users/Daglas/Desktop/output.mkv
+
+ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2023019阅读大法训练营/20231223阳志平答疑讲结构阅读.mkv -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Movies/dalong.KnowledgeVideo/2023019阅读大法训练营/20231223阳志平答疑讲结构阅读.wav
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Movies/dalong.KnowledgeVideo/2023019阅读大法训练营/20231223阳志平答疑讲结构阅读.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json
+
+
+2023-12-22
+
 insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Movies/dalong.KnowledgeVideo/2023020卢菁大模型教程/0401卢菁-模型微调实战和经验分享.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json
 
 

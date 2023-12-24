@@ -2057,33 +2057,43 @@ CoT prompting is first proposed as an extension of ICL [33], which augments each
 
 As illustrated in Figure 15, the generation process of CoT follows a chain structure in the basic CoT prompting approach, where LLMs generate CoTs step by step. Typically, CoT takes the format of natural language text. However, textual CoTs may not work well on complex tasks that require rigorous logic for reasoning. Considering this, some work uses code [506, 507] due to its structured and precise nature. Furthermore, the authors in [508] propose to dynamically select text or code as the format of CoTs to combine their advantages.
 
+Fig. 15: An illustration of the evolution of CoT prompting strategies. It begins with the basic CoT approach and progresses to enhanced CoT generation techniques, including sampling-based and verification-based methods. Finally, it extends to variations of the chain structure, such as trees and graphs. Here, “thought” refers to an intermediate reasoning step as stated in [33, 451].
+
 6.3.1 基本 CoT 提示方法
 
 CoT 提示最初作为 ICL 的扩展而提出 [33]，它将每个演示（输入，输出）增强为（输入，CoT, 输出）。CoT 是连接输入和输出的一系列中间推理步骤。有了这些增强的演示，LLMs 可以遵循它们来为新输入生成 CoTs 和答案。然而，与 ICL 中的（输入，输出）对不同，CoTs 通常难以获得，一般需要人工注释。幸运的是，已发现 LLMs 可以通过如「让我们一步一步地思考」[505] 这样的简单指令来触发生成 CoTs，使 CoT 提示变得易于使用。还有其他「神奇提示」，如「深呼吸，逐步解决这个问题」[473]，可以激发 CoT 推理能力并进一步提高 LLMs 的表现。
 
 如图 15 所示，在基本 CoT 提示方法中，CoT 的生成过程遵循链式结构，LLMs 逐步生成 CoTs。通常，CoT 采用自然语言文本的格式。然而，文本形式的 CoTs 可能在需要严谨逻辑推理的复杂任务上不太有效。因此，一些研究选择使用代码 [506, 507] 作为 CoTs 的格式，由于其结构化和精确性。此外，[508] 中的作者提出动态选择文本或代码作为 CoTs 的格式，以结合它们的优点。
 
+图 15：CoT 提示策略演变的示意图。它从基本的 CoT 方法开始，发展到增强的 CoT 生成技术，包括基于抽样和验证的方法。最终，它扩展到链结构的变种，如树和图形结构。这里，「思维」指的是 [33, 451] 中所述的中间推理步骤。
+
 6.3.2 Improved CoT Prompting Strategies
 
 Despite the performance improvement in complex reasoning tasks, CoT prompting still suffers from problems like incorrect reasoning and instability. In this part, we first introduce how to design better CoT prompts and enhanced CoT generation strategies, and then introduce the extension of the basic chain structure of CoT. Figure 15 illustrates the evolution of representative CoT prompting strategies.
 
-Fig. 15: An illustration of the evolution of CoT prompting strategies. It begins with the basic CoT approach and progresses to enhanced CoT generation techniques, including sampling-based and verification-based methods. Finally, it extends to variations of the chain structure, such as trees and graphs. Here, “thought” refers to an intermediate reasoning step as stated in [33, 451].
+6.3.2 改进的 CoT 提示策略
 
-
-
+虽然 CoT 提示在复杂推理任务中取得了性能提升，但它仍面临诸如错误推理和不稳定性等问题。在这部分内容中，我们首先介绍如何设计更有效的 CoT 提示和增强 CoT 生成策略，然后讨论 CoT 基本链结构的扩展。图 15 展示了代表性 CoT 提示策略的演进过程。
 
 Better Prompt Design. Since CoT prompting relies on prompts to elicit the reasoning capabilities of LLMs, the design of prompts is critical to its performance. As a direct approach, it is shown that using diverse CoTs (i.e., multiple reasoning paths for each problem) can effectively enhance the performance [437]. Another intuitive idea is that prompts with more complex reasoning paths are more likely to elicit the reasoning ability of LLMs [433], which can result in higher accuracy in generating correct answers. However, all these approaches rely on annotated CoT datasets, which limits their use in practice. To overcome this limitation, magic instructions such as “Let’s think step by step” can be used to automatically construct CoTs by prompting LLMs [434].
 
+01 更佳的提示设计。
+
+由于 CoT 提示依赖于提示来激发 LLMs 的推理能力，因此提示的设计对其性能至关重要。作为直接方法之一，已有研究表明使用多样化的 CoTs（即每个问题有多种推理路径）可以有效提升性能 [437]。另一个直观的想法是，具有更复杂推理路径的提示更有可能激发 LLMs 的推理能力 [433]，这可能导致在生成正确答案时准确度更高。然而，所有这些方法都依赖于已注释的 CoT 数据集，这在实际应用中存在限制。为了克服这一限制，可以使用如「让我们一步一步地思考」这样的神奇指令，通过提示 LLMs 来自动构建 CoTs [434]。
+
 Enhanced CoT Generation. Since LLMs are prone to producing incorrect reasoning steps and exhibiting instability in the generation process, there are a number of studies [436, 509] to improve the generation of CoT. In this part, we will introduce two typical approaches to enhancing the generation of CoT: sampling- and verification-based methods.
-
-
 
 • Sampling-based methods. LLMs are known to suffer from instability during inference, which can lead to unfaithfulness in the generated reasoning steps. To address this issue, some work proposes to sample multiple reasoning paths instead of using greedy decoding. As a representative solution, self-consistency [436] first generates several reasoning paths and then takes an ensemble over the corresponding answers, selecting the most consistent one through majority voting. However, such a method can still lead to wrong answers when most of the reasoning paths are misled. Considering this, the authors in [433] only vote on the k most complex reasoning paths based on their observation that reasoning paths with higher complexity (e.g., more reasoning steps) usually have better performance. Furthermore, MCR [510] proposes referring to the steps from other reasoning paths when generating the next step, and performs reasoning across multiple reasoning paths to generate the final answer.
 
 • Verification-based methods. The sequential nature of reasoning steps in CoTs can lead to the accumulation of errors in the generated CoTs when certain steps are incorrect. To mitigate this problem, recent studies propose to verify the correctness of generated reasoning steps with either trained verifiers or LLMs themselves. For example, DIVERSE [509] trains solution-level and step-level verifiers respectively to examine the reasoning steps at different granularities. Another approach [511] utilizes LLMs to verify the correctness of reasoning steps through step-by-step self-verification with a specially designed reasoning format. In addition, several studies propose backward reasoning for verification: it first deduces the necessary question conditions [512, 513] or variables [514] from the model’s predictions, and then compares them with the original ones.
 
+02 增强的 CoT 生成。
 
+鉴于 LLMs 倾向于产生错误的推理步骤并在生成过程中表现出不稳定性，因此有许多研究 [436, 509] 致力于改进 CoT 的生成。在这一部分，我们将介绍两种用于增强 CoT 生成的典型方法：基于抽样和基于验证的方法。
 
+1、基于抽样的方法。LLMs 在推理过程中通常表现出不稳定性，这可能导致生成的推理步骤不准确。为了解决这个问题，一些研究提出了抽样多个推理路径而不是使用贪婪解码的方法。作为一个代表性解决方案，自我一致性（self-consistency）[436] 首先生成几个推理路径，然后对相应的答案进行集成，并通过多数投票选出最一致的答案。然而，当大多数推理路径被误导时，该方法仍可能导致错误答案。考虑到这一点，[433] 中的研究者仅对 k 个最复杂的推理路径进行投票，基于他们的观察，更复杂的推理路径（例如，更多的推理步骤）通常表现更佳。此外，MCR [510] 提出在生成下一步骤时参考其他推理路径的步骤，并跨多个推理路径进行推理，以生成最终答案。
+
+2、基于验证的方法。CoTs 中推理步骤的顺序性质可能导致在某些步骤不准确时，累积错误。为了缓解这个问题，最近的研究提出使用经过训练的验证器或 LLMs 本身来验证生成推理步骤的正确性。例如，DIVERSE [509] 分别训练了解决方案级别和步骤级别的验证器来检查不同粒度的推理步骤。另一种方法 [511] 利用 LLMs 进行逐步自我验证，通过特别设计的推理格式来验证推理步骤的正确性。此外，一些研究提出了逆向推理的验证方法：首先从模型的预测中推导出必要的问题条件 [512, 513] 或变量 [514]，然后将它们与原始条件进行比较。
 
 Reasoning Structure Extension. Despite the generality, the chain reasoning structure of basic CoT prompting limits its effectiveness in solving complex tasks, which require exploration like foresight and backtracking during inference. Therefore, many studies have been devoted to extending the reasoning structure by designing more intricate thought processes, e.g., tree- and graph-structured reasoning.
 
@@ -2091,48 +2101,31 @@ Reasoning Structure Extension. Despite the generality, the chain reasoning struc
 
 • Graph-structured reasoning. Although the tree structure facilitates parallel reasoning, it also imposes restrictions on the reasoning process. With more complex topological structures, graphs offer greater flexibility in reasoning, enabling the characterization of more intricate relationships and interactions. For instance, Graph of Thoughts (GoT) [517, 518] conceptualizes the reasoning process as an arbitrary graph, where vertices denote intermediate thoughts and edges denote the interdependence between these thoughts. Compared with ToT, it can further utilize thoughts from other reasoning paths when generating new thoughts. However, such an approach requires a large number of interactions with LLMs, making the thought exploration process highly inefficient. To reduce potentially meaningless thought exploration, XoT [519] further proposes to guide the search of thoughts with pre-trained policy and value networks.
 
-6.3.2 改进的 CoT 提示策略
+03 推理结构扩展。
 
-虽然 CoT 提示在复杂推理任务中取得了性能提升，但它仍面临诸如错误推理和不稳定性等问题。在这部分内容中，我们首先介绍如何设计更有效的 CoT 提示和增强 CoT 生成策略，然后讨论 CoT 基本链结构的扩展。图 15 展示了代表性 CoT 提示策略的演进过程。
+尽管基本 CoT 提示的链式推理结构具有普遍性，但它在解决需要进行预见和回溯等探索的复杂任务时效果受限。因此，许多研究致力于通过设计更复杂的思维过程来扩展推理结构，例如采用树状和图状结构的推理。
 
-图 15：CoT 提示策略演变的示意图。它从基本的 CoT 方法开始，发展到增强的 CoT 生成技术，包括基于抽样和验证的方法。最终，它扩展到链结构的变种，如树和图形结构。这里，「思维」指的是 [33, 451] 中所述的中间推理步骤。
+1、树状结构推理。这种方法（如思维树（ToT）[451, 515] 所示）将推理过程表现为层级化的树状结构，其中中间思维作为节点。这样，它使 LLMs 能够并行探索多个推理路径，并进一步支持预见和回溯操作，以促进更全面的决策。此外，TouT [516] 考虑到中间思维的不确定性，在基于 Monte Carlo Dropout 的思维评估中加以考虑。
 
-更佳的提示设计。由于 CoT 提示依赖于提示来激发 LLMs 的推理能力，因此提示的设计对其性能至关重要。作为直接方法之一，已有研究表明使用多样化的 CoTs（即每个问题有多种推理路径）可以有效提升性能 [437]。另一个直观的想法是，具有更复杂推理路径的提示更有可能激发 LLMs 的推理能力 [433]，这可能导致在生成正确答案时准确度更高。然而，所有这些方法都依赖于已注释的 CoT 数据集，这在实际应用中存在限制。为了克服这一限制，可以使用如「让我们一步一步地思考」这样的神奇指令，通过提示 LLMs 来自动构建 CoTs [434]。
-
-增强的 CoT 生成。鉴于 LLMs 倾向于产生错误的推理步骤并在生成过程中表现出不稳定性，因此有许多研究 [436, 509] 致力于改进 CoT 的生成。在这一部分，我们将介绍两种用于增强 CoT 生成的典型方法：基于抽样和基于验证的方法。
-
-基于抽样的方法。LLMs 在推理过程中通常表现出不稳定性，这可能导致生成的推理步骤不准确。为了解决这个问题，一些研究提出了抽样多个推理路径而不是使用贪婪解码的方法。作为一个代表性解决方案，自我一致性（self-consistency）[436] 首先生成几个推理路径，然后对相应的答案进行集成，并通过多数投票选出最一致的答案。然而，当大多数推理路径被误导时，该方法仍可能导致错误答案。考虑到这一点，[433] 中的研究者仅对 k 个最复杂的推理路径进行投票，基于他们的观察，更复杂的推理路径（例如，更多的推理步骤）通常表现更佳。此外，MCR [510] 提出在生成下一步骤时参考其他推理路径的步骤，并跨多个推理路径进行推理，以生成最终答案。
-
-基于验证的方法。CoTs 中推理步骤的顺序性质可能导致在某些步骤不准确时，累积错误。为了缓解这个问题，最近的研究提出使用经过训练的验证器或 LLMs 本身来验证生成推理步骤的正确性。例如，DIVERSE [509] 分别训练了解决方案级别和步骤级别的验证器来检查不同粒度的推理步骤。另一种方法 [511] 利用 LLMs 进行逐步自我验证，通过特别设计的推理格式来验证推理步骤的正确性。此外，一些研究提出了逆向推理的验证方法：首先从模型的预测中推导出必要的问题条件 [512, 513] 或变量 [514]，然后将它们与原始条件进行比较。
-
-推理结构扩展。尽管基本 CoT 提示的链式推理结构具有普遍性，但它在解决需要进行预见和回溯等探索的复杂任务时效果受限。因此，许多研究致力于通过设计更复杂的思维过程来扩展推理结构，例如采用树状和图状结构的推理。
-
-树状结构推理。这种方法（如思维树（ToT）[451, 515] 所示）将推理过程表现为层级化的树状结构，其中中间思维作为节点。这样，它使 LLMs 能够并行探索多个推理路径，并进一步支持预见和回溯操作，以促进更全面的决策。此外，TouT [516] 考虑到中间思维的不确定性，在基于 Monte Carlo Dropout 的思维评估中加以考虑。
-
-图状结构推理。尽管树状结构促进了并行推理，但它也对推理过程施加了一定限制。图状结构随着其更复杂的拓扑结构，在推理中提供了更大的灵活性，使其能够表征更复杂的关系和相互作用。例如，思维图（GoT）[517, 518] 将推理过程概念化为任意图形，其中顶点代表中间思维，边代表这些思维之间的相互依赖性。与 ToT 相比，它可以在生成新思维时利用来自其他推理路径的思维。然而，这种方法需要与 LLMs 进行大量的交互，使思维探索过程效率低下。为了减少潜在无意义的思维探索，XoT [519] 进一步提出使用预训练的策略和价值网络来引导思维的搜索。
-
-推理结构扩展。尽管基本 CoT 提示的链式推理结构具有普遍性，但它在解决需要进行预见和回溯等探索的复杂任务时效果受限。因此，许多研究致力于通过设计更复杂的思维过程来扩展推理结构，例如采用树状和图状结构的推理。
-
-树状结构推理。这种方法（如思维树（ToT）[451, 515] 所示）将推理过程表现为层级化的树状结构，其中中间思维作为节点。这样，它使 LLMs 能够并行探索多个推理路径，并进一步支持预见和回溯操作，以促进更全面的决策。此外，TouT [516] 考虑到中间思维的不确定性，在基于 Monte Carlo Dropout 的思维评估中加以考虑。
-
-图状结构推理。尽管树状结构促进了并行推理，但它也对推理过程施加了一定限制。图状结构随着其更复杂的拓扑结构，在推理中提供了更大的灵活性，使其能够表征更复杂的关系和相互作用。例如，思维图（GoT）[517, 518] 将推理过程概念化为任意图形，其中顶点代表中间思维，边代表这些思维之间的相互依赖性。与 ToT 相比，它可以在生成新思维时利用来自其他推理路径的思维。然而，这种方法需要与 LLMs 进行大量的交互，使思维探索过程效率低下。为了减少潜在无意义的思维探索，XoT [519] 进一步提出使用预训练的策略和价值网络来引导思维的搜索。
-
-
-
-
+2、图状结构推理。尽管树状结构促进了并行推理，但它也对推理过程施加了一定限制。图状结构随着其更复杂的拓扑结构，在推理中提供了更大的灵活性，使其能够表征更复杂的关系和相互作用。例如，思维图（GoT）[517, 518] 将推理过程概念化为任意图形，其中顶点代表中间思维，边代表这些思维之间的相互依赖性。与 ToT 相比，它可以在生成新思维时利用来自其他推理路径的思维。然而，这种方法需要与 LLMs 进行大量的交互，使思维探索过程效率低下。为了减少潜在无意义的思维探索，XoT [519] 进一步提出使用预训练的策略和价值网络来引导思维的搜索。
 
 6.3.3 Further Discussion on CoT Prompting
 
 In this part, we present discussions regarding two fundamental questions related to CoT prompting, i.e., “when does CoT prompting work for LLMs” and “why can LLMs perform CoT reasoning”.
 
+6.3.3 关于 CoT 提示的进一步讨论
+
+在这一部分，我们将讨论与 CoT 提示相关的两个基本问题：「CoT 提示何时对 LLMs 有效」和「LLMs 如何能够执行 CoT 推理」。
+
 When CoT Prompting Works For LLMs? Since CoT reasoning is an emergent ability [31], it only has a positive effect on sufficiently large models (typically containing 10B or more parameters [33]) but not on small models. Moreover, 57
 
 since CoT prompting augments the standard prompting with intermediate reasoning steps, it is mainly effective for the tasks that require step-by-step reasoning [33], e.g., arithmetic reasoning, commonsense reasoning, and symbolic reasoning. Whereas, for other tasks that do not rely on complex reasoning, CoT prompting might lead to worse performance than standard prompting [438], e.g., MNLIm/mm, SST-2, and QQP from GLUE [260]. Interestingly, it seems that the performance gain brought by CoT prompting could be significant only when standard prompting yields poor results [33].
 
+01 CoT 提示何时对 LLMs 有效？
+
+由于 CoT 推理是一种涌现能力 [31]，它仅在足够大的模型上有效（通常包含 10B 或更多参数 [33]），而对小型模型则不适用。此外，由于 CoT 提示在标准提示的基础上增加了中间推理步骤，它主要对需要逐步推理的任务有效 [33]，例如算术推理、常识推理和符号推理。然而，对于不依赖复杂推理的其他任务，CoT 提示可能导致性能不如标准提示 [438]，例如 GLUE [260] 中的 MNLIm/mm、SST-2 和 QQP。有趣的是，当标准提示的结果不佳时，CoT 提示带来的性能提升似乎才会显著 [33]。
+
 Why LLMs Can Perform CoT Reasoning? As the second question, we discuss the underlying mechanism of CoT prompting in the following two aspects.
-
-
-
 
 • The source of CoT reasoning ability. Regarding the source of CoT reasoning capability, it is widely hypothesized that it can be attributed to training on code since models trained on it show a strong reasoning ability [47, 520, 521]. Intuitively, code data is well organized with algorithmic logic and programming flow, which may be useful to improve the reasoning performance of LLMs. However, this hypothesis still lacks publicly reported evidence of ablation experiments (with and without training on code). In addition, instruction tuning seems not to be the key reason for obtaining the CoT reasoning ability, since it has been empirically shown that instruction tuning on non-CoT data does not improve the performance on held-out CoT reasoning benchmarks [69].
 
@@ -2140,24 +2133,19 @@ Why LLMs Can Perform CoT Reasoning? As the second question, we discuss the under
 
 In summary, CoT prompting provides a general and flexible approach to eliciting the reasoning ability of LLMs. There are also some preliminary attempts to extend this technique to solve multimodal [523] and multilingual tasks [524].
 
-6.3.3 关于 CoT 提示的进一步讨论
-
-在这一部分，我们将讨论与 CoT 提示相关的两个基本问题：「CoT 提示何时对 LLMs 有效」和「LLMs 如何能够执行 CoT 推理」。
-
-CoT 提示何时对 LLMs 有效？由于 CoT 推理是一种涌现能力 [31]，它仅在足够大的模型上有效（通常包含 10B 或更多参数 [33]），而对小型模型则不适用。此外，由于 CoT 提示在标准提示的基础上增加了中间推理步骤，它主要对需要逐步推理的任务有效 [33]，例如算术推理、常识推理和符号推理。然而，对于不依赖复杂推理的其他任务，CoT 提示可能导致性能不如标准提示 [438]，例如 GLUE [260] 中的 MNLIm/mm、SST-2 和 QQP。有趣的是，当标准提示的结果不佳时，CoT 提示带来的性能提升似乎才会显著 [33]。
-
 LLMs 如何执行 CoT 推理？作为第二个问题，我们将从以下两个方面探讨 CoT 提示的潜在机制。
 
-CoT 推理能力的来源。关于 CoT 推理能力的来源，普遍的假设是它可以归因于在代码上的训练，因为在代码上训练的模型表现出了强大的推理能力 [47, 520, 521]。直观地说，代码数据以算法逻辑和编程流程的方式进行了良好的组织，这可能有助于提高 LLMs 的推理性能。然而，这一假设还缺乏在代码上训练与否的消融实验的公开证据。此外，实证研究表明，指令调整似乎并不是获得 CoT 推理能力的关键原因，因为在非 CoT 数据上进行指令调整并没有提高保留的 CoT 推理基准测试上的性能 [69]。
+1、CoT 推理能力的来源。关于 CoT 推理能力的来源，普遍的假设是它可以归因于在代码上的训练，因为在代码上训练的模型表现出了强大的推理能力 [47, 520, 521]。直观地说，代码数据以算法逻辑和编程流程的方式进行了良好的组织，这可能有助于提高 LLMs 的推理性能。然而，这一假设还缺乏在代码上训练与否的消融实验的公开证据。此外，实证研究表明，指令调整似乎并不是获得 CoT 推理能力的关键原因，因为在非 CoT 数据上进行指令调整并没有提高保留的 CoT 推理基准测试上的性能 [69]。
 
-CoT 提示组件的影响。CoT 提示与标准提示的主要区别在于在最终答案之前加入了推理路径。因此，一些研究者调查了推理路径中不同组件的影响。具体来说，最近的一项研究识别了 CoT 提示中的三个关键组件：符号（例如算术推理中的数值量）、模式（例如算术推理中的方程式）和文本（即非符号或模式的其他标记）[522]。研究表明，模式和文本这两部分对模型性能至关重要，移除任何一部分都会导致显著的性能下降。然而，符号和模式的准确性似乎并不那么关键。此外，文本和模式之间存在共生关系：文本帮助 LLMs 生成有用的模式，而模式则助力 LLMs 理解任务并生成有助于解决它们的文本 [522]。
+2、CoT 提示组件的影响。CoT 提示与标准提示的主要区别在于在最终答案之前加入了推理路径。因此，一些研究者调查了推理路径中不同组件的影响。具体来说，最近的一项研究识别了 CoT 提示中的三个关键组件：符号（例如算术推理中的数值量）、模式（例如算术推理中的方程式）和文本（即非符号或模式的其他标记）[522]。研究表明，模式和文本这两部分对模型性能至关重要，移除任何一部分都会导致显著的性能下降。然而，符号和模式的准确性似乎并不那么关键。此外，文本和模式之间存在共生关系：文本帮助 LLMs 生成有用的模式，而模式则助力 LLMs 理解任务并生成有助于解决它们的文本 [522]。
 
 总结而言，CoT 提示为激发 LLMs 的推理能力提供了一种普遍和灵活的方法。也有一些初步尝试将这种技术扩展到解决多模态 [523] 和多语言任务 [524]。
-
 
 #### 6.4 Planning for Complex Task Solving
 
 Prompting with ICL and CoT is a conceptually simple yet general approach to solving various tasks. However, this approach struggles with complex tasks like mathematical reasoning [525] and multi-hop question answering [526]. As an enhanced approach, prompt-based planning has been proposed to break down complex tasks into smaller subtasks and generate a plan of actions to accomplish the task.
+
+使用 ICL 和 CoT 提示是一种简单但广泛适用于解决各种任务的方法。然而，这种方法在处理如数学推理 [525] 和多跳问题回答 [526] 等复杂任务时存在挑战。作为一种增强方法，已提出基于提示的规划来将复杂任务分解为较小的子任务，并生成一系列行动计划以完成这些任务。
 
 6.4.1 The Overall Framework
 
@@ -2165,18 +2153,11 @@ In this part, we first formulate the general planning paradigm of LLMs for solvi
 
 Fig. 16: An illustration of the formulation for prompt based planning by LLMs for solving complex tasks.
 
-41 Despite the similarity with RL, our formulation decouples the planning and execution phases, whereas in RL, they are typically interleaved in the agent. This paradigm is defined in a general yet slightly loose way, and it mainly aims to help readers understand the key idea underlying the planning approaches of LLMs.
-
-
-
-
 In this paradigm, there are typically three components: task planner, plan executor, and environment 41 . Specifically, task planner, which is played by LLMs, aims to generate the whole plan to solve a target task. The plan can be presented in various forms, e.g., an action sequence in the form of natural language [439] or an executable program written in programming language [443]. The LLM-based task planner can be enhanced with the memory mechanism for plan storage and retrieval, which is helpful for long-horizon tasks. Then, plan executor is responsible for executing the actions in the plan. It can be implemented by models like LLMs for textual tasks [441] or by tools like code interpreters for coding tasks [450]. Furthermore, environment refers to where the plan executor carries out the actions, which can be set differently according to specific tasks, e.g., the LLM itself [527] or an external virtual world like Minecraft [528]. It provides feedback about the execution result of the action to the task planner, either in the form of natural language [450] or from other multimodal signals [446].
 
 For solving a complex task, the task planner first needs to clearly understand the task goal and generate a reasonable plan based on the reasoning of LLMs (See Section 6.4.2). Then, the plan executor acts according to the plan in the environment, and the environment will produce feedback for the task planner (See Section 6.4.3). The task planner can further incorporate the feedback obtained from the environment to refine its initial plan and iteratively perform the above process to get better results as the task solution (See Section 6.4.4).
 
-
-
-使用 ICL 和 CoT 提示是一种简单但广泛适用于解决各种任务的方法。然而，这种方法在处理如数学推理 [525] 和多跳问题回答 [526] 等复杂任务时存在挑战。作为一种增强方法，已提出基于提示的规划来将复杂任务分解为较小的子任务，并生成一系列行动计划以完成这些任务。
+41 Despite the similarity with RL, our formulation decouples the planning and execution phases, whereas in RL, they are typically interleaved in the agent. This paradigm is defined in a general yet slightly loose way, and it mainly aims to help readers understand the key idea underlying the planning approaches of LLMs.
 
 6.4.1 整体框架
 
@@ -2184,11 +2165,11 @@ For solving a complex task, the task planner first needs to clearly understand t
 
 图 16：LLMs 基于提示规划解决复杂任务的示意图。
 
-尽管与强化学习（RL）相似，我们的构想是将规划和执行阶段分离，而在 RL 中，这两个阶段通常在代理中是交织在一起的。这个范式以一种通用但略为宽松的方式定义，其主要目的是帮助读者理解 LLMs 规划方法的核心思想。
-
 在这个范式中，通常涉及三个主要组成部分：任务规划器、计划执行器和环境。具体而言，任务规划器由 LLMs 担任，其目标是生成解决目标任务的完整计划。计划可以以多种形式呈现，如自然语言形式的行动序列 [439] 或以编程语言编写的可执行程序 [443]。基于 LLM 的任务规划器可以通过记忆机制进行增强，用于计划的存储和检索，这对长期任务尤为有用。接着，计划执行器负责执行计划中的行动。它可以通过 LLMs 等模型来实现文本任务 [441]，或通过代码解释器等工具来实现编码任务 [450]。此外，环境是指计划执行器执行行动的地方，根据具体任务的不同可以有不同的设定，如 LLM 本身 [527] 或外部虚拟世界（例如 Minecraft [528]）。环境为任务规划器提供有关行动执行结果的反馈，这些反馈可以是自然语言形式 [450] 或其他多模态信号 [446]。
 
 为了解决复杂任务，任务规划器首先需要清楚地理解任务目标，并基于 LLMs 的推理生成合理的计划（见第 6.4.2 节）。然后，计划执行器根据计划在环境中行动，环境将为任务规划器提供反馈（见第 6.4.3 节）。任务规划器可以进一步结合从环境中获得的反馈来完善其最初的计划，并通过迭代执行上述过程以获得更好的任务解决方案（见第 6.4.4 节）。
+
+41 尽管与强化学习（RL）相似，我们的构想是将规划和执行阶段分离，而在 RL 中，这两个阶段通常在代理中是交织在一起的。这个范式以一种通用但略为宽松的方式定义，其主要目的是帮助读者理解 LLMs 规划方法的核心思想。
 
 6.4.2 Plan Generation 
 
@@ -2198,11 +2179,13 @@ Text-based Approaches. It is straightforward for LLMs to generate plans in the f
 
 Code-based Approaches. Although text-based approaches sound intuitive, they cannot guarantee faithful execution of the plan, which may lead to failure even when the plan is sound. To address this issue, code-based approaches have been proposed to generate more verifiable plans in the form of executable code in programming languages, e.g., Python or PDDL. In this way, LLMs are first prompted to generate the program and then utilize a deterministic solver to execute it. For example, Faithful CoT [442] and PAL [443] decompose a reasoning task into two stages: at the first stage, the LLM generates a plan conditioned on the query; at the second stage, a deterministic solver executes the plan to derive the final answer. Furthermore, code-based approaches can be applied to embodied agents in a similar way. For example, PROGPROMPT [530] and LLM+P [531] first utilize LLMs to generate plans in the form of python functions or PDDL files, and then leverage a virtual agent or classical planner to solve the problem according to the code-based plans.
 
+6.4.2 计划生成
 
+计划生成专注于利用大型语言模型（LLMs）直接生成动作序列。根据生成计划的格式，现有工作可分为基于文本和基于代码的两种方法。
 
+1、基于文本的方法。对 LLMs 来说，以自然语言形式生成计划相对直接。在此方法中，LLMs 被引导生成一系列动作，供计划执行者执行以解决复杂任务。例如，Plan-and-Solve [441] 加入了「制定计划」等明确指令，以零样本方式直接引导 LLM 进行规划，而 Selfplanning [529] 和 DECOMP [440] 则在提示中加入演示案例，指导 LLM 通过 ICL（间接上下文学习）制定计划。此外，一些工作还考虑在规划过程中结合额外的工具或模型。例如，ToolFormer [80] 首先利用 LLMs 为预训练语料库标注潜在的 API 调用，然后在此基础上对 LLMs 进行微调，使其学会何时及如何调用 API，并在生成过程中融合 API 返回的结果。HuggingGPT [444] 介绍了 HuggingFace 中可用的模型，将 LLMs 作为控制器，根据这些模型的描述选择合适的模型，并汇总它们的结果作为最终解决方案。
 
-
-
+2、基于代码的方法。虽然基于文本的方法直观易懂，但它们无法保证计划的忠实执行，可能导致即使计划合理也会失败。为解决此问题，提出了基于代码的方法，以编程语言中的可执行代码形式（如 Python 或 PDDL）生成更可验证的计划。在此方法中，LLMs 首先被引导生成程序，然后使用确定性解算器执行程序。例如，Faithful CoT [442] 和 PAL [443] 将推理任务分解为两个阶段：首先，LLM 根据查询条件生成计划；其次，确定性解算器执行该计划，得出最终答案。此外，基于代码的方法也可类似地应用于具身代理。例如，PROGPROMPT [530] 和 LLM+P [531] 首先使用 LLMs 生成 Python 函数或 PDDL 文件形式的计划，然后通过虚拟代理或经典规划器根据基于代码的计划解决问题。
 
 6.4.3 Feedback Acquisition 
 
@@ -2214,8 +2197,13 @@ feedback based on the intermediate results from the plan executor. For example, 
 
 External Feedback. In addition to LLMs, external objects can also provide feedback signals. For example, tools like code interpreters are widely used in programming tasks to provide real-time error messages [450], models like stable diffusion [532] can be used in multimodal tasks to provide visual perception [446], and virtual worlds like Minecraft can provide immersive experiences [528]. Besides, some work (e.g., Generative Agents [533]) explores multi-agent collaboration in simulated environments, where each agent receives feedback not only from interaction with the environment but also from communication with other agents.
 
+6.4.3 反馈获取
 
+在执行生成的计划后，环境会向基于大型语言模型（LLM）的任务规划器提供反馈信号，可用于改善其最初的计划以获得更佳结果。在现有研究中，环境反馈通常来源于两个方面，取决于它们与基于 LLM 的任务规划器的关系：内部（即 LLM 本身）和外部（如工具或虚拟世界）反馈。
 
+内部反馈。LLM 本身可以作为反馈提供者。一种直接的方式是通过提示直接评估生成计划的质量。例如，RAP [447] 评估每个候选计划实现任务成功的可能性，而 Tree of Thoughts [527] 则提出通过比较计划间的差异来对计划进行投票。此外，LLMs 还可以根据计划执行者的中间结果提供反馈。例如，Reflexion [450] 利用 LLMs 将稀疏的结果信号（如成功或失败）转化为具体的文本反馈（如「你应该推荐用户在查询中提及的喜剧而非恐怖电影」），并将这些反馈存储在长期记忆中以供未来规划使用。
+
+外部反馈。除了 LLM 之外，外部对象也能提供反馈信号。例如，在编程任务中，代码解释器等工具广泛用于提供实时错误消息 [450]；在多模态任务中，稳定扩散等模型 [532] 可用于提供视觉感知 [446]；而 Minecraft 等虚拟世界能提供身临其境的体验 [528]。此外，一些研究（如 Generative Agents [533]）探讨了模拟环境中的多代理协作，每个代理不仅从与环境的互动中获取反馈，还通过与其他代理的沟通获得反馈。
 
 6.4.4 Plan Refinement
 
@@ -2227,13 +2215,15 @@ Backtracking. Early methods mainly consider planning forward actions while maint
 
 Memorization. In order to handle long-horizon tasks, it has become a key approach to aid plan refinement with longterm memory in addition to utilizing the short-term memory of LLMs through ICL. For example, Reflexion [450] stores the feedback from self-reflection into the memory, so previous feedback can be retrieved for plan refinement. Generative Agents [533] designs the memory stream mechanism as the core component of agents for action planning and reflection. Further, the skill library mechanism [445, 528] is proposed to store successful plans in the library, which can be reused and synthesized as complex plans for novel tasks. To implement the long-term memory mechanism, tools like vector databases (e.g., milvus [536]) can be used to encode plans or feedbacks into high-dimensional vectors for efficient storage and retrieval at a large scale. MemoryBank [537] further proposes the memory updating mechanism to allow memory forgetting and strengthening following the Ebbinghaus Forgetting Curve theory.
 
+6.4.4 计划优化
 
+通过获取环境反馈，任务规划器可以相应地优化其当前计划，并反复进行「规划-执行-优化」循环以获得更好的结果。以下总结了现有工作中三种主要的计划优化方法。
 
+1、推理。环境反馈数据可能不适合直接被大型语言模型（LLMs）用于计划优化，例如可能包含无关信息或采用非语言形式。为解决这个问题，一些工作引入了明确的推理过程，从反馈中提取关键信息 [448, 449]。例如，React [449] 通过示范提示 LLMs 生成关于反馈的推理迹线。这种方法已广泛应用于诸如 AutoGPT [534] 之类的自动代理项目，它能自动推理观察到的反馈，修改初始计划以解决各种用户请求。然而，这些方法通常固定了推理和规划的顺序。为了在两个过程间灵活切换以获得更好的性能，ChatCoT [448] 进一步将工具增强的推理过程统一为基于 LLM 的任务规划器与基于工具的环境之间的多轮对话。
 
+2、回溯。早期方法主要考虑前向规划动作，同时维持现有计划，可能导致基于短期评估的局部最优计划。为解决这个问题，Tree of Thoughts [527] 允许使用搜索算法（如广度优先和深度优先搜索）进行回溯以进行全局规划。它通过回溯到初始计划中的最后状态并选择下一个未探索的动作，逐步优化计划。此外，一些研究 [446, 535] 利用反馈信号来修订整个计划。例如，DEPS [535] 根据反馈信号选择更好的计划，而 TIP [446] 将反馈信号添加到提示中，供基于 LLM 的规划器修订初始计划中的每一步。
 
-
-
-
+3、记忆化。为了处理长期任务，除了利用 LLMs 的短期记忆进行 ICL（间接上下文学习），使用长期记忆来辅助计划优化已成为一种关键方法。例如，Reflexion [450] 将自我反思的反馈存储在记忆中，以便将来可以检索用于计划优化。Generative Agents [533] 设计了内存流机制作为代理的核心组件，用于行动规划和反思。此外，还提出了技能库机制 [445, 528]，将成功的计划存储在库中，可以重用和合成为新颖任务的复杂计划。为实现长期记忆机制，可以使用像矢量数据库（例如，milvus [536]）这样的工具将计划或反馈编码为高维向量，以在大规模下高效地存储和检索。MemoryBank [537] 进一步提出了内存更新机制，允许根据艾宾浩斯遗忘曲线理论进行记忆遗忘和加强。
 
 ### 07. Capacity and Evaluation
 
@@ -3026,25 +3016,37 @@ our survey has discussed four important aspects of LLMs, i.e., pre-training, ada
 
 Next, we summarize the discussions of this survey, and introduce the challenges and future directions for LLMs, in the following aspects.
 
+在本次调查中，我们回顾了大型语言模型（LLMs）的最新进展，并介绍了理解和利用 LLMs 的关键概念、发现和技术。我们重点关注了大型模型（即规模超过 10B 的模型），同时排除了早期预训练语言模型（例如 BERT 和 GPT-2）的内容，这些内容在现有文献中已经得到了充分的覆盖。特别地，我们的调查讨论了 LLMs 的四个重要方面：预训练、适应（微调）、利用和评估。对于每个方面，我们强调了对 LLMs 成功至关重要的技术或发现。此外，我们还总结了开发 LLMs 的可用资源，并讨论了复现 LLMs 的重要实施指南。本次调查力求涵盖 LLMs 最新的文献，并为研究人员和工程师提供了这一主题的优秀参考资源。
+
+接下来，我们将总结本次调查的讨论，并介绍 LLMs 在未来发展中面临的挑战和方向。
+
 Basics and Principles. Instead of training on specific task goals, LLMs learn from unsupervised pre-training on largescale text data. This is quite different from previous multitask learning approaches, which aim to extend the training tasks as possible to achieve sufficient generalization. Thus, it is essential to reveal the basic principles or elements that establish the foundation of the abilities of LLMs. Although the basic idea of language models is intuitive, it is still challenging to formally explain why LLMs trained by simple language modeling objectives (e.g., next token prediction) can become capable of solving various real-world tasks. To investigate this problem, a promising approach is to study the capacity learning (or selection) mechanism based on unsupervised pre-training, since the model capacity of LLMs strongly depends on pre-training data. In addition, scaling plays an important role in improving the capacity of LLMs [31, 55, 64], and it is very useful to conduct more theoretical analysis about how the behaviors of large models relate to those of small models, e.g., what behaviors of large models can be inferred from small models and what can’t be predicted indeed. Another research direction is to explore more deep analysis on model generalization for LLMs, since increasing concerns have been raised about whether LLMs can generalize beyond the knowledge encoded by pre-training data. Furthermore, data contamination has become a severe issue for fairly assessing the performance of LLMs [738], and thus setting appropriate evaluation protocol will be the basis to investigate and analyze the model capacity of LLMs.
 
-Model Architecture. Due to the scalability and effectiveness, Transformer has become the de facto architecture for building LLMs. Various strategies have been proposed to improve the performance of this architecture, such as neural network configuration and scalable parallel training (see discussions in Section 4.2.2). However, Transformer still suffers from high training costs and slow inference rates. More efforts [251, 252] are still in need to develop improved model architectures for large-scale pre-training. Specially, system-level or hardware-level optimization (e.g., FlashAttention [284]) is worth more exploration to improve the efficiency of Transformer architectures. In addition, as an important basic capacity, existing LLMs typically maintain a long context window. For example, the most recent GPT-4 Turbo enables a long context of 128K tokens, and Claude 2.1 also supports the input up to 200K tokens. Although many efforts have been made to enhance the long context modeling ability of LLMs [264, 291], the resulting mod- 83
+基本原理和原则。与针对特定任务目标的训练不同，大型语言模型（LLMs）通过对大规模文本数据进行无监督预训练来学习。这与之前的多任务学习方法大相径庭，后者的目标是尽可能扩展训练任务以实现充分的泛化。因此，揭示构成 LLMs 能力基础的基本原理或要素至关重要。尽管语言模型的基本理念直观，但正式解释为何通过简单的语言建模目标（如下一个词预测）训练的 LLMs 能解决各种现实世界的任务仍具挑战性。为探讨这一问题，一个有前途的方法是研究基于无监督预训练的容量学习（或选择）机制，因为 LLMs 的模型容量极大地依赖于预训练数据。此外，规模在提升 LLMs 能力方面扮演着重要角色 [31, 55, 64]，进行关于大模型行为与小模型行为关联性的更多理论分析非常有益，例如探讨大模型的哪些行为可以从小模型推断出来，哪些实际上无法预测。另一个研究方向是对 LLMs 的泛化能力进行更深入的分析，因为越来越多的关注点集中在 LLMs 是否能超越预训练数据编码的知识进行泛化。此外，数据污染已成为公平评估 LLMs 性能的一个严重问题 [738]，因此制定适当的评估协议将是研究和分析 LLMs 模型容量的基础。
 
-els still can’t well process the information in the context window [299]. To address this issue, specific architecture adaptations or algorithms might be needed to enhance the modeling and utilization of long context information. Another worrying concern is that existing work mostly focuses on training LLMs with decoder-only Transformers. Despite the effectiveness, it severely limits the more wide, diverse explorations on alternative model architectures.
+Model Architecture. Due to the scalability and effectiveness, Transformer has become the de facto architecture for building LLMs. Various strategies have been proposed to improve the performance of this architecture, such as neural network configuration and scalable parallel training (see discussions in Section 4.2.2). However, Transformer still suffers from high training costs and slow inference rates. More efforts [251, 252] are still in need to develop improved model architectures for large-scale pre-training. Specially, system-level or hardware-level optimization (e.g., FlashAttention [284]) is worth more exploration to improve the efficiency of Transformer architectures. In addition, as an important basic capacity, existing LLMs typically maintain a long context window. For example, the most recent GPT-4 Turbo enables a long context of 128K tokens, and Claude 2.1 also supports the input up to 200K tokens. Although many efforts have been made to enhance the long context modeling ability of LLMs [264, 291], the resulting models still can’t well process the information in the context window [299]. To address this issue, specific architecture adaptations or algorithms might be needed to enhance the modeling and utilization of long context information. Another worrying concern is that existing work mostly focuses on training LLMs with decoder-only Transformers. Despite the effectiveness, it severely limits the more wide, diverse explorations on alternative model architectures.
+
+模型架构。因其可扩展性和有效性，Transformer 已成为构建大型语言模型（LLMs）的标准架构。已经提出了多种策略来改进这一架构的性能，包括神经网络配置和可扩展的并行训练（参见第 4.2.2 节的讨论）。然而，Transformer 仍面临高训练成本和慢推理速度的问题。仍需更多努力 [251, 252] 来开发适用于大规模预训练的改进型模型架构。特别是，系统级或硬件级优化（如 FlashAttention [284]）值得更深入探索，以提高 Transformer 架构的效率。此外，作为一项重要基本能力，现有 LLMs 通常保持长的上下文窗口。例如，最新的 GPT-4 Turbo 支持长达 128K 令牌的上下文，而 Claude 2.1 也支持高达 200K 令牌的输入。尽管已进行了许多努力以增强 LLMs 的长上下文建模能力 [264, 291]，但结果模型仍未能很好地处理上下文窗口中的信息 [299]。为解决这一问题，可能需要特定的架构调整或算法来增强长上下文信息的建模和利用。另一个值得关注的问题是，现有研究大多专注于使用仅解码器的 Transformers 来训练 LLMs。虽然这种方法有效，但它严重限制了对替代模型架构的更广泛和多样化的探索。
+
+1-2『信息关联上了，OpenAI 走的技术路线是仅解码器的 Transformers，清华智谱走的路线是解码器+编码器的 Transformers。（2023-12-24）』
 
 Model Training. For pre-training, it is essential to establish a data-centric infrastructure and training procedure for LLM optimization, which can effectively support a systematic process of data collection, data cleaning, data mixture, and data curriculum. Furthermore, it also calls for more flexible mechanisms of hardware support or resource schedule, so as to better organize and utilize the resources in a computing cluster. In practice, it is very challenging to pre-train capable LLMs, due to the huge compute consumption and the sensitivity to data quality and training tricks [78, 93]. Thus, it becomes particularly important to develop systemic, economical pre-training approaches for optimizing LLMs, e.g., predictable scaling [46] and proxy model training [59]. More training recipes or principles should be investigated and shared to reduce the potential risk of degradation or failure in large-scale model optimization. Although increasingly more model checkpoints and cleaned datasets have been released, there still lacks reproducible work on pre-training data preparation (e.g., detailed cleaning strategies) and data scheduling (e.g., data mixture and curriculum). Since it is very costly to pre-train a LLM from scratch, it is important to design suitable mechanisms for continually pre-training or fine-tuning the LLM based on publicly available model checkpoints (e.g., LLaMA [57] and Flan-T5 [69]). For this purpose, a number of technical issues have to be resolved, e.g., catastrophic forgetting and task specialization. Furthermore, it is also useful to develop effective tuning strategies that effectively inject or edit specific knowledge [672], e.g., correcting the outdated facts.
 
-Model Utilization. Based on the natural language interface, prompting has become the prominent approach for using LLMs to solving various tasks. By combining task descriptions and demonstration examples into prompts, in-context learning (ICL) endows LLMs with the ability to perform well on new tasks, even outperforming full-data fine-tuned models in some cases. To enhance the ability of complex reasoning, advanced prompting techniques have been proposed, exemplified by the chain-of-thought (CoT) strategy, which includes the intermediate reasoning steps into prompts. Furthermore, planning is a promising approach for solving complex tasks, which iteratively invokes LLMs by leveraging tool use capacities. Despite these efforts, several basic problems related to prompting are still under-explored: why a good prompt can elicit the correct answer but a bad prompt cannot, how to reveal the working principles of advanced prompting methods (e.g., ICL and CoT) and further improve these existing approaches, and how to efficiently find the effective prompts for LLMs on specific tasks. Furthermore, from a practical perspective, it has become a fundamental challenge to reduce the inference cost of LLMs, especially in large-scale deployment. Another
+模型训练。对于预训练而言，建立一个以数据为中心的基础设施和训练程序对于优化大型语言模型（LLMs）至关重要，这能有效支持数据收集、数据清理、数据混合和数据课程的系统化过程。此外，还需要更灵活的硬件支持或资源调度机制，以更好地组织和利用计算集群中的资源。在实践中，由于巨大的计算消耗及对数据质量和训练技巧的敏感性 [78, 93]，预训练高能力的 LLMs 极具挑战性。因此，开发系统化、经济高效的预训练方法以优化 LLMs 尤为重要，例如可预测的扩展 [46] 和代理模型训练 [59]。应当研究和分享更多训练方法或原则，以减少大规模模型优化过程中出现退化或失败的风险。尽管越来越多的模型检查点和清洗过的数据集已发布，但在预训练数据准备（如详细的清洁策略）和数据调度（如数据混合和课程）方面仍缺乏可复制性的工作。考虑到从零开始预训练 LLM 的高成本，基于公开可用的模型检查点（例如 LLaMA [57] 和 Flan-T5 [69]）设计持续预训练或微调 LLM 的适当机制非常重要。为此，必须解决多项技术问题，如灾难性遗忘和任务专业化。此外，开发有效地注入或编辑特定知识的调整策略也很有用 [672]，例如纠正过时的事实。
 
-popular research direction is retrieval-augmented generation, where retrieved contexts from supporting sources are included into prompts for task solving. It has been shown that retrieval augmentation can extend the knowledge boundary and improve the question answering capacity [461], but may suffer from the effectiveness of long context utilization by LLMs [299].
+Model Utilization. Based on the natural language interface, prompting has become the prominent approach for using LLMs to solving various tasks. By combining task descriptions and demonstration examples into prompts, in-context learning (ICL) endows LLMs with the ability to perform well on new tasks, even outperforming full-data fine-tuned models in some cases. To enhance the ability of complex reasoning, advanced prompting techniques have been proposed, exemplified by the chain-of-thought (CoT) strategy, which includes the intermediate reasoning steps into prompts. Furthermore, planning is a promising approach for solving complex tasks, which iteratively invokes LLMs by leveraging tool use capacities. Despite these efforts, several basic problems related to prompting are still under-explored: why a good prompt can elicit the correct answer but a bad prompt cannot, how to reveal the working principles of advanced prompting methods (e.g., ICL and CoT) and further improve these existing approaches, and how to efficiently find the effective prompts for LLMs on specific tasks. Furthermore, from a practical perspective, it has become a fundamental challenge to reduce the inference cost of LLMs, especially in large-scale deployment. Another popular research direction is retrieval-augmented generation, where retrieved contexts from supporting sources are included into prompts for task solving. It has been shown that retrieval augmentation can extend the knowledge boundary and improve the question answering capacity [461], but may suffer from the effectiveness of long context utilization by LLMs [299].
+
+模型利用。基于自然语言界面，提示已成为使用大型语言模型（LLMs）解决各种任务的主要方法。通过将任务描述和示例结合到提示中，上下文学习（ICL）使 LLMs 能够在新任务上表现良好，有时甚至超过全数据微调的模型。为提高复杂推理能力，提出了高级提示技术，如思维链（CoT）策略，该策略将中间推理步骤包含在提示中。此外，规划是解决复杂任务的有前途的方法，它通过利用工具使用能力迭代地调用 LLMs。尽管做出了这些努力，但与提示相关的一些基本问题仍未充分探索：为什么好的提示能引出正确答案而差的提示不能，如何揭示高级提示方法（如 ICL 和 CoT）的工作原理并进一步改进这些现有方法，以及如何有效地为 LLMs 在特定任务上找到有效的提示。此外，从实际应用角度来看，降低 LLMs 的推理成本，特别是在大规模部署中，已成为一个基本挑战。另一个热门研究方向是检索增强生成，其中从支持资源检索到的上下文被包含在提示中以解决任务。研究表明，检索增强可以扩展知识边界并提高问题解答能力 [461]，但可能受到 LLMs 在长上下文利用效果的影响 [299]。
 
 Safety and Alignment. Despite the capacities, LLMs are faced with great safety challenges in practical use. As a fundamental issue of probabilistic modeling nature, LLMs exhibit a tendency to generate hallucinations [638], referring to texts that seem plausible but may be factually incorrect [46]. What is worse, LLMs might be elicited by intentional instructions to produce harmful, biased, or toxic texts for malicious systems, leading to the potential risks of misuse [55, 66]. To have a detailed discussion of the safety issues of LLMs (e.g., privacy, overreliance, disinformation, and influence operations), the readers can refer to the GPT-3/4 technical reports [46, 55]. As the major technical approach to averting these issues, alignment methods (e.g., RLHF) [66, 116] have been widely used by leveraging human feedback for developing well-aligned LLMs. However, RLHF heavily relies on high-quality human feedback data from professional labelers, which is costly and time-consuming to recruit qualified human annotators. Therefore, it is necessary to improve the RLHF framework for reducing the efforts of human labelers and seek a more efficient annotation approach with guaranteed data quality, e.g., LLMs can be employed to assist the labeling work. Furthermore, it is also suggested to develop simplified optimization algorithms for alignment [386, 389], to reduce the training difficulty and unstability of RLHF. As another practical approach, red teaming [132, 369] has been adopted for improving the model safety of LLMs, which utilizes the collected adversarial prompts to refine the LLMs (i.e., avoiding the attacks from red teaming). In addition, privacy concerns are also important to consider when fine-tuning LLMs with domain-specific data, and thus federated based learning [946] can be useful in privacy-restricted scenarios.
 
-Application and Ecosystem. As LLMs have shown strong capacities in solving various tasks, they can be applied in a broad range of real-world applications (i.e., following task-specific natural language instructions). As a remarkable progress, ChatGPT has potentially changed the way how humans access information, which has been additionally integrated in the release of New Bing. Generally, in the near future, it can be foreseen that LLMs would have a significant impact on information-seeking techniques, including both search engines and recommender systems. Furthermore, LLMs make it possible to develop more intelligent systems (e.g., autonomous AI agents) to tackle various complex tasks in real-world scenarios. Specially, Assistants API has been launched by OpenAI (featured by instructions, knowledge and tool use), enabling rapid development of agent-like assistants within the applications. This wave of technical innovation would lead to an ecosystem of LLMempowered applications (e.g., OpenAI’s GPT Store), which has a close connection with human life. Lastly, the rise of LLMs sheds light on the exploration of artificial general 84
+安全性和对齐问题。尽管 LLMs 具备强大能力，但在实际应用中它们面临着重大的安全挑战。作为概率建模性质的一个基本问题，LLMs 倾向于产生幻觉 [638]，即看似合理但可能事实上不正确的文本 [46]。更糟糕的是，LLMs 可能被故意引导产生有害的、带有偏见的或有毒的文本，用于恶意系统，从而导致滥用的潜在风险 [55, 66]。为详细讨论 LLMs 的安全问题（如隐私、过度依赖、虚假信息和影响操作），读者可以参考 GPT-3/4 技术报告 [46, 55]。作为解决这些问题的主要技术方法，对齐方法（如 RLHF）[66, 116] 通过利用人类反馈已被广泛用于开发良好对齐的 LLMs。然而，RLHF 严重依赖于来自专业标记者的高质量人类反馈数据，这既昂贵又耗时。因此，有必要改进 RLHF 框架，减少人类标记者的努力，并寻求一种在保证数据质量的前提下更有效的标注方法，例如可以使用 LLMs 协助标注工作。此外，还建议开发简化的对齐优化算法 [386, 389]，以减少 RLHF 的训练难度和不稳定性。作为另一种实用方法，红队测试 [132, 369] 已被用于提升 LLMs 的模型安全性，通过利用收集的对抗性提示来优化 LLMs（即避免红队测试的攻击）。此外，在使用特定领域数据微调 LLMs 时，考虑隐私问题也很重要，因此联邦学习 [946] 在隐私受限的场景中可能有用。
 
-intelligence (AGI). It is promising to develop more smart AI systems than ever. However, in this development process, AI safety should be one of the primary concerns, i.e., making AI lead to good for humanity but not bad [40].
+Application and Ecosystem. As LLMs have shown strong capacities in solving various tasks, they can be applied in a broad range of real-world applications (i.e., following task-specific natural language instructions). As a remarkable progress, ChatGPT has potentially changed the way how humans access information, which has been additionally integrated in the release of New Bing. Generally, in the near future, it can be foreseen that LLMs would have a significant impact on information-seeking techniques, including both search engines and recommender systems. Furthermore, LLMs make it possible to develop more intelligent systems (e.g., autonomous AI agents) to tackle various complex tasks in real-world scenarios. Specially, Assistants API has been launched by OpenAI (featured by instructions, knowledge and tool use), enabling rapid development of agent-like assistants within the applications. This wave of technical innovation would lead to an ecosystem of LLMempowered applications (e.g., OpenAI’s GPT Store), which has a close connection with human life. Lastly, the rise of LLMs sheds light on the exploration of artificial general intelligence (AGI). It is promising to develop more smart AI systems than ever. However, in this development process, AI safety should be one of the primary concerns, i.e., making AI lead to good for humanity but not bad [40].
 
-C ODA
+应用与生态系统。鉴于大型语言模型（LLMs）在解决各种任务方面显示出的强大能力，它们可广泛应用于实际应用中（即遵循特定任务的自然语言指令）。作为一个显著的进展，ChatGPT 可能已经改变了人类获取信息的方式，它已被整合到新版 Bing 的发布中。一般来说，可以预见，在不久的将来，LLMs 将对信息搜索技术产生重大影响，包括搜索引擎和推荐系统。此外，LLMs 使得开发更智能的系统（如自主 AI 代理）来应对现实世界中的各种复杂任务成为可能。特别地，OpenAI 推出的 Assistants API（以指令、知识和工具使用为特色）使得在应用程序中快速开发类似代理的助手成为可能。这种技术创新浪潮将引领一个由 LLM 赋能的应用生态系统（例如 OpenAI 的 GPT 商店），这与人类生活紧密相连。最后，LLMs 的兴起为探索人工通用智能（AGI）提供了新的视角。开发比以往更智能的 AI 系统充满希望。然而，在这个发展过程中，AI 安全应成为主要关注点之一，即确保 AI 对人类产生积极影响而非负面影响 [40]。
+
+CODA
 
 It is not an easy job to write this long survey and update its content with timely work. First of all, we would like to sincerely thank the support from the readers and our team members. We work very hard on this survey, and hope that it can present a comprehensive, timely reference for LLMs.
 
