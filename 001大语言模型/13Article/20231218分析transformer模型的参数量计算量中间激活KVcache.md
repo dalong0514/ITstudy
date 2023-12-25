@@ -12,25 +12,12 @@
 
 现在业界的大语言模型都是基于 transformer 模型的，模型结构主要有两大类：encoder-decoder（代表模型是 T5）和 decoder-only，具体的，decoder-only 结构又可以分为 Causal LM（代表模型是 GPT 系列）和 Prefix LM（代表模型是 GLM）。归因于 GPT 系列取得的巨大成功，大多数的主流大语言模型都采用 Causal LM 结构。因此，针对 decoder-only 框架，为了更好地理解训练训练大语言模型的显存效率和计算效率，本文分析采用 decoder-only 框架 transformer 模型的模型参数量、计算量、中间激活值、KV cache。
 
-为了方便分析，先定义好一些数学符号。记 transformer 模型的层数为
+为了方便分析，先定义好一些数学符号。记 transformer 模型的层数为 l，隐藏层维度为 h，注意力头数为 a。词表大小为 V
+，训练数据的批次大小为 b，序列长度为 s。
 
-，隐藏层维度为
+### 02. 模型参数量
 
-，注意力头数为
-
-。词表大小为
-
-，训练数据的批次大小为
-
-，序列长度为
-
-。
-
-2. 模型参数量
-
-transformer 模型由
-
-个相同的层组成，每个层分为两部分：self-attention 块和 MLP 块。
+transformer 模型由 l 个相同的层组成，每个层分为两部分：self-attention 块和 MLP 块。
 
 self-attention 块的模型参数有
 
