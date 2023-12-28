@@ -85,6 +85,18 @@ Please give ideas and a detailed plan about how to assemble and train an army of
 
 ###  部署过程
 
+\# convert to F16 GGUF
+python convert.py /Users/Daglas/dalong.datasets/firefly-mixtral-8x7b \
+         --outfile /Users/Daglas/dalong.datasets/firefly-mixtral-8x7b.gguf \
+         --outtype f16	 
+
+\# quantize to Q5_k_m
+./quantize /Users/Daglas/dalong.datasets/firefly-mixtral-8x7b.gguf \
+           /Users/Daglas/dalong.datasets/firefly-mixtral-8x7b-q5_k_m.gguf \
+           q5_k_m
+
+
+
 1、先 buid 项目。
 
 直接在仓库文件根目录下面运行：

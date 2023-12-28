@@ -37,6 +37,9 @@ Prove that sqrt(2) is rational number
 
 [mistralai/Mixtral-8x7B-Instruct-v0.1 at main](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1/tree/main)
 
+[YeungNLP/firefly-mixtral-8x7b at main](https://huggingface.co/YeungNLP/firefly-mixtral-8x7b/tree/main)
+
+
 ####  部署过程
 
 1、先 buid 项目。
