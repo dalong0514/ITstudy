@@ -39,6 +39,7 @@ Prove that sqrt(2) is rational number
 
 [YeungNLP/firefly-mixtral-8x7b at main](https://huggingface.co/YeungNLP/firefly-mixtral-8x7b/tree/main)
 
+[TheBloke/dolphin-2.6-mixtral-8x7b-GGUF at main](https://huggingface.co/TheBloke/dolphin-2.6-mixtral-8x7b-GGUF/tree/main)
 
 ####  部署过程
 
@@ -51,8 +52,22 @@ make
 2、转为 gguf 文件。
 
 \# convert to F16 GGUF
+python convert.py /Users/Daglas/dalong.datasets/mixtral-8x7b-32kseqlen \
+         --outfile /Users/Daglas/dalong.datasets/mixtral-8x7b-32kseqlen.gguf \
+         --outtype f16
+
+
+/Users/Daglas/dalong.datasets/mixtral-8x7b-32kseqlen
+
+
 python convert.py /Users/Daglas/dalong.datasets/Mixtral-8x7B-Instruct-v0.1 \
          --outfile /Users/Daglas/dalong.datasets/mixtral-instruct-8x7b.gguf \
+         --outtype f16
+
+
+
+python convert.py /Users/Daglas/dalong.datasets/Mistral-7B-Instruct-v0.2 \
+         --outfile /Users/Daglas/dalong.datasets/mixtral-7b-instruct-v0.2.gguf \
          --outtype f16
 
 3、量化。
@@ -121,6 +136,10 @@ use -p "[INST] some instruction [/INST]", this should match the prompt template 
 
 [someone13574/mixtral-8x7b-32kseqlen at main](https://huggingface.co/someone13574/mixtral-8x7b-32kseqlen/tree/main)
 
+已经帮忙转好的文件下载：
+
+[mlx-community/Mixtral-8x7B-Instruct-v0.1 at main](https://huggingface.co/mlx-community/Mixtral-8x7B-Instruct-v0.1/tree/main)
+
 ####  部署过程
 
 1、安装依赖包。
@@ -139,5 +158,11 @@ cd mixtral-8x7b-32kseqlen/
 cat consolidated.00.pth-split0 consolidated.00.pth-split1 consolidated.00.pth-split2 consolidated.00.pth-split3 consolidated.00.pth-split4 consolidated.00.pth-split5 consolidated.00.pth-split6 consolidated.00.pth-split7 consolidated.00.pth-split8 consolidated.00.pth-split9 consolidated.00.pth-split10 > consolidated.00.pth
 
 
-
 python convert.py --model_path /Users/Daglas/dalong.datasets/mixtral-8x7b-32kseqlen/
+
+
+
+
+
+
+

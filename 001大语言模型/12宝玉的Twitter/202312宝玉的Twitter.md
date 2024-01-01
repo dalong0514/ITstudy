@@ -6170,27 +6170,117 @@ GitHub：https://github.com/jianchang512/clone-voice
 
 ### 243
 
+宝玉
+@dotey
+
 2023-12-26
 
+YAYI 2 是中科闻歌研发的新一代开源大语言模型，包括 Base 和 Chat 版本，参数规模为 30B。YAYI2-30B 是基于 Transformer 的大语言模型，采用了超过 2 万亿 Tokens 的高质量、多语言语料进行预训练。针对通用和特定领域的应用场景，采用了百万级指令进行微调，同时借助人类反馈强化学习方法，以更好地使模型与人类价值观对齐。
 
+本次开源的模型为 YAYI2-30B Base 模型。
+
+相关论文：https://arxiv.org/abs/2312.14862
+项目地址：https://github.com/wenge-research/YAYI2
+
+[wenge-research/YAYI2: YAYI 2 是中科闻歌研发的新一代开源大语言模型，采用了超过 2 万亿 Tokens 的高质量、多语言语料进行预训练。(Repo for YaYi 2 Chinese LLMs)](https://github.com/wenge-research/YAYI2)
+
+[[2312.14862] YAYI 2: Multilingual Open-Source Large Language Models](https://arxiv.org/abs/2312.14862)
 
 ### 244
 
 2023-12-26
 
 
+宝玉
+@dotey
+根据这篇论文《Exploiting Novel GPT-4 APIs | 利用新型GPT-4 API的漏洞》的信息，没想到调用 GPT-4 API 尤其是微调后的 GPT-4 可以干很多“坏事”😄
 
+主要漏洞包括：
+
+1. 微调应用编程接口（Fine-tuning API）可能会撤销或削弱安全防护措施，这可能导致模型产生有害输出或协助完成危险请求。
+
+2. 通过微调，模型可能会生成针对公众人物的错误信息。
+
+3. 微调机制可能会提取训练数据中的私人信息，如电子邮件。
+
+4. 微调也可能在代码建议中插入恶意的URL。
+
+5. 函数调用应用编程接口（Function calling API）允许执行任意未经清洁的函数调用，这可能导致潜在的攻击行为。
+
+6. 知识检索应用编程接口（Knowledge retrieval API）可能被利用来通过提示插入或在文档/消息中的指令来误导用户或执行不期望的函数调用。
+
+7. 对于函数调用和知识检索的输出，它们没有比用户提示更高的权威性，这可以防止某些攻破限制的攻击行为。
+
+论文摘要 
+
+通常，语言模型攻击假设两种极端情况：
+一种是对模型权重具有完全的白盒访问权限；
+另一种是只有生成文本API的黑盒访问权限。
+
+但是，实际上的API功能通常比仅仅生成文本更强大，它们提供一种“灰盒”访问方式，这导致了新的威胁向量。为了探索这一问题，我们进行了对GPT-4 API的“红队”攻击测试，该API公开了三种新功能：微调、函数调用和知识检索。
+
+我们发现，通过少量的15个有害样本或100个良性样本进行模型微调，就可以移除GPT-4的核心防护，并能够生成一系列有害的输出。
+
+此外，我们还发现GPT-4助手模型容易暴露函数调用的格式，并能够被诱导执行任意函数调用。
+
+最后，我们发现知识检索可以通过在检索文档中注入指令来进行劫持。这些漏洞凸显出，任何新增的API功能都可能带来新的漏洞。
+
+论文地址：https://arxiv.org/abs/2312.14302
+（计划晚点翻译一下这篇论文）
 
 ### 245
 
 2023-12-26
 
+宝玉
+@dotey
+强烈推荐这篇：《Advanced RAG Techniques: an Illustrated Overview》
+不可多得的全面阐述 RAG 概念指南。
 
+原文：
+
+[Advanced RAG Techniques: an Illustrated Overview | by IVAN ILIN | Dec, 2023 | Towards AI](https://pub.towardsai.net/advanced-rag-techniques-an-illustrated-overview-04d193d8fec6)
+
+https://pub.towardsai.net/advanced-rag-techniques-an-illustrated-overview-04d193d8fec6
+
+译文：
+
+[高级 RAG 技术：图解概览 [译] | 宝玉的分享](https://baoyu.io/translations/rag/advanced-rag-techniques-an-illustrated-overview)
+
+Jerry Liu
+@jerryjliu0
+This blog post by 
+@ivanilin9
+ is a comprehensive survey of all the ways you can upgrade your RAG pipeline, from hierarchical indexing to query rewriting and transformations.
+
+It's basically a mini-course on advanced RAG in a single blog post. If you're looking learn something new over the holidays this is a great resource!
+ @ivanilin9 的这篇博文全面调查了升级 RAG 管道的所有方法，从分层索引到查询重写和转换。
+
+它基本上是一篇博客文章中关于高级 RAG 的迷你课程。如果您想在假期学习新东西，这是一个很好的资源！
 
 ### 246
 
 2023-12-26
 
+歸藏
+@op7418
+阿里巴巴的新项目SCEdit，一个AI画图框架，可以显著减少训练参数、内存使用率和计算开销。
+在训练阶段减少了 52% 的内存消耗，仅利用 ControlNet 所需参数的 7.9%，并实现内存使用量减少 30%。
+
+其他的部分就看不懂了，不过依然是说了要开源但是没代码，刚才有个老哥说已经帮他们实现了。
+
+项目简介：
+图像扩散模型已被用于各种任务，如文本到图像生成和可控图像合成。最近的研究引入了微调方法，对原始模型进行细微调整，在基础生成式扩散模型的特定适应性方面取得了有希望的结果。
+
+我们不是修改扩散模型的主干部分，而是深入研究U-Net中跳跃连接的作用，并揭示出在编码器和解码器之间聚合远程信息的分层特征对图像生成内容和质量产生重大影响。
+
+基于这一观察，我们提出了一个高效的生成式调整框架，名为SCEdit，它使用轻量级调节模块SC-Tuner来集成和编辑Skip Connection。
+
+此外，所提出的框架允许通过注入不同条件与可控SC-Tuner简化并统一多条件输入网络设计以实现可控图像合成任务。由于其轻量级调节器使得反向传播仅传递给解码器块, 我们SCEdit显著减少了训练参数、内存使用率和计算开销。
+
+在文本到图像生成和可控图像合成任务上进行了大量实验, 结果表明我们方法在效率和性能方面具有优势。
+
+网页版论文链接：https://browse.arxiv.org/html/2312.11392v1
 
 
 ### 247
@@ -6198,7 +6288,720 @@ GitHub：https://github.com/jianchang512/clone-voice
 2023-12-26
 
 
+JimmyWong
+@thinkingjimmy
+之前一直想写 Stable Diffusion 相关的教程，但觉得 Stable Diffusion WebUI 可拓展性不强，自由度不够高，所以一直没下笔。最近尝试了下 ComfyUI ，才惊叹地发现这才是我想要的。市面上系统性的 ComfyUI 教程不多，所以最近跟朋友一起搞了一个新教程：https://comflowy.com/zh-CN 希望对大家有帮助。
 
-### 240
+### 248
 
 2023-12-26
+
+歸藏
+@op7418
+原来Runway从7月发布GEN-2以来一直在改进模型，现在的模型和7月发布的版本某种意义上已经完全不一样了。
+
+Nicolas做了一个现在模型版本和刚发布的时候他做的视频的对比，清晰度和运动幅度都有了大幅改善。
+
+### 249
+
+2023-12-26
+
+Geek
+@geekbb
+Reactive Resume 是一款免费、开源的简历编辑器，简化了创建、更新和分享简历的流程。支持多种语言，具备实时编辑、数十种模板、拖放自定义功能，还集成了 OpenAI 提供的写作增强功能。
+GitHub https://github.com/AmruthPillai/Reactive-Resume?tab=readme-ov-file
+Docs https://docs.rxresu.me
+
+### 250
+
+2023-12-26
+
+宝玉
+@dotey
+而且很有意思的是，这次Sam被罢免，Airbnb的CEO发挥了关键作用：
+
+他的一位关键盟友是 Chesky。Altman 被解雇后不久，Chesky 通过视频与 Altman 和 Brockman 进行了交谈，而 Brockman 也因为和 Altman 站在一起而在当天离开了公司。Chesky 询问了解雇的原因。Altman 猜测，这可能与 Toner 的冲突或 Sutskever 的抱怨有关。
+
+在确认这不涉及刑事问题后，Chesky 给 Microsoft 的 CEO Nadella 打电话。
+包括 Chesky 和 Conway 在内的一小群硅谷权力经纪人开始向董事会施压，试图为 Altman 辩护。
+
+董事会临时任命 Emmett Shear 为 CEO，这一决定引发了大多数员工的辞职威胁。幸运的是，Shear 是 Chesky 的盟友和导师。
+
+Chesky 和 Shear 合力为 Altman 的重返铺平了道路。
+
+http://wsj.com/tech/ai/sam-altman-openai-protected-by-silicon-valley-friends-f3efcf68
+
+### 251
+
+2023-12-26
+
+歸藏
+@op7418
+得详细尝试一下 SVD 了，效果实在是好，下面这个视频是用 SDXL 和 SVDXT 生成的视频，直接生成的 21:9。作者使用的显卡是 3090Ti 。
+
+视频链接：https://youtu.be/n8svpi9tiI8?si=WmsY0YRNdINBqIWX
+
+### 252
+
+2023-12-26
+
+歸藏
+@op7418
+Openart 整的这个 Comfyui 基础流程合集不错啊，这个合集里面基本只有各个模块最基本的实现，而且尽量使用原始节点。
+
+非常适合学习和入门 Comfyui，把这些吃透了基本也就可以自己搭建工作流了。而且也可以大概看懂其他人的工作流，不怕瞎改了。
+
+合集地址：https://openart.ai/workflows/templates
+
+### 253
+
+2023-12-26
+
+宝玉
+@dotey
+推荐阅读：“2023: The Year of AI”
+
+这是一份相当详尽的对 2023 年 AI 领域重大事件的总结！
+
+原文：https://journal.everypixel.com/2023-the-year-of-ai
+中文：https://baoyu.io/translations/ai/2023-the-year-of-ai
+
+### 254
+
+2023-12-26
+
+歸藏
+@op7418
+SVD在生成水和云雾这种流体表现的时候是真的强，这个视频的清晰度和运动幅度都是现在runway达不到的。
+
+工作流为midjourney-SVD-Topaz
+
+### 255
+
+2023-12-26
+
+小互
+@xiaohuggg
+Danswer：一个开源企业AI问答系统。
+
+它允许用户以聊天的方式从企业内部文档中获取可靠的答案，这些答案由源材料中的引用和参考支持，确保了答案的可信度。
+
+可以用来企业内部知识库查询和开发客服机器人。
+
+支持对接多种大语言模型：如GPT-4、Mixstral、Llama2等。
+
+Danswer还可以连接到常见的工具，如Slack、GitHub、Confluence等。
+
+其他功能：
+
+- 跨平台搜索：允许用户在公司内部的多个文档和应用程序中进行搜索。
+
+- 团队工具集成：可以集成到团队正在使用的工具中，如Slack，以回答常见问题。
+
+- 定制AI助手：为不同团队构建具有特定知识源和回答选项的定制AI助手。
+
+- 混合搜索技术：结合最新的嵌入模型和关键词搜索算法，提高搜索的相关性和准确性。
+
+- 自我学习和改进：根据用户反馈学习，不断提高搜索质量。
+
+- 自主部署：提供自由部署选项，支持企业级用户管理和认证功能。
+
+- 连接器：支持从多个源高效拉取最新更改，包括Slack、GitHub、Google Drive、Confluence、Jira、Zendesk、Notion等。
+
+详细介绍：https://danswer.ai
+
+GitHub：https://github.com/danswer-ai/danswer
+
+### 256
+
+2023-12-27
+
+宝玉
+@dotey
+很期待机器人硬件和AI的结合！
+
+以下内容为转译：
+
+  AI与机器人硬件的发展曲线现已出现变化。
+
+  在最近的90天中，我在我们的实验室亲眼目睹了业界先进的AI在人形机器人硬件上的运行，坦白说，这让我感到震惊。
+
+  我观察到机器人完全依赖神经网络执行复杂的任务，这样的任务是我原本认为需要到这个十年结束时才能实现的。
+
+  2022年开启Figure项目时，我深信我们会比让机器人运行可靠的神经网络早一步拥有可靠的人形机器人硬件。
+
+  基本上，我原本认为机器人接受的“家庭”类型任务训练将会确定我们的发展时序。
+
+  但在过去的几个月里，我的看法发生了改变。我现在更倾向于相信，我们很可能会在人形机器人硬件达到高度可靠并开始大规模生产的同时，或者稍早一些，拥有可在硬件上运行的可靠AI。
+
+  我认为，为机器人提供可靠硬件的路径非常明确也可预测，只要给予足够的时间，这个问题一定能够被解决。
+
+  Figure AI团队正在研发使用端到端神经网络执行高度复杂和灵巧任务的人形机器人。这些任务太复杂，若要用C++编写启发式算法则难以实现。
+
+  这无疑令人兴奋不已，因为你可以教机器人如何完成任务，并随着机器人量的增加，可以积累更大的训练数据。当舰队不断扩大时，他们将会继续学习，每一天都将变得更加聪明，更加熟练。
+
+  2024年，将标记着人工智能实体化的一年。
+
+  我们将竞逐可靠的硬件设备，大规模的训练数据，并且设计大量生产流程。对于一个更加充满创新的未来，我无法想象还能有什么比这更让人兴奋的了。
+
+  我们将会在2024年展示我们的人工智能实体化成果，敬请期待！
+
+
+Brett Adcock
+
+@adcock_brett
+The timeline split of AI vs Robot Hardware has changed
+
+the last 90 days i’ve witnessed industry leading AI in our lab running on humanoid hardware, and frankly it’s blown me away
+
+i’m watching robots performing complex tasks entirely with neural nets. AI trained tasks that i didn’t think was feasible until end of the decade 
+
+when starting Figure in 2022, i believed we’d have reliable humanoid hardware well in advance of reliable real-world neural nets running on robots
+
+basically, i thought training a robot to do “household” type tasks would size our timeline
+
+my view on this has changed the last several months 
+
+i now feel that we’ll likely have reliable AI that can run on hardware around the same time or slightly before the humanoid hardware is highly reliable and starting volume manufacturing
+
+and the path to delivering reliable robotic hardware seems clear and predictable to me, give us time and this will be solved
+
+the Figure AI team is running humanoid robots with end-to-end neural nets performing highly complicated and dexterous tasks. these are tasks too complicated to write heuristics in C++
+
+this is exciting as you can teach robots how to do tasks, and as the robot fleet grows so will the training sets. as the fleets grow in size they will continue to learn, become smarter and more capable every day
+
+2024 will be the year of Embodied AI
+
+we’ll be racing to get reliable hardware, vast training sets, and designing manufacturing processes for billions of units. i can’t think of a more exciting future 
+
+we’ll be demonstrating our Embodied AI in 2024, stay tuned!
+
+### 257
+
+2023-12-27
+
+Barret李靖
+@Barret_China
+2023 年有一半时间都在研究 AI，接触到了非常多的科研报告、技术迭代和如雨后春笋般的有趣产品，2024 的 AI 创新必将更为炸裂，下面推荐几款我在日常研究过程中用到的一些比较趁手的工具和服务，希望也可以在你学习和深入的过程中帮到一二：
+
+1、immersive translator
+
+研究最新资料首先要解决语言障碍问题，大量跨专业的词汇很可能会看得一头雾水，沉浸式翻译（immersive translator）这款软件无论是交互体验设计还是翻译质量都做的非常不错。另外，它还支持对 PDF 做对照翻译，大大加速了论文的阅读效率。https://immersivetranslate.com
+
+2、Aminer
+
+这是一款在很多细节都融合了 AI 能力的论文检索平台，它提供的「必读论文」板块从领域/机构/期刊/会议等多视角收集了很多最新最热的论文集锦，适合作为学习和研究的入口索引。面临洪水般的 AI 资讯，如果不知道学什么，可以从这里出发。https://twitter.com/Barret_China/status/1725160515922526517
+
+3、Monica
+
+All-in-One 的 AI 效率工具集，从 Chat/Read/Search/Write 等多个场景切入，提供了设计美观、交互强大、功能丰富的趁手工具箱。每篇论文基本都是让它先读一遍，我再提问式学习。https://twitter.com/Barret_China/status/1725026174416634091
+
+4、Similar Web
+
+Similarweb 是一款进行网站流量分析的强有力武器，它是每一位研究产品的人必不可少的工具之一，提供了几乎所有网站的月访问量、平均访问时长、跳出率等信息，也会给你推荐与当前网页功能相仿的竞品产品。这对做 AI 产品探索和流量分析的使用者来说，简直是神器。https://twitter.com/Barret_China/status/1693927668620939553
+
+5、Papers with code
+
+这是一个论文和对应工程实现（含代码、数据集、测试方法等）的索引工具。下次你看到别人推荐优质论文时，可以直接用它去找代码实现。https://twitter.com/Barret_China/status/1727604618316972082
+
+6、Connected Papers
+
+这个产品做的非常有用，输入一篇论文，它会将这篇论文的依赖和被依赖项以知识网络的形式全部呈现出来。类似的产品还有 litmaps 、researchrabbit 等。https://twitter.com/Barret_China/status/1732690179524284857
+
+以上推荐的工具或服务中，前三个我基本上每天都会使用。后面附带的链接是我使用时的一些心得和总结，感兴趣的朋友也可以看一看。
+
+
+### 258
+
+2023-12-27
+
+歸藏
+@op7418
+🧪Midjourney V6 每天都能给我新惊喜，一个玉石雕刻的国风场景，由于细节很丰富，看起来真的像工艺品。
+
+昨天在小红书看到一个玉雕的图，但是作者没写提示词，今天复刻了一下，效果还好了很多。
+主要是 V6 对提示词的理解太好了，之前一些可有可无的词真的不太影响效果画面描述准确就行。
+
+提示词：
+miniature landscape, jade sculpture, mountains, a chinese ancient architecture are in between a cloud, in the style of gold and jade, photorealistic details,Very good light transmittance, miniature sculptures, made of jade, gold and emerald, uhd image, Epic, octane render, beautifully detailed, light diffusion, cinematic shading, cinematic elements --ar 3:4 --v 6.0
+
+
+
+### 259
+
+2023-12-27
+
+歸藏
+@op7418
+Reddit上有个人说自己用 ComfyUI 复原了Magnific AI的工作流程。
+这个工作流的的价值很大啊，各位想做类似产品的可以尝试一下。
+
+看了一下演示的图片效果确实还行，即使没有Magnific AI那么强大但是应付普通的图片应该也够了。
+
+大概的过程是加载图像，切成 4 个，进行升级修改，重新连接为一块，再次将其切成 4 个，再次重新连接，并为 SD Ult 升级进行最终的升级 + 调整大小。一般不需要输入提示。
+
+工作流下载：https://patreon.com/posts/ldworks-d-vbeta-95344580
+
+
+### 260
+
+2023-12-27
+
+Barret李靖
+@Barret_China
+工程师身上最优秀的两种特质，一个是探索欲，一个是学习力。
+
+对未知充满着好奇，和对模糊中确定性部分的强烈追求，都会让探索持续进行，这是学习的源动力。
+
+而学习是提问的艺术，定义问题的能力能够反映学习力，有些问题用来剖开问题的表象，而有些问题能够直达问题的本源，两种提问都很重要，前者领人进门，后者创造增量的价值。
+
+ChatGPT 已经完成了人类知识的浓缩，在知识的记忆上，人类比不过机器，但是在知识的运用上，机器仍然只是辅助工具，但此时，学习力也显得更为重要，人类需要从更宏观和更全面的角度了解知识的构成，这样才能让机器更好、更快的转起来。
+
+### 261
+
+2023-12-27
+
+
+宝玉
+@dotey
+Aider Chat 是一个命令行工具，可以借助GPT的API，编辑本地代码。他们有一个 133个测试代码，用来评测LLM性能，相对还是比较准确的。
+
+最近他们做了一个有意思的测试，将民间流传的那些Prompt技巧（例如：“我没有手指”、“我是盲人”、“我给你付2K小费”）都测试了一下，结果发现加上了反而效果更差😄
+
+就修改代码这事来说，他们发现最有效的还是让GPT针对要修改的内容给出“unified diffs”（统一差异格式），就是你运行“git diff”的时候，给出的那种带加号减号还有高亮的代码！
+
+但是有一个问题就是GPT对于给出行号的时候幻觉严重，所以他们的解决方案就是不给行号，然后通过程序去定位代码行。
+
+具体细节可以参考文章：Unified diffs make GPT-4 Turbo less lazy
+https://aider.chat/docs/unified-diffs.html
+译文：https://baoyu.io/translations/llm/unified-diffs-make-gpt-4-turbo-less-lazy
+
+### 262
+
+2023-12-27
+
+
+九原客
+@9hills
+Huggingface 模型太大，如果受限于梯子流量或者速度太慢，推荐一个国内镜像站，大部分情况下配置环境变量即可无缝使用。
+
+作者应该也是用爱发电，切勿滥用。实际测试国内家宽满速。
+
+HF_ENDPOINT=https://hf-mirror.com python your_script.py
+
+[hf-mirror.com - Huggingface 镜像站](https://hf-mirror.com/)
+
+### 263
+
+2023-12-27
+
+宝玉
+@dotey
+经济学人的这篇文章很有意思：《What the tractor and the horse tell you about generative AI -- A short history of tractors in English》
+
+这篇文章将拖拉机的历史和生成式AI进行了类比，认为现在的ChatGPT就像当年拖拉机刚发明的时候。虽然拖拉机很先进，但还是花了几十年才开始流行。
+
+拖拉机之所以很长时间才流行，主要有三个原因：
+
+1. 首先，早期的拖拉机技术并没有最初想象的那么有用，需要进一步改进。
+
+20 世纪初期的拖拉机体积庞大，虽适合耕地和一些其他作业，但不适宜耕种生长中的农田。许多早期型号配备金属轮而非轮胎，因此容易陷入泥泞，并且价格昂贵。
+
+2. 其次，采用这种技术需要改变劳动力市场，这需要时间。
+
+在 20 世纪 30 年代大萧条期间，农业中的实际平均工资下降，许多农民发现雇人管理马匹（随时可解雇）比购买拖拉机更划算。但到了二战时期，劳动力短缺导致实际工资迅速上升，机械化显得更为划算。
+
+3. 最后，农场本身也需要进行一系列的转型。
+
+拖拉机在大型农场效果更佳，使用拖拉机并从中获利的农民同时也考虑扩大耕地面积。然而，扩大农场需要时间，农民需要筹集资金，并与土地所有者进行谈判。
+
+当前大部分的 AI 模型仍然像是装着金属轮子而非橡胶轮胎，意味着它们在速度、功效或可靠性上还不足以投入商业使用。
+
+现在经济形势不好人力便宜，企业没有动力去转型 AI，另外企业还没准备好针对 AI 进行业务重组和对内部数据的整合。
+
+不管新技术有多么先进，社会适应它总是需要相当长的时间。
+
+原文：https://economist.com/christmas-specials/2023/12/20/a-short-history-of-tractors-in-english
+译文：https://baoyu.io/translations/ai/what-the-tractor-and-the-horse-tell-you-about-generative-ai
+
+### 264
+
+2023-12-27
+
+Gorden Sun
+@Gorden_Sun
+腾讯的MotionCtrl发布了源码
+用于控制AI生成视频中物体的运动路径，除了常规的镜头控制外，支持手绘轨迹来控制视频中物体的运动路径，支持AnimateDiff。
+项目地址：https://wzhouxiff.github.io/projects/MotionCtrl/
+Github：https://github.com/TencentARC/MotionCtrl
+
+
+### 265
+
+2023-12-28
+
+宝玉
+@dotey
+作者写了一篇论文：Principled Instructions Are All You Need for Questioning LLaMA-1/2, GPT-3.5/4
+
+总结下来就是 26 条有效的提示词技巧，绝大部分都很熟悉了，不过温习一下也不错！
+
+1 - 与大型语言模型 (LLM) 交流无需使用礼貌用语，如“请”、“谢谢”等，直接表达需求即可。
+
+2 - 在提示中指明目标受众，比如说受众是该领域的专家。
+
+3 - 把复杂任务拆解成一系列简单的提示，以进行交互式对话。
+
+4 - 使用肯定的指令词，如“执行”，避免使用否定词汇，如“不要”。
+
+5 - 当你需要更清晰地理解某个主题、观点或任何信息时，可以尝试使用以下提示方式：
+   o 简单地解释一下[具体主题]。
+   o 像对11岁的孩子一样向我解释。
+   o 像对一个[领域]新手一样向我解释。
+   o 用浅显易懂的语言写作[文章/文本/段落]，就像是在向一个5岁孩子解释。
+
+6 - 添加“我愿意支付 $xxx 的小费以获得更好的方案！”
+
+7 - 采用示例驱动的提示方式（使用少样本提示法）。
+
+8 - 格式化提示时，先写上‘###指令###’，然后根据需要添加‘###示例###’或‘###问题###’。接着展示你的内容，用一行或多行空行分隔各个部分，包括指令、示例、问题、背景和输入数据。
+
+9 - 使用这样的短语：“你的任务是”和“必须完成”。
+
+10 - 使用这样的短语：“将会受到处罚”。
+
+11 - 使用“以自然且类似人类的方式回答问题”作为你的提示。
+
+12 - 使用引导性的词汇，比如“逐步思考”。
+
+13 - 在提示中加入“确保你的回答无偏见，不依赖于刻板印象”。
+
+14 - 让模型通过向你提问来澄清具体的细节和需求，直到它获取足够的信息来提供所需的输出，例如：“从现在开始，请向我提出问题以便......”。
+
+15 - 当你想要学习特定的主题或概念，并测试自己的理解时，可以使用这样的短语：“教我[某个定理/主题/规则]，在教学结束时包含一个测验，但不要直接告诉我答案。等我回答后再告诉我是否正确”。
+
+16 - 为大型语言模型指定一个特定角色。
+
+17 - 使用明确的分隔符。
+
+18 - 在一个提示中重复特定单词或短语多次。
+
+19 - 结合思维链路 (Chain-of-thought，CoT) 和少样本提示的方法。
+
+20 - 使用输出引导符，即在提示的末尾加上期望回答的开头。这样做可以引导输出内容的方向。
+
+21 - 撰写一篇详细的论文/文本/段落/文章时，可以这样指示：“请为我详细写一篇关于[主题]的[论文/文本/段落]，并添加所有必要的信息”。
+
+22 - 当需要修改特定文本但不改变其风格时，可以这样指示：“尝试修改用户提交的每个段落。你应当只改进语法和词汇，确保文本听起来自然，但不要改变其原有的写作风格，如将正式文体变为非正式文体”。
+
+23 - 面对可能涉及多个文件的复杂编程任务时，可以这样提示：“从现在开始，每当你生成涉及多个文件的代码时，创建一个[编程语言]脚本，自动创建所需文件或修改现有文件以插入生成的代码。[你的问题]”。
+
+24 - 当你想用特定的词汇、短语或句子开始或继续一段文本时，可以这样提示：o “我为你提供了开头[歌词/故事/段落/论文...]：[插入的词句]。请根据这些词句继续写下去，保持内容的连贯性”。
+
+25 - 明确说明模型在生成内容时必须遵循的要求，可以是关键词、规则、提示或指示。
+
+26 - 撰写任何类型的文本，如论文或段落，且想要其与提供的样本风格相似时，可以这样指示：o “请根据提供的段落[/标题/文本/论文/答案]的风格撰写”。
+
+论文地址：https://arxiv.org/pdf/2312.16171.pdf
+
+
+### 266
+
+2023-12-28
+
+Andrej Karpathy
+@karpathy
+"Operation Triangulation"
+https://securelist.com/operation-triangulation-the-last-hardware-mystery/111669/
+
+A newly discovered spyware campaign targeting Apple iPhone using a zero-click remote code execution via an attack chain of 4 zero-days, including highly mysterious, completely undocumented MMIO registers and hardware features that are not even ever used by the firmware.
+TLDR the attack begins with an iMessage to an arbitrary phone that, without any user action and invisibly, gets it to collect and upload tons of private data (and much more, e.g. microphone recordings) from there on, and actively takes steps to hide all of this activity from the user and aspiring forensic researchers. Apple has patched the core vulnerability on Oct 25, 2023.
+
+"This is definitely the most sophisticated attack chain we have ever seen"
+
+The talk itself, a lot more wild information there:
+https://youtube.com/watch?v=7VWNUUldBEE
+
+The author of this attack is unknown, as is the method by which they gained knowledge of these unused, undocumented hardware features. Russia's intelligence service accused Apple of providing the NSA with a backdoor.
+
+For a more general audience intro to this underworld I usually recommend the book "Countdown to Zero Day".
+
+
+### 268
+
+2023-12-28
+
+
+宝玉
+@dotey
+VSCode 核心开发吕鹏 
+@njukidreborn
+ 写的《对不久的未来的一些展望》值得看看 ，主要提了几点：
+1. 可用的本地小模型将成为智能设备不可缺的核心组件
+2. GPT 3.5/4 能力的模型使用”成本”会急剧下降
+3. 混沌的就业/工作机会
+
+我觉得都挺靠谱的，基于他的观点我补充一下我的看法：
+
+1. 首先非常赞同“可用的本地小模型将成为智能设备不可缺的核心组件”，时间点上我觉得2024年可能还乐观了一点，可能有不错的演示，但普通用户能比较好的体验上估计还得2025往后，主要受限于硬件的能力和模型的能力，举例来说，小模型的推理能力目前还不够强大会限制其在手机上的使用体验，等到有 GPT 3.5 甚至于 GPT 4能力的模型运行在手机或本机，将会带来体验上质的飞跃，应该也不需要等太远。
+
+2. 对于“GPT 3.5/4 能力的模型使用成本会急剧下降”，我也是赞同的，这应该归功于各大厂商之间的军备竞赛以及开源模型的快速发展。
+
+而且这一点其实给了我们很好的启示：可能你现在一些产品的功能受限于 GPT 的价格，但其实应该看的远一些，如果未来 GPT-4 的价格只有现在的 1/10 ，是不是你的产品就足够有竞争力了？但是如果你等到那时候才开始你的产品，可能已经来不及了，不如现在就做好准备！
+
+3. 至于混沌的就业/工作机会，从长期来看， AI 是有利于整体的经济的，但短期看又没那么明显，短期会马上有工作岗位被 AI 代替，但短期 AI 产生的红利还无法新增足够的岗位，前期会比较难熬和内卷，但机会总会是有利于那些基础能力就很好又善用 AI 的人，我一直认为 AI 对于普通人来说就是“加乘”，也就是成倍的放大你原有的能力。
+
+作为普通人，在被 AI 或者说被善用 AI 的人卷之前，要么就是在一个不容易被 AI 影响的赛道上，要么只能是主动拥抱 AI，主动用起来去卷其他人了。
+
+等过些年 AI + 机器人帮我们干活，经济足够好福利足够好，我们就不用那么卷了！期待那一天的到来！
+
+最后推荐看原文：https://rebornix.com/ai/2023/12/27/unpredictable-2024/
+也欢迎留下你的看法！
+
+### 269
+
+2023-12-28
+
+宝玉
+@dotey
+如果你觉得Whisper在识别中文语音的时候幻觉严重，不妨试试阿里达摩院的Paraformer模型，对中文应该支持更好！
+
+项目地址：https://github.com/alibaba-damo-academy/FunASR
+中文说明：https://github.com/alibaba-damo-academy/FunASR/blob/main/README_zh.md
+
+### 270
+
+2023-12-28
+
+宝玉
+@dotey
+这篇文章《Discover 4 Open Source Alternatives to GPT-4 Vision》介绍了 4 个 GPT-4 Vision 的开源替代方案：
+
+1. LLaVa（大型语言和视觉助手）
+
+https://llava-vl.github.io
+
+LLaVA 代表了一种创新的、从头到尾训练的大型多模态（multimodal）模型。它融合了视觉编码器和 Vicuna，旨在实现通用的视觉和语言理解。LLaVa 在模仿多模态 GPT-4 的功能方面表现出色，并在科学问答（Science QA）方面达到了新的最高精准度。
+
+LLaVA 是一款仅限非商业用途的研究预览版产品。使用该产品需遵守 LLaMA 的模型许可、OpenAI 生成数据的使用条款以及 ShareGPT 的隐私政策。用户在使用本服务时，需同意其为研究预览版，仅限非商业用途。该服务只提供有限的安全保护，可能产生冒犯性内容。不得将其用于任何非法、有害、暴力、种族主义或性相关目的。此外，服务可能会收集用户对话数据，用于未来的研究。
+
+2. CogAgent
+
+https://github.com/THUDM/CogVLM
+
+CogAgent 是一个基于 CogVLM 进行改进的开源视觉语言模型（Visual Language Model）。CogAgent-18B 模型包含了 110 亿视觉参数和 70 亿语言参数。
+
+CogAgent-18B 在 9 大经典的跨媒介基准测试中表现卓越，这些测试包括 VQAv2、OK-VQ、TextVQA、ST-VQA、ChartQA、infoVQA、DocVQA、MM-Vet 和 POPE 等。它在处理像 AITW 和 Mind2Web 这样的图形用户界面（GUI）操作数据集时，性能远超现有模型。
+
+3. 通义千问-VL 大型视觉语言模型 (Qwen-VL)
+
+https://github.com/QwenLM/Qwen-VL
+
+Qwen-VL (Qwen 大型视觉语言模型) 是阿里巴巴云推出的大型模型系列 Qwen（简称 Tongyi Qianwen）的多模态版本。Qwen-VL 能够处理图像、文本和边界框这些不同类型的输入，并输出文本和边界框。Qwen-VL 的主要特点有：
+
+* 卓越的性能：在包括零样本 (Zero-shot) 图像描述、视觉问答 (VQA)、文档视觉问答 (DocVQA) 和图像定位 (Grounding) 等多个英语评估指标上，Qwen-VL 显著优于其他相似规模的开源大型视觉语言模型。
+* 支持多语言文本识别的视觉语言模型：Qwen-VL 不仅支持英语和中文，还能处理多种语言的对话。特别在图像中的中英双语文本识别方面，实现了端到端的高效处理。
+* 多图交织对话功能：这项功能使得 Qwen-VL 能够处理多张图像的输入和比较，用户可以针对这些图像提出相关问题，甚至进行多图像串联的故事叙述。
+* 第一个支持中文图像定位的通用模型：Qwen-VL 能够通过开放领域的语言表达，在中文和英文中识别和标记图像中的边界框。
+* 细腻的识别和理解能力：相较于其他开源视觉语言模型目前使用的 224*224 分辨率，Qwen-VL 的 448*448 分辨率更有助于精细化的文本识别、文档问答和边界框标注。
+
+4. BakLLaVA
+
+https://archive.ph/o/B78YS/https://huggingface.co/SkunkworksAI/BakLLaVA-1
+
+BakLLaVA 1 是一种新型 AI 模型，它基于原有的 Mistral 7B 模型，并融合了最新的 LLaVA 1.5 架构技术。在这个初始版本中，开发者们展示了这一模型在多个性能测试中相较于 Llama 2 13B 模型有更出色的表现。你可以在他们的GitHub 仓库中找到并试用 BakLLaVA-1。目前，他们正努力更新这一模型，使用户能更容易地对它进行个性化调整和数据分析。
+
+BakLLaVA-1 是完全开放源代码的，但它的训练过程中使用了特定的数据集，包括 LLaVA 的语料库，这些数据并不适合商业用途。目前，BakLLaVA 2 正在研发中，它将使用一个更大的、适合商业应用的数据集，并采用一种创新的架构设计，以超越现有的 LLaVA 方法。BakLLaVA-2 的出现预计将消除 BakLLaVA-1 目前面临的一些使用限制。
+
+原文：https://yousefhosni.medium.com/discover-4-open-source-alternatives-to-gpt-4-vision-82be9519dcc5
+译文：https://baoyu.io/translations/lmm/discover-4-open-source-alternatives-to-gpt-4-vision
+
+### 271
+
+2023-12-28
+
+歸藏
+@op7418
+福布斯发布了他们2024年的十个AI预测，看了一下还挺靠谱的也不长，就翻译了一下。
+
+先看一下具体的十条预测，正文理由太长了可以去链接里看翻译完的：
+
+◆ Nvidia将大幅加大努力成为云服务提供商。
+◆ Stability AI将会倒闭。
+◆ “大型语言模型”和“LLM”这些术语将变得不那么常见。
+◆ 最先进的封闭模型将继续以显著优势胜过最先进的开放模型。
+◆ 一些《财富》500强公司将设立新的C级职位：首席人工智能官。
+◆ 另一种替代transformer架构将得到有意义的采用。
+◆ 云服务提供商对人工智能初创公司的战略投资，以及相关的会计影响，将受到监管机构的挑战。
+◆ 微软/Open AI的关系将开始破裂。
+◆ 2023年从加密货币转移到人工智能的一些炒作和群体心态行为将在2024年转回加密货币。
+◆ 至少有一家美国法院将裁定在互联网上训练的生成式人工智能模型构成侵犯版权。这一问题将开始上升至美国最高法院。
+
+全文翻译：https://quail.ink/op7418/p/forbes-2024-10-ai-predictions
+
+### 272
+
+2023-12-28
+
+歸藏
+@op7418
+字节的一个图像分割项目UniRef++，将现在的即参考图像分割（RIS）、少镜头图像分割（FSS）、参考视频对象分割（RVOS）和视频对象分割（VOS）四种分割方式放在一个架构下处理，自动判断应该使用哪种方式分割内容。
+
+同时这个架构的UniFusion 模块可合并到SAM模型之中一起使用。
+
+### 273
+
+2023-12-28
+
+Barret李靖
+@Barret_China
+大学有一门选修课叫做情报检索，我现在印象最深刻的在 Google 检索时添加一些高级语法，例如使用 type:/site: 等语法，就可以过滤出更精确的结果，很有用，我用了十几年，但那门课带给我的影响远不止于此。
+
+老师一直在帮助学生训练“如何提一个好问题”的思维习惯，不是传统意义的好问题，而是提一个能够让搜索引擎更容易理解的好问题，因此我需要去理解机器背后做了什么，去了解 page rank 这类排序算法；同时，为了让机器可以更好地呈现内容，让别人搜索关键词的时候能够将我写的内容放在前排，我又去学习了 SEO。
+
+相当于从系统视角和用户视角，两次钻研了什么样的问题对机器来说是一个好问题，得益于此，我也经常能够在搜索引擎里找到别人找不到的内容。
+
+ChatGPT 的出现，相比传统的 Google 检索，其实就是换了一种机器思维，它接受指令的方式更接近人类语言的表达，使用者如果不具备“提一个好问题”的能力，照样无法从 ChatGPT 嘴里获得多少有价值的情报。
+
+互联网已经汇聚了人类无数知识的结晶，你想到过的、没想到过的问题，都曾经有人提过甚至解决过，只是，它被藏到了互联网的某个犄角旮旯。情报检索是一门很有用的科学，希望它未来可以成为大学的一门必修课。
+
+### 274
+
+2023-12-28
+
+歸藏
+@op7418
+阿里最近论文跟母猪下崽一样，又发布了一个通过文字生成3D头像的项目 Make-A-Character，可以在2分钟内打造可控、逼真的3D角色，同时还能轻松与现有的CG流程集成。
+
+感觉现在各方面条件都在稳步推进，就差一个可以承载3D内容消费的场景了
+
+主要特点：
+可控制的：系统赋予用户定制详细的面部特征的能力，包括脸型、眼睛、虹膜颜色、发型和颜色、眉毛类型、嘴巴和鼻子，以及添加皱纹和雀斑。这种定制是通过直观的文本提示实现的，为个性化角色创建提供了用户友好的界面。
+
+高度逼真：这些角色是基于收集的真实人体扫描数据集生成的。此外，它们的头发是以串而不是网格的形式构建的。这些角色是使用虚幻引擎中的PBR（基于物理的渲染）技术进行渲染的，该引擎以其高质量的实时渲染能力而闻名。
+
+完整模型：创建的每个角色都是一个完整的模型，包括眼睛、舌头、牙齿、完整的身体和服装。这种整体方法确保我们的角色可以立即在各种情况下使用，而无需额外的建模。
+
+可动画化：配备了复杂的骨骼系统，使它们能够支持标准动画。这有助于它们呈现逼真的外观，并增强了它们在各种动态场景中的多功能性。
+
+与行业兼容：利用明确的三维表示，确保与游戏和电影行业中使用的标准CG流程无缝集成。
+
+项目地址：https://human3daigc.github.io/MACH/
+
+### 275
+
+2023-12-28
+
+宝玉
+@dotey
+值得仔细看看
+
+劳动力即将变成一种可规模化的资源 - 只需接通电源，就能开启生产。
+
+这无疑将改变工作者的生活方式 - 我倾向于相信我们将把时间投入到更有意义的工作和休闲活动中 - 同时这也意味着消费者将获得更多益处。如果所有东西的成本都下降，每个人都能拥有更多他们所需的物品。
+
+徐老猫
+@raycat2021
+强烈推荐科技播客主Packy McCormick撰写的文章《为什么科技继续在吞噬世界》，我选编和翻译贴在本人博客(链接见主页)，欢迎朋友们去全文阅读。
+文章对可见未来的科技和企业进行了分析和展望：
+- 商品的三大支柱：能源、智力和灵巧性，会变得更便宜、更丰富。
+- 越来越多的传统行业将被科技企业攻破，像软件行业那样运行。
+- 人类的劳动力将成为科技企业针对的未开发市场，将其产品化、集中化、按需化和软件即服务化。
+- 科技企业的规模将大到人们难以想象的程度。
+
+红杉资本的合伙人很早就得出一个结论，随着计算变得更便宜，它可以涵盖更多的经济领域，被更广泛地采用，市场会变得更大。
+互联网如此，4G时代如此，现在人工智能在做同样的事情，这个循环会继续下去。
+这样的科技大戏一再重演，只是不觉悟的人还是太多太多。
+作者的观点使我想到，其实不管你是在国内，还是在国外，每个人都无法逃避一个巨大的人生风险：科技鸿沟。
+科技鸿沟会无情地把大量不愿意跟进最新科技进展、不愿意参与进程的人甩进贫穷的深渊，而那些通过某种方式(无论是直接参与或是二级市场投资)投身进来的人们，则不同程度分享到了财富的盛宴。
+世界在以如此的速度和方式前进，科技在吞噬世界，改变社会、企业和人。
+我们要做的是及早跨越鸿沟，跟上财富增值的节奏，以某种形式参与进来。
+借用作者末尾的话：从现在开始，振作你的雄心壮志，还要把它乘以100，制定出自己的行动方案。
+
+### 276
+
+2023-12-28
+宝玉
+@dotey
+
+DreamGaussian4D：4D 高斯 Splatting 的生成式模型    
+
+在4D内容生产领域，近年来我们已经取得了显著的进步。然而，目前的方法还存在优化时间过长、运动控制能力欠缺，以及细节表现力不足等问题。
+
+在本论文中，我们引入了一种名为DreamGaussian4D的高效4D生成框架，该框架建立在4D高斯Splatting表达（或者说表示方法）之上。
+
+我们的核心理念在于，相比隐式表示，高斯 Splatting通过对空间转换明确建模，更适合用于4D生成的应用场景。对于DreamGaussian4D，它可以将优化时间大幅度缩减，从几小时缩短至几分钟，同时能够灵活地控制生成的3D运动，并且能产生可以在3D引擎中高效渲染的动态网格。
+
+
+### 277
+
+2023-12-28
+
+歸藏
+@op7418
+麻了 没想到，一直懒得搜的Mac截图快捷键在一个AI博主这里看到了，终于不用天天去找图标了。
+
+- Command+Option+Shift+4 选择屏幕的一小部分并将其复制到剪贴板中作为图像。
+- Command+Shift+4 做同样的事情，但将其保存为png文件放在桌面上。
+
+### 278
+
+2023-12-28
+
+
+歸藏
+@op7418
+阿里DreaMoving的Demo发布到Huggingface上了，但是依然需要排队很久，还有没有放出开源代码，不试了。
+
+AK
+@_akhaliq
+Alibaba releases DreaMoving demo on Hugging Face
+
+A Human Video Generation Framework
+based on Diffusion Models
+
+demo: https://huggingface.co/spaces/jiayong/Dreamoving
+
+
+### 279
+
+2023-12-28
+
+
+歸藏
+@op7418
+最近我自己的提示词和图片都已经上传到 CatJourney，还有莱森做的一些图，我们还收集了很多其他优秀的提示词和图片。
+
+欢迎来看看：https://catjourney.life
+
+### 280
+
+2023-12-28
+
+九原客
+@9hills
+中文 Emebedding & Reranker 模型选型
+
+1. 大部分模型的序列长度是 512 tokens。 8192 可尝试 tao-8k，1024 可尝试 stella。
+2. 在专业数据领域上，嵌入模型的表现不如 BM25，但是微调可以大大提升效果。
+3. 有微调需求且对模型训练了解较少的，建议选择 bge 系列（完善的训练脚本、负例挖掘等）。但多数模型都基于BERT，训练脚本也通用，其他模型也可以参考。
+4. 重排模型选择很少，推荐使用 bge-reranker，也支持微调。reranker 模型因为单次输入较多，只能通过 GPU 部署。
+
+### 281
+
+2023-12-28
+
+Memo AI
+@MemoAI_
+🎇五个月，1500+ 次代码提交，这是 Memo AI 的 2023 年终总结（1/6）
+
+从小小需求萌芽，我们已经走过了五个月。
+
+给今年一句话总结：伴随用户痛点成长，加一些工程 + 产品 + 设计 + 营销的调和。
+
+- Memo AI 数据回顾
+- 2024 年迭代计划
+- 伴随用户痛点成长
+- 怎么看待同类产品
+- 致谢，感谢大家支持
+
