@@ -1,6 +1,13 @@
 ### 01. 使用
 
 
+2024-01-09
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Downloads/20240109数字化研究院部门会议.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json
+
+
+
+ffmpeg -i /Users/Daglas/Desktop/20240109数字化研究院部门会议.wav -ss 0 -t 770 /Users/Daglas/Desktop/output.wav
 
 
 2023-12-25

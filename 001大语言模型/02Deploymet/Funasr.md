@@ -1,6 +1,30 @@
 ### 跑模型
 
+备注：发现还是要联网调模型的，怪不得不怎么耗内存。所以要关代理。
+
 cat /Users/Daglas/Desktop/output_dir/1best_recog/text_with_punc > /Users/Daglas/dalong.gpt/rewrite-text/origin_text_1.md
+
+
+
+
+
+2024-01-09
+
+ffmpeg -i /Users/Daglas/Downloads/20240109数字化研究院部门会议.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Downloads/20240109数字化研究院部门会议.wav
+
+funasr --model paraformer-zh /Users/Daglas/Downloads/20240109数字化研究院部门会议.wav --output_dir /Users/Daglas/Desktop/output_dir
+
+
+
+2024-01-03
+
+ffmpeg -i /Users/Daglas/Music/dalong.knowledgeAudio/2024001数智设计/20240102与吴总交流汇报年度计划.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/20240102与吴总交流汇报年度计划.wav
+
+funasr --model paraformer-zh-spk /Users/Daglas/Desktop/20240102与吴总交流汇报年度计划.wav --output_dir /Users/Daglas/Desktop/output_dir
+
+cat /Users/Daglas/Desktop/output_dir/1best_recog/text_with_punc > /Users/Daglas/dalong.gpt/rewrite-text/origin_text_1.md
+
+
 
 2023-12-28
 
