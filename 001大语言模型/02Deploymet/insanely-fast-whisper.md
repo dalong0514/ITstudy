@@ -1,6 +1,21 @@
 ### 01. 使用
 
 
+
+2024-01-17
+
+ffmpeg -i /Users/Daglas/Downloads/20240117与吴晓聊2024年工作计划.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Downloads/20240117与吴晓聊2024年工作计划.wav
+
+ffmpeg -i /Users/Daglas/Downloads/20240117与吴晓聊2024年工作计划.wav -ss 0 -t 2200 /Users/Daglas/Desktop/output.wav
+
+ffmpeg -i /Users/Daglas/Downloads/20240117与吴晓聊2024年工作计划.wav -ss 2200 -t 2240 /Users/Daglas/Desktop/output.wav
+
+
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json
+
+
+
 2024-01-09
 
 insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Downloads/20240109数字化研究院部门会议.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json

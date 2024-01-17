@@ -6,6 +6,14 @@ cat /Users/Daglas/Desktop/output_dir/1best_recog/text_with_punc > /Users/Daglas/
 
 
 
+2024-01-16
+
+ffmpeg -i /Users/Daglas/Downloads/20231225与晨曦科技软件交流.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Downloads/20231225与晨曦科技软件交流.wav
+
+ffmpeg -i /Users/Daglas/Downloads/20231225与晨曦科技软件交流.wav -ss 1320 -t 420 /Users/Daglas/Desktop/output.wav
+
+funasr --model paraformer-zh /Users/Daglas/Desktop/output.wav --output_dir /Users/Daglas/Desktop/output_dir
+
 
 
 2024-01-09
