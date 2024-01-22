@@ -6418,63 +6418,61 @@ GitHub：https://github.com/danswer-ai/danswer
 
 宝玉
 @dotey
-很期待机器人硬件和AI的结合！
-
-以下内容为转译：
-
-  AI与机器人硬件的发展曲线现已出现变化。
-
-  在最近的90天中，我在我们的实验室亲眼目睹了业界先进的AI在人形机器人硬件上的运行，坦白说，这让我感到震惊。
-
-  我观察到机器人完全依赖神经网络执行复杂的任务，这样的任务是我原本认为需要到这个十年结束时才能实现的。
-
-  2022年开启Figure项目时，我深信我们会比让机器人运行可靠的神经网络早一步拥有可靠的人形机器人硬件。
-
-  基本上，我原本认为机器人接受的“家庭”类型任务训练将会确定我们的发展时序。
-
-  但在过去的几个月里，我的看法发生了改变。我现在更倾向于相信，我们很可能会在人形机器人硬件达到高度可靠并开始大规模生产的同时，或者稍早一些，拥有可在硬件上运行的可靠AI。
-
-  我认为，为机器人提供可靠硬件的路径非常明确也可预测，只要给予足够的时间，这个问题一定能够被解决。
-
-  Figure AI团队正在研发使用端到端神经网络执行高度复杂和灵巧任务的人形机器人。这些任务太复杂，若要用C++编写启发式算法则难以实现。
-
-  这无疑令人兴奋不已，因为你可以教机器人如何完成任务，并随着机器人量的增加，可以积累更大的训练数据。当舰队不断扩大时，他们将会继续学习，每一天都将变得更加聪明，更加熟练。
-
-  2024年，将标记着人工智能实体化的一年。
-
-  我们将竞逐可靠的硬件设备，大规模的训练数据，并且设计大量生产流程。对于一个更加充满创新的未来，我无法想象还能有什么比这更让人兴奋的了。
-
-  我们将会在2024年展示我们的人工智能实体化成果，敬请期待！
-
 
 Brett Adcock
-
 @adcock_brett
+
 The timeline split of AI vs Robot Hardware has changed
 
-the last 90 days i’ve witnessed industry leading AI in our lab running on humanoid hardware, and frankly it’s blown me away
+the last 90 days i’ve witnessed industry leading AI in our lab running on humanoid hardware, and frankly it’s blown me away.
 
-i’m watching robots performing complex tasks entirely with neural nets. AI trained tasks that i didn’t think was feasible until end of the decade 
+i’m watching robots performing complex tasks entirely with neural nets. AI trained tasks that i didn’t think was feasible until end of the decade.
 
-when starting Figure in 2022, i believed we’d have reliable humanoid hardware well in advance of reliable real-world neural nets running on robots
+when starting Figure in 2022, i believed we’d have reliable humanoid hardware well in advance of reliable real-world neural nets running on robots.
 
-basically, i thought training a robot to do “household” type tasks would size our timeline
+basically, i thought training a robot to do “household” type tasks would size our timeline.
 
-my view on this has changed the last several months 
+my view on this has changed the last several months.
 
-i now feel that we’ll likely have reliable AI that can run on hardware around the same time or slightly before the humanoid hardware is highly reliable and starting volume manufacturing
+i now feel that we’ll likely have reliable AI that can run on hardware around the same time or slightly before the humanoid hardware is highly reliable and starting volume manufacturing.
 
-and the path to delivering reliable robotic hardware seems clear and predictable to me, give us time and this will be solved
+and the path to delivering reliable robotic hardware seems clear and predictable to me, give us time and this will be solved.
 
-the Figure AI team is running humanoid robots with end-to-end neural nets performing highly complicated and dexterous tasks. these are tasks too complicated to write heuristics in C++
+the Figure AI team is running humanoid robots with end-to-end neural nets performing highly complicated and dexterous tasks. these are tasks too complicated to write heuristics in C++.
 
-this is exciting as you can teach robots how to do tasks, and as the robot fleet grows so will the training sets. as the fleets grow in size they will continue to learn, become smarter and more capable every day
+this is exciting as you can teach robots how to do tasks, and as the robot fleet grows so will the training sets. as the fleets grow in size they will continue to learn, become smarter and more capable every day.
 
-2024 will be the year of Embodied AI
+2024 will be the year of Embodied AI.
 
-we’ll be racing to get reliable hardware, vast training sets, and designing manufacturing processes for billions of units. i can’t think of a more exciting future 
+we’ll be racing to get reliable hardware, vast training sets, and designing manufacturing processes for billions of units. i can’t think of a more exciting future. 
 
 we’ll be demonstrating our Embodied AI in 2024, stay tuned!
+
+AI 与机器人硬件发展的进程产生了显著变化
+
+在过去 90 天里，我亲眼目睹了我们实验室内领先行业的 AI 技术运用于仿人机器人上，这一幕让我深感震撼。
+
+我看到机器人仅依靠神经网络，就能完成复杂的任务。这些由 AI 训练完成的任务，我原本以为在本世纪末都难以实现。
+
+2022 年创立 Figure 时，我曾认为我们会在机器人能够运行实用神经网络之前，就拥有高度可靠的仿人机器人硬件。
+
+简而言之，我曾以为训练机器人进行「家庭」类任务会是我们发展的一个重要里程碑。
+
+但我的观点在过去几个月里发生了改变。
+
+现在，我认为我们可能会在仿人机器人硬件变得非常可靠并开始批量生产的同时，或者稍早一些时候，就能拥有能在硬件上运行的可靠 AI。
+
+而且，在我看来，提供可靠机器人硬件的道路清晰且可预测，只要给我们时间，这个问题就能得到解决。
+
+Figure 的 AI 团队正在使仿人机器人运行全面的神经网络，执行高度复杂和灵活的任务。这些任务复杂到无法用 C++ 编写固定程序来解决。
+
+这是非常令人兴奋的，因为我们可以教机器人如何完成任务，而随着机器人数量的增加，它们的训练数据也会随之增长。随着这些机器人群体的扩大，它们将持续学习，每天都变得更加聪明和能干。
+
+2024 年将是具身 AI (Embodied AI) 的大年。
+
+我们将全力以赴开发可靠的硬件、积累大量训练数据，并设计数以十亿计的生产工艺。我无法想象有什么比这更令人激动的未来。
+
+我们将在 2024 年展示我们的具身 AI，敬请期待！
 
 ### 257
 
@@ -7005,3 +7003,799 @@ Memo AI
 - 怎么看待同类产品
 - 致谢，感谢大家支持
 
+### 282
+
+2023-12-30
+
+宝玉
+@dotey
+\#AI开源项目推荐：VoiceStreamAI
+
+VoiceStreamAI 是一个可以自己托管的 Whisper 解决方案，服务端是 Python，客户端是 JS，基于 WebSocket 实时通信，可以做到语音的实时传输和文本转换。
+
+系统内部运用了来自Huggingface的语音活动检测（Voice Activity Detection， VAD）技术，以及来自OpenAI的Whisper模型，从而实现对语音的准确识别和处理。
+
+功能
+- 支持WebSocket，实现实时音频流的传输。
+- 采用来自Huggingface的VAD技术，对语音活动进行精确检测。
+- 利用来自OpenAI的Whisper模型，完成语音转写。
+- 可针对音频块进行个性化处理。
+- 具备多语言转写功能。
+
+https://github.com/alesaccoia/VoiceStreamAI
+
+### 283
+
+2023-12-30
+
+宝玉
+@dotey
+推荐教程：构建你自己的 AI 辅助编码助手
+
+介绍如何 DIY 一个端到端（从 IDE 插件、模型选型、数据集构建到模型微调）的 AI 辅助编程工具，类似于 GitHub Copilot、JetBrains AI Assistant、AutoDev 等。
+
+https://github.com/unit-mesh/build-your-ai-coding-assistant
+
+### 284
+
+2023-12-30
+
+宝玉
+@dotey
+TinyGPT-V：利用小型架构实现高效多模式大型语言模型
+
+论文摘要：
+
+在先进的多模态学习时代，像GPT-4V这样的多模态大型语言模型 (MLLMs) 在联结语言与视觉元素方面取得了巨大进步。然而，源代码的封闭性和强大的计算需求对其的普遍应用和修改带来了不小挑战。
+
+此时，像LLaVA和MiniGPT-4这样的开源MLLMs呈现出了破土而出的成就。虽然取得这些成绩，但计算效率仍然是一个尚未解决的问题，因为像LLaVA-v1.5-13B这样的模型需要大量的资源。
+
+为了解决这些问题，我们推出了TinyGPT-V，一个将卓越性能与常见计算能力结合的新型模型。它只需要24G GPU进行训练，8G的GPU或CPU进行推理即可。基于Phi-2，TinyGPT-V将高效的语言主干和来自BLIP-2或CLIP的预训练的视觉模块结合在一起。
+
+TinyGPT-V拥有28亿的参数，可以经历一种独特的量化过程，非常适合在拥有8G内存的各种设备上进行本地部署和推理任务。我们的工作进一步推动了设计出经济高效、性能优秀的MLLMs的发展，使得它们在更广阔的实际应用场景中具有更大的可能性。
+
+此外，本文还提出了一种新的范例，即通过小型主干实现多模态大型语言模型。
+
+论文地址：https://arxiv.org/abs/2312.16862
+项目地址：https://github.com/DLYuanGod/TinyGPT-V
+https://huggingface.co/Tyrannosaurus/TinyGPT-V
+
+### 285
+
+2023-12-30
+
+宝玉
+@dotey
+MobileVLM：一种快速、可复现且强大的适用于移动设备的视觉语言助手。
+
+论文摘要：
+
+我们向您介绍MobileVLM。这是一款专为移动设备打造的、出色的多模态视觉语言模型（MMVLM）。
+
+MobileVLM混合了各种面向移动设备的架构设计和技术。这其中包括一套从零开始训练的大规模语言模型（参数达到14亿和27亿），一个使用CLIP方法预训练的多模态视觉模型，以及一个高效的投射器，可实现跨模式交互。
+
+我们使用了几种典型的VLM基准测试来评估MobileVLM。结果表明，我们的模型与一些大模型相比，表现相当出色。我们在Qualcomm Snapdragon 888 CPU和NVIDIA Jeston Orin GPU上测量了推理速度。
+
+令人兴奋的是，我们取得了21.5个和65.3个 Token 每秒的推理速度，这在业界属于领先水平。注：这里的“Token”是指模型每秒可以处理的信息量。
+
+论文地址：https://arxiv.org/abs/2312.16886
+项目地址：https://github.com/Meituan-AutoML/MobileVLM
+
+### 286
+
+2023-12-30
+
+https://x.com/op7418/status/1740813574505898026?s=20
+
+歸藏
+@op7418
+卧槽，一直想要的东西终于来了，终于可以不用看着Comfyui那个小输入框调整提示词了。
+
+Prompt Composer这个插件可以用更有逻辑和有序的方式通过链接来调整提示词顺序和内容，同时通过滑块调整权重。
+
+这个插件有包括两类节点，第一类是输入提示词不断串联并且可以通过提示词滑块调整权重。
+另外一类是效果和样式选择器，可以选择内置的效果和样式提示词包，同意调整权重。
+最后会按照连接的顺序生成完整的提示词。
+
+要是有Animatediff的提示词旅行格式的提示词编辑更就好了。
+
+项目地址：https://github.com/florestefano1975/comfyui-prompt-composer
+
+### 287
+
+2023-12-30
+
+https://x.com/op7418/status/1740806916673343506?s=20
+
+
+歸藏
+@op7418
+关于大语言模型几个好奇心驱动问题的论文回答，从问题出发寻找相关论文是个不错的方法。
+比如下面老哥举的几个例子：
+
+1. LLM是否泄漏了你的个人信息？(https://arxiv.org/abs/2205.12628)
+2. LLM真的能够推理吗？(https://arxiv.org/abs/2212.10403)
+3. LLM能自我纠正他们的推理吗？(https://arxiv.org/abs/2310.01798)
+4. LLM缺少什么？(https://arxiv.org/abs/2307.02185)
+5. (检索增强)编码器-解码器LM能进行上下文学习吗？(https://arxiv.org/abs/2308.07922)
+6.LLM为何在提供真实答案方面表现不佳？(https://arxiv.org/abs/2304.10513 )
+7.LM可以具体化吗?( https://arxiv.org/abs/2210.05159 )（注：已过时）
+
+### 288
+
+2023-12-30
+
+https://x.com/op7418/status/1740803308732969218?s=20
+
+
+歸藏
+@op7418
+这个VS Code的AI插件感觉比GitHub的Copilot强多了，功能非常全面，而且支持GPT-4和PaLM 2等常见模型的API。
+主要功能有：
+
+◆ 可以选中对应代码之后跟GPT进行聊天沟通。
+◆ 通过注释生成对应要求的代码。
+◆ Stackoverflow获取问题的答案，并且跟GPT的答案比较
+◆ 跟AI聊天并且创建对应代码的单元测试。
+◆ 打开Notebook（.ipynb文件）并使用Notebook扩展运行代码。
+
+通过API修改代码不可避免涉及到代码泄露的问题，这个需要自行斟酌，公司代码谨慎使用。
+
+插件地址：https://marketplace.visualstudio.com/items?itemName=DanielSanMedium.dscodegpt&ssr=false#overview
+
+### 289
+
+2023-12-30
+
+https://x.com/op7418/status/1740796869796929918?s=20
+
+
+歸藏
+@op7418
+马斯克下周将会分别在特斯卡和SpaceX进行演讲，回顾今年的成就以及发布明年的一些计划。
+演讲的内容也会公开在两个公司的号上，可以看看马斯克明年会有什么大计划。
+
+Elon Musk
+
+@elonmusk
+Next week, I will do a company talk for SpaceX, followed later by a company talk for Tesla after the 10K. 
+
+I will recap the talented team’s amazing accomplishments of 2023 and describe exciting plans for 2024 and beyond!
+
+These will be posted publicly to 
+@SpaceX
+ and 
+@Tesla
+.
+下周，我将为 SpaceX 做一次公司演讲，随后在 10K 赛后为 Tesla 做一次公司演讲。
+
+我将回顾这支才华横溢的团队在 2023 年取得的惊人成就，并描述 2024 年及以后令人兴奋的计划！
+
+这些将公开发布到 @SpaceX 和 @Tesla 。
+
+### 290
+
+2023-12-30
+
+徐老猫
+@raycat2021
+这两天在搜罗谈AI的书，有几本业界大神如吴恩达、LeCun、马斯克高度认可的经典作品。
+一并分享给大家，有时间找来翻翻。我们每个人都该想好AI时代如何安排自己了。
+
+1，《奇点临近》The Singularity I Near (Ray Kurzweil)
+作者被比尔-盖茨称为“预测AI最准的未来学家”，这是2005年作品，对业界影响深远。1/
+
+### 291
+
+2023-12-30
+
+https://x.com/op7418/status/1740686124736262583?s=20
+
+歸藏
+@op7418
+一个开源的多模态 LLM Unified-IO 2。
+比较离谱的是它可以实现语音理解和动作理解还有图像标记这种任务，还可以理解空间关系。真正的 All in one 。
+甚至还可以驱动机器人做对应的操作。
+
+项目简介：
+Unified-IO 2，这是第一个能够理解和生成图像、文本、音频和动作的自回归多模态模型。
+为了统一不同的模态，我们将输入和输出（图像、文本、音频、动作、框等）进行分词，并将它们置于一个共享的语义空间中，然后使用单个编码器-解码器变换器模型进行处理。由于使用多样的模态进行训练非常困难，我们提出了各种架构改进来稳定模型。
+我们从头开始在来自不同来源的大型多模态预训练语料库上训练我们的模型，并采用多模态混合去噪目标。为了学习一系列广泛的技能，比如遵循多模态指令，我们构建并微调了一个包含120个现有数据集的集合，并进行了提示和增强。
+通过一个统一的模型，Unified-IO 2在GRIT基准测试中达到了最先进的性能，并在30多个基准测试中取得了强大的结果，包括图像生成和理解、文本理解、视频和音频理解以及机器人操作。我们将所有的模型都发布给研究界。
+
+项目地址：https://unified-io-2.allenai.org
+
+### 292
+
+2023-12-30
+
+https://x.com/op7418/status/1740681583496245656?s=20
+
+歸藏
+@op7418
+小红书新发布的一个编码器SSR-Encoder，可以实现从一张图片种提取不同的主题（人物、物体等）特征生成图像。与 SD 现有的能力都能结合，Animatediff 也可以。
+
+这个厉害。类似于加强版的 IPadapter？而且说了会开源，这几个以图像内容消费为主的国内公司都在图像生成模型上发力。
+
+项目简介：
+最近在主题驱动的图像生成领域的进展已经实现了零样本生成，然而精确选择和关注关键主题表示仍然是一个挑战。
+为了解决这个问题，我们引入了SSR-Encoder，这是一种新架构，旨在从单个或多个参考图像中选择性地捕获任何主题。它响应各种查询模式，包括文本和掩模，而无需在测试时进行微调。
+SSR-Encoder结合了一个Token-to-Patch Aligner，用于将查询输入与图像块对齐，以及一个细节保留的主题编码器，用于提取和保留主题的精细特征，从而生成主题嵌入。
+这些嵌入与原始文本嵌入结合使用，条件化生成过程。SSR-Encoder以其模型泛化性和效率为特点，适应于一系列自定义模型和控制模块。通过Embedding Consistency Regularization Loss进行增强，以改进训练。
+我们广泛的实验表明其在多样化和高质量的图像生成中的有效性，表明其广泛的适用性。
+
+项目地址：https://ssr-encoder.github.io
+
+### 293
+
+2023-12-30
+
+https://x.com/dotey/status/1740623306477162745?s=20
+
+宝玉
+@dotey
+柏林 IT 专家破解特斯拉自动驾驶，揭秘隐藏的“马斯克模式”
+
+三名柏林博士生成功破解了特斯拉的电路板，不仅发现了公司机密和私人数据，还揭露了一个神秘的“马斯克模式”。这究竟是什么？
+
+这三位博士生——Niclas Kühnapfel、Christian Werling 和 Hans-Niklas Jacob，并不是通过编写代码绕开安全系统，而是使用价值 600 欧元的工具巧妙地破解了特斯拉的电路板。据《明镜周刊》报道，他们是利用从美国联系人那里获悉的电路板漏洞实现的。
+
+商业机密与埃隆模式
+
+他们自称揭露了特斯拉的一些商业机密。报告显示，他们能够追踪到特斯拉在实时运行中将哪些自动驾驶数据发送回公司，用于训练其人工智能。
+
+此外，在工作过程中，这三位博士生还在电路板上发现了一个已被删除但尚未完全覆盖的视频。视频展示了一辆在美国行驶的特斯拉，视频中的时间和 GPS 位置也被他们复原了。
+
+另一个惊人的发现是，他们证实了特斯拉存在一个被称为“马斯克模式”的功能。这个模式之前在夏天已被另一名黑客激活过。在该模式下，汽车可以实现自动驾驶，而驾驶者无需时刻将双手放在方向盘上。
+
+对个人用户影响不大
+
+据报道，这些发现对特斯拉的个人用户来说并不构成太大威胁。要渗透这块电路板，潜在的黑客需要直接接触到这个部件，这意味着需要将其拆卸出来。理论上，这种操作只能在维修工作室中进行。
+
+这三位博士生对于能如此轻易地获取特斯拉的商业机密感到惊讶。他们认为，其他竞争对手也可能通过类似方式获取到电动汽车的相关知识。总体而言，他们认为特斯拉的安全措施做得很好，只是对于他们所采用的 Voltage-Glitch（电压故障）攻击，公司似乎尚未做好充分准备。
+
+新闻来源：https://t3n.de/news/tesla-autopilot-hack-geheimer-elon-modus-1598800/
+
+### 294
+
+2023-12-30
+
+https://x.com/dotey/status/1740599902244163937?s=20
+
+宝玉
+@dotey
+DL3DV-10K: 针对基于深度学习的3D视觉的大规模场景数据集
+
+基于深度学习的3D视觉领域已经取得了显著的进步，从神经辐射场（NeRF）驱动的3D表示学习到应用于全新视角合成（NVS）。然而，当前的针对基于深度学习的3D视觉的场景级别数据集，不管是只限于虚构环境或者狭窄的现实世界场景的选择，都非常框定。这种局限性限制了我们对现有方法进行全面的基准测试，也限制了在基于深度学习的3D分析中可能探索的领域。
+
+为了填补这个空白，我们提出了DL3DV-10K，一个大规模场景数据集，包含51.2百万帧，从10,510个视频中捕获，涵盖了65种热点（POI）地点，包括有边界和无边界的场景，呈现出不同层次的反射、透明度和光照。
+
+我们对DL3DV-10K进行了全新视角合成（NVS）方法的全面基准测试，揭示出NVS未来研究的宝贵观察。此外，我们利用DL3DV-10K进行的通用化NeRF初步学习研究取得了令人鼓舞的结果，突显了大规模场景级别数据集对于建立学习3D表示的基础模型的重要性。我们的DL3DV-10K数据集，基准测试结果和模型将可在 https://dl3dv-10k.github.io/DL3DV-10K/ 上公开获取。
+
+论文：https://arxiv.org/abs/2312.16256
+项目首页：https://dl3dv-10k.github.io/DL3DV-10K/
+
+---
+
+https://x.com/_akhaliq/status/1740587508608430164?s=20
+
+AK
+@_akhaliq
+DL3DV-10K: A Large-Scale Scene Dataset for Deep Learning-based 3D Vision
+
+paper page: https://huggingface.co/papers/2312.16256
+
+We have witnessed significant progress in deep learning-based 3D vision, ranging from neural radiance field (NeRF) based 3D representation learning to applications in novel view synthesis (NVS). However, existing scene-level datasets for deep learning-based 3D vision, limited to either synthetic environments or a narrow selection of real-world scenes, are quite insufficient. This insufficiency not only hinders a comprehensive benchmark of existing methods but also caps what could be explored in deep learning-based 3D analysis. To address this critical gap, we present DL3DV-10K, a large-scale scene dataset, featuring 51.2 million frames from 10,510 videos captured from 65 types of point-of-interest (POI) locations, covering both bounded and unbounded scenes, with different levels of reflection, transparency, and lighting. We conducted a comprehensive benchmark of recent NVS methods on DL3DV-10K, which revealed valuable insights for future research in NVS. In addition, we have obtained encouraging results in a pilot study to learn generalizable NeRF from DL3DV-10K, which manifests the necessity of a large-scale scene-level dataset to forge a path toward a foundation model for learning 3D representation.
+
+### 295
+
+2023-12-30
+
+https://x.com/dotey/status/1740595369463976062?s=20
+
+### 296
+
+2023-12-30
+
+
+宝玉
+@dotey
+“网上城市”：实现大规模场景的网页实时神经渲染
+
+NeRF技术在3D场景重建领域独领风骚，成功捕捉各种环境中的精微细节。为了实现小场景的实时渲染，现有的技术已经成功地运用了辐射场烘焙。
+
+然而，对于大规模场景，这些技术由于计算资源、内存和带宽的限制，难以为用户提供流畅的实时体验。为此，我们提出了"网上城市"项目。
+
+我们通过将整个场景划分为若干个可控的模块，每个模块都有自己的细节级别 (Level-of-Detail)，此举不仅确保了高保真度，还实现了有效的内存管理和快速的渲染。同时，我们精心设计了训练和推理过程，以确保网页呈现的最终效果与训练过程中的模型一致。
+
+有了这个全新的场景表示方式和精心设计的训练推理过程，我们成为首个能够在资源受限的环境中实现大规模场景实时渲染的团队。
+
+实验结果丰富证实了我们的方法赋予了网页平台实现大型场景实时渲染的能力。在使用RTX 3060图形处理器的情况下，我们的方法能够在1080P分辨率下达到32FPS的渲染速度，同时实现的渲染作品的质量接近当前最先进的方法。
+
+项目页面：https://ustc3dv.github.io/City-on-Web/
+论文：https://arxiv.org/abs/2312.16457
+在线演示：https://ustc3dv.github.io/City-on-Web/#real-time-viewer
+
+### 297
+
+2023-12-30
+
+https://x.com/dotey/status/1740591973700976781?s=20
+
+宝玉
+@dotey
+StackOverflow 官方工程技术博客上的一篇新文章很有意思：《Self-healing code is the future of software development | 能自我修复的代码是软件开发的未来》
+
+未来的软件项目，越来越多的代码将会由 AI 生成，那人类做什么呢？让 AI 提供几个方案，人类确认就好，确认后就让 AI 去生成！
+
+但是 AI 生成的代码越来越多，怎么审查？怎么避免出 Bug？文章的建议就是让 AI 审查，让 AI 自己测试自己修复！
+
+所以需要针对 AI 去打造一个全新的开发流程，让 AI 自动提交、审查、部署测试环境、修复、部署生产环境、监控、回滚！
+
+AI 要重塑软件工程了！
+
+原文：https://stackoverflow.blog/2023/12/28/self-healing-code-is-the-future-of-software-development/
+译文：https://baoyu.io/translations/software-engineering/self-healing-code-is-the-future-of-software-development
+
+### 298
+
+2023-12-30
+
+https://x.com/op7418/status/1740581492932354411?s=20
+
+歸藏
+@op7418
+LLM 相关的基础文章很多人整理，AI 图像生成的比较少，刚好发现了一个，我又自己筛选了一下，一共 15 篇内容，都在这里了，如果想深入研究 SD，建议看看。
+
+主要包括三个部分：图片生成简介、图像生成基础模型的精细调整和构建 AI 生成服务，。
+
+都放在下面的这个个链接里，打开一个就都有了。元旦我也会找时间把这些内容翻译一下，然后发出来，可以收藏这条回来看。等不及可以直接看，下面是具体的分类和文章目录：
+
+图像生成技术简介：
+
+◆ 人工智能和艺术：机器学习如何改变创造性工作（报告）
+◆ 平面设计师如何创建他们自己的AI工具（博客文章）
+◆ AI图像生成器的工作原理以及扩散是什么（视频）
+◆ 什么是Diffusion模型？（视频）
+◆ Diffusion模型的工作原理（1小时课程）
+◆ 初学者指南：Stable diffusion（指南）
+
+基础模型的精细调整：
+
+◆ SD1.5通用目的模型的全面精细调整指南（博客文章）
+◆ SD模型的基准测试与混合（博客文章）
+◆ 解耦文本编码器和UNET学习率（博客文章）
+◆ D适应：再见学习率困扰？（博客文章）
+◆ 自己精细调整通用稳定扩散模型指南（博客文章）
+
+构建 AI 生成服务的后端：
+
+◆ 如何构建一个生成AI服务的后端
+◆ Stable diffusion提示：权威指南
+◆ SD提示的精细调整：修改Stable diffusion提示的GPT 3.5（博客文章）
+◆ SD提示的目录（目录）
+
+所有内容链接：https://arc.net/folder/10431A09-4798-4002-B99A-2769BD9131FF
+
+### 299
+
+2023-12-30
+
+https://x.com/dotey/status/1740576343891362174?s=20
+
+宝玉
+@dotey
+推荐阅读：《Pushing ChatGPT's Structured Data Support To Its Limits | 探索 ChatGPT 结构化数据支持的极限》
+
+很详细的介绍了如果借助 OpenAI 的 Function Calling（函数调用，现在已经改名为 tool_choice）生成 JSON 格式的结构化数据。
+
+同时也提到了如何在像Mistral 7B这样的开源模型中得到 JSON 格式的数据。
+
+原文：https://minimaxir.com/2023/12/chatgpt-structured-data/
+译文：https://baoyu.io/translations/llm/chatgpt-structured-data
+
+### 300
+
+2023-12-30
+
+https://x.com/dotey/status/1740569562486059205?s=20
+
+宝玉
+@dotey
+http://darkvisitors.com 这个网站收录了各大 AI 公司的爬虫使用的User Agent，并且告诉了你如何在 robots.txt 里面屏蔽这些爬虫的访问
+
+https://darkvisitors.com
+
+### 301
+
+2023-12-30
+
+https://x.com/xiaohuggg/status/1740687049861292449?s=20
+
+小互
+@xiaohuggg
+基于苹果MLX的 Stable Diffusion WebUI 界面
+
+提供了一个简单的WebUI，可以让你在苹果电脑上使用Stable Diffusion 图像生成功能，界面简单易用，小白用户轻松上手。
+
+支持多种模型，包括 Stable-diffusion-2-1-base、Dreamshaper-8 和 Absolute-reality-1.81。
+
+规范化了 I2I 基础图像强度控制和种子控制。
+
+### 302
+
+2023-12-30
+
+https://x.com/dotey/status/1741338332540326392?s=20
+
+宝玉
+@dotey
+知乎热门话题：有个疑惑，AI按理说应该最擅长理工，为啥先冲击文艺行业？
+
+就是感觉 ai 就算不能在电池材料突破、环境污染这些涉及实际实验的方向有成果，也应该在数学猜想这类理论问题上有进展吧，现在老是些文艺方面的新闻
+
+https://zhihu.com/question/636389785
+
+### 303
+
+2023-12-31
+
+https://x.com/dotey/status/1741313891664089281?s=20
+
+宝玉
+@dotey
+论文：《Chain of Code: Reasoning with a Language Model-Augmented Code Emulator》
+
+CoT（Chain of Though）思考链很多人都已经不陌生了，就是将给大语言模型的任务拆分成一步步执行，可以大幅提升模型生成结果。
+
+而 Chain of Code 则是另一种思路，在遇到要解决的问题时，让模型生成解决问题的代码或伪代码。
+
+Python 代码可以直接用 Python 执行，但是遇到执行不过去的代码或者伪代码怎么办呢？
+
+解决方案就是用大语言模型来充当代码解释器（LMulator），执行伪代码！
+
+很多场景下效果比 CoT 还要好！
+
+论文地址：https://arxiv.org/abs/2312.04474v2
+译文：https://baoyu.io/translations/ai-paper/2312.04474-chain-of-code
+
+### 304
+
+2023-12-31
+
+https://x.com/dotey/status/1741307232975724887?s=20
+
+宝玉
+@dotey
+推荐阅读：《What I Learned Using Private LLMs to Write an Undergraduate History Essay》
+
+作者借助大语言模型，把20年前的本科毕业论文重写了一遍，想看看是否借助AI可以更高效的完成论文写作。
+
+最终在借助 AI 辅助重写完论文之后，作者重温了 1996 年的原始论文。出乎意料的是，这篇老论文的长度远超过他记忆中的普通论文长度（约 2500 字，而 AI 辅助的论文只有 1300 字），而且质量，在他看来，也明显胜过 AI 辅助的那篇。 
+
+撰写 AI 辅助论文大约花费了作者六个小时（分散在四天内）。而原来的论文让他投入了整整一个星期，如果计算实际进行研究和写作的时间，至少也有 20 小时，最多可达 30 小时。
+
+作者从中学到的几点：
+
+1. 努力学习是无可替代的。 作者自设的规则是不直接阅读原文，这限制了论文质量的提升，AI 是无法完全弥补这一点的。
+2. 现在的历史专业学生利用 AI 应该能比当年更高效！ 好奇如今的论文是否普遍比过去更长。
+3. 专用的大语言模型（作者用的是 llama2:70b）在这类工作上可能比 ChatGPT3.5 更有优势，它不仅在生成回答的质量上更胜一筹，还在于识别相关文本段落的能力。
+4. 如果作者进一步整合 llama2:70b 模型和已有的引用生成代码，可能会大大缩短所需时间。 这方面还需要更多的研究。
+
+原文：https://zwischenzugs.com/2023/12/27/what-i-learned-using-private-llms-to-write-an-undergraduate-history-essay/
+译文：https://baoyu.io/translations/llm/what-i-learned-using-private-llms-to-write-an-undergraduate-history-essay
+
+
+### 305
+
+2023-12-31
+
+https://x.com/dotey/status/1741304504736268660?s=20
+
+宝玉
+@dotey
+推荐阅读：《2023 年十篇值得关注的 AI 研究论文》
+
+作者精选了 10 篇 AI 论文
+
+1) Pythia: A Suite for Analyzing Large Language Models Across Training and Scaling
+https://arxiv.org/abs/2304.01373
+2) Llama 2: Open Foundation and Fine-Tuned Chat Models
+https://arxiv.org/abs/2307.09288
+3) QLoRA: Efficient Finetuning of Quantized LLMs
+https://arxiv.org/abs/2305.14314
+4) BloombergGPT: A Large Language Model for Finance
+https://arxiv.org/abs/2303.17564
+5) Direct Preference Optimization: Your Language Model is Secretly a Reward Model
+https://arxiv.org/abs/2305.18290
+6) Mistral 7B
+https://arxiv.org/abs/2310.06825
+8) ConvNets Match Vision Transformers at Scale
+https://arxiv.org/abs/2310.16764
+9) Segment Anything
+https://arxiv.org/abs/2304.02643
+10) Emu Video: Factorizing Text-to-Video Generation by Explicit Image Conditioning 
+https://arxiv.org/abs/2311.10709
+
+原文：https://magazine.sebastianraschka.com/p/10-ai-research-papers-2023
+译文：https://baoyu.io/translations/ai/10-ai-research-papers-2023
+阅读推荐：《2023年十篇值得关注的人工智能研究论文》
+
+作者精选了10篇人工智能论文
+
+1) Pythia：用于分析跨训练和扩展的大型语言模型的套件
+ https://arxiv.org/abs/2304.01373 
+2) Llama 2：开放基础和微调的聊天模型
+ https://arxiv.org/abs/2307.09288 
+3）QLoRA：量化LLMs的高效微调
+ https://arxiv.org/abs/2305.14314 
+4) BloombergGPT：大型金融语言模型
+ https://arxiv.org/abs/2303.17564 
+5）直接偏好优化：你的语言模型实际上是一个奖励模型
+ https://arxiv.org/abs/2305.18290 
+6) 米斯特拉尔7B
+ https://arxiv.org/abs/2310.06825 
+8) 卷积网络大规模匹配视觉变压器
+ https://arxiv.org/abs/2310.16764 
+9）分割任何东西
+ https://arxiv.org/abs/2304.02643 
+10) Emu Video：通过显式图像调节分解文本到视频的生成
+ https://arxiv.org/abs/2311.10709 
+
+译文： https://magazine.sebastianraschka.com/p/10-ai-research-papers-2023 
+原文： https://baoyu.io/translations/ai/10-ai-research-papers-2023 
+
+
+### 306
+
+2023-12-31
+
+https://x.com/dotey/status/1741293539625934947?s=20
+
+宝玉
+@dotey
+2023 年生成式 AI 视频发展时间线
+
+https://x.com/venturetwins/status/1741147864498397328?s=20
+
+Justine Moore
+@venturetwins
+2023 was a breakout year for AI video.
+
+In January, there were no public text-to-video models. Now, there are dozens of video gen products and millions of users.
+
+A recap of the biggest developments + companies to watch
+
+
+### 307
+
+2023-12-31
+
+https://x.com/dotey/status/1741318864707653838?s=20
+
+宝玉
+@dotey
+WebGPT🤖 这个GPT可以访问网络并生成网页代码解决方案，例如视频中演示的生成一个游戏，并且可以反复修改完善
+
+Prompt和地址见评论
+
+https://x.com/JD_2020/status/1740918345170374896?s=20
+
+Josh Olin
+@JD_2020
+I wanted to see if 
+@ChatGPTapp
+ could build me an entire game without me seeing a SINGLE LINE of code.
+
+I wanted to play it directly in my web browser.
+
+I didn’t want to copy/paste code to a code editor or GirHub.
+
+I also wanted to build it from my phone. 
+@karpathy
+@gdb
+@sama
+
+### 308
+
+2023-12-31
+
+https://x.com/dotey/status/1741264111973851522?s=20
+
+宝玉
+@dotey
+Meta AI 总结的自己的十大 AI 研究， 切分任意物体 (Segment Anything，即SAM)排第一位实至名归！
+
+---
+
+在2023年即将过去之际，我们在这里分享今年我们公布的十项最有趣的AI研究进展 - 以及你可以在哪里找到更多关于它们的详细信息。
+
+1️⃣ 切分任意物体 (Segment Anything，即SAM)这是我们向第一个图像分割的基础模型迈出的重要一步。详情：https://bit.ly/3tyeJKu
+
+2️⃣ DINOv2这是首次采用自我监督学习训练计算机视觉模型的方法，其结果匹敌甚至超越了行业标准。详情：https://bit.ly/3TGTEIb
+
+3️⃣ Llama 2我们开源大型语言模型 (Large Language Model) 的新一代版本，无论研究还是商业用途均可免费使用。详情：https://bit.ly/3RY66C6
+
+4️⃣ Emu 视频 & Emu 编辑该项生成式 AI 研究专注于高质量的基于扩散过程的文本至视频生成，以及通过文本指令进行图像编辑的控制。详情：https://bit.ly/3RZVZwU
+
+5️⃣ I-JEPA依靠自监督学习的计算机视觉技术，通过预测，学习理解世界。这是首款基于 
+@ylecun
+ 视野的模型，旨在使 AI 系统像动物和人类一样进行学习和推理。详情：https://bit.ly/3TA9oNk
+
+6️⃣ Audiobox这是我们新的音频生成的基础研究模型。详情：https://bit.ly/47ib6pQ
+
+7️⃣ 脑解码 - 向实时重建视觉感知迈进这个 AI 系统使用MEG技术，可以以前所未有的时间分辨率解码大脑中正在展现的视觉表征。详情：https://bit.ly/3vpgDNR
+
+8️⃣ Open Catalyst演示这项服务允许研究人员加速材料科学方面的正在进行的工作，它可以比现有的计算方法更快地模拟催化剂材料的反应性。详情：https://bit.ly/3vphiij
+
+9️⃣ Seamless Communication 这是新的 AI 翻译模型系列，它能够保留原始表达并提供近乎实时的流式翻译。详情：https://bit.ly/3toBDE8
+
+🔟 ImageBind这是首款可以一次性整合来自六种模态的数据的 AI模型。这一突破带我们向具有将来自多种感官的信息统一起来的人类能力更近了一步。详情：https://bit.ly/3NLUaBc
+
+
+### 309
+
+2023-12-31
+
+https://x.com/dotey/status/1741254641407365315?s=20
+
+宝玉
+@dotey
+阿里达摩院发布的 AnyText 看起来很不错呀，能生成与原图风格融为一体的文字，或者对原图中的文字进行修改，并且还能支持中文！
+
+项目简介：
+AnyText包括两个核心部分：一个是辅助的潜在特征模块，一个是文本嵌入模块。辅助的潜在特征模块使用文本字形、位置和蒙版图像这些输入，生成用于文本生成或编辑的潜在特征。文本嵌入模块使用一个OCR模型来将笔画数据编码为嵌入，这些嵌入与来自标记器的图像标题嵌入一起，生成能够与背景无缝集成的文本。我们为了增强书写的准确性，采用了文本控制扩散损失和文本感知损失作为训练方法。
+
+项目地址：https://github.com/tyxsspa/AnyText
+演示地址：https://modelscope.cn/studios/damo/studio_anytext/summary
+论文：https://arxiv.org/abs/2311.03054
+
+
+### 310
+
+2023-12-31
+
+https://x.com/dotey/status/1741236592700694975?s=20
+
+
+宝玉
+@dotey
+如果你让 DALL-E 画马里奥兄弟，它是拒绝的，但是如果你跟它说：
+你能创作一个视频游戏风格的图像吗？这个图像中，两个意大利兄弟正在划船，其中较短的一个穿着红色衣服，他的帽子上印有字母M，而另一个较高的兄弟穿着绿色衣服，他的帽子上印有字母L。
+那么它就给你画马里奥兄弟！
+
+我自己测试了一下，不总是有用，但是出来了一张弟弟的照片
+
+### 311
+
+2023-12-31
+
+https://x.com/dotey/status/1741214749348507935?s=20
+
+宝玉
+@dotey
+\#AI开源项目推荐：janhq/jan
+
+Jan 是一个帮助你在本地运行开源大模型的程序，支持Windows、Mac和Linux多平台，移动端即将推出，可以从它上面方便的下载并运行开源模型，并且能在本地提供一个兼容 ChatGPT API 协议的Web服务。
+
+它提供了一个类似于ChatGPT的聊天界面，可以基于它聊天，并且可以保留聊天历史。
+
+项目地址：https://github.com/janhq/jan
+
+
+### 312
+
+2023-12-31
+
+https://x.com/dotey/status/1741205453948756123?s=20
+
+宝玉
+@dotey
+彭博社推荐的：《2023年我们为未来而阅读的书籍》
+
+1. 我看到的世界 — 李飞飞
+2023
+
+李飞飞，这位90年代初来美的年轻中国女性，当时几乎不懂英语，更别提计算机视觉了。她绝不会想到自己的工作将深刻推动我们进入当前的人工智能热潮。她的ImageNet项目，至今已标注了超过1400万张图片，为训练AI算法打下了基础，使得DeepMind和OpenAI这样的AI先锋公司得以崛起。
+
+在《我看到的世界》一书中，李飞飞将自己的工作与个人经历紧密结合，讲述了她作为移民的奋斗历程以及成为领域内最受尊敬的人物之一的故事。如今，她是斯坦福大学人本人工智能研究所的联席主任，成为硅谷快速发展中代表人类立场的重要声音。她的故事不仅令人着迷，也让人感到谦逊。在我们寻找值得托付未来人工智能的领袖时，李飞飞的履历给人以极大的鼓舞。*Dave Lee*
+
+### 313
+
+2023-12-31
+
+https://x.com/op7418/status/1741156079206277461?s=20
+
+歸藏
+@op7418
+这个ComfyUI插件有点意思，可以在ComfyUI中调用GPT-4和DALL-E3，实现从图片提取提示词和用DALL-E3在ComfyUI中生成图片。
+
+GPT-4从图片提取提示词可比WebUI自带的工具强多了，这下这些都能在ComfyUI中完成了。
+不过这玩意填写OpenAI API有点麻烦，得配置一个环境变量。
+
+插件主要包括两个节点：
+Style Prompt：使用你的文本提示、图像或文本提示和图像，以及你指定的艺术风格，生成一个ChatGPT3或4的提示，Stable Diffusion可以使用该提示来以该风格生成一幅图像。
+
+OAI Dall_e 3：接受提示和参数，并在ComfyUI中生成Dall_e3图像。
+
+项目地址：https://github.com/glibsonoran/Plush-for-ComfyUI
+
+### 314
+
+2023-12-31
+
+https://x.com/op7418/status/1741145662866206851?s=20
+
+歸藏
+@op7418
+Lex Fridman的新播客采访了Guillaume Verdon，一位物理学家、量子计算研究员，也是 e/acc（有效加速主义）运动的创始人。每一期嘉宾都很重磅啊。
+
+https://x.com/lexfridman/status/1740815481043320975?s=20
+
+Lex Fridman
+@lexfridman
+Here's my conversation with Guillaume Verdon (
+@GillVerd
+) aka Beff Jezos (
+@BasedBeffJezos
+), a physicist, quantum computing researcher, and founder of e/acc (effective accelerationism) movement that advocates for rapid technological progress, physics-based reasoning, and memes.
+
+Guillaume & Beff are two fascinating identities co-existing inside one human mind, recently merged.
+
+And yes, I did talk to Jeff Bezos and Beff Jezos back-to-back on the podcast, because the most entertaining outcome is the most likely. Happy holidays! ❤
+
+It's here on X in full, and is up on YouTube, Spotify, and everywhere else. Links in comment.
+
+Timestamps:
+0:00 - Introduction
+2:23 - Beff Jezos
+12:21 - Thermodynamics
+18:36 - Doxxing
+28:30 - Anonymous bots
+35:58 - Power
+38:29 - AI dangers
+42:01 - Building AGI
+50:14 - Merging with AI
+57:56 - p(doom)
+1:13:23 - Quantum machine learning
+1:26:41 - Quantum computer
+1:35:15 - Aliens
+1:40:04 - Quantum gravity
+1:45:25 - Kardashev scale
+1:47:17 - Effective accelerationism (e/acc)
+1:57:47 - Humor and memes
+2:00:53 - Jeff Bezos
+2:07:25 - Elon Musk
+2:13:55 - Extropic
+2:22:31 - Singularity and AGI
+2:26:29 - AI doomers
+2:27:54 - Effective altruism
+2:34:23 - Day in the life
+2:40:50 - Identity
+2:43:40 - Advice for young people
+2:45:42 - Mortality
+2:49:25 - Meaning of life
+
+### 315
+
+2023-12-31
+
+https://x.com/op7418/status/1741131954299212098?s=20
+
+歸藏
+@op7418
+来了 第一个内容《AI图像生成器的工作原理以及扩散是什么》。
+虽然是一年前的视频了但是非常浅显易懂，不涉及任何复杂和困难的算法概念。对AI图片生成原理感兴趣的可以看看。
+
+### 316
+
+2023-12-31
+
+https://x.com/Yangyixxxx/status/1740963704051843296?s=20
+
+Yangyi
+@Yangyixxxx
+仰望星空可以，但还是需要脚踏实地。
+不要对AIGC有过多的期望，期望越大，失望越大。
+能帮你省5%其实都很开心了。
+天下难事，必做于易。期望大家都能聚焦到更小更垂直的地方去思考AI如何发挥效用，这样会收获更多惊喜。
