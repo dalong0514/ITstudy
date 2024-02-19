@@ -1,4 +1,42 @@
-## Qwen-14B-Chat
+## Qwen-Chat
+
+### 下载
+
+[YeungNLP/firefly-mixtral-8x7b at main](https://huggingface.co/YeungNLP/firefly-mixtral-8x7b/tree/main)
+
+huggingface-cli download --resume-download --local-dir-use-symlinks False YeungNLP/firefly-mixtral-8x7b --local-dir firefly-mixtral-8x7b
+
+注意事项：每次下载之前都需要设置下环境变量：
+
+export HF_ENDPOINT=https://hf-mirror.com
+
+应该也可以设置为全部变量，现在就按这种模式，先别设全部环境变量。
+
+[Qwen/Qwen1.5-72B-Chat-GGUF at main](https://huggingface.co/Qwen/Qwen1.5-72B-Chat-GGUF/tree/main)
+
+下载单个文件：
+
+huggingface-cli download Qwen/Qwen1.5-72B-Chat-GGUF qwen1_5-72b-chat-q5_k_m.gguf.a --local-dir . --local-dir-use-symlinks False
+
+huggingface-cli download Qwen/Qwen1.5-72B-Chat-GGUF qwen1_5-72b-chat-q5_k_m.gguf.b --local-dir . --local-dir-use-symlinks False
+
+huggingface-cli download Qwen/Qwen1.5-72B-Chat-GGUF qwen1_5-72b-chat-q8_0.gguf.a --local-dir . --local-dir-use-symlinks False
+
+huggingface-cli download Qwen/Qwen1.5-72B-Chat-GGUF qwen1_5-72b-chat-q8_0.gguf.c --local-dir . --local-dir-use-symlinks False
+
+
+
+下载整个文件夹：
+
+huggingface-cli download --resume-download --local-dir-use-symlinks False Qwen/Qwen1.5-72B-Chat-GGUF --local-dir Qwen1.5-72B-Chat
+
+合并文件：
+
+cat qwen1_5-72b-chat-q5_k_m.gguf.* > qwen1_5-72b-chat-q5_k_m.gguf
+
+
+cat qwen1_5-72b-chat-q8_0.gguf.* > qwen1_5-72b-chat-q8_0.gguf
+
 
 ### api 调用
 

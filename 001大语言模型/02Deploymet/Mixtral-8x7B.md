@@ -41,7 +41,37 @@ Prove that sqrt(2) is rational number
 
 [TheBloke/dolphin-2.6-mixtral-8x7b-GGUF at main](https://huggingface.co/TheBloke/dolphin-2.6-mixtral-8x7b-GGUF/tree/main)
 
+中文训练版：
+
+[HIT-SCIR/Chinese-Mixtral-8x7B: 中文Mixtral-8x7B（Chinese-Mixtral-8x7B）](https://github.com/HIT-SCIR/Chinese-Mixtral-8x7B?tab=readme-ov-file)
+
+[HIT-SCIR/Chinese-Mixtral-8x7B at main](https://huggingface.co/HIT-SCIR/Chinese-Mixtral-8x7B/tree/main)
+
+
+
+
 ####  部署过程
+
+2024-01-24
+
+python convert.py /Users/Daglas/dalong.datasets/chinese-mixtral-8x7b \
+         --outfile /Users/Daglas/dalong.datasets/chinese-mixtral-8x7b.gguf \
+         --outtype f16
+ 
+\# quantize to Q5_k_m
+./quantize /Users/Daglas/dalong.datasets/chinese-mixtral-8x7b.gguf \
+           /Users/Daglas/dalong.datasets/chinese-mixtral-8x7b-q5_k_m.gguf \
+           q5_k_m	 
+
+
+python convert-hf-to-gguf.py /Users/Daglas/dalong.datasets/chinese-mixtral-8x7b \
+         --outfile /Users/Daglas/dalong.datasets/chinese-mixtral-8x7b.gguf \
+         --outtype f16
+
+
+
+
+
 
 1、先 buid 项目。
 
@@ -159,10 +189,4 @@ cat consolidated.00.pth-split0 consolidated.00.pth-split1 consolidated.00.pth-sp
 
 
 python convert.py --model_path /Users/Daglas/dalong.datasets/mixtral-8x7b-32kseqlen/
-
-
-
-
-
-
 

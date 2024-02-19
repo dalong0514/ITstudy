@@ -153,6 +153,12 @@ make
 
 python convert-hf-to-gguf.py /Users/Daglas/dalong.datasets/Qwen-72B-Chat --outfile /Users/Daglas/dalong.datasets/qwen72b-chat-f16.gguf --outtype f16
 
+python convert-hf-to-gguf.py /Users/Daglas/dalong.datasets/Qwen1.5-72B-Chat --outfile /Users/Daglas/dalong.datasets/qwen1.5-72b-chat-f16.gguf --outtype f16
+
+python convert.py /Users/Daglas/dalong.datasets/Qwen1.5-72B-Chat --outfile /Users/Daglas/dalong.datasets/qwen1.5-72b-chat-f16.gguf --outtype f16
+
+
+
 
 
 python convert-hf-to-gguf.py /Users/Daglas/dalong.datasets/chatglm3-6b-32k --outfile /Users/Daglas/dalong.datasets/chatglm3-6b-32k-f16.gguf --outtype f16

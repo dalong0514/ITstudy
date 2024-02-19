@@ -4,6 +4,79 @@
 
 [‌⁣⁢​​​​‌‬‬⁤‌⁣⁡‬​​‌231026 llama.cpp 极简 - 飞书云文档](https://xnboqt31tz.feishu.cn/wiki/NOxqwfLrMispPokB6HccY2xznOc)
 
+### mlx 上运行 mixtral
+
+[mlx-examples/mixtral at main · ml-explore/mlx-examples](https://github.com/ml-explore/mlx-examples/tree/main/mixtral)
+
+
+#### 跑服务
+
+python mixtral.py --model-path /Users/Daglas/dalong.datasets/mlx-mixtral-8x7b-instruct-v0.1
+
+python mixtral.py --model-path /Users/Daglas/dalong.datasets/mlx-mixtral-8x7b-instruct-v0.1 --max-tokens 4096 --prompt "Tell a 100-word story suitable for a 2-year-old child to listen to before bedtime."
+
+python mixtral.py --model-path /Users/Daglas/dalong.datasets/Mixtral-8x7B-Instruct-v0.1-mlx --max-tokens 4096 --prompt "Tell a 100-word story suitable for a 2-year-old child to listen to before bedtime."
+
+
+
+
+python mixtral.py --model-path /Users/Daglas/dalong.datasets/Mixtral-8x7B-Instruct-v0.1-hf-4bit-mlx --max_tokens 4096 --prompt "Tell a 200-word story suitable for a 2-year-old child to listen to before bedtime."
+
+
+
+
+python mixtral.py --model-path /Users/Daglas/dalong.datasets/Mixtral-8x7B-Instruct-v0.1-hf-4bit-mlx --prompt "Tell a 200-word story suitable for a 2-year-old child to listen to before bedtime."
+
+
+/Users/Daglas/dalong.datasets/Mixtral-8x7B-Instruct-v0.1-hf-4bit-mlx
+
+python mixtral.py --help
+
+
+
+#### 下载模型文件
+
+2023-12-14
+
+目前 modelscope 上没有权重模型文件的下载资源，只能在 huggingface 上下载，花费的是代理的流量。
+
+[someone13574/mixtral-8x7b-32kseqlen at main](https://huggingface.co/someone13574/mixtral-8x7b-32kseqlen/tree/main)
+
+已经帮忙转好的文件下载：
+
+[mlx-community/Mixtral-8x7B-Instruct-v0.1 at main](https://huggingface.co/mlx-community/Mixtral-8x7B-Instruct-v0.1/tree/main)
+
+####  部署过程
+
+1、安装依赖包。
+
+mlx
+sentencepiece
+torch
+numpy
+
+只有 sentencepiece 没装，补装一下。
+
+2、合并模型文件。
+
+cd mixtral-8x7b-32kseqlen/
+
+cat consolidated.00.pth-split0 consolidated.00.pth-split1 consolidated.00.pth-split2 consolidated.00.pth-split3 consolidated.00.pth-split4 consolidated.00.pth-split5 consolidated.00.pth-split6 consolidated.00.pth-split7 consolidated.00.pth-split8 consolidated.00.pth-split9 consolidated.00.pth-split10 > consolidated.00.pth
+
+
+python convert.py --model_path /Users/Daglas/dalong.datasets/mixtral-8x7b-32kseqlen/
+
+
+
+
+python convert.py --torch-path /Users/Daglas/dalong.datasets/chinese-mixtral-8x7b --mlx-path /Users/Daglas/dalong.datasets/mlx-chinese-mixtral-8x7b
+
+
+python convert.py --torch-path /Users/Daglas/dalong.datasets/Mixtral-8x7B-Instruct-v0.1 --mlx-path /Users/Daglas/dalong.datasets/Mixtral-8x7B-Instruct-v0.1-mlx
+
+
+python convert.py --torch-path /Users/Daglas/dalong.datasets/Mixtral-8x7B-Instruct-v0.1 --mlx-path /Users/Daglas/dalong.datasets/Mixtral-8x7B-Instruct-v0.1-mlx-4bit -q
+
 
 ### mlx 上运行 Phi-2
 
@@ -69,5 +142,3 @@ CONDA_SUBDIR=osx-arm64 conda create --name mlx python=3.10
 conda-forge 是一个由社区维护的 Conda channel，它提供了大量的 conda 包。这个 channel 是由社区驱动，通常包含了最新版本的包和那些在默认的 Anaconda 仓库中不可用的包。
 
 因此，-c conda-forge 的意思是在创建新的 conda 环境时，从 conda-forge 这个 channel 中获取 numpy 包以及任何其他的依赖包。这通常是为了确保你能够安装到最新版本的包，或者安装到 Anaconda 默认 channel 中没有的包。
-
-

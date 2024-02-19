@@ -6,6 +6,15 @@ cat /Users/Daglas/Desktop/output_dir/1best_recog/text_with_punc > /Users/Daglas/
 
 
 
+2024-02-01
+
+ffmpeg -i /Users/Daglas/Desktop/20240201活水AI专场第三场.mkv -ss 0 -t 11280 /Users/Daglas/Desktop/20240131活水AI专场第二场01.mkv
+
+
+ffmpeg -i /Users/Daglas/Desktop/CH0105总论Part5答疑.mkv -ss 0 -t 1800 /Users/Daglas/Desktop/CH0105总论Part5答疑05.mkv
+
+
+
 2024-01-16
 
 ffmpeg -i /Users/Daglas/Downloads/20231225与晨曦科技软件交流.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Downloads/20231225与晨曦科技软件交流.wav

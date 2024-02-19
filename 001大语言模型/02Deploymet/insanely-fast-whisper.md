@@ -2,6 +2,25 @@
 
 
 
+
+2024-02-19
+
+ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024006信息分析十三期/CH0001信息分析3.0课程介绍.mkv -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json
+
+
+
+
+
+2024-02-18
+
+ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024007人类基本知识工程/CH0104Part421世纪的人类基本知识工程.mkv -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json
+
+
+
 2024-01-17
 
 ffmpeg -i /Users/Daglas/Downloads/20240117与吴晓聊2024年工作计划.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Downloads/20240117与吴晓聊2024年工作计划.wav
