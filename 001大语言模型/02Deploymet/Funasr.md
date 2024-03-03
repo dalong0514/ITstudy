@@ -4,6 +4,30 @@
 
 cat /Users/Daglas/Desktop/output_dir/1best_recog/text_with_punc > /Users/Daglas/dalong.gpt/rewrite-text/origin_text_1.md
 
+2024-02-25
+
+ffmpeg -i /Users/Daglas/Desktop/20240224批量转业主块-换管道PL图层.mkv -ss 2 -t 29 /Users/Daglas/Desktop/input.mkv
+
+ffmpeg -i /Users/Daglas/Desktop/input.mkv -vf "fps=20,scale=1280:-1:flags=lanczos" -c:v gif /Users/Daglas/Desktop/output.gif
+
+ffmpeg -i /Users/Daglas/Desktop/input.mkv -vf "fps=10,scale=720:-1:flags=lanczos" -c:v gif /Users/Daglas/Desktop/output.gif
+
+ffmpeg -i /Users/Daglas/Desktop/input.mkv /Users/Daglas/Desktop/output.gif
+
+ffmpeg -i input.mp4 -vf "fps=10,scale=320:-1:flags=lanczos" -c:v gif output.gif
+
+
+
+ffmpeg -i /Users/Daglas/Desktop/20240227-105415.gif -ss 0 -t 18 /Users/Daglas/Desktop/output.gif
+
+
+ffmpeg -i /Users/Daglas/Desktop/20240302老阳闭门会-站在300年繁荣的起点.mkv -ss 136 -t 10253 /Users/Daglas/Desktop/output.mkv
+
+
+
+ffmpeg -i /Users/Daglas/Desktop/20240228数智设计工艺流程系列功能和新版非标条件模块.mp4 -ss 2270 -t 1080 /Users/Daglas/Desktop/output.mp4
+
+
 
 
 2024-02-01

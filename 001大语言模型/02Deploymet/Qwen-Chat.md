@@ -25,6 +25,11 @@ huggingface-cli download Qwen/Qwen1.5-72B-Chat-GGUF qwen1_5-72b-chat-q8_0.gguf.a
 huggingface-cli download Qwen/Qwen1.5-72B-Chat-GGUF qwen1_5-72b-chat-q8_0.gguf.c --local-dir . --local-dir-use-symlinks False
 
 
+huggingface-cli download Qwen/Qwen1.5-72B-Chat-GGUF qwen1_5-72b-chat-q4_k_m.gguf.b --local-dir . --local-dir-use-symlinks False
+
+huggingface-cli download Qwen/Qwen1.5-72B-Chat-GGUF qwen1_5-72b-chat-q4_0.gguf.b --local-dir . --local-dir-use-symlinks False
+
+
 
 下载整个文件夹：
 
