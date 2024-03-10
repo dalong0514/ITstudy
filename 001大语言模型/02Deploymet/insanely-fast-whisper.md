@@ -1,5 +1,34 @@
 ### 01. 使用
 
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4
+
+
+
+
+
+
+2024-03-08
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4
+
+
+ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024008AI生产力跃迁/20240302老阳闭门会-站在300年繁荣的起点.mkv -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
+
+
+ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024007人类基本知识工程/20240225人类基本知识工程-CH01元知识.mkv -ss 2997 -t 2226 /Users/Daglas/Desktop/output.wav
+
+
+ffmpeg -i /Users/Daglas/Downloads/20240304原始-控制室方案模块培训.mp4 -ss 148 -t 1249 /Users/Daglas/Desktop/output.mp4
+
+
+
+2024-03-05
+
+ffmpeg -i /Users/Daglas/Downloads/20240304部门质询会议.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Downloads/20240304部门质询会议.wav
+
+ffmpeg -i /Users/Daglas/Downloads/20240304部门质询会议.wav -ss 1575 -t 985 /Users/Daglas/Desktop/output.wav
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json
 
 
 
@@ -223,6 +252,25 @@ git lfs install
 git clone https://www.modelscope.cn/AI-ModelScope/whisper-large-v3.git
 
 ### 03. 问题汇总
+
+#### Frequently Asked Questions
+
+[chenxwh/insanely-fast-whisper: Incredibly fast Whisper-large-v3](https://github.com/chenxwh/insanely-fast-whisper)
+
+How to correctly install flash-attn to make it work with insanely-fast-whisper?
+
+Make sure to install it via pipx runpip insanely-fast-whisper install flash-attn --no-build-isolation. Massive kudos to @li-yifei for helping with this.
+
+How to solve an AssertionError: Torch not compiled with CUDA enabled error on Windows?
+
+The root cause of this problem is still unknown, however, you can resolve this by manually installing torch in the virtualenv like python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121. Thanks to @pto2k for all tdebugging this.
+
+How to avoid Out-Of-Memory (OOM) exceptions on Mac?
+
+The mps backend isn't as optimised as CUDA, hence is way more memory hungry. Typically you can run with --batch-size 4 without any issues (should use roughly 12GB GPU VRAM). Don't forget to set --device-id mps.
+
+
+
 
 2023-12-21
 
