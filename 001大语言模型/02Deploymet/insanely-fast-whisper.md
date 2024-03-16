@@ -5,7 +5,7 @@ insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v
 
 
 
-ffmpeg -i /Users/Daglas/Downloads/20240311原始-外管数智设计培训.mp4 -ss 4325 -t 5721 /Users/Daglas/Desktop/output.mp4
+ffmpeg -i /Users/Daglas/Downloads/20240313原始-暖通数智设计培训.mp4 -ss 1359 -t 906 /Users/Daglas/Desktop/output.mp4
 
 
 2024-03-08
