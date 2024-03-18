@@ -8,6 +8,13 @@ insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v
 ffmpeg -i /Users/Daglas/Downloads/20240313原始-暖通数智设计培训.mp4 -ss 1359 -t 906 /Users/Daglas/Desktop/output.mp4
 
 
+2024-03-16
+
+ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024001阳志平相关/20240317人生发展的成与败-成为真正的成功者QA.mkv -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
+
+
+
+
 2024-03-08
 
 insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4
