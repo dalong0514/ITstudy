@@ -12,7 +12,7 @@ ffmpeg -i /Users/Daglas/Downloads/20240313原始-暖通数智设计培训.mp4 -s
 
 ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024001阳志平相关/20240317人生发展的成与败-成为真正的成功者QA.mkv -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
 
-
+ffmpeg -i /Users/Daglas/Downloads/20240320与吴晓汇报评估模型和接口系统.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
 
 
 2024-03-08
@@ -26,7 +26,7 @@ ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024008AI生产力跃迁/20
 ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024007人类基本知识工程/20240225人类基本知识工程-CH01元知识.mkv -ss 2997 -t 2226 /Users/Daglas/Desktop/output.wav
 
 
-ffmpeg -i /Users/Daglas/Downloads/20240304原始-控制室方案模块培训.mp4 -ss 148 -t 1249 /Users/Daglas/Desktop/output.mp4
+ffmpeg -i /Users/Daglas/Downloads/20240321结构数智设计培训.mp4 -ss 872 -t 4078 /Users/Daglas/Desktop/output.mp4
 
 
 
