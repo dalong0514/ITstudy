@@ -3,6 +3,10 @@
 insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4
 
 
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4 --language zh
+
+
+
 
 
 ffmpeg -i /Users/Daglas/Downloads/20240313原始-暖通数智设计培训.mp4 -ss 1359 -t 906 /Users/Daglas/Desktop/output.mp4
@@ -12,7 +16,7 @@ ffmpeg -i /Users/Daglas/Downloads/20240313原始-暖通数智设计培训.mp4 -s
 
 ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024001阳志平相关/20240317人生发展的成与败-成为真正的成功者QA.mkv -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
 
-ffmpeg -i /Users/Daglas/Downloads/20240320与吴晓汇报评估模型和接口系统.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
+ffmpeg -i /Users/Daglas/Downloads/28240325吴晓交待工作内容.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
 
 
 2024-03-08
@@ -248,6 +252,28 @@ insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v
 
 ### 02. 信息资源
 
+  -h, --help            show this help message and exit
+  --file-name FILE_NAME
+                        Path or URL to the audio file to be transcribed.
+  --device-id DEVICE_ID
+                        Device ID for your GPU. Just pass the device number when using CUDA, or "mps" for Macs with Apple Silicon. (default: "0")
+  --transcript-path TRANSCRIPT_PATH
+                        Path to save the transcription output. (default: output.json)
+  --model-name MODEL_NAME
+                        Name of the pretrained model/ checkpoint to perform ASR. (default: openai/whisper-large-v3)
+  --task {transcribe,translate}
+                        Task to perform: transcribe or translate to another language. (default: transcribe)
+  --language LANGUAGE   
+                        Language of the input audio. (default: "None" (Whisper auto-detects the language))
+  --batch-size BATCH_SIZE
+                        Number of parallel batches you want to compute. Reduce if you face OOMs. (default: 24)
+  --flash FLASH         
+                        Use Flash Attention 2. Read the FAQs to see how to install FA2 correctly. (default: False)
+  --timestamp {chunk,word}
+                        Whisper supports both chunked as well as word level timestamps. (default: chunk)
+  --hf_token
+                        Provide a hf.co/settings/token for Pyannote.audio to diarise the audio clips
+
 [Insanely Fast Whisper: 音频极快转录！](https://mp.weixin.qq.com/s/jGHpSyS0ceXCQa9kv_uc8w)
 
 [chenxwh/insanely-fast-whisper: Incredibly fast Whisper-large-v3](https://github.com/chenxwh/insanely-fast-whisper)
@@ -279,6 +305,54 @@ The mps backend isn't as optimised as CUDA, hence is way more memory hungry. Typ
 
 
 
+2024-03-26
+
+报错：
+
+zsh: /Users/Daglas/.local/bin/insanely-fast-whisper: bad interpreter: /Users/Daglas/.local/pipx/venvs/insanely-fast-whisper/bin/python: no such file or directory
+
+感觉就是因为前段时间把 Python 的默认环境变量从 Python3.7 改成 Python3.10 导致的，但改回来好像也没用。
+
+因为现在每次跑修改文字的脚本从原来的 python md_modify.py 
+
+改成了 python3.7 md_modify.py
+
+然后就想着，把 .zshrc 里的环境 alias 改一下，然后就可以直接用 python md_modify.py 跑了。
+
+\# alias python='/opt/homebrew/bin/python3.10'
+alias python='/Users/Daglas/miniconda3/bin/python3.7'
+
+重新安装说已经存在了也不让安装。
+
+问 GPT 后，发现可以先删了安装文件，再重新安装。
+
+ls /Users/Daglas/.local/pipx/venvs/insanely-fast-whisper/bin/python
+
+rm -rf /Users/Daglas/.local/pipx/venvs/insanely-fast-whisper
+
+删除再安装：
+
+pipx install insanely-fast-whisper
+
+发现这次安装的 insanely-fast-whisper 0.0.13 就可以直接跑模型转录，不像之前需要退回到 0.0.10，搞不清楚原因。
+
+言之过早，转录失败了。
+
+接着退回安装 insanely-fast-whisper 0.0.10。
+
+还是不行。报错：
+
+ValueError: Multiple languages detected when trying to predict the most likely target language for transcription. It is currently not supported to transcribe to different languages in a single batch. Please make sure to either force a single language by passing `language='...'` or make sure all input audio is of the same language.
+
+意思是音频里有多个语言不支持，接着加了选项 --language zh
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4 --language zh
+
+[ISO 639-2 Language Code List - Codes for the representation of names of languages (Library of Congress)](https://www.loc.gov/standards/iso639-2/php/code_list.php)
+
+--language en
+
+---
 
 2023-12-21
 
