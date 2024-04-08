@@ -8,6 +8,10 @@ insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v
 
 
 
+
+
+ffmpeg -i /Users/Daglas/Downloads/W3Ch05抽样阅读20231229.mkv -ss 0 -t 6310 /Users/Daglas/Desktop/output.mkv
+
 ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024007人类基本知识工程/20240331人类基本知识工程-CH02知识的形态.mkv -ss 120 -t 8790 /Users/Daglas/Desktop/output.wav
 
 ffmpeg -i /Users/Daglas/Downloads/20240402项目会议与行文培训.m4a -ss 110 -t 980 /Users/Daglas/Desktop/output.wav

@@ -7,9 +7,12 @@ brew install cmake protobuf rust python@3.10 git wget
 
 2、启动。
 
-./webui.sh
 
 ./webui.sh --no-half
+
+./webui.sh
+
+
 
 
 --no-half --skip-torch-cuda-test --upcast-sampling --no-half-vae --use-cpu interrogate
@@ -29,7 +32,9 @@ brew install cmake protobuf rust python@3.10 git wget
 
 [How to install and run Stable Diffusion on Apple Silicon M1/M2 Macs - Stable Diffusion Art](https://stable-diffusion-art.com/install-mac/)
 
----
+SDXL 1.0(base and refiner) > SDXL 0.9(base and refiner) > SDXL 1.0(base) > SDXL 0.9(base) > SD1.5 > SD2.1
+
+#### SDXL 1.0(base and refiner)
 
 [Models - Hugging Face](https://huggingface.co/models?pipeline_tag=text-to-image&sort=downloads)
 
@@ -37,9 +42,18 @@ brew install cmake protobuf rust python@3.10 git wget
 
 [stabilityai/stable-diffusion-xl-refiner-1.0 · Hugging Face](https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0)
 
+#### SD1.5
+
 [runwayml/stable-diffusion-v1-5 at main](https://huggingface.co/runwayml/stable-diffusion-v1-5/tree/main)
 
-SDXL 1.0(base and refiner) > SDXL 0.9(base and refiner) > SDXL 1.0(base) > SDXL 0.9(base) > SD1.5 > SD2.1
+#### Juggernaut XL
+
+[Juggernaut XL - Version 6 + RunDiffusion | Stable Diffusion Checkpoint | Civitai](https://civitai.com/models/133005?modelVersionId=198530)
+
+#### anima_pencil-XL
+
+[anima\_pencil-XL - v1.0.0 | Stable Diffusion Checkpoint | Civitai](https://civitai.com/models/261336?modelVersionId=295158)
+
 
 ### 问题记录
 
@@ -221,7 +235,13 @@ Extensions => Install from URL
 
 2、重启 UI。
 
-Extensions => Apply and restart UI
+Extensions => installed => Apply and restart UI
+
+卸载插件。目前的办法是手动删除插件相关文件。
+
+比如删除插件 sd-forge-layerdiffuse：
+
+/Users/Daglas/dalong.llm/stable-diffusion-webui/extensions/sd-forge-layerdiffuse
 
 #### StyleSelectorXL
 
@@ -234,6 +254,16 @@ Extensions => Apply and restart UI
 图片中提取 Prompt 的插件
 
 [pharmapsychotic/clip-interrogator-ext: Stable Diffusion WebUI extension for CLIP Interrogator](https://github.com/pharmapsychotic/clip-interrogator-ext)
+
+#### 剔除背景的LayerDiffusion
+
+[(6) X 上的 fofr：“Generate transparent images directly with LayerDiffusion. No more background removal tools – it builds transparency into the diffusion process. It's only on A1111 at the moment: https://t.co/qAWpSVUmvP I need this in ComfyUI! This is the proper way. https://t.co/rctbiW743L” / X](https://twitter.com/fofrAI/status/1764958890246934554?s=20)
+
+[layerdiffusion/sd-forge-layerdiffuse: [WIP] Layer Diffusion for WebUI (via Forge)](https://github.com/layerdiffusion/sd-forge-layerdiffuse)
+
+
+
+
 
 
 ### 图片中提取 Prompt
