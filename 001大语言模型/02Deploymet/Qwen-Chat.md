@@ -43,6 +43,9 @@ cat qwen1_5-72b-chat-q5_k_m.gguf.* > qwen1_5-72b-chat-q5_k_m.gguf
 cat qwen1_5-72b-chat-q8_0.gguf.* > qwen1_5-72b-chat-q8_0.gguf
 
 
+cat qwen1_5-72b-chat-q5_k_m.gguf.* > qwen1_5-72b-chat-q5_k_m.gguf
+
+
 ### api 调用
 
 curl -X POST "http://127.0.0.1:8000/v1/chat/completions" \
