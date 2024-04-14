@@ -37,6 +37,8 @@ huggingface-cli download --resume-download --local-dir-use-symlinks False Qwen/Q
 
 合并文件：
 
+cat qwen1_5-72b-chat-q4_0.gguf.* > qwen1_5-72b-chat-q4_0.gguf
+
 cat qwen1_5-72b-chat-q5_k_m.gguf.* > qwen1_5-72b-chat-q5_k_m.gguf
 
 
