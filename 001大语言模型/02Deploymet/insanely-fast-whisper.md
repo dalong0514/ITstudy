@@ -2,24 +2,32 @@
 
 insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4
 
+insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4 --language en
 
 insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4 --language zh
 
+---
 
 
+
+ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024005大语言模型相关/20240419Zuckerberg最新访谈Llama3.mp4 -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
+
+
+ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024001阳志平相关/20240420工作的心智新书发布会.mkv -ss 7653 -t 1373 /Users/Daglas/Desktop/output.mkv
+
+ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024001阳志平相关/20240420工作的心智新书发布会.mkv -ss 7653 -t 1373 /Users/Daglas/Desktop/output.wav
 
 
 
 ffmpeg -i /Users/Daglas/Downloads/W3Ch05抽样阅读20231229.mkv -ss 0 -t 6310 /Users/Daglas/Desktop/output.mkv
 
-ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024007人类基本知识工程/20240331人类基本知识工程-CH02知识的形态.mkv -ss 120 -t 8790 /Users/Daglas/Desktop/output.wav
+ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024001阳志平相关/20240420工作的心智新书发布会.mkv -ss 120 -t 8790 /Users/Daglas/Desktop/output.wav
 
-ffmpeg -i /Users/Daglas/Downloads/20240402项目会议与行文培训.m4a -ss 110 -t 980 /Users/Daglas/Desktop/output.wav
+ffmpeg -i /Users/Daglas/Downloads/20240416自控联锁图位置图模块评审会.m4a -ss 2600 -t 2112 /Users/Daglas/Desktop/output.wav
 
 
 2024-03-16
 
-ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024001阳志平相关/20240317人生发展的成与败-成为真正的成功者QA.mkv -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
 
 ffmpeg -i /Users/Daglas/Downloads/28240325吴晓交待工作内容.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
 
