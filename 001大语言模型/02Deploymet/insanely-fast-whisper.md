@@ -8,6 +8,9 @@ insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v
 
 ---
 
+ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024006信息分析十三期/CH0103如何提高信息分析能力02.mkv -ss 0 -t 800 /Users/Daglas/Desktop/output.wav
+
+
 
 
 ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024005大语言模型相关/20240419Zuckerberg最新访谈Llama3.mp4 -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
