@@ -13,7 +13,16 @@ git clone https://www.modelscope.cn/AI-ModelScope/whisper-large-v3.git
 
 ### 02. 操作记录
 
+在项目主目录下先生成相关组件：
+
+make
+
+然后再跑模型：
+
+
 ./main -oj -l zh -m /Users/Daglas/dalong.datasets/ggml-large-v3.bin -f /Users/Daglas/Desktop/20200526电气培训.wav
+
+./main -oj -l auto -m /Users/Daglas/dalong.datasets/ggml-large-v3.bin -f /Users/Daglas/Desktop/20200526电气培训.wav
 
 ./main -oj -l auto -m /Users/Daglas/dalong.datasets/ggml-large-v3-q5_0.bin -f /Users/Daglas/Desktop/20200526电气培训.wav
 
@@ -74,4 +83,17 @@ rmdir models/whisper-medium
 目前还是没跑通
 
 ### 03. 问题汇总
+
+2024-05-12
+
+1、不能将音频转为简化版的。
+
+ffmpeg -i /Users/Daglas/Downloads/20240512ChatGPT提示词十级技巧从新手到专家.mp4 -ac 1 -sample_fmt s16 /Users/Daglas/Desktop/output.wav
+
+上面是简化版的，需要转高音质版的：
+
+ffmpeg -i /Users/Daglas/Downloads/20240512ChatGPT提示词十级技巧从新手到专家.mp4 -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
+
+
+
 

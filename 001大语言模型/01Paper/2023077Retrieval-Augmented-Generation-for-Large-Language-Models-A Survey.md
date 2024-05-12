@@ -1,26 +1,20 @@
-## 2023077Retrieval-Augmented-Generation-for-Large-Language-Models-A Survey
+## 2023077Retrieval-Augmented-Generation-for-Large-Language-Models-A-Survey
 
 [[2312.10997] Retrieval-Augmented Generation for Large Language Models: A Survey](https://arxiv.org/abs/2312.10997)
 
 [面向大语言模型的检索增强生成技术：调查 [译] | 宝玉的分享](https://baoyu.io/translations/ai-paper/2312.10997-retrieval-augmented-generation-for-large-language-models-a-survey)
 
-宝玉的分享
-
-See all posts
-
 Translated on December 22, 2023
 
 Published on December 18, 2023
 
-20231223面向大语言模型的检索增强生成技术：调查 [译]
+主要作者：Yunfan Gao、Yun Xiong、Xinyu Gao、Kangxiang Jia、Jinliu Pan、Yuxi Bi、Yi Dai，特别鸣谢 Jiawei Sun 和 Haofen Wang 所属机构：1. 同济大学上海智能自主系统研究院；2. 复旦大学计算机科学学院，数据科学上海重点实验室；3. 同济大学设计与创新学院联系邮箱：gaoyunfan1602@gmail.com
+
+在这篇调查中，我们关注的是面向大语言模型（Large Language Model）的检索增强生成技术。这项技术通过结合检索机制，增强了大语言模型在处理复杂查询和生成更准确信息方面的能力。我们从同济大学和复旦大学的相关研究团队出发，综合分析了该领域的最新进展和未来趋势。
 
 ### Abstract
 
 Large language models (LLMs) demonstrate powerful capabilities, but they still face challenges in practical applications, such as hallucinations, slow knowledge updates, and lack of transparency in answers. Retrieval-Augmented Generation (RAG) refers to the retrieval of relevant information from external knowledge bases before answering questions with LLMs. RAG has been demonstrated to significantly enhance answer accuracy, reduce model hallucination, particularly for knowledgeintensive tasks. By citing sources, users can verify the accuracy of answers and increase trust in model outputs. It also facilitates knowledge updates and the introduction of domain-specific knowledge. RAG effectively combines the parameterized knowledge of LLMs with non-parameterized external knowledge bases, making it one of the most important methods for implementing large language models. This paper outlines the development paradigms of RAG in the era of LLMs, summarizing three paradigms: Naive RAG, Advanced RAG, and Modular RAG. It then provides a summary and organization of the three main components of RAG: retriever, generator, and augmentation methods, along with key technologies in each component. Furthermore, it discusses how to evaluate the effectiveness of RAG models, introducing two evaluation methods for RAG, emphasizing key metrics and abilities for evaluation, and presenting the latest automatic evaluation framework. Finally, potential future research directions are introduced from three aspects: vertical optimization, horizontal scalability, and the technical stack and ecosystem of RAG.1
-
-主要作者：Yunfan Gao、Yun Xiong、Xinyu Gao、Kangxiang Jia、Jinliu Pan、Yuxi Bi、Yi Dai，特别鸣谢 Jiawei Sun 和 Haofen Wang 所属机构：1. 同济大学上海智能自主系统研究院；2. 复旦大学计算机科学学院，数据科学上海重点实验室；3. 同济大学设计与创新学院联系邮箱：gaoyunfan1602@gmail.com
-
-在这篇调查中，我们关注的是面向大语言模型（Large Language Model）的检索增强生成技术。这项技术通过结合检索机制，增强了大语言模型在处理复杂查询和生成更准确信息方面的能力。我们从同济大学和复旦大学的相关研究团队出发，综合分析了该领域的最新进展和未来趋势。
 
 摘要
 
@@ -96,7 +90,7 @@ GPT 系列模型 [Brown et al., 2020, OpenAI, 2023]、LLama 系列模型 [Touvro
 
 本论文的接下来章节安排如下：第 2 章介绍 RAG 的背景知识。第 3 章探讨 RAG 的主流模式。第 4 章分析 RAG 中的检索器功能。第 5 章着重讲述 RAG 中的生成器如何工作。第 6 章强调介绍 RAG 中的数据增强方法。第 7 章讲解 RAG 的评估体系。第 8 章展望了 RAG 未来的发展方向。最后，在第 9 章中，我们总结了本次调研的主要内容。
 
-### 02 Background
+### 02. Background
 
 In this chapter, we will introduce the definition of RAG, as well as the comparison between RAG and other model optimization techniques, such as fine-tuning.
 
@@ -419,7 +413,6 @@ RAG 的组织方法具有高度灵活性，能够根据特定问题的上下文�
 增加或替换模块在增加或替换模块的策略中，我们保留了原有的检索 - 阅读结构，同时加入新模块以增强特定功能。RRR [Ma et al., 2023a] 提出了一种重写 - 检索 - 阅读的流程，其中利用大语言模型（LLM）的性能作为强化学习中重写模块的奖励机制。这样，重写模块可以调整检索查询，从而提高阅读器在后续任务中的表现。同样地，我们也可以在其他方法中选择性地替换模块，例如在生成 - 阅读 [Yu et al., 2022] 中，大语言模型的生成模块取代了检索模块。背诵 - 阅读 [Sun et al., 2022] 则是将传统的外部检索转变为从模型权重中检索，首先由大语言模型记忆与任务相关的信息，然后生成处理知识密集型自然语言处理任务所需的输出。
 
 调整模块间的工作流程在调整模块间流程的领域，重点在于加强语言模型与检索模型之间的互动。DSP [Khattab et al., 2022] 引入了展示 - 搜索 - 预测的框架，将上下文学习系统视为一个明确的程序，而不是简单的终端任务提示，以此来应对知识密集型的任务。ITER-RETGEN [Shao et al., 2023] 则是使用生成内容来指导检索，通过迭代执行「检索增强生成」和「生成增强检索」，形成一种检索 - 阅读 - 检索 - 阅读的工作流。Self-RAG [Asai et al., 2023b] 则采用决策 - 检索 - 反思 - 阅读的流程，引入了一个用于主动判断的模块。这种适应性和多样性的方法使得在 Modular RAG 框架中可以动态地组织各种模块。
-
 
 ### 04. Retriever
 
@@ -811,7 +804,7 @@ In the subsequent chapters, we further analyze three key parts of RAG in detail.
 
 Chapter 7 explains how to evaluate current RAG methods, including evaluation, key indicators, and current evaluation frameworks Finally, we provided an outlook on the potential future research directions for RAG. As a method that combines retrieval and generation, RAG has numerous potential development directions in future research. By continuously improving the technology and expanding its applications, the performance and practicality of RAG can be further enhanced.
 
-9 结论
+09 结论
 
 本篇论文深入探讨了检索增强型生成（Retrieval-Augmented Generation, RAG）技术。这种技术利用外部知识库来丰富大语言模型（LLMs）的上下文并生成答案。RAG 的特点在于，它结合了大语言模型中的参数化知识和外部的非参数化知识，有效减少生成信息的误差和虚假内容，利用检索技术获取及时信息，从而提升了答案的准确度。此外，RAG 通过引用资料来源，提高了模型输出的透明度和用户对结果的信任度。RAG 还可以根据特定的领域需要，通过整合相关的文本数据来进行定制。
 
@@ -1884,6 +1877,3 @@ ARES 的目标是自动化评价 RAG 系统在上下文相关性、答案忠实�
 训练大语言模型 (LLM) 裁判：然后，ARES 对轻量级语言模型进行微调，利用合成数据集训练它们以评估上下文相关性、答案忠实度和答案相关性。
 
 基于置信区间对 RAG 系统排名：最后，ARES 使用这些裁判模型为 RAG 系统打分，并结合手动标注的验证集，采用 PPI 方法生成置信区间，从而可靠地评估 RAG 系统的性能。
-
-
-

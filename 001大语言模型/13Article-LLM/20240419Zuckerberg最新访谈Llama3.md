@@ -22,6 +22,12 @@ Mark Zuckerberg: Hey, thanks for having me. Big fan of your podcast.
 
 Dwarkesh: Oh, thank you. That's very nice of you to say. Let's start by talking about the releases that will go out when this interview goes out. Tell me about the models. Tell me about Meta AI. What's new? What's exciting about them?
 
+Dwarkesh Patel: 马克，欢迎来到我们的播客。
+
+Mark Zuckerberg: 嘿，感谢邀请。我非常喜欢你的播客。
+
+Dwarkesh: 哦，谢谢你的支持。让我们从讨论这次采访发布时将推出的内容开始。能给我们介绍一下 Meta AI 和它的模型吗？有什么新进展？有哪些亮点？
+
 #### Meta AI & Llama Models
 
 Mark: I think the main thing that most people in the world are going to see is the new version of Meta AI. The most important thing about what we're doing is the upgrade to the model. We're rolling out Llama 3, doing it both as open source for the dev community and it is now going to be powering Meta AI.
@@ -29,6 +35,14 @@ Mark: I think the main thing that most people in the world are going to see is t
 With Llama 3, we now think that Meta AI is the most intelligent AI assistant that people can use that's freely available. We're also integrating Google and Bing for real-time knowledge. We're going to make it a lot more prominent across our apps - at the top of WhatsApp, Instagram, Facebook, Messenger. You'll just be able to use the search box right there to ask any question.
 
 There's a bunch of new creation features that we added that I think are pretty cool, that people will enjoy. Animations is a good one - you can basically just take any image and animate it. But I think one that people are going to find pretty wild is it now generates high quality images so quickly. It actually generates it as you're typing and updates it in real time. So you're typing your query and it's honing in... showing you a picture of a cow in a field with mountains, eating macadamia nuts, drinking beer. It's updating the image in real time as you type. It's pretty wild. I think people are going to enjoy that.
+
+Meta AI & Llama 模型
+
+Mark: 我想大家最感兴趣的应该是 Meta AI 的新版本。我们最重要的进展是对模型的升级，推出了 Llama 3。这个新模型不仅对开发者社区开放源代码，还将驱动 Meta AI。
+
+有了 Llama 3，我们认为 Meta AI 现在是人们可以免费使用的最智能的 AI 助手。我们还整合了 Google 和 Bing，以提供实时信息。你会在我们的应用中看到它更加显眼 —— 在 WhatsApp、Instagram、Facebook、Messenger 的顶部。你可以直接在那里使用搜索框提问。
+
+我们还增加了一些新的创作功能，我觉得很酷，大家会喜欢的。比如动画功能 —— 你可以让任何图像动起来。但我觉得最疯狂的是，它现在能非常快速地生成高质量的图像。它在你输入时实时生成并更新图像。比如，你输入「一头牛在田野里，有山，吃着夏威夷果，喝着啤酒」，它就会实时生成并展示这样的图片。这真的很酷，我相信大家会喜欢的。
 
 So that's what most people are going to see in the world. We're rolling that out, starting in a handful of countries, and we'll do more over the coming weeks and months. It's a big step forward for Meta AI.
 
@@ -43,6 +57,20 @@ The 70 billion model is great too. We're releasing that today - it's around 82 M
 And the 8 billion model is nearly as powerful as the biggest version of Llama 2 that we released. So the smallest Llama 3 is basically as powerful as the biggest Llama 2.
 
 Dwarkesh: Wow, that's super impressive.
+
+在世界上，大多数人将会体验到的是我们正在逐步推广的新技术，从少数几个国家开始，并计划在未来几周和几个月内覆盖更多地区。这对 Meta AI 来说是一个重要的里程碑。
+
+但如果你对技术细节感兴趣，Llama 3 无疑是最引人注目的。首个版本包括三个模型 —— 一个 80 亿参数的模型，一个今天发布的 700 亿参数的模型，以及一个仍在训练中的 4050 亿参数的密集模型。
+
+我们对 80 亿和 700 亿参数的模型的表现感到非常激动。它们在其规模上处于领先地位。我们将发布一篇包含所有基准测试的博客文章，以便人们可以自行验证。而且它是开源的，所以人们有机会亲自探索。
+
+我们有一系列新的发布计划，将带来多模态、更多多语言支持，以及更大的上下文窗口。然后希望在今年晚些时候，我们将能够推出 4050 亿参数的模型。根据目前的训练进度，它的性能大约在 85 MMLU，我们预计它将在基准测试中领先。
+
+700 亿参数的模型同样出色。我们今天发布了它 —— 它的性能大约在 82 MMLU，并在数学和推理方面取得了领先的成绩。因此，将这些先进的模型带给公众将会非常令人振奋。
+
+而 80 亿参数的模型几乎和我们在 Llama 2 中发布的最大版本一样强大。所以，最小的 Llama 3 实际上和最大的 Llama 2 一样强大。
+
+Dwarkesh: 哇，这真是太令人印象深刻了。
 
 #### Investing in AI Infrastructure
 
@@ -64,6 +92,26 @@ I'm not even sure I had that specific insight at the time. I was so deep in just
 
 And it came from being behind. Most of the times where we make some decision that ends up seeming good is because we messed something up before and just didn't want to repeat the mistake.
 
+投资 AI 基础设施
+
+Dwarkesh: 我想回到 2022 年，当时你开始收购这些 H100。你的股价正在遭受打击，人们质疑资本支出和元宇宙投资。据推测，你正在花费这些资本支出来获取这些 H100。那时候，你是如何知道要获取 H100 以及你需要 GPU 的？
+
+Mark：我认为这是因为我们在开发 Reels 时所面临的挑战。我们总是希望有足够的资源来应对未来可能出现的新需求，即使我们还无法完全预见它们。
+
+在 Reels 的开发过程中，我们需要更多的 GPU 来训练模型。这对我们的服务来说是一次重大的变革。我们不再仅仅对用户关注的内容进行排名，而是开始推荐那些与用户没有直接关联的内容 —— 即来自未关注的人或页面的内容。
+
+因此，我们能够展示给用户的内容候选范围从几千个扩展到了数亿个。这需要完全不同的基础设施支持。我们在基础设施资源上受限，迫切需要赶上 TikTok 的步伐。
+
+所以，我意识到我们必须确保不再陷入这种资源短缺的境地。我们订购了足够的 GPU 来满足 Reels 和内容排序的需求。同时，我们还加倍订购，因为我们的原则是，总会有一些我们目前无法预见的新需求出现。
+
+Dwarkesh: 你当时知道这会涉及到 AI 吗？
+
+Mark: 嗯，我们当时认为这将与训练大型模型有关。那时，我猜测它可能更多与内容推荐相关。但这几乎就像是公司的经验总结 —— 总会有新的挑战出现。
+
+我甚至不确定我当时是否有那个特定的洞察力。我太专注于让 Reels 和其他内容的推荐系统正常运作。这对于 Instagram 和 Facebook 来说是一个巨大的进步，能够向用户展示他们甚至没有关注的有趣内容。但事后看来，那是一个非常好的决策。
+
+这个决策的产生，很大程度上是因为我们曾经落后。大多数时候，我们做出的一些看起来不错的决策，都是因为我们之前犯过错误，不想再重复同样的错误。
+
 #### Why Mark Didn't Sell Facebook Early On
 
 Dwarkesh: This is a total detour, but I actually want to ask about this while we're on this. You didn't sell for $1 billion, but presumably there's some amount you would have sold for, right? Did you write down in your head what you thought the actual valuation of Facebook was at the time, and that they weren't actually getting the valuation right?
@@ -73,6 +121,18 @@ Mark: Yeah, I don't know. I mean, look, I think some of these things are just pe
 I didn't really have the financial sophistication to engage with that kind of debate. I just sort of deep down believed in what we were doing. And I did some analysis - okay, what would I go do if I wasn't doing this? Well, I really like building things. I like helping people communicate. I like understanding what's going on with people and the dynamics between people. So I think if I sold this company, I'd just go build another company like this. And I kind of like the one I have!
 
 So I don't know. I think a lot of the biggest bets that people make are often just based on conviction and values. It's actually usually very hard to do the analyses, trying to connect the dots forward.
+
+Dwarkesh: 这虽然是一个偏离主题的问题，但既然我们谈到了这个，我想问一下。你没有以 10 亿美元的价格出售 Facebook，但显然有一个你愿意出售的价格，对吧？你当时是否在心里估算过 Facebook 的实际价值，并认为他们实际上并没有正确估值？
+
+Mark: 是的，我不知道。我的意思是，我认为其中一些事情完全是个人问题。我不知道当时我是否有足够的分析能力来进行那样的估值分析。但我周围的人都认为 10 亿美元是一个遥远的梦想 —— 我们需要达到这样的收入，我们需要变得这么大，这显然是很多年以后的事情。这与我们当时的情况相去甚远。
+
+我并没有足够的财务知识来参与那种辩论。我只是从内心深处坚信我们在做的事情。我也做了一些分析 —— 好吧，如果我不做这个，我会去做什么？嗯，我真的很喜欢创造事物。我喜欢帮助人们沟通。我喜欢了解人们之间发生的事情和动态。所以我想如果我卖掉这家公司，我会去创立另一家类似的公司。而且我有点喜欢我现在拥有的这个！
+
+所以，我不知道。我认为人们做出的最大赌注往往只是基于信念和价值观。实际上，试图将这些点连接起来并向前看是非常困难的。
+
+---
+
+
 
 #### AI Becoming Central to Meta
 

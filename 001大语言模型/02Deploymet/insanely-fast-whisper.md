@@ -8,17 +8,23 @@ insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v
 
 ---
 
+ffmpeg -i /Users/Daglas/Downloads/20240512ChatGPT提示词十级技巧从新手到专家.mp4 -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
 
 
-ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024003AI时代的智识四课/20240228AI时代CH06作为求知者如何拥抱AI时代.mkv -ss 132 -t 4512 /Users/Daglas/Desktop/output.wav
+
+ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024007人类基本知识工程/CH0203元知识模型Part3二十一世纪知识论.mkv -ss 132 -t 4512 /Users/Daglas/Desktop/output.wav
 
 
 
 ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024006信息分析十三期/CH0302信息源.mkv -ss 0 -t 2820 /Users/Daglas/Desktop/output.wav
 
-ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2022005行为分析四期/0204动机偏好02.mkv -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
+ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2022005行为分析四期/0401心理情境02.mkv -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
 
 
+
+ffmpeg -i /Users/Daglas/Downloads/20240509许可宣贯办公会.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
+
+ffmpeg -i /Users/Daglas/Downloads/20240509许可宣贯办公会.m4a -ac 1 -sample_fmt s16 /Users/Daglas/Desktop/output.wav
 
 
 
@@ -311,6 +317,8 @@ git lfs install
 git clone https://www.modelscope.cn/AI-ModelScope/whisper-large-v3.git
 
 ### 03. 问题汇总
+
+
 
 #### Frequently Asked Questions
 
