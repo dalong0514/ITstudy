@@ -228,7 +228,7 @@ Given a user's input, the same encoding model as in the first stage is used to c
 
 根据用户的输入，采用与第一阶段相同的编码模型将查询内容转换为向量。系统会计算问题向量与语料库中文档块向量之间的相似性，并根据相似度水平选出最相关的前 K 个文档块作为当前问题的补充背景信息。
 
-Generation
+##### 03. Generation
 
 The given question and related documents are combined into a new prompt. The large language model is then tasked with answering the question based on the provided information. It may be decided whether to allow the large model to use its knowledge or only to answer based on the given information, depending on the needs of different tasks. If there is historical dialogue information, it can also be merged into the prompt for multi-round dialogues.
 
@@ -280,7 +280,7 @@ Introducing a graph structure involves transforming entities into nodes and thei
 
 预检索处理
 
-优化数据索引优化数据索引旨在提高索引内容的质量。目前主要采用五种策略：提升索引数据粒度、优化索引结构、增加元数据、对齐优化以及混合检索。
+优化数据索引旨在提高索引内容的质量。目前主要采用五种策略：提升索引数据粒度、优化索引结构、增加元数据、对齐优化以及混合检索。
 
 提升数据粒度：在索引前的优化是为了改进文本的标准化和一致性，确保事实准确和上下文丰富，从而保障 RAG 系统的表现。文本标准化意在剔除无关信息和特殊字符，提升检索效率。在确保一致性方面，主要是消除术语和实体的歧义，剔除重复或冗余信息，简化检索过程。事实的准确性至关重要，应尽可能验证每项数据。在保持上下文方面，通过添加特定领域的注释和用户反馈循环不断更新，使系统适应现实世界的交互上下文。考虑时间敏感性，应更新过时文档。总的来说，优化索引数据的重点在于清晰度、上下文和正确性，以提高系统的效率和可靠性。以下是一些最佳实践。
 
