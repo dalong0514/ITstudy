@@ -82,8 +82,6 @@ GPT 系列模型 [Brown et al., 2020, OpenAI, 2023]、LLama 系列模型 [Touvro
 
 图 1：现有 RAG 研究的时间表。时间表主要根据发布日期确定。
 
-图 1：现有 RAG 研究的时间表。时间表主要根据发布日期确定。
-
 图 1 展示了 RAG 算法和模型的发展。在时间线上，大部分与 RAG 相关的研究出现在 2020 年之后，尤其是在 2022 年 12 月 ChatGPT 发布之后，这一事件成为了一个重要的转折点。ChatGPT 发布后，自然语言处理领域的研究进入了大模型时代。初级 RAG 技术迅速受到重视，相关研究的数量也随之激增。在增强策略方面，自 RAG 概念提出以来，预训练和监督微调阶段的强化研究一直在进行。然而，在大语言模型时代，推理阶段的强化研究开始增多。这主要是因为高性能大模型的训练成本很高。研究者们试图在推理阶段通过加入 RAG 模块，以成本效益的方式将外部知识整合进模型生成中。
 
 在探讨增强数据的使用方面，早期的 RAG 主要致力于非结构化数据的应用，特别是在开放域问答环境中。随着时间的推移，RAG 检索的知识来源变得更加广泛，其中包括高质量数据。这些数据作为知识源，有效避免了如大模型误采纳错误信息和产生错误假设（即「幻觉」）的问题。值得一提的是，RAG 也开始利用结构化知识，如知识图谱。近期，自我检索成为热点，这指的是利用大语言模型自身的知识库来提升其性能。
@@ -176,12 +174,6 @@ RAG 在处理大规模数据集方面更具有扩展性。它无需更新所有�
 
 最后，RAG 提供的结果更加值得信赖。RAG 从最新数据中提取确定性的结果，而经过微调的模型在处理动态数据时可能会产生错误信息和不准确之处，缺乏透明度和可信度。
 
-### 03. RAG Framework
-
-The research paradigm of RAG is constantly evolving. This chapter primarily introduces the evolution of the RAG research paradigm. We categorize it into three types: Naive RAG, Advanced RAG, and Modular RAG. Although the early RAG was cost-effective and performed better than the native LLM, it still faced many shortcomings. The emergence of Advanced RAG and Modular RAG were aimed at addressing specific deficiencies in the Naive RAG.
-
-RAG 研究范式在不断演变。本章重点介绍 RAG 研究范式的发展历程。我们将其分为三种类型：初级 RAG、高级 RAG 和模块化 RAG。虽然早期的 RAG 在成本效益上表现良好，并且性能优于传统的大语言模型 (LLM)，但它仍面临着诸多挑战。高级 RAG 和模块化 RAG 的设计是为了解决原始 RAG (Naive RAG) 的特定不足。
-
 表 1: RAG 与微调之间的对比
 
 | 技能 | RAG | 微调 (Fine-tuning) |
@@ -196,13 +188,19 @@ RAG 研究范式在不断演变。本章重点介绍 RAG 研究范式的发展�
 | 隐私和安全 | 由于每个回答都基于检索到的实际证据，因此本质上更不容易产生误导性的内容。 | 根据特定领域的数据训练模型，有助于减少幻觉，但回对来源过分的相依时可能出现幻觉。 |
 | 性能和响应时间 | 从外部数据库存储和检索答案本可以能引起性能问题有所面的挑战。 | 训练数据中的高效率可能会引起性能理和降低响应的问题。 |
 
+### 03. RAG Framework
+
+The research paradigm of RAG is constantly evolving. This chapter primarily introduces the evolution of the RAG research paradigm. We categorize it into three types: Naive RAG, Advanced RAG, and Modular RAG. Although the early RAG was cost-effective and performed better than the native LLM, it still faced many shortcomings. The emergence of Advanced RAG and Modular RAG were aimed at addressing specific deficiencies in the Naive RAG.
+
+RAG 研究范式在不断演变。本章重点介绍 RAG 研究范式的发展历程。我们将其分为三种类型：初级 RAG、高级 RAG 和模块化 RAG。虽然早期的 RAG 在成本效益上表现良好，并且性能优于传统的大语言模型 (LLM)，但它仍面临着诸多挑战。高级 RAG 和模块化 RAG 的设计是为了解决原始 RAG (Naive RAG) 的特定不足。
+
 #### 3.1 Naive RAG
 
 The Naive RAG research paradigm represents the earliest methodology gained prominence shortly after the widespread adoption of ChatGPT. The naive RAG involves traditional process: indexing, retrieval, and generation. Naive RAG is also summarized as a "Retrieve"-"Read" framework [ Ma et al., 2023a ] .
 
 原始 RAG (Naive RAG) 代表了早期研究方法，在 ChatGPT 广泛应用后迅速崭露头角。原始 RAG 的流程包括传统的索引、检索和生成步骤。原始 RAG 也被概括为一个「检索」-「阅读」框架 [Ma et al., 2023a]。
 
-##### 01. Indexing 
+##### 01. Indexing
 
 The pipeline for obtaining data from the source and building an index for it generally occurs in an offline state. Specifically, the construction of a data index involves the following steps:
 
@@ -238,7 +236,7 @@ The given question and related documents are combined into a new prompt. The lar
 
 将给定的问题与相关文档合并为一个新的提示信息。随后，大语言模型（LLM）被赋予根据提供的信息来回答问题的任务。根据不同任务的需求，可以选择让模型依赖自身的知识库或仅基于给定信息来回答问题。如果存在历史对话信息，也可以将其融入提示信息中，以支持多轮对话。
 
-Drawbacks in Naive RAG 
+Drawbacks in Naive RAG
 
 The Naive RAG confronts principal challenges in three areas: retrieval quality, response generation quality, and the augmentation process.
 
@@ -294,7 +292,7 @@ Introducing a graph structure involves transforming entities into nodes and thei
 
 混合检索：混合检索的优势在于它结合了不同检索技术的长处。它智能地融合了关键词搜索、语义搜索和向量搜索等多种技术，适应不同类型的查询需求，确保能够一致地检索到最相关和内容丰富的信息。混合检索作为检索策略的重要补充，能够显著提升 RAG 流程的整体性能。
 
-Embedding 
+Embedding
 
 • Fine-turning Embedding: Fine-tuning embedding models directly impacts the effectiveness of RAG. The purpose of fine-tuning is to enhance the relevance between retrieved content and query. The role of finetuning embedding is akin to adjusting ears before generating speech, optimizing the influence of retrieval content on the generated output. Generally, methods for fine-tuning embedding fall into the categories of adjusting embedding in domain-specific contexts and optimizing retrieval steps. Especially in professional domains dealing with evolving or rare terms, these customized embedding methods can improve retrieval relevance. The BGE [ BAAI, 2023 ] embedding model is a fine-tunning and high-performance embedding model, such as BGE-large-EN developed by the BAAI 3 . To create training data for fine-tuning the BGE model, start by using LLMs like gpt-3.5-turbo to formulate questions based on document chunks, where questions and answers (document chunks) form fine-tuning pairs for the fine-tuning process.
 
@@ -306,7 +304,7 @@ Embedding
 
 动态嵌入（Dynamic Embedding）：不同于静态嵌入（static embedding），动态嵌入根据单词出现的上下文进行调整，为每个单词提供不同的向量表示。例如，在 Transformer 模型（如 BERT）中，同一单词根据周围词汇的不同，其嵌入也会有所变化。研究发现，在 OpenAI 的 text-embeddingada-002 模型中，文本长度小于 5 个 Token 时，常出现意外高的余弦相似度。理想的嵌入应该包含足够的上下文，以保证良好的结果。OpenAI 的 embeddings-ada-02 是基于大语言模型（如 GPT）原理开发的，比传统静态嵌入模型更复杂，能够捕捉一定程度的上下文。尽管它在上下文理解方面表现出色，但可能不如最新的大型语言模型（如 GPT-4）那样对上下文敏感。
 
-##### 02. Post-Retrieval Process 
+##### 02. Post-Retrieval Process
 
 After retrieving valuable context from the database, merging it with the query for input into LLM poses challenges. Presenting all relevant documents to the LLM at once may exceed the context window limit. Concatenating numerous documents to form a lengthy retrieval prompt is ineffective, introducing noise and hindering the LLM's focus on crucial information. Additional processing of the retrieved content is necessary to address these issues.
 
@@ -326,7 +324,7 @@ After retrieving valuable context from the database, merging it with the query f
 
 在处理长篇上下文 [Xu et al., 2023b] 时，这种方法通过分解和压缩来处理大量的上下文内容，而「在记忆迷宫中漫步」[Chen et al., 2023a] 则设计了一个分层次的总结树来增强大语言模型（LLM）对关键信息的感知能力。
 
-##### 03. RAG Pipeline Optimization 
+##### 03. RAG Pipeline Optimization
 
 The optimization of the retrieval process aims to enhance the efficiency and information quality of RAG systems, Current research primarily focuses on intelligently combining various search technologies, optimizing retrieval steps, introducing the concept of cognitive backtracking, flexibly applying diverse query strategies, and leveraging embedding similarity. These efforts collectively strive to achieve a balance between efficiency and the richness of contextual information in RAG retrieval.
 
@@ -354,7 +352,7 @@ RAG 管道优化
 
 5、HyDE 方法：这种方法基于一个假设：相较于直接查询，通过大语言模型 (LLM) 生成的答案在嵌入空间中可能更为接近。HyDE 首先响应查询生成一个假设性文档（答案），然后将其嵌入，并利用此嵌入去检索与假设文档类似的真实文档。这种方法强调答案之间的嵌入相似性，而非单纯依赖于查询的嵌入相似性。但在某些情况下，特别是当语言模型对话题不够熟悉时，它可能导致错误实例的增加。
 
-##### 04. Modular RAG 
+##### 04. Modular RAG
 
 The modular RAG structure breaks away from the traditional Naive RAG framework of indexing, retrieval, and generation, offering greater diversity and flexibility in the overall process. On one hand, it integrates various methods to expand functional modules, such as incorporating a search module in similarity retrieval and applying a fine-tuning approach in the retriever [ Lin et al., 2023 ] . Additionally, specific problems have led to the emergence of restructured RAG modules [ Yu et al., 2022 ] and iterative approaches like [ Shao et al., 2023 ] . The modular RAG paradigm is becoming the mainstream in the RAG domain, allowing for either a serialized pipeline or an end-to-end training approach across multiple modules.The comparison between three RAG paradigms is illustrated in Fig 3.
 
@@ -396,7 +394,7 @@ RRR [Ma et al., 2023a] 设计了一个基于强化学习的模块，该模块能
 
 6、验证模块：在现实世界中，我们无法总是保证检索到的信息的可靠性。检索到不相关的数据可能会导致大语言模型产生错误信息。因此，可以在检索文档后加入一个额外的验证模块，以评估检索到的文档与查询之间的相关性，这样做可以提升 RAG [Yu et al., 2023a] 的鲁棒性。
 
-##### 05. New Pattern 
+##### 05. New Pattern
 
 The organizational approach of Modular RAG is flexible, allowing for the substitution or reconfiguration of modules within the RAG process based on specific problem contexts. For Naive RAG, which consists of the two modules of retrieval and generation ( referred as read or sythesis in some literature), this framework offers adaptability and abundance. Present research primarily explores two organizational paradigms, involving the addition or replacement of modules, as well as the adjustment of the organizational flow between modules.
 
