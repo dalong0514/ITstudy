@@ -408,15 +408,23 @@ Recite-Read [ Sun et al., 2022 ] transforms external retrieval into retrieval fr
 
 RAG 的组织方法具有高度灵活性，能够根据特定问题的上下文，对 RAG 流程中的模块进行替换或重新配置。在基础的 Naive RAG 中，包含了检索和生成这两个核心模块（有些文献中称之为阅读或合成模块），这个框架因而具备了高度的适应性和多样性。目前的研究主要围绕两种组织模式：一是增加或替换模块，二是调整模块间的工作流程。
 
-增加或替换模块在增加或替换模块的策略中，我们保留了原有的检索-阅读结构，同时加入新模块以增强特定功能。RRR [Ma et al., 2023a] 提出了一种重写-检索-阅读的流程，其中利用大语言模型（LLM）的性能作为强化学习中重写模块的奖励机制。这样，重写模块可以调整检索查询，从而提高阅读器在后续任务中的表现。同样地，我们也可以在其他方法中选择性地替换模块，例如在生成-阅读 [Yu et al., 2022] 中，大语言模型的生成模块取代了检索模块。背诵-阅读 [Sun et al., 2022] 则是将传统的外部检索转变为从模型权重中检索，首先由大语言模型记忆与任务相关的信息，然后生成处理知识密集型自然语言处理任务所需的输出。
+增加或替换模块
 
-调整模块间的工作流程在调整模块间流程的领域，重点在于加强语言模型与检索模型之间的互动。DSP [Khattab et al., 2022] 引入了展示 - 搜索 - 预测的框架，将上下文学习系统视为一个明确的程序，而不是简单的终端任务提示，以此来应对知识密集型的任务。ITER-RETGEN [Shao et al., 2023] 则是使用生成内容来指导检索，通过迭代执行「检索增强生成」和「生成增强检索」，形成一种检索-阅读-检索-阅读的工作流。Self-RAG [Asai et al., 2023b] 则采用决策-检索-反思-阅读的流程，引入了一个用于主动判断的模块。这种适应性和多样性的方法使得在 Modular RAG 框架中可以动态地组织各种模块。
+在增加或替换模块的策略中，我们保留了原有的检索-阅读结构，同时加入新模块以增强特定功能。RRR [Ma et al., 2023a] 提出了一种重写-检索-阅读的流程，其中利用大语言模型（LLM）的性能作为强化学习中重写模块的奖励机制。这样，重写模块可以调整检索查询，从而提高阅读器在后续任务中的表现。同样地，我们也可以在其他方法中选择性地替换模块，例如在生成-阅读 [Yu et al., 2022] 中，大语言模型的生成模块取代了检索模块。背诵-阅读 [Sun et al., 2022] 则是将传统的外部检索转变为从模型权重中检索，首先由大语言模型记忆与任务相关的信息，然后生成处理知识密集型自然语言处理任务所需的输出。
+
+调整模块间的工作流程
+
+在调整模块间流程的领域，重点在于加强语言模型与检索模型之间的互动。DSP [Khattab et al., 2022] 引入了展示-搜索-预测的框架，将上下文学习系统视为一个明确的程序，而不是简单的终端任务提示，以此来应对知识密集型的任务。ITER-RETGEN [Shao et al., 2023] 则是使用生成内容来指导检索，通过迭代执行「检索增强生成」和「生成增强检索」，形成一种检索-阅读-检索-阅读的工作流。Self-RAG [Asai et al., 2023b] 则采用决策-检索-反思-阅读的流程，引入了一个用于主动判断的模块。这种适应性和多样性的方法使得在 Modular RAG 框架中可以动态地组织各种模块。
 
 ### 04. Retriever
 
 In the context of RAG, the "R" stands for retrieval, serving the role in the RAG pipeline of retrieving the top-k relevant documents from a vast knowledge base. However, crafting a high-quality retriever is a non-trivial task. In this chapter, we organize our discussions around three key questions: 1) How to acquire accurate semantic representations? 2) How to match the semantic spaces of queries and documents? 3) How to align the output of the retriever with the preferences of the Large Language Model ?
 
-4.1 How to acquire accurate semantic representations?
+04 检索器
+
+在 RAG（检索增强生成）技术中，「R」代表检索，其作用是从大量知识库中检索出最相关的前 k 个文档。然而，构建一个高质量的检索器是一项挑战。在本章，我们将探讨三个关键问题：1）如何获得准确的语义表示？2）如何匹配查询和文档的语义空间？3）如何让检索器的输出与大语言模型（LLM）的偏好相协调？
+
+#### 4.1 How to acquire accurate semantic representations?
 
 In RAG, semantic space is the multidimensional space where query and Document are mapped. When we perform retrieval, it is measured within the semantic space. If the semantic expression is not accurate, then its effect on RAG is fatal, this section will introduce two methods to help us build a accurate semantic space.
 
@@ -436,7 +444,43 @@ Fine-tuning of downstream tasks It is equally important to adapt Embedding model
 
 This somewhat improves the semantic representation through both domain knowledge injection and downstream task fine-tuning. However, the retrievers trained by this approach are not intuitively helpful for large language models, so some work has been done to supervise the fine-tuning of Embedding models directly through feedback signals from the LLM. (This section will be presented in 4.4)
 
-4.2 How to Match the Semantic Space of Queries and Documents
+4.1 如何获得准确的语义表示？
+
+在 RAG 中，语义空间指的是查询和文档被映射的多维空间。
+
+进行检索时，我们是在这个语义空间内进行评估的。如果语义表达不准确，对 RAG 的影响将是灾难性的。本节将介绍两种构建准确语义空间的方法。
+
+块优化
+
+处理外部文档的第一步是分块，以获得更细致的特征。接着，这些文档块被嵌入（Embedded）。
+
+嵌入太大或太小的文本块可能无法取得最佳效果。因此，找到适合语料库文档的最佳块大小至关重要，以确保搜索结果的准确性和相关性。
+
+选择分块策略时，需要考虑的要素包括：被索引内容的特点、使用的嵌入模型及其最适块大小、用户查询的预期长度和复杂度、以及检索结果在特定应用中的使用方式。例如，对于不同长度的内容，应选用不同的分块模型。不同的嵌入模型，如 Sentence-Transformer 和 text-embedding-ada-002，在处理不同大小的文本块时效果各异；例如，Sentence-Transformer 更适合单句处理，而 text-embedding-ada-002 更适合处理包含 256 或 512 Token 的文本块。用户问题文本的长度和复杂性，以及应用程序的特定需求（如语义搜索或问答），也会影响分块策略的选择。这可能与选用的大语言模型的 Token 限制直接相关，因此可能需要调整块大小。实际上，准确的查询结果是通过灵活应用多种分块策略来实现的，并没有最佳策略，只有最适合的策略。
+
+当前的 RAG 研究采用了多种块优化方法，以提高检索的效率和准确性。其中，技术如滑动窗口技术通过多次检索，聚合全局相关信息，实现分层检索。
+
+Small2big 技术在搜索过程中使用小文本块，并为语言模型提供更大的相关文本块进行处理。摘要嵌入（Abstract embedding）技术对文档摘要执行 Top K 检索，以提供完整的文档上下文。元数据过滤（Metadata Filtering）技术通过文档的元数据进行过滤。图索引（Graph Indexing）技术把实体和关系转化为节点和连接，这在处理多跳问题时显著提升了相关性。这些方法的结合显著提升了 RAG 的检索效果和性能。
+
+微调嵌入模型
+
+在确定了 Chunk 的适当大小之后，我们需要通过一个嵌入模型（Embedding model）将 Chunk 和查询嵌入到语义空间中。因此，嵌入模型是否能有效代表整个语料库变得极其重要。如今，一些出色的嵌入模型已经问世，例如 UAE [AngIE, 2023]、Voyage [VoyageAI, 2023]、BGE [BAAI, 2023] 等，它们在大规模语料库上预训练过。但在特定领域中应用时，这些模型可能无法准确地反映领域特定的语料信息。此外，为了确保模型能够理解用户查询与内容的相关性，对嵌入模型进行任务特定的微调至关重要，否则未经微调的模型可能无法满足特定任务的需求。因此，对嵌入模型进行微调对于其下游应用是必不可少的。
+
+领域知识微调
+
+嵌入模型微调的两个基本范式包括领域知识微调。为了让嵌入模型准确理解领域特定信息，我们需要构建专门的领域数据集来对嵌入模型进行微调。
+
+然而，嵌入模型的微调与常规语言模型的微调不同，主要区别在于所使用的数据集。当前微调嵌入模型的主流方法使用的数据集包括查询（Queries）、语料库（Corpus）和相关文档（Relevant Docs）。嵌入模型基于查询在语料库中检索相关文档，然后根据查询的相关文档是否命中作为衡量模型的标准。
+
+在构建数据集、微调模型和评估过程中，每个部分都可能遇到各种挑战。LlamaIndex [Liu, 2023] 专门为嵌入模型的微调过程引入了一系列关键类别和功能，大大简化了这一过程。通过准备领域知识的语料库并利用其提供的方法，我们可以轻松获得适合特定领域需求的专业嵌入模型。
+
+对下游任务的微调
+
+根据下游任务微调嵌入模型同样重要。使用 RAG 处理特定任务时，已有研究通过大语言模型（LLM）的功能来微调嵌入模型。例如，PROMPTAGATOR [Dai et al., 2022] 将大语言模型用作少样本查询生成器，基于此生成的数据创建了针对特定任务的检索器，这样做可以解决一些领域由于数据不足而难以进行常规监督微调的问题。LLM-Embedder [Zhang et al., 2023a] 则利用大语言模型为多个特定任务中的数据输出奖励值，并通过硬性标记数据集和来自 LLM 的软性奖励对检索器进行了双重微调。
+
+这种做法在一定程度上通过引入领域知识和针对特定任务的微调，改善了语义表达。但是，这种训练方式得到的检索器并不总是直接有益于大语言模型，因此有研究通过从 LLM 获取反馈信号，直接对嵌入模型进行了监督微调。（更多细节将在第 4.4 节介绍）
+
+#### 4.2 How to Match the Semantic Space of Queries and Documents
 
 In the RAG application, some retrievers use the same embedding model to encode the query and doc, while others use two models to separately encode the query and doc. Moreover, the original query of the user may have problems of poor expression and lack of semantic information. Therefore, aligning the semantic space of the user's query and documents is very necessary. This section introduces two key technologies to achieve this goal.
 
@@ -444,7 +488,29 @@ Query Rewrite The most intuitive way to align the semantics of query and documen
 
 Embedding Transformation If there is a coarse-grained method like rewriting queries, there should also be a finer-grained implementation specific for embedding operations. In LlamaIndex [ Liu, 2023 ] , it is possible to connect an adapter after the query encoder, and fine-tune the adapter to optimize the representation of query embeddings, mapping it to a latent space that is better suited for specific tasks.When the data structure of a query and an external document are different, such as an unstructured query and a structured external document, it is very important to enable the query to align with the document.SANTA [ Li et al., 2023d ] proposes two pretraining methods to make the retriever aware of structured information 1) Using the natural alignment relationship between structured data and unstructured data for contrastive learning for structured-aware pre-training. 2) Masked Entity Prediction, which designs an entity-oriented mask strategy and asks language models to fill in the masked entities.
 
-4.3 How to Aligning Retriever's Output and LLM's Preference
+4.2 如何协调查询和文档的语义空间
+
+在 RAG 应用中，有些检索器用同一个嵌入模型来处理查询和文档，而有些则使用两个不同的模型。此外，用户的原始查询可能表达不清晰或缺少必要的语义信息。因此，协调用户的查询与文档的语义空间显得尤为重要。本节将介绍两种关键技术，帮助实现这一目标。
+
+查询重写
+
+一种直接的方式是对查询进行重写。
+
+如 Query2Doc [Wang et al., 2023b] 和 ITER-RETGEN [Shao et al., 2023] 所指出的，可以利用大语言模型的能力生成一个指导性的伪文档，然后将原始查询与这个伪文档结合，形成一个新的查询。
+
+而在 HyDE [Gao et al., 2022] 中，则是通过文本标识符来建立查询向量，利用这些标识符生成一个相关但可能并不存在的「假想」文档，它的目的是捕捉到相关的模式。
+
+Ma 团队于 2023 年提出的 RRR 框架，开创了一种新的方法，将检索和阅读的顺序进行了反转，专注于如何重新编写查询。在这个方法中，首先利用大语言模型来生成搜索查询，然后通过网络搜索引擎找到相关信息，最后用一个小型的语言模型来帮助这个大模型进行所谓的「训练重写」，以提高其效果。Zheng 团队在 2023 年提出的 STEP-BACKPROMPTING 方法，能够使大语言模型进行更深层次的抽象思考，抽取出关键的概念和原则，并基于这些进行信息检索。
+
+此外，多查询检索方法让大语言模型能够同时产生多个搜索查询。这些查询可以同时运行，它们的结果一起被处理，特别适用于那些需要多个小问题共同解决的复杂问题。
+
+嵌入变换
+
+对于嵌入变换，除了像查询重写这样的宏观方法，还有一些更微观的技术。在 Liu 于 2023 年提出的 LlamaIndex 中，研究者们通过在查询编码器后加入一个特殊的适配器，并对其进行微调，从而优化查询的嵌入表示，使之更适合特定的任务。
+
+在处理结构不同的查询和文档时，例如非结构化的查询和结构化的文档，使两者对齐变得至关重要。Li 团队在 2023 年提出的 SANTA 方法，就是为了让检索系统能够理解并处理结构化的信息。他们提出了两种预训练方法：一是利用结构化与非结构化数据之间的自然对应关系进行对比学习；二是采用了一种围绕实体设计的掩码策略，让语言模型来预测和填补这些被掩盖的实体信息。
+
+#### 4.3 How to Aligning Retriever's Output and LLM's Preference
 
 In the RAG pipeline, even if we employ the above techniques to enhance the retrieval hit rate, it may still not improve the final effect of RAG, because the retrieved documents may not be what LLM needs. Thus, this section introduces two methods to align the outputs of the retriever and the preferences of the LLM.
 
@@ -452,19 +518,49 @@ LLM supervised training Many works leverage various feedback signals from large 
 
 where D a + is the documents preferred by the LLM in the retrieved set and D a − is not preferred. l is the standard cross entropy loss. In the end,it is suggested that LLMs may have a preference for focusing on readable rather than informationrich documents REPLUG [ Shi et al., 2023 ] uses a retriever and an LLM to calculate the probability distributions of the retrieved documents, and then performs supervised training by calculating the KL divergence. This simple and effective training method enhances the performance of the retrieval model by using an LM as the supervisory signal, eliminating the need for any specific cross-attention mechanisms. The training loss of the retriever is as follows:
 
-(2)
-
 where D is a set of input contexts, P R is the retrieval likelihood, Q LM is the LM likelihood of each document.
 
 UPRISE [ Cheng et al., 2023a ] also employs frozen large language models to fine-tune the Prompt Retriever. But both the language model and the retriever take Prompt-Input Pairs as inputs, then uses the scores given by the large language model to supervise the training of the retriever, equivalent to using the large language model to label the dataset. Atlas [ Izacard et al., 2022 ] proposes four methods of finetuning supervised embedding models, among them, Attention Distillation distills using the cross-attention scores that the language model generates during the output. EMDR2 employs the Expectation-Maximization algorithm to train with the retrieved documents as latent variables. Perplexity Distillation directly trains using the perplexity of the modelgenerated tokens as an indicator.LOOP introduces a new loss function based on the effect of document deletion on LM prediction, providing an effective training strategy for better adapting the model to specific tasks.
 
 Plug in an adapter However, fine-tuning an embedding model can be challenging due to factors such as utilizing an API to implement embedding functionality or insufficient local computational resources. Therefore, some works choose to externally attach an adapter for alignment.PRCA [ Yang et al., 2023b ] trains the Adapter through the Contextual Extraction Stage and the RewardDriven Stage, and optimizes the output of the retriever based on a token-based autoregressive strategy. TokenFiltering [ Berchansky et al., 2023 ] method calculates cross-attention scores, selecting the highest scoring input tokens to effectively filter tokens. RECOMP [ Xu et al., 2023a ] proposes extractive and generative compressors, which generate summaries by selecting relevant sentences or synthesizing document information to achieve multi-document query focus summaries.In addition to that, a novel approach, PKG [ Luo et al., 2023 ] , infuses knowledge into a white-box model through directive fine-tuning, and directly replaces the retriever module, used to directly output relevant documents based on the query.
 
+4.3 调整检索器结果以适应大语言模型的需求
+
+在 RAG（Retrieval-Augmented Generation）流程中，即便我们采用各种技术提升检索效果，最终对 RAG 的整体性能可能仍无明显提升。原因在于检索到的文档可能并不符合大语言模型（LLM）的需求。本节将介绍两种方法，以使检索器的输出更好地符合 LLM 的偏好。
+
+LLM 监督下的训练众多研究通过从大语言模型获取的反馈信号来调整嵌入模型。AAR [20] 通过一种基于编解码器架构的语言模型（LM），为预训练的检索器提供监督信号。检索器通过分析 LM 偏好的文档（基于 FiD 的交叉注意力分数），进行微调，使用了「硬负样本采样」和传统的交叉熵损失方法。经过这样的训练，检索器能直接用于提升新的目标 LLM，在相关任务中取得更好的成绩。检索器的训练损失公式如下：
+
+是 LLM 偏好的文档集，
+
+则是不受偏好的文档集。
+
+l 代表传统的交叉熵损失函数。研究最后指出，LLM 可能更倾向于关注易于阅读而非信息量丰富的文档。
+
+REPLUG [14] 则通过结合检索器和 LLM 计算出的文档概率分布，采用监督训练方式。训练过程中，通过计算 KL 散度来调整检索模型，使其性能得到提升。这种方法简单有效，利用 LM 作为监督信号，无需依赖特定的交叉注意力机制。检索器的训练损失公式如下：
+
+这里，D 表示输入上下文集合，PR 是文档的检索可能性，QLM 则是每份文档基于 LM 的概率。
+
+UPRISE [Cheng et al., 2023a] 同样采用了冻结的大语言模型来对 Prompt Retriever 进行微调。
+
+在这些研究中，无论是语言模型还是检索器，它们都以提示输入对作为输入。这些模型使用大语言模型（Large Language Model）提供的分数来指导检索器的训练，这相当于用大语言模型来对数据集进行标注。
+
+Atlas [Izacard et al., 2022] 提出了四种微调监督嵌入模型的方法。其中之一，注意力蒸馏（Attention Distillation)，通过语言模型在生成输出时产生的跨注意力分数来进行学习。而 EMDR2 则运用期望最大化（Expectation-Maximization）算法，将检索到的文档作为隐藏变量，进行模型训练。困惑度蒸馏（Perplexity Distillation）直接利用模型生成的 Token 的困惑度（perplexity）作为训练指标。LOOP 则引入了一种新的基于文档删除对大语言模型预测影响的损失函数，这为模型更好地适应特定任务提供了有效的训练方法。
+
+插入适配器
+
+然而，微调嵌入模型可能会遇到一些挑战，例如使用 API 实现嵌入功能或本地计算资源不足。因此，一些研究选择外接适配器来进行模型对齐。PRCA [Yang et al., 2023b] 在上下文提取阶段和奖励驱动阶段训练适配器，并通过基于 Token 的自回归（autoregressive）策略来优化检索器的输出。
+
+TokenFiltering [Berchansky et al., 2023] 的方法通过计算跨注意力分数，挑选出得分最高的输入 Token，有效地进行 Token 过滤。RECOMP [Xu et al., 2023a] 提出了提取和生成压缩器的概念，这些压缩器通过选择相关的句子或合成文档信息来生成摘要，实现多文档查询聚焦摘要。此外，PKG [Luo et al., 2023] 这一新颖方法，通过指令性微调将知识注入到一个白盒模型中，并直接替换了检索器模块，以便直接根据查询输出相关文档。
+
 ### 05. Generator
 
 Another core component in RAG is the generator, responsible for transforming retrieved information into natural and fluent text. Its design is inspired by traditional language models, but in comparison to conventional generative models, RAG's generator enhances accuracy and relevance by leveraging the retrieved information. In RAG, the generator's input includes not only traditional contextual information but also relevant text segments obtained through the retriever. This allows the generator to better comprehend the context behind the question and produce responses that are more information-rich. Furthermore, the generator is guided by the retrieved text to ensure consistency between the generated content and the retrieved information. It is the diversity of input data that has led to a series of targeted efforts during the generation phase, all aimed at better adapting the large model to the input data from queries and documents. We will delve into the introduction of the generator through aspects of post-retrieval processing and fine-tuning.
 
-5.1 How Can Retrieval Results be Enhanced via Post-retrieval Processing?
+05 生成组件
+
+在 RAG 系统中，生成组件是核心部分之一，它的职责是将检索到的信息转化为自然流畅的文本。这一设计灵感源自于传统语言模型，但不同于一般的生成式模型，RAG 的生成组件通过利用检索到的信息来提高文本的准确性和相关性。在 RAG 中，生成组件的输入不仅包括传统的上下文信息，还有通过检索器得到的相关文本片段。这使得生成组件能够更深入地理解问题背后的上下文，并产生更加信息丰富的回答。此外，生成组件还会根据检索到的文本来指导内容的生成，确保生成的内容与检索到的信息保持一致。正是因为输入数据的多样性，我们针对生成阶段进行了一系列的有针对性工作，以便更好地适应来自查询和文档的输入数据。
+
+#### 5.1 How Can Retrieval Results be Enhanced via Post-retrieval Processing?
 
 In terms of untuned large language models, most studies rely on well-recognized large language models like GPT4 [ OpenAI, 2023 ] to leverage their robust internal knowledge for the comprehensive retrieval of document knowledge. However, inherent issues of these large models, such as context length restrictions and vulnerability to redundant information, persist. To mitigate these issues, some research has made efforts in post-retrieval processing. Post-retrieval processing refers to the process of further treating, filtering, or optimizing the relevant information retrieved by the retriever from a large document database. Its primary purpose is to enhance the quality of retrieval results to better meet user needs or for subsequent tasks. It can be understood as a process of reprocessing the documents obtained in the retrieval phase. The operations of post-retrieval processing usually involve information compression and result rerank.
 
@@ -480,7 +576,29 @@ paradigm, which integrates the strengths of Large Language Models (LLMs) and Sma
 
 Rerank The pivotal role of the reordering model lies in optimizing the set of documents retrieved from retriever. LLMs experience performance degradation with retrospective performance when additional context is added, and reordering provides an effective solution to address this issue. The core idea involves rearranging document records to place the most relevant items at the top, thereby reducing the total number of documents to a fixed quantity. This not only resolves the issue of context window expansion that may be encountered during retrieval but also contributes to improving retrieval efficiency and responsiveness [ Zhuang et al., 2023 ] . Introducing context compression as part of the reordering aims to return relevant information solely based on the given query context. The dual significance of this approach lies in concentrating the display of the most relevant information in the retrieval results by reducing the content of individual documents and filtering entire documents. Thus, the reordering model plays an optimizing and refining role throughout the information retrieval process, providing more effective and accurate inputs for subsequent LLM processing.
 
-5.2 How to Optimize a Generator to Adapt Input Data?
+5.1 如何通过后检索处理提升检索结果？
+
+对于未经微调的大型语言模型，多数研究依靠像 GPT-4 [OpenAI, 2023] 这样的知名大型语言模型，借助它们强大的内部知识库来全面检索文档信息。然而，这些大型模型仍然存在一些固有问题，比如上下文长度限制和对冗余信息的敏感性。为了解决这些问题，一些研究开始关注后检索处理。后检索处理指的是，在通过检索器从大型文档数据库中检索到相关信息后，对这些信息进行进一步的处理、过滤或优化。其主要目的是提高检索结果的质量，更好地满足用户需求或为后续任务做准备。可以将其理解为对检索阶段获得的文档进行二次处理。后检索处理通常包括信息压缩和结果的重新排序。
+
+信息压缩
+
+信息压缩方面，即使检索器能够从庞大的知识库中提取相关信息，我们仍然面临处理大量检索文档信息的挑战。一些研究试图通过扩大大型语言模型的上下文长度来解决这个问题，但当前的大模型还是受到上下文限制。在这种情况下，进行信息浓缩变得必要。总体来说，信息浓缩的重要性主要体现在减少信息噪音、解决上下文长度限制和提升生成效果等方面。
+
+PRCA [Yang et al., 2023b] 解决这一问题的方法是训练了一个信息提取器。在提取上下文的阶段，这个提取器能够根据给定的输入文本 Sinput，生成一个输出序列 Cextracted，这个序列代表了输入文档中的精简上下文。训练的目标是让 Cextracted 尽可能接近实际的上下文 Ctruth。他们使用的损失函数定义如下：
+
+​这里，𝑓 表示信息提取器的功能，而 θ 是其参数。另一个项目 RECOMP [11] 采用了对比学习法来训练一个信息浓缩器。在每个训练样本中，会有一个正样本和五个负样本。该项目在此过程中采用了对比损失方法 [13] 来训练编码器。具体的优化目标表达如下：
+
+其中 xi 代表训练数据，pi 是正样本，ni 是负样本，sim（x,y）用于计算 x 和 y 之间的相似度。还有一项研究则是致力于进一步减少文档的数量，以此提高模型回答问题的准确度。[Ma et al., 2023b] 提出了一种新的「Filter-Ranker」模式，它结合了大语言模型（LLMs）和小语言模型（SLMs）的优点。在这种模式下，SLMs 充当过滤器，LLMs 则作为排序器。通过激励 LLMs 对 SLMs 筛选出的难点样本进行重新排序，研究表明，这在各类信息提取（IE）任务中都取得了显著的提升。
+
+文档重排
+
+在文档重排过程中，重排模型的主要作用是优化由检索器检索出的文档集合。
+
+当大语言模型（LLM）面临额外上下文的添加时，其性能往往会下降。为了应对这一挑战，重排序被提出作为一种行之有效的策略。其核心在于对文档记录进行重新组织，优先安排最相关的内容位于前列，同时将文档总量控制在一定数量之内。这种做法不仅有效缓解了检索时可能出现的上下文窗口扩大问题，也显著提升了检索的效率和响应速度 [Zhuang et al., 2023]。
+
+重排序过程中引入的上下文压缩功能，目的是基于特定查询上下文直接筛选出相关信息。这一策略的独特之处在于，通过减少每个文档的内容量和筛选掉不相关的文档，它能更加集中地展示检索结果中的关键信息。因此，重排序模型在整个信息检索过程中起到了优化和精化的作用，为后续大语言模型的处理提供了更加有效和精准的输入。
+
+#### 5.2 How to Optimize a Generator to Adapt Input Data?
 
 In the RAG model, the optimization of the generator is a crucial component of the architecture. The generator's task is to take the retrieved information and generate relevant text, thereby providing the final output of the model. The goal of optimizing the generator is to ensure that the generated text is both natural and effectively utilizes the retrieved documents, in order to better satisfy the user's query needs.
 
@@ -488,31 +606,19 @@ In typical Large Language Model (LLM) generation tasks, the input is usually a q
 
 General Optimization Process Refers to the training data containing pairs of (input, output), aiming to train the model's ability to generate output y given input x. In the work of Self-mem [ Cheng et al., 2023b ] , a relatively classical training process is employed. Given input x, relevant documents z are retrieved (selecting Top-1 in the paper), and after integrating (x, z), the model generates output y. The paper utilizes two common paradigms for fine-tuning, namely Joint-Encoder [ Arora et al., 2023, Wang et al., 2022b, Lewis et al., 2020 ] and Dual-Encoder [ Xia et al., 2019, Cai et al., 2021, Cheng et al., 2022 ] . For Joint-Encoder, a standard model based on encoder-decoder is used, where the encoder initially encodes the input, and the decoder, through attention mechanisms, combines the encoded results to generate tokens in an autoregressive manner:
 
-H = Encoder(x[SEP]m)
+H = Encoder(x[SEP]m) (5)
 
-(5)
+h i = Decoder(CrossAttn(H), y < i) (6)
 
-h i = Decoder(CrossAttn(H), y < i)
-
-(6)
-
-P G ξ (. | x, y < i) = Softmax(h i )
-
-(7)
+P G ξ (. | x, y < i) = Softmax(h i ) (7)
 
 For the Dual-Encoder, the system establishes two independent encoders, each responsible for encoding the input (query, context) and the document, respectively. The output is then subject to bidirectional cross-attention processing by the decoder in sequence. The authors choose to use the Transformer [ Vaswani et al., 2017 ] as the building block for both architectures and optimize G ξ Negative Log-Likelihood (NLL) loss.
 
-H x = SourceEncoder(x)H m = MemoryEncoder(x)
+H x = SourceEncoder(x)H m = MemoryEncoder(x) (8)
 
-(8)
+h i = Decoder(CrossAttn(H x , H m ), y < i) (9)
 
-h i = Decoder(CrossAttn(H x , H m ), y < i)
-
-(9)
-
-| y | L nll = − ∑ logP G ξ (y t | x, m, y < t) t=1
-
-(10)
+| y | L nll = − ∑ logP G ξ (y t | x, m, y < t) t=1 (10)
 
 Utilizing Contrastive Learning In the phase of preparing training data, usually generated are pairs of interactions between inputs and outputs. Under this circumstance, the model can only access a unique real output which might induce the "exposure bias" problem [ Ranzato et al., 2015 ] : during the training phase, the model only exposes to a single true feedback without accessing any other generated tokens. This can impair the model's performance in application as it might excessively fit to specific feedback in the training data without effectively generalizing to other scenarios. Therefore, a graph-text contrastive learning method has been proposed by SURGE [ Kang et al., 2023 ] . For any given pair of interactions between inputs and outputs, the objective of this contrastive learning approach can be defined as follows:
 
@@ -520,9 +626,7 @@ Where ζ , ξ are learnable linear projection layers.z is the average representa
 
 When dealing with retrieval tasks that involve structured data, the work of SANTA [ Li et al., 2023d ] utilized a threestage training process to fully understand the structural and semantic information. Specifically, in the training phase of the retriever, contrastive learning was adopted, with the main goal of optimizing the embedding representations of the queries and documents. The specific optimization objectives are as follows:
 
-esim(q,d + ) L DR = −log ef(q,d + ) + ∑ d − ∈ D − esim(q,d − )
-
-(12)
+esim(q,d + ) L DR = −log ef(q,d + ) + ∑ d − ∈ D − esim(q,d − ) (12)
 
 where q and d are the query and document encoded by the encoder.d − ,d + represent negative samples and positive samples respectively. In the initial training stage of the generator, we utilize contrastive learning to align structured data and the corresponding document description of unstructured data. The optimization objective is as above.
 
@@ -530,13 +634,65 @@ Moreover, in the later training stage of the generator, inspired by references [
 
 k L MEP = ∑ −logP(Y d (t j ) | X d mask , Y d (t 1 , ..., j − 1)) j=1
 
-(13) where Y d (y j denotes the j-th token in the sequence Y d . And Y d = < mask > 1 , ent 1 , ..., < mask > n , ent n denotes the ground truth sequence that contains masked entities. Throughout the training process, we recover the masked entities by acquiring necessary information from the context, understand the structural semantics of textual data, and align the relevant entities in the structured data. We optimize the language model to fill the concealed spans and to better comprehend the entity semantics [ Ye et al., 2020 ] .
+(13) where Y d (y j denotes the j-th token in the sequence Y d . And Y d = < mask > 1 , ent 1 , ..., < mask > n , ent n denotes the ground truth sequence that contains masked entities. Throughout the training process, we recover the masked entities by acquiring necessary information from the context, understand the structural semantics of textual data, and align the relevant entities in the structured data. We optimize the language model to fill the concealed spans and to better comprehend the entity semantics [ Ye et al., 2020 ].
+
+5.2 如何优化生成器应对输入数据？
+
+在 RAG 模型中，优化生成器是至关重要的。生成器负责将检索到的信息转化为相关文本，形成模型的最终输出。其优化目的在于确保生成文本既流畅又能有效利用检索文档，更好地回应用户的查询。
+
+在一般的大语言模型（LLM）生成任务中，输入通常是个查询。而 RAG 的不同之处在于，输入不仅包括查询，还涵盖了检索器找到的多种文档（无论是结构化还是非结构化）。额外信息的加入对模型理解尤其是小型模型造成显著影响，因此，针对查询和检索文档的输入进行模型微调变得尤为重要。一般在将输入提供给微调过的模型之前，需要对检索器找到的文档进行后续处理。值得注意的是，RAG 中对生成器的微调方式与大语言模型的普通微调方法大体相同。本文将简要介绍包括格式化和非格式化数据及其优化函数的一些代表性研究。
+
+通用优化过程
+
+通用优化过程涉及训练数据中的输入输出对，目的是让模型学会根据输入 x 生成输出 y。
+
+在 Self-mem [Cheng et al., 2023b] 的研究中，采用了一种传统训练方法。给定输入 x 后，检索出相关文档 z（文中选取最相关的一个），然后结合（x, z)，模型便生成输出 y。
+
+论文探讨了两种主流微调方法，分别是联合编码器（Joint-Encoder）[Arora et al., 2023, Wang et al., 2022b, Lewis et al., 2020] 和双编码器（Dual-Encoder）[Xia et al., 2019, Cai et al., 2021, Cheng et al., 2022]。
+
+在联合编码器模式下，使用的是标准的编解码器模型，编码器首先处理输入，然后解码器通过注意力机制将编码结果结合起来，自回归地生成 Token。
+
+H=Encoder(x[SEP]m)
+
+在双编码器系统中，构建了两个独立的编码器，各自负责输入（查询、上下文）和文档的编码。接着，这些输出将依次经由解码器处理，进行双向交叉注意力处理。作者采用了 Transformer [Vaswani 等人，2017] 作为两种架构的基础，并对 Gξ 负对数似然（NLL）损失进行了优化。
+
+运用对比学习
+
+在训练数据准备阶段，通常会生成输入和输出之间的交互对，以此进行对比学习。
+
+在这种情境下，模型仅能接触到一个实际的输出，可能会导致「暴露偏差」问题 [Ranzato 等人，2015]：即在训练阶段，模型仅接触到单一的正确反馈，无法了解其他可能的生成 Token。
+
+这可能影响模型在实际应用中的表现，因为它可能过度适应训练数据中的特定反馈，而不是有效泛化到其他情境。因此，SURGE [Kang 等人，2023] 提出了一种基于图文的对比学习方法。对于输入和输出之间的任何一对交互，这种对比学习方法的目标可以这样定义：
+
+其中 ξ 是可学习的线性投影层。z 代表编码器中图形的平均表征，h 是解码器中的平均表征。
+
+分别代表相应的负面样本。
+
+在这段文本中，符号 'h' 和 'z' 代表负样本。模型通过采用对比学习（contrastive learning）的方法，可以更有效地学习生成各种合理的回复，而不局限于训练数据中的示例。这种方法有助于降低过拟合的风险，从而在真实世界的场景中提高模型的泛化能力。
+
+在处理涉及结构化数据的检索任务时，SANTA [Li et al., 2023d] 的研究采用了三个阶段的训练过程，旨在深入理解数据的结构和语义信息。
+
+具体地，在检索器的训练阶段，使用了对比学习来优化查询和文档的嵌入表示，其优化目标如下：
+
+在这里，q 和 d 分别是编码器处理后的查询和文档。
+
+分别代表负样本和正样本。在生成器的初期训练阶段，我们通过对比学习来对齐结构化数据和非结构化数据的相关文档描述。其优化目标与上述相同。
+
+在生成器的后期训练阶段，我们受到参考文献 [16, 17] 的启发，认识到在检索任务中，实体语义对于学习文本数据表示的重要性。因此，我们首先对结构化数据进行实体识别，然后在生成器训练数据的输入部分对这些实体应用掩码，使得生成器能够预测这些被掩盖的部分。此阶段的优化目标为：
+
+在序列 Yd 中，Ydyi 表示第 j 个 Token。这里，xxxx 表示一个包含了部分被掩盖的实体信息的序列。训练过程中，我们通过分析上下文中的信息来揭示这些被掩盖的实体，理解文本的结构性语义，并将其与结构化数据中的相关实体对应起来。我们的目标是让语言模型能够有效填补这些缺失的信息，并更深入地理解实体的含义 [21]。
 
 ### 06. Augmentation in RAG
 
 This chapter is primarily organized into three dimensions: the stage of augmentation, augmentation data sources, and the process of augmentation, to elaborate on the key technologies in the development of RAG.Taxonomy of RAG's Core Components is illustrated in Fig 4.
 
-6.1 RAG in Augmentation Stages
+06 RAG 技术的增强手段
+
+本章主要从三个方面来介绍 RAG 技术的进展：增强阶段、数据源和增强过程。
+
+图 4：RAG 核心技术的分类。
+
+#### 6.1 RAG in Augmentation Stages
 
 As a knowledge-intensive task, RAG employs different technical approaches during the language model training's pretraining, fine-tuning, and inference stages.
 
@@ -574,7 +730,59 @@ On the other hand, IRCOT [ Trivedi et al., 2022 ] merges the concepts of RAG and
 
 In summary, inference-stage enhancement methods offer the advantages of being lightweight, cost-effective, requiring no additional training, and utilizing powerful pre-trained models. The main strength lies in freezing the parameters of the LLMs during fine-tuning, focusing on providing context that better suits the requirements, with the characteristics of being fast and low-cost. However, this approach also has some limitations, including the need for additional data processing and process optimization, while being constrained by the foundation model's capabilities. Typically, this method is often combined with process optimization techniques such as step-wise reasoning , iterative reasoning, and adaptive retrieval to better meet the requirements of different tasks.
 
-6.2 Augmentation Data Source
+6.1 RAG 在各个增强阶段的应用
+
+RAG 作为一项知识密集型任务，在语言模型训练的预训练、微调和推理阶段采用了多种技术手段。
+
+预训练阶段
+
+在预训练阶段，研究人员努力通过检索方法来提升预训练语言模型在开放领域问答中的表现。预训练模型中隐含知识的识别和扩充是一项挑战。2023 年，Arora et al. 提出了 REALM，一种更为模块化且易于理解的知识嵌入方法。REALM 采用掩蔽语言模型（MLM）的方式，将预训练和微调视为一种先检索再预测的过程，即语言模型根据掩蔽的句子 x 预测掩蔽的 Token y，建模 P（x|y)。
+
+2022 年，Borgeaud et al. 提出的 RETRO 则是利用检索增强来预训练自回归语言模型，它通过从大量标记数据集中检索信息，实现了从零开始的大规模预训练，并显著减少了模型的参数量。
+
+RETRO 不仅与 GPT 模型共享主体结构，还增加了一个 RETRO 编码器，用于编码从外部知识库检索得到的相关实体的特征。
+
+更进一步，RETRO 在其解码器的 Transformer 结构中加入了分块交叉注意力层，有效地融合了来自 RETRO 编码器的检索信息。这使 RETRO 在处理复杂问题时，比标准的 GPT 模型表现出更低的困惑度。此外，RETRO 在更新语言模型存储的知识时更加灵活，可以通过更新检索数据库来实现，无需重新训练整个模型 [Petroni et al.，2019]。
+
+Atla [Izacard et al., 2022] 采用了与 T5 架构 [Raffel et al., 2020] 相似的方法，在预训练和微调阶段都融入了检索机制。在开始预训练之前，Atla 会先用已经预训练好的 T5 初始化其编解码器的大语言模型基础，并用预训练好的 Contriever 初始化密集检索器。
+
+在预训练的过程中，相较于传统的预训练模型，这种方法通过减少参数的使用，提高了效率。它特别擅长处理需要大量知识的任务，并可以通过在特定领域的语料库上训练来构建专门的模型。但这种方法也有其不足之处，如需要大量预训练数据、更多的训练资源，以及更新速度较慢。特别是当模型尺寸增大时，基于检索的训练成本会相对增高。尽管存在这些限制，这种方法在增强模型的鲁棒性方面表现出色。一旦训练完成，基于纯预训练的检索增强模型就不再需要外部库的依赖，从而提高了生成速度和操作效率。
+
+微调阶段
+
+在下游微调阶段，研究人员采用了多种方法来提高检索器和生成器在开放域问答任务中的信息检索能力。例如，REPlUG [Shi et al., 2023] 把语言模型（LM）当作黑盒来处理，并通过一个可调节的检索模型进行优化。REPLUG 通过监督信号从黑盒语言模型中获取反馈，进而改善初始的检索模型。而 UPRISE [Cheng et al., 2023a] 通过在多样化的任务集上进行微调，创建了一个轻量且灵活的检索器。
+
+这种检索器能够为零样本任务自动生成检索提示，展现了其在不同任务和模型上的通用性和优越性能。
+
+同时，研究人员也在微调生成器方面做出了努力。例如，Self-Mem [Cheng et al., 2023b] 通过利用示例池对生成器进行微调，而 Self-RAG [Asai et al., 2023b] 则通过生成反射 Token（reflection tokens）来满足主动检索的需求。
+
+RA-DIT [Lin et al., 2023] 方法则是通过提高在检索增强指令下正确答案出现的概率来同时微调生成器和检索器。它通过最小化文档与查询之间的语义相似度，有效地利用了相关的背景知识。
+
+此外，SUGRE [Kang et al., 2023] 引入了对比学习（contrastive learning）的概念，实现了检索器和生成器的端到端微调，从而保证了文本生成的高度精确性和检索的子图的详细性。
+
+SURGE 则利用基于图神经网络（Graph Neural Networks）的上下文感知子图检索器，从知识图谱中提取与进行中对话相关的知识，确保生成的回应忠实地反映了检索到的知识。为了达到这个目的，SURGE 使用了一个高效且不变的图编码器，以及一个图文对比学习目标。
+
+总的来说，微调阶段的增强方法有几个显著特征。
+
+首先，对大语言模型（LLM）和检索器进行微调可以更好地适应特定任务，这提供了同时或单独微调任一者的灵活性。例如，RePlug [Shi et al., 2023] 和 RA-DIT [Lin et al., 2023] 方法展示了这一点。其次，微调有助于模型适应多样化的下游任务，如 UPRISE [Cheng et al., 2023a] 所示，使模型更加多功能。此外，微调还使模型能更好地处理不同数据结构的多种语料库，尤其是在处理图结构语料库方面有明显优势，SUGRE 方法就是一个例证。
+
+然而，微调阶段也存在局限性，比如需要特别为 RAG 微调准备的数据集，以及与推理阶段相比需要更多的计算资源。总体来说，在微调阶段，研究人员可以根据特定需求和数据格式定制模型，在减少资源消耗的同时，仍能调整模型的输出风格。
+
+推理阶段
+
+在推理阶段，RAG 方法与大语言模型的结合成为了研究的热点。例如，Naive RAG 就是在推理阶段融入检索内容的一个研究模式。
+
+为了弥补 Naive RAG 的不足，研究者在推理阶段的 RAG 中引入了更多上下文。DSP [Khattab et al., 2022] 框架通过一个复杂的流程，在冻结的语言模型（LM）和检索模型（RM）间传递自然语言文本，为模型提供更丰富的上下文，从而提升生成质量。PKG 则为大语言模型装备了一个知识引导模块，允许模型在不更改参数的情况下访问相关知识，使其能够执行更复杂的任务。同时，CREA-ICL [Li et al., 2023b] 利用同步检索跨语言知识来获取额外信息，而 RECITE 则通过从大语言模型中抽取一个或多个段落来构建上下文。
+
+在推理阶段，对 RAG 进程的优化有助于模型适应更复杂的任务。
+
+例如，ITRG [Feng et al., 2023a] 通过迭代检索和寻找正确的推理路径，提高了模型处理多步推理任务的适应能力。
+
+ITER-RETGEN [Shao et al., 2023] 采用了一种创新的迭代方式，将信息检索和内容生成紧密结合。这种方法轮流进行「以检索助力生成」的过程和「以生成反哺检索」的过程，从而有效地提升了信息的准确性和相关性。而 IRCOT [Trivedi et al., 2022] 则是一种结合了 RAG 和 CoT [Wei et al., 2022] 理念的方法。它通过交替使用 CoT 引导的检索和利用检索结果来强化 CoT，有效地提升了 GPT-3 在各类问答任务中的表现，这突出了融合检索与生成技术的巨大潜力。
+
+总结来说，推理阶段的增强技术因其轻量、高效、无需额外训练以及能够有效利用已有的强大预训练模型而备受推崇。其最大的特点是在模型微调时保持大语言模型（LLM）的参数不变，重点在于根据不同需求提供更加贴切的上下文信息，同时具有快速和成本低的优势。然而，这种方法也存在一些局限，比如需要额外的数据处理和流程优化，以及受限于基础模型的性能。为了更好地适应不同的任务需求，这种方法通常会与诸如逐步推理、迭代推理和自适应检索等优化技术结合使用。
+
+#### 6.2 Augmentation Data Source
 
 Data source is crucial factors for RAG effectiveness. Various data sources offer distinct granularities and dimensions of knowledge, requiring different processing methods. They primarily fall into three categories: unstructured data, structured data, and content generated by LLMs.
 
@@ -600,7 +808,43 @@ Selfmem [ Cheng et al., 2023b ] iteratively uses a retrievalenhanced generator t
 
 These diverse approaches showcase innovative strategies in RAG retrieval enhancement, aiming to elevate model performance and effectiveness.
 
-6.3 Augmentation Process
+6.2 数据增强来源
+
+数据来源对 RAG（Retrieval-Augmented Generation）的效果至关重要。不同的数据来源提供不同粒度和维度的知识，因此需要采取不同的处理方式。主要分为三类：非结构化数据、结构化数据以及大语言模型生成的内容。
+
+非结构化数据增强
+
+在非结构化数据方面，这类数据主要是文本型的，通常源自纯文本的语料库。除此之外，还有其他文本数据可用于检索，例如用于大模型微调的 Prompt 数据 [Cheng et al., 2023a] 和跨语言数据 [Li et al., 2023b]。
+
+在处理文本的粒度上，除了常见的句子块之外，检索的单元还可以是 Token（例如 kNN-LM [Khandelwal et al., 2019]）、短语（如 NPM [Lee et al., 2020]，COG [Vaze et al., 2021]）以及文档段落。更细致的检索单元能更好地应对罕见模式和领域外的场景，但相应地，检索成本也会上升。
+
+在词汇层面，FLARE 实行一种主动检索策略，仅在大语言模型生成低概率词时启动检索。这种方法涉及先生成一个临时的下一句话用于检索相关文档，然后根据检索到的文档再次生成下一句话，以预测接下来的句子。
+
+在文本块的层面，RETRO 则使用前一个块来检索与之最接近的块，并将这些信息融合进前一个块的上下文中，用以指导下一个块的生成。具体来说，RETRO 通过从检索数据库中提取前一个块的最近邻块 N（Ci−1)，并将之前块的上下文信息（C1*，...，C*i−1）与 N（Ci−1）的检索信息结合，通过交叉关注机制，来指导下一个块 Ci 的生成。为了保持因果逻辑的连贯性，生成第 i 个块 Ci 时，只能参考前一个块的最近邻 N（Ci−1)，而不能使用 N（Ci)。
+
+结构化数据增强
+
+在结构化数据的增强方面，像知识图谱（Knowledge Graph, KG）这类数据源正逐步融入到 RAG 的框架中。经验证的知识图谱能提供更高品质的上下文信息，从而减少模型产生错觉的可能性。
+
+例如，RET-LLM [Modarressi et al., 2023] 构建了一个个性化的知识图谱记忆，它通过从过往对话中提取关系三元组，用于未来的对话处理。
+
+SUGRE [Kang et al., 2023] 使用图神经网络（GNN）嵌入从知识图谱中检索到的相关子图，这样做可以避免模型生成与话题无关的回复。
+
+SUGRE [Kang et al., 2023] 采用一种图编码方法，该方法将图结构融入到预训练模型（PTMs）的表征空间，并利用图文模式之间的多模态对比学习目标来确保检索到的事实与生成文本的一致性。
+
+KnowledgeGPT [Wang et al., 2023c] 生成的代码格式搜索查询适用于知识库（KB)，并包括预定义的 KB 操作函数。除了检索功能，KnowledgeGPT 还能够在个性化知识库中存储知识，以满足用户的个性化需求。这些结构化数据源为 RAG 提供了更加丰富的知识和上下文，从而提升模型性能。
+
+LLM 生成的内容 RAG
+
+鉴于 RAG 回忆的辅助信息有时效果不佳，甚至可能适得其反，部分研究对 RAG 的应用范式进行了拓展，深入探讨了大语言模型（LLM）的内部知识。这种方法通过利用 LLM 自身生成的内容来进行检索，目的是提高下游任务的性能。以下是该领域一些重要的研究： SKR [Wang et al., 2023d] 使用了一个标记好的训练集，将模型能够直接回答的问题归类为「已知」，而需要额外检索增强的问题归类为「未知」。该模型训练用于区分问题是否为「已知」，仅对「未知」的问题应用检索增强，而对其他问题直接给出答案。
+
+GenRead [Yu et al., 2022] 将检索器替换为 LLM 生成器。实验结果显示，由 LLM 生成的上下文文档中包含正确答案的情况比传统 RAG 检索的更常见，并且生成的答案质量更高。作者认为，这是因为生成文档级上下文的任务与因果性语言建模的预训练目标相匹配，使得模型能更有效地利用存储在参数中的世界知识。
+
+Selfmem [Cheng et al., 2023b] 通过迭代使用检索增强的生成器，建立了一个无限的记忆池。系统中包含一个记忆选择器，用于选择一个生成输出作为后续生成过程的记忆。这个输出对应于原始问题的另一面。通过结合原始问题和其对立面，检索增强的生成模型能够利用自身的输出来自我提升。
+
+这些不同的方法展示了 RAG 检索增强领域的创新策略，目的是提高模型的性能和有效性。
+
+#### 6.3 Augmentation Process
 
 Most RAG research typically only performs a single retrieval and generation process. However, single retrievals may contain redundant information, leading to a "lost in the middle" phenomenon [ Liu et al., 2023 ] . This redundant information can obscure key information or contain information contrary to the real answer, negatively impacting the generation effect [ Yoran et al., 2023 ] . Additionally, the information obtained from a single retrieval is limited in problems requiring multi-step reasoning.
 
@@ -624,13 +868,49 @@ Flare [ Jiang et al., 2023b ] , on the other hand, automates the timing of retri
 
 Self-RAG [ Asai et al., 2023b ] introduces an important innovation called Reflection tokens. These special tokens are generated to review the output and come in two types: Retrieve and Critic. The model can autonomously decide when to retrieve paragraphs or use a set threshold to trigger retrieval. When retrieval is needed, the generator processes multiple paragraphs simultaneously, performing fragmentlevel beam search to obtain the best sequence. The scores for each subdivision are updated using Critic scores, and these weights can be adjusted during the inference process to customize the model's behavior. The Self-RAG framework also allows the LLM to autonomously determine whether recall is necessary, avoiding training additional classifiers or relying on NLI models. This enhances the model's ability to autonomously judge inputs and generate accurate answers.
 
-7
+6.3 增强过程
 
-RAG Evaluation
+在大部分 RAG（检索与生成）研究中，通常仅执行单次检索和生成操作。然而，单次检索可能携带重复信息，导致生成内容「失焦」[Liu et al., 2023]。这类重复信息可能掩盖关键信息或包含与正确答案相悖的内容，从而负面影响生成质量 [Yoran et al., 2023]。此外，单次检索所获取的信息在需要多步骤推理的问题上表现有限。
+
+目前优化检索过程的主要方法包括迭代检索和自适应检索。这些方法使模型能够在检索过程中进行多次迭代或根据不同的任务和场景自适应地调整检索方式。
+
+迭代检索
+
+通过定期收集基于原始查询和生成文本的文档，可以为大语言模型（LLM）提供更多参考资料 [Borgeaud et al., 2022, Arora et al., 2023]。多次迭代检索中增加的参考资料已经提升了后续答案生成的稳健性。然而，这种方法可能在语义上存在断裂，有时还可能收集到杂乱无用的信息，因为它主要依靠一连串 Token 来区分生成和检索的文档。
+
+递归检索和多跳检索应用于特定的数据场景。递归检索首先通过结构化索引处理数据，再逐层进行检索。在检索层次丰富的文档时，可以为每个部分制作摘要，无论是整篇文档还是长篇 PDF。在基于摘要进行检索后，一旦确定了文档，就对其内部的各个部分进行二次检索，实现递归检索。多跳检索则常用于深入挖掘图结构数据源中的信息 [Li et al., 2023c]。
+
+一些方法结合了检索和生成步骤的迭代。
+
+ITER-RETGEN [Shao et al., 2023] 结合了「检索增强生成」和「生成增强检索」，适用于需要复现信息的任务。即模型利用完成任务所需的内容来回应输入的任务，这些内容随后成为检索更多相关知识的信息背景。这有助于在下一次迭代中生成更优的回应。
+
+IRCoT [Trivedi et al., 2022] 探索了在思维链的每个步骤中检索文档的方法，为每生成一句话就进行一次检索。它利用 CoT（连续任务）来指导检索，并用检索结果来优化 CoT，从而确保语义的完整性。
+
+适应性检索
+
+在适应性检索的领域，Flare [Jiang et al., 2023b] 和 Self-RAG [Asai et al., 2023b] 等方法对常规的 RAG 方法进行了改进。传统的 RAG 方法在检索信息时采取被动方式，而这些新方法则让大语言模型（LLM）能主动决定何时以及检索什么内容，从而提高信息检索的效率和准确性。
+
+事实上，大语言模型（LLM）主动利用工具并进行判断的做法，并非始于 RAG，而是已在许多大型模型的 AI 智能体中得到广泛应用 [Yang et al., 2023c, Schick et al., 2023, Zhang, 2023]。
+
+以 Graph-Toolformer [Zhang, 2023] 为例，它的检索步骤分为几个阶段：LLM 主动利用检索器，通过少样本提示激发搜索查询。当 LLM 认为有必要时，会主动搜索相关问题，以收集必需信息，类似于 AI 智能体调用工具的过程。
+
+WebGPT [Nakano et al., 2021] 则利用强化学习训练 GPT-3 模型，使其通过特殊 Token 在搜索引擎上进行查询、浏览和引用，从而在文本生成中有效利用搜索引擎。
+
+Flare [Jiang et al., 2023b] 则通过自动判断信息检索的最佳时机，有效减少了文档检索的成本。该方法通过监测文本生成过程中的概率变化，一旦生成术语的概率降到一定阈值以下，就会触发信息检索系统，补充所需的知识。
+
+Self-RAG [Asai et al., 2023b] 则引入了一种新颖的「反思 Token」，分为「检索」和「批评」两种。这使得模型能够根据设定的标准自主决定检索信息的时机，从而有效地获取所需段落。
+
+在需要进行信息检索时，生成器会同时处理多个段落，并采用一种称为「片段级 beam search」的技术来确定最优的内容组合。这个过程中，各个部分的重要性通过一种叫做「评审分数（Critic scores)」的方法来评估并更新，而且这些分数在生成答案的过程中可以根据需要调整，以此来定制模型的响应方式。Self-RAG 框架的一个创新之处在于，它允许大语言模型（LLM）自己决定是否需要回顾过去的信息，这样就避免了额外训练分类器或依赖于自然语言推理（NLI）模型。这大大提升了模型自主判断信息并生成准确回答的能力。
+
+### 07. RAG Evaluation
 
 In exploring the development and optimization of RAG, effectively evaluating its performance has emerged as a central issue. This chapter primarily discusses the methods of evaluation, key metrics for RAG, the abilities it should possess, and some mainstream evaluation frameworks.
 
-7.1 Evaluation Methods
+07 RAG 评估
+
+在探索和优化 RAG（检索增强生成器）的过程中，如何有效评估其性能已经成为关键问题。本章节主要围绕评估方法、RAG 应具备的关键指标、它的核心能力，以及一些常用的评估框架进行讨论。
+
+#### 7.1 Evaluation Methods
 
 There are primarily two approaches to evaluating the effectiveness of RAG: independent evaluation and end-to-end evaluation [ Liu, 2023 ] .
 
@@ -642,7 +922,27 @@ Independent Evaluation Independent evaluation includes assessing the retrieval m
 
 End-to-End Evaluation End-to-end evaluation assesses the final response generated by the RAG model for a given input, involving the relevance and alignment of the model-generated answers with the input query. From the perspective of content generation goals, evaluation can be divided into unlabeled and labeled content. Unlabeled content evaluation metrics include answer fidelity, answer relevance, harmlessness, etc., while labeled content evaluation metrics include Accuracy and EM. Additionally, from the perspective of evaluation methods, end-to-end evaluation can be divided into manual evaluation and automated evaluation using LLMs. The above summarizes the general case of end-to-end evaluation for RAG. Furthermore, specific evaluation metrics are adopted based on the application of RAG in particular domains, such as EM for question-answering tasks [ Borgeaud et al., 2022, Izacard et al., 2022 ] , UniEval and E-F1 for summarization tasks [ Jiang et al., 2023b ] , and BLEU for machine translation [ Zhong et al., 2022 ] . These metrics help in understanding the performance of RAG in various specific application scenarios.
 
-7.2 Key Metrics and Abilities
+7.1 评估方法
+
+主要有两种方法来评估 RAG 的有效性：独立评估和端到端评估 [Liu, 2023]。
+
+独立评估
+
+独立评估涉及对检索模块和生成模块（即阅读和合成信息）的评估。
+
+检索模块：评估 RAG 检索模块的性能通常使用一系列指标，这些指标用于衡量系统（如搜索引擎、推荐系统或信息检索系统）在根据查询或任务排名项目的有效性。这些指标包括命中率（Hit Rate)、平均排名倒数（MRR)、归一化折扣累积增益（NDCG)、精确度（Precision）等。
+
+生成模块：生成模块指的是将检索到的文档与查询相结合，形成增强或合成的输入。这与最终答案或响应的生成不同，后者通常采用端到端的评估方式。生成模块的评估主要关注上下文相关性，即检索到的文档与查询问题的关联度。
+
+端到端评估
+
+端到端评估是对 RAG 模型对特定输入生成的最终响应进行评估，涉及模型生成的答案与输入查询的相关性和一致性。
+
+从内容生成的目标来看，评估可分为无标签和有标签的内容评估。无标签内容的评估指标包括答案的准确性、相关性和无害性，而有标签内容的评估指标则包括准确率（Accuracy）和精确匹配（EM)。此外，根据评估方法的不同，端到端评估可分为人工评估和使用大语言模型（LLM）的自动评估。总的来说，这些是 RAG 端到端评估的常规方法。特定领域的 RAG 应用还会采用特定的评估指标，如问答任务的精确匹配（EM)[Borgeaud et al., 2022, Izacard et al., 2022]，摘要任务的 UniEval 和 E-F1 [Jiang et al., 2023b]，以及机器翻译的 BLEU [Zhong et al., 2022]。
+
+这些指标有助于理解 RAG 在各种特定应用场景中的表现。
+
+#### 7.2 Key Metrics and Abilities
 
 Existing research often lacks rigorous evaluation of the impact of retrieval-augmented generation on different LLMs. In most cases, the evaluaion of RAG's application in various downstream tasks and with different retrievers may yield divergent results. However, some academic and engineering practices have focused on general evaluation metrics for RAG and the abilities required for its effective use. This section primarily introduces key metrics for evaluating RAG's effectiveness and essential abilities for assessing its performance.
 
@@ -674,7 +974,35 @@ Key abilities The work of RGB [ Chen et al., 2023b ] analyzed the performance of
 
 4. Counterfactual Robustness This test aims to evaluate whether the model can identify and deal with known erroneous information in documents when receiving instructions about potential risks in retrieved information. Counterfactual robustness tests include questions that the LLM can answer directly, but the related external documents contain factual errors.
 
-7.3 Evaluation Frameworks
+7.2 关键指标和能力
+
+现有研究往往缺乏对检索增强的大语言模型（LLM）生成效果的严格评估。通常情况下，评估 RAG 在不同下游任务和不同检索器中的应用可能会得到不同的结果。然而，一些学术和工程实践已经开始关注 RAG 的通用评估指标和有效运用所需的能力。本节主要介绍评估 RAG 有效性的关键指标和评估其性能所需的基本能力。
+
+关键指标
+
+最近的 OpenAI 报告 [Jarvis and Allard, 2023] 讨论了优化大语言模型（大语言模型）的多种技术，其中包括 RAG 及其评估标准。
+
+此外，像 RAGAS [Es et al., 2023] 和 ARES [Saad-Falcon et al., 2023] 这样的最新评估框架也应用了 RAG 的评估标准。梳理这些研究，主要集中于三个关键指标：答案的准确性、答案的相关性和上下文的相关性。
+
+答案准确性：这个指标着重保证模型生成的答案与给定上下文的真实性一致，确保答案不会与上下文信息发生冲突或偏离。这一评价标准对于避免大型模型中的误导至关重要。
+
+答案相关性：此指标强调生成的答案需要紧密联系问题本身。
+
+上下文相关性：此指标要求提取的上下文信息必须尽可能精确和具有针对性，以避免无关内容。毕竟，长文本的处理对大语言模型来说成本很高，过多无关信息会降低模型利用上下文的效率。OpenAI 的报告还特别提及了「上下文提取」作为一项补充指标，用于衡量模型回答问题所需的相关信息检索能力。这个指标反映了 RAG 检索模块的搜索优化程度。低回忆率可能暗示需要优化搜索功能，例如引入重新排序机制或调整嵌入，以确保检索到更相关的内容。
+
+关键能力
+
+RGB [Chen et al., 2023b] 的研究分析了不同大语言模型在处理 RAG 所需的四项基本能力方面的表现，包括抗噪声能力、拒绝无效回答能力、信息综合能力和反事实稳健性，从而为检索增强型生成设立了标准。RGB 关注以下四个能力：
+
+抗噪声能力： 这项能力评估模型处理与问题相关但无效信息的噪声文档的效率。
+
+拒绝无效回答能力： 当模型检索到的文档缺乏解决问题所需的信息时，模型应正确地拒绝回答。在测试拒绝无效回答时，外部文档仅包含无效信息。理想状态下，大语言模型应发出「信息不足」或类似的拒绝信号。
+
+信息综合能力： 这项能力评价模型是否能整合多个文档中的信息，以回答更复杂的问题。
+
+反事实鲁棒性测试： 此项测试旨在评估模型在被告知检索信息可能存在风险时，是否能识别并纠正文档中的错误信息。反事实鲁棒性测试包括一些大语言模型能直接回答的问题，但相关外部文档却含有错误事实。
+
+#### 7.3 Evaluation Frameworks
 
 Recently, the LLM community has been exploring the use of "LLMs as judge" for automatic assessment, with many utilizing powerful LLMs (such as GPT-4) to evaluate their own LLM applications outputs. Practices by Databricks using GPT-3.5 and GPT-4 as LLM judges to assess their chatbot applications suggest that using LLMs as automatic evaluation tools is effective [ Leng et al., 2023 ] . They believe this method can also efficiently and cost-effectively evaluate RAG-based applications.
 
@@ -698,11 +1026,39 @@ ARES reduces the cost of evaluation by using a small amount of manually annotate
 
 3. Ranking RAG Systems Using Confidence Intervals: Finally, ARES applies these judge models to score RAG systems and combines them with a manually annotated validation set using the PPI method to generate confidence intervals, reliably estimating the performance of RAG systems.
 
+7.3 评估框架
+
+近来，大语言模型社群开始探索将大语言模型用作评估者的自动评估方法，许多研究使用如 GPT-4 这样的先进模型来评估他们的大语言模型应用效果。Databricks 就曾使用 GPT-3.5 和 GPT-4 作为评估者，来审视他们的聊天机器人应用，结果显示这种自动评估方式颇为有效 [Leng et al., 2023]。他们还认为，这种方法对于基于检索 - 生成（RAG）应用的评估既高效又节约成本。在 RAG 评估框架领域，RAGAS 和 ARES 是较新的方法。这些评估主要关注三个核心指标：答案的准确性、相关性和上下文相关性。此外，业界提出的开源库 TruLens 也采用了类似的评估方式。所有这些框架都将大语言模型作为评估者。由于 TruLens 与 RAGAS 相似，本节将重点介绍 RAGAS 和 ARES。
+
+RAGAS
+
+这个框架关注于检索系统挑选关键上下文段落的能力、大语言模型准确利用这些段落的能力以及生成内容的整体质量。RAGAS 是一个基于简单手写提示的评估框架，通过这些提示全自动地衡量答案的准确性、相关性和上下文相关性。在此框架的实施和试验中，所有提示都通过 OpenAI API 中的 gpt-3.5-turbo-16k 模型进行评估 [Es et al., 2023]。
+
+算法原理
+
+答案忠实度评估：利用大语言模型（LLM）分解答案为多个陈述，检验每个陈述与上下文的一致性。最终，根据支持的陈述数量与总陈述数量的比例，计算出一个「忠实度得分」。
+
+答案相关性评估：使用大语言模型（LLM）创造可能的问题，并分析这些问题与原始问题的相似度。答案相关性得分是通过计算所有生成问题与原始问题相似度的平均值来得出的。
+
+上下文相关性评估：运用大语言模型（LLM）筛选出直接与问题相关的句子，以这些句子占上下文总句子数量的比例来确定上下文相关性得分。
+
+ARES
+
+ARES 的目标是自动化评价 RAG 系统在上下文相关性、答案忠实度和答案相关性三个方面的性能。这些评价指标与 RAGAS 中的相似。但是，RAGAS 作为一个基于简单手写提示的较新评估框架，在适应新 RAG 评估场景方面有一定局限性，这正是 ARES 项目的显著意义。此外，ARES 在评估中的表现明显不如 RAGAS。ARES 减少了评估成本，通过使用少量的手动标注数据和合成数据，并应用预测驱动推理（PDR）提供统计置信区间，提高了评估的准确性 [Saad-Falcon 等人，2023]。
+
+算法原理
+
+生成合成数据集：ARES 首先使用语言模型从目标语料库中的文档生成合成问题和答案，创建正负两种样本。
+
+训练大语言模型（LLM）裁判：然后，ARES 对轻量级语言模型进行微调，利用合成数据集训练它们以评估上下文相关性、答案忠实度和答案相关性。
+
+基于置信区间对 RAG 系统排名：最后，ARES 使用这些裁判模型为 RAG 系统打分，并结合手动标注的验证集，采用 PPI 方法生成置信区间，从而可靠地评估 RAG 系统的性能。
+
 ### 08. Future Prospects
 
 In this chapter, we delve into three future prospects for RAG, namely vertical optimization, horizontal expansion and ecosystem of RAG.
 
-8 未来展望
+08 未来展望
 
 在本章中，我们讨论了 RAG 的三大未来发展方向：垂直优化、横向扩展以及 RAG 生态系统的构建。
 
@@ -1057,435 +1413,3 @@ power llms with graph reasoning ability via prompt augmented by chatgpt. arXiv p
 [ Zhu et al., 2023 ] Yutao Zhu, Huaying Yuan, Shuting Wang, Jiongnan Liu, Wenhan Liu, Chenlong Deng, Zhicheng Dou, and Ji-Rong Wen. Large language models for information retrieval: A survey. arXiv preprint arXiv:2308.07107, 2023.
 
 [ Zhuang et al., 2023 ] Shengyao Zhuang, Bing Liu, Bevan Koopman, and Guido Zuccon. Open-source large language models are strong zero-shot query likelihood models for document ranking. arXiv preprint arXiv:2310.13243, 2023.
-
-## 20231223面向大语言模型的检索增强生成技术
-
-4 检索器
-
-在 RAG（检索增强生成）技术中，「R」代表检索，其作用是从大量知识库中检索出最相关的前 k 个文档。然而，构建一个高质量的检索器是一项挑战。在本章，我们将探讨三个关键问题：1）如何获得准确的语义表示？2）如何匹配查询和文档的语义空间？3）如何让检索器的输出与大语言模型（LLM）的偏好相协调？
-
-4.1 如何获得准确的语义表示？
-
-在 RAG 中，语义空间指的是查询和文档被映射的多维空间。
-
-进行检索时，我们是在这个语义空间内进行评估的。如果语义表达不准确，对 RAG 的影响将是灾难性的。本节将介绍两种构建准确语义空间的方法。
-
-块优化
-
-处理外部文档的第一步是分块，以获得更细致的特征。接着，这些文档块被嵌入（Embedded）。
-
-嵌入太大或太小的文本块可能无法取得最佳效果。因此，找到适合语料库文档的最佳块大小至关重要，以确保搜索结果的准确性和相关性。
-
-选择分块策略时，需要考虑的要素包括：被索引内容的特点、使用的嵌入模型及其最适块大小、用户查询的预期长度和复杂度、以及检索结果在特定应用中的使用方式。例如，对于不同长度的内容，应选用不同的分块模型。不同的嵌入模型，如 Sentence-Transformer 和 text-embedding-ada-002，在处理不同大小的文本块时效果各异；例如，Sentence-Transformer 更适合单句处理，而 text-embedding-ada-002 更适合处理包含 256 或 512 Token 的文本块。用户问题文本的长度和复杂性，以及应用程序的特定需求（如语义搜索或问答），也会影响分块策略的选择。这可能与选用的大语言模型的 Token 限制直接相关，因此可能需要调整块大小。实际上，准确的查询结果是通过灵活应用多种分块策略来实现的，并没有最佳策略，只有最适合的策略。
-
-当前的 RAG 研究采用了多种块优化方法，以提高检索的效率和准确性。其中，技术如滑动窗口技术通过多次检索，聚合全局相关信息，实现分层检索。
-
-Small2big 技术在搜索过程中使用小文本块，并为语言模型提供更大的相关文本块进行处理。摘要嵌入（Abstract embedding）技术对文档摘要执行 Top K 检索，以提供完整的文档上下文。元数据过滤（Metadata Filtering）技术通过文档的元数据进行过滤。图索引（Graph Indexing）技术把实体和关系转化为节点和连接，这在处理多跳问题时显著提升了相关性。这些方法的结合显著提升了 RAG 的检索效果和性能。
-
-微调嵌入模型
-
-在确定了 Chunk 的适当大小之后，我们需要通过一个嵌入模型（Embedding model）将 Chunk 和查询嵌入到语义空间中。因此，嵌入模型是否能有效代表整个语料库变得极其重要。如今，一些出色的嵌入模型已经问世，例如 UAE [AngIE, 2023]、Voyage [VoyageAI, 2023]、BGE [BAAI, 2023] 等，它们在大规模语料库上预训练过。但在特定领域中应用时，这些模型可能无法准确地反映领域特定的语料信息。此外，为了确保模型能够理解用户查询与内容的相关性，对嵌入模型进行任务特定的微调至关重要，否则未经微调的模型可能无法满足特定任务的需求。因此，对嵌入模型进行微调对于其下游应用是必不可少的。
-
-领域知识微调
-
-嵌入模型微调的两个基本范式包括领域知识微调。为了让嵌入模型准确理解领域特定信息，我们需要构建专门的领域数据集来对嵌入模型进行微调。
-
-然而，嵌入模型的微调与常规语言模型的微调不同，主要区别在于所使用的数据集。当前微调嵌入模型的主流方法使用的数据集包括查询（Queries）、语料库（Corpus）和相关文档（Relevant Docs）。嵌入模型基于查询在语料库中检索相关文档，然后根据查询的相关文档是否命中作为衡量模型的标准。
-
-在构建数据集、微调模型和评估过程中，每个部分都可能遇到各种挑战。LlamaIndex [Liu, 2023] 专门为嵌入模型的微调过程引入了一系列关键类别和功能，大大简化了这一过程。通过准备领域知识的语料库并利用其提供的方法，我们可以轻松获得适合特定领域需求的专业嵌入模型。
-
-对下游任务的微调
-
-根据下游任务微调嵌入模型同样重要。使用 RAG 处理特定任务时，已有研究通过大语言模型（LLM）的功能来微调嵌入模型。例如，PROMPTAGATOR [Dai et al., 2022] 将大语言模型用作少样本查询生成器，基于此生成的数据创建了针对特定任务的检索器，这样做可以解决一些领域由于数据不足而难以进行常规监督微调的问题。LLM-Embedder [Zhang et al., 2023a] 则利用大语言模型为多个特定任务中的数据输出奖励值，并通过硬性标记数据集和来自 LLM 的软性奖励对检索器进行了双重微调。
-
-这种做法在一定程度上通过引入领域知识和针对特定任务的微调，改善了语义表达。但是，这种训练方式得到的检索器并不总是直接有益于大语言模型，因此有研究通过从 LLM 获取反馈信号，直接对嵌入模型进行了监督微调。（更多细节将在第 4.4 节介绍）
-
-4.2 如何协调查询和文档的语义空间
-
-在 RAG 应用中，有些检索器用同一个嵌入模型来处理查询和文档，而有些则使用两个不同的模型。此外，用户的原始查询可能表达不清晰或缺少必要的语义信息。因此，协调用户的查询与文档的语义空间显得尤为重要。本节将介绍两种关键技术，帮助实现这一目标。
-
-查询重写
-
-一种直接的方式是对查询进行重写。
-
-如 Query2Doc [Wang et al., 2023b] 和 ITER-RETGEN [Shao et al., 2023] 所指出的，可以利用大语言模型的能力生成一个指导性的伪文档，然后将原始查询与这个伪文档结合，形成一个新的查询。
-
-而在 HyDE [Gao et al., 2022] 中，则是通过文本标识符来建立查询向量，利用这些标识符生成一个相关但可能并不存在的「假想」文档，它的目的是捕捉到相关的模式。
-
-Ma 团队于 2023 年提出的 RRR 框架，开创了一种新的方法，将检索和阅读的顺序进行了反转，专注于如何重新编写查询。在这个方法中，首先利用大语言模型来生成搜索查询，然后通过网络搜索引擎找到相关信息，最后用一个小型的语言模型来帮助这个大模型进行所谓的「训练重写」，以提高其效果。Zheng 团队在 2023 年提出的 STEP-BACKPROMPTING 方法，能够使大语言模型进行更深层次的抽象思考，抽取出关键的概念和原则，并基于这些进行信息检索。
-
-此外，多查询检索方法让大语言模型能够同时产生多个搜索查询。这些查询可以同时运行，它们的结果一起被处理，特别适用于那些需要多个小问题共同解决的复杂问题。
-
-嵌入变换
-
-对于嵌入变换，除了像查询重写这样的宏观方法，还有一些更微观的技术。在 Liu 于 2023 年提出的 LlamaIndex 中，研究者们通过在查询编码器后加入一个特殊的适配器，并对其进行微调，从而优化查询的嵌入表示，使之更适合特定的任务。
-
-在处理结构不同的查询和文档时，例如非结构化的查询和结构化的文档，使两者对齐变得至关重要。Li 团队在 2023 年提出的 SANTA 方法，就是为了让检索系统能够理解并处理结构化的信息。他们提出了两种预训练方法：一是利用结构化与非结构化数据之间的自然对应关系进行对比学习；二是采用了一种围绕实体设计的掩码策略，让语言模型来预测和填补这些被掩盖的实体信息。
-
-4.3 调整检索器结果以适应大语言模型的需求
-
-在 RAG（Retrieval-Augmented Generation）流程中，即便我们采用各种技术提升检索效果，最终对 RAG 的整体性能可能仍无明显提升。原因在于检索到的文档可能并不符合大语言模型（LLM）的需求。本节将介绍两种方法，以使检索器的输出更好地符合 LLM 的偏好。
-
-LLM 监督下的训练众多研究通过从大语言模型获取的反馈信号来调整嵌入模型。AAR [20] 通过一种基于编解码器架构的语言模型（LM），为预训练的检索器提供监督信号。检索器通过分析 LM 偏好的文档（基于 FiD 的交叉注意力分数），进行微调，使用了「硬负样本采样」和传统的交叉熵损失方法。经过这样的训练，检索器能直接用于提升新的目标 LLM，在相关任务中取得更好的成绩。检索器的训练损失公式如下：
-
-是 LLM 偏好的文档集，
-
-则是不受偏好的文档集。
-
-l 代表传统的交叉熵损失函数。研究最后指出，LLM 可能更倾向于关注易于阅读而非信息量丰富的文档。
-
-REPLUG [14] 则通过结合检索器和 LLM 计算出的文档概率分布，采用监督训练方式。训练过程中，通过计算 KL 散度来调整检索模型，使其性能得到提升。这种方法简单有效，利用 LM 作为监督信号，无需依赖特定的交叉注意力机制。检索器的训练损失公式如下：
-
-这里，D 表示输入上下文集合，PR 是文档的检索可能性，QLM 则是每份文档基于 LM 的概率。
-
-UPRISE [Cheng et al., 2023a] 同样采用了冻结的大语言模型来对 Prompt Retriever 进行微调。
-
-在这些研究中，无论是语言模型还是检索器，它们都以提示输入对作为输入。这些模型使用大语言模型（Large Language Model）提供的分数来指导检索器的训练，这相当于用大语言模型来对数据集进行标注。
-
-Atlas [Izacard et al., 2022] 提出了四种微调监督嵌入模型的方法。其中之一，注意力蒸馏（Attention Distillation)，通过语言模型在生成输出时产生的跨注意力分数来进行学习。而 EMDR2 则运用期望最大化（Expectation-Maximization）算法，将检索到的文档作为隐藏变量，进行模型训练。困惑度蒸馏（Perplexity Distillation）直接利用模型生成的 Token 的困惑度（perplexity）作为训练指标。LOOP 则引入了一种新的基于文档删除对大语言模型预测影响的损失函数，这为模型更好地适应特定任务提供了有效的训练方法。
-
-插入适配器
-
-然而，微调嵌入模型可能会遇到一些挑战，例如使用 API 实现嵌入功能或本地计算资源不足。因此，一些研究选择外接适配器来进行模型对齐。PRCA [Yang et al., 2023b] 在上下文提取阶段和奖励驱动阶段训练适配器，并通过基于 Token 的自回归（autoregressive）策略来优化检索器的输出。
-
-TokenFiltering [Berchansky et al., 2023] 的方法通过计算跨注意力分数，挑选出得分最高的输入 Token，有效地进行 Token 过滤。RECOMP [Xu et al., 2023a] 提出了提取和生成压缩器的概念，这些压缩器通过选择相关的句子或合成文档信息来生成摘要，实现多文档查询聚焦摘要。此外，PKG [Luo et al., 2023] 这一新颖方法，通过指令性微调将知识注入到一个白盒模型中，并直接替换了检索器模块，以便直接根据查询输出相关文档。
-
-5 生成组件
-
-在 RAG 系统中，生成组件是核心部分之一，它的职责是将检索到的信息转化为自然流畅的文本。这一设计灵感源自于传统语言模型，但不同于一般的生成式模型，RAG 的生成组件通过利用检索到的信息来提高文本的准确性和相关性。在 RAG 中，生成组件的输入不仅包括传统的上下文信息，还有通过检索器得到的相关文本片段。这使得生成组件能够更深入地理解问题背后的上下文，并产生更加信息丰富的回答。此外，生成组件还会根据检索到的文本来指导内容的生成，确保生成的内容与检索到的信息保持一致。正是因为输入数据的多样性，我们针对生成阶段进行了一系列的有针对性工作，以便更好地适应来自查询和文档的输入数据。
-
-5.1 如何通过后检索处理提升检索结果？
-
-对于未经微调的大型语言模型，多数研究依靠像 GPT-4 [OpenAI, 2023] 这样的知名大型语言模型，借助它们强大的内部知识库来全面检索文档信息。然而，这些大型模型仍然存在一些固有问题，比如上下文长度限制和对冗余信息的敏感性。为了解决这些问题，一些研究开始关注后检索处理。后检索处理指的是，在通过检索器从大型文档数据库中检索到相关信息后，对这些信息进行进一步的处理、过滤或优化。其主要目的是提高检索结果的质量，更好地满足用户需求或为后续任务做准备。可以将其理解为对检索阶段获得的文档进行二次处理。后检索处理通常包括信息压缩和结果的重新排序。
-
-信息压缩
-
-信息压缩方面，即使检索器能够从庞大的知识库中提取相关信息，我们仍然面临处理大量检索文档信息的挑战。一些研究试图通过扩大大型语言模型的上下文长度来解决这个问题，但当前的大模型还是受到上下文限制。在这种情况下，进行信息浓缩变得必要。总体来说，信息浓缩的重要性主要体现在减少信息噪音、解决上下文长度限制和提升生成效果等方面。
-
-PRCA [Yang et al., 2023b] 解决这一问题的方法是训练了一个信息提取器。在提取上下文的阶段，这个提取器能够根据给定的输入文本
-
-input
-
-​
-
-，生成一个输出序列
-
-C
-
-extracted
-
-​
-
-，这个序列代表了输入文档中的精简上下文。训练的目标是让
-
-�
-
-C
-
-extracted
-
-​
-
-尽可能接近实际的上下文
-
-truth
-
-​
-
-。他们使用的损失函数定义如下：
-
-​
-
-表示信息提取器的功能，而
-
-�
-
-θ 是其参数。另一个项目 RECOMP [11] 采用了对比学习法来训练一个信息浓缩器。在每个训练样本中，会有一个正样本和五个负样本。该项目在此过程中采用了对比损失方法 [13] 来训练编码器。具体的优化目标表达如下：
-
-其中
-
-​
-
-代表训练数据，
-
-​
-
-是正样本，
-
-是负样本，sim（x,y）用于计算 x 和 y 之间的相似度。还有一项研究则是致力于进一步减少文档的数量，以此提高模型回答问题的准确度。[Ma et al., 2023b] 提出了一种新的「Filter-Ranker」模式，它结合了大语言模型（LLMs）和小语言模型（SLMs）的优点。在这种模式下，SLMs 充当过滤器，LLMs 则作为排序器。通过激励 LLMs 对 SLMs 筛选出的难点样本进行重新排序，研究表明，这在各类信息提取（IE）任务中都取得了显著的提升。
-
-文档重排
-
-在文档重排过程中，重排模型的主要作用是优化由检索器检索出的文档集合。
-
-当大语言模型（LLM）面临额外上下文的添加时，其性能往往会下降。为了应对这一挑战，重排序被提出作为一种行之有效的策略。其核心在于对文档记录进行重新组织，优先安排最相关的内容位于前列，同时将文档总量控制在一定数量之内。这种做法不仅有效缓解了检索时可能出现的上下文窗口扩大问题，也显著提升了检索的效率和响应速度 [Zhuang et al., 2023]。
-
-重排序过程中引入的上下文压缩功能，目的是基于特定查询上下文直接筛选出相关信息。这一策略的独特之处在于，通过减少每个文档的内容量和筛选掉不相关的文档，它能更加集中地展示检索结果中的关键信息。因此，重排序模型在整个信息检索过程中起到了优化和精化的作用，为后续大语言模型的处理提供了更加有效和精准的输入。
-
-5.2 如何优化生成器应对输入数据？
-
-在 RAG 模型中，优化生成器是至关重要的。生成器负责将检索到的信息转化为相关文本，形成模型的最终输出。其优化目的在于确保生成文本既流畅又能有效利用检索文档，更好地回应用户的查询。
-
-在一般的大语言模型（LLM）生成任务中，输入通常是个查询。而 RAG 的不同之处在于，输入不仅包括查询，还涵盖了检索器找到的多种文档（无论是结构化还是非结构化）。额外信息的加入对模型理解尤其是小型模型造成显著影响，因此，针对查询和检索文档的输入进行模型微调变得尤为重要。一般在将输入提供给微调过的模型之前，需要对检索器找到的文档进行后续处理。值得注意的是，RAG 中对生成器的微调方式与大语言模型的普通微调方法大体相同。本文将简要介绍包括格式化和非格式化数据及其优化函数的一些代表性研究。
-
-通用优化过程
-
-通用优化过程涉及训练数据中的输入输出对，目的是让模型学会根据输入 x 生成输出 y。
-
-在 Self-mem [Cheng et al., 2023b] 的研究中，采用了一种传统训练方法。给定输入 x 后，检索出相关文档 z（文中选取最相关的一个），然后结合（x, z)，模型便生成输出 y。
-
-论文探讨了两种主流微调方法，分别是联合编码器（Joint-Encoder）[Arora et al., 2023, Wang et al., 2022b, Lewis et al., 2020] 和双编码器（Dual-Encoder）[Xia et al., 2019, Cai et al., 2021, Cheng et al., 2022]。
-
-在联合编码器模式下，使用的是标准的编解码器模型，编码器首先处理输入，然后解码器通过注意力机制将编码结果结合起来，自回归地生成 Token。
-
-H=Encoder(x[SEP]m)
-
-在双编码器系统中，构建了两个独立的编码器，各自负责输入（查询、上下文）和文档的编码。接着，这些输出将依次经由解码器处理，进行双向交叉注意力处理。作者采用了 Transformer [Vaswani 等人，2017] 作为两种架构的基础，并对 Gξ 负对数似然（NLL）损失进行了优化。
-
-运用对比学习
-
-在训练数据准备阶段，通常会生成输入和输出之间的交互对，以此进行对比学习。
-
-在这种情境下，模型仅能接触到一个实际的输出，可能会导致「暴露偏差」问题 [Ranzato 等人，2015]：即在训练阶段，模型仅接触到单一的正确反馈，无法了解其他可能的生成 Token。
-
-这可能影响模型在实际应用中的表现，因为它可能过度适应训练数据中的特定反馈，而不是有效泛化到其他情境。因此，SURGE [Kang 等人，2023] 提出了一种基于图文的对比学习方法。对于输入和输出之间的任何一对交互，这种对比学习方法的目标可以这样定义：
-
-其中
-
-ξ 是可学习的线性投影层。z 代表编码器中图形的平均表征，h 是解码器中的平均表征。
-
-分别代表相应的负面样本。
-
-在这段文本中，符号 'h' 和 'z' 代表负样本。模型通过采用对比学习（contrastive learning）的方法，可以更有效地学习生成各种合理的回复，而不局限于训练数据中的示例。这种方法有助于降低过拟合的风险，从而在真实世界的场景中提高模型的泛化能力。
-
-在处理涉及结构化数据的检索任务时，SANTA [Li et al., 2023d] 的研究采用了三个阶段的训练过程，旨在深入理解数据的结构和语义信息。
-
-具体地，在检索器的训练阶段，使用了对比学习来优化查询和文档的嵌入表示，其优化目标如下：
-
-在这里，q 和 d 分别是编码器处理后的查询和文档。
-
-分别代表负样本和正样本。在生成器的初期训练阶段，我们通过对比学习来对齐结构化数据和非结构化数据的相关文档描述。其优化目标与上述相同。
-
-在生成器的后期训练阶段，我们受到参考文献 [16, 17] 的启发，认识到在检索任务中，实体语义对于学习文本数据表示的重要性。因此，我们首先对结构化数据进行实体识别，然后在生成器训练数据的输入部分对这些实体应用掩码，使得生成器能够预测这些被掩盖的部分。此阶段的优化目标为：
-
-,...,j−1))
-
-在序列
-
-​
-
-表示第 j 个 Token。这里，
-
-​
-
-表示一个包含了部分被掩盖的实体信息的序列。训练过程中，我们通过分析上下文中的信息来揭示这些被掩盖的实体，理解文本的结构性语义，并将其与结构化数据中的相关实体对应起来。我们的目标是让语言模型能够有效填补这些缺失的信息，并更深入地理解实体的含义 [21]。
-
-6 RAG 技术的增强手段
-
-本章主要从三个方面来介绍 RAG 技术的进展：增强阶段、数据源和增强过程。
-
-图 4：RAG 核心技术的分类。
-
-图 4：RAG 核心技术的分类。
-
-6.1 RAG 在各个增强阶段的应用
-
-RAG 作为一项知识密集型任务，在语言模型训练的预训练、微调和推理阶段采用了多种技术手段。
-
-预训练阶段
-
-在预训练阶段，研究人员努力通过检索方法来提升预训练语言模型在开放领域问答中的表现。预训练模型中隐含知识的识别和扩充是一项挑战。2023 年，Arora et al. 提出了 REALM，一种更为模块化且易于理解的知识嵌入方法。REALM 采用掩蔽语言模型（MLM）的方式，将预训练和微调视为一种先检索再预测的过程，即语言模型根据掩蔽的句子 x 预测掩蔽的 Token y，建模 P（x|y)。
-
-2022 年，Borgeaud et al. 提出的 RETRO 则是利用检索增强来预训练自回归语言模型，它通过从大量标记数据集中检索信息，实现了从零开始的大规模预训练，并显著减少了模型的参数量。
-
-RETRO 不仅与 GPT 模型共享主体结构，还增加了一个 RETRO 编码器，用于编码从外部知识库检索得到的相关实体的特征。
-
-更进一步，RETRO 在其解码器的 Transformer 结构中加入了分块交叉注意力层，有效地融合了来自 RETRO 编码器的检索信息。这使 RETRO 在处理复杂问题时，比标准的 GPT 模型表现出更低的困惑度。此外，RETRO 在更新语言模型存储的知识时更加灵活，可以通过更新检索数据库来实现，无需重新训练整个模型 [Petroni et al.，2019]。
-
-Atla [Izacard et al., 2022] 采用了与 T5 架构 [Raffel et al., 2020] 相似的方法，在预训练和微调阶段都融入了检索机制。在开始预训练之前，Atla 会先用已经预训练好的 T5 初始化其编解码器的大语言模型基础，并用预训练好的 Contriever 初始化密集检索器。
-
-在预训练的过程中，相较于传统的预训练模型，这种方法通过减少参数的使用，提高了效率。它特别擅长处理需要大量知识的任务，并可以通过在特定领域的语料库上训练来构建专门的模型。但这种方法也有其不足之处，如需要大量预训练数据、更多的训练资源，以及更新速度较慢。特别是当模型尺寸增大时，基于检索的训练成本会相对增高。尽管存在这些限制，这种方法在增强模型的鲁棒性方面表现出色。一旦训练完成，基于纯预训练的检索增强模型就不再需要外部库的依赖，从而提高了生成速度和操作效率。
-
-微调阶段
-
-在下游微调阶段，研究人员采用了多种方法来提高检索器和生成器在开放域问答任务中的信息检索能力。例如，REPlUG [Shi et al., 2023] 把语言模型（LM）当作黑盒来处理，并通过一个可调节的检索模型进行优化。REPLUG 通过监督信号从黑盒语言模型中获取反馈，进而改善初始的检索模型。而 UPRISE [Cheng et al., 2023a] 通过在多样化的任务集上进行微调，创建了一个轻量且灵活的检索器。
-
-这种检索器能够为零样本任务自动生成检索提示，展现了其在不同任务和模型上的通用性和优越性能。
-
-同时，研究人员也在微调生成器方面做出了努力。例如，Self-Mem [Cheng et al., 2023b] 通过利用示例池对生成器进行微调，而 Self-RAG [Asai et al., 2023b] 则通过生成反射 Token（reflection tokens）来满足主动检索的需求。
-
-RA-DIT [Lin et al., 2023] 方法则是通过提高在检索增强指令下正确答案出现的概率来同时微调生成器和检索器。它通过最小化文档与查询之间的语义相似度，有效地利用了相关的背景知识。
-
-此外，SUGRE [Kang et al., 2023] 引入了对比学习（contrastive learning）的概念，实现了检索器和生成器的端到端微调，从而保证了文本生成的高度精确性和检索的子图的详细性。
-
-SURGE 则利用基于图神经网络（Graph Neural Networks）的上下文感知子图检索器，从知识图谱中提取与进行中对话相关的知识，确保生成的回应忠实地反映了检索到的知识。为了达到这个目的，SURGE 使用了一个高效且不变的图编码器，以及一个图文对比学习目标。
-
-总的来说，微调阶段的增强方法有几个显著特征。
-
-首先，对大语言模型（LLM）和检索器进行微调可以更好地适应特定任务，这提供了同时或单独微调任一者的灵活性。例如，RePlug [Shi et al., 2023] 和 RA-DIT [Lin et al., 2023] 方法展示了这一点。其次，微调有助于模型适应多样化的下游任务，如 UPRISE [Cheng et al., 2023a] 所示，使模型更加多功能。此外，微调还使模型能更好地处理不同数据结构的多种语料库，尤其是在处理图结构语料库方面有明显优势，SUGRE 方法就是一个例证。
-
-然而，微调阶段也存在局限性，比如需要特别为 RAG 微调准备的数据集，以及与推理阶段相比需要更多的计算资源。总体来说，在微调阶段，研究人员可以根据特定需求和数据格式定制模型，在减少资源消耗的同时，仍能调整模型的输出风格。
-
-推理阶段
-
-在推理阶段，RAG 方法与大语言模型的结合成为了研究的热点。例如，Naive RAG 就是在推理阶段融入检索内容的一个研究模式。
-
-为了弥补 Naive RAG 的不足，研究者在推理阶段的 RAG 中引入了更多上下文。DSP [Khattab et al., 2022] 框架通过一个复杂的流程，在冻结的语言模型（LM）和检索模型（RM）间传递自然语言文本，为模型提供更丰富的上下文，从而提升生成质量。PKG 则为大语言模型装备了一个知识引导模块，允许模型在不更改参数的情况下访问相关知识，使其能够执行更复杂的任务。同时，CREA-ICL [Li et al., 2023b] 利用同步检索跨语言知识来获取额外信息，而 RECITE 则通过从大语言模型中抽取一个或多个段落来构建上下文。
-
-在推理阶段，对 RAG 进程的优化有助于模型适应更复杂的任务。
-
-例如，ITRG [Feng et al., 2023a] 通过迭代检索和寻找正确的推理路径，提高了模型处理多步推理任务的适应能力。
-
-ITER-RETGEN [Shao et al., 2023] 采用了一种创新的迭代方式，将信息检索和内容生成紧密结合。这种方法轮流进行「以检索助力生成」的过程和「以生成反哺检索」的过程，从而有效地提升了信息的准确性和相关性。而 IRCOT [Trivedi et al., 2022] 则是一种结合了 RAG 和 CoT [Wei et al., 2022] 理念的方法。它通过交替使用 CoT 引导的检索和利用检索结果来强化 CoT，有效地提升了 GPT-3 在各类问答任务中的表现，这突出了融合检索与生成技术的巨大潜力。
-
-总结来说，推理阶段的增强技术因其轻量、高效、无需额外训练以及能够有效利用已有的强大预训练模型而备受推崇。其最大的特点是在模型微调时保持大语言模型（LLM）的参数不变，重点在于根据不同需求提供更加贴切的上下文信息，同时具有快速和成本低的优势。然而，这种方法也存在一些局限，比如需要额外的数据处理和流程优化，以及受限于基础模型的性能。为了更好地适应不同的任务需求，这种方法通常会与诸如逐步推理、迭代推理和自适应检索等优化技术结合使用。
-
-6.2 数据增强来源
-
-数据来源对 RAG（Retrieval-Augmented Generation）的效果至关重要。不同的数据来源提供不同粒度和维度的知识，因此需要采取不同的处理方式。主要分为三类：非结构化数据、结构化数据以及大语言模型生成的内容。
-
-非结构化数据增强
-
-在非结构化数据方面，这类数据主要是文本型的，通常源自纯文本的语料库。除此之外，还有其他文本数据可用于检索，例如用于大模型微调的 Prompt 数据 [Cheng et al., 2023a] 和跨语言数据 [Li et al., 2023b]。
-
-在处理文本的粒度上，除了常见的句子块之外，检索的单元还可以是 Token（例如 kNN-LM [Khandelwal et al., 2019]）、短语（如 NPM [Lee et al., 2020]，COG [Vaze et al., 2021]）以及文档段落。更细致的检索单元能更好地应对罕见模式和领域外的场景，但相应地，检索成本也会上升。
-
-在词汇层面，FLARE 实行一种主动检索策略，仅在大语言模型生成低概率词时启动检索。这种方法涉及先生成一个临时的下一句话用于检索相关文档，然后根据检索到的文档再次生成下一句话，以预测接下来的句子。
-
-在文本块的层面，RETRO 则使用前一个块来检索与之最接近的块，并将这些信息融合进前一个块的上下文中，用以指导下一个块的生成。具体来说，RETRO 通过从检索数据库中提取前一个块的最近邻块 N（Ci−1)，并将之前块的上下文信息（C1*，...，C*i−1）与 N（Ci−1）的检索信息结合，通过交叉关注机制，来指导下一个块 Ci 的生成。为了保持因果逻辑的连贯性，生成第 i 个块 Ci 时，只能参考前一个块的最近邻 N（Ci−1)，而不能使用 N（Ci)。
-
-结构化数据增强
-
-在结构化数据的增强方面，像知识图谱（Knowledge Graph, KG）这类数据源正逐步融入到 RAG 的框架中。经验证的知识图谱能提供更高品质的上下文信息，从而减少模型产生错觉的可能性。
-
-例如，RET-LLM [Modarressi et al., 2023] 构建了一个个性化的知识图谱记忆，它通过从过往对话中提取关系三元组，用于未来的对话处理。
-
-SUGRE [Kang et al., 2023] 使用图神经网络（GNN）嵌入从知识图谱中检索到的相关子图，这样做可以避免模型生成与话题无关的回复。
-
-SUGRE [Kang et al., 2023] 采用一种图编码方法，该方法将图结构融入到预训练模型（PTMs）的表征空间，并利用图文模式之间的多模态对比学习目标来确保检索到的事实与生成文本的一致性。
-
-KnowledgeGPT [Wang et al., 2023c] 生成的代码格式搜索查询适用于知识库（KB)，并包括预定义的 KB 操作函数。除了检索功能，KnowledgeGPT 还能够在个性化知识库中存储知识，以满足用户的个性化需求。这些结构化数据源为 RAG 提供了更加丰富的知识和上下文，从而提升模型性能。
-
-LLM 生成的内容 RAG
-
-鉴于 RAG 回忆的辅助信息有时效果不佳，甚至可能适得其反，部分研究对 RAG 的应用范式进行了拓展，深入探讨了大语言模型（LLM）的内部知识。这种方法通过利用 LLM 自身生成的内容来进行检索，目的是提高下游任务的性能。以下是该领域一些重要的研究： SKR [Wang et al., 2023d] 使用了一个标记好的训练集，将模型能够直接回答的问题归类为「已知」，而需要额外检索增强的问题归类为「未知」。该模型训练用于区分问题是否为「已知」，仅对「未知」的问题应用检索增强，而对其他问题直接给出答案。
-
-GenRead [Yu et al., 2022] 将检索器替换为 LLM 生成器。实验结果显示，由 LLM 生成的上下文文档中包含正确答案的情况比传统 RAG 检索的更常见，并且生成的答案质量更高。作者认为，这是因为生成文档级上下文的任务与因果性语言建模的预训练目标相匹配，使得模型能更有效地利用存储在参数中的世界知识。
-
-Selfmem [Cheng et al., 2023b] 通过迭代使用检索增强的生成器，建立了一个无限的记忆池。系统中包含一个记忆选择器，用于选择一个生成输出作为后续生成过程的记忆。这个输出对应于原始问题的另一面。通过结合原始问题和其对立面，检索增强的生成模型能够利用自身的输出来自我提升。
-
-这些不同的方法展示了 RAG 检索增强领域的创新策略，目的是提高模型的性能和有效性。
-
-6.3 增强过程
-
-在大部分 RAG（检索与生成）研究中，通常仅执行单次检索和生成操作。然而，单次检索可能携带重复信息，导致生成内容「失焦」[Liu et al., 2023]。这类重复信息可能掩盖关键信息或包含与正确答案相悖的内容，从而负面影响生成质量 [Yoran et al., 2023]。此外，单次检索所获取的信息在需要多步骤推理的问题上表现有限。
-
-目前优化检索过程的主要方法包括迭代检索和自适应检索。这些方法使模型能够在检索过程中进行多次迭代或根据不同的任务和场景自适应地调整检索方式。
-
-迭代检索
-
-通过定期收集基于原始查询和生成文本的文档，可以为大语言模型（LLM）提供更多参考资料 [Borgeaud et al., 2022, Arora et al., 2023]。多次迭代检索中增加的参考资料已经提升了后续答案生成的稳健性。然而，这种方法可能在语义上存在断裂，有时还可能收集到杂乱无用的信息，因为它主要依靠一连串 Token 来区分生成和检索的文档。
-
-递归检索和多跳检索应用于特定的数据场景。递归检索首先通过结构化索引处理数据，再逐层进行检索。在检索层次丰富的文档时，可以为每个部分制作摘要，无论是整篇文档还是长篇 PDF。在基于摘要进行检索后，一旦确定了文档，就对其内部的各个部分进行二次检索，实现递归检索。多跳检索则常用于深入挖掘图结构数据源中的信息 [Li et al., 2023c]。
-
-一些方法结合了检索和生成步骤的迭代。
-
-ITER-RETGEN [Shao et al., 2023] 结合了「检索增强生成」和「生成增强检索」，适用于需要复现信息的任务。即模型利用完成任务所需的内容来回应输入的任务，这些内容随后成为检索更多相关知识的信息背景。这有助于在下一次迭代中生成更优的回应。
-
-IRCoT [Trivedi et al., 2022] 探索了在思维链的每个步骤中检索文档的方法，为每生成一句话就进行一次检索。它利用 CoT（连续任务）来指导检索，并用检索结果来优化 CoT，从而确保语义的完整性。
-
-适应性检索
-
-在适应性检索的领域，Flare [Jiang et al., 2023b] 和 Self-RAG [Asai et al., 2023b] 等方法对常规的 RAG 方法进行了改进。传统的 RAG 方法在检索信息时采取被动方式，而这些新方法则让大语言模型（LLM）能主动决定何时以及检索什么内容，从而提高信息检索的效率和准确性。
-
-事实上，大语言模型（LLM）主动利用工具并进行判断的做法，并非始于 RAG，而是已在许多大型模型的 AI 智能体中得到广泛应用 [Yang et al., 2023c, Schick et al., 2023, Zhang, 2023]。
-
-以 Graph-Toolformer [Zhang, 2023] 为例，它的检索步骤分为几个阶段：LLM 主动利用检索器，通过少样本提示激发搜索查询。当 LLM 认为有必要时，会主动搜索相关问题，以收集必需信息，类似于 AI 智能体调用工具的过程。
-
-WebGPT [Nakano et al., 2021] 则利用强化学习训练 GPT-3 模型，使其通过特殊 Token 在搜索引擎上进行查询、浏览和引用，从而在文本生成中有效利用搜索引擎。
-
-Flare [Jiang et al., 2023b] 则通过自动判断信息检索的最佳时机，有效减少了文档检索的成本。该方法通过监测文本生成过程中的概率变化，一旦生成术语的概率降到一定阈值以下，就会触发信息检索系统，补充所需的知识。
-
-Self-RAG [Asai et al., 2023b] 则引入了一种新颖的「反思 Token」，分为「检索」和「批评」两种。这使得模型能够根据设定的标准自主决定检索信息的时机，从而有效地获取所需段落。
-
-在需要进行信息检索时，生成器会同时处理多个段落，并采用一种称为「片段级 beam search」的技术来确定最优的内容组合。这个过程中，各个部分的重要性通过一种叫做「评审分数（Critic scores)」的方法来评估并更新，而且这些分数在生成答案的过程中可以根据需要调整，以此来定制模型的响应方式。Self-RAG 框架的一个创新之处在于，它允许大语言模型（LLM）自己决定是否需要回顾过去的信息，这样就避免了额外训练分类器或依赖于自然语言推理（NLI）模型。这大大提升了模型自主判断信息并生成准确回答的能力。
-
-7 RAG 评估
-
-在探索和优化 RAG（检索增强生成器）的过程中，如何有效评估其性能已经成为关键问题。本章节主要围绕评估方法、RAG 应具备的关键指标、它的核心能力，以及一些常用的评估框架进行讨论。
-
-7.1 评估方法
-
-主要有两种方法来评估 RAG 的有效性：独立评估和端到端评估 [Liu, 2023]。
-
-独立评估
-
-独立评估涉及对检索模块和生成模块（即阅读和合成信息）的评估。
-
-检索模块：评估 RAG 检索模块的性能通常使用一系列指标，这些指标用于衡量系统（如搜索引擎、推荐系统或信息检索系统）在根据查询或任务排名项目的有效性。这些指标包括命中率（Hit Rate)、平均排名倒数（MRR)、归一化折扣累积增益（NDCG)、精确度（Precision）等。
-
-生成模块：生成模块指的是将检索到的文档与查询相结合，形成增强或合成的输入。这与最终答案或响应的生成不同，后者通常采用端到端的评估方式。生成模块的评估主要关注上下文相关性，即检索到的文档与查询问题的关联度。
-
-端到端评估
-
-端到端评估是对 RAG 模型对特定输入生成的最终响应进行评估，涉及模型生成的答案与输入查询的相关性和一致性。
-
-从内容生成的目标来看，评估可分为无标签和有标签的内容评估。无标签内容的评估指标包括答案的准确性、相关性和无害性，而有标签内容的评估指标则包括准确率（Accuracy）和精确匹配（EM)。此外，根据评估方法的不同，端到端评估可分为人工评估和使用大语言模型（LLM）的自动评估。总的来说，这些是 RAG 端到端评估的常规方法。特定领域的 RAG 应用还会采用特定的评估指标，如问答任务的精确匹配（EM)[Borgeaud et al., 2022, Izacard et al., 2022]，摘要任务的 UniEval 和 E-F1 [Jiang et al., 2023b]，以及机器翻译的 BLEU [Zhong et al., 2022]。
-
-这些指标有助于理解 RAG 在各种特定应用场景中的表现。
-
-7.2 关键指标和能力
-
-现有研究往往缺乏对检索增强的大语言模型（LLM）生成效果的严格评估。通常情况下，评估 RAG 在不同下游任务和不同检索器中的应用可能会得到不同的结果。然而，一些学术和工程实践已经开始关注 RAG 的通用评估指标和有效运用所需的能力。本节主要介绍评估 RAG 有效性的关键指标和评估其性能所需的基本能力。
-
-关键指标
-
-最近的 OpenAI 报告 [Jarvis and Allard, 2023] 讨论了优化大语言模型（大语言模型）的多种技术，其中包括 RAG 及其评估标准。
-
-此外，像 RAGAS [Es et al., 2023] 和 ARES [Saad-Falcon et al., 2023] 这样的最新评估框架也应用了 RAG 的评估标准。梳理这些研究，主要集中于三个关键指标：答案的准确性、答案的相关性和上下文的相关性。
-
-答案准确性：这个指标着重保证模型生成的答案与给定上下文的真实性一致，确保答案不会与上下文信息发生冲突或偏离。这一评价标准对于避免大型模型中的误导至关重要。
-
-答案相关性：此指标强调生成的答案需要紧密联系问题本身。
-
-上下文相关性：此指标要求提取的上下文信息必须尽可能精确和具有针对性，以避免无关内容。毕竟，长文本的处理对大语言模型来说成本很高，过多无关信息会降低模型利用上下文的效率。OpenAI 的报告还特别提及了「上下文提取」作为一项补充指标，用于衡量模型回答问题所需的相关信息检索能力。这个指标反映了 RAG 检索模块的搜索优化程度。低回忆率可能暗示需要优化搜索功能，例如引入重新排序机制或调整嵌入，以确保检索到更相关的内容。
-
-关键能力
-
-RGB [Chen et al., 2023b] 的研究分析了不同大语言模型在处理 RAG 所需的四项基本能力方面的表现，包括抗噪声能力、拒绝无效回答能力、信息综合能力和反事实稳健性，从而为检索增强型生成设立了标准。RGB 关注以下四个能力：
-
-抗噪声能力： 这项能力评估模型处理与问题相关但无效信息的噪声文档的效率。
-
-拒绝无效回答能力： 当模型检索到的文档缺乏解决问题所需的信息时，模型应正确地拒绝回答。在测试拒绝无效回答时，外部文档仅包含无效信息。理想状态下，大语言模型应发出「信息不足」或类似的拒绝信号。
-
-信息综合能力： 这项能力评价模型是否能整合多个文档中的信息，以回答更复杂的问题。
-
-反事实鲁棒性测试： 此项测试旨在评估模型在被告知检索信息可能存在风险时，是否能识别并纠正文档中的错误信息。反事实鲁棒性测试包括一些大语言模型能直接回答的问题，但相关外部文档却含有错误事实。
-
-7.3 评估框架
-
-近来，大语言模型社群开始探索将大语言模型用作评估者的自动评估方法，许多研究使用如 GPT-4 这样的先进模型来评估他们的大语言模型应用效果。Databricks 就曾使用 GPT-3.5 和 GPT-4 作为评估者，来审视他们的聊天机器人应用，结果显示这种自动评估方式颇为有效 [Leng et al., 2023]。他们还认为，这种方法对于基于检索 - 生成（RAG）应用的评估既高效又节约成本。在 RAG 评估框架领域，RAGAS 和 ARES 是较新的方法。这些评估主要关注三个核心指标：答案的准确性、相关性和上下文相关性。此外，业界提出的开源库 TruLens 也采用了类似的评估方式。所有这些框架都将大语言模型作为评估者。由于 TruLens 与 RAGAS 相似，本节将重点介绍 RAGAS 和 ARES。
-
-RAGAS
-
-这个框架关注于检索系统挑选关键上下文段落的能力、大语言模型准确利用这些段落的能力以及生成内容的整体质量。RAGAS 是一个基于简单手写提示的评估框架，通过这些提示全自动地衡量答案的准确性、相关性和上下文相关性。在此框架的实施和试验中，所有提示都通过 OpenAI API 中的 gpt-3.5-turbo-16k 模型进行评估 [Es et al., 2023]。
-
-算法原理
-
-答案忠实度评估：利用大语言模型（LLM）分解答案为多个陈述，检验每个陈述与上下文的一致性。最终，根据支持的陈述数量与总陈述数量的比例，计算出一个「忠实度得分」。
-
-答案相关性评估：使用大语言模型（LLM）创造可能的问题，并分析这些问题与原始问题的相似度。答案相关性得分是通过计算所有生成问题与原始问题相似度的平均值来得出的。
-
-上下文相关性评估：运用大语言模型（LLM）筛选出直接与问题相关的句子，以这些句子占上下文总句子数量的比例来确定上下文相关性得分。
-
-ARES
-
-ARES 的目标是自动化评价 RAG 系统在上下文相关性、答案忠实度和答案相关性三个方面的性能。这些评价指标与 RAGAS 中的相似。但是，RAGAS 作为一个基于简单手写提示的较新评估框架，在适应新 RAG 评估场景方面有一定局限性，这正是 ARES 项目的显著意义。此外，ARES 在评估中的表现明显不如 RAGAS。ARES 减少了评估成本，通过使用少量的手动标注数据和合成数据，并应用预测驱动推理（PDR）提供统计置信区间，提高了评估的准确性 [Saad-Falcon 等人，2023]。
-
-算法原理
-
-生成合成数据集：ARES 首先使用语言模型从目标语料库中的文档生成合成问题和答案，创建正负两种样本。
-
-训练大语言模型（LLM）裁判：然后，ARES 对轻量级语言模型进行微调，利用合成数据集训练它们以评估上下文相关性、答案忠实度和答案相关性。
-
-基于置信区间对 RAG 系统排名：最后，ARES 使用这些裁判模型为 RAG 系统打分，并结合手动标注的验证集，采用 PPI 方法生成置信区间，从而可靠地评估 RAG 系统的性能。
