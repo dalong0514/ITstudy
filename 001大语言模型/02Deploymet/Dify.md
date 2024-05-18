@@ -13,7 +13,7 @@ cd docker
 docker compose up -d
 
 
----
+### 问题汇总
 
 跑本地 ollama 模型。
 
@@ -43,4 +43,4 @@ Restart Ollama application.
 
 shell 里通过 ifconfig 查到本地的 ip 地址。改成当前本地的地址：
 
-http://192.168.10,108:11434
+http://192.168.10.108:11434
