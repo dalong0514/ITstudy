@@ -12,7 +12,7 @@ ffmpeg -i /Users/Daglas/Downloads/20240512ChatGPT提示词十级技巧从新手�
 
 ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024007人类基本知识工程/CH0203元知识模型Part3二十一世纪知识论.mkv -ss 132 -t 4512 /Users/Daglas/Desktop/output.wav
 
-ffmpeg -i /Users/Daglas/Downloads/20240514跟吴晓汇报工作以及管理办法修改事项.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
+ffmpeg -i /Users/Daglas/Downloads/20240520与吴晓汇报数智设计提升人效路径设想.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
 
 
 
@@ -21,7 +21,7 @@ ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024006信息分析十三�
 ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2022005行为分析四期/0401心理情境02.mkv -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
 
 
-
+ffmpeg -i /Users/Daglas/Downloads/20240321结构数智设计培训.mp4 -ss 295 -t 447 /Users/Daglas/Desktop/output.mp4
 
 
 
