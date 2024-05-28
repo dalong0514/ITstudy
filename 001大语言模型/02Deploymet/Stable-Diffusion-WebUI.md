@@ -7,20 +7,76 @@ brew install cmake protobuf rust python@3.10 git wget
 
 2、启动。
 
+./webui.sh --use-cpu USE_CPU
 
 ./webui.sh --no-half
 
 ./webui.sh
 
 
+stable-diffusion-webui-forge:
 
+Launching Web UI with arguments: --skip-torch-cuda-test --upcast-sampling --no-half-vae --use-cpu interrogate
+
+stable-diffusion-webui:
 
 --no-half --skip-torch-cuda-test --upcast-sampling --no-half-vae --use-cpu interrogate
 
-
 [Civitai: The Home of Open-Source Generative AI](https://civitai.com/)
 
+
+usage: launch.py [-h] [--disable-header-check [ORIGIN]] [--web-upload-size WEB_UPLOAD_SIZE] [--external-working-path PATH [PATH ...]]
+                 [--output-path OUTPUT_PATH] [--temp-path TEMP_PATH] [--cache-path CACHE_PATH] [--in-browser] [--disable-in-browser]
+                 [--gpu-device-id DEVICE_ID] [--disable-attention-upcast] [--all-in-fp32 | --all-in-fp16]
+                 [--unet-in-bf16 | --unet-in-fp16 | --unet-in-fp8-e4m3fn | --unet-in-fp8-e5m2] [--vae-in-fp16 | --vae-in-fp32 | --vae-in-bf16]
+                 [--vae-in-cpu] [--clip-in-fp8-e4m3fn | --clip-in-fp8-e5m2 | --clip-in-fp16 | --clip-in-fp32] [--directml [DIRECTML_DEVICE]]
+                 [--disable-ipex-hijack] [--preview-option [none,auto,fast,taesd]] [--attention-split | --attention-quad | --attention-pytorch]
+                 [--disable-xformers]
+                 [--always-gpu | --always-high-vram | --always-normal-vram | --always-low-vram | --always-no-vram | --always-cpu]
+                 [--always-offload-from-vram] [--pytorch-deterministic] [--disable-server-log] [--debug-mode] [--is-windows-embedded-python]
+                 [--disable-server-info] [--multi-user] [--cuda-malloc] [--cuda-stream] [--pin-shared-memory] [--update-all-extensions]
+                 [--skip-python-version-check] [--skip-torch-cuda-test] [--reinstall-xformers] [--reinstall-torch] [--update-check]
+                 [--test-server] [--log-startup] [--skip-prepare-environment] [--skip-install] [--dump-sysinfo] [--loglevel LOGLEVEL]
+                 [--do-not-download-clip] [--data-dir DATA_DIR] [--config CONFIG] [--ckpt CKPT] [--ckpt-dir CKPT_DIR] [--vae-dir VAE_DIR]
+                 [--gfpgan-dir GFPGAN_DIR] [--gfpgan-model GFPGAN_MODEL] [--no-half] [--no-half-vae] [--no-progressbar-hiding]
+                 [--max-batch-count MAX_BATCH_COUNT] [--embeddings-dir EMBEDDINGS_DIR]
+                 [--textual-inversion-templates-dir TEXTUAL_INVERSION_TEMPLATES_DIR] [--hypernetwork-dir HYPERNETWORK_DIR]
+                 [--localizations-dir LOCALIZATIONS_DIR] [--allow-code] [--medvram] [--medvram-sdxl] [--lowvram] [--lowram]
+                 [--always-batch-cond-uncond] [--unload-gfpgan] [--precision {full,autocast}] [--upcast-sampling] [--share] [--ngrok NGROK]
+                 [--ngrok-region NGROK_REGION] [--ngrok-options NGROK_OPTIONS] [--enable-insecure-extension-access]
+                 [--codeformer-models-path CODEFORMER_MODELS_PATH] [--gfpgan-models-path GFPGAN_MODELS_PATH]
+                 [--esrgan-models-path ESRGAN_MODELS_PATH] [--bsrgan-models-path BSRGAN_MODELS_PATH]
+                 [--realesrgan-models-path REALESRGAN_MODELS_PATH] [--clip-models-path CLIP_MODELS_PATH] [--xformers] [--force-enable-xformers]
+                 [--xformers-flash-attention] [--deepdanbooru] [--opt-split-attention] [--opt-sub-quad-attention]
+                 [--sub-quad-q-chunk-size SUB_QUAD_Q_CHUNK_SIZE] [--sub-quad-kv-chunk-size SUB_QUAD_KV_CHUNK_SIZE]
+                 [--sub-quad-chunk-threshold SUB_QUAD_CHUNK_THRESHOLD] [--opt-split-attention-invokeai] [--opt-split-attention-v1]
+                 [--opt-sdp-attention] [--opt-sdp-no-mem-attention] [--disable-opt-split-attention] [--disable-nan-check]
+                 [--use-cpu USE_CPU [USE_CPU ...]] [--use-ipex] [--disable-model-loading-ram-optimization] [--listen] [--port PORT]
+                 [--show-negative-prompt] [--ui-config-file UI_CONFIG_FILE] [--hide-ui-dir-config] [--freeze-settings]
+                 [--freeze-settings-in-sections FREEZE_SETTINGS_IN_SECTIONS] [--freeze-specific-settings FREEZE_SPECIFIC_SETTINGS]
+                 [--ui-settings-file UI_SETTINGS_FILE] [--gradio-debug] [--gradio-auth GRADIO_AUTH] [--gradio-auth-path GRADIO_AUTH_PATH]
+                 [--gradio-img2img-tool GRADIO_IMG2IMG_TOOL] [--gradio-inpaint-tool GRADIO_INPAINT_TOOL]
+                 [--gradio-allowed-path GRADIO_ALLOWED_PATH] [--opt-channelslast] [--styles-file STYLES_FILE] [--autolaunch] [--theme THEME]
+                 [--use-textbox-seed] [--disable-console-progressbars] [--enable-console-prompts] [--vae-path VAE_PATH]
+                 [--disable-safe-unpickle] [--api] [--api-auth API_AUTH] [--api-log] [--nowebui] [--ui-debug-mode] [--device-id DEVICE_ID]
+                 [--administrator] [--cors-allow-origins CORS_ALLOW_ORIGINS] [--cors-allow-origins-regex CORS_ALLOW_ORIGINS_REGEX]
+                 [--tls-keyfile TLS_KEYFILE] [--tls-certfile TLS_CERTFILE] [--disable-tls-verify] [--server-name SERVER_NAME] [--gradio-queue]
+                 [--no-gradio-queue] [--skip-version-check] [--no-hashing] [--no-download-sd-model] [--subpath SUBPATH] [--add-stop-route]
+                 [--api-server-stop] [--timeout-keep-alive TIMEOUT_KEEP_ALIVE] [--disable-all-extensions] [--disable-extra-extensions]
+                 [--skip-load-model-at-start] [--forge-ref-a1111-home FORGE_REF_A1111_HOME] [--controlnet-dir CONTROLNET_DIR]
+                 [--controlnet-preprocessor-models-dir CONTROLNET_PREPROCESSOR_MODELS_DIR]
+
 ### 下载模型文件
+
+模型文件的路径：
+
+/Users/Daglas/dalong.llm/stable-diffusion-webui/models/Stable-diffusion
+
+/Users/Daglas/dalong.llm/stable-diffusion-webui-forge/models/Stable-diffusion
+
+[lllyasviel/stable-diffusion-webui-forge](https://github.com/lllyasviel/stable-diffusion-webui-forge?tab=readme-ov-file)
+
+
 
 [AUTOMATIC1111/stable-diffusion-webui: Stable Diffusion web UI](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
 
@@ -110,6 +166,35 @@ This is a workaround. I did this and then the reActor and SDXL base/refiner work
 表示图像所需的精度不够：这意味着正在处理的图片可能包含非常小的值，这些值被舍入为零，从而导致 NaN。要解决此问题，可以尝试增加计算中使用的精度。
 
 视频卡不支持半精度类型：半精度是一种表示浮点数的格式，使用的位数比单精度少一半，可以节省内存和计算时间。如果你的视频卡不支持这种格式，可能会导致产生 NaN。要解决此问题，可以尝试设置「将交叉关注层升级为 float32」选项在设置 > 稳定扩散中，或者使用 --no-half 命令行参数来解决这个问题。使用 --disable-nan-check 命令行参数可以禁用此检查。
+
+
+
+
+Legacy Preprocessor init warning: Unable to install insightface automatically. Please try run `pip install insightface` manually.
+
+Installing forge_legacy_preprocessor requirement: handrefinerportable
+Installing forge_legacy_preprocessor requirement: depth_anything
+
+Launching Web UI with arguments: --skip-torch-cuda-test --upcast-sampling --no-half-vae --use-cpu interrogate
+
+3、用 LayerDiffusion 跑模型时报错。
+
+stable-diffusion-webui-forge 里用的，不用透明插件可以跑，说明是透明插件造成的。
+
+2024-05-25
+
+/AppleInternal/Library/BuildRoots/91a344b1-f985-11ee-b563-fe8bc7981bff/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNDArray/Kernels/MPSNDArraySort.mm:287: failed assertion `(null)" Axis = 4. This class only supports axis = 0, 1, 2, 3
+'
+./webui.sh: line 292: 42309 Abort trap: 6           "${python_cmd}" -u "${LAUNCH_SCRIPT}" "$@"
+/Users/Daglas/miniconda3/envs/llama/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+
+[[m1 pro] How to fix the problem? · Issue #62 · layerdiffusion/sd-forge-layerdiffuse](https://github.com/layerdiffusion/sd-forge-layerdiffuse/issues/62)
+
+[Mac crash · Issue #1 · huchenlei/ComfyUI-layerdiffuse](https://github.com/huchenlei/ComfyUI-layerdiffuse/issues/1#issuecomment-2070451193)
+
+问题卡住了，还没解决。（2024-05-25）
+
 
 
 ### 碎片记录
@@ -233,6 +318,8 @@ Extensions => Install from URL
 
 那里面把插件的 GitHub 仓库地址复制进去，用 https 开头的，git 的没试过。点击安装。
 
+git 的也可以，一样的。（2024-05-25）
+
 2、重启 UI。
 
 Extensions => installed => Apply and restart UI
@@ -255,13 +342,19 @@ Extensions => installed => Apply and restart UI
 
 [pharmapsychotic/clip-interrogator-ext: Stable Diffusion WebUI extension for CLIP Interrogator](https://github.com/pharmapsychotic/clip-interrogator-ext)
 
-#### 剔除背景的LayerDiffusion
+#### 剔除背景的 LayerDiffusion
 
 [(6) X 上的 fofr：“Generate transparent images directly with LayerDiffusion. No more background removal tools – it builds transparency into the diffusion process. It's only on A1111 at the moment: https://t.co/qAWpSVUmvP I need this in ComfyUI! This is the proper way. https://t.co/rctbiW743L” / X](https://twitter.com/fofrAI/status/1764958890246934554?s=20)
 
 [layerdiffusion/sd-forge-layerdiffuse: [WIP] Layer Diffusion for WebUI (via Forge)](https://github.com/layerdiffusion/sd-forge-layerdiffuse)
 
+遇到的问题：无法使用这个插件。
 
+2024-05-25
+
+今天在 YouTube 上看到一个教学视频才知道原因，这个插件只给 stable-diffusion-webui-forge 用的，这个仓库是 control-net 那个作者在 webui 的基础上分叉出来的优化版。
+
+[lllyasviel/stable-diffusion-webui-forge](https://github.com/lllyasviel/stable-diffusion-webui-forge?tab=readme-ov-file)
 
 
 
