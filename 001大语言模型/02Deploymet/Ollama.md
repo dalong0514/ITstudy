@@ -24,7 +24,7 @@ Flags:
   -h, --help      help for ollama
   -v, --version   Show version information
 
-  
+
 ollama run llama2
 
 ### 问题汇总
@@ -52,6 +52,8 @@ For each environment variable, call launchctl setenv.
 launchctl setenv OLLAMA_HOST "0.0.0.0"
 
 Restart Ollama application.
+
+容易漏掉的步骤：重启 Ollama
 
 2、仅仅做了第一步还不行，填 http://localhost:11434 或者 http://127.0.0,1:11434 都会报错。
 

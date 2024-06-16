@@ -8,7 +8,7 @@ insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v
 
 ---
 
-ffmpeg -i /Users/Daglas/Downloads/20240512ChatGPT提示词十级技巧从新手到专家.mp4 -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
+ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024015情绪情境论/CH0101情绪理论大辩论20240613.mkv -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
 
 ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024007人类基本知识工程/CH0203元知识模型Part3二十一世纪知识论.mkv -ss 132 -t 4512 /Users/Daglas/Desktop/output.wav
 
@@ -17,6 +17,10 @@ ffmpeg -i /Users/Daglas/Downloads/20240515与楠哥设管部交流设备比对�
 
 ffmpeg -i /Users/Daglas/Movies/dalong.KnowledgeVideo/2024007人类基本知识工程/20240525人类基本知识工程-CH04知识的逻辑机制上.mkv -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/output.wav
 
+
+
+
+ffmpeg -i /Users/Daglas/Desktop/20240529D4结构阅读.mkv -ss 0 -t 6780 /Users/Daglas/Desktop/output.mkv
 
 
 
