@@ -2,17 +2,6 @@
 
 [andrewyng/translation-agent](https://github.com/andrewyng/translation-agent?tab=readme-ov-file)
 
-### 部署记录
-
-安装依赖包：
-
-pip install langchain
-
-安装 OpenAI sdk：
-
-pip install -U langchain-openai
-
-
 ### 跑模型记录
 
 激活虚拟环境：
@@ -22,6 +11,17 @@ poetry shell
 跑模型：
 
 python3.9 example_script.py
+
+
+### 部署记录
+
+安装依赖包：
+
+pip install langchain
+
+安装 OpenAI sdk：
+
+pip install -U langchain-openai
 
 ### 问题记录
 
