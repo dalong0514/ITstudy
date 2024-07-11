@@ -12,6 +12,49 @@ cd docker
 
 docker compose up -d
 
+docker compose stop
+
+---
+
+2024-07-10
+
+[Releases · langgenius/dify](https://github.com/langgenius/dify/releases)
+
+01
+
+Back up your customized docker-compose YAML file (optional)
+
+cd docker
+
+cp docker-compose.yaml docker-compose.yaml.$(date +%s).bak
+
+02
+
+Get the latest code from the main branch
+
+git checkout main
+
+git pull origin main
+
+03
+
+Stop the service，Command, please execute in the docker directory
+
+docker compose down
+
+04
+
+Back up data
+
+tar -cvf volumes-$(date +%s).tgz volumes
+
+05
+
+Upgrade services
+
+docker compose up -d
+
+
 
 ### 问题汇总
 
