@@ -1,10 +1,846 @@
 ## 20240311Andrej-Karpathy-Lets-Build-the-GPT-Tokenizer
 
+[Let's build the GPT Tokenizer - YouTube](https://www.youtube.com/watch?v=zduSFxRajkE)
 
+[openai/tiktoken: tiktoken is a fast BPE tokeniser for use with OpenAI's models.](https://github.com/openai/tiktoken)
 
+[gpt-2/src/encoder.py at master · openai/gpt-2](https://github.com/openai/gpt-2/blob/master/src/encoder.py)
+
+[Let's build GPT: from scratch, in code, spelled out. - YouTube](https://www.youtube.com/watch?v=kCc8FmEb1nY)
+
+[[中文字幕][Andrej Karpathy] Let's build the GPT Tokenizer\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1yx4y1y7iK/?vd_source=280fc27368a92928cafc2cb72c54a549)
 
 ### 音频整理
 
+Hi everyone. In this video, I'd like to cover the process of tokenization in large language models. I have a sad face here because tokenization is my least favorite part of working with large language models. But unfortunately, it is necessary to understand in some detail because it is fairly hairy, gnarly, and there are a lot of hidden foot guns to be aware of. A lot of oddness with large language models typically traces back to tokenization.
+
+So what is tokenization? In my previous video, "Let's Build GPT from Scratch", we actually already did tokenization, but we did a very naive, simple version of it. In the Google Colab for that video, we loaded our training set, which was the Shakespeare dataset. In the beginning, the Shakespeare dataset is just a large string in Python, just text. The question is, how do we plug text into large language models? 
+
+In that video, we created a vocabulary of 65 possible characters that we saw occur in this string. These were the possible characters and there were 65 of them. We then created a lookup table for converting every possible character, a little string piece, into a token, an integer. For example, we tokenized the string "hi there" and received a sequence of tokens 18, 47, etc. We took the first 1000 characters of our dataset and encoded it into tokens. Because this was character level, we received 1000 tokens in a sequence.
+
+Later, we saw that the way we plug these tokens into the language model is by using an embedding table. If we have 65 possible tokens, this embedding table is going to have 65 rows. Roughly speaking, we're taking the integer associated with every single token, using that as a lookup into this table, and plucking out the corresponding row. This row contains trainable parameters that we're going to train using backpropagation. This is the vector that then feeds into the transformer and is how the transformer perceives every single token.
+
+大家好！在本期视频中，我将为大家讲解大语言模型（Large Language Model）中的标记化（tokenization）过程。你可能注意到我现在表情有点沮丧，这是因为在处理大语言模型的所有环节中，我最不喜欢的就是标记化这一部分。但遗憾的是，我们必须深入理解它，因为这个过程不仅复杂难懂，还充满了各种棘手的问题，埋藏着许多潜在的风险。事实上，大语言模型中出现的许多异常现象，往往都可以追溯到标记化这个环节。
+
+那么什么是分词（tokenization）呢？在我之前的视频 "Let's Build GPT from Scratch"（让我们从零开始构建 GPT）中，我们其实已经进行了分词，但那是一个非常简单、朴素的版本。在那个视频的 Google Colab 中，我们加载了训练集，也就是莎士比亚数据集。起初，莎士比亚数据集只是 Python 中的一个大字符串，就是纯文本。那么问题来了，我们该如何将文本输入到大语言模型（Large Language Model）中呢？
+
+在之前的视频中，我们介绍了如何创建一个包含 65 个可能字符的字符集。这个字符集包含了我们在给定字符串中观察到的所有可能出现的字符。接下来，我们建立了一个查找表，用于将每个可能的字符（即一小段字符串）转换为一个称为 token 的整数。
+
+举个例子，当我们对字符串 "hi there" 进行标记化（tokenization）处理时，得到了一个由整数组成的序列，如 18、47 等。这个过程就是将文本转换为机器可以理解的数字表示。
+
+在我们的实验中，我们取了数据集中的前 1000 个字符，并将它们编码成 token。由于我们是在字符级别上进行操作，所以最终得到了一个长度为 1000 的 token 序列。这种字符级的处理方式使得每个字符都对应一个 token，因此输入的字符数量与输出的 token 数量是相等的。
+
+接下来，我们了解到将这些 token（标记）输入到语言模型中的方法是使用嵌入表（embedding table)。假设我们有 65 个可能的 token，那么这个嵌入表就会有 65 行。简单来说，我们会为每个 token 分配一个整数，然后用这个整数在嵌入表中查找对应的行。这一行包含了可训练的参数，我们会通过反向传播（backpropagation）算法来训练这些参数。得到的向量随后会被输入到 Transformer 模型中，这就是 Transformer 模型理解每个 token 的方式。
+
+In that video, we had a very naive tokenization process that was a character level tokenizer. But in practice, in state-of-the-art language models, people use much more complicated schemes for constructing these token vocabularies. We're not dealing on the character level, but on the chunk level. These character chunks are constructed using algorithms such as the byte pair encoding algorithm, which we're going to cover in detail in this video.
+
+I'd like to briefly show you the paper that introduced byte level encoding as a mechanism for tokenization in the context of large language models. That's probably the GPT-2 paper. If you scroll down to the section "Input representation", this is where they cover tokenization and the properties you'd like the tokenization to have. They conclude that they're going to have a tokenizer with a vocabulary of 50,257 possible tokens. The context size is going to be 1,024 tokens. So in the attention layer of the transformer neural network, every single token is attending to the previous tokens in the sequence and it's going to see up to 1,024 tokens.
+
+Tokens are the fundamental unit, the atom of large language models. Everything is in units of tokens, everything is about tokens. Tokenization is the process for translating strings or text into sequences of tokens and vice versa. 
+
+When you go into the LAMA2 paper as well, if you search "token", you're going to get 63 hits. That's because tokens are pervasive. For example, they mention that they trained on 2 trillion tokens of data, and so on.
+
+We're going to build our own tokenizer. Luckily the byte pairing coding algorithm is not super complicated and we can build it from scratch ourselves. We'll see exactly how this works. 
+
+Before we dive into code, I'd like to give you a brief taste of some of the complexities that come from tokenization. I want to make sure we're sufficiently motivated for why we are doing all this and why it's so gross. Tokenization is at the heart of a lot of weirdness in large language models. I would advise that you do not brush it off.
+
+A lot of the issues that may look like just issues with the neural network architecture or the large language model itself are actually issues with the tokenization and fundamentally trace back to it. If you've noticed any issues with large language models not being able to do spelling tasks very easily, that's usually due to tokenization. Simple string processing can be difficult for the large language model to perform natively. Non-English languages can work much worse, and to a large extent, this is due to tokenization. Sometimes LLMs are bad at simple arithmetic, which can also be traced to tokenization. GPT-2 specifically would have had quite a bit more issues with Python than future versions of it due to tokenization. 
+
+Maybe you've seen weird warnings about trailing whitespace. This is a tokenization issue. If you had asked GPT earlier about "solid gold Magikarp" and what it is, you would see the LLM go totally crazy and start going off on a completely unrelated tangent topic. Maybe you've been told to use YAML over JSON in structured data. All of that has to do with tokenization. Tokenization is at the heart of many issues. I will loop back around to these at the end of the video but for now let me just skip over it a bit.
+
+Let's go to the web app tiktokenizer.versal.app. What I like about this web app is that tokenization is running live in your browser in JavaScript. You can just type "hello world" here and the whole string retokenizes. On the left is the string you put in. On the right we're currently using the GPT-2 tokenizer. We see that this string is tokenizing into 300 tokens, shown explicitly in different colors for every single token.
+
+For example, the word "tokenization" became two tokens, 30,642 and 1,634. The token "space is" is token 318. Be careful, on the bottom you can show whitespace. Keep in mind that there are spaces and "\n" new line characters in here, but you can hide them for clarity. The token "space The" is 262, etc. Notice that the space is part of that token chunk.
+
+This is how our English sentence broke up and that seems all well and good. Now I put in some arithmetic. We see the token "127 plus" and then token 6, space, 6, followed by 77. What's happening here is that 127 is feeding in as a single token into the large language model but the number 677 will actually feed in as two separate tokens. The large language model has to take account of that and process it correctly in its network.
+
+804 will be broken up into two tokens and it's all completely arbitrary. Here's another example of four digit numbers and they break up in a way that is totally arbitrary. Sometimes you have multiple digits as a single token, sometimes you have individual digits as many tokens. It's all pretty arbitrary and coming out of the tokenizer.
+
+Here's another example. We have the string "egg" and you see that this became two tokens. But for some reason, when I say "I have an egg", when it's "space egg", it's a single token. Just "egg" by itself in the beginning of a sentence is two tokens, but here "space egg" is suddenly a single token for the exact same string.
+
+Lowercase "egg" turns out to be a single token and notice that the color is different, so this is a different token. This is case sensitive and of course uppercase "egg" would also be different tokens. Again this would be two tokens arbitrarily. 
+
+So for the same concept "egg", depending on if it's in the beginning of a sentence, at the end of a sentence, lowercase, uppercase, or mixed, all this will result in very different tokens and IDs. The language model has to learn from raw data, from all the internet text that it's going to be training on, that these are actually all the exact same concept. It has to group them in the parameters of the neural network and understand, just based on the data patterns, that these are all very similar, maybe not exactly similar, but very very similar.
+
+After the demonstration, I have an introduction from OpenAI's ChatGPT in Korean. 만났어, 반가워요, etc. This is in Korean and the reason I put this here is because you'll notice that non-English languages work slightly worse in ChatGPT. Part of this is because the training dataset for ChatGPT is much larger for English than for everything else. But the same is true not just for the large language model itself, but also for the tokenizer. 
+
+
+
+
+
+为了更好地理解这个过程，我们可以将嵌入表想象成一本字典，每个 token 就像一个单词，而对应的行就是这个单词的详细解释。Transformer 模型通过查阅这本 "字典" 来理解每个 token 的含义，从而处理输入的文本。反向传播则是一种让模型不断改进这本 "字典" 的学习方法，使得模型对 token 的理解越来越准确。
+
+在之前的视频中，我们介绍了一种非常基础的分词（tokenization）方法，即字符级（character level）分词器。然而，在实际应用中，特别是在当前最先进的大语言模型（Large Language Model）中，研究人员采用了更为复杂的方案来构建词元（token）词汇表。
+
+这些先进的方法并不是在单个字符的层面上进行处理，而是以字符块（chunk）为单位。这些字符块是通过特定的算法构建的，其中最著名的就是字节对编码（Byte Pair Encoding, BPE）算法。在本视频中，我们将深入探讨这种算法的工作原理和应用。
+
+未找到意译内容
+
+Token（标记）是大语言模型的基本单位，就像原子之于物质世界。在大语言模型中，一切都以 token 为单位，一切都与 token 息息相关。Tokenization（标记化）是一个将字符串或文本转换为 token 序列的过程，同时它也能将 token 序列转回原始文本。
+
+让我们以 LLaMA 2（一个著名的大语言模型）的论文为例。如果你在论文中搜索 "token" 这个词，你会发现它出现了 63 次之多。这充分说明了 token 在大语言模型中的普遍性和重要性。比如，论文中提到他们用了 2 万亿个 token 的数据来训练模型，这个数字可能会让人瞠目结舌。
+
+接下来，我们将要自己动手构建一个 tokenizer（标记器）。幸运的是，字节对编码算法（Byte Pair Encoding algorithm）并不特别复杂，我们完全可以从零开始构建它。通过这个过程，我们将能够深入理解 tokenizer 的工作原理，揭开它的神秘面纱。
+
+在我们深入研究代码之前，我想先让你大致了解一下分词（tokenization）带来的一些复杂性。我希望确保我们充分理解为什么要做这些工作，以及为什么这个过程如此棘手。分词是大语言模型（Large Language Model）中许多异常现象的根源。我强烈建议你不要低估它的重要性。
+
+许多看似只与神经网络架构或大语言模型（Large Language Model, LLM）本身相关的问题，实际上是由分词（tokenization）引起的，并且从根本上可以追溯到分词。例如，如果你注意到大语言模型在处理拼写任务时表现不佳，这通常就是由分词问题导致的。对于大语言模型来说，即使是简单的字符串处理也可能难以直接完成。非英语语言在模型中的表现往往更差，很大程度上也是因为分词问题。有时，大语言模型在进行简单算术运算时会出错，这同样可以追溯到分词问题。特别是 GPT-2，由于其分词方式的限制，在处理 Python 代码时比后续版本遇到了更多的困难。
+
+也许你曾经遇到过关于尾随空格的奇怪警告。这其实是一个标记化（tokenization）的问题。举个例子，如果你早些时候问过 GPT（一种大语言模型）关于 "实心金色鲤鱼王" 是什么，你可能会发现这个大语言模型（LLM）完全 "失控"，开始谈论一些完全不相关的话题。再比如，在处理结构化数据时，你可能被建议使用 YAML 而非 JSON 格式。这些问题的根源都与标记化有关。
+
+标记化实际上是许多问题的核心。虽然我们稍后会更详细地讨论这些问题，但现在让我们先略过这个话题，继续往下说。
+
+让我们来看看 tiktokenizer.versel.app 这个网页应用。我特别喜欢这个应用的一个特点：它可以在你的浏览器中通过 JavaScript 实时进行分词（tokenization)。你只需在输入框中输入 "hello world"，整个字符串就会立即重新分词。在页面的左侧是你输入的字符串，右侧则显示了当前使用 GPT-2 分词器的分词结果。我们可以看到，这个字符串被分解成了 300 个 token（词元)，每个 token 都用不同的颜色清晰地标示出来。
+
+举个例子，"tokenization" 这个词被分成了两个 token，分别是 30,642 和 1,634。"space is" 这个 token 的编号是 318。值得注意的是，在页面底部你可以选择显示空白字符。这里面包含了空格和 "\n" 换行符，但为了便于阅读，你可以选择隐藏它们。再比如，"space The" 这个 token 的编号是 262，等等。有趣的是，你会发现空格也是这个 token 块的一部分。
+
+这个工具帮助我们直观地理解了大语言模型是如何将文本分解成一个个 token 的。这个过程对于模型理解和处理文本至关重要，因为模型就是通过这些 token 来学习和生成文本的。
+
+这就是我们的英语句子被拆分的方式，看起来一切正常。现在让我们来看看一些数学运算的例子。我们可以看到 "127 plus" 是一个 token（词元)，然后是 6、空格、6，接着是 77。这里有趣的是，127 作为一个单独的 token 输入到大语言模型中，而数字 677 实际上会被拆分成两个独立的 token。大语言模型需要在处理过程中考虑这种情况，以确保正确理解和处理这些数字。
+
+数字 804 会被拆分成两个 token，这种拆分方式完全是随机的。这里还有一个四位数的例子，它们的拆分方式也是完全随机的。有时候，多个数字会被组合成一个 token，有时候单个数字又会被拆分成多个 token。这种看似随机的拆分方式其实是由分词器（tokenizer）决定的，而分词器是大语言模型处理输入文本的第一步。
+
+让我们来看另一个例子。假设我们有单词 "egg"，你会发现它被分割成了两个 token（标记)。但有趣的是，当我说 "I have an egg" 这个短语时，其中的 "空格 + egg" 却被视为一个单独的 token。这就出现了一个有趣的现象：单独的 "egg" 在句子开头是两个 token，但在前面加上空格后，完全相同的字符串 "egg" 却突然变成了一个 token。
+
+再来看小写的 "egg"，你会发现它是一个单独的 token。注意观察，它的颜色与之前的例子不同，这说明它是一个不同的 token。这里我们引入了一个重要概念：token 的划分是大小写敏感的。这意味着大写的 "EGG" 也会被识别为不同的 token。再次强调，大写的 "EGG" 也会被任意地分割成两个 token。
+
+这个例子展示了在自然语言处理中，token 的划分可能会因上下文、大小写和位置等因素而变化，这种复杂性正是语言模型需要处理的挑战之一。
+
+因此，对于同一个概念 "egg"，无论它出现在句子开头、句子结尾，或者以小写、大写或混合大小写形式出现，都会产生非常不同的词元（tokens）和 ID。语言模型必须从原始数据中学习，即从它将要训练的所有互联网文本中理解，这些实际上都代表着完全相同的概念。模型需要在神经网络的权重中对这些表示进行分组，并仅基于数据模式来理解它们之间的关系。虽然这些表示可能不是完全等同，但模型需要认识到它们之间存在着极高的相似性。
+
+在之前的演示之后，我想谈谈 OpenAI 的 ChatGPT 在处理韩语时的表现。比如，ChatGPT 可以理解并回应一些基本的韩语问候语，如 "만났어"（见到你了）、"반가워요"（很高兴见到你）等。我在这里提到韩语是因为你会发现 ChatGPT 在处理非英语语言时的性能稍逊一筹。
+
+造成这种情况的部分原因是 ChatGPT 的训练数据集中，英语数据的数量远远超过其他语言。然而，这种性能差异不仅存在于大语言模型（Large Language Model）本身，还存在于分词器（tokenizer）中。分词器是将文本分割成小单元（称为 token）的工具，这是语言模型处理文本的第一步。
+
+
+
+
+
+When we train the tokenizer, there's a training set as well and there's a lot more English than non-English. What ends up happening is that we're going to have a lot more longer tokens for English. If you have a single sentence in English and you tokenize it, you might see that it's 10 tokens or something like that. But if you translate that sentence into say Korean or Japanese or something else, you'll typically see the number of tokens used is much larger. That's because the chunks here are a lot more broken up. We're using a lot more tokens for the exact same thing. 
+
+What this does is bloat up the sequence length of all the documents. You're using up more tokens and then in the attention of the transformer, when these tokens try to attend to each other, you are running out of context in the maximum context length of that transformer. Basically, all the non-English text is stretched out from the perspective of the transformer and this has to do with the training set used for the tokenizer and the tokenization itself. It will create much bigger tokens and larger groups in English and will have a lot of little boundaries for all the other non-English text. If we translated this into English it would be significantly fewer tokens.
+
+The final example I have here is a little snippet of Python for doing fizzbuzz. What I'd like you to notice is how all these individual spaces are separate tokens, token 220. So 220, 220, 220, 220. Then "space if" is a single token. What's going on here is that when the transformer is going to consume or try to create this text, it needs to handle all these spaces individually. They all feed in one by one into the entire transformer in the sequence. This is extremely wasteful to tokenize it in this way. 
+
+As a result, GPT-2 is not very good with Python and it's not anything to do with coding or the language model itself, it's just that if you use a lot of indentation using space in Python like we usually do, you just end up bloating out all the text. It's separated across way too much of the sequence and we are running out of the context length in the sequence. That's roughly speaking what's happening. We're being way too wasteful. We're taking up way too much token space.
+
+We can also scroll up here and change the tokenizer. Note that the GPT-2 tokenizer creates a token count of 300 for this string here. We can change it to CL100K base, which is the GPT-4 tokenizer. We see that the token count drops to 185. For the exact same string we are now roughly halving the number of tokens. Roughly speaking, this is because the number of tokens in the GPT-4 tokenizer is roughly double that of the GPT-2 tokenizer. We went from roughly 50k to roughly 100k. 
+
+You can imagine that this is a good thing because the same text is now squished into half as many tokens, so this is a lot denser input to the transformer. In the transformer, every single token has a finite number of tokens before it that it's going to pay attention to. What this is doing is we're roughly able to see twice as much text as context for what token to predict next because of this change. 
+
+But of course, just increasing the number of tokens is not strictly better infinitely because as you increase the number of tokens, your embedding table is getting a lot larger. Also, at the output we are trying to predict the next token and there's the softmax there which grows as well. We're going to go into more detail on this later. There's some kind of sweet spot somewhere where you have a "just right" number of tokens in your vocabulary, where everything is appropriately dense and still fairly efficient.
+
+One thing I'd like you to note specifically for the GPT-4 tokenizer is that the handling of the whitespace for Python has improved a lot. You see that here these four spaces are represented as one single token, and the three spaces here. Seven spaces were all grouped into a single token. We're being a lot more efficient in how we represent Python. This was a deliberate choice made by OpenAI when they designed the GPT-4 tokenizer. They group a lot more whitespace into a single character. This densifies Python and therefore we can attend to more code before it when we're trying to predict the next token in the sequence. The improvement in Python coding ability from GPT-2 to GPT-4 is not just a matter of the language model and the architecture and details of the optimization, but a lot of the improvement is also coming from the design of the tokenizer and how it groups characters into tokens.
+
+Okay, so let's now start writing some code. Remember what we want to do - we want to take strings and feed them into language models. For that, we need to somehow tokenize strings into some integers in a fixed vocabulary, and then we will use those integers to make a lookup into a lookup table of vectors and feed those vectors into the transformer as input. 
+
+The reason this gets a little tricky, of course, is that we don't just want to support the simple English alphabet. We want to support different kinds of languages. This is "annyeonghaseyo" in Korean, which is "hello". We also want to support many kinds of special characters that we might find on the internet, for example, emojis. So how do we feed this text into transformers?
+
+Well, what is this text anyway in Python? If you go to the documentation of a string in Python, you can see that strings are immutable sequences of Unicode code points. Okay, what are Unicode code points? We can go to Wikipedia. Unicode code points are defined by the Unicode consortium as part of the Unicode standard. This is really just a definition of roughly 150,000 characters right now, and roughly speaking, what they look like and what integers represent those characters. This is 150,000 characters across 161 scripts as of right now. 
+
+If you scroll down, you can see that the standard is very much alive. The latest standard 15.1 is from September 2023. Basically, this is just a way to define lots of types of characters, like for example all these characters across different scripts.
+
+The way we can access the Unicode code point given a single character is by using the ORD function in Python. For example, I can pass in ORD and I can see that for the single character "H", the Unicode code point is 104. But this can be arbitrarily complicated. We can take for example our emoji here and we can see that the code point for this one is 128,000. Or we can take "un" and this is 50,000. 
+
+Keep in mind you can't plug in strings here because this doesn't have a single code point. It only takes a single Unicode code point character and tells you its integer. In this way we can look up all the characters of this specific string and their code points. So ord(x) for x in this string and we get this encoding here.
+
+Now see here the raw code points already have integers. So why can't we simply just use these integers and not have any tokenization at all? Why can't we just use this natively as is and just use the code point? Well, one reason for that, of course, is that the vocabulary in that case would be quite long. In this case for Unicode, this is a vocabulary of 150,000 different code points. But more worryingly than that, I think the Unicode standard is very much alive and it keeps changing. It's not kind of a stable representation necessarily that we may want to use directly. For those reasons, we need something a bit better.
+
+To find something better, we turn to encodings. If we go to the Wikipedia page here, we see that the Unicode consortium defines three types of encodings: UTF-8, UTF-16, and UTF-32. These encodings are the way by which we can take Unicode text and translate it into binary data, or byte streams. UTF-8 is by far the most common.
+
+This is the UTF-8 page. This Wikipedia page is actually quite long, but what's important for our purposes is that UTF-8 takes every single code point and translates it to a byte stream. This byte stream is between one to four bytes, so it's a variable length encoding. So depending on the Unicode point, according to the schema, you're going to end up with between one to four bytes for each code point. 
+
+On top of that, there's UTF-16 and UTF-32. UTF-32 is nice because it is fixed length instead of variable length but it has many other downsides as well. The full spectrum of pros and cons of all these encodings are beyond the scope of this video. I'd just like to point out that I enjoyed this blog post and this blog post at the end of it also has a number of references that can be quite useful. One of them is the "UTF-8 Everywhere" manifesto and this manifesto describes the reason why UTF-8 is significantly preferred and a lot nicer than the other encodings and why it is used a lot more prominently on the internet. One of the major advantages, just to give you a sense, is that UTF-8 is the only one of these that is backwards compatible to the much simpler ASCII encoding of text, but I'm not going to go into the full detail in this video.
+
+Suffice to say that we like the UTF-8 encoding and let's try to take the string and see what we get if we encode it into UTF-8. The string class in Python actually has .encode() and you can give it the encoding which is say UTF-8. Now what we get out of this is not very nice because this is the bytes, it's a bytes object and it's not very nicely printed. So I personally like to take it through a list because then we actually get the raw bytes of this encoding. So this is the raw bytes that represent this string according to the UTF-8 encoding.
+
+We can also look at UTF-16, we get a slightly different byte stream and here we start to see one of the disadvantages of UTF-16. You see how we have 0 something, 0 something, 0 something. We're starting to get a sense that this is a bit of a wasteful encoding. And indeed, for simple ASCII characters or English characters here, we just have the structure of 0 something, 0 something, and it's not exactly nice. Same for UTF-32. When we expand this, we can start to get a sense of the wastefulness of this encoding for our purposes. You see a lot of zeros followed by something, and so this is not desirable.
+
+Suffice it to say that we would like to stick with UTF-8 for our purposes. However, if we just use UTF-8 naively, these are byte streams. So that would imply a vocabulary length of only 256 possible tokens. But this vocabulary size is very, very small. What this is going to do if we just were to use it naively is that all of our text would be stretched out over very, very long sequences of bytes. 
+
+What this does is that certainly the embedding table is going to be tiny, and the prediction at the top of the final layer is going to be very tiny, but our sequences are very long. Remember that we have pretty finite context lengths in the attention that we can support in a transformer for computational reasons. We only have as much context length, but now we have very, very long sequences, and this is just inefficient. It's not going to allow us to attend to sufficiently long text before us for the purposes of the next token prediction task. 
+
+So we don't want to use the raw bytes of the UTF-8 encoding. We want to be able to support larger vocabulary size that we can tune as a hyperparameter, but we want to stick with the UTF-8 encoding of these strings. So what do we do? Well, the answer, of course, is we turn to the byte pair encoding algorithm, which will allow us to compress these byte sequences to a variable amount. We'll get to that in a bit.
+
+I just want to briefly speak to the fact that I would love nothing more than to be able to feed raw byte sequences into language models. In fact, there's a paper about how this could potentially be done from somewhere last year. Now, the problem is you actually have to go in and you have to modify the transformer architecture because, as I mentioned, you're going to have a problem where the attention will start to become extremely expensive because the sequences are so long. 
+
+In this paper they propose kind of a hierarchical structuring of the transformer that could allow you to just feed in raw bytes. At the end they say "together these results establish the viability of tokenization free autoregressive sequence modeling at scale". So tokenization free would indeed be amazing. We would just feed byte streams directly into our models but unfortunately I don't know that this has really been proven out yet by sufficiently many groups and at sufficient scale. Something like this at one point would be amazing and I hope someone comes up with it.
+
+But for now we have to come back and we can't feed this directly into language models. We have to compress it using the BytePair encoding algorithm. So let's see how that works.
+
+As I mentioned, the BytePair encoding algorithm is not all that complicated and the Wikipedia page is actually quite instructive as far as the basic idea goes. What we're doing is we have some kind of input sequence, like for example here we have only four elements in our vocabulary: a, b, c and d. And we have a sequence of them. 
+
+Instead of bytes, let's say we just have a vocabulary cap size of four. This sequence is too long, we'd like to compress it. So what we do is that we iteratively find the pair of tokens that occur the most frequently and then once we've identified that pair, we replace that pair with just a single new token that we append to our vocabulary.
+
+So for example here, the byte pair AA occurs most often, so we mint a new token. Let's call it capital Z, and we replace every single occurrence of AA by Z. So now we have two Zs here. Here we took a sequence of 11 characters with vocabulary size 4, and we've converted it to a sequence of only 9 tokens, but now with a vocabulary of 5, because we have a fifth vocabulary element that we just created, and it's Z, standing for concatenation of AA. 
+
+And we can, again, repeat this process. We again look at the sequence and identify the pair of tokens that are most frequent. Let's say that that is now AB. Well, we are going to replace AB with a new token that we mint, called Y. So Y becomes AB, and then every single occurrence of AB is now replaced with Y. So we end up with this.
+
+Now we only have one, two, three, four, five, six, seven characters in our sequence but we have not just four vocabulary elements or five but now we have six. And for the final round we again look through the sequence, find that the phrase ZY or the pair ZY is most common and replace it one more time with another character, let's say X. So X is ZY and we replace all occurrences of ZY and we get this following sequence.
+
+So basically after we have gone through this process, instead of having a sequence of 11 tokens with a vocabulary length of 4, we now have a sequence of 1, 2, 3, 4, 5 tokens, but our vocabulary length now is 7. In this way we can iteratively compress our sequence as we mint new tokens.
+
+In the exact same way, we start out with byte sequences. So we have 256 vocabulary size but we're now going to go through these and find the byte pairs that occur the most and we're going to iteratively start minting new tokens, appending them to our vocabulary, and replacing things. In this way, we're going to end up with a compressed training dataset, and also an algorithm for taking any arbitrary sequence and encoding it using this vocabulary, and also decoding it back to strings. 
+
+So let's now implement all that. Here's what I did. I went to this blog post that I enjoyed and I took the first paragraph and copy pasted it here into text. So this is one very long line here.
+
+To get the tokens, as I mentioned, we just take our text and we encode it into UTF-8. The tokens here at this point will be raw bytes, single stream of bytes. And just so that it's easier to work with, instead of just a bytes object, I'm going to convert all those bytes to integers and then create a list of it, just so it's easier for us to manipulate and work with in Python and visualize. 
+
+Here I'm printing all that. So this is the original paragraph and its length is 533 code points. And then here are the bytes encoded in UTF-8 and we see that this has a length of 616 bytes at this point, or 616 tokens. The reason this is more is because a lot of these simple ASCII characters, or simple characters, they just become a single byte, but a lot of these Unicode, more complex characters, become multiple bytes, up to four, and so we are expanding that size.
+
+Now what we'd like to do as a first step of the algorithm is we'd like to iterate over here and find the pair of bytes that occur most frequently, because we're then going to merge it. If you are working along on a notebook on the side, then I encourage you to basically click on the link, find this notebook and try to write that function yourself. Otherwise, I'm going to come here and implement first the function that finds the most common pair.
+
+OK, so here's what I came up with. There are many different ways to implement this, but I'm calling the function getStats. It expects a list of integers. I'm using a dictionary to keep track of basically the counts, and then this is a Pythonic way to iterate consecutive elements of this list, which we covered in a previous video. And then here I'm just keeping track of just incrementing by one for all the pairs.
+
+So if I call this on all the tokens here, then the stats comes out here. This is the dictionary, the keys are these tuples of consecutive elements and this is the count. Just to print it in a slightly better way, this is one way that I like to do that where you... it's a little bit compound here so you can pause if you like, but we iterate all the items. The items() called on a dictionary returns pairs of key value and instead I create a list here of value key because if it's a value key list then I can call sort on it and by default Python will use the first element, which in this case will be value, to sort by if it's given tuples. And then reverse so it's descending and print that.
+
+Basically it looks like 101, 32 was the most commonly occurring consecutive pair and it occurred 20 times. We can double check that that makes reasonable sense. If I just search 101, 32 then you see that these are the 20 occurrences of that pair. And if we'd like to take a look at what exactly that pair is, we can use chr, which is the opposite of ord in Python. We give it a Unicode code point, so 101 and 32, and we see that this is "e" and "space". Basically there's a lot of "e space" here, meaning that a lot of these words seem to end with "e". Here's "e space" as an example. There's a lot of that going on here, and this is the most common pair.
+
+So now that we've identified the most common pair, we would like to iterate over the sequence. We're going to mint a new token with the ID of 256, right? Because these tokens currently go from 0 to 255. So when we create a new token, it will have an ID of 256. And we're going to iterate over this entire list. And every time we see 101,32, we're going to swap that out for 256. So let's implement that now and feel free to do that yourself as well.
+
+So first I commented this just so we don't pollute the notebook too much. This is a nice way of, in Python, obtaining the highest ranking pair. We're basically calling the max on this dictionary stats and this will return the maximum key. And then the question is, how does it rank keys? You can provide it with a function that ranks keys and that function is just stats.get. Stats.get would basically return the value. And so we're ranking by the value and getting the maximum key. So it's 101 comma 32 as we saw.
+
+Now to actually merge 101, 32, this is the function that I wrote but again there are many different versions of it. We're going to take a list of IDs and the pair that we want to replace and that pair will be replaced with the new index idx. 
+
+Iterating ids, if we find the pair, swap it out for idx. So we create this new list and then we start at zero and then we go through this entire list sequentially from left to right. Here we are checking for equality at the current position with the pair. So here we are checking that the pair matches. 
+
+Now here's a bit of a tricky condition that you have to append if you're trying to be careful, and that is that you don't want this here to be out of bounds at the very last position when you're on the rightmost element of this list, otherwise this would give you an out-of-bounds error. So we have to make sure that we're not at the very very last element, so this would be false for that.
+
+If we find a match we append to this new list that replacement index and we increment the position by two, so we skip over that entire pair. But otherwise if we haven't found a matching pair we just sort of copy over the element at that position and increment by one and then return this.
+
+Here's a very small toy example. If we have a list 5,6,6,7,9,1 and we want to replace the occurrences of 6,7 with 99 then calling this on that will give us what we're asking for. So here the 6,7 is replaced with 99. 
+
+So now I'm going to uncomment this for our actual use case where we want to take our tokens, we want to take the top pair here and replace it with 256 to get tokens2. If we run this we get the following:
+
+Recall that previously we had a length 616 in this list and now we have a length 596, right, so this decreased by 20 which makes sense because there are 20 occurrences. Moreover we can try to find 256 here and we see plenty of occurrences of it and moreover just to double check, there should be no occurrence of 101,32. So this is the original array, plenty of them, and in the second array there are no occurrences of 101,32. So we've successfully merged this single pair.
+
+And now we just iterate this. So we are going to go over the sequence again, find the most common pair, and replace it. So let me now write a while loop that uses these functions to do this sort of iteratively. And how many times do we do it for? Well, that's totally up to us as a hyperparameter. The more steps we take, the larger will be our vocabulary and the shorter will be our sequence. And there is some sweet spot that we usually find works the best in practice. 
+
+As an example, GPT-4 currently uses roughly a hundred thousand tokens and ballpark, those are reasonable numbers currently in state-of-the-art language models. So let me now write putting it all together and iterating these steps.
+
+Okay now before we dive into the while loop I wanted to add one more cell here where I went to the blog post and instead of grabbing just the first paragraph or two, I took the entire blog post and I stretched it out in a single line. Basically just using longer text will allow us to have more representative statistics for the byte pairs and we'll just get more sensible results out of it because it's longer text.
+
+So here we have the raw text, we encode it into bytes using the UTF-8 encoding, and then here as before we are just changing it into a list of integers in Python just so it's easier to work with instead of the raw bytes object. 
+
+And then this is the code that I came up with to actually do the merging in a loop. These two functions here are identical to what we had above. I only included them here just so that you have the point of reference here. So these two are identical.
+
+And then this is the new code that I added. So the first thing we want to do is we want to decide on the final vocabulary size that we want our tokenizer to have. As I mentioned, this is a hyperparameter and you set it in some way depending on your best performance. So let's say for us we're going to use 276 because that way we're going to be doing exactly 20 merges. 20 merges because we already have 256 tokens for the raw bytes and to reach 276 we have to do 20 merges to add 20 new tokens.
+
+Here, this is one way in Python to just create a copy of a list. I'm taking the tokens list and by wrapping it in a list, Python will construct a new list of all the individual elements. So this is just a copy operation. 
+
+Then here, I'm creating a merges dictionary. This merges dictionary is going to maintain basically the child one, child two mapping to a new token. What we're going to be building up here is a binary tree of merges. But actually it's not exactly a tree because a tree would have a single root node with a bunch of leaves. 
+
+For us, we're starting with the leaves on the bottom, which are the individual bytes. Those are the starting 256 tokens, and then we're starting to merge two of them at a time. And so it's not a tree, it's more like a forest as we merge these elements.
+
+So for 20 merges we're going to find the most commonly occurring pair, we're going to mint a new token integer for it. So i here will start at 0, so we're going to start at 256. We're going to print that we're merging it and we're going to replace all the occurrences of that pair with the newly minted token. And we're going to record that this pair of integers merged into this new integer.
+
+So running this gives us the following output. We did 20 merges and for example the first merge was exactly as before, the 101, 32 tokens merging into a new token 256. Now keep in mind that the individual tokens 101 and 32 can still occur in the sequence after merging. It's only when they occur exactly consecutively that that becomes 256 now. 
+
+And in particular, the other thing to notice here is that the token 256, which is the newly minted token, is also eligible for merging. So here on the bottom the 20th merge was a merge of 256 and 259 becoming 275. So every time we replace these tokens they become eligible for merging in the next round of the iteration. That's why we're building up a small sort of binary forest instead of a single individual tree.
+
+One thing we can take a look at as well is we can take a look at the compression ratio that we've achieved. In particular, we started off with this tokens list. So we started off with 24,000 bytes and after merging 20 times, we now have only 19,000 tokens. And so therefore, the compression ratio, simply just dividing the two, is roughly 1.27. So that's the amount of compression we're able to achieve of this text with only 20 merges. And of course the more vocabulary elements you add, the greater the compression ratio here would be.
+
+Finally, so that's kind of like the training of the tokenizer, if you will. Now, one point that I wanted to make is that, and maybe this is a diagram that can help kind of illustrate, is that the tokenizer is a completely separate object from the large language model itself. So everything in this lecture, we're not really touching the LLM itself. We're just training the tokenizer. This is a completely separate pre-processing stage usually.
+
+The tokenizer will have its own training set, just like a large language model has a potentially different training set. So the tokenizer has a training set of documents on which you're going to train the tokenizer. And then we're performing the byte pair encoding algorithm, as we saw above, to train the vocabulary of this tokenizer. 
+
+So it has its own training set. It is a pre-processing stage that you would run a single time in the beginning and the tokenizer is trained using byte pair encoding algorithm. Once you have the tokenizer, once it's trained and you have the vocabulary and you have the merges, we can do both encoding and decoding.
+
+So these two arrows here, the tokenizer is a translation layer between raw text, which is as we saw the sequence of Unicode code points, it can take raw text and turn it into a token sequence and vice versa. It can take a token sequence and translate it back into raw text.
+
+So now that we have trained a tokenizer and have these merges, we are going to turn to how we can do the encoding and the decoding step. If you give me text, here are the tokens and vice versa. If you give me tokens, here's the text. Once we have that, we can translate between these two realms and then the language model is going to be trained as a step two afterwards.
+
+And typically in a sort of a state-of-the-art application, you might take all of your training data for the language model, and you might run it through the tokenizer and sort of translate everything into a massive token sequence. And then you can throw away the raw text, you're just left with the tokens themselves. And those are stored on disk, and that is what the large language model is actually reading when it's training on them. So that's one approach that you can take as a single massive pre-processing stage. 
+
+Yeah, basically I think the most important thing I want to get across is that this is a completely separate stage. It usually has its own entire training set. You may want to have those training sets be different between the tokenizer and the large language model.
+
+So for example, when you're training the tokenizer, as I mentioned, we don't just care about the performance of English text. We care about many different languages. And we also care about code or not code. So you may want to look into different kinds of mixtures of different kinds of languages and different amounts of code and things like that. 
+
+Because the amount of different language that you have in your tokenizer training set will determine how many merges of it there will be and therefore that determines the density with which this type of data sort of exists in the token space. Roughly speaking, intuitively, if you add some amount of data, say you have a ton of Japanese data in your tokenizer training set, then that means that more Japanese tokens will get merged, and therefore Japanese will have shorter sequences. And that's going to be beneficial for the large language model, which has a finite context length on which it can work on in the token space. So hopefully that makes sense.
+
+We're now going to turn to encoding and decoding, now that we have trained a tokenizer. So we have our merges, and now how do we do encoding and decoding?
+
+Okay, so let's begin with decoding, which is this arrow over here. Given a token sequence, let's go through the tokenizer to get back a Python string object, so the raw text. So this is the function that we'd like to implement. We're given the list of integers and we want to return a Python string. If you'd like, try to implement this function yourself. It's a fun exercise. Otherwise, I'm going to start pasting in my own solution.
+
+So there are many different ways to do it. Here's one way. I will create a kind of pre-processing variable that I will call vocab. And vocab is a mapping or dictionary in Python from the token ID to the bytes object for that token. 
+
+So we begin with the raw bytes for tokens from 0 to 255 and then we go in order of all the merges and we sort of populate this vocab list by doing an addition here. So this is basically the bytes representation of the first child followed by the second one. And remember, these are bytes objects. So this addition here is an addition of two bytes objects, just concatenation. So that's what we get here.
+
+One tricky thing to be careful with, by the way, is that I'm iterating a dictionary in Python using dot items and it really matters that this runs in the order in which we inserted items into the merges dictionary. Luckily starting with Python 3.7 this is guaranteed to be the case but before Python 3.7 this iteration may have been out of order with respect to how we inserted elements into merges and this may not have worked, but we are using modern Python, so we're okay. 
+
+And then here, given the IDs, the first thing we're going to do is get the tokens. So the way I implemented this here is I'm taking, I'm iterating over all the IDs, I'm using vocab to look up their bytes and then here this is one way in Python to concatenate all these bytes together to create our tokens and then these tokens here at this point are raw bytes.
+
+So I have to decode using UTF-8 now back into Python strings. So previously we called encode on a string object to get the bytes and now we're doing the opposite. We're taking the bytes and calling decode on the bytes object to get a string in Python and then we can return text. 
+
+So this is how we can do it. Now this actually has an issue in the way I implemented it and this could actually throw an error. So try to figure out why this code could actually result in an error if we plug in some sequence of IDs that is unlucky.
+
+So let me demonstrate the issue. When I try to decode just something like 97, I am going to get a letter "a" here back. So nothing too crazy happening. But when I try to decode 128 as a single element, the token 128 is what? 
+
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte.
+
+What does that mean? Well, to understand what this means, we have to go back to our UTF-8 page that I briefly showed earlier. This is Wikipedia UTF-8. Basically, there's a specific schema that UTF-8 bytes take. In particular, if you have a multi-byte object for some of the Unicode characters, they have to have this special sort of envelope in how the encoding works.
+
+What's happening here is that invalid start byte, that's because 128, the binary representation of it is 1 followed by all zeros. So we have 1 and then all 0s and we see here that that doesn't conform to the format because 1 followed by all 0s just doesn't fit any of these rules, so to speak. So it's an invalid start byte, which is byte one. This one must have a one following it, and then a zero following it, and then the content of your Unicode in Xs here.
+
+So basically, we don't exactly follow the UTF-8 standard, and this cannot be decoded. And so the way to fix this is to use this errors='replace' in bytes.decode function of Python and by default errors is 'strict' so we will throw an error if it's not valid UTF-8 bytes encoding. But there are many different things that you could put here for error handling. This is the full list of all the errors that you can use.
+
+In particular, instead of 'strict', let's change it to 'replace' and that will replace with this special marker, this is the replacement character. So errors='replace' and now we just get that character back.
+
+So basically not every single byte sequence is valid UTF-8. And if it happens that your large language model, for example, predicts your tokens in a bad manner, then they might not be valid UTF-8. And then we won't be able to decode them. So the standard practice is to basically use errors='replace' and this is what you will also find in the OpenAI code that they released as well. But basically whenever you see this kind of a character in your output, in that case something went wrong and the LLM output was not a valid sort of sequence of tokens.
+
+Okay and now we're going to go the other way. So we are going to implement this arrow right here where we are going to be given a string and we want to encode it into tokens. So this is the signature of the function that we're interested in and this should basically print a list of integers of the tokens.
+
+Again, try to maybe implement this yourself if you'd like a fun exercise. Pause here, otherwise I'm going to start putting in my solution.
+
+So again, there are many ways to do this. This is one of the ways that I came up with. The first thing we're going to do is we are going to take our text, encode it into UTF-8 to get the raw bytes. And then as before, we're going to call list on the bytes object to get a list of integers of those bytes. So those are the starting tokens. Those are the raw bytes of our sequence.
+
+But now, of course, according to the merges dictionary above, and recall this was the merges, some of the bytes may be merged according to this lookup. In addition to that, remember that the merges was built from top to bottom and this is sort of the order in which we inserted stuff into merges. 
+
+And so we prefer to do all these merges in the beginning before we do these merges later because, for example, this merge over here relies on the 256 which got merged here. So we have to go in the order from top to bottom, sort of, if we are going to be merging anything.
+
+Now we expect to be doing a few merges, so we're gonna be doing while true. And now we want to find a pair of bytes that is consecutive that we are allowed to merge according to this. 
+
+In order to reuse some of the functionality that we've already written, I'm going to reuse the function getStats. Recall that getStats will give us the... will basically count up how many times every single pair occurs in our sequence of tokens and return that as a dictionary. And the dictionary was a mapping from all the different byte pairs to the number of times that they occur, right?
+
+At this point, we don't actually care how many times they occur in the sequence. We only care what the raw pairs are in that sequence. And so I'm only going to be using basically the keys of the dictionary. I only care about the set of possible merge candidates, if that makes sense.
+
+Now we want to identify the pair that we're going to be merging at this stage of the loop. So what do we want? We want to find the pair or like a key inside stats that has the lowest index in the merges dictionary, because we want to do all the early merges before we work our way to the late merges. 
+
+Again there are many different ways to implement this but I'm going to do something a little bit fancy here. I'm going to be using the min over an iterator. In Python when you call min on an iterator, and stats here is a dictionary, we're going to be iterating the keys of this dictionary in Python. 
+
+So we're looking at all the pairs inside stats, which are all the consecutive pairs. And we're going to be taking the consecutive pair inside tokens that has the minimum, what? The min takes a key, which gives us the function that is going to return a value over which we're going to do the min. And the one we care about is we care about taking merges and basically getting that pair's index.
+
+So basically for any pair inside stats, we are going to be looking into merges at what index it has, and we want to get the pair with the min number. 
+
+So as an example, if there's a pair 101 and 32, we definitely want to get that pair. We want to identify it here and return it, and pair would become 101, 32 if it occurs. And the reason that I'm putting a float('inf') here as a fallback is that in the get function, when we basically consider a pair that doesn't occur in the merges, then that pair is not eligible to be merged, right? 
+
+So if in the token sequence there's some pair that is not a merging pair, it cannot be merged, then it doesn't actually occur here and it doesn't have an index and it cannot be merged, which we will denote as float('inf'). And the reason infinity is nice here is because for sure we're guaranteed that it's not going to participate in the list of candidates when we do the min.
+
+So this is one way to do it. Basically, long story short, this returns the most eligible merging candidate pair that occurs in the tokens.
+
+Now, one thing to be careful with here is this function here might fail in the following way. If there is nothing to merge, then there's nothing in merges that is satisfied anymore. There's nothing to merge. Everything just returns float('inf')s. And then the pair, I think, will just become the very first element of stats. 
+
+But this pair is not actually a mergeable pair, it just becomes the first pair inside stats arbitrarily because all these pairs evaluate to float('inf') for the merging criterion. So basically it could be that this doesn't succeed because there's no more merging pairs.
+
+So if this pair is not in merges that was returned, then this is a signal for us that actually there was nothing to merge. No single pair can be merged anymore. In that case we will break out. Nothing else can be merged. 
+
+You may come up with a different implementation by the way. This is kind of like really trying hard in Python but really we're just trying to find a pair that can be merged with a lowest index here.
+
+Now if we did find a pair that is inside merges with the lowest index then we can merge it. So we're going to look into the mergers dictionary for that pair to look up the index and we're going to now merge into that index. So we're going to do tokens equals and we're going to replace the original tokens. 
+
+We're going to be replacing the pair, pair, and we're going to be replacing it with index idx. This returns a new list of tokens where every occurrence of pair is replaced with idx. So we're doing a merge. We're going to be continuing this until eventually nothing can be merged. We'll come out here and we'll break out and here we just return tokens.
+
+And so that's the implementation. Hopefully this runs. Okay cool. Yeah and this looks reasonable. For example, 32 is a space in ASCII, so that's here. So this looks like it worked. Great.
+
+Okay, so let's wrap up this section of the video at least. I wanted to point out that this is not quite the right implementation just yet because we are leaving out a special case.
+
+In particular, if we tried to do this, this would give us an error. And the issue is that if we only have a single character or an empty string, then stats is empty and that causes an issue inside min.
+
+So one way to fix this is if len(tokens) is at least two. Because if it's less than two, it's just a single token or no tokens, then let's just, there's nothing to merge, so we just return. So that would fix that case.
+
+Okay. And then second, I have a few test cases here for us as well. So first let's make sure about or let's note the following. If we take a string and we try to encode it and then decode it back, you'd expect to get the same string back right? Is that true for all strings?
+
+So I think so here it is the case and I think in general this is probably the case but notice that going backwards is not you're not going to have an identity going backwards because as I mentioned not all token sequences are valid UTF-8 sort of byte streams and so therefore some of them can't even be decodable.
+
+So this only goes in one direction. But for that one direction we can check here if we take the training text which is the text that we trained the tokenizer on, we can make sure that when we encode and decode we get the same thing back, which is true. 
+
+And here I took some validation data so I went to I think this web page and I grabbed some text so this is text that the tokenizer has not seen and we can make sure that this also works ok. So that gives us some confidence that this was correctly implemented.
+
+So those are the basics of the byte pair encoding algorithm. We saw how we can take some training set, train a tokenizer, the parameters of this tokenizer really are just this dictionary of merges, and that basically creates the little binary forest on top of raw bytes. Once we have this, the merges table, we can both encode and decode between raw text and token sequences.
+
+So that's the simplest setting of the tokenizer. What we're going to do now, though, is we're going to look at some of the state-of-the-art large language models and the kinds of tokenizers that they use and we're going to see that this picture complexifies very quickly. So we're going to go through the details of this complexification one at a time.
+
+So let's kick things off by looking at the GPT series. In particular I have the GPT-2 paper here. And this paper is from 2019 or so, five years ago. And let's scroll down to "Input representation". This is where they talk about the tokenizer that they're using for GPT-2. 
+
+Now, this is all fairly readable, so I encourage you to pause and read this yourself. But this is where they motivate the use of the byte pair encoding algorithm on the byte level representation of UTF-8 encoding. So this is where they motivate it, and they talk about the vocabulary sizes and everything.
+
+Now, everything here is exactly as we've covered it so far, but things start to depart around here. What they mention is that they don't just apply the naive algorithm as we have done it. And in particular, here's a motivating example.
+
+Suppose that you have common words like "dog". What will happen is that "dog" of course occurs very frequently in the text and it occurs right next to all kinds of punctuation as an example. So "dog.", "dog!", "dog?", etc. And naively you might imagine that the BPE algorithm could merge these to be single tokens and then you end up with lots of tokens that are just like "dog" with a slightly different punctuation.
+
+It feels like you're clustering things that shouldn't be clustered. You're combining kind of semantics with punctuation and this feels suboptimal. Indeed they also say that this is suboptimal according to some of the experiments. So what they want to do is they want to, top-down in a manual way, enforce that some types of characters should never be merged together. They want to enforce these merging rules on top of the byte-pair encoding algorithm.
+
+So let's take a look at their code and see how they actually enforce this and what kinds of merges they actually do perform. I have the tab open here for GPT-2 under OpenAI on GitHub and when we go to "source" there is an "encoder.py". 
+
+Now I don't personally love that they call it "encoder.py" because this is the tokenizer and the tokenizer can do both encode and decode so it feels kind of awkward to me that it's called "encoder" but that is the tokenizer.
+
+And there's a lot going on here and we're gonna step through it in detail at one point. For now I just want to focus on this part here. They create a regex pattern here that looks very complicated and we're gonna go through it in a bit. But this is the core part that allows them to enforce rules for what parts of the text will never be merged for sure.
+
+Now notice that re.compile here is a little bit misleading because we're not just doing import re which is the Python re module, we're doing import regex as re and regex is a Python package that you can install pip install regex and it's basically an extension of re so it's a bit more powerful re. 
+
+So let's take a look at this pattern and what it's doing and why this is actually doing the separation that they are looking for.
+
+Okay so I've copy pasted the pattern here to our Jupyter notebook where we left off and let's take this pattern for a spin. In the exact same way that their code does, we're going to call an re.findall for this pattern on any arbitrary string that we are interested in. So this is the string that we want to encode into tokens to feed into an LLM like GPT-2.
+
+So what exactly is this doing? Well, re.findall will take this pattern and try to match it against this string. The way this works is that you are going from left to right in the string and you're trying to match the pattern. And re.findall will get all the occurrences and organize them into a list.
+
+Now when you look at this pattern, first of all notice that this is a raw string and then these are three double quotes just to start the string. So really the string itself, this is the pattern itself, right? And notice that it's made up of a lot of ORs, so see these vertical bars? Those are ORs in regex.
+
+And so you go from left to right in this pattern and try to match it against the string wherever you are. So we have "hello" and we're gonna try to match it. Well, it's not apostrophe s, it's not apostrophe t, or any of these, but it is an optional space followed by \p{L}1 or more times.
+
+What is \p{L}? It is, coming to some documentation that I found and there might be other sources as well, \p{L} is a letter, any kind of letter from any language. And "hello" is made up of letters, H-E-L-L-O, etc. followed by a bunch of letters, one or more letters, is going to match "hello", but then the match ends because a whitespace is not a letter.
+
+So from there on begins a new sort of attempt to match against the string again. And starting in here we're gonna skip over all of these again until we get to the exact same point again, and we see that there's an optional space, this is the optional space, followed by a bunch of letters, one or more of them, and so that matches.
+
+So when we run this we get a list of two elements, "hello" and then " world". So "how", "are", "you", if we add more letters? We would just get them like this.
+
+Now what is this doing and why is this important? We are taking our string and instead of directly encoding it for tokenization, we are first splitting it up. And when you actually step through the code, and we'll do that in a bit more detail, what really it's doing on a high level is that it first splits your text into a list of text, just like this one.
+
+And all these elements of this list are processed independently by the tokenizer. And all of the results of that processing are simply concatenated. So "hello", "world". Oh, I missed "how". "Hello", "world", "how", "are", "you"? We have five elements of a list. 
+
+All of these will independently go from text to a token sequence and then that token sequence is going to be concatenated, it's all going to be joined up. And roughly speaking what that does is you're only ever finding merges between the elements of this list.
+
+So you can only ever consider merges within every one of these elements individually. And after you've done all the possible merging for all these elements individually, the results of all that will be joined by concatenation.
+
+And so you are basically what you're doing effectively is you are never going to be merging this "e" with this space because they are now parts of separate elements of this list and so you are saying we are never going to merge "e space" because we're breaking it up in this way.
+
+So basically using this regex pattern to chunk up the text is just one way of enforcing that some merges are not to happen. And we're going to go into more of this text and we'll see that what this is trying to do on a high level is we're trying to not merge across letters, across numbers, across punctuation and so on.
+
+So let's see in more detail how that works. Let's continue. Now we have \p{N}. If you go to the documentation, \p{N} is any kind of numeric character in any script. So it's numbers. So we have an optional space followed by numbers and those would be separated out. So letters and numbers are being separated.
+
+So if I do "hello world123, how are you?" Then "world" will stop matching here because 1 is not a letter anymore. But 1 is a number. So this group will match for that and we'll get it as a separate entity.
+
+Let's see how these apostrophes work. So here if we have 'v or I mean apostrophe v as an example then apostrophe here is not a letter or a number so "hello" will stop matching and then we will exactly match this with that. So that will come out as a separate thing.
+
+So why are they doing the apostrophes here? Honestly, I think that these are just like very common apostrophes that are used typically. I don't love that they've done this because let me show you what happens when you have some Unicode apostrophes. 
+
+Like, for example, if you have "house's", then this will be separated out because of this matching. But if you use the Unicode apostrophe like this, then suddenly this does not work. And so this apostrophe will actually become its own thing now.
+
+And so it's basically hard-coded for this specific kind of apostrophe. And otherwise, they become completely separate tokens. In addition to this, you can go to the GPT-2 docs. And here when they define the pattern, they say, should have added re.ignoreCase. So BPE merges can happen for capitalized versions of contractions.
+
+So what they're pointing out is that you see how this is apostrophe and then lowercase letters? Well because they didn't do re.ignoreCase then these rules will not separate out the apostrophes if it's uppercase.
+
+So "House's" would be like this but if I did "House's" from uppercase, then notice suddenly the apostrophe comes by itself. So the tokenization will work differently in uppercase and lowercase, inconsistently separating out these apostrophes.
+
+So it feels extremely gnarly and slightly gross, but that's how that works. Okay, so let's come back. After trying to match a bunch of apostrophe expressions, by the way, the other issue here is that these are quite language-specific probably.
+
+So I don't know that all the languages, for example, use or don't use apostrophes, but that would be inconsistently tokenized as a result. Then we try to match letters. Then we try to match numbers. And then if that doesn't work, we fall back to here.
+
+And what this is saying is, again, optional space followed by something that is not a letter, number, or a space, and one or more of that. So what this is doing effectively is this is trying to match punctuation, roughly speaking, not letters and not numbers.
+
+So this group will try to trigger for that. So if I do something like this, then these parts here are not letters or numbers, but they will actually get caught here. And so they become its own group. So we've separated out the punctuation.
+
+And finally, this is also a little bit confusing. So this is matching whitespace, but this is using a negative lookahead assertion in regex. So what this is doing is it's matching whitespace up to, but not including the last whitespace character.
+
+Why is this important? This is pretty subtle, I think. You see how the whitespace is always included at the beginning of the word. So space "r", space "u", etc.
+
+Suppose we have a lot of spaces here. What's gonna happen here is that these spaces up to and not including the last character will get caught by this. And what that will do is it will separate out the spaces up to but not including the last character so that the last character can come here and join with the space "u".
+
+And the reason that's nice is because space "u" is the common token. So if I didn't have these extra spaces here you would just have space "u" and if I add tokens, if I add spaces, we still have a space "u" but now we have all this extra whitespace.
+
+So basically the GPT-2 tokenizer really likes to have a space letter or space numbers and it prepends these spaces and this is just something that it is consistent about. So that's what that is for and then finally we have... the last fallback is whitespace characters. So that would be just if that doesn't get caught, then this thing will catch any trailing spaces and so on.
+
+I wanted to show one more real-world example here. So if we have this string, which is a piece of Python code, and then we try to split it up, then this is the kind of output we get. You'll notice that the list has many elements here, and that's because we are splitting up fairly often every time sort of a category changes.
+
+So there will never be any mergers within these elements and that's what you are seeing here. Now you might think that in order to train the tokenizer OpenAI has used this to split up text into chunks and then run just a BPE algorithm within all the chunks.
+
+But that's not exactly what happened and the reason is the following. Notice that we have the spaces here. Those spaces end up being entire elements but these spaces never actually end up being merged by OpenAI and the way you can tell is that if you copy paste the exact same chunk here into the TikTokenizer you see that all the spaces are kept independent and they're all token 220.
+
+So I think OpenAI decided at some point and for some rule that these spaces would never be merged and so there's some additional rules on top of just chunking and BPE that OpenAI does that's not clear about.
+
+Now the training code for the GPT-2 tokenizer was never released, so all we have is the code that I've already shown you, but this code here that they've released is only the inference code for the tokenizer.
+
+So this is not the training code, you can't give it a piece of text and train a tokenizer, this is just the inference code which takes the merges that we have up above and applies them to a new piece of text. And so we don't know exactly how OpenAI trained the tokenizer but it wasn't as simple as chunk it up and BPE it, whatever it was.
+
+Next I wanted to introduce you to the TikToken library from OpenAI, which is the official library for tokenization from OpenAI. So this is tic token, pip install tic token, and then you can do the tokenization inference. This is again not training code, this is only inference code for tokenization.
+
+I wanted to show you how you would use it, quite simple, and running this just gives us the GPT-2 tokens or the GPT-4 tokens. So this is the tokenizer used for GPT-4.
+
+And so in particular we see that the whitespace in GPT-2 remains unmerged, but in GPT-4 these whitespaces merge, as we also saw in this one, where here they're all unmerged, but if we go down to GPT-4 they become merged.
+
+Now, in the GPT-4 tokenizer, they changed the regular expression that they use to chunk up text. So the way to see this is that if you come to the TikToken library, and then you go to this file, TikToken/ext/openai_public, this is where sort of like the definition of all these different tokenizers that OpenAI maintains is.
+
+And so necessarily to do the inference they had to publish some of the details about the strings. So this is the string that we already saw for GPT-2. It is slightly different but it is actually equivalent to what we discussed here.
+
+So this pattern that we discussed is equivalent to this pattern, and this one just executes a little bit faster. So here you see a little bit of a slightly different definition, but otherwise it's the same. We're going to go into special tokens in a bit.
+
+And then if you scroll down to CL100K, this is the GPT-4 tokenizer, you see that the pattern has changed. And this is kind of like the major change in addition to a bunch of other special tokens, which we'll go into a bit again.
+
+Now, I'm not going to actually go into the full detail of the pattern change, because honestly, this is mind-numbing. I would just advise that you pull out ChatGPT and the RegEx documentation and just step through it.
+
+But really, the major changes are number one, you see this (?i) here, that means that the case sensitivity, this is case insensitive match. And so the comment that we saw earlier on, oh, we should have used re.uppercase. Basically, we're now going to be matching these apostrophe s, apostrophe d, apostrophe m, etc. We're going to be matching them both in lowercase and in uppercase so that's fixed.
+
+There's a bunch of different like handling of the white space that I'm not going to go into the full details of. And then one more thing here is you will notice that when they match the numbers they only match one to three numbers.
+
+So they will never merge numbers that are in more than three digits. Only up to three digits of numbers will ever be merged. And that's one change that they made as well to prevent tokens that are very, very long number sequences.
+
+But again, we don't really know why they do any of this stuff because none of this is documented. And we just get the pattern. So yeah, it is what it is. But those are some of the changes that GPT-4 has made. And of course, the vocabulary size went from roughly 50k to roughly 100k.
+
+The next thing I would like to do very briefly is to take you through the GPT2 encoder.py that OpenAI has released. This is the file that I already mentioned to you briefly. Now this file is fairly short and should be relatively understandable to you at this point.
+
+Starting at the bottom here they are loading two files encoder.json and vocab.bpe and they do some light processing on it and then they call this encoder object which is the tokenizer.
+
+Now if you'd like to inspect these two files which together constitute their saved tokenizer then you can do that with a piece of code like this. This is where you can download these two files and you can inspect them if you'd like.
+
+And what you will find is that this encoder, as they call it in their code, is exactly equivalent to our vocab. So remember here where we have this vocab object which allowed us to decode very efficiently and basically it took us from the integer to the bytes for that integer. So our vocab is exactly their encoder.
+
+And then their vocab.bpe, confusingly, is actually our merges. So their bpe_merges, which is based on the data inside vocab.bpe, ends up being equivalent to our merges.
+
+So basically they are saving and loading the two variables that for us are also critical, the merges variable and the vocab variable. Using just these two variables, you can represent a tokenizer and you can both do encoding and decoding once you've trained this tokenizer.
+
+Now the only thing that is actually slightly confusing inside what OpenAI does here is that in addition to this encoder and the decoder they also have something called a byte_encoder and a byte_decoder and this is actually unfortunately just kind of a spurious implementation detail, it isn't actually deep or interesting in any way so I'm going to skip the discussion of it.
+
+But what OpenAI does here for reasons that I don't fully understand is that not only have they this tokenizer which can encode and decode, but they have a whole separate layer here in addition that is used serially with the tokenizer.
+
+And so you first do byte_encode and then encode and then you do decode and then byte_decode. So that's the loop and they are just stacked serially on top of each other. And it's not that interesting. So I won't cover it, and you can step through it if you'd like.
+
+Otherwise, this file, if you ignore the byte_encoder and the byte_decoder, will be algorithmically very familiar to you. And the meat of it here is the, what they call BPE function. And you should recognize this loop here, which is very similar to our own while loop, where they're trying to identify the bigram, a pair, that they should be merging next. 
+
+And then here, just like we had, they have a for loop trying to merge this pair. So they will go over all of the sequence and they will merge the pair whenever they find it. And they keep repeating that until they run out of possible merges in the text. 
+
+So that's the meat of this file. And there's an encode and decode function just like we have implemented it. So long story short what I want you to take away at this point is that unfortunately it's a little bit of a messy code that they have but algorithmically it is identical to what we've built up above and what we've built up above if you understand it is algorithmically what is necessary to actually build a BPE tokenizer, train it, and then both encode and decode.
+
+The next topic I would like to turn to is that of special tokens. So in addition to tokens that are coming from, you know, raw bytes and the BPE merges, we can insert all kinds of tokens that we are going to use to delimit different parts of the data or introduce to create a special structure of the token streams.
+
+So if you look at this encoder object from OpenAI's GPT-2 right here, we mentioned this is very similar to our vocab. You'll notice that the length of this is 50,257. As I mentioned, it's a mapping and it's inverted from the mapping of our vocab. Our vocab goes from integer to string and they go the other way around for no amazing reason.
+
+But the thing to note here is that the mapping table here is 50,257. Where does that number come from? Where are the tokens? As I mentioned, there are 256 raw byte tokens. And then OpenAI actually did 50,000 merges so those become the other tokens but this would have been 50,256. So what is the 57th token?
+
+And there is basically one special token and that one special token you can see is called "end of text". So this is a special token, and it's the very last token, and this token is used to delimit documents in the training set.
+
+So when we're creating the training data, we have all these documents, and we tokenize them, and we get a stream of tokens. Those tokens only range from 0 to 50,256. And then in between those documents, we put a special "end of text" token. And we insert that token in between documents.
+
+And we are using this as a signal to the language model that the document has ended and what follows is going to be unrelated to the document previously. That said, the language model has to learn this from data. It needs to learn that this token usually means that it should wipe its sort of memory of what came before and what came before this token is not actually informative to what comes next. But we are expecting the language model to just like learn this, but we're giving it the special sort of delimiter of these documents.
+
+We can go here to tiktokenizer and this is the GPT-2 tokenizer, our code that we've been playing with before. So we can add here, right, "hello world how are you" and we're getting different tokens but now you can see what happens if I put "end of text". 
+
+You see how until I finished it, these are all different tokens. "End of text", still separate tokens. And now when I finish it, suddenly we get token 50,256. And the reason this works is because this didn't actually go through the BPE merges.
+
+Instead, the code that actually outputs the tokens has special case instructions for handling special tokens. We did not see these special instructions for handling special tokens in the encoder.py. It's absent there.
+
+But if you go to tiktoken library, which is implemented in Rust, you will find all kinds of special case handling for these special tokens that you can register, create, add to the vocabulary, and then it looks for them and whenever it sees these special tokens like this, it will actually come in and swap in that special token.
+
+So these things are outside of the typical algorithm of byte pairing coding. So these special tokens are used pervasively, not just in basically base language modeling of predicting the next token in the sequence, but especially when it gets to later to the fine tuning stage and all of the ChatGPT sort of aspects of it, because we don't just want to delimit documents, we want to delimit entire conversations between an assistant and a user.
+
+So if I refresh this TikTokenizer page, the default example that they have here is using not sort of base model encoders but fine-tuned model sort of tokenizers. So for example using the GPT-3.5 Turbo scheme, these here are all special tokens. "IAM_start", "IAM_end", etc. This is short for imaginary_assistant_message_start by the way.
+
+But you can see here that there's a sort of start and end of every single message and there can be many other tokens, lots of tokens, in use to delimit these conversations and kind of keep track of the flow of the messages here.
+
+Now we can go back to the TikToken library and here when you scroll to the bottom they talk about how you can extend TikToken and now you can create basically you can fork the CL100K base tokenizer as used in GPT-4 and for example you can extend it by adding more special tokens.
+
+And these are totally up to you, you can come up with any arbitrary tokens and add them with the new ID afterwards and the TikToken library will correctly swap them out when it sees this in the strings.
+
+Now we can also go back to this file which we looked at previously and I mentioned that the GPT-2 in tiktoken/ext/openai_public.py we have the vocabulary, we have the pattern for splitting, and then here we are registering the single special token in GPT-2, which was the "end of text" token, and we saw that it has this ID.
+
+In GPT-4, when they defined this here, you see that the pattern has changed as we've discussed, but also the special tokens have changed in this tokenizer. So we of course have the "end of text", just like in GPT-2 but we also see three, sorry four additional tokens here. "FIM_prefix", "middle" and "suffix".
+
+What is FIM? FIM is short for "fill in the middle" and if you'd like to learn more about this idea it comes from this paper and I'm not going to go into detail in this video, it's beyond this video. And then there's one additional uh stripped token here so that's that encoding as well.
+
+So it's very common basically to train a language model and then if you'd like you can add special tokens. Now when you add special tokens you of course have to do some model surgery to the transformer and all the parameters involved in that transformer because you are basically adding an integer and you want to make sure that for example your embedding matrix for the vocabulary tokens has to be extended by adding a row.
+
+And typically this row would be initialized with small random numbers or something like that because we need to have a vector that now stands for that token. In addition to that you have to go to the final layer of the transformer and you have to make sure that that projection at the very end into the classifier is extended by one as well.
+
+So basically there's some model surgery involved that you have to couple with the tokenization changes if you are going to add special tokens. But this is a very common operation that people do, especially if they'd like to fine-tune the model, for example taking it from a base model to a chat model like ChatGPT.
+
+Okay, so at this point you should have everything you need in order to build your own GPT-4 tokenizer. Now in the process of developing this lecture I've done that and I've published the code under this repository minbpe. 
+
+So minbpe looks like this right now as I'm recording, but the minbpe repository will probably change quite a bit because I intend to continue working on it. In addition to the minbpe repository, I've published this exercise progression that you can follow.
+
+So if you go to exercise.md here, this is sort of me breaking up the task ahead of you into four steps that sort of build up to what can be a GPT-4 tokenizer. And so feel free to follow these steps exactly and follow a little bit of the guidance that I've laid out here. And anytime you feel stuck, just reference the minbpe repository here.
+
+So either the tests could be useful or the minbpe repository itself. I try to keep the code fairly clean and understandable and so feel free to reference it whenever you get stuck. In addition to that basically, once you write it you should be able to reproduce this behavior from tiktoken.
+
+So getting the GPT-4 tokenizer you can encode this string and you should get these tokens and then you can encode and decode the exact same string to recover it. And in addition to all that, you should be able to implement your own train function, which tiktoken library does not provide. It's again, only inference code, but you should write your own train. Minbpe does it as well.
+
+And that will allow you to train your own token vocabularies. So here's some of the code inside minbpe. Minbpe shows the token vocabularies that you might obtain. So on the left here, we have the GPT-4 merges.
+
+So the first 256 are raw individual bytes, and then here I am visualizing the merges that GPT-4 performed during its training. So the very first merge that GPT-4 did was merge two spaces into a single token for two spaces, and that is the token 256.
+
+And so this is the order in which things merged during GPT-4 training, and this is the merge order that we obtain in minbpe by training a tokenizer. And in this case, I trained it on a Wikipedia page of Taylor Swift, not because I'm a Swifty, but because that is one of the longest Wikipedia pages, apparently, that's available. But she is pretty cool.
+
+And what was I going to say? Yeah, so you can compare these two vocabularies. And so as an example, here GPT-4 merged "in" to become "IN", and we've done the exact same thing on this token, 259. Here, "space T" becomes "space T", and that happened for us a little bit later as well.
+
+So the difference here is, again, to my understanding, only a difference of the training set. So as an example, because I see a lot of white space, I expect that GPT-4 probably had a lot of Python code in its training set for the tokenizer and here we see much less of that of course in the Wikipedia page.
+
+So roughly speaking they look the same and they look the same because they're running the same algorithm and when you train your own you're probably gonna get something similar depending on what you train it on.
+
+Okay so we are now going to move on from TikToken and the way that OpenAI tokenizes its strings. We're going to discuss one more very commonly used library for working with tokenization in LLMs and that is SentencePiece.
+
+So SentencePiece is very commonly used in language models because unlike TikToken it can do both training and inference and is quite efficient at both. It supports a number of algorithms for training vocabularies, but one of them is the byte-pairing coding algorithm that we've been looking at. So it supports it.
+
+Now, SentencePiece is used both by the Llama and Mistral series and many other models as well. It is on GitHub under google/sentencepiece. And the big difference with SentencePiece, and we're going to look at an example because this is kind of hard and subtle to explain, is that they think differently about the order of operations here.
+
+So in the case of TikToken, we first take our code points in the string, we encode them using UTF-8 to bytes, and then we're merging bytes. It's fairly straightforward. For SentencePiece, it works directly on the level of the code points themselves.
+
+So it looks at whatever code points are available in your training set and then it starts merging those code points and the BPE is running on the level of code points. If you happen to run out of code points, so there are maybe some rare code points that just don't come up too often and the rarity is determined by this character_coverage hyperparameter, then these code points will either get mapped to a special unknown token like unk, or if you have the byte_fallback option turned on, then that will take those rare code points, it will encode them using UTF-8 and then the individual bytes of that encoding will be translated into tokens and there are these special byte tokens that basically get added to the vocabulary.
+
+So it uses BPE on the code points and then it falls back to bytes for rare code points. And so that's kind of like the difference. Personally I find the TikToken way significantly cleaner, but it's kind of like a subtle but pretty major difference between the way they approach tokenization.
+
+Let's work with a concrete example because otherwise this is kind of hard to get your head around. So let's work with a concrete example. This is how we can import sentencepiece and then here we're going to take, I think I took like the description of sentencepiece and I just created like a little toy dataset.
+
+SentencePiece really likes to have a file so I created a toy.txt file with this content. Now what's kind of a little bit crazy about sentencepiece is that there's a ton of options and configurations and the reason this is so is because sentencepiece has been around I think, for a while, and it really tries to handle a large diversity of things. 
+
+Because it's been around, I think it has quite a bit of accumulated historical baggage as well. In particular, there's a ton of configuration arguments. This is not even all of it. You can go to here to see all the training options. There's also quite useful documentation when you look at the raw protobuf that is used to represent the trainer spec and so on.
+
+Many of these options are irrelevant to us. Maybe to point out one example, --shrinking_factor. This shrinking_factor is not used in the byte pairing coding algorithm, so this is just an argument that is irrelevant to us. It applies to a different training algorithm.
+
+Now what I tried to do here is I tried to set up sentencepiece in a way that is very very similar, as far as I can tell, to maybe identical hopefully, to the way that Llama2 was trained, so the way they trained their own tokenizer.
+
+And the way I did this was basically you can take the tokenizer.model file that Meta released and you can open it using the protobuf file that you can generate and then you can inspect all the options and I tried to copy over all the options that looked relevant.
+
+So here we set up the input. It's raw text in this file. Here's gonna be the output so it's gonna be phototok400.model and .vocab. We're saying that we're gonna use the BPE algorithm and we want a vocab size of 400.
+
+Then there's a ton of configurations here for basically pre-processing and normalization rules, as they're called. Normalization used to be very prevalent, I would say, before LLMs in natural language processing.
+
+So in machine translation and text classification and so on, you want to normalize and simplify the text, and you want to turn it all lowercase, and you want to remove all double whitespace, etc. And in language models, we prefer not to do any of it, or at least that is my preference. As a deep learning person, you want to not touch your data, you want to keep the raw data as much as possible in a raw form, so you're basically trying to turn off a lot of this if you can.
+
+The other thing that sentencepiece does is that it has this concept of sentences. So sentencepiece, its background kind of like was developed I think early in the days where there was an idea that you're training a tokenizer on a bunch of independent sentences.
+
+So it has a lot of like how many sentences you're going to train on, what is the maximum sentence length, shuffling sentences and so on. For it, sentences are kind of like the individual training examples.
+
+But again, in the context of LLMs, I find that this is like a very spurious and weird distinction. Like sentences are just like, don't touch the raw data. Sentences happen to exist. But in the raw datasets, there are a lot of like in-betweens, like what exactly is a sentence? What isn't a sentence?
+
+And so I think like it's really hard to define what an actual sentence is if you really dig into it and there could be different concepts of it in different languages or something like that. So why even introduce the concept? It doesn't honestly make sense to me, I would just prefer to treat a file as a giant stream of bytes.
+
+SentencePiece has a lot of treatment around the rare word characters and when I say word I mean code points. We're going to come back to this in a second and it has a lot of other rules for basically splitting digits, splitting white space and numbers and how you deal with that.
+
+So these are some kind of like merge rules. I think this is a little bit equivalent to TikToken using the regular expression to split up categories. There's kind of equivalence of it if you squint at it in SentencePiece where you can also, for example, split up the digits and so on.
+
+There's a few more things here that I'll come back to in a bit, and then there are some special tokens that you can indicate. It hard codes the unk token, the beginning of sentence, end of sentence and a pad token. And the unk token must exist from my understanding. And then some system things.
+
+So we can train and when I press train it's going to create this file tok400.model and tok400.vocab. I can then load the model file and I can inspect the vocabulary of it. And so we trained vocab size 400 on this text here. And these are the individual pieces, the individual tokens that sentencepiece will create.
+
+So in the beginning we see that we have the unk token with the ID 0. Then we have the beginning of sequence, end of sequence, 1 and 2. And then we said that the pad ID is negative 1, so we chose not to use it. So there's no pad ID here.
+
+Then these are individual byte tokens. So here we saw that byte fallback in Llama was turned on, so it's true. So what follows are going to be the 256 byte tokens and these are their IDs.
+
+And then at the bottom, after the byte tokens come the merges and these are the parent nodes in the merges. So we're not seeing the children, we're just seeing the parents and their ID.
+
+And then after the merges comes eventually the individual tokens and their IDs and so these are the individual tokens so these are the individual code point tokens if you will and they come at the end.
+
+So that is the ordering with which sentencepiece sort of like represents its vocabularies. It starts with special tokens then the byte tokens, then the merge tokens, and then the individual code point tokens.
+
+And all these raw code point tokens are the ones that it encountered in the training set. So those individual code points are all the entire set of code points that occurred here. So those all get put in there and then those are extremely rare as determined by character_coverage.
+
+So if a code point occurred only a single time out of like a million sentences or something like that then it would be ignored and it would not be added to our vocabulary.
+
+Once we have a vocabulary we can encode into IDs and we can sort of get a list. And then here I am also decoding the individual tokens back into little pieces as they call it.
+
+So let's take a look at what happened here. "Hello space". So these are the token IDs we got back. 안녕하세요. So these are the token IDs we got back and when we look here a few things sort of jump to mind.
+
+Number one, take a look at these characters, the Korean characters. Of course, they were not part of the training set so sentencepiece is encountering code points that it has not seen during training time and those code points do not have a token associated with them. So suddenly these are unk tokens, unknown tokens.
+
+But because byte_fallback is true, instead sentencepiece falls back to bytes. And so it takes this, it encodes it with UTF-8, and then it uses these tokens to represent those bytes. And that's what we are getting sort of here. This is the UTF-8 encoding and it is shifted by three because of these special tokens here that have IDs earlier on.
+
+So that's what happened here. Now one more thing that, well first before I go on, with respect to the byte_fallback. Let me remove byte_fallback. If this is false, what's gonna happen? Let's retrain.
+
+So the first thing that happened is all the byte tokens disappeared, right? And now we just have the merges and we have a lot more merges now because we have a lot more space because we're not taking up space in the vocab size with all the bytes.
+
+And now if we encode this we get a zero. So this entire string here suddenly there's no byte fallback so this is unknown and unknown is unk and so this is zero because the unk token is token zero.
+
+And you have to keep in mind that this would feed into your language model. So what is a language model supposed to do when all kinds of different things that are unrecognized because they're rare just end up mapping into unk? It's not exactly the property that you want.
+
+So that's why I think Llama correctly used byte_fallback true, because we definitely want to feed these unknown or rare code points into the model in some manner.
+
+The next thing I want to show you is the following. Notice here when we are decoding all the individual tokens, you see how spaces, space here, ends up being this bold underline. I'm not 100% sure, by the way, why sentencepiece switches whitespace into these bold underscore characters. Maybe it's for visualization. I'm not 100% sure why that happens.
+
+But notice this. Why do we have an extra space in the front of "hello"? Where is this coming from? Well, it's coming from this option here. add_dummy_prefix is true. And when you go to the documentation, add dummy white space at the beginning of text in order to treat "world" in "world" and "hello world" in the exact same way.
+
+So what this is trying to do is the following. If we go back to our TikTokenizer, "world" as a token by itself has a different ID than "space world". So we have this is 1917, but this is 14, etc. So these are two different tokens for the language model.
+
+And the language model has to learn from data that they are actually kind of like a very similar concept. So to the language model in the TikToken world, basically words in the beginning of sentences and words in the middle of sentences actually look completely different and it has to learn that they are roughly the same.
+
+So this add_dummy_prefix is trying to fight that a little bit and the way that works is that it basically adds a dummy prefix. So as a part of preprocessing, it will take the string and it will add a space. It will do this. And that's done in an effort to make this "world" and that "world" the same. They will both be "space world". So that's one other kind of preprocessing option that is turned on.
+
+And Llama2 also uses this option. And that's I think everything that I wanna say from my preview of sentencepiece and how it is different. Maybe here what I've done is I just put in the raw protocol buffer representation basically of the tokenizer that Llama2 trained.
+
+So feel free to sort of step through this and if you would like your tokenization to look identical to that of the Meta Llama2 then you would be copy pasting these settings as I've tried to do up above.
+
+And yeah that's I think that's it for this section. I think my summary for sentencepiece from all this is number one, I think that there's a lot of historical baggage in sentencepiece, a lot of concepts that I think are slightly confusing and I think potentially contain foot guns, like this concept of a sentence and its maximum length and stuff like that.
+
+Otherwise it is fairly commonly used in the industry because it is efficient and can do both training and inference. It has a few quirks like for example unk token must exist and the way the byte fallbacks are done and so on. I don't find it particularly elegant.
+
+And unfortunately I have to say it's not very well documented, so it took me a lot of time working with this myself and just visualizing things and trying to really understand what is happening here because the documentation unfortunately is in my opinion not super amazing.
+
+But it is a very nice repo that is available to you if you'd like to train your own tokenizer right now. Okay let me now switch gears again as we're starting to slowly wrap up here. I want to revisit this issue in a bit more detail of how we should set the vocab size and what are some of the considerations around it.
+
+So for this I'd like to go back to the model architecture that we developed in the last video when we built the GPT from scratch. So this here was the file that we built in the previous video and we defined the transformer model and let's specifically look at vocab_size and where it appears in this file.
+
+So here we define the vocab_size. At this time it was 65 or something like that, extremely small number, so this will grow much larger. You'll see that vocab_size doesn't come up too much in most of these layers. The only place that it comes up to is in exactly these two places here.
+
+So when we define the language model, there's the token embedding table, which is this two-dimensional array where the vocab_size is basically the number of rows, and each vocabulary element, each token, has a vector that we're going to train using backpropagation. That vector is of size n_embd, which is number of channels in the transformer.
+
+And basically, as vocab_size increases, this embedding table, as I mentioned earlier, is going to also grow. We're going to be adding rows. In addition to that, at the end of the transformer, there's this lm_head layer which is a linear layer and you'll notice that that layer is used at the very end to produce the logits which become the probabilities for the next token in a sequence.
+
+And so intuitively we're trying to produce a probability for every single token that might come next at every point in time of that transformer and if we have more and more tokens we need to produce more and more probabilities.
+
+So every single token is going to introduce an additional dot product that we have to do here in this linear layer for this final layer in the transformer. So why can't vocab_size be infinite? Why can't we grow to infinity?
+
+Well, number one, your token embedding table is going to grow. Your linear layer is going to grow. So we're going to be doing a lot more computation here because this lm_head layer will become more computationally expensive.
+
+Number two, because we have more parameters we could be worried that we are going to be under-training some of these parameters. So intuitively if you have a very large vocabulary size, say we have a million tokens, then every one of these tokens is going to come up more and more rarely in the training data because there's a lot more other tokens all over the place.
+
+And so we're going to be seeing fewer and fewer examples for each individual token. And you might be worried that basically the vectors associated with every token will be under-trained as a result because they just don't come up too often and they don't participate in the forward-backward pass.
+
+In addition to that, as your vocab_size grows, you're going to start shrinking your sequences a lot, right? And that's really nice because that means that we're going to be attending to more and more text, so that's nice.
+
+But also, you might be worrying that too large of chunks are being squished into single tokens, and so the model just doesn't have as much sort of time to think per sort of some number of characters in the text or you can think about it that way, right?
+
+So basically we're squishing too much information into a single token and then the forward pass of the transformer is not enough to actually process that information appropriately and so these are some of the considerations you're thinking about when you're designing the vocab_size.
+
+As I mentioned, this is mostly an empirical hyperparameter and it seems like in state-of-the-art architectures today this is usually in the high ten thousands or somewhere around a hundred thousand today.
+
+And the next consideration I want to briefly talk about is what if we want to take a pre-trained model and we want to extend the vocab_size? And this is done fairly commonly actually.
+
+So for example when you're doing fine-tuning for ChatGPT a lot more new special tokens get introduced on top of the base model to maintain the metadata and all the structure of conversation objects between the user and assistant. So that takes a lot of special tokens.
+
+You might also try to throw in more special tokens, for example, for using the browser or any other tool. And so it's very tempting to add a lot of tokens for all kinds of special functionality.
+
+So if you want to be adding a token that's totally possible, right? All we have to do is we have to resize this embedding, so we have to add rows. We would initialize these parameters from scratch, which would be small random numbers, and then we have to extend the weight inside this linear.
+
+So we have to start making dot products with the associated parameters as well to basically calculate the probabilities for these new tokens. So both of these are just resizing operations. It's a very mild model surgery and can be done fairly easily and it's quite common that basically you would freeze the base model, you introduce these new parameters and then you only train these new parameters to introduce new tokens into the architecture.
+
+And so you can freeze arbitrary parts of it or you can train arbitrary parts of it and that's totally up to you. But basically minor surgery required if you'd like to introduce new tokens.
+
+And finally I'd like to mention that actually there's an entire design space of applications in terms of introducing new tokens into a vocabulary that go way beyond just adding special tokens and special new functionality.
+
+So just to give you a sense of the design space, but this could be an entire video just by itself, this is a paper on learning to compress prompts with what they called gist tokens. And the rough idea is, suppose that you're using language models in a setting that requires very long prompts.
+
+Well, these long prompts just slow everything down because you have to encode them, and then you have to use them, and then you're attending over them, and it's just heavy to have very large prompts.
+
+So instead what they do here in this paper is they introduce new tokens and imagine basically having a few new tokens, you put them in a sequence and then you train the model by distillation. So you are keeping the entire model frozen and you're only training the representations of the new tokens, their embeddings, and you're optimizing over the new tokens such that the behavior of the language model is identical to the model that has a very long prompt that works for you.
+
+And so it's a compression technique of compressing that very long prompt into those few new gist tokens. And so you can train this and then at test time you can discard your old prompt and just swap in those tokens and they sort of like stand in for that very long prompt and have an almost identical performance.
+
+And so this is one technique in a class of parameter efficient fine-tuning techniques where most of the model is basically fixed and there's no training of the model weights, there's no training of LoRa or anything like that, of new parameters. The parameters that you're training are now just the token embeddings.
+
+So that's just one example, but this could again be like an entire video, but just to give you a sense that there's a whole design space here that is potentially worth exploring in the future.
+
+The next thing I want to briefly address is that I think recently there's a lot of momentum in how you actually could construct transformers that can simultaneously process not just text as the input modality, but a lot of other modalities. So be it images, videos, audio, et cetera.
+
+And how do you feed in all these modalities and potentially predict these modalities from a transformer? Do you have to change the architecture in some fundamental way? And I think what a lot of people are starting to converge towards is that you're not changing the architecture, you stick with the transformer, you just kind of tokenize your input domains and then call it a day and pretend it's just text tokens and just do everything else in an identical manner.
+
+So here for example there was an early paper that has a nice graphic for how you can take an image and you can chunk it into integers and these sometimes, so these would basically become the tokens of images, as an example. These tokens can be hard tokens where you force them to be integers. They can also be soft tokens where you don't require these to be discrete, but you do force these representations to go through bottlenecks like in autoencoders.
+
+Also in this paper that came out from OpenAI, Soraa, which I think really blew the mind of many people and inspired a lot of people in terms of what's possible, they have a graphic here and they talk briefly about how LLMs have text tokens, Soraa has visual patches.
+
+So again, they came up with a way to chunk videos into basically tokens with their own vocabularies and then you can either process discrete tokens say with autoregressive models or even soft tokens with diffusion models and all of that is sort of being actively worked on, actively designed and it's beyond the scope of this video but just something I wanted to mention briefly.
+
+Okay now that we have gone quite deep into the tokenization algorithm and we understand a lot more about how it works, let's loop back around to the beginning of this video and go through some of these bullet points and really see why they happen.
+
+So first of all, why can't my LLM spell words very well or do other spell-related tasks? So fundamentally this is because, as we saw, these characters are chunked up into tokens. Some of these tokens are actually fairly long.
+
+As an example, I went to the GPT-4 vocabulary and I looked at one of the longer tokens. "dot default style" turns out to be a single individual token. That's a lot of characters for a single token. My suspicion is that there's just too much crammed into this single token.
+
+And my suspicion was that the model should not be very good at tasks related to spelling of this single token. So I asked how many letters "L" are there in the word "dot default style"? And of course my prompt is intentionally done that way. And you see how "default style" will be a single token. This is what the model sees.
+
+My suspicion is that it wouldn't be very good at this and indeed it is not. It doesn't actually know how many Ls are in there. It thinks there are three and actually there are four if I'm not getting this wrong myself. That didn't go extremely well.
+
+Let's look at another character level task. For example, here I asked GPT-4 to reverse the string "default style" and to try to use a code interpreter. I stopped it and I said just do it, just try it, and it gave me jumble. It doesn't actually really know how to reverse this string going from right to left. So it gave a wrong result.
+
+So again, working with this working hypothesis that maybe this is due to the tokenization, I tried a different approach. I said okay let's reverse the exact same string but take the following approach. Step one, just print out every single character separated by spaces and then as a step two, reverse that list.
+
+And it again tried to use a tool but when I stopped it, it first produced all the characters and that was actually correct and then it reversed them and that was correct once it had this. So somehow it can't reverse it directly but when you go just first listing it out in order, it can do that somehow and then once it's broken up this way, this becomes all these individual characters and so now this is much easier for it to see these individual tokens and reverse them and print them out. So that is kind of interesting.
+
+So let's continue. Now, why are LLMs worse at non-English languages? I briefly covered this already but basically it's not only that the language model sees less non-English data during training of the model parameters but also the tokenizer is not sufficiently trained on non-English data.
+
+And so here for example "hello how are you" is five tokens and its translation is 15 tokens. So this is a three times blow up. And so for example, "annyeonghaseyo" is just "hello" basically in Korean, and that ends up being three tokens. I'm actually kind of surprised by that because that is a very common phrase. It's just a typical greeting of like "hello", and that ends up being three tokens whereas our "hello" is a single token.
+
+And so basically everything is a lot more bloated and diffuse, and this is I think partly the reason that the model works worse on other languages. Coming back, why is LLM bad at simple arithmetic? That has to do with the tokenization of numbers.
+
+And so you'll notice that, for example, addition is very sort of like, there's an algorithm that is like character level for doing addition. So for example, here we would first add the ones and then the tens and then the hundreds, you have to refer to specific parts of these digits.
+
+But these numbers are represented completely arbitrarily based on whatever happened to merge or not merge during the tokenization process. There's an entire blog post about this that I think is quite good, "Integer Tokenization is Insane".
+
+And this person basically systematically explores the tokenization of numbers in, I believe this is GPT-2. And so they noticed that, for example, for four digit numbers, you can take a look at whether it is a single token or whether it is two tokens that is a 1-3 or a 2-2 or a 3-1 combination. And so all the different numbers are all the different combinations.
+
+And you can imagine this is all completely arbitrary. And the model, unfortunately, sometimes sees a token for all four digits, sometimes for three, sometimes for two, sometimes for one. And it's in an arbitrary manner. And so this is definitely a headwind, if you will, for the language model.
+
+And it's kind of incredible that it can kind of do it and deal with it, but it's also kind of not ideal. And so that's why, for example, we saw that Meta, when they trained the Llama2 algorithm and they used SentencePiece, they make sure to split up all the digits, as an example, for Llama2. And this is partly to improve simple arithmetic kind of performance.
+
+And finally, why is GPT-2 not as good in Python? Again, this is partly a modeling issue in the architecture and the dataset and the strength of the model, but it's also partly tokenization. Because as we saw here with the simple Python example, the encoding efficiency of the tokenizer for handling spaces in Python is terrible and every single space is an individual token and this dramatically reduces the context length that the model can attend across.
+
+So that's almost like a tokenization bug for GPT-2 and that was later fixed with GPT-4. Okay so here's another fun one. My LLM abruptly halts when it sees the string "end of text". So here's a very strange behavior. "print a string end of text" is what I told GPT-4 and it says "Could you please specify the string?"
+
+And I'm telling it "Give me end of text" and it seems like there's an issue. It's not seeing "end of text" and then I give it "end of text is the string" and then here's the string and then it just doesn't print it.
+
+So obviously something is breaking here with respect to the handling of the special token. And I don't actually know what OpenAI is doing under the hood here and whether they are potentially parsing this as an actual token instead of this just being "end of text" as like individual sort of pieces of it without the special token handling logic.
+
+And so it might be that someone when they're calling .encode they are passing in the allowed special and they are allowing "end of text" as a special character in the user prompt. But the user prompt of course is a sort of attacker-controlled text, so you would hope that they don't really parse or use special tokens from that kind of input, but it appears that there's something definitely going wrong here.
+
+And so your knowledge of these special tokens ends up being an attack surface potentially, and so if you'd like to confuse LLMs, then just try to give them some special tokens and see if you're breaking something by chance.
+
+Okay so this next one is a really fun one, the trailing whitespace issue. So if you come to playground and we come here to GPT 3.5 Turbo instruct. So this is not a chat model, this is a completion model. So think of it more like it's a lot more closer to a base model. It does completion. It will continue the token sequence.
+
+So here's a tagline for Ice Cream Shop and we want to continue the sequence. And so we can submit and get a bunch of tokens. Okay, no problem. But now suppose I do this but instead of pressing submit here I do... here's a tagline for an ice cream shop space so I have a space here before I click submit.
+
+We get a warning "Your text ends in a trailing space which causes worse performance due to how API splits text into tokens". So what's happening here? It still gave us a completion here but let's take a look at what's happening.
+
+So here's a tagline for an ice cream shop and then what does this look like in the actual training data? Suppose you found the completion in the training document somewhere on the internet and the LLM trained on this data. So maybe it's something like "Oh yeah maybe that's the tagline", that's a terrible tagline.
+
+But notice here that when I create "O", you see that because there's the space character is always a prefix to these tokens in GPT. So it's not an "O" token, it's a "space O" token. The space is part of the "O" and together they are token 8840. That's "space O".
+
+So what's happening here is that when I just have it like this and I let it complete the next token, it can sample the "space O" token. But instead, if I have this and I add my space, then what I'm doing here when I encode this string is I have basically "here's a tagline for an ice cream shop". And this space at the very end becomes a token 220.
+
+And so we've added token 220 and this token otherwise would be part of the tagline because if there actually is a tagline here so "space o" is the token and so this is suddenly out of distribution for the model because this space is part of the next token but we're putting it here like this and the model has seen very very little data of actual space by itself.
+
+And we're asking it to complete the sequence like add in more tokens but the problem is that we've sort of begun the first token and now it's been split up and now we're out of distribution and now arbitrary bad things happen and it's just a very rare example for it to see something like that.
+
+And that's why we get the warning. So the fundamental issue here is of course, that the LLM is on top of these tokens and these tokens are text chunks. They're not characters in a way you and I would think of them. These are the atoms of what the LLM is seeing. And there's a bunch of weird stuff that comes out of it.
+
+Let's go back to our "default style". I bet you that the model has never in its training set seen "default style" without "dot" in there. It's always seen this as a single group because this is some kind of a function in I'm guessing, I don't actually know what this is part of, this some kind of API.
+
+But I bet you that it's never seen this combination of tokens in its training data, or I think it would be extremely rare. So I took this and I copy-pasted it here, and I tried to complete from it, and it immediately gave me a big error, and it said, "The model predicted a completion that begins with a stop sequence resulting in no output. Consider adjusting your prompt or stop sequences."
+
+So what happened here when I clicked submit is that immediately the model emitted a sort of like "end of text" token, I think, or something like that. It basically predicted the stop sequence immediately. So it had no completion.
+
+And so this is why I'm getting a warning again, because we're off the data distribution and the model is just predicting just totally arbitrary things. It's just really confused basically. This is giving it brain damage. It's never seen this before. It's shocked and it's predicting "end of text" or something.
+
+I tried it again here and in this case it completed it but then for some reason "this request may violate our usage policies". This was flagged. Basically something just goes wrong and there's something like jank. You can just feel the jank because the model is extremely unhappy with just this and it doesn't know how to complete it because it's never occurred in a training set. In a training set it always appears like this and becomes a single token.
+
+So these kinds of issues where tokens are either you sort of complete the first character of the next token or you are sort of... you have long tokens that you then have just some of the characters of, all of these are kind of like issues with partial tokens is how I would describe it.
+
+And if you actually dig into the TikToken repository, go to the Rust code and search for "unstable", go to the Rust code and search for "unstable" and you'll see in code unstable native, unstable tokens and a lot of like special case handling.
+
+None of this stuff about unstable tokens is documented anywhere but there's a ton of code dealing with unstable tokens and unstable tokens is exactly kind of like what I'm describing here.
+
+What you would like out of a completion API is something a lot more fancy like if we're putting in "default style", if we're asking for the next token sequence, we're not actually trying to append the next token exactly after this list. We're actually trying to append... we're trying to consider lots of tokens that if we were... I guess like we're trying to search over characters that if we retokenized would be of high probability, if that makes sense.
+
+So that we can actually add a single individual character instead of just like adding the next full token that comes after this partial token list. So this is very tricky to describe. And I invite you to maybe like look through this. It ends up being extremely gnarly and hairy kind of topic and it comes from tokenization fundamentally.
+
+So maybe I can even spend an entire video talking about unstable tokens sometime in the future. Okay and I'm really saving the best for last. My favorite one by far is this "solid gold Magikarp". This comes from this blog post, "Solid Gold Magikarp" and this is internet famous now for those of us in LLMs.
+
+And basically, I would advise you to read this blog post in full. But basically what this person was doing is this person went to the token embedding table and clustered the tokens based on their embedding representation.
+
+And this person noticed that there's a cluster of tokens that look really strange. So there's a cluster here, "atrot", "eStream", "fame", "solid gold", "Magikarp", "signup message", like really weird tokens in basically in this embedding cluster.
+
+And so where are these tokens and where do they even come from? Like what is "solid gold Magikarp"? It makes no sense. And then they found a bunch of these tokens and then they noticed that actually the plot thickens here because if you ask the model about these tokens, like you ask it some very benign question like "Please can you repeat back to me the string "solid gold Magikarp"?", then you get a variety of basically totally broken LLM behavior.
+
+So either you get evasion like "I'm sorry, I can't hear you" or you get a bunch of hallucinations as a response. You can even get back like insults. So you ask it about "streamer bot" and it tells the... and the model actually just calls you names. Or it kind of comes up with like weird humor. Like you're actually breaking the model by asking about these very simple strings like "at roth" and "solid gold Magikarp".
+
+So like what the hell is happening? And there's a variety of here documented behaviors. There's a bunch of tokens, not just "solid gold Magikarp" that have that kind of a behavior. And so basically there's a bunch of like trigger words. And if you ask the model about these trigger words or you just include them in your prompt, the model goes haywire and has all kinds of really strange behaviors including sort of ones that violate typical safety guidelines and the alignment of the model like it's swearing back at you.
+
+So what is happening here and how can this possibly be true? Well this again comes down to tokenization. So what's happening here is that "solid gold Magikarp", if you actually dig into it, is a Reddit user. So there's a u/SolidGoldMagikarp and probably what happened here, even though I don't know that this has been like really definitively explored, but what is thought to have happened is that the tokenization dataset was very different from the training dataset for the actual language model.
+
+So in the tokenization dataset, there was a ton of Reddit data, potentially, where the user SolidGoldMagikarp was mentioned in the text. Because SolidGoldMagikarp was a very common person who would post a lot, this would be a string that occurs many times in a tokenization dataset.
+
+Because it occurs many times in a tokenization dataset, these tokens would end up getting merged to a single individual token for that single Reddit user "solid gold Magikarp". So they would have a dedicated token in a vocabulary of, was it 50,000 tokens in GPT-2 that is devoted to that Reddit user.
+
+And then what happens is the tokenization dataset has those strings, but then later when you train the model, the language model itself, this data from Reddit was not present. And so therefore, in the entire training set for the language model, "solid gold Magikarp" never occurs. That token never appears in the training set for the actual language model later.
+
+So this token never gets activated. It's initialized at random in the beginning of optimization. Then you have forward-backward passes and updates to the model, and this token is just never updated in the embedding table. That row vector never gets sampled. It never gets used, so it never gets trained, and it's completely untrained.
+
+It's kind of like unallocated memory in a typical binary program written in C or something like that. So it's unallocated memory, and then at test time, if you evoke this token, then you're basically plucking out a row of the embedding table that is completely untrained, and that feeds into a transformer and creates undefined behavior.
+
+And that's what we're seeing here, this completely undefined, never before seen in a training behavior. And so any of these kind of like weird tokens would evoke this behavior because fundamentally the model is out of sample, out of distribution.
+
+Okay and the very last thing I wanted to just briefly mention and point out although I think a lot of people are quite aware of this is that different kinds of formats and different representations and different languages and so on might be more or less efficient with GPT tokenizers or any tokenizers for any other LLM for that matter.
+
+So for example JSON is actually really dense in tokens and YAML is a lot more efficient in tokens. So for example these are the same in JSON and in YAML. The JSON is 116 and the YAML is 99. So quite a bit of an improvement.
+
+And so in the token economy where we are paying per token in many ways and you are paying in the context length and you're paying in dollar amount for the cost of processing all this kind of structured data when you have to.
+
+So prefer to use YAMLs over JSONs. And in general, the tokenization density is something that you have to sort of care about and worry about at all times and try to find efficient encoding schemes and spend a lot of time in TikTokenizer and measure the different token efficiencies of different formats and settings and so on.
+
+Okay, so that concludes my fairly long video on tokenization. I know it's dry, I know it's annoying, I know it's irritating. I personally really dislike this stage. What I do have to say at this point is don't brush it off. There's a lot of foot guns, sharp edges here, security issues, AI safety issues as we saw plugging in unallocated memory into language models. So it's worth understanding this stage.
+
+That said, I will say that eternal glory goes to anyone who can get rid of it. I showed you one possible paper that tried to do that, and I think, I hope, a lot more can follow over time. And my final recommendations for the application right now are, if you can reuse the GPT-4 tokens and the vocabulary in your application, then that's something you should consider and just use TikToken because it is a very efficient and nice library for inference for BPE.
+
+I also really like the byte level BPE that TikToken and OpenAI uses. If you for some reason want to train your own vocabulary from scratch, then I would use the BPE with SentencePiece I apologize, but the transcript you provided seems to have ended at this point:
+
+"If you for some reason want to train your own vocabulary from scratch, then I would use the BPE with SentencePiece."
+
+There doesn't appear to be any additional content to continue organizing or correcting. Let me know if you have any other transcripts you would like me to work on.
 
 ### 原始文稿
 
