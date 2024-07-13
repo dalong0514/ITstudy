@@ -62,6 +62,66 @@ shell 里通过 ifconfig 查到本地的 ip 地址。改成当前本地的地址
 http://192.168.10.108:11434
 
 
+### 直接映射本地地址
+
+2024-07-13
+
+要解决的问题：每次 IP 地址一换，又得重新在设置里替换 IP 地址。
+
+尝试直接用 localhost:11434
+
+起因是在用 ollama 的 UI 客户端开源项目 Enchanted 时收到的启发，那个客户端里面就直接设的 localhost:11434。
+
+[AugustDev/enchanted: Enchanted is iOS and macOS app for chatting with private self hosted language models such as Llama2, Mistral or Vicuna using Ollama.](https://github.com/AugustDev/enchanted?tab=readme-ov-file)
+
+Case 2. You run Ollama on your computer
+
+Start Ollama server and download models for usage.
+
+Install ngrok forward your Ollama server to make it accessible publicly
+
+ngrok http 11434 --host-header="localhost:11434"
+
+Copy "Forwarding" URL that will look something like https://b377-82-132-216-51.ngrok-free.app. Your Ollama server API is now accessible through this temporary URL.
+
+Download Enchanted app from the App Store.
+
+In App Settings specify your server endpoint.
+
+You're done! Make a prompt.
+
+实操步骤：
+
+1、注册 ngrok 账号。
+
+[Setup - ngrok](https://dashboard.ngrok.com/get-started/setup/macos)
+
+这里会保存一个 Ngrok-Recovery-codes。
+
+2、用 brew 安装 ngrok。
+
+brew install ngrok/ngrok/ngrok
+
+3、设置全局 authtoken。
+
+Run the following command to add your authtoken to the default ngrok.yml configuration file.
+
+ngrok config add-authtoken 2jB1H6tBaEoVQ8OZIIKooTiPryE_3xhasAdH6LrzdqM3YYzas
+
+4、Install ngrok forward your Ollama server to make it accessible publicly
+
+ngrok http 11434 --host-header="localhost:11434"
+
+5、替换本地映射的地址。
+
+ngrok 后台页面里点击「endpoints page」将里面的 URL 拷到 dify 的设置页面里。
+
+https://8830-117-147-119-129.ngrok-free.app
+
+取代原来的：
+
+http://192.168.10.110:11434
+
 ### 本地模型文件的存储地址
 
 /Users/Daglas/.ollama/models/blobs/sha256-8934d96d3f08982e95922b2b7a2c626a1fe873d7c3b06e8e56d7bc0a1fef9246
