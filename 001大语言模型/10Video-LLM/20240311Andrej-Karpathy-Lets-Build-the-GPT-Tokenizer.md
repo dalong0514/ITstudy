@@ -96,17 +96,6 @@ This is how our English sentence broke up and that seems all well and good. Now 
 
 Here's another example. We have the string "egg" and you see that this became two tokens. But for some reason, when I say "I have an egg", when it's "space egg", it's a single token. Just "egg" by itself in the beginning of a sentence is two tokens, but here "space egg" is suddenly a single token for the exact same string.
 
-
-
-
-8.30min
-
-
-
-
-
-
-
 Lowercase "egg" turns out to be a single token and notice that the color is different, so this is a different token. This is case sensitive and of course uppercase "egg" would also be different tokens. Again this would be two tokens arbitrarily. 
 
 So for the same concept "egg", depending on if it's in the beginning of a sentence, at the end of a sentence, lowercase, uppercase, or mixed, all this will result in very different tokens and IDs. The language model has to learn from raw data, from all the internet text that it's going to be training on, that these are actually all the exact same concept. It has to group them in the parameters of the neural network and understand, just based on the data patterns, that these are all very similar, maybe not exactly similar, but very very similar.
@@ -131,7 +120,7 @@ What this does is bloat up the sequence length of all the documents. You're usin
 
 这种现象会导致文档的序列长度膨胀。使用更多的 token 意味着在 Transformer 模型的注意力机制中，当这些 token 需要相互关注时，很容易就会达到 Transformer 的最大上下文长度限制。从 Transformer 模型的角度来看，所有非英语文本都被「拉长」了。这个问题的根源在于分词器的训练集和分词过程本身。对于英语，分词器倾向于创建更大的 token 和更大的词组；而对于非英语文本，则会产生许多小的边界。如果我们将非英语文本翻译成英语，所需的 token 数量会显著减少。
 
-The final example I have here is a little snippet of Python for doing fizzbuzz. What I'd like you to notice is how all these individual spaces are separate tokens, token 220. So 220, 220, 220, 220. Then "space if" is a single token. What's going on here is that when the transformer is going to consume or try to create this text, it needs to handle all these spaces individually. They all feed in one by one into the entire transformer in the sequence. This is extremely wasteful to tokenize it in this way. 
+The final example I have here is a little snippet of Python for doing FizzBuzz. What I'd like you to notice is how all these individual spaces are separate tokens, token 220. So 220, 220, 220, 220. Then "space if" is a single token. What's going on here is that when the transformer is going to consume or try to create this text, it needs to handle all these spaces individually. They all feed in one by one into the entire transformer in the sequence. This is extremely wasteful to tokenize it in this way. 
 
 As a result, GPT-2 is not very good with Python and it's not anything to do with coding or the language model itself, it's just that if you use a lot of indentation using space in Python like we usually do, you just end up bloating out all the text. It's separated across way too much of the sequence and we are running out of the context length in the sequence. That's roughly speaking what's happening. We're being way too wasteful. We're taking up way too much token space.
 
@@ -180,6 +169,12 @@ Keep in mind you can't plug in strings here because this doesn't have a single c
 在 Python 中，我们可以使用 ord() 函数来获取单个字符的 Unicode 码点。例如，ord('H') 会返回 104，这就是字母「H」的 Unicode 码点。对于更复杂的字符，如表情符号，其码点可能会更大，比如 128,000。需要注意的是，ord() 函数只能处理单个字符，不能直接处理字符串。
 
 Now see here the raw code points already have integers. So why can't we simply just use these integers and not have any tokenization at all? Why can't we just use this natively as is and just use the code point? Well, one reason for that, of course, is that the vocabulary in that case would be quite long. In this case for Unicode, this is a vocabulary of 150,000 different code points. But more worryingly than that, I think the Unicode standard is very much alive and it keeps changing. It's not kind of a stable representation necessarily that we may want to use directly. For those reasons, we need something a bit better.
+
+
+
+17min
+
+
 
 To find something better, we turn to encodings. If we go to the Wikipedia page here, we see that the Unicode consortium defines three types of encodings: UTF-8, UTF-16, and UTF-32. These encodings are the way by which we can take Unicode text and translate it into binary data, or byte streams. UTF-8 is by far the most common.
 
