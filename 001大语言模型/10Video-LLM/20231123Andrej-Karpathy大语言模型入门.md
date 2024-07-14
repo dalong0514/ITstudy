@@ -48,7 +48,7 @@ Llama2-70b 如此受欢迎，主要是因为它可能是目前公开可用的最
 
 As said, the Llama2-70b model is really just two files on your file system: the parameters file and the Run file. The parameters file contains what you can think of as the model's brain – the weights or parameters of the neural network that is the language model. The run.c file is some kind of a code that runs those parameters.
 
-The core components of a large language model
+Fig: The core components of a large language model
 
 Each parameter in this model is stored as two bytes, so the total size of the parameters file is a hefty 140 gigabytes. They're stored as two bytes because they're float16 numbers. Besides these parameters, you also need something to run the neural network, and that's where the Run file comes in. This could be a C file, a Python file, or really any programming language, but let's say it's C for simplicity. You'd only need about 500 lines of C code, with no other dependencies, to implement the neural network architecture using these parameters.
 
@@ -140,19 +140,19 @@ What's important to know is that you can't always be sure if the output is accur
 
 神经网络的生成魔法
 
-当我们训练完这些神经网络后，使用它们就像揭开了一个神秘的面纱。模型的推理过程，也就是我们通常说的应用模型，操作起来相当直观。我们首先从模型的预测中生成下一个词汇，像是从一连串的想法中抽取灵感。你选一个词，再把它输入模型，接着得到下一个词。这样一连串的过程，仿佛让网络在编织一个个互联网的故事。
+在训练完这些神经网络后，使用它们的过程变得极为有趣。模型推理（model inference），也就是我们通常所说的使用模型，其过程相对简单。我们首先生成下一个可能的内容，从模型的预测中进行采样。你选择一个词，将其输入模型，然后获得下一个词。这个过程不断重复，形成一串词链。这就像网络在自主创造互联网文档一样。
 
-设想一下运行这样一个神经网络，进行推理的场景。结果往往令人着迷，好像网络在构建一个个网页的梦境。之所以会这样，是因为网络在网页数据上进行了训练。一旦释放它的潜能，它就开始模仿这些文档。比如在下面这个例子中，你可能会看到它在左侧生成一些类似 Java 代码的内容；中间部分可能呈现出类似 Amazon 产品列表的文字；而右侧，则可能是类似维基百科的文章。
+想象一下运行神经网络或执行模型推理的场景。结果往往令人惊叹，仿佛网络在自主创造网页内容。这是因为神经网络是基于网页数据训练的，当我们让它自由发挥时，它就开始模仿这些文档。在下面的例子中，你可能会看到左侧生成的类似 Java 代码的内容；中间部分可能是类似 Amazon 产品列表的文本；而右侧则可能是类似维基百科文章的内容。
 
-图片：神经网络创造的例证
+图 1：神经网络生成的示例
 
-以图中间的例子为例：从标题到作者，再到 ISBN 号码，这一切都是网络自己创造的。它根据所学习的数据分布来创作文本，就像是在虚拟出这些文档。比如，它创造出的 ISBN 号码，在现实中可能是不存在的。网络知道在「ISBN」和冒号之后应该跟着一串数字，并且它会生成一个看起来合理的数字序列。
+以中间的例子为例：从标题到作者，再到 ISBN 号，所有内容都是神经网络凭空创造的。它根据训练数据的分布生成文本，本质上是在「想象」这些文档。例如，它生成的 ISBN 号在现实中可能并不存在。神经网络理解在「ISBN」和冒号之后应该跟随一个特定长度的数字，于是它填入了看似合理的内容。
 
-这种网络处理事实的方式颇为有趣。例如，在右侧关于一种叫做「黑鼻鲑」的鱼的文章中，所提供的信息并非直接从训练材料中抄录而来。相反，网络通过学习掌握了关于这种鱼的知识，并能够生成大致准确的描述，虽然这并非直接从它的训练资料中复制而来。这正是互联网信息的「有损压缩」现象。网络抓住了信息的核心要义，并将这些知识巧妙地融入所生成的文本中。
+神经网络处理事实的方式也很有趣。比如，右侧关于一种名为「blacknose dace」（黑鼻鲦鱼）的鱼的文章，其中的信息并非直接从训练文档中复制。相反，网络已经学习了关于这种鱼的知识，能够生成大致准确的文本，即使这些文本并非直接来自其训练数据。这就是互联网信息「有损压缩」（lossy compression）的效果。神经网络保留了信息的核心，将其知识巧妙地融入生成的文本中。
 
-重要的是要理解，我们不能总是确定这些模型的输出是否完全准确，还是带有一些幻想成分。它们的一部分输出可能是从训练数据中学来的，而另一些则可能不是。这种不确定性正是与这些模型互动如此吸引人的原因之一。在很多情况下，它们基于庞大的数据分布在网络上「编织梦想」，创造出既有学习知识又有创新想象的内容。
+需要注意的是，我们无法总是确定输出的内容是准确的还是神经网络的「想象」。其中一些信息可能是从训练数据中直接记忆的，而另一些则可能是神经网络自行推断的。这种不确定性正是与这些模型互动如此有趣的原因之一。大多数情况下，它们是基于庞大的数据分布来「创造」互联网文本，产生的内容是学习到的知识和创造性推断的独特结合。
 
-Understanding How Neural Networks Work
+#### Understanding How Neural Networks Work
 
 Let's shift focus to how neural networks function, particularly when it comes to performing next-word prediction. This is the point where the process becomes a bit more complex. To better understand, let's consider a simplified diagram of a neural network's inner mechanics. What we're examining here is the Transformer neural network architecture, which is fundamental to these sophisticated models.
 
@@ -170,25 +170,25 @@ In essence, large language models (LLMs) are mostly inscrutable artifacts, unlik
 
 Currently, we treat these neural networks as empirical artifacts. We input data, observe the outputs, and measure their behavior based on the text they generate in various situations. Therefore, working with these models requires sophisticated evaluations due to their empirical nature. It's a journey of exploration and understanding, one step at a time.
 
-深入了解神经网络如何运作
+理解神经网络的工作原理
 
-本段内容着重于探讨神经网络的工作机制，尤其是在进行下一个词预测时的复杂过程。为了便于理解，我们可以参考一个简化的神经网络内部结构图。这里重点介绍的是 Transformer 神经网络架构，这是当前复杂模型的基础。
+让我们把重点转向神经网络的运作方式，特别是在进行下一个词预测（next-word prediction）时。这个过程变得稍微复杂一些。为了更好地理解，我们来看一个简化的神经网络内部机制图。这里我们研究的是 Transformer 神经网络架构（一种用于序列处理的深度学习模型），它是这些复杂模型的基础。
 
-图片：Transformer 神经网络架构
+图 1：Transformer 神经网络架构
 
-神经网络的吸引人之处在于，我们对它们的架构有全面的了解。我们清楚知道在每一个步骤中都会进行哪些精确的数学运算。然而，真正的挑战在于网络中庞大的参数数量 —— 我们谈论的是高达数百亿个的参数。这些参数是网络的核心，尽管我们了解如何逐步调整这些参数来提升网络在下一个词预测上的表现，但它们在整个过程中的具体作用和相互协作仍旧带有一定的神秘色彩。
+这些神经网络最令人着迷的一点是，我们完全理解它们的架构。我们知道每个阶段发生的具体数学运算。然而，挑战在于参数的庞大数量 —— 我们谈论的是数百亿个分布在整个网络中的参数。这些参数是网络的关键组成部分。虽然我们知道如何通过迭代来调整它们以提高网络在下一个词预测中的表现，但它们在这个过程中的具体作用和协作方式仍然有些神秘。
 
-我们知道如何优化这些参数，并随着时间的推移调整它们以更准确地预测下一个词，但这些参数如何协同作用以达到这一目标，目前仍不十分明了。我们有模型和理论推测，这些参数可能在构建和维护某种类型的知识数据库，但这一点也不是那么直观。这些网络里的知识可能表现得很奇特，且往往是单一维度的。
+我们知道如何优化这些参数，知道如何随时间调整它们以获得更好的词语预测效果，但这些参数如何协同工作以实现这一目标并不完全清楚。我们有一些模型和理论，认为它们构建和维护了某种知识数据库，但即使这个过程也不是简单直接的。这些网络中的知识可能呈现出奇特和单向的特性。
 
-一个广为人知的例子就是 ChatGPT 和 GPT-4 互动中的「逆转现象」。比如，当询问汤姆·克鲁斯的母亲是谁时，系统能正确回答是玛丽琳·李·普菲弗。但当问题反过来问玛丽琳·李·普菲弗的儿子是谁时，系统却无法给出答案。这种单一维度的知识展现出了这些模型的独特性。
+一个广为流传的例子很好地说明了这一点，就是在 ChatGPT 和 GPT-4 的交互中观察到的「反向查询」现象。比如，如果你问 Tom Cruise 的母亲是谁，它能正确地回答是 Marilyn Lee Pfeiffer。但是，当你反过来问 Marilyn Lee Pfeiffer 的儿子是谁时，模型却无法回答。这种单向知识很有趣，也凸显了这些模型的独特性质。
 
-逆转现象示例（值得一提的是，这个问题已经通过大语言模型的浏览功能得到了解决）
+图 2：反向查询示例（注：这个问题在使用大语言模型（LLM）浏览功能后已得到解决）
 
-大语言模型（LLMs）在本质上是一种深不可测的工具，与传统工程领域的其他产物迥然不同。它们并不像汽车那样，每个部件都清楚明了、有序排列。相反，大语言模型是通过长时间的优化过程形成的，我们对它们的内部机制的理解还在不断进化中。有一个专门的领域，被称为可解释性或机械式可解释性，致力于解析神经网络的每一部分是如何工作的。虽然我们能够获得一些洞见，但要完全理解它们，还有很长的路要走。
+本质上，大语言模型（Large Language Models，LLMs）大多是难以解析的人工制品，与传统工程中的任何东西都不同。它们不像汽车，每个部件的功能都清晰可知，并能组成一个明确的结构。相反，它们是长期优化过程的结果，我们对它们的内部运作机制的理解仍在不断发展。有一个称为可解释性（interpretability）或机制可解释性（mechanistic interpretability）的研究领域，致力于解密神经网络每个部分的作用。虽然我们能获得一些洞见，但完全理解仍然遥不可及。
 
-目前，我们把这些神经网络当作是基于经验的工具来对待。我们向其输入数据，观察其输出，并根据它们在不同情境下生成的文本来评估它们的表现。因此，与这些模型的工作需要进行复杂而细致的评估，这是一个逐步探索和理解的过程。
+目前，我们将这些神经网络视为经验性的产物。我们输入数据，观察输出，并根据它们在各种情况下生成的文本来评估它们的行为。因此，由于这些模型的经验性质，使用它们需要复杂的评估方法。这是一个探索和理解的过程，我们正在一步一步地推进。
 
-#### Fine Tuning, The Second Stage of Training
+### 03. Fine Tuning, The Second Stage of Training
 
 In our exploration of neural networks, we've mainly discussed their role as internet document generators. But there's more to these models. We're now entering the second stage of training, known as fine-tuning, which transforms these networks from mere generators of content into something far more practical: AI assistants.
 
@@ -264,7 +264,7 @@ This iterative process of improvement and the ability to fine-tune models offer 
 
 这一不断进步的迭代过程以及微调模型的能力，极大地提高了发展 AI 助手的灵活性和效率。公司通过定期更新和精细化这些模型，可以持续提高 AI 的性能，使其在交互中更加迅速、精准。
 
-#### Reinforcement Learning from Human Feedback, The Third Stage of Training
+### 04. Reinforcement Learning from Human Feedback, The Third Stage of Training
 
 After pre-training and fine-tuning, we can have an additional, optional, third stage: Reinforcement Learning from Human Feedback or RLHF, as called at OpenAI. This stage introduces a unique approach - the use of comparison labels - which brings a different dimension to refining AI models.
 
@@ -278,19 +278,19 @@ Fig: RHLF labeling instructions sample
 
 This third stage of fine-tuning, employing comparisons, adds an interesting layer to the training process, allowing for nuanced improvements and adjustments based on human judgment and preferences.
 
-人类反馈驱动的增强学习：训练的新阶段
+基于人类反馈的强化学习：训练的第三阶段
 
-在预训练和微调之后，我们可以引入一个可选的新阶段：人类反馈驱动的增强学习（Reinforcement Learning from Human Feedback，简称 RLHF），这是 OpenAI 的一项创新做法。这一阶段采用了一种别具一格的方式 —— 运用比较标签 —— 为 AI 模型的提升增添了新的维度。
+在完成预训练和微调后，我们还可以进行一个额外的、可选的第三阶段：基于人类反馈的强化学习（Reinforcement Learning from Human Feedback，RLHF），这是 OpenAI 公司提出的概念。这个阶段引入了一种独特的方法 —— 使用比较标签，为 AI 模型的优化带来了新的维度。
 
-具体做法是这样的：对于人类标注者而言，比起从零开始创造答案，比较现有的可能答案通常更为简单。例如，让我们设想这样一个任务：编写关于回形针的俳句。对标注者来说，空手起家写一首俳句可能相当具有挑战性。但如果向他们展示几首由第二阶段的助手模型创作的俳句，他们的任务就简化了许多。他们可以评估这些选项，选择最符合标准的一首。这种比较方法是第三阶段微调的核心，它通过在已生成选项之间进行选择，进一步完善模型。
+这个过程是这样工作的：对于人类标注者来说，比较几个可能的答案通常比从头创造答案要容易得多。让我们看一个具体的例子。假设任务是写一首关于回形针的俳句（一种日本短诗，通常由 17 个音节组成）。对于标注者来说，从零开始创作一首俳句可能会很困难。但是，如果给他们展示几首由第二阶段训练的 AI 助手模型生成的俳句，他们的工作就会变得简单许多。他们只需要评估这些选项，并选出最符合要求的一首。这种比较方法是第三阶段微调的核心，通过在预先生成的多个选项中进行选择，实现了模型的进一步优化。
 
-图片：挑选一首好俳句比自己创作更简单
+图 1：选择一首好的俳句比创作一首更容易
 
-虽然 RLHF 流程的技术层面颇为复杂，但其核心在于利用这些比较标签来进一步提升语言模型的表现。以 OpenAI 的《指导 GPT》论文为例，该文详述了提供给人类评估者的标注指南。这些指南旨在帮助评估者作出有益、真实和无害的判断，但其完整文档可能长达数十甚至数百页，体现了这一任务的深度与复杂性。
+RLHF 过程的技术细节很复杂，但其核心是利用这些比较标签来进一步提升语言模型的性能。为了让你了解其中涉及的人为因素，我们可以参考 OpenAI 的「Instruct GPT」（指令 GPT）论文。该论文概述了提供给人类评估者的标注指南。这些指南要求模型的输出要有帮助、诚实且无害，但完整的文档可能长达几十甚至上百页，反映了这项任务的深度和复杂性。
 
-图片：RLHF 标注指南的样本（Excerpt of labeling instructions on the API prompt distribution）
+图 2：RLHF 标注指南示例
 
-这一新增的微调阶段，通过比较方法，为训练过程增加了新的维度，使得基于人类的判断和偏好，模型得以进行更细致和精准的调整。
+这第三阶段的微调采用了比较的方法，为训练过程增加了一个有趣的维度。它允许基于人类的判断和偏好对模型进行精细的改进和调整。
 
 #### Streamlining AI Development: Human-Machine Collaboration and Competing Language Models
 
@@ -298,13 +298,13 @@ As we delve deeper into the process of developing large language models, it's im
 
 Increasingly, the process of generating labels and responses involves both human oversight and machine intelligence. For instance, language models can be used to sample answers, and then human labelers might cherry-pick parts of these answers to create the best possible response. Alternatively, humans might use these models to verify their work, or even to generate comparisons where they simply act in an oversight capacity. This evolving dynamic is like adjusting a slider – as the models become more capable, we can increasingly rely on them, moving the slider further towards machine-generated content.
 
-AI 发展的新路径：人机合作与语言模型的竞争
+优化 AI 开发流程：人机协作与语言模型的良性竞争
 
-在探索大语言模型 (Large Language Model) 开发的深层过程中，我们发现，人类在构建这些模型中的角色正在逐渐转变。最开始，这看似一个高度依赖人工的过程。但随着语言模型的不断进步，这种情况正向人机合作的方向发展。
+在深入探讨大语言模型（Large Language Model）的开发过程时，我们不得不注意到人类在这个领域中的角色正在发生有趣的变化。起初，这个过程看起来似乎高度依赖人工操作。然而，随着语言模型的不断进步，我们正在见证一种新的趋势：人类和机器之间的协作正变得越来越紧密。
 
-生成标签和回答的过程越来越多地结合了人类的监督和机器的智能。比如，我们可以利用语言模型来得出一些答案样本，然后由人工挑选出这些答案中的精华，以形成最佳的回应。或者，人们也可以利用这些模型来校验自己的工作，甚至在其中只扮演一个监督的角色，比较不同的结果。这种不断演变的互动就像调节一个滑块 —— 随着模型能力的提升，我们越来越依赖它们，滑块也逐渐向机器生成的内容倾斜。
+如今，生成标签和回答的过程越来越多地融合了人工监督和机器智能。举个例子，我们可以先用语言模型生成一批候选答案，然后让人类标注员从中挑选出最优秀的部分，组合成一个完美的回答。另一种方式是，人类可以借助这些模型来检查自己的工作成果，甚至让模型生成多个答案供人类比较和选择，此时人类更多地扮演了一个监督者的角色。这种不断演进的协作模式，就像是在调节一个精密的控制旋钮。随着模型变得越来越强大，我们可以逐渐将这个旋钮转向机器生成的内容，越来越多地依赖 AI 的能力。这不仅提高了效率，也为 AI 开发带来了新的可能性。
 
-### 03. The Competitive Landscape of AI Language Models: Proprietary vs. Open Source
+### 05. The Competitive Landscape of AI Language Models: Proprietary vs. Open Source
 
 To illustrate the advancements in this field, let's look at the competitive landscape of large language models. Consider the 'Chatbot Arena' managed by a team at Berkeley. Here, different language models are ranked by their Elo rating, a system similar to that used in chess to rank players based on win rates. In this arena, users can enter questions and receive responses from two different models, without knowing which models generated the responses. They then pick the winner, and based on these outcomes, the models' Elo scores are calculated, with higher scores indicating better performance.
 
@@ -320,21 +320,23 @@ The current ecosystem shows a clear trend: the closed, proprietary models tend t
 
 Right now, the open-source community is focused on enhancing performance to catch up with the proprietary models. This dynamic creates an interesting scenario in the AI industry, where open-source efforts are continually evolving to match the standards set by proprietary models.
 
-03 AI 语言模型的竞争版图：专有模型对抗开源模型
+05 AI 语言模型的竞争格局：专有模型与开源模型的较量
 
-在探讨 AI 语言模型领域的最新进展时，不得不提的是大语言模型间的竞争格局。以伯克利团队管理的「聊天机器人竞技场」为例，这里的语言模型就像国际象棋选手一样，通过 Elo 评分系统进行排名，该系统基于模型在回答用户问题中的胜率来评估。用户在这个竞技场中提问，收到来自两个不同模型的答复，却不知道是哪个模型回答的。他们选择自己认为更好的答案，进而决定了这些模型的 Elo 分数。分数越高，表明模型的性能越出色。
+为了更好地理解人工智能领域的最新进展，让我们一起来看看大语言模型（Large Language Model，LLM）的竞争格局。有一个有趣的项目叫做「聊天机器人竞技场」（Chatbot Arena），它由伯克利大学的一个研究团队管理。这个竞技场采用了一种叫做 Elo 评分系统的方法来给不同的语言模型排名，这个系统的原理类似于国际象棋中用来根据选手胜率进行排名的方法。
 
-图片：聊天机器人竞技场中按 Elo 评分排序的大语言模型 (LLM)
+在这个虚拟竞技场中，用户可以提出问题，然后获得来自两个不同模型的回答，但用户并不知道具体是哪个模型给出的回答。用户选择他们认为更好的回答，基于大量用户的选择结果，系统会计算出每个模型的 Elo 分数。分数越高，就意味着模型的表现越好。
 
-这个排行榜不仅有趣，而且能直观地展示各种语言模型的实力对比，并洞察它们在现实场景中日益增强的能力。
+图：在聊天机器人竞技场中按 Elo 评分排名的大语言模型
 
-深入了解 AI 语言模型的世界，我们可以看到不同模型间的竞争态势。在性能榜单的顶端，是那些专有模型。这些模型属于封闭类型，它们的权重数据对外界保密。通常，这些模型只能通过网络界面来使用。OpenAI 的 GPT 系列和 Anthropic 的 Claude 系列便是这类模型的代表。除此之外，还有许多其他公司推出的顶级模型也不容小觑。
+这个排行榜为我们提供了一个绝佳的窗口，让我们能够直观地比较各种语言模型的表现，并了解它们在真实场景中的实际能力。
 
-紧随其后的是拥有开放权重的模型，这类模型的特点是透明度高，相关信息和研究论文对公众开放。Meta 的 Llama 2 系列就是这一类别的实例。而在这些模型之下，你可能会发现像法国初创公司推出的 Mistral 系列中的 Zephyr 7b beta 这样的模型。
+当我们深入探索 AI 语言模型的世界时，我们会发现一个有趣的现象：在性能排行榜的顶端，往往是一些专有模型。这些模型是封闭的，也就是说，它们的核心技术（比如模型权重）并不对外公开。用户通常只能通过网页界面来使用这些模型。比如，OpenAI 开发的 GPT 系列和 Anthropic 公司的 Claude 系列就是这类顶级专有模型的代表。除此之外，还有其他科技公司开发的模型也占据了性能排行榜的前列。
 
-从当前的 AI 生态系统来看，封闭的专有模型在性能上往往占据上风。但它们的局限在于，你无法直接对这些模型进行微调或下载。用户通常只能通过网络界面来使用这些模型。而开源模型及其生态系统则紧随其后。尽管这些模型的表现通常不及封闭模型，但在特定应用场景下，它们或许已足够满足需求。
+紧随其后的是一些开放权重的模型。这些模型相对更加透明，有更多公开可用的技术信息，通常还会发布详细的研究论文。Meta 公司的 Llama 2 系列就是这类模型的典型代表。再往后，你可能会看到一些相对较新的模型，比如来自法国初创公司的 Mistral 系列中的 Zephyr 7b beta。
 
-当前，开源社区正致力于提高性能，以跟上专有模型的发展速度。这一趋势为 AI 行业带来了一个有趣的现象：开源项目持续进化，力图达到专有模型设定的标准。
+目前的 AI 生态系统呈现出一个明显的趋势：封闭的专有模型往往表现更好。但是，这些模型也有一个明显的缺点：用户无法直接对其进行定制化操作，比如微调（fine-tuning）或下载到本地使用。用户通常只能通过网页接口来使用这些模型。相比之下，开源模型及其生态系统则提供了更多的灵活性。虽然这些开源模型的表现通常不如顶级专有模型，但对于许多应用场景来说，它们的性能可能已经足够了。
+
+目前，开源社区正在全力以赴地提升模型性能，试图赶上专有模型的水平。这种竞争态势在 AI 行业中创造了一个有趣的局面：开源阵营不断进步，努力缩小与专有模型之间的差距，这无疑会推动整个行业的快速发展。
 
 #### The Role of Scaling Laws in the Advancement of Language Models
 
@@ -350,21 +352,21 @@ Fig: Source: Sparks of Artificial General Intelligence: Early experiments with G
 
 This understanding has sparked a kind of gold rush in the computing world, where the focus is on acquiring bigger GPU clusters and more extensive datasets. There's a strong belief that these investments will yield better models. While algorithmic advancements are a welcome bonus, the true driving force is the guaranteed success offered by scaling. This approach has become the primary strategy for many organizations in the AI space, as they invest in scaling their resources to build increasingly powerful language models.
 
-在语言模型进步中规模化法则的作用
+规模定律：推动语言模型飞速进步的秘密武器
 
-接下来，我们来探讨语言模型是如何不断进步以及这些进步的发展轨迹。理解大语言模型（大语言模型）发展的关键在于所谓的规模化法则。这些法则表明，这些模型的性能，尤其是在预测下一个词的准确性方面，竟然可以被出奇地准确预测。这种预测基于两个变量：网络中的参数数量（N）和用于训练的文本量（D）。
+让我们来探讨语言模型是如何不断进步的，以及这些进步的发展轨迹。要理解大语言模型（Large Language Model）的进步，一个关键概念是我们所说的「规模定律」。这些定律揭示了一个令人惊讶的事实：模型的性能，尤其是在预测下一个词的准确性方面，是高度可预测的。这种可预测性仅仅基于两个变量：网络中的参数数量（N）和用于训练的文本量（D）。
 
-来源：训练计算-优化的大语言模型
+图 1：来源：训练计算最优大语言模型
 
-通过这两个数据 – N 和 D – 我们能够准确地预测一个语言模型在下一个词预测任务中的表现。最令人震惊的是，这种趋势似乎并没有极限。训练量更大、模型更庞大的语言模型总能带来性能的提升。这说明了，除了算法的进步，我们还可以通过扩大规模来增强模型的能力，比如使用更强大的计算机和更多的数据。
+有了这两个数字 N 和 D，我们就能准确预测语言模型在预测下一个词任务中的表现。更加令人惊叹的是，这种趋势似乎没有上限。更大的模型在更多文本上训练，始终能带来性能的提升。这意味着虽然算法的进步很重要，但它并不是提升模型能力的唯一途径。我们可以通过简单地扩大规模 —— 使用更强大的计算机和更多的数据 —— 来实现显著的进步。
 
-实际上，虽然下一个词的预测准确性可能不是我们的终极目标，但这种准确性与我们所关注的许多其他方面有着密切的联系。例如，在 GPT 系列的发展过程中，从 GPT-3.5 到 GPT-4，我们可以看到在多种测试中的性能提升。这表明，随着我们训练更大、数据量更多的模型，我们可以期望整体性能的自然提升。
+实际上，预测下一个词的准确性可能不是我们的最终目标，但这个指标与我们关心的许多其他方面都有关联。例如，随着 GPT（Generative Pre-trained Transformer）系列模型的升级，从 GPT-3.5 到 GPT-4，我们可以观察到各种测试中的性能都有所提升。这清楚地表明：当我们在更多数据上训练更大的模型时，我们可以期待整体性能几乎是自然而然地提高。
 
-来源：通用人工智能的初步迹象：GPT-4 的早期实验，Bubuck 等人，2023 年
+图 2：来源：通用人工智能的火花：GPT-4 的早期实验，Bubuck 等人，2023
 
-这一认识在计算机界引发了一场类似淘金热的热潮，核心目标是获取更大型的 GPU 集群和更全面的数据集。普遍认为，这些投资将带来更优秀的模型。尽管算法上的进步是额外的好处，但真正推动发展的是扩大规模带来的确定性成功。这个方法已成为许多 AI 领域公司的主要战略，他们正投入资源扩展，以打造更强大的语言模型。
+这种认识在计算领域引发了一场类似淘金热的竞赛，重点转向获取更大的 GPU（图形处理单元）集群和更庞大的数据集。业界普遍认为，这些投资将带来更强大的模型。虽然算法的突破也是值得欢迎的额外收获，但真正的驱动力是通过扩大规模来获得几乎可以保证的成功。这种方法已经成为 AI 领域许多组织的主要策略，它们纷纷投资于扩大资源规模，以构建越来越强大的语言模型。
 
-### 04. Enhancing Large Language Model with External Tools - A demo
+### 06. Enhancing Large Language Model with External Tools - A demo
 
 Let's take a closer look at the evolving capabilities of language models through a concrete example, moving beyond abstract descriptions. For this, I turned to ChatGPT with a specific task: to gather information about a company, Scale, and its funding rounds, including dates, amounts, and valuations, and organize it into a table.
 
@@ -400,7 +402,7 @@ Fig: ChatGPT using DALL·E
 
 This demonstration practically illustrates the use of tools involved in problem solving by large language models. They're not just word samplers anymore; they're becoming sophisticated problem solvers, integrating various tools and computing infrastructure to handle complex tasks, much like humans do. This tool integration is a significant factor in the growing capabilities of these models, allowing them to perform comprehensive analyses, write code, and even create artistic representations.
 
-04 用外部工具增强大语言模型：一个实例演示
+06 用外部工具增强大语言模型：一个实例演示
 
 我们通过一个实际案例来探索语言模型的先进能力，跳出理论性的讨论。在这个例子中，我利用 ChatGPT 完成一个特别的任务：搜集关于一家名为 Scale 的公司及其多轮融资的详细信息，包括融资时间、金额和估值，并整理成一张表格。
 
@@ -436,7 +438,7 @@ ChatGPT 的输出结果既有条理又充满信息。它制作了一张表格，
 
 通过这次展示，我们可以看到大语言模型在解决问题时如何运用各种工具。它们已经不仅仅是简单的文字处理工具，而是在像人类一样，通过整合多种工具和计算资源来处理复杂的任务。这种工具的整合是这些模型能力不断增强的关键，让它们不仅能进行深入的分析和编程，还能创作出具有艺术感的作品。
 
-### 05. Multimodality in Large Language Models: From Vision to Audio
+### 07. Multimodality in Large Language Models: From Vision to Audio
 
 ChatGPT's ability to generate images marks a significant step in its journey towards multimodality. Multimodality is actually a significant axis along which large language models are improving. This isn't just about text anymore; it's about integrating various forms of media for a richer interaction. ChatGPT, for instance, has demonstrated its capability to not only generate images but also to interpret them.
 
@@ -450,21 +452,21 @@ But multimodality goes beyond images. It also encompasses audio. ChatGPT's advan
 
 Fig: Speech interaction with AI as in the science fiction movie Her
 
-05 大语言模型的多模态革新：从视觉到音频的跨越
+07 大语言模型的多模态能力：从视觉到语音
 
-ChatGPT 现在不仅能够生成图像，还能理解它们，这标志着它在多模态领域的一大飞跃。多模态不只是把文本和其他媒介结合起来，它在丰富我们与大语言模型的互动方面起着关键作用。比如，ChatGPT 不仅能创造出图像，还能解析这些图像。
+ChatGPT 生成图像的能力标志着它在多模态发展道路上迈出的重要一步。多模态能力（Multimodality）实际上是大语言模型（Large Language Model）正在快速发展的一个重要方向。这种能力不再局限于处理文本，而是将各种形式的媒体整合在一起，实现更丰富的交互。例如，ChatGPT 不仅能生成图像，还能理解和解释图像。
 
-OpenAI 创始人之一 Greg Brockman 的一个演示就很能说明问题。他给 ChatGPT 展示了一个手画的简单网站布局图，ChatGPT 不仅理解了这张图，还能够根据它编写出功能完整的 HTML 和 JavaScript 代码。在 "My joke" 网站上，有一个点击就能展开笑话结尾的笑话，充分展示了 ChatGPT 如何将一个简单的视觉图案转化为实际的网络界面。
+OpenAI 创始人之一 Greg Brockman 的演示就是一个很好的例子。他向 ChatGPT 展示了一个简单的手绘网站布局草图。令人惊叹的是，ChatGPT 能够理解这个图像，并为其编写功能完整的 HTML（超文本标记语言）和 JavaScript（一种网页编程语言）代码。在生成的「My joke」网站中，用户可以看到一个笑话，点击后会显示笑点。这个例子生动地展示了 ChatGPT 将视觉草图转换为实际可用的网页界面的能力。
 
-图片：从一个简单的草图到一个运行中的网站
+图 1：从草图到可用的网站
 
-这种进步为我们开辟了一个新天地，在这个天地里，图像能够与语言模型无缝结合。ChatGPT 现在能同时处理视觉信息和文本，这一能力预计会在未来的语言模型中变得越来越常见。
+这一突破性进展为图像与语言模型的无缝集成开辟了新的可能性。ChatGPT 现在能够同时处理和利用视觉信息和文本，这种能力预计将在未来的语言模型中变得越来越普遍。
 
-但多模态的意义不止于图像，还包括音频。ChatGPT 最近的进展包括了「听」的和「说」的能力，实现了语音到语音的交流。这一功能已经融入了 ChatGPT 的 iOS 应用，在那里，你可以像在电影《Her》中那样与 ChatGPT 对话。这是一种独特而略带超现实的体验，你无需再输入文字，AI 将直接用语音回应。这一创新使我们与 AI 的互动更加自然和类似人类，值得亲自体验这种奇妙。
+然而，多模态能力并不仅限于处理图像。它还包括了音频处理。ChatGPT 的最新进展包括了「听」和「说」的能力，实现了语音对话功能。这个功能已经被整合到 ChatGPT 的 iOS 应用中。用户可以与 ChatGPT 进行语音对话，这种体验让人联想到科幻电影《Her》中人类与 AI 助手的交互场景。这是一种独特而略显超现实的体验 —— 用户不需要打字，AI 会直接用语音回应。这项创新让我们离与 AI 进行更自然、更类人的交互更近了一步。我强烈建议大家亲身体验这种神奇的交互方式。
 
-图片：仿照科幻电影《Her》中的 AI 语音互动
+图 2：如科幻电影《Her》中的 AI 语音交互
 
-### 06. Exploring Future Directions in Large Language Model Development
+### 08. Exploring Future Directions in Large Language Model Development
 
 As we shift our focus to the future of large language models, it's essential to understand the current academic and research interests in this field. This isn't about specific product announcements or plans from OpenAI, but rather a broader perspective on where the development of these models is headed, based on academic research and publications.
 
@@ -528,11 +530,11 @@ The objective is to create a kind of 'tree of thoughts,' where the model can pon
 
 Another exciting direction for these models is the concept of self-improvement, inspired by the success of DeepMind's AlphaGo. AlphaGo's development included two major stages. In the initial stage, the program learned by imitating human expert players, absorbing strategies from games played by top-level human competitors. This approach led to a competent Go-playing program, but it was limited to the capabilities of the best human players it learned from.
 
-Mastering the game of Go with deep neural networks and reward function
+Fig: Mastering the game of Go with deep neural networks and reward function
 
 So DeepMind figured out a way to surpass human capabilities in the game of Go through a breakthrough called self-improvement. In this closed sandbox environment, the game itself provided a straightforward reward function – winning. This clear, binary feedback made it possible to play countless games, refining strategies based purely on the likelihood of winning, without the need to imitate human gameplay. This process allowed the system to eventually exceed human performance.
 
-AlphaGo self-improvement
+Fig: AlphaGo self-improvement
 
 The graph showcases the Elo rating and how AlphaGo, within just 40 days, managed to surpass some of the best human Go players through self-improvement. This success raises a compelling question: "What is the equivalent of this step two for large language models?"
 
@@ -540,21 +542,21 @@ Currently, in language modeling, we're primarily at step one – imitating human
 
 The major challenge in translating this approach to open language modeling is the lack of a clear reward criterion. Language is vast and varied, encompassing numerous tasks, and lacks a simple, universally applicable metric to judge the quality of a model's output. Unlike Go, where winning provides immediate feedback, language tasks don't have an easily assessable criterion to determine whether a response is 'good' or 'bad.' However, the possibility remains that in more narrowly defined domains, such a reward function could be established, potentially paving the way for self-improvement in language models. Yet, as it stands, this remains an open question in the field, a frontier yet to be fully explored.
 
-语言模型自我提升：迈向超越人类极限的新征程
+语言模型自我提升：突破人类极限
 
-这些模型的一个新兴趋势是自我提升的理念，灵感源自 DeepMind 的 AlphaGo 取得的巨大成功。AlphaGo 的开发分为两个关键阶段。在第一阶段，它通过模拟围棋高手的下棋方式来学习，从世界顶尖选手的比赛中吸取战术和策略。这种学习方法虽然造就了一个强大的围棋程序，但其能力被限制在了它所学习的最优秀人类棋手的水平。
+受 DeepMind 公司 AlphaGo 项目成功的启发，语言模型的另一个激动人心的发展方向是自我提升。AlphaGo 的发展经历了两个主要阶段。在初始阶段，程序通过模仿人类专家棋手来学习，从顶级人类选手的对局中吸收策略。这种方法培养出了一个水平不俗的围棋程序，但其能力仅限于它所学习的最优秀人类棋手的水平。
 
-图片：利用深度神经网络和奖励机制精通围棋
+图 1：利用深度神经网络和奖励函数掌握围棋
 
-接着，DeepMind 开发出了一种叫做自我提升的突破性方法，成功使 AlphaGo 在围棋游戏中超越了人类。在这个封闭的「沙盒」环境里，简单的获胜目标成为了直接的奖励机制。这种明确、单一的反馈允许 AlphaGo 进行无数次的对弈，仅根据获胜概率来调整策略，而不是模仿人类的玩法。这种方法最终使得 AlphaGo 的表现超越了人类。
+为了在围棋领域超越人类能力，DeepMind 开创性地提出了自我提升的方法。在这个封闭的沙盒环境（sandbox environment）中，游戏本身提供了一个简单直接的奖励函数 —— 获胜。这种明确的二元反馈机制使得系统能够进行海量对弈，纯粹基于获胜的可能性来优化策略，而无需模仿人类的下棋方式。通过这个过程，系统最终超越了人类的表现。
 
-图片：AlphaGo 的自我提升之旅
+图 2：AlphaGo 的自我提升过程
 
-图表显示了 AlphaGo 如何在短短 40 天内通过自我提升超越了世界顶级的人类围棋选手。这一成就引发了一个深思的问题：「大语言模型 (大语言模型) 要如何实现类似的第二步突破？」
+上图展示了 Elo 评分（一种用于计算棋类游戏选手相对技能水平的方法）的变化，以及 AlphaGo 如何在短短 40 天内通过自我提升成功超越了一些世界顶级围棋选手。这一成就引发了一个引人深思的问题：对于大语言模型（Large Language Models）来说，这样的第二阶段等价于什么？
 
-目前，在语言模型的领域，我们主要还停留在模仿人类回答的第一步。人类对数据进行标注，撰写答案，而模型则是学习这些回答。虽然这可以产生高质量的回答，但模型的精准度仍受限于人类水平。那么，关键的问题是，在开放式语言建模的领域，我们的下一步该如何迈进呢？
+目前，在语言模型领域，我们主要停留在第一阶段 —— 模仿人类的回应。人类标注和撰写答案，模型学习模仿这些内容。虽然这种方法可以产生高质量的回应，但它本质上将模型的准确性限制在了人类水平。因此，一个重要的问题是：在开放式语言模型领域，第二阶段的突破点在哪里？
 
-在将这种技术应用于开放式语言建模中，我们面临的一个主要挑战是如何设定一个明确的评价标准。语言的范围广泛，涉及众多任务类型，但却缺乏一个简单且普遍适用的衡量标准来判断模型输出的质量。这与围棋游戏不同，围棋中的获胜可以立即作为反馈，而语言任务却没有一个直接的标准来判定答案是好是坏。尽管如此，在某些特定的更小范围领域中，或许能够建立这样的评价函数，为语言模型的自我提高铺路。但目前，这仍是语言模型领域一个待探索的新领域。
+将这种方法应用到开放式语言模型的主要挑战在于缺乏明确的奖励标准。语言是广泛而多样的，涉及众多任务，缺乏一个简单、普遍适用的标准来评判模型输出的质量。与围棋中胜负分明的即时反馈不同，语言任务没有一个容易评估的标准来判定回应的好坏。然而，在一些定义更加明确的特定领域，建立这样一个奖励函数可能是可行的，这可能为语言模型的自我提升铺平道路。不过，就目前而言，这仍然是该领域的一个悬而未决的问题，一个尚待深入探索的前沿领域。
 
 #### Customizing Language Models: Tailoring AI for Niche Tasks
 
@@ -562,25 +564,25 @@ Another significant area of improvement for large language models lies in custom
 
 Through the ChatGPT App Store, users have the opportunity to create their version of GPT. The customization options currently available include setting specific instructions or enhancing the model's knowledge base by uploading files. These files enable a feature known as Retrieval Augmented Generation (RAG), where ChatGPT references text chunks from the uploaded files to enhance its responses. This is akin to ChatGPT browsing through these files, using them as reference material to inform its answers, similar to how it would use internet browsing for information gathering.
 
-Custom GPT configuration
+Fig: Custom GPT configuration
 
 Currently, customization is limited to these two primary avenues. However, the future may allow for further personalization, such as fine-tuning these models with unique training data or other bespoke modifications. The goal is to develop a range of language models, each specialized in different tasks, moving away from the one-size-fits-all model to a more specialized, task-focused approach.
 
 量身定制语言模型：为特定任务打造专用 AI
 
-在大语言模型的发展中，另一个重要方向是定制化。不同行业中的多样化任务需求表明，这些模型需要变成特定领域的专家。最近，OpenAI 的 Sam Altman 宣布了 ChatGPT 应用商店，这是朝着这个方向迈出的一大步。这一举措意味着为大语言模型增添了一层定制化的选择。
+大型语言模型的另一个重要改进方向是定制化。考虑到经济各行各业的任务需求多种多样，这些模型需要在特定领域中成为专家。最近，OpenAI 的 Sam Altman 宣布推出 ChatGPT 应用商店（ChatGPT App Store），这是朝着为大语言模型增加定制化功能迈出的一大步。
 
-通过 ChatGPT 应用商店，用户可以打造属于他们自己的 GPT 版本。目前的定制选项包括设置特定的指令或通过上传文件来扩展模型的知识库。这些文件启用了「检索增强生成」（RAG）的功能，使得 ChatGPT 能够参考上传的文件中的文本片段来丰富其回答。这就好比 ChatGPT 在浏览这些文件，将它们作为信息获取过程中的参考资料。
+通过 ChatGPT 应用商店，用户可以创建属于自己的 GPT 版本。目前，定制选项主要包括两种：设置特定指令，或通过上传文件来扩充模型的知识库。这些上传的文件能够支持一种叫做检索增强生成（Retrieval Augmented Generation，RAG）的功能。使用这个功能时，ChatGPT 会参考上传文件中的相关文本片段来增强其回答。你可以将这个过程想象成 ChatGPT 在翻阅这些文件并将其作为参考资料，就像它通过浏览互联网来收集信息一样。
 
-图片：定制化 GPT 配置
+图 1：自定义 GPT 的配置界面
 
-目前，定制化主要限于以上两种方式。然而，未来可能会有更多个性化的定制选项，比如使用特定的训练数据或其他定制化的修改来微调这些模型。我们的目标是开发出一系列各有专长的语言模型，从而实现从「通用模型」向「专注于特定任务的模型」转变。
+目前，定制化功能仅限于上述两种主要方式。不过，未来可能会开放更多个性化选项，比如使用独特的训练数据对这些模型进行微调，或是进行其他定制化修改。这样做的目标是开发出一系列专门用于不同任务的语言模型，从通用型模型逐步转向更专业化、更针对特定任务的模型。
 
-Large Language Models as an Emerging Operating System
+#### Large Language Models as an Emerging Operating System
 
 In an attempt to synthesize all that we've discussed about large language models, it's useful to think of them not just as chatbots or word generators, but as something much more expansive and foundational. I like to think of them as the kernel process of an emerging type of operating system. This operating system coordinates a variety of resources, from memory to computational tools, all geared towards efficient problem-solving.
 
-#### Large language model as kernel process of a new operating system
+Fig: Large language model as kernel process of a new operating system
 
 Let's consider, based on all the aspects we've discussed, how a large language model might look like in the coming years. It is capable of reading and generating text, possessing a breadth of knowledge that surpasses any single human. It can browse the internet or refer to local files through retrieval augmented generation. It can seamlessly interact with existing software infrastructure, like calculators and Python. It can process and produce images and videos, understand and create music, and even engage in extended thinking using a system two approach. In some narrow domains, it might even have the ability to self-improve, provided there's a suitable reward function.
 

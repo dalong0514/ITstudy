@@ -1,4 +1,4 @@
-## 20231225Andrej-Karpathy-大语言模型视频入门的精选阅读清单
+## 20231225Andrej-Karpathy大语言模型视频入门的精选阅读清单
 
 [Reading List For Andrej Karpathy’s “Intro to Large Language Models” Video](https://blog.oxen.ai/reading-list-for-andrej-karpathys-intro-to-large-language-models-video/)
 
@@ -8,9 +8,7 @@
 
 2023-11-27
 
-宝玉
-
-@dotey
+宝玉 @dotey
 
 OpenAI 的大神 Andrej Karpathy 前几天在他的 YouTube 频道讲了一堂课，系统的介绍了大语言模型，内容深入浅出，非常赞，抽空将它翻译成了双语，由于内容较长，我将分批上传，以下是第一部分精校后的双语视频，字幕文稿如下：
 
@@ -101,8 +99,6 @@ The first half of the video, Andrej goes over some fundamentals of how LLMs are 
 Understanding the core technology and techniques behind training and running these models is important to building up a higher level understanding of how he pictures using them in an LLM OS later in the talk.
 
 We have gone over a lot of these topics already in Arxiv Dives, so I will link to the recaps for context while reading the papers that can be a bit technical.
-
-背景阅读
 
 在视频的前半部分，Andrej 讲解了大语言模型的培训基础及其当前的运行情况。
 
