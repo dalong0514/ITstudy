@@ -10,6 +10,16 @@
 
 [[中文字幕][Andrej Karpathy] Let's build the GPT Tokenizer\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1yx4y1y7iK/?vd_source=280fc27368a92928cafc2cb72c54a549)
 
+### 提炼消化
+
+1、关于分词知识的论文位置。
+
+[Language Models are Unsupervised Multitask Learners](https://insightcivic.s3.us-east-1.amazonaws.com/language-models.pdf)
+
+上面这篇论文其实是讲 GPT-2 的，里面的小结「2.2. Input Representation」是关于分词知识的。
+
+03.42min
+
 ### 音频整理
 
 #### 01
