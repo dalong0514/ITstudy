@@ -864,6 +864,8 @@ So this is not the training code, you can't give it a piece of text and train a 
 
 这意味着，你无法使用这些代码来输入一段文本并训练出一个分词器。这些代码仅仅是推理代码，它们使用我们之前提到的合并规则，将其应用到新的文本上进行分词。因此，我们并不完全清楚 OpenAI 是如何训练他们的分词器的，但可以确定的是，这个过程比简单地将文本分块并应用字节对编码（BPE）要复杂得多。
 
+#### 05
+
 Next I wanted to introduce you to the TikToken library from OpenAI, which is the official library for tokenization from OpenAI. So this is tic token, pip install tic token, and then you can do the tokenization inference. This is again not training code, this is only inference code for tokenization.
 
 I wanted to show you how you would use it, quite simple, and running this just gives us the GPT-2 tokens or the GPT-4 tokens. So this is the tokenizer used for GPT-4.

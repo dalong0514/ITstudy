@@ -14,9 +14,11 @@ docker compose up -d
 
 docker compose stop
 
----
+### 大版本更新的步骤
 
 2024-07-10
+
+Warning: The docker-compose.yaml has been refactored. If you've made any changes to the file, make sure to check out the "Upgrade to new docker compose deployment" section above for usage and migration tips.
 
 [Releases · langgenius/dify](https://github.com/langgenius/dify/releases)
 
