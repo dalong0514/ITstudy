@@ -578,7 +578,7 @@ At this point, we don't actually care how many times they occur in the sequence.
 
 为了重用我们已经编写的一些功能，我打算重用 getStats 函数（getStats function)。回想一下，getStats 函数会计算我们的词元（token）序列中每个字节对出现的次数，并将结果以字典（dictionary，一种键值对的数据结构）的形式返回。这个字典将所有不同的字节对映射到它们在序列中出现的次数。
 
-在这一点上，我们实际上并不关心这些字节对在序列中出现了多少次。我们只关心序列中存在哪些原始的字节对。因此，我只会使用字典的键（keys)，也就是说，我只关心可能的合并候选集。这样做的目的是为了找出所有可能的合并选项，而不考虑它们的出现频率。
+在这一点上，我们实际上并不关心这些字节对在序列中出现了多少次。我们只关心序列中存在哪些原始的字节对。因此，我只会使用字典的键（keys），也就是说，我只关心可能的合并候选集。这样做的目的是为了找出所有可能的合并选项，而不考虑它们的出现频率。
 
 Now we want to identify the pair that we're going to be merging at this stage of the loop. So what do we want? We want to find the pair or like a key inside stats that has the lowest index in the merges dictionary, because we want to do all the early merges before we work our way to the late merges. 
 
@@ -672,7 +672,7 @@ So that's the simplest setting of the tokenizer. What we're going to do now, tho
 
 此外，我还准备了一些验证数据。我从一个网页上抓取了一些文本，这些文本是分词器之前没有见过的。我们可以用这些新数据来测试，确保分词器在处理未知文本时也能正常工作。这些测试都顺利通过了，这让我们有信心认为我们的实现是正确的。
 
-以上就是字节对编码（Byte Pair Encoding）算法的基本原理。我们了解了如何使用训练集来训练一个分词器（tokenizer)，这个分词器的核心参数其实就是一个合并字典，它在原始字节的基础上构建了一个小型的树状结构。有了这个合并表，我们就可以在原始文本和 token 序列之间进行双向转换，即编码和解码。
+以上就是字节对编码（Byte Pair Encoding）算法的基本原理。我们了解了如何使用训练集来训练一个分词器（tokenizer），这个分词器的核心参数其实就是一个合并字典，它在原始字节的基础上构建了一个小型的树状结构。有了这个合并表，我们就可以在原始文本和 token 序列之间进行双向转换，即编码和解码。
 
 这是分词器的最基本形式。接下来，我们将探讨一些最先进的大语言模型（Large Language Model）及其使用的分词器类型。我们会发现，随着研究的深入，这个看似简单的概念会变得越来越复杂。因此，我们将逐步详细介绍这个复杂化的过程。
 
@@ -708,7 +708,7 @@ So let's take a look at this pattern and what it's doing and why this is actuall
 
 让我们来看看他们的代码，了解一下他们是如何实际执行这种强制规则的，以及他们具体执行了哪些类型的合并。我这里已经打开了 GitHub 上 OpenAI 组织下的 GPT-2 项目页面，在 "source" 目录中有一个名为 "encoder.py" 的文件。
 
-我个人不太赞同他们将其命名为 "encoder.py"，因为这实际上是一个分词器（tokenizer)，而分词器既可以进行编码也可以进行解码。因此，将其称为 "encoder" 感觉不太恰当，但无论如何，这就是他们的分词器。
+我个人不太赞同他们将其命名为 "encoder.py"，因为这实际上是一个分词器（tokenizer），而分词器既可以进行编码也可以进行解码。因此，将其称为 "encoder" 感觉不太恰当，但无论如何，这就是他们的分词器。
 
 这里涉及了很多内容，我们稍后会逐步详细讨论。现在，我想先聚焦于这个部分。他们创建了一个看似复杂的正则表达式模式，我们稍后会深入分析。这个模式是核心部分，它能确保文本的某些部分绝不会被合并。
 
@@ -756,7 +756,7 @@ So you can only ever consider merges within every one of these elements individu
 
 因此，当我们运行这个正则表达式时，我们会得到一个包含两个元素的列表：["hello", "world"]。如果字符串中有更多的单词，比如 "how"、"are"、"you"，只要它们符合这个模式（可选的空格后跟一个或多个字母），就会被同样地匹配到并添加到结果列表中。
 
-那么，这段代码在做什么？为什么它如此重要？我们并没有直接对字符串进行编码来进行标记化（tokenization)，而是首先将其拆分。当我们稍后详细逐步分析代码时，你会发现它在宏观上所做的就是将文本拆分成一个文本列表，就像我们看到的这样。
+那么，这段代码在做什么？为什么它如此重要？我们并没有直接对字符串进行编码来进行标记化（tokenization），而是首先将其拆分。当我们稍后详细逐步分析代码时，你会发现它在宏观上所做的就是将文本拆分成一个文本列表，就像我们看到的这样。
 
 这个列表中的每个元素都会被分词器（tokenizer）独立处理。然后，所有处理结果会被简单地连接在一起。例如，我们有 "hello"、"world"、"how"、"are"、"you" 这五个列表元素。
 
@@ -894,7 +894,7 @@ Now, I'm not going to actually go into the full detail of the pattern change, be
 
 我们讨论的这个模式等同于这里的模式，只是后者执行速度稍快一些。在这里你可以看到一个稍微不同的定义，但除此之外它们是相同的。我们稍后会讨论特殊的标记（special tokens，指在分词过程中有特殊含义或用途的标记）。
 
-如果你继续向下滚动到 CL100K（这是 GPT-4 的分词器)，你会发现模式已经发生了变化。这是除了其他一些特殊标记（token）之外的主要变化，我们稍后会再次详细讨论。
+如果你继续向下滚动到 CL100K（这是 GPT-4 的分词器），你会发现模式已经发生了变化。这是除了其他一些特殊标记（token）之外的主要变化，我们稍后会再次详细讨论。
 
 实际上，我不会详细解释模式变化的所有细节，因为说实话，这个过程相当枯燥。我建议你可以使用 ChatGPT 和 RegEx 文档，然后逐步进行分析。
 
@@ -954,7 +954,7 @@ Otherwise, this file, if you ignore the byte_encoder and the byte_decoder, will 
 
 在 OpenAI 的实现中，有一点稍微令人困惑的地方是：除了编码器和解码器之外，他们还有所谓的 byte_encoder 和 byte_decoder。不过，这其实只是一个无关紧要的实现细节，并没有什么深层次的含义或特别有趣的地方，所以我就不详细讨论了。
 
-OpenAI 在这里的做法，出于我不太清楚的原因，不仅包含了可以进行编码和解码的分词器（tokenizer)，还额外增加了一个完全独立的层，它与分词器串行使用。
+OpenAI 在这里的做法，出于我不太清楚的原因，不仅包含了可以进行编码和解码的分词器（tokenizer），还额外增加了一个完全独立的层，它与分词器串行使用。
 
 具体来说，处理流程是这样的：首先进行 byte_encode，然后是 encode，接着是 decode，最后是 byte_decode。这就是整个循环过程，这些步骤就是简单地依次执行。这个过程并不特别有趣，所以我就不详细介绍了。如果你感兴趣的话，可以自己去深入研究一下。
 
@@ -990,7 +990,7 @@ So when we're creating the training data, we have all these documents, and we to
 
 And we are using this as a signal to the language model that the document has ended and what follows is going to be unrelated to the document previously. That said, the language model has to learn this from data. It needs to learn that this token usually means that it should wipe its sort of memory of what came before and what came before this token is not actually informative to what comes next. But we are expecting the language model to just like learn this, but we're giving it the special sort of delimiter of these documents.
 
-在创建训练数据时，我们首先对所有文档进行分词（tokenize)，生成一个 token 序列。这些 token 的编号范围仅在 0 到 50,256 之间。然后，我们在每个文档的结尾插入一个特殊的「文本结束」（end of text）token，作为文档间的分隔符。
+在创建训练数据时，我们首先对所有文档进行分词（tokenize），生成一个 token 序列。这些 token 的编号范围仅在 0 到 50,256 之间。然后，我们在每个文档的结尾插入一个特殊的「文本结束」（end of text）token，作为文档间的分隔符。
 
 这个特殊 token 的作用是向语言模型发出信号，表示当前文档已经结束，接下来的内容与之前的文档无关。然而，语言模型需要从数据中学习理解这个信号的含义。它需要学会识别这个特殊 token，并明白在遇到这个 token 时应该「重置」其上下文记忆，因为这个 token 之前的内容对理解后续内容没有帮助。
 
@@ -1030,7 +1030,7 @@ And these are totally up to you, you can come up with any arbitrary tokens and a
 
 现在让我们回到 TikToken 库。当你滚动到页面底部时，你会发现他们讨论了如何扩展 TikToken 的功能。现在你可以基于 GPT-4 使用的 CL100K 基础分词器（tokenizer）创建一个新的版本，例如，你可以通过添加更多特殊 token 来扩展它。
 
-这些特殊 token 完全由你自己定义。你可以创建任何自定义的 token（即文本的最小单位)，并为它们分配新的 ID。TikToken 库会在处理字符串时正确地识别和替换这些特殊 token。
+这些特殊 token 完全由你自己定义。你可以创建任何自定义的 token（即文本的最小单位），并为它们分配新的 ID。TikToken 库会在处理字符串时正确地识别和替换这些特殊 token。
 
 Now we can also go back to this file which we looked at previously and I mentioned that the GPT-2 in tiktoken/ext/openai_public.py we have the vocabulary, we have the pattern for splitting, and then here we are registering the single special token in GPT-2, which was the "end of text" token, and we saw that it has this ID.
 
@@ -1048,7 +1048,7 @@ So basically there's some model surgery involved that you have to couple with th
 
 在 GPT-4 的定义中，我们可以看到不仅分割模式发生了变化（正如我们之前讨论的），而且这个分词器中的特殊 token 也有所改变。我们仍然保留了 "文本结束" token，就像在 GPT-2 中一样，但我们还可以看到四个额外的 token："FIM_prefix"、"FIM_middle" 和 "FIM_suffix"。
 
-什么是 FIM？FIM 是「填充中间」（Fill In the Middle）的缩写。如果你想深入了解这个概念，可以参考相关论文，不过在本视频中我们不会详细讨论，因为这超出了我们的范围。此外，这里还有一个额外的特殊 token（用于标记特定含义的符号)，它也是编码的一部分。
+什么是 FIM？FIM 是「填充中间」（Fill In the Middle）的缩写。如果你想深入了解这个概念，可以参考相关论文，不过在本视频中我们不会详细讨论，因为这超出了我们的范围。此外，这里还有一个额外的特殊 token（用于标记特定含义的符号），它也是编码的一部分。
 
 通常情况下，我们会先训练一个语言模型，然后根据需要添加一些特殊 token。当你添加特殊 token 时，你实际上是在向模型中引入新的整数标识。这就需要对 Transformer 模型及其相关参数进行一些调整。比如，你需要确保用于词汇 token 的嵌入矩阵（embedding matrix）能够通过增加一行来进行扩展。
 
@@ -1118,9 +1118,9 @@ So it looks at whatever code points are available in your training set and then 
 
 So it uses BPE on the code points and then it falls back to bytes for rare code points. And so that's kind of like the difference. Personally I find the TikToken way significantly cleaner, but it's kind of like a subtle but pretty major difference between the way they approach tokenization.
 
-对于 TikToken 来说，其处理过程相对直接：首先获取字符串中的码点（code points)，然后使用 UTF-8 将它们编码为字节，最后合并这些字节。而 SentencePiece 则直接在码点本身的层面上进行操作。
+对于 TikToken 来说，其处理过程相对直接：首先获取字符串中的码点（code points），然后使用 UTF-8 将它们编码为字节，最后合并这些字节。而 SentencePiece 则直接在码点本身的层面上进行操作。
 
-这种方法首先会查看训练数据集中所有可用的字符编码点（code points)，然后开始合并这些编码点，这个过程中使用的是字节对编码（Byte Pair Encoding, BPE）算法，并在编码点层面上进行操作。如果出现了一些罕见的编码点（其稀有程度由 character_coverage 这个超参数决定），系统会采取两种处理方式之一：要么将这些罕见编码点映射到一个特殊的未知标记（如 "unk"），要么在启用了 byte_fallback 选项的情况下，将这些罕见编码点用 UTF-8 编码，然后将编码后的单个字节转换为特殊的字节标记，并将这些标记添加到词汇表中。
+这种方法首先会查看训练数据集中所有可用的字符编码点（code points），然后开始合并这些编码点，这个过程中使用的是字节对编码（Byte Pair Encoding, BPE）算法，并在编码点层面上进行操作。如果出现了一些罕见的编码点（其稀有程度由 character_coverage 这个超参数决定），系统会采取两种处理方式之一：要么将这些罕见编码点映射到一个特殊的未知标记（如 "unk"），要么在启用了 byte_fallback 选项的情况下，将这些罕见编码点用 UTF-8 编码，然后将编码后的单个字节转换为特殊的字节标记，并将这些标记添加到词汇表中。
 
 简而言之，这种方法在编码点层面使用 BPE 算法，对于罕见的编码点则回退到字节级别处理。相比之下，TikToken（一种不同的分词方法）采用了另一种策略。从个人角度来看，我认为 TikToken 的方法明显更加简洁，尽管这两种分词方法的区别看似微小，但实际上是相当重要的。
 
@@ -1212,7 +1212,7 @@ Once we have a vocabulary we can encode into IDs and we can sort of get a list. 
 
 接下来的是单个字节标记。我们可以看到在 Llama 模型中，字节回退（byte fallback）功能被启用了。这意味着接下来会出现 256 个字节标记，每个标记都有其对应的 ID。这种机制确保了模型能够处理任何输入，即使遇到未知的字符也能通过这些字节标记来表示。
 
-接下来，在底部字节 token（byte tokens）之后是合并项（merges)，这些代表了合并过程中的父节点。我们在这里只能看到父节点及其 ID，而看不到子节点。
+接下来，在底部字节 token（byte tokens）之后是合并项（merges），这些代表了合并过程中的父节点。我们在这里只能看到父节点及其 ID，而看不到子节点。
 
 再往后，最终会出现单个 token 及其 ID。这些是独立的 token，可以理解为单个字符或代码点（code point）的 token，它们被放置在最后。
 
@@ -1222,7 +1222,7 @@ Once we have a vocabulary we can encode into IDs and we can sort of get a list. 
 
 例如，如果一个字符在一百万个句子中只出现一次，那么它可能会被忽略，不会被添加到我们的词汇表中。这种机制有助于控制词汇表的大小，并专注于更常见和更有意义的 token。
 
-一旦我们有了词汇表（vocabulary)，我们就可以将文本编码（encode）成 ID，得到一个 ID 列表。在这里，我还将单个 token 解码（decode）回它们所谓的「小片段」。
+一旦我们有了词汇表（vocabulary），我们就可以将文本编码（encode）成 ID，得到一个 ID 列表。在这里，我还将单个 token 解码（decode）回它们所谓的「小片段」。
 
 So let's take a look at what happened here. "Hello space". So these are the token IDs we got back. 안녕하세요. So these are the token IDs we got back and when we look here a few things sort of jump to mind.
 
@@ -1294,7 +1294,7 @@ And unfortunately I have to say it's not very well documented, so it took me a l
 
 首先，我认为 SentencePiece 存在许多历史遗留问题。它包含了一些我认为略显混乱的概念，这些概念可能会成为潜在的隐患。例如，它对「句子」的定义以及句子最大长度的设置等。
 
-尽管如此，由于 SentencePiece 效率高，且能同时用于训练和推理，它在业界仍被广泛使用。它有一些独特之处，比如必须包含未知词元（unk token)，以及其特殊的字节回退（byte fallbacks）处理方式等。然而，我并不认为它的设计特别优雅。
+尽管如此，由于 SentencePiece 效率高，且能同时用于训练和推理，它在业界仍被广泛使用。它有一些独特之处，比如必须包含未知词元（unk token），以及其特殊的字节回退（byte fallbacks）处理方式等。然而，我并不认为它的设计特别优雅。
 
 遗憾的是，我不得不指出 SentencePiece 的文档质量不尽如人意。这导致我花费了大量时间来研究它，通过自行实验和数据可视化来真正理解其工作原理。因为在我看来，官方文档的质量确实有待提高。
 
@@ -1316,7 +1316,7 @@ And basically, as vocab_size increases, this embedding table, as I mentioned ear
 
 当我们设计语言模型时，有一个重要的组成部分叫做 token 嵌入表（token embedding table)。这是一个二维数组，其中行数基本上等于词汇表大小（vocab_size)。词汇表中的每个元素，也就是每个 token，都对应着一个向量。这些向量是通过反向传播（backpropagation）算法来训练的。每个向量的维度是 n_embd，也就是 Transformer 模型中的通道数。
 
-随着词汇表大小的增加，这个嵌入表也会相应地增长，我们会不断地添加新的行。除此之外，在 Transformer 模型的末端，还有一个叫做 lm_head 的线性层。这个层在模型的最后被用来产生 logits（未归一化的预测概率)，这些 logits 最终会转化为序列中下一个 token 的概率。
+随着词汇表大小的增加，这个嵌入表也会相应地增长，我们会不断地添加新的行。除此之外，在 Transformer 模型的末端，还有一个叫做 lm_head 的线性层。这个层在模型的最后被用来产生 logits（未归一化的预测概率），这些 logits 最终会转化为序列中下一个 token 的概率。
 
 And so intuitively we're trying to produce a probability for every single token that might come next at every point in time of that transformer and if we have more and more tokens we need to produce more and more probabilities.
 
@@ -1370,7 +1370,7 @@ And so you can freeze arbitrary parts of it or you can train arbitrary parts of 
 
 举个例子，当对 ChatGPT 进行微调（fine-tuning，即在特定任务上进行进一步训练）时，通常会在基础模型之上引入许多新的特殊 token。这些特殊 token 用于维护用户和 AI 助手之间对话的元数据和结构。这个过程需要大量的特殊 token。
 
-你可能还想尝试加入更多特殊标记（token)，比如用于浏览网页或使用其他工具的标记。这样一来，为各种特殊功能添加大量标记的想法就变得非常诱人了。
+你可能还想尝试加入更多特殊标记（token），比如用于浏览网页或使用其他工具的标记。这样一来，为各种特殊功能添加大量标记的想法就变得非常诱人了。
 
 那么，如果你想添加一个新的标记，这完全是可行的，对吧？我们需要做的就是调整嵌入（embedding）的大小，也就是增加一些行。我们会从头开始初始化这些新参数，它们将是一些小的随机数。然后，我们还需要扩展线性层（linear layer）中的权重。
 
@@ -1418,9 +1418,9 @@ So again, they came up with a way to chunk videos into basically tokens with the
 
 接下来，我想简要讨论最近一个热门的研究方向。那就是如何构建能够同时处理多种输入形式的 Transformer 模型。这些模型不仅可以处理文本输入，还可以处理图像、视频、音频等多种形式的数据。这种能够处理多种数据形式的能力，我们称之为多模态处理（multi-modal processing)。
 
-那么，如何将所有这些模态输入到 Transformer 中，并可能从中预测这些模态呢？是否需要从根本上改变架构？我认为，很多人开始达成的共识是：你不需要改变架构，只需继续使用 Transformer（Transformer)。你只需要将输入域标记化（tokenize)，然后就可以完成任务了。这样做的关键是将所有输入都视为文本标记（token)，然后用相同的方式处理所有内容。
+那么，如何将所有这些模态输入到 Transformer 中，并可能从中预测这些模态呢？是否需要从根本上改变架构？我认为，很多人开始达成的共识是：你不需要改变架构，只需继续使用 Transformer（Transformer)。你只需要将输入域标记化（tokenize），然后就可以完成任务了。这样做的关键是将所有输入都视为文本标记（token），然后用相同的方式处理所有内容。
 
-例如，有一篇早期的论文提供了一个很好的图表，展示了如何将图像分割成整数。这些整数实际上就成为了图像的标记。这些标记可以是硬标记（hard token)，即强制它们为整数。它们也可以是软标记（soft token)，即不要求它们是离散的，但会强制这些表示通过类似自动编码器（autoencoder）中的瓶颈层。
+例如，有一篇早期的论文提供了一个很好的图表，展示了如何将图像分割成整数。这些整数实际上就成为了图像的标记。这些标记可以是硬标记（hard token），即强制它们为整数。它们也可以是软标记（soft token），即不要求它们是离散的，但会强制这些表示通过类似自动编码器（autoencoder）中的瓶颈层。
 
 另外，OpenAI 最近发布的 Sora 论文也值得一提。我认为这篇论文真正让许多人大开眼界，并在人工智能可能性方面激发了广泛的灵感。论文中有一个图表，简要讨论了大语言模型（LLM）如何使用文本标记，而 Sora 如何使用视觉补丁（visual patch)。
 
@@ -1590,7 +1590,7 @@ So that we can actually add a single individual character instead of just like a
 
 有关不稳定 token 的这些内容在任何官方文档中都没有记录，但有大量的代码在处理不稳定 token。而这些不稳定 token 恰恰就是我前面描述的那种情况。
 
-从完成 API（completion API）中，我们期望获得的是一种更加复杂的功能。例如，当我们输入「默认风格」并请求下一个 token（词元）序列时，我们实际上并不是想要精确地在现有列表后直接添加下一个 token。相反，我们是在尝试考虑多个 token，如果我们对这些 token 重新进行分词（tokenization)，它们将具有较高的出现概率。
+从完成 API（completion API）中，我们期望获得的是一种更加复杂的功能。例如，当我们输入「默认风格」并请求下一个 token（词元）序列时，我们实际上并不是想要精确地在现有列表后直接添加下一个 token。相反，我们是在尝试考虑多个 token，如果我们对这些 token 重新进行分词（tokenization），它们将具有较高的出现概率。
 
 这种方法使我们能够添加单个字符，而不仅仅是添加部分 token 列表之后的下一个完整 token。这个概念确实很难描述清楚。我建议你可以深入研究一下这个话题。它最终会演变成一个极其复杂和棘手的问题，而这个问题的根源在于分词机制。
 
