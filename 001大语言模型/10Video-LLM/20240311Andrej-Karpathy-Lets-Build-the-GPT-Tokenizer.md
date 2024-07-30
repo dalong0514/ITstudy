@@ -42,7 +42,7 @@ Later, we saw that the way we plug these tokens into the language model is by us
 
 在我们的实验中，我们取了数据集中的前 1000 个字符，并将它们编码成 token。由于我们是在字符级别上进行操作，所以最终得到了一个长度为 1000 的 token 序列。这种字符级的处理方式使得每个字符都对应一个 token，因此输入的字符数量与输出的 token 数量是相等的。
 
-接下来，我们了解到将这些 token（标记）输入到语言模型中的方法是使用嵌入表（embedding table)。假设我们有 65 个可能的 token，那么这个嵌入表就会有 65 行。简单来说，我们会为每个 token 分配一个整数，然后用这个整数在嵌入表中查找对应的行。这一行包含了可训练的参数，我们会通过反向传播（backpropagation）算法来训练这些参数。得到的向量随后会被输入到 Transformer 模型中，这就是 Transformer 模型理解每个 token 的方式。
+接下来，我们了解到将这些 token（标记）输入到语言模型中的方法是使用嵌入表（embedding table）。假设我们有 65 个可能的 token，那么这个嵌入表就会有 65 行。简单来说，我们会为每个 token 分配一个整数，然后用这个整数在嵌入表中查找对应的行。这一行包含了可训练的参数，我们会通过反向传播（backpropagation）算法来训练这些参数。得到的向量随后会被输入到 Transformer 模型中，这就是 Transformer 模型理解每个 token 的方式。
 
 为了更好地理解这个过程，我们可以将嵌入表想象成一本字典，每个 token 就像一个单词，而对应的行就是这个单词的详细解释。Transformer 模型通过查阅这本「字典」来理解每个 token 的含义，从而处理输入的文本。反向传播则是一种让模型不断改进这本「字典」的学习方法，使得模型对 token 的理解越来越准确。
 
@@ -512,7 +512,7 @@ What's happening here is that invalid start byte, that's because 128, the binary
 
 UnicodeDecodeError：'utf-8' 编解码器无法在位置 0 解码字节 0x80：无效的起始字节。
 
-这个错误表明，在使用 UTF-8 编码方式解码时，遇到了一个无效的字节序列。具体来说，字节 0x80 （十进制的 128）不是一个有效的 UTF-8 编码的起始字节。这就解释了为什么当我们尝试解码 128 这个值时会出现问题。
+这个错误表明，在使用 UTF-8 编码方式解码时，遇到了一个无效的字节序列。具体来说，字节 0x80（十进制的 128）不是一个有效的 UTF-8 编码的起始字节。这就解释了为什么当我们尝试解码 128 这个值时会出现问题。
 
 这到底是什么意思呢？要理解这个问题，我们需要回顾一下之前我简单提到的 UTF-8 编码。让我们看看维基百科上关于 UTF-8 的页面。
 
@@ -554,7 +554,7 @@ Again, try to maybe implement this yourself if you'd like a fun exercise. Pause 
 
 So again, there are many ways to do this. This is one of the ways that I came up with. The first thing we're going to do is we are going to take our text, encode it into UTF-8 to get the raw bytes. And then as before, we're going to call list on the bytes object to get a list of integers of those bytes. So those are the starting tokens. Those are the raw bytes of our sequence.
 
-现在，我们要进行反向操作。我们将实现这个箭头所表示的功能，即给定一个字符串，我们需要将其编码为词元（tokens)。这就是我们要关注的函数签名，它基本上应该输出一个由表示词元的整数组成的列表。
+现在，我们要进行反向操作。我们将实现这个箭头所表示的功能，即给定一个字符串，我们需要将其编码为词元（tokens）。这就是我们要关注的函数签名，它基本上应该输出一个由表示词元的整数组成的列表。
 
 如果你想要一个有趣的练习，不妨先尝试自己实现这个功能。你可以在这里稍作停顿思考一下，否则我将开始介绍我的解决方案。
 
@@ -574,9 +574,9 @@ At this point, we don't actually care how many times they occur in the sequence.
 
 因此，我们更倾向于在一开始就进行所有这些合并操作，而不是稍后再进行。这是因为后面的合并操作可能依赖于之前的合并结果。举个例子，某个特定的合并操作可能依赖于之前合并得到的 256 这个值。所以，如果我们要进行任何合并，我们必须按照从上到下的顺序进行。
 
-现在，我们预计要进行多次合并操作，所以我们要使用 "while true" 循环（一个无限循环，直到满足某个条件才会退出)。在这个循环中，我们想要找到一对连续的字节，这对字节根据我们的规则是允许合并的。
+现在，我们预计要进行多次合并操作，所以我们要使用 "while true" 循环（一个无限循环，直到满足某个条件才会退出）。在这个循环中，我们想要找到一对连续的字节，这对字节根据我们的规则是允许合并的。
 
-为了重用我们已经编写的一些功能，我打算重用 getStats 函数（getStats function)。回想一下，getStats 函数会计算我们的词元（token）序列中每个字节对出现的次数，并将结果以字典（dictionary，一种键值对的数据结构）的形式返回。这个字典将所有不同的字节对映射到它们在序列中出现的次数。
+为了重用我们已经编写的一些功能，我打算重用 getStats 函数（getStats function）。回想一下，getStats 函数会计算我们的词元（token）序列中每个字节对出现的次数，并将结果以字典（dictionary，一种键值对的数据结构）的形式返回。这个字典将所有不同的字节对映射到它们在序列中出现的次数。
 
 在这一点上，我们实际上并不关心这些字节对在序列中出现了多少次。我们只关心序列中存在哪些原始的字节对。因此，我只会使用字典的键（keys），也就是说，我只关心可能的合并候选集。这样做的目的是为了找出所有可能的合并选项，而不考虑它们的出现频率。
 
@@ -616,7 +616,7 @@ So if this pair is not in merges that was returned, then this is a signal for us
 
 在这里需要注意的是，这个函数可能会以如下方式失败：如果没有可合并的元素，那么 merges 中就不会有任何满足条件的项。此时，没有东西可以合并，所有的评估结果都会返回 float('inf')（表示无穷大）。在这种情况下，pair 可能会简单地成为 stats 中的第一个元素。
 
-然而，这个 pair 实际上并不是一个真正可合并的对。它之所以成为 stats 中的第一对，仅仅是因为所有的对在合并标准下都被评估为 float('inf')。因此，这个过程可能会失败，原因是没有更多可合并的对了。
+然而，这个 pair 实际上并不是一个真正可合并的对。它之所以成为 stats 中的第一对，仅仅是因为所有的对在合并标准下都被评估为 float('inf'）。因此，这个过程可能会失败，原因是没有更多可合并的对了。
 
 如果返回的 merges 中不包含这个 pair，这就向我们发出了一个信号：实际上已经没有什么可以合并的了。换句话说，没有任何一对元素可以再进行合并。在这种情况下，我们会跳出循环，因为没有其他东西可以合并了。
 
@@ -836,7 +836,7 @@ So basically the GPT-2 tokenizer really likes to have a space letter or space nu
 
 假设我们在这里有很多空格。这个机制的工作原理是：它会捕获除最后一个字符之外的所有空格。这样做的目的是将空格分离出来，直到但不包括最后一个字符，使得最后一个字符可以与空格 "u" 组合。
 
-这种做法的优点在于空格 "u" 是一个常见的词元（token)。如果这里没有额外的空格，你就只会得到空格 "u"。而如果我添加词元，即添加空格，我们仍然会有一个空格 "u"，但同时还会有所有这些额外的空白。
+这种做法的优点在于空格 "u" 是一个常见的词元（token）。如果这里没有额外的空格，你就只会得到空格 "u"。而如果我添加词元，即添加空格，我们仍然会有一个空格 "u"，但同时还会有所有这些额外的空白。
 
 基本上，GPT-2 分词器（tokenizer）非常偏好于空格加字母或空格加数字的组合。它会在这些组合前添加空格，这是它一贯的处理方式。这就是这个机制的用途。最后，作为最终的后备方案，我们还有空白字符的处理。这意味着如果有任何未被前面规则捕获的尾随空格，这个规则将会捕获它们。
 
@@ -876,7 +876,7 @@ Now, in the GPT-4 tokenizer, they changed the regular expression that they use t
 
 接下来，我想向你介绍 OpenAI 的 tiktoken 库，这是 OpenAI 官方的分词库。你可以通过 `pip install tiktoken` 命令来安装它，然后就可以使用它进行分词推理。再次强调，这个库只提供推理功能，不包含训练代码。
 
-我来演示一下如何使用它，非常简单。运行相关代码后，我们就能得到 GPT-2 或 GPT-4 模型使用的词元（token)。值得注意的是，这个分词器也被用于 GPT-4 模型。
+我来演示一下如何使用它，非常简单。运行相关代码后，我们就能得到 GPT-2 或 GPT-4 模型使用的词元（token）。值得注意的是，这个分词器也被用于 GPT-4 模型。
 
 具体来说，我们可以观察到 GPT-2 中的空白字符保持未合并状态，而在 GPT-4 中这些空白字符会合并。就像我们在这个例子中看到的，GPT-2 中所有空白字符都是未合并的，但在 GPT-4 中它们变成了合并状态。
 
@@ -934,13 +934,13 @@ So basically they are saving and loading the two variables that for us are also 
 
 接下来，我想简要地带你浏览一下 OpenAI 发布的 GPT2 encoder.py 文件。这就是我之前简单提到过的文件。这个文件相当短，到目前为止你应该能够相对轻松地理解它。
 
-让我们从文件的底部开始看。他们首先加载了两个文件：encoder.json 和 vocab.bpe，然后对这些文件进行了一些简单的预处理。之后，他们调用了一个名为 encoder 的对象，这个对象就是分词器（tokenizer)。
+让我们从文件的底部开始看。他们首先加载了两个文件：encoder.json 和 vocab.bpe，然后对这些文件进行了一些简单的预处理。之后，他们调用了一个名为 encoder 的对象，这个对象就是分词器（tokenizer）。
 
 现在，如果你想查看构成保存的分词器（tokenizer）的两个文件，你可以使用类似下面这样的代码。这段代码允许你下载并检查这两个文件。
 
-通过检查，你会发现他们代码中称为「编码器」（encoder）的部分，其实就等同于我们的词汇表（vocab)。回想一下，我们有一个 vocab 对象，它能够非常高效地进行解码，本质上是将整数转换为对应的字节。因此，我们的 vocab 就是他们所说的编码器。
+通过检查，你会发现他们代码中称为「编码器」（encoder）的部分，其实就等同于我们的词汇表（vocab）。回想一下，我们有一个 vocab 对象，它能够非常高效地进行解码，本质上是将整数转换为对应的字节。因此，我们的 vocab 就是他们所说的编码器。
 
-有趣的是，他们的 vocab.bpe 实际上对应的是我们的合并（merges)。他们的 bpe_merges，也就是基于 vocab.bpe 文件中数据的内容，最终等同于我们的 merges。
+有趣的是，他们的 vocab.bpe 实际上对应的是我们的合并（merges）。他们的 bpe_merges，也就是基于 vocab.bpe 文件中数据的内容，最终等同于我们的 merges。
 
 简而言之，他们保存和加载的两个变量，恰好就是对我们来说至关重要的 merges 变量和 vocab 变量。仅凭这两个变量，你就可以表示一个完整的分词器。而且，一旦你训练好这个分词器，你就可以同时进行编码和解码操作。
 
@@ -1006,7 +1006,7 @@ But if you go to tiktoken library, which is implemented in Rust, you will find a
 
 So these things are outside of the typical algorithm of byte pairing coding. So these special tokens are used pervasively, not just in basically base language modeling of predicting the next token in the sequence, but especially when it gets to later to the fine tuning stage and all of the ChatGPT sort of aspects of it, because we don't just want to delimit documents, we want to delimit entire conversations between an assistant and a user.
 
-我们可以访问 tiktokenizer，这是 GPT-2 的分词器，也就是我们之前一直在使用的代码。让我们在这里输入 "hello world how are you"，你会看到它被分解成不同的 token（词元)。现在，让我们看看当我输入 "end of text" 时会发生什么。
+我们可以访问 tiktokenizer，这是 GPT-2 的分词器，也就是我们之前一直在使用的代码。让我们在这里输入 "hello world how are you"，你会看到它被分解成不同的 token（词元）。现在，让我们看看当我输入 "end of text" 时会发生什么。
 
 注意观察，在我完成输入之前，这些词都被分解成不同的 token。"End of text" 仍然被拆分成单独的 token。但当我输入完成后，突然出现了编号为 50,256 的 token。这种情况的出现是因为这个过程并没有经过 BPE（字节对编码）的合并操作。
 
@@ -1046,7 +1046,7 @@ So basically there's some model surgery involved that you have to couple with th
 
 现在我们可以回顾之前提到的文件。我曾经提到在 tiktoken/ext/openai_public.py 文件中的 GPT-2 相关代码，其中包含词汇表、用于分割文本的模式，以及注册 GPT-2 中唯一的特殊 token 的部分。这个特殊 token 是「文本结束」（end of text）token，我们看到它有一个特定的 ID。
 
-在 GPT-4 的定义中，我们可以看到不仅分割模式发生了变化（正如我们之前讨论的），而且这个分词器中的特殊 token 也有所改变。我们仍然保留了 "文本结束" token，就像在 GPT-2 中一样，但我们还可以看到四个额外的 token："FIM_prefix"、"FIM_middle" 和 "FIM_suffix"。
+在 GPT-4 的定义中，我们可以看到不仅分割模式发生了变化（正如我们之前讨论的），而且这个分词器中的特殊 token 也有所改变。我们仍然保留了「文本结束」token，就像在 GPT-2 中一样，但我们还可以看到四个额外的 token："FIM_prefix"、"FIM_middle" 和 "FIM_suffix"。
 
 什么是 FIM？FIM 是「填充中间」（Fill In the Middle）的缩写。如果你想深入了解这个概念，可以参考相关论文，不过在本视频中我们不会详细讨论，因为这超出了我们的范围。此外，这里还有一个额外的特殊 token（用于标记特定含义的符号），它也是编码的一部分。
 
@@ -1055,6 +1055,8 @@ So basically there's some model surgery involved that you have to couple with th
 这新增的一行通常会被初始化为一些小的随机数，因为我们需要一个向量来代表这个新的 token。除此之外，你还需要修改 Transformer 的最后一层，确保最终投射到分类器（classifier）的那部分也相应地扩展了一位。
 
 所以基本上，如果你想添加特殊 token，你需要对模型进行一些调整，并将这些调整与分词器的变化相结合。这是一个非常常见的操作，特别是当人们想要对模型进行微调（fine-tune）时，比如将基础模型转变为像 ChatGPT 这样的聊天模型。
+
+#### 06
 
 Okay, so at this point you should have everything you need in order to build your own GPT-4 tokenizer. Now in the process of developing this lecture I've done that and I've published the code under this repository minbpe. 
 
@@ -1080,7 +1082,7 @@ So the first 256 are raw individual bytes, and then here I am visualizing the me
 
 And so this is the order in which things merged during GPT-4 training, and this is the merge order that we obtain in minbpe by training a tokenizer. And in this case, I trained it on a Wikipedia page of Taylor Swift, not because I'm a Swifty, but because that is one of the longest Wikipedia pages, apparently, that's available. But she is pretty cool.
 
-具体来说，你可以使用 GPT-4 （一种先进的大语言模型）的分词器对给定的字符串进行编码，得到相应的 token （标记，即文本的基本单位）。然后，你应该能够对完全相同的字符串进行编码和解码，从而恢复原始文本。除此之外，你还应该能够实现自己的训练函数。这是 tiktoken 库没有提供的功能 —— tiktoken 只提供了推理（inference）代码，但你应该编写自己的训练部分。Minbpe （另一个分词工具库）也实现了这一功能。
+具体来说，你可以使用 GPT-4（一种先进的大语言模型）的分词器对给定的字符串进行编码，得到相应的 token（标记，即文本的基本单位）。然后，你应该能够对完全相同的字符串进行编码和解码，从而恢复原始文本。除此之外，你还应该能够实现自己的训练函数。这是 tiktoken 库没有提供的功能 —— tiktoken 只提供了推理（inference）代码，但你应该编写自己的训练部分。Minbpe（另一个分词工具库）也实现了这一功能。
 
 这将使你能够训练自己的 token 词汇表。在 minbpe 的代码中，你可以看到可能获得的 token 词汇表的示例。在左边，我们可以看到 GPT-4 的合并（merges）操作。
 
@@ -1099,6 +1101,8 @@ So roughly speaking they look the same and they look the same because they're ru
 所以这里的区别，据我理解，主要来自训练集（training set）的不同。举个例子，因为我看到很多空白字符，我推测 GPT-4 的分词器训练集中可能包含了大量 Python 代码，而在这个维基百科页面中，这种情况就少得多。
 
 总的来说，这两个词汇表看起来很相似，这是因为它们运行的是相同的算法。当你训练自己的分词器时，你可能会得到类似的结果，具体取决于你使用的训练数据。
+
+#### 07
 
 Okay so we are now going to move on from TikToken and the way that OpenAI tokenizes its strings. We're going to discuss one more very commonly used library for working with tokenization in LLMs and that is SentencePiece.
 
@@ -1168,7 +1172,7 @@ But again, in the context of LLMs, I find that this is like a very spurious and 
 
 And so I think like it's really hard to define what an actual sentence is if you really dig into it and there could be different concepts of it in different languages or something like that. So why even introduce the concept? It doesn't honestly make sense to me, I would just prefer to treat a file as a giant stream of bytes.
 
-SentencePiece（一种分词工具）的另一个特点是引入了「句子」的概念。SentencePiece 的开发背景可以追溯到早期，当时有一种想法是在一系列独立的句子上训练分词器（tokenizer)。
+SentencePiece（一种分词工具）的另一个特点是引入了「句子」的概念。SentencePiece 的开发背景可以追溯到早期，当时有一种想法是在一系列独立的句子上训练分词器（tokenizer）。
 
 因此，SentencePiece 包含了许多与句子相关的参数，例如训练时使用的句子数量、最大句子长度、句子随机化等。在 SentencePiece 中，句子被视为独立的训练样本。
 
@@ -1184,11 +1188,11 @@ There's a few more things here that I'll come back to in a bit, and then there a
 
 So we can train and when I press train it's going to create this file tok400.model and tok400.vocab. I can then load the model file and I can inspect the vocabulary of it. And so we trained vocab size 400 on this text here. And these are the individual pieces, the individual tokens that sentencepiece will create.
 
-SentencePiece 对罕见的字符有很多处理方法，这里的「字符」指的是码点（code points)。我们稍后会详细讨论这一点。此外，它还有许多其他规则，主要用于分割数字、分割空白字符和数字，以及如何处理这些情况。
+SentencePiece 对罕见的字符有很多处理方法，这里的「字符」指的是码点（code points）。我们稍后会详细讨论这一点。此外，它还有许多其他规则，主要用于分割数字、分割空白字符和数字，以及如何处理这些情况。
 
 这些可以看作是一种合并规则。我认为这在某种程度上类似于 TikToken 使用正则表达式来分割不同类别。如果仔细观察 SentencePiece，你会发现它也有一些等效的功能，例如，同样可以分割数字等。
 
-接下来我还有一些内容稍后会详细讨论，其中包括一些可以自定义的特殊标记（token)。在这个系统中，有一些预设的特殊标记，包括未知词标记（UNK token)、句子开始标记、句子结束标记和填充标记（PAD token)。根据我的理解，未知词标记是必须存在的。除此之外，还有一些系统相关的设置。
+接下来我还有一些内容稍后会详细讨论，其中包括一些可以自定义的特殊标记（token）。在这个系统中，有一些预设的特殊标记，包括未知词标记（UNK token)、句子开始标记、句子结束标记和填充标记（PAD token）。根据我的理解，未知词标记是必须存在的。除此之外，还有一些系统相关的设置。
 
 现在我们可以开始训练模型了。当我点击训练按钮时，系统会创建两个文件：tok400.model 和 tok400.vocab。训练完成后，我可以加载这个模型文件并查看它的词汇表。在这个例子中，我们基于给定的文本训练了一个词汇量为 400 的模型。这个词汇表包含了分词工具 SentencePiece 创建的各个独立的标记。
 
@@ -1232,7 +1236,7 @@ But because byte_fallback is true, instead sentencepiece falls back to bytes. An
 
 让我们来看看这里发生了什么。对于 "Hello space" 这个输入，我们得到了对应的 token ID。对于韩语输入 "안녕하세요"，我们也得到了相应的 token ID。观察这些结果，我们可以注意到几个重要的点：
 
-首先，看看这些韩语字符。显然，它们不是训练集的一部分，所以 SentencePiece 遇到了在训练时没有见过的 Unicode 代码点，这些代码点没有与之对应的 token。因此，这些字符本应被标记为未知 token（unknown token，简称 unk token)。
+首先，看看这些韩语字符。显然，它们不是训练集的一部分，所以 SentencePiece 遇到了在训练时没有见过的 Unicode 代码点，这些代码点没有与之对应的 token。因此，这些字符本应被标记为未知 token（unknown token，简称 unk token）。
 
 但是，由于 `byte_fallback` 参数设置为 true，SentencePiece 采用了字节回退（byte fallback）机制。它将这些字符用 UTF-8 编码，然后使用特定的 token 来表示这些字节。这就是我们在结果中看到的情况。这些 token 实际上代表了 UTF-8 编码，而且它们的 ID 值比正常情况下要大 3，这是因为在词汇表的开头有三个特殊 token 占用了较小的 ID 值。
 
@@ -1272,7 +1276,7 @@ So feel free to sort of step through this and if you would like your tokenizatio
 
 接下来，我想为你展示一个有趣的现象。在解码单个 token（标记）时，你可能会注意到空格被显示为粗体下划线。说实话，我也不太确定为什么 SentencePiece（一种分词工具）要将空白字符转换成这种粗体下划线的形式。这可能是为了更好的可视化效果，但具体原因我也不是很清楚。
 
-不过，这里有一个值得注意的地方：为什么 "hello" 这个词前面会多出一个空格呢？这个额外的空格是从哪里来的？其实，这是因为我们设置了一个选项：add_dummy_prefix 为 true（真)。如果你查看文档，会发现这个选项的作用是 "在文本开头添加一个虚拟的空白，以便以完全相同的方式处理单独的 'world' 和 'hello world' 中的 'world'"。
+不过，这里有一个值得注意的地方：为什么 "hello" 这个词前面会多出一个空格呢？这个额外的空格是从哪里来的？其实，这是因为我们设置了一个选项：add_dummy_prefix 为 true（真）。如果你查看文档，会发现这个选项的作用是 "在文本开头添加一个虚拟的空白，以便以完全相同的方式处理单独的 'world' 和 'hello world' 中的 'world'"。
 
 那么，这个设置究竟是为了解决什么问题呢？让我们回到 TikTokenizer（一种用于 token 化的工具）的例子。你会发现，单独的 "world" 作为一个 token 的 ID 是 1917，而 "空格 + world" 的 ID 则是 14。这意味着对于语言模型来说，这两者是完全不同的 token。
 
@@ -1314,7 +1318,7 @@ And basically, as vocab_size increases, this embedding table, as I mentioned ear
 
 在这里，我们定义了 vocab_size。当时我们设置的值大约是 65，这是一个非常小的数字，在实际应用中这个数字会变得更大。你会发现 vocab_size 在大多数层中并没有频繁出现。事实上，它只在文件中的两个特定位置出现。
 
-当我们设计语言模型时，有一个重要的组成部分叫做 token 嵌入表（token embedding table)。这是一个二维数组，其中行数基本上等于词汇表大小（vocab_size)。词汇表中的每个元素，也就是每个 token，都对应着一个向量。这些向量是通过反向传播（backpropagation）算法来训练的。每个向量的维度是 n_embd，也就是 Transformer 模型中的通道数。
+当我们设计语言模型时，有一个重要的组成部分叫做 token 嵌入表（token embedding table）。这是一个二维数组，其中行数基本上等于词汇表大小（vocab_size）。词汇表中的每个元素，也就是每个 token，都对应着一个向量。这些向量是通过反向传播（backpropagation）算法来训练的。每个向量的维度是 n_embd，也就是 Transformer 模型中的通道数。
 
 随着词汇表大小的增加，这个嵌入表也会相应地增长，我们会不断地添加新的行。除此之外，在 Transformer 模型的末端，还有一个叫做 lm_head 的线性层。这个层在模型的最后被用来产生 logits（未归一化的预测概率），这些 logits 最终会转化为序列中下一个 token 的概率。
 
@@ -1400,9 +1404,9 @@ So that's just one example, but this could again be like an entire video, but ju
 
 因此，这篇论文提出了引入新 token 的方法。你可以想象有几个新的 token，将它们放在一个序列中，然后通过知识蒸馏（distillation）的方式来训练模型。在这个过程中，整个模型的参数保持不变，只训练这些新 token 的表示（即它们的嵌入向量）。优化的目标是使得使用这些新 token 的语言模型行为，与使用原本有效但很长的提示的模型行为保持一致。
 
-这是一种压缩技术，它可以将非常长的提示压缩成少量新的概要 token（gist tokens)。你可以先训练这个技术，然后在测试阶段抛弃原来的长提示，只使用这些新的 token。这些 token 可以代表原来的长提示，并且能够达到几乎相同的性能。
+这是一种压缩技术，它可以将非常长的提示压缩成少量新的概要 token（gist tokens）。你可以先训练这个技术，然后在测试阶段抛弃原来的长提示，只使用这些新的 token。这些 token 可以代表原来的长提示，并且能够达到几乎相同的性能。
 
-这种技术属于参数高效微调（parameter efficient fine-tuning）技术的一种。在这类技术中，模型的大部分参数基本上是固定不变的，不需要训练模型权重，也不需要训练 LoRa（一种低秩适应技术）或其他新参数。你只需要训练的参数就是这些 token 的嵌入表示（token embeddings)。
+这种技术属于参数高效微调（parameter efficient fine-tuning）技术的一种。在这类技术中，模型的大部分参数基本上是固定不变的，不需要训练模型权重，也不需要训练 LoRa（一种低秩适应技术）或其他新参数。你只需要训练的参数就是这些 token 的嵌入表示（token embeddings）。
 
 这只是众多技术中的一个例子。实际上，这个话题可以单独制作一整个视频。我提到这个例子，是想让你了解在这个领域中存在着广阔的设计空间，这些都可能值得我们在未来进行深入探索。
 
@@ -1416,13 +1420,13 @@ Also in this paper that came out from OpenAI, Soraa, which I think really blew t
 
 So again, they came up with a way to chunk videos into basically tokens with their own vocabularies and then you can either process discrete tokens say with autoregressive models or even soft tokens with diffusion models and all of that is sort of being actively worked on, actively designed and it's beyond the scope of this video but just something I wanted to mention briefly.
 
-接下来，我想简要讨论最近一个热门的研究方向。那就是如何构建能够同时处理多种输入形式的 Transformer 模型。这些模型不仅可以处理文本输入，还可以处理图像、视频、音频等多种形式的数据。这种能够处理多种数据形式的能力，我们称之为多模态处理（multi-modal processing)。
+接下来，我想简要讨论最近一个热门的研究方向。那就是如何构建能够同时处理多种输入形式的 Transformer 模型。这些模型不仅可以处理文本输入，还可以处理图像、视频、音频等多种形式的数据。这种能够处理多种数据形式的能力，我们称之为多模态处理（multi-modal processing）。
 
-那么，如何将所有这些模态输入到 Transformer 中，并可能从中预测这些模态呢？是否需要从根本上改变架构？我认为，很多人开始达成的共识是：你不需要改变架构，只需继续使用 Transformer（Transformer)。你只需要将输入域标记化（tokenize），然后就可以完成任务了。这样做的关键是将所有输入都视为文本标记（token），然后用相同的方式处理所有内容。
+那么，如何将所有这些模态输入到 Transformer 中，并可能从中预测这些模态呢？是否需要从根本上改变架构？我认为，很多人开始达成的共识是：你不需要改变架构，只需继续使用 Transformer（Transformer）。你只需要将输入域标记化（tokenize），然后就可以完成任务了。这样做的关键是将所有输入都视为文本标记（token），然后用相同的方式处理所有内容。
 
 例如，有一篇早期的论文提供了一个很好的图表，展示了如何将图像分割成整数。这些整数实际上就成为了图像的标记。这些标记可以是硬标记（hard token），即强制它们为整数。它们也可以是软标记（soft token），即不要求它们是离散的，但会强制这些表示通过类似自动编码器（autoencoder）中的瓶颈层。
 
-另外，OpenAI 最近发布的 Sora 论文也值得一提。我认为这篇论文真正让许多人大开眼界，并在人工智能可能性方面激发了广泛的灵感。论文中有一个图表，简要讨论了大语言模型（LLM）如何使用文本标记，而 Sora 如何使用视觉补丁（visual patch)。
+另外，OpenAI 最近发布的 Sora 论文也值得一提。我认为这篇论文真正让许多人大开眼界，并在人工智能可能性方面激发了广泛的灵感。论文中有一个图表，简要讨论了大语言模型（LLM）如何使用文本标记，而 Sora 如何使用视觉补丁（visual patch）。
 
 让我再次强调一下，研究人员发明了一种将视频分割成基本单元（称为 tokens）的方法，这些 tokens 有自己的词汇表。然后，你可以用自回归模型（autoregressive models）处理离散的 tokens，甚至可以用扩散模型（diffusion models）处理软 tokens。所有这些技术都在积极研究和开发中。虽然这些内容超出了本视频的范围，但我觉得简单提一下还是很有必要的。
 
@@ -1512,7 +1516,7 @@ And so your knowledge of these special tokens ends up being an attack surface po
 
 可能有人在调用 .encode 方法时，传入了允许使用的特殊字符，并允许在用户输入中使用「结束文本」作为特殊字符。但用户输入本质上是攻击者可控的文本，理想情况下，系统不应该从这种输入中解析或使用特殊标记，但看起来这里确实出了问题。
 
-因此，你对这些特殊标记的了解最终可能成为潜在的攻击面（attack surface)。如果你想要混淆大语言模型，可以尝试输入一些特殊标记，看看是否能碰巧破坏系统的某些功能。
+因此，你对这些特殊标记的了解最终可能成为潜在的攻击面（attack surface）。如果你想要混淆大语言模型，可以尝试输入一些特殊标记，看看是否能碰巧破坏系统的某些功能。
 
 Okay so this next one is a really fun one, the trailing whitespace issue. So if you come to playground and we come here to GPT 3.5 Turbo instruct. So this is not a chat model, this is a completion model. So think of it more like it's a lot more closer to a base model. It does completion. It will continue the token sequence.
 
@@ -1522,7 +1526,7 @@ We get a warning "Your text ends in a trailing space which causes worse performa
 
 So here's a tagline for an ice cream shop and then what does this look like in the actual training data? Suppose you found the completion in the training document somewhere on the internet and the LLM trained on this data. So maybe it's something like "Oh yeah maybe that's the tagline", that's a terrible tagline.
 
-接下来，我们要讨论一个非常有趣的问题：尾随空格问题。让我们来到 OpenAI 的 playground，选择 GPT-3.5 Turbo instruct 模型。需要注意的是，这不是一个聊天模型，而是一个补全模型（completion model)。你可以将它理解为更接近基础模型（base model）的存在。它的主要功能是进行文本补全，即继续生成 token（Token）序列。
+接下来，我们要讨论一个非常有趣的问题：尾随空格问题。让我们来到 OpenAI 的 playground，选择 GPT-3.5 Turbo instruct 模型。需要注意的是，这不是一个聊天模型，而是一个补全模型（completion model）。你可以将它理解为更接近基础模型（base model）的存在。它的主要功能是进行文本补全，即继续生成 token（Token）序列。
 
 假设我们有一个冰淇淋店的标语，我们希望模型能够继续这个序列。通常情况下，我们可以直接提交请求，模型就会生成一系列的 token。这很正常。但是，让我们做一个小实验：在冰淇淋店的标语后面加一个空格，然后再提交请求。
 
@@ -1582,7 +1586,7 @@ What you would like out of a completion API is something a lot more fancy like i
 
 So that we can actually add a single individual character instead of just like adding the next full token that comes after this partial token list. So this is very tricky to describe. And I invite you to maybe like look through this. It ends up being extremely gnarly and hairy kind of topic and it comes from tokenization fundamentally.
 
-我再次尝试了这个操作，这次它确实完成了任务，但随后出现了 "此请求可能违反我们的使用政策" 的提示。这被系统标记了。基本上就是出现了一些异常，你能感受到模型运行时的不正常状态。这是因为模型无法正确处理这种情况，它不知道如何完成这个任务，原因是这种情况在训练集中从未出现过。在训练集中，它总是以特定方式出现并被视为单个 token（词元)。
+我再次尝试了这个操作，这次它确实完成了任务，但随后出现了 "此请求可能违反我们的使用政策" 的提示。这被系统标记了。基本上就是出现了一些异常，你能感受到模型运行时的不正常状态。这是因为模型无法正确处理这种情况，它不知道如何完成这个任务，原因是这种情况在训练集中从未出现过。在训练集中，它总是以特定方式出现并被视为单个 token（词元）。
 
 这类问题要么是你只完成了下一个 token 的第一个字符，要么是你有长 token，但只出现了其中的一部分字符。所有这些都可以被归类为部分 token 的问题。
 
@@ -1622,7 +1626,7 @@ So in the tokenization dataset, there was a ton of Reddit data, potentially, whe
 
 Because it occurs many times in a tokenization dataset, these tokens would end up getting merged to a single individual token for that single Reddit user "solid gold Magikarp". So they would have a dedicated token in a vocabulary of, was it 50,000 tokens in GPT-2 that is devoted to that Reddit user.
 
-那么，究竟发生了什么？这里记录了各种异常行为。不仅仅是 "solid gold Magikarp"，还有许多其他的 token （在 AI 中指输入文本的基本单位）会触发类似的反应。基本上，存在一系列的 "触发词"。如果你询问模型这些触发词，或者仅仅在你的提示中包含它们，模型就会失控，表现出各种非常奇怪的行为。这些行为甚至包括违反典型安全准则和模型对齐（即确保 AI 系统的行为与人类价值观一致）的情况，比如模型会对用户进行反咒骂。
+那么，究竟发生了什么？这里记录了各种异常行为。不仅仅是 "solid gold Magikarp"，还有许多其他的 token（在 AI 中指输入文本的基本单位）会触发类似的反应。基本上，存在一系列的 "触发词"。如果你询问模型这些触发词，或者仅仅在你的提示中包含它们，模型就会失控，表现出各种非常奇怪的行为。这些行为甚至包括违反典型安全准则和模型对齐（即确保 AI 系统的行为与人类价值观一致）的情况，比如模型会对用户进行反咒骂。
 
 那么，这种现象是如何发生的，又为什么会出现呢？答案还是与分词（tokenization）有关。让我们深入了解一下："solid gold Magikarp" 实际上是一个 Reddit 用户的名字。具体来说，存在一个用户 `u/SolidGoldMagikarp`。虽然这个现象还没有被彻底研究过，但普遍认为的原因是：用于分词的数据集与用于训练实际语言模型的数据集存在显著差异。
 
@@ -1678,7 +1682,7 @@ There doesn't appear to be any additional content to continue organizing or corr
 
 对于当前的应用，我的最终建议是：如果可能的话，考虑在你的应用中重用 GPT-4 的 Token 和词汇表。使用 TikToken 库是个不错的选择，因为它是一个非常高效且优秀的库，特别适合用于字节对编码（Byte Pair Encoding，BPE）的推理过程。
 
-我也非常喜欢 TikToken 和 OpenAI 使用的字节级 BPE（Byte-Pair Encoding，字节对编码)。这种方法在处理文本时非常高效。如果出于某些原因，你想要从头开始训练自己的词汇表，那么我建议你使用 SentencePiece 工具中的 BPE 方法。SentencePiece 是一个用于文本分词和子词分割的开源工具，它提供了多种算法，包括 BPE。
+我也非常喜欢 TikToken 和 OpenAI 使用的字节级 BPE（Byte-Pair Encoding，字节对编码）。这种方法在处理文本时非常高效。如果出于某些原因，你想要从头开始训练自己的词汇表，那么我建议你使用 SentencePiece 工具中的 BPE 方法。SentencePiece 是一个用于文本分词和子词分割的开源工具，它提供了多种算法，包括 BPE。
 
 ### 参考资料
 
