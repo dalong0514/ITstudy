@@ -1276,17 +1276,19 @@ So feel free to sort of step through this and if you would like your tokenizatio
 
 接下来，我想为你展示一个有趣的现象。在解码单个 token（标记）时，你可能会注意到空格被显示为粗体下划线。说实话，我也不太确定为什么 SentencePiece（一种分词工具）要将空白字符转换成这种粗体下划线的形式。这可能是为了更好的可视化效果，但具体原因我也不是很清楚。
 
-不过，这里有一个值得注意的地方：为什么 "hello" 这个词前面会多出一个空格呢？这个额外的空格是从哪里来的？其实，这是因为我们设置了一个选项：add_dummy_prefix 为 true（真）。如果你查看文档，会发现这个选项的作用是 "在文本开头添加一个虚拟的空白，以便以完全相同的方式处理单独的 'world' 和 'hello world' 中的 'world'"。
+不过，这里有一个值得注意的地方：为什么 "hello" 这个词前面会多出一个空格呢？这个额外的空格是从哪里来的？其实，这是因为我们设置了一个选项：add_dummy_prefix 为 true。如果你查看文档，会发现这个选项的作用是「在文本开头添加一个虚拟的空白，以便以完全相同的方式处理单独的 'world' 和 'hello world' 中的 'world'」。
 
 那么，这个设置究竟是为了解决什么问题呢？让我们回到 TikTokenizer（一种用于 token 化的工具）的例子。你会发现，单独的 "world" 作为一个 token 的 ID 是 1917，而 "空格 + world" 的 ID 则是 14。这意味着对于语言模型来说，这两者是完全不同的 token。
 
 语言模型必须从数据中学习到，句子开头和句子中间的相同单词实际上是非常相似的概念。然而，在像 TikToken 这样的分词系统中，句子开头和中间的相同单词对语言模型来说可能看起来完全不同，模型必须学会识别它们本质上是相同的。
 
-为了解决这个问题，研究者们引入了一个叫做 "添加虚拟前缀"（add_dummy_prefix）的技术。这种预处理方法会在每个输入字符串的开头添加一个空格。这样做的目的是使句子开头和中间的相同单词在模型眼中变得一致。例如，无论 "world" 这个词出现在句子的哪个位置，它们都会变成 "空格 world"。这个预处理选项在很多模型中都被启用了。
+为了解决这个问题，研究者们引入了一个叫做「添加虚拟前缀」（add_dummy_prefix）的技术。这种预处理方法会在每个输入字符串的开头添加一个空格。这样做的目的是使句子开头和中间的相同单词在模型眼中变得一致。例如，无论 "world" 这个词出现在句子的哪个位置，它们都会变成 "空格 world"。这个预处理选项在很多模型中都被启用了。
 
 值得注意的是，Llama2（一个由 Meta 公司开发的大型语言模型）也使用了这个选项。这基本上概括了我想说的关于 SentencePiece（一种常用的分词工具）的预览，以及它与其他分词方法的不同之处。
 
 在这里，我提供了 Llama2 训练时使用的分词器的原始协议缓冲区（protocol buffer）表示。如果你希望你的分词结果与 Meta 的 Llama2 完全相同，你可以参考并使用这些设置，就像我在上面尝试做的那样。这些设置详细描述了分词器的各种参数和配置。
+
+#### 08
 
 And yeah that's I think that's it for this section. I think my summary for sentencepiece from all this is number one, I think that there's a lot of historical baggage in sentencepiece, a lot of concepts that I think are slightly confusing and I think potentially contain foot guns, like this concept of a sentence and its maximum length and stuff like that.
 
@@ -1301,6 +1303,8 @@ And unfortunately I have to say it's not very well documented, so it took me a l
 尽管如此，由于 SentencePiece 效率高，且能同时用于训练和推理，它在业界仍被广泛使用。它有一些独特之处，比如必须包含未知词元（unk token），以及其特殊的字节回退（byte fallbacks）处理方式等。然而，我并不认为它的设计特别优雅。
 
 遗憾的是，我不得不指出 SentencePiece 的文档质量不尽如人意。这导致我花费了大量时间来研究它，通过自行实验和数据可视化来真正理解其工作原理。因为在我看来，官方文档的质量确实有待提高。
+
+#### 09
 
 But it is a very nice repo that is available to you if you'd like to train your own tokenizer right now. Okay let me now switch gears again as we're starting to slowly wrap up here. I want to revisit this issue in a bit more detail of how we should set the vocab size and what are some of the considerations around it.
 
@@ -1410,6 +1414,8 @@ So that's just one example, but this could again be like an entire video, but ju
 
 这只是众多技术中的一个例子。实际上，这个话题可以单独制作一整个视频。我提到这个例子，是想让你了解在这个领域中存在着广阔的设计空间，这些都可能值得我们在未来进行深入探索。
 
+#### 10
+
 The next thing I want to briefly address is that I think recently there's a lot of momentum in how you actually could construct transformers that can simultaneously process not just text as the input modality, but a lot of other modalities. So be it images, videos, audio, et cetera.
 
 And how do you feed in all these modalities and potentially predict these modalities from a transformer? Do you have to change the architecture in some fundamental way? And I think what a lot of people are starting to converge towards is that you're not changing the architecture, you stick with the transformer, you just kind of tokenize your input domains and then call it a day and pretend it's just text tokens and just do everything else in an identical manner.
@@ -1430,6 +1436,8 @@ So again, they came up with a way to chunk videos into basically tokens with the
 
 让我再次强调一下，研究人员发明了一种将视频分割成基本单元（称为 tokens）的方法，这些 tokens 有自己的词汇表。然后，你可以用自回归模型（autoregressive models）处理离散的 tokens，甚至可以用扩散模型（diffusion models）处理软 tokens。所有这些技术都在积极研究和开发中。虽然这些内容超出了本视频的范围，但我觉得简单提一下还是很有必要的。
 
+#### 11
+
 Okay now that we have gone quite deep into the tokenization algorithm and we understand a lot more about how it works, let's loop back around to the beginning of this video and go through some of these bullet points and really see why they happen.
 
 So first of all, why can't my LLM spell words very well or do other spell-related tasks? So fundamentally this is because, as we saw, these characters are chunked up into tokens. Some of these tokens are actually fairly long.
@@ -1444,9 +1452,9 @@ My suspicion is that it wouldn't be very good at this and indeed it is not. It d
 
 首先，为什么大语言模型（LLM, Large Language Model）不擅长拼写单词或执行其他与拼写相关的任务呢？从根本上说，这是因为，正如我们所看到的，字符被分割成了 tokens。而且，有些 tokens 实际上相当长。
 
-举个例子，我查看了 GPT-4 的词汇表，找到了一个比较长的 token。"dot default style"（意为 "点默认样式"）居然被当作一个单独的 token。对于单个 token 来说，这包含了太多字符。我怀疑这个 token 中塞进了过多的信息。
+举个例子，我查看了 GPT-4 的词汇表，找到了一个比较长的 token。"dot default style"（意为「点默认样式」）居然被当作一个单独的 token。对于单个 token 来说，这包含了太多字符。我怀疑这个 token 中塞进了过多的信息。
 
-我猜测，模型在处理与单个 token（标记）拼写相关的任务时表现可能不会很好。为了验证这一点，我问了一个问题："在 'dot default style' 这个词中有多少个字母 'L'？" 需要说明的是，我的提问是经过刻意设计的。你可以看到，"default style" 在模型中会被视为一个单独的 token。这就是模型所能 "看到" 的信息。
+我猜测，模型在处理与单个 token（标记）拼写相关的任务时表现可能不会很好。为了验证这一点，我问了一个问题：「在 'dot default style' 这个词中有多少个字母 'L'？」需要说明的是，我的提问是经过刻意设计的。你可以看到，"default style" 在模型中会被视为一个单独的 token。这就是模型所能「看到」的信息。
 
 正如我所预料的，模型在这类任务中的表现确实不尽如人意。它实际上并不知道这个短语中确切的字母数量。模型认为有三个 "L"，但实际上如果我没有记错的话，应该有四个。这个结果显然不太理想。
 
@@ -1474,7 +1482,7 @@ And so you'll notice that, for example, addition is very sort of like, there's a
 
 But these numbers are represented completely arbitrarily based on whatever happened to merge or not merge during the tokenization process. There's an entire blog post about this that I think is quite good, "Integer Tokenization is Insane".
 
-举个例子，英语短语 "hello how are you" 由 5 个标记（token）组成，而它的翻译可能需要 15 个标记。这就是一个三倍的增加。再比如，韩语中的 "안녕하세요（annyeonghaseyo)" 基本上就是 "hello" 的意思，但它被分成了 3 个标记。这让我有点惊讶，因为这是一个非常常见的短语。它只是一个典型的 "你好" 问候语，却被分成了 3 个标记，而英语的 "hello" 只是单个标记。
+举个例子，英语短语 "hello how are you" 由 5 个标记（token）组成，而它的翻译可能需要 15 个标记。这就是一个三倍的增加。再比如，韩语中的 "안녕하세요(annyeonghaseyo)" 基本上就是 "hello" 的意思，但它被分成了 3 个标记。这让我有点惊讶，因为这是一个非常常见的短语。它只是一个典型的「你好」问候语，却被分成了 3 个标记，而英语的 "hello" 只是单个标记。
 
 所以基本上，在其他语言中，一切都变得更加冗长和分散，我认为这部分原因导致模型在非英语语言上表现更差。回到之前的话题，为什么大语言模型（LLM）在简单算术方面表现不佳？这与数字的标记化（tokenization）处理有关。
 
@@ -1568,11 +1576,11 @@ And so this is why I'm getting a warning again, because we're off the data distr
 
 让我们回到 "default style" 这个例子。我敢说，在模型的训练集中，"default style" 从未出现过没有「点」的形式。它总是将 "default.style" 作为一个整体来识别，因为这可能是某种函数或 API 的一部分（虽然我并不确切知道它的具体用途）。
 
-但我敢打赌，这种 token（词元）组合在模型的训练数据中几乎从未出现过，即便有也是极其罕见的。为了验证这一点，我将这段文本复制粘贴到这里，并尝试让模型续写。结果模型立即报错，显示："模型预测的输出以停止序列开始，导致没有实际输出。建议调整您的提示或停止序列。"
+但我敢打赌，这种 token（词元）组合在模型的训练数据中几乎从未出现过，即便有也是极其罕见的。为了验证这一点，我将这段文本复制粘贴到这里，并尝试让模型续写。结果模型立即报错，显示：「模型预测的输出以停止序列开始，导致没有实际输出。建议调整您的提示或停止序列。」
 
 这里发生的情况是，当我点击提交按钮时，模型立即生成了一个类似「文本结束」的 token。也就是说，它几乎立刻就预测到了停止序列。这就导致模型无法生成任何有效输出。
 
-这就是为什么我再次收到警告的原因。因为我们给出的输入已经超出了模型的训练数据分布范围，模型完全不知所措，开始随机预测一些毫无意义的内容。这种情况对模型来说就像是遇到了无法处理的异常输入。它从未见过这样的文本，感到十分困惑，所以直接预测出 "文本结束" 或类似的标记来结束处理。
+这就是为什么我再次收到警告的原因。因为我们给出的输入已经超出了模型的训练数据分布范围，模型完全不知所措，开始随机预测一些毫无意义的内容。这种情况对模型来说就像是遇到了无法处理的异常输入。它从未见过这样的文本，感到十分困惑，所以直接预测出「文本结束」或类似的标记来结束处理。
 
 I tried it again here and in this case it completed it but then for some reason "this request may violate our usage policies". This was flagged. Basically something just goes wrong and there's something like jank. You can just feel the jank because the model is extremely unhappy with just this and it doesn't know how to complete it because it's never occurred in a training set. In a training set it always appears like this and becomes a single token.
 
@@ -1586,7 +1594,7 @@ What you would like out of a completion API is something a lot more fancy like i
 
 So that we can actually add a single individual character instead of just like adding the next full token that comes after this partial token list. So this is very tricky to describe. And I invite you to maybe like look through this. It ends up being extremely gnarly and hairy kind of topic and it comes from tokenization fundamentally.
 
-我再次尝试了这个操作，这次它确实完成了任务，但随后出现了 "此请求可能违反我们的使用政策" 的提示。这被系统标记了。基本上就是出现了一些异常，你能感受到模型运行时的不正常状态。这是因为模型无法正确处理这种情况，它不知道如何完成这个任务，原因是这种情况在训练集中从未出现过。在训练集中，它总是以特定方式出现并被视为单个 token（词元）。
+我再次尝试了这个操作，这次它确实完成了任务，但随后出现了「此请求可能违反我们的使用政策」的提示。这被系统标记了。基本上就是出现了一些异常，你能感受到模型运行时的不正常状态。这是因为模型无法正确处理这种情况，它不知道如何完成这个任务，原因是这种情况在训练集中从未出现过。在训练集中，它总是以特定方式出现并被视为单个 token（词元）。
 
 这类问题要么是你只完成了下一个 token 的第一个字符，要么是你有长 token，但只出现了其中的一部分字符。所有这些都可以被归类为部分 token 的问题。
 
@@ -1597,6 +1605,8 @@ So that we can actually add a single individual character instead of just like a
 从完成 API（completion API）中，我们期望获得的是一种更加复杂的功能。例如，当我们输入「默认风格」并请求下一个 token（词元）序列时，我们实际上并不是想要精确地在现有列表后直接添加下一个 token。相反，我们是在尝试考虑多个 token，如果我们对这些 token 重新进行分词（tokenization），它们将具有较高的出现概率。
 
 这种方法使我们能够添加单个字符，而不仅仅是添加部分 token 列表之后的下一个完整 token。这个概念确实很难描述清楚。我建议你可以深入研究一下这个话题。它最终会演变成一个极其复杂和棘手的问题，而这个问题的根源在于分词机制。
+
+#### 12
 
 So maybe I can even spend an entire video talking about unstable tokens sometime in the future. Okay and I'm really saving the best for last. My favorite one by far is this "solid gold Magikarp". This comes from this blog post, "Solid Gold Magikarp" and this is internet famous now for those of us in LLMs.
 
@@ -1614,7 +1624,7 @@ So either you get evasion like "I'm sorry, I can't hear you" or you get a bunch 
 
 研究者注意到有一个看起来非常奇怪的 token 簇。这个簇中包含了一些奇怪的 tokens，比如 "atrot"、"eStream"、"fame"、"solid gold"、"Magikarp"、"signup message" 等。
 
-那么，这些 tokens 是从哪里来的？它们代表什么意思？比如 "solid gold Magikarp" 是什么？这些词组看起来毫无意义。研究者发现了大量类似的 tokens，随后他们发现情况比想象中更加有趣。如果你向大语言模型（LLM）询问这些 tokens 相关的问题，即使是一些非常简单的问题，比如「请你重复一遍'solid gold Magikarp' 这个字符串」，模型就会表现出各种异常行为，完全偏离了正常的运行轨道。
+那么，这些 tokens 是从哪里来的？它们代表什么意思？比如 "solid gold Magikarp" 是什么？这些词组看起来毫无意义。研究者发现了大量类似的 tokens，随后他们发现情况比想象中更加有趣。如果你向大语言模型（LLM）询问这些 tokens 相关的问题，即使是一些非常简单的问题，比如「请你重复一遍 'solid gold Magikarp' 这个字符串」，模型就会表现出各种异常行为，完全偏离了正常的运行轨道。
 
 因此，你要么会得到类似「对不起，我听不懂你在说什么」这样的回避回答，要么会得到一堆虚构的响应。有时甚至会收到侮辱性的回复。例如，当你询问关于 "streamer bot"（一种流媒体机器人）的信息时，模型可能会出人意料地开始辱骂你。或者，它会突然产生一些奇怪的幽默感。实际上，你通过询问一些非常简单的字符串，如 "at roth" 或 "solid gold Magikarp"（纯金鲤鱼王，来自宝可梦游戏），就能导致模型出现异常行为。
 
@@ -1626,7 +1636,7 @@ So in the tokenization dataset, there was a ton of Reddit data, potentially, whe
 
 Because it occurs many times in a tokenization dataset, these tokens would end up getting merged to a single individual token for that single Reddit user "solid gold Magikarp". So they would have a dedicated token in a vocabulary of, was it 50,000 tokens in GPT-2 that is devoted to that Reddit user.
 
-那么，究竟发生了什么？这里记录了各种异常行为。不仅仅是 "solid gold Magikarp"，还有许多其他的 token（在 AI 中指输入文本的基本单位）会触发类似的反应。基本上，存在一系列的 "触发词"。如果你询问模型这些触发词，或者仅仅在你的提示中包含它们，模型就会失控，表现出各种非常奇怪的行为。这些行为甚至包括违反典型安全准则和模型对齐（即确保 AI 系统的行为与人类价值观一致）的情况，比如模型会对用户进行反咒骂。
+那么，究竟发生了什么？这里记录了各种异常行为。不仅仅是 "solid gold Magikarp"，还有许多其他的 token（在 AI 中指输入文本的基本单位）会触发类似的反应。基本上，存在一系列的「触发词」。如果你询问模型这些触发词，或者仅仅在你的提示中包含它们，模型就会失控，表现出各种非常奇怪的行为。这些行为甚至包括违反典型安全准则和模型对齐（即确保 AI 系统的行为与人类价值观一致）的情况，比如模型会对用户进行反咒骂。
 
 那么，这种现象是如何发生的，又为什么会出现呢？答案还是与分词（tokenization）有关。让我们深入了解一下："solid gold Magikarp" 实际上是一个 Reddit 用户的名字。具体来说，存在一个用户 `u/SolidGoldMagikarp`。虽然这个现象还没有被彻底研究过，但普遍认为的原因是：用于分词的数据集与用于训练实际语言模型的数据集存在显著差异。
 
@@ -1662,7 +1672,7 @@ So prefer to use YAMLs over JSONs. And in general, the tokenization density is s
 
 举个例子，JSON 格式在 token 数量上通常比较密集，而 YAML 格式则更加节省 token。比如说，同样的数据用 JSON 表示可能需要 116 个 token，而用 YAML 表示只需要 99 个 token。这是一个相当可观的改进。
 
-在当前的 "token 经济" 中，我们往往需要为每个 token 付费。这不仅体现在上下文长度的限制上，还体现在处理结构化数据时的实际美元成本上。因此，选择更高效的数据表示方式可以帮助我们节省成本，提高效率。
+在当前的「token 经济」中，我们往往需要为每个 token 付费。这不仅体现在上下文长度的限制上，还体现在处理结构化数据时的实际美元成本上。因此，选择更高效的数据表示方式可以帮助我们节省成本，提高效率。
 
 因此，相比 JSON，我们更推荐使用 YAML 格式。总的来说，Token 密度（tokenization density）是一个需要持续关注和考虑的问题。你需要努力寻找高效的编码方案，在 TikTokenizer 上投入大量时间，并测量不同格式和设置下的 Token 效率。
 
