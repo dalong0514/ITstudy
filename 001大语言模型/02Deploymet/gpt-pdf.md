@@ -40,3 +40,5 @@ def gpt_pdf2txt():
 fitz-0.0.1.dev2
 
 解决方法：在一个新的虚拟环境里装 gptpdf 跑。
+
+补充：目前是放在虚拟环境 kaizhi 里的。
