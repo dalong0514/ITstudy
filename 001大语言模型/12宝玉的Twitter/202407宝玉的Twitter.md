@@ -4075,7 +4075,7 @@ Marp 的 VSCode 插件地址：https://marketplace.visualstudio.com/items?itemNa
 
 ### 163
 
-2024-07-27
+2024-07-29
 
 
 
@@ -4109,7 +4109,7 @@ OpenAI 据报道获得了微软 Azure 服务的折扣访问权限。然而，其
 
 ### 164
 
-2024-07-27
+2024-07-29
 
 
 Susan/STEM MOM
@@ -4131,449 +4131,357 @@ Susan/STEM MOM
 
 ### 165
 
-2024-07-27
+2024-07-29
 
+歸藏(guizang.ai)
+@op7418
+苹果的 AI 功能终于上了，Beta 18.1 更新之后就可以启用。
 
+不过手机只支持 iPhone 15 pro 和 max。
+
+我是无缘了，期待各位的体验。
 
 
 
 ### 166
 
-2024-07-02
+2024-07-29
 
+歸藏(guizang.ai)
+@op7418
+·
+8月30日
+还有高手。
 
+Magic 发布了一个具有 1 亿 Token 上下文的模型。
+
+1 亿 Token相当于大约 1000 万行代码或大约 750 本小说。
+
+LTM-2-mini 的序列维度算法比 Llama 3.1 405B中的注意力机制便宜大约 1000 倍。
+
+---
+
+Magic
+@magicailabs
+LTM-2-Mini is our first model with a 100 million token context window. That’s 10 million lines of code, or 750 novels.
+
+Full blog: https://magic.dev/blog/100m-token-context-windows
+
+Evals, efficiency, and more ↓
+
+[100M Token Context Windows — Magic](https://magic.dev/blog/100m-token-context-windows)
 
 
 
 ### 167
 
-2024-07-02
+2024-07-29
 
+Tom Huang
+@tuturetom
+就在刚刚！⚡由 
+@HamelHusain
+ 及 25+ 顶级机器学习专家联合打造的号称最好的 「LLM/大模型/深度学习」课程正式免费提供！🔥
 
+此课程之前的付费版本已帮助学生获得 3000+ 计算机学分或数千份工作👍🏻
 
+包括 PE，RAG，模型评估，微调构建 AI 应用等所有 40+ 课程内容和作业笔记
+
+---
+
+Hamel Husain
+@HamelHusain
+If you remember our Applied LLMs course, you'll love this.  Today, we are making all these resources available for free to everyone! 📚 
+
+We did extra work to add learning tracks, resources, and notes to each lesson to maximize your learning.   Link in next tweet
 
 
 ### 168
 
-2024-07-02
+2024-07-29
 
+Alex Albert
+@alexalbert__
+We just released our second developer course, which introduces the fundamentals of the Anthropic API.
 
+Let me walk you through what it covers:
 
 
 
 ### 169
 
-2024-07-02
+2024-07-29
 
+Andrej Karpathy
+@karpathy
+Found on r/aivideo this morning, beautiful and slightly stuck in my head. AI generated & human+AI colab on the lyrics per 
+@endlesstaverns
+ on YT.
 
+Anyone will be able to create beautiful videos. The future is already here it’s just unevenly distributed and unnecessarily difficult.
 
 
 
 ### 170
 
-2024-07-02
+2024-07-29
 
+小互
+@imxiaohu
+苹果发布Apple Intelligence 技术报告 
 
+其AI系统竟然是在Google TPU 集群上训练的😂
+
+苹果并未在技术报告中提及Google或Nvidia的名字，但指出其Apple Foundation Model（AFM）模型和AFM云端模型是在“云TPU集群”上训练的，这意味着苹果租用了云服务提供商的服务器进行计算。
+
+技术报告详细披露了Apple Foundation Model（AFM）模型和AFM云端模型的技术细节和训练以及评估结果情况。
+
+详细报告内容：https://xiaohu.ai/p/12123
 
 
 
 ### 171
 
-2024-07-02
+2024-07-29
 
+宝玉
+@dotey
+一个 RAG 技巧：对用户查询进行重写
 
+比如说有一段历史会话：
 
+> 用户：John Doe 上次从我们这里买东西是什么时候？
+> AI：John 上次是两周前的2030年1月3日，从我们这里买了一顶 Fruity Fedora 帽子。
+> 用户：那 Emily Doe 呢？
+
+最后一个问题，“那 Emily Doe 呢？”，是模糊的。如果你直接用这个查询来检索文档，可能会得到无关的结果。你需要重写这个查询以反映用户实际在问什么。新的查询应该有意义。
+
+最后一个问题应该被重写为：“Emily Doe 上次从我们这里买东西是什么时候？”
+
+这种查询重写需要借助 LLM 来做，提示词：
+
+> 给定以下对话，重写最后一个用户输入以反映用户实际在问什么： 
+>【历史会话】
 
 
 ### 172
 
-2024-07-02
+2024-07-29
 
+宝玉
+@dotey
+Meta 发布了新一代的视频和图像分割模型 SAM 2（Segment Anything Model 2），比起第一代的图像分割模型，SAM 2是一种统一模型，可以在图像和视频中实现实时提示对象分割，并达到最先进的性能。Meta 将以 Apache 2.0 许可证共享代码和模型权重文件，同时还将共享SA-V 数据集，该数据集包括约 51,000 个现实世界视频和超过 600,000 个掩码（时空掩码 spatio-temporal masks）。
 
+SAM 2 可以分割任何视频或图像中的任何对象，即使是之前从未见过的对象和视觉领域的任何内容，从而无需自己训练和适配即可用于多种用途。
+
+从应用场景来说，SAM 2 的输出可以与生成视频模型一起使用，可以创建新的视频效果从而产生新的创意应用；SAM 2 还可以帮助更快的标注工视觉数据。
+
+详细介绍：https://ai.meta.com/blog/segment-anything-2
+中文译文：https://baoyu.io/translations/meta/introducing-sam2-next-gen-meta-segment-anything-model
 
 
 
 ### 173
 
-2024-07-02
+2024-07-29
 
+Ethan Mollick
+@emollick
+A common cause of error when people use LLMs for serious work is that they don’t know what is in the context window. They assume when they upload a PDF the AI can read it. Instead, either it fails to parse or is only partially read, causing hallucinations
 
+The UX should be better
 
+---
 
+Ethan Mollick
+@emollick
+The long-term fate of OpenAI & Anthropic is dependent on 3 factors:
+1) Whether next generation models continue to represent leaps in ability (we will know soon)
+2) Whether Meta is willing to release future advanced models open
+3) Whether AGI-ish AI is as achievable as they think
+
+---
+
+Ethan Mollick
+@emollick
+Sure, Claude can code in Python, but more importantly it does a pretty good job creating mods for Europa Universalis.
+
+(Democratizing access to creating new things is a really interesting, under-discussed feature of LLMs)
 
 ### 174
 
-2024-07-02
+2024-07-31
 
+Yadong Xie
+@yadong_xie
+终于解决了 twitter 上分享长图糊成一团的问题
 
+现在无论总结内容有长，http://elmo.chat 生成的图片都能自动适配，刚刚好填满你的手机屏幕
+
+自动适配前 vs 自动适配后
 
 
 
 ### 175
 
-2024-07-02
+2024-07-31
 
+Asuka✨快乐小熊猫
+@VoidAsuka
+GraphRAG的概念很简单，但是比起普通RAG起到的效果是革命性的。这个thread会分享我一周GraphRAG入门到实践的心得。
+什么是GraphRAG:本质上是VectorDB+GraphDB的结合，vector search返回的不是chunk，而是图中的node，然后可以从这个node开始进行遍历，返回topk nodes以及它们邻接节点或n度节点的数据的。
+1/n
 
+---
 
-
+Asuka✨快乐小熊猫
+@VoidAsuka
+两篇入门这个概念的好文章：
+中文：https://siwei.io/graph-rag/ 
+英文：https://medium.com/singapore-gds/from-conventional-rag-to-graph-rag-a0202a1aaca7
+2/n
 
 ### 176
 
-2024-07-02
+2024-07-31
 
 
+歸藏(guizang.ai)
+@op7418
+我擦 这个项目牛皮。
+
+教 Claude 生成 Comfyui 的工作流 json 文件。
+
+如果搞定的话就不用自己搭工作流了。
+
+他们的实验项目是让 Claude 生成用 face ID 合并两张脸的工作流，看起来搞定了。
 
 
 
 ### 177
 
-2024-07-02
+2024-07-31
 
 
+歸藏(guizang.ai)
+@op7418
+Meta 昨天才发布的 SAM 2 分割模型，kijai 就已经把 comfyui 插件搞得差不多了。
+
+离谱，不过现在还是测试阶段，可以等他搞完了再说。
 
 
 
 ### 178
 
-2024-07-02
+2024-07-31
 
 
+
+歸藏(guizang.ai)
+@op7418
+苹果发布了一篇 67 页的论文。
+
+详细介绍了他们 AI 系统的全部架构。相当的坦诚了。
+
+Apple为其智能功能开发的两个基础语言模型 - AFM-on-device(约30亿参数)和AFM-server(更大的服务器模型)。
+
+详细描述了模型架构、训练数据、训练过程、推理优化和评估结果。
 
 
 
 ### 179
 
-2024-07-02
+2024-07-31
 
+未完成
+@bluebird0605
+最近晚上洗碗开始听红杉（Sequoia）资本的这档播客，邀请的嘉宾包括微软、Google Deepmind、Meta 等产品负责人或工程师，聊大模型的产品、应用和市场。
+
+- 播客：https://open.spotify.com/show/3UrDMnInpYog0hc2QCHAXk?si=V4nc84bZQtKNflWe7sS8Jw
+
+- 视频版：https://youtube.com/playlist?list=PLOhHNjZItNnMm5tdW61JpnyxeYH5NDDx8&si=ug4OCjIQeR5BlRfd
 
 
 
 
 ### 180
 
-2024-07-02
+2024-07-31
 
+大帅老猿
+@ezshine
+m 芯片 mac玩 AI 出图！强烈推荐这个多平台 SD 的一键安装包，无论你是 win 还是 mac 还是 linux，都是下载即用，绝对节省大把时间。
+
+我反正把我之前手动装的都删了。
+https://github.com/LykosAI/StabilityMatrix
 
 
 
 
 ### 181
 
-2024-07-02
+2024-07-31
 
 
+Tom Huang
+@tuturetom
+推上有个老哥 
+@rileybrown_ai
+ 录制了他使用 Claude 3.5 Sonnet 完成全栈网站的开发+部署过程，耗时数个小时，剪辑之后仍有 3 个小时 😂😂
+
+核心是可以（for 产品经理）了解和学习真实的人与 AI 交互协作完成完整工程的过程，包括了解技术概念、文件作用、提供什么上下文可以成功提生成想要的内容！
 
 
 
 ### 182
 
-2024-07-02
+2024-07-31
 
+宝玉
+@dotey
+在 LinkedIn 这个 AI 产品架构中，有一个重要的模块叫 路由（Routing），这通常是当应用比较复杂，需要用不同的专业模型或者智能体来处理不同的任务，比如当用户希望获得简历方面的建议，就可以交给简历评估的智能体负责；当用户希望获得某个公司的资讯，就可以由专门的公司资讯智能体负责。
 
+这样做主要由几个好处：
+1. 可以对特定任务做优化，比如做简历评估的智能体可以根据目标公司和职位去实时检索出来招聘信息，结合简历做优化，甚至可以收集一些优质的简历微调一个模型
+2. 更容易做团队分工，就像 LinkedIn 这样每个小团队负责一个智能体
+3. 可以节约成本，根据任务的不同，有些简单的任务就不需要像 GPT-4 这样又贵又慢的模型处理，可以用 GPT-4o mini 这样的便宜模型
 
+路由通常是用“意图分类器（Intent Classification）”来实现，分类器根据用户的输入，预测用户试图做什么事，基于预测的意图，查询被路由到适当的解决方案。例如，对于一个客户支持聊天机器人，如果意图是：
+
+- 重置密码 –> 将该用户路由到有关密码重置的页面。
+- 纠正账单错误 –> 将该用户路由到人工操作员。
+- 排除技术问题 –> 将该查询路由到一个为故障排除微调的模型。
+
+意图分类器不仅可以用来路由到相应的解决方案，还可以作为安全护栏和请求过滤，当用户请求一些和产品无关的问题时，可以礼貌的拒绝，或者要求附加说明，没有必要进一步处理。
+
+意图分类器可以基于通用模型来实现，也可以用专门的分类模型，通常专门的分类模型会比通用模型更小更快，比如 LinkedIn 就是小的专用模型来做路由的。
+
+需要注意的事，路由只有当你的应用有复杂并有一定规模时才有必要，如果应用不复杂，也许不需要使用路由。
 
 
 ### 183
 
-2024-07-02
+2024-07-31
 
+小互
+@imxiaohu
+兄弟们这个牛P，视频无损压缩工具
 
+亲测非常有效，很厉害
 
+500M的直接压缩到36M 画质看起来变化不大
 
+而且无需注册，免费试用 🫡
+
+在线体验：https://tools.rotato.app/compress
+
+[Video file compressor](https://tools.rotato.app/compress)
 
 ### 184
 
-2024-07-02
-
-
-
-
-
-### 185
-
-2024-07-02
-
-
-
-
-
-### 186
-
-2024-07-02
-
-
-
-
-
-### 187
-
-2024-07-02
-
-
-
-
-
-### 188
-
-2024-07-02
-
-
-
-
-
-### 189
-
-2024-07-02
-
-
-
-
-
-### 190
-
-2024-07-02
-
-
-
-
-
-### 191
-
-2024-07-02
-
-
-
-
-
-### 192
-
-2024-07-02
-
-
-
-
-
-### 193
-
-2024-07-02
-
-
-
-
-
-### 194
-
-2024-07-02
-
-
-
-
-
-### 195
-
-2024-07-02
-
-
-
-
-
-### 196
-
-2024-07-02
-
-
-
-
-
-### 197
-
-2024-07-02
-
-
-
-
-
-### 198
-
-2024-07-02
-
-
-
-
-
-### 199
-
-2024-07-02
-
-
-
-
-
-### 200
-
-2024-07-02
-
-
-
-
-
-### 201
-
-2024-07-02
-
-
-
-
-
-### 202
-
-2024-07-02
-
-
-
-
-
-### 203
-
-2024-07-02
-
-
-
-
-
-### 204
-
-2024-07-02
-
-
-
-
-
-### 205
-
-2024-07-02
-
-
-
-
-
-### 206
-
-2024-07-02
-
-
-
-
-
-### 207
-
-2024-07-02
-
-
-
-
-
-### 208
-
-2024-07-02
-
-
-
-
-
-### 209
-
-2024-07-02
-
-
-
-
-
-### 210
-
-2024-07-02
-
-
-
-
-
-### 211
-
-2024-07-02
-
-
-
-
-
-### 212
-
-2024-07-02
-
-
-
-
-
-### 213
-
-2024-07-02
-
-
-
-
-
-### 214
-
-2024-07-02
-
-
-
-
-
-### 215
-
-2024-07-02
-
-
-
-
-
-### 216
-
-2024-07-02
-
-
-
-
-
-### 217
-
-2024-07-02
-
-
-
-
-
-### 218
-
-2024-07-02
-
-
-
-
-
-### 219
-
-2024-07-02
-
-
-
-
-
-### 220
-
-2024-07-02
-
-
-
-
-
+2024-07-31
+
+宝玉
+@dotey
+这个视频压缩网页，本质上和你本地运行 ffmpeg 没什么差别的，用的命令是：
+ffmpeg -i "input.mp4" -c:v libx264 -tag:v avc1 -movflags faststart -crf 30 -preset superfast "output.mp4"
