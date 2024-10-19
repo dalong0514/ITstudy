@@ -2,6 +2,56 @@
 
 [No Priors Ep. 80 | With Andrej Karpathy from OpenAI and Tesla - YouTube](https://www.youtube.com/watch?v=hM_h0UA7upI)
 
+Here's an outline of the key points from the interview，following the Minto Pyramid principle，in Chinese:
+
+\# 与 Andrej Karpathy 的对话要点
+
+\## 主要观点：AI 正在改变教育和人类认知的未来
+
+\### 1. AI 在自动驾驶领域的进展
+
+- Waymo 和 Tesla 在自动驾驶技术上各有优势
+
+- 自动驾驶技术从演示到大规模应用需要时间
+
+- Tesla 的软件优势可能使其在长期占据优势
+
+\### 2. 人形机器人的发展前景
+
+- 人形机器人与汽车技术有很多共通之处
+
+- 人形设计有利于人机交互和数据收集
+
+- 初期应用可能集中在工业和 B2B 领域
+
+\### 3. AI 模型的发展趋势
+
+- Transformer 架构是一个重要突破
+
+- 模型规模可能会缩小，专注于认知核心
+
+- 未来可能出现多个专门化 AI 模型协作的「公司」结构
+
+\### 4. AI 对教育的影响
+
+- AI 可以提供个性化、全球化的教育体验
+
+- 教育者角色将转变为课程设计者，AI 成为学生接口
+
+- 人类学习潜力可能被大幅提升
+
+\### 5. 对未来教育和职业发展的建议
+
+- 数学、物理、计算机科学等基础学科仍然重要
+
+- 终身学习将成为常态
+
+- 教育重点应放在培养思维能力上，而非记忆知识
+
+结论：AI 将深刻改变教育模式和人类认知能力，但人类仍需主动学习和适应以保持竞争力。
+
+---
+
 Here is the transcribed audio text split into logical paragraphs:
 
 Hi, listeners. Welcome back to No Priors. Today, we're hanging out with Andre Karpathy, who needs no introduction. Andre is a renowned researcher, beloved AI educator and Cuber, an early team member from OpenAI, the lead for Autopilot at Tesla, and now working on AI for Education. We'll talk to him about the state of research, his new company, and what we can expect from AI. Thanks a lot for joining us today. It's great to have you here.

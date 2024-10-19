@@ -122,6 +122,10 @@ https://8830-117-147-119-129.ngrok-free.app
 
 http://192.168.10.110:11434
 
+看运行状态的网址（2024-10-13）
+
+[Setup - ngrok](https://dashboard.ngrok.com/get-started/setup/macos)
+
 ### 本地模型文件的存储地址
 
 /Users/Daglas/.ollama/models/blobs/sha256-8934d96d3f08982e95922b2b7a2c626a1fe873d7c3b06e8e56d7bc0a1fef9246
