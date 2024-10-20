@@ -312,35 +312,35 @@ Thanks to Kevin Esvelt, Parag Mallick, Stuart Ritchie, Matt Yglesias, Erik Brynj
 
 To the winners of the 2024 Nobel prize in Chemistry, for showing us all the way.
 
-Footnotes
+### Footnotes
 
-1https://allpoetry.com/All-Watched-Over-By-Machines-Of-Loving-Grace
+1 https://allpoetry.com/All-Watched-Over-By-Machines-Of-Loving-Grace
 
-2I do anticipate some minority of people's reaction will be "this is pretty tame". I think those people need to, in Twitter parlance, "touch grass". But more importantly, tame is good from a societal perspective. I think there's only so much change people can handle at once, and the pace I'm describing is probably close to the limits of what society can absorb without extreme turbulence.
+2 I do anticipate some minority of people's reaction will be "this is pretty tame". I think those people need to, in Twitter parlance, "touch grass". But more importantly, tame is good from a societal perspective. I think there's only so much change people can handle at once, and the pace I'm describing is probably close to the limits of what society can absorb without extreme turbulence.
 
-3I find AGI to be an imprecise term that has gathered a lot of sci-fi baggage and hype. I prefer "powerful AI" or "Expert-Level Science and Engineering" which get at what I mean without the hype.
+3 I find AGI to be an imprecise term that has gathered a lot of sci-fi baggage and hype. I prefer "powerful AI" or "Expert-Level Science and Engineering" which get at what I mean without the hype.
 
-4In this essay, I use "intelligence" to refer to a general problem-solving capability that can be applied across diverse domains. This includes abilities like reasoning, learning, planning, and creativity. While I use "intelligence" as a shorthand throughout this essay, I acknowledge that the nature of intelligence is a complex and debated topic in cognitive science and AI research. Some researchers argue that intelligence isn't a single, unified concept but rather a collection of separate cognitive abilities. Others contend that there's a general factor of intelligence (g factor) underlying various cognitive skills. That's a debate for another time.
+4 In this essay, I use "intelligence" to refer to a general problem-solving capability that can be applied across diverse domains. This includes abilities like reasoning, learning, planning, and creativity. While I use "intelligence" as a shorthand throughout this essay, I acknowledge that the nature of intelligence is a complex and debated topic in cognitive science and AI research. Some researchers argue that intelligence isn't a single, unified concept but rather a collection of separate cognitive abilities. Others contend that there's a general factor of intelligence (g factor) underlying various cognitive skills. That's a debate for another time.
 
-5This is roughly the current speed of AI systems – for example they can read a page of text in a couple seconds and write a page of text in maybe 20 seconds, which is 10-100x the speed at which humans can do these things. Over time larger models tend to make this slower but more powerful chips tend to make it faster; to date the two effects have roughly canceled out.
+5 This is roughly the current speed of AI systems – for example they can read a page of text in a couple seconds and write a page of text in maybe 20 seconds, which is 10-100x the speed at which humans can do these things. Over time larger models tend to make this slower but more powerful chips tend to make it faster; to date the two effects have roughly canceled out.
 
-6This might seem like a strawman position, but careful thinkers like Tyler Cowen and Matt Yglesias have raised it as a serious concern (though I don't think they fully hold the view), and I don't think it is crazy.
+6 This might seem like a strawman position, but careful thinkers like Tyler Cowen and Matt Yglesias have raised it as a serious concern (though I don't think they fully hold the view), and I don't think it is crazy.
 
-7The closest economics work that I'm aware of to tackling this question is work on "general purpose technologies" and "intangible investments" that serve as complements to general purpose technologies.
+7 The closest economics work that I'm aware of to tackling this question is work on "general purpose technologies" and "intangible investments" that serve as complements to general purpose technologies.
 
-8This learning can include temporary, in-context learning, or traditional training; both will be rate-limited by the physical world.
+8 This learning can include temporary, in-context learning, or traditional training; both will be rate-limited by the physical world.
 
-9In a chaotic system, small errors compound exponentially over time, so that even an enormous increase in computing power leads to only a small improvement in how far ahead it is possible to predict, and in practice measurement error may degrade this further.
+9 In a chaotic system, small errors compound exponentially over time, so that even an enormous increase in computing power leads to only a small improvement in how far ahead it is possible to predict, and in practice measurement error may degrade this further.
 
-10Another factor is of course that powerful AI itself can potentially be used to create even more powerful AI. My assumption is that this might (in fact, probably will) occur, but that its effect will be smaller than you might imagine, precisely because of the "decreasing marginal returns to intelligence" discussed here. In other words, AI will continue to get smarter quickly, but its effect will eventually be limited by non-intelligence factors, and analyzing those is what matters most to the speed of scientific progress outside AI.
+10 Another factor is of course that powerful AI itself can potentially be used to create even more powerful AI. My assumption is that this might (in fact, probably will) occur, but that its effect will be smaller than you might imagine, precisely because of the "decreasing marginal returns to intelligence" discussed here. In other words, AI will continue to get smarter quickly, but its effect will eventually be limited by non-intelligence factors, and analyzing those is what matters most to the speed of scientific progress outside AI.
 
-11These achievements have been an inspiration to me and perhaps the most powerful existing example of AI being used to transform biology.
+11 These achievements have been an inspiration to me and perhaps the most powerful existing example of AI being used to transform biology.
 
-12"Progress in science depends on new techniques, new discoveries and new ideas, probably in that order." - Sydney Brenner
+12 "Progress in science depends on new techniques, new discoveries and new ideas, probably in that order." - Sydney Brenner
 
-13Thanks to Parag Mallick for suggesting this point.
+13 Thanks to Parag Mallick for suggesting this point.
 
-14I didn't want to clog up the text with speculation about what specific future discoveries AI-enabled science could make, but here is a brainstorm of some possibilities:
+14 I didn't want to clog up the text with speculation about what specific future discoveries AI-enabled science could make, but here is a brainstorm of some possibilities:
 
 — Design of better computational tools like AlphaFold and AlphaProteo — that is, a general AI system speeding up our ability to make specialized AI computational biology tools.
 
@@ -354,41 +354,32 @@ Footnotes
 
 — Better control over the immune system: turning it on selectively to address cancer and infectious disease, and turning it off selectively to address autoimmune diseases.
 
-15AI may of course also help with being smarter about choosing what experiments to run: improving experimental design, learning more from a first round of experiments so that the second round can narrow in on key questions, and so on.
+15 AI may of course also help with being smarter about choosing what experiments to run: improving experimental design, learning more from a first round of experiments so that the second round can narrow in on key questions, and so on.
 
-16Thanks to Matthew Yglesias for suggesting this point.
+16 Thanks to Matthew Yglesias for suggesting this point.
 
-17Fast evolving diseases, like the multidrug resistant strains that essentially use hospitals as an evolutionary laboratory to continually improve their resistance to treatment, could be especially stubborn to deal with, and could be the kind of thing that prevents us from getting to 100%.
+17 Fast evolving diseases, like the multidrug resistant strains that essentially use hospitals as an evolutionary laboratory to continually improve their resistance to treatment, could be especially stubborn to deal with, and could be the kind of thing that prevents us from getting to 100%.
 
-18Note it may be hard to know that we have doubled the human lifespan within the 5-10 years. While we might have accomplished it, we may not know it yet within the study time-frame.
+18 Note it may be hard to know that we have doubled the human lifespan within the 5-10 years. While we might have accomplished it, we may not know it yet within the study time-frame.
 
-19This is one place where I am willing, despite the obvious biological differences between curing diseases and slowing down the aging process itself, to instead look from a greater distance at the statistical trend and say "even though the details are different, I think human science would probably find a way to continue this trend; after all, smooth trends in anything complex are necessarily made by adding up very heterogeneous components.
+19 This is one place where I am willing, despite the obvious biological differences between curing diseases and slowing down the aging process itself, to instead look from a greater distance at the statistical trend and say "even though the details are different, I think human science would probably find a way to continue this trend; after all, smooth trends in anything complex are necessarily made by adding up very heterogeneous components.
 
-20As an example, I'm told that an increase in productivity growth per year of 1% or even 0.5% would be transformative in projections related to these programs. If the ideas contemplated in this essay come to pass, productivity gains could be much larger than this.
+20 As an example, I'm told that an increase in productivity growth per year of 1% or even 0.5% would be transformative in projections related to these programs. If the ideas contemplated in this essay come to pass, productivity gains could be much larger than this.
 
-21The media loves to portray high status psychopaths, but the average psychopath is probably a person with poor economic prospects and poor impulse control who ends up spending significant time in prison.
+21 The media loves to portray high status psychopaths, but the average psychopath is probably a person with poor economic prospects and poor impulse control who ends up spending significant time in prison.
 
-22I think this is somewhat analogous to the fact that many, though likely not all, of the results we're learning from interpretability would continue to be relevant even if some of the architectural details of our current artificial neural nets, such as the attention mechanism, were changed or replaced in some way.
+22 I think this is somewhat analogous to the fact that many, though likely not all, of the results we're learning from interpretability would continue to be relevant even if some of the architectural details of our current artificial neural nets, such as the attention mechanism, were changed or replaced in some way.
 
-23I suspect it is a bit like a classical chaotic system – beset by irreducible complexity that has to be managed in a mostly decentralized manner. Though as I say later in this section, more modest interventions may be possible. A counterargument, made to me by economist Erik Brynjolfsson, is that large companies (such as Walmart or Uber) are starting to have enough centralized knowledge to understand consumers better than any decentralized process could, perhaps forcing us to revise Hayek's insights about who has the best local knowledge.
+23 I suspect it is a bit like a classical chaotic system – beset by irreducible complexity that has to be managed in a mostly decentralized manner. Though as I say later in this section, more modest interventions may be possible. A counterargument, made to me by economist Erik Brynjolfsson, is that large companies (such as Walmart or Uber) are starting to have enough centralized knowledge to understand consumers better than any decentralized process could, perhaps forcing us to revise Hayek's insights about who has the best local knowledge.
 
-24Thanks to Kevin Esvelt for suggesting this point.
+24T hanks to Kevin Esvelt for suggesting this point.
 
-25For example, cell phones were initially a technology for the rich, but quickly became very cheap with year-over-year improvements happening so fast as to obviate any advantage of buying a "luxury" cell phone, and today most people have phones of similar quality.
+25 For example, cell phones were initially a technology for the rich, but quickly became very cheap with year-over-year improvements happening so fast as to obviate any advantage of buying a "luxury" cell phone, and today most people have phones of similar quality.
 
-26This is the title of a forthcoming paper from RAND, that lays out roughly the strategy I describe.
+26 This is the title of a forthcoming paper from RAND, that lays out roughly the strategy I describe.
 
-27When the average person thinks of public institutions, they probably think of their experience with the DMV, IRS, medicare, or similar functions. Making these experiences more positive than they currently are seems like a powerful way to combat undue cynicism.
+27 When the average person thinks of public institutions, they probably think of their experience with the DMV, IRS, medicare, or similar functions. Making these experiences more positive than they currently are seems like a powerful way to combat undue cynicism.
 
-28Indeed, in an AI-powered world, the range of such possible challenges and projects will be much vaster than it is today.
+28 Indeed, in an AI-powered world, the range of such possible challenges and projects will be much vaster than it is today.
 
-29I am breaking my own rule not to make this about science fiction, but I've found it hard not to refer to it at least a bit. The truth is that science fiction is one of our only sources of expansive thought experiments about the future; I think it says something bad that it's entangled so heavily with a particular narrow subculture.
-
-Back to top
-
-Enter your email
-
-Subscribe for future updates
-
-Privacy policy
-
+29 I am breaking my own rule not to make this about science fiction, but I've found it hard not to refer to it at least a bit. The truth is that science fiction is one of our only sources of expansive thought experiments about the future; I think it says something bad that it's entangled so heavily with a particular narrow subculture.

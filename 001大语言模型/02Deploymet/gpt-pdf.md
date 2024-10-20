@@ -4,6 +4,8 @@
 
 [daodao97/gptpdf-ui: Using GPT to parse PDF](https://github.com/daodao97/gptpdf-ui)
 
+python3.10 gptpdf2txt.py
+
 ### 部署记录
 
 跑服务：

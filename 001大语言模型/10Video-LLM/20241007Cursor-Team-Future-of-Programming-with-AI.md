@@ -1,526 +1,363 @@
 ## 20241007Cursor-Team-Future-of-Programming-with-AI
 
-发言人 1 00：52 And now，dear friends，here's Michael Sule，Arvid，and Aman. All right，this is awesome. We have Michael Aman Swale，Arvid here from
+发言人 1 00：52 
 
-the cursor team. First up，big ridiculous question，what's the point of a codeeditor? 
+And now，dear friends，here's Michael Sule，Arvid，and Aman. All right，this is awesome. We have Michael Aman Swale，Arvid here from the cursor team. First up，big ridiculous question，what's the point of a codeeditor? 
 
-现在，亲爱的朋友们，这是迈克尔·苏尔、阿维德和一个人。好吧，这太棒了。我们有来自 Cursor 团队的迈克尔·阿曼·斯维尔和阿尔维德。首先，一
+现在，亲爱的朋友们，这是迈克尔·苏尔、阿维德和一个人。好吧，这太棒了。我们有来自 Cursor 团队的迈克尔·阿曼·斯维尔和阿尔维德。首先，一个荒谬的大问题，代码编辑器的意义是什么？
 
-个荒谬的大问题，代码编辑器的意义是什么？
+发言人 2 01：10 
 
-发言人 2 01：10 So the code editor is largely the place where you build
+So the code editor is largely the place where you build software and today or for a long time，that's meant the place where you text，edit a formal programming language. And for people who aren't programmers，the way to think of a code editor is like a really souped up word processor for programmers，where the reason is it's souped up is code has a lot of structure. And so the quote unquote word processor，the code editor can actually do a lot for you that word processors，you know, sort of in the writing space haven't been able to do for people editing text there. And so，you know，that's everything from giving you visual differentiation of like the actual tokens in the code so you can scan it quickly to letting you navigate around the code base，sort of like you're navigating around the internet with like hyperlinks. You're going to sort of definitions of things that you're using to error checking，you know，to catch rudimentary bugs. And so traditionally，that's what a code editor has meant. I think that what a code editor is，is going to change a lot over the next 10 years as what it means to build software maybe starts to look a bit different. 
 
-software and today or for a long time，that's meant the place where you text，edit a formal programming language. And for people who aren't
+因此，代码编辑器在很大程度上是您构建软件的地方，而今天或很长一段时间，它意味着您编写文本，编辑正式编程语言的地方。对于非程序员来说，代码编辑器就像是一个专为程序员设计的加强版字处理器，原因是代码有很多结构。因此，所谓的文字处理器，即代码编辑器实际上可以为你做很多事情，而文字处理器，你知道，在写作领域中，对于那些在那里编辑文本的人来说，是无法做到的。所以，你知道，这包括从给你代码中实际标记的视觉区分，以便你可以快速扫描它，到让你在代码库中导航，有点像你使用超链接在互联网上导航一样。你将会对你用来进行错误检查的东西进行分类定义，以捕捉基本的错误。传统上，这就是代码编辑器的含义。我认为代码编辑器是什么，在未来 10 年中会发生很大的变化，因为构建软件的意义可能开始看起来有些不同。
 
-programmers，the way to think of a code editor is like a really souped up
+发言人 1 02：16 
 
-word processor for programmers，where the reason is it's souped up is
+I think also coded should just be fun. 
 
-code has a lot of structure. And so the quote unquote word processor，the
+我认为编码也应该很有趣。
 
-code editor can actually do a lot for you that word processors，you know,
+发言人 3 02：19 
 
-sort of in the writing space haven't been able to do for people editing text there. And so，you know，that's everything from giving you visual
+Yes，that is very important. That is very important. And it's actually sort of an underrated aspect of how we decide what to build. Like a lot of the things we build，and then we try them out，we do an experiment，and then we actually throw them out because they're not fun. And so a big part of being fun is like being fast. A lot of the time，fast is fun. 
 
-differentiation of like the actual tokens in the code so you can scan it quickly to letting you navigate around the code base，sort of like you're navigating around the internet with like hyperlinks. You're going to sort of definitions of things that you're using to error checking，you know，to catch rudimentary
+是的，这非常重要。这非常重要。这实际上是我们如何决定建造什么的一个被低估的方面。
 
-bugs. And so traditionally，that's what a code editor has meant. I think that
+就像我们建造的很多东西一样，然后我们尝试一下，做一个实验，然后我们实际上把它们扔掉了，因为它们不好玩。所以快乐的很大一部分就像是快速。很多时候，快速是一种乐趣。
 
-what a code editor is，is going to change a lot over the next 10 years as what it means to build software maybe starts to look a bit different. 因此，代码编辑器在很大程度上是您构建软件的地方，而今天或很长一段时间，它意味着您
+发言人 1 02：42 
 
-编写文本，编辑正式编程语言的地方。对于非程序员来说，代码编辑器就像是
+Yeah，that，yeah，that should be a T shirt. 
 
-一个专为程序员设计的加强版字处理器，原因是代码有很多结构。因此，所谓
+是的，那应该是一件 T 恤。
 
-的文字处理器，即代码编辑器实际上可以为你做很多事情，而文字处理器，你
+发言人 2 02：48 
 
-知道，在写作领域中，对于那些在那里编辑文本的人来说，是无法做到的。所
+Like fundamentally，I think one of the things that draws a lot of people to building stuff on computers is this like insane integration speed where，you know，in other disciplines，you might be sort of gate cappella by resources or the ability，even the ability，you know，to get a large group together. And coding is this like amazing thing where it's you in the computer and that alone can you can build really cool stuff really quickly. 
 
-以，你知道，这包括从给你代码中实际标记的视觉区分，以便你可以快速扫描它，到让你在代码库中导航，有点像你使用超链接在互联网上导航一样。你将
+从根本上讲，我认为吸引很多人在计算机上构建东西的原因之一就是这种疯狂的集成速度，你知道，在其他学科中，你可能会因为资源或能力而被拒绝，甚至能力，你知道，聚集一大群人。而编码就是这样一件令人惊奇的事情，你在电脑中，仅凭这一点，你就可以非常快速地构建出非常酷的东西。
 
-会对你用来进行错误检查的东西进行分类定义，以捕捉基本的错误。传统上，
+发言人 1 03：09 
 
-这就是代码编辑器的含义。我认为代码编辑器是什么，在未来 10 年中会发生很
+So for people to know cursor is this super cool new editor that's a fork of Vs code，it would be interesting to get your kind of explanation of your own journey of editors. How did you? I think all of you or were big fans of Vs Code with Copilot，how did you arrive to Vs Code and how did that lead to your journey with Cursor. 
 
-大的变化，因为构建软件的意义可能开始看起来有些不同。
+因此，为了让人们知道 Cursor 是这个超酷的新编辑器，它是 Cursor 的分支，获得您自己的编辑旅程的解释将会很有趣。你怎么了？我认为你们所有人都是 Cursor 和 Copilot 的忠实粉丝，你们是如何接触到 Cursor 的，以及这如何导致你的 Cursor 之旅的。
 
-发言人 1 02：16 I think also coded should just be fun. 我认为编码也应该很有趣。
+发言人 4 03：33 
 
-发言人 3 02：19 Yes，that is very important. That is very important. And it's
+yeah? I think a lot of us，all of us were originally Vim users.
 
-actually sort of an underrated aspect of how we decide what to build. Like a lot of the things we build，and then we try them out，we do an experiment，and then we actually throw them out because they're not fun. And so a big part of being fun is like being fast. A lot of the time，fast is fun. 是的，这非常重要。这非常重要。这实际上是我们如何决定建造什么的一个被低估的方面。
+Pure，pure，pure vim. Yeah，no neo vim，just pure vim in a terminal. And at least，at least for myself，it was around the time that Copilot came out，so 2021 that I really wanted to try it. So I went into Vscode，the only platform，the only code editor in which it was available. And even though l，you know，really enjoyed using Vim，just the experience of Copilot with with Vs Code was more than good enough to convince me to switch. And so that kind of was the default until we started working on cursor. 
 
-就像我们建造的很多东西一样，然后我们尝试一下，做一个实验，然后我们实
+是吗？我认为我们中的很多人，我们所有人最初都是 Vim 用户。纯净，纯净，纯净的 vim。是的，没有新 vim，只是终端中的纯 vim。至少对我自己来说，大约是 Copilot 出现的时候，2021 年我真的很想尝试一下。所以我进入了 Vscode，这是唯一可用的平台，唯一可用的代码编辑器。即使我真的很喜欢使用 Vim，只是 Copilot 与 Cursor 的体验足够好，足以说服我转换。所以在我们开始处理 Cursor 之前，这种情况是默认的。
 
-际上把它们扔掉了，因为它们不好玩。所以快乐的很大一部分就像是快速。很
+发言人 1 04：14 
 
-多时候，快速是一种乐趣。
+And maybe we should explain what Copilot does. It's like a really nice autocomplete. It suggests as you start writing a thing，it suggests one or two or three lines how to complete the thing. And there is a fun experience in that，you know，like when you have a close friendship and your friend completes your sentences，like when it's done well，there's an intimate feeling，there's probably a better word than intimate，but there's a，there's a cool feeling of like，holy shit，it gets me. 
 
-发言人 1 02：42 Yeah，that，yeah，that should be a T shirt. 是的，那应该是一件 T 恤。
+也许我们应该解释一下 Copilot 是做什么的。这就像是一个非常好的自动补全。它建议当你开始写一件事情时，它会建议一、两、三行如何完成这件事情。而且有一种有趣的经历，就像当你有一个亲密的友谊，你的朋友完成你的句子时，就像当它做得好时，有一种亲密的感觉，可能有一个比亲密更好的词，但是有一个，有一种很酷的感觉，天啊，它得到了我。
 
-发言人 2 02：48 Like fundamentally，I think one of the things that draws a lot of people to building stuff on computers is this like insane integration
+发言人 304：44
 
-speed where，you know，in other disciplines，you might be sort of gate
+now. 
 
-cappella by resources or the ability，even the ability，you know，to get a
+现在。
 
-large group together. And coding is this like amazing thing where it's you in the computer and that alone can you can build really cool stuff really
+发言人 1 04：44 
 
-quickly. 从根本上讲，我认为吸引很多人在计算机上构建东西的原因之一就是
+And then there's an unpleasant feeling when it doesn't get you. And so there's that that kind of friction，but the I would say for a lot of people，the feeling that it gets me overpowers that it doesn't. 
 
-这种疯狂的集成速度，你知道，在其他学科中，你可能会因为资源或能力而被拒绝，甚至能力，你知道，聚集一大群人。而编码就是这样一件令人惊奇的事
+当它没有得到你时，会有一种不愉快的感觉。所以就有那种摩擦，但我会说很多人觉得它让我压倒了它不会。
 
-情，你在电脑中，仅凭这一点，你就可以非常快速地构建出非常酷的东西。
+发言人 3 04：55 
 
-发言人 1 03：09 So for people to know cursor is this super cool new editor
+and I think actually one of the underrated aspects of GitHub Copilot is that even when it's wrong is it's like a little bit annoying，but it's not that bad because you just type another character and then maybe then it gets you or you type another character，and then then it gets you. So even when it's wrong is not that bad. 
 
-that's a fork of Vs code，it would be interesting to get your kind of
+我认为 GitHub Copilot 被低估的一个方面是，即使它是错误的，它也有点烦人，但它并不那么糟糕，因为你只是输入另一个角色，然后它可能会得到你，或者你输入另一个角色，然后它会得到你。所以即使它是错误的也不是那么糟糕。
 
-explanation of your own journey of editors. How did you? I think all of you or were big fans of Vs Code with Copilot，how did you arrive to Vs Code
+发言人 5 05：09 
 
-and how did that lead to your journey with Cursor. 因此，为了让人们知道
+Yeah，you can sort of iterate，iterate and fix it. I mean，the other underrated part of Copilot for me sort of was just the first real，real Al product. It's like the first language model，consumer product. 
 
-Cursor 是这个超酷的新编辑器，它是 Cursor 的分支，获得您自己的编辑旅程的解释将会很有趣。你怎么了？我认为你们所有人都是 Cursor 和 Copilot 的忠实粉丝，你们是如何接触到 Cursor 的，以及这如何导致你的 Cursor 之旅的。
+是的，你可以迭代，迭代并修复它。我的意思是，Copilot 中另一个被低估的部分就是第一个真正的 AI 产品。这就像第一种语言模型，消费者产品。
 
-发言人 4 03：33 yeah? I think a lot of us，all of us were originally Vim users.
+发言人 1 05：21 
 
-Pure，pure，pure vim. Yeah，no neo vim，just pure vim in a terminal. And at least，at least for myself，it was around the time that Copilot came out，so
+So copil was kind of like the first killer app for LLMs. 
 
-2021 that I really wanted to try it. So I went into Vscode，the only platform，the only code editor in which it was available. And even though l，you know，really enjoyed using Vim，just the experience of Copilot with with Vs Code was more than good enough to convince me to switch. And so that kind of was the default until we started working on cursor. 是吗？我认为我们中的很多人，我们所有人最初都是 Vim 用户。纯净，纯净，纯净的 vim。是的，没有新
+所以 copil 有点像 LLMs 的第一个杀手级应用程序。
 
-vim，只是终端中的纯 vim。至少对我自己来说，大约是 Copilot 出现的时候，
+发言人 205：27 
 
-2021 年我真的很想尝试一下。所以我进入了 Vscode，这是唯一可用的平台，
+and like the beta was out in 2021. 
 
-唯一可用的代码编辑器。即使我真的很喜欢使用 Vim，只是 Copilot 与 Cursor 的体验足够好，足以说服我转换。所以在我们开始处理 Cursor 之前，这种情况是
+就像测试版在 2021 年推出一样。
 
-默认的。
+发言人 1 05：29 
 
-发言人 1 04：14 And maybe we should explain what Copilot does. It's like a really nice autocomplete. It suggests as you start writing a thing，it suggests one or two or three lines how to complete the thing. And there is a fun
+right? Okay，so what's the origin story of cursor? 
 
-experience in that，you know，like when you have a close friendship and
+对吗？好的，那么 Cursor 的起源是什么？
 
-your friend completes your sentences，like when it's done well，there's an
+发言人 2 05：34 
 
-intimate feeling，there's probably a better word than intimate，but there's a，there's a cool feeling of like，holy shit，it gets me . 也许我们应该解释一下
+So around 2020， the scaling loss papers came out from from OpenAl and that was a moment where this looked like clear，predictable progress for the field，where even if we didn't have any more ideas，looks like you can make these models a lot better if you had more computing, more data. 
 
-Copilot 是做什么的。这就像是一个非常好的自动补全。它建议当你开始写一件
+因此，在 2020 年左右，OpenAI 发布了缩放损失论文，这是一个看起来清晰、可预测的领域进展的时刻，即使我们没有更多的想法，看起来如果你有更多的计算和数据，你可以让这些模型变得更好。
 
-事情时，它会建议一、两、三行如何完成这件事情。而且有一种有趣的经历，
+发言人 1 05：49 
 
-就像当你有一个亲密的友谊，你的朋友完成你的句子时，就像当它做得好时，
+By the way，we'l probably talk for 3 to 4 hours on the topic of scaling laws. But justjust to summarize，it's a paper and a set of papers，a set of ideas that say bigger might be better for model size and data size. In therealm of machine learning. 
 
-有一种亲密的感觉，可能有一个比亲密更好的词，但是有一个，有一种很酷的
+顺便说一句，我们可能会花 3 到 4 个小时讨论缩放定律这个话题。但只是为了总结一下，这是一篇论文和一组论文，一组想法，认为越大可能对模型大小和数据大小更好。在机器学习领域。
 
-感觉，天啊，它得到了我。
+发言人 5 06：05 
 
-发言人 304：44now. 现在。
+it's bigger and better，but predictably better. 
 
-发言人 1 04：44 And then there's an unpleasant feeling when it doesn't get
+它更大更好，但可以预见更好。
 
-you. And so there's that that kind of friction，but the I would say for a lot of
+发言人 1 06：08 
 
-people，the feeling that it gets me overpowers that it doesn't. 当它没有得到你时，会有一种不愉快的感觉。所以就有那种摩擦，但我会说很多人觉得它让
+Okay，there's another topic of conversation. 
 
-我压倒了它不会。
+好的，还有另一个话题。
 
-发言人 3 04：55 and I think actually one of the underrated aspects of GitHub Copilot is that even when it's wrong is it's like a little bit annoying，but it's not that bad because you just type another character and then maybe then it
+发言人 2 06：10 
 
-gets you or you type another character，and then then it gets you. So even
+But yeah，so around that time，for some of us，there were like a lot of conceptual conversations about what's this going to look like?
 
-when it's wrong is not that bad. 我认为 GitHub Copilot 被低估的一个方面是，
+What's the story going to be for all these different rent knowledge worker fields about how they're going to be made better by this technology getting better? And then I think there were a couple of moments where like the theoretical gains predicted in that paper started to feel really concrete，and it started to feel like a moment where you could actually go and not，you do a Phd if you wanted to work on do useful work in Al，actually felt like now there was this，this whole set of systems 1 could build that were really useful. And I think that the first moment we already talked about a little bit，which was playing with the early bit of Copilot，like that was awesome andmagical. 
 
-即使它是错误的，它也有点烦人，但它并不那么糟糕，因为你只是输入另一个
+但是，是的，在那个时候，对于我们中的一些人来说，有很多概念性的对话，关于这将会是什么样子？对于所有这些不同的知识工作者领域来说，如何通过这项技术变得更好来使他们变得更好的故事是什么？然后我认为有几个时刻，论文中预测的理论收益开始变得非常具体，开始感觉像是一个你可以去的时刻，而不是，如果你想在 AI 方面做有用的工作，你就可以去做一个研究，实际上感觉现在有一整套系统 1 可以构建，非常有用。我认为我们已经谈了一点的第一个时刻，那就是玩早期的 Copilot，就像那样，非常棒和神奇。
 
-角色，然后它可能会得到你，或者你输入另一个角色，然后它会得到你。所以
+发言人 2 06：51 
 
-即使它是错误的也不是那么糟糕。
+I think that the next big moment where everything kind of clicked together was actually getting early access to GPT-4. So it was sort of end of 2022 was when we were tinkering with that model and the step up Inca felt enormous. And previous to that，we had been working on a couple of different projects. We had been because of Copilot，because of scaling odds，because of our prior interest in the technology，we had been tinkering around with tools for programmers，but things that are like very specific. So you know，we were building tools for financial professionals who have to work with a Jupiter notebook or like playing around with，can you do static analysis with these models? And then the stuff up in GPT-4 felt like，look，that really made concrete create the theoretical gains that we had predicted before，felt like you could build a lot more just immediately at thatpoint in time. 
 
-发言人 5 05：09 Yeah，you can sort of iterate，iterate and fix it. I mean，the other underrated part of Copilot for me sort of was just the first real，real Al product. It's like the first language model，consumer product. 是的，你可以迭代，迭代并修复它。我的意思是，Copilot 中另一个被低估的部分就是第一个
+我认为下一个重要的时刻，所有事情都在一起，实际上是尽早获得 GPT-4。所以在 2022 年年底，当我们正在修补那个模型时，Inca 感觉迈出了巨大的一步。在此之前，我们一直在从事几个不同的项目。我们一直是因为 Copilot，因为扩展赔率，因为我们之前对技术感兴趣，我们一直在为程序员修补工具，但是那些非常具体的东西。所以你知道，我们正在为需要使用 Jupiter 笔记本或喜欢玩弄的金融专业人士构建工具，你可以使用这些模型进行静态分析吗？然后 GPT-4 中的东西感觉，看，这确实使我们之前预测的理论收益具体化，感觉在那个时候你可以立即建立更多的东西。
 
-真正的 A | 产品。这就像第一种语言模型，消费者产品。
+发言人 207：40A
 
-发言人 1 05：21 So copil was kind of like the first killer app for LLMs. 所以
+nd. 
 
-copil 有点像 LLMs 的第一个杀手级应用程序。
+而且。
 
-发言人 205：27 and like the beta was out in 2021. 就像测试版在 2021 年推出一样。
+发言人 407：41 
 
-发言人 1 05：29 right? Okay，so what's the origin story of cursor? 对吗？好
+also. 
 
-的，那么 Cursor 的起源是什么？
+还有。
 
-发言人 2 05：34 So around 2020， the scaling loss papers came out from from OpenAl and that was a moment where this looked like clear，predictable
+发言人 2 07：43 
 
-progress for the field，where even if we didn't have any more ideas，looks
+if we were being consistent，it really felt like this wasn't just going to be a point solution thing. This was going to be all of programming was going to flow through these models. And it felt like that demanded a different type of programming environment，a different type of programming. And so we set off to build that，that sort of larger vision around that. 
 
-like you can make these models a lot better if you had more computing,
+如果我们保持一致性，真的感觉这不仅仅是一个点解决方案的事情。这将是所有编程都将流经这些模型。感觉这就需要一种不同类型的编程环境，一种不同类型的编程。所以我们着手建立那个更大的愿景。
 
-more data. 因此，在 2020 年左右，OpenAl 发布了缩放损失论文，这是一个看起来清晰、可预测的领域进展的时刻，即使我们没有更多的想法，看起来如果
+发言人 508：00 
 
-你有更多的计算和数据，你可以让这些模型变得更好。
+There's one that I distinctly remember. So my roommate is an Imo gold winner，and there's a competition in the us called the Putnam，which is sort of the Imo for college people. It's this math competition isis exceptionally good. So Sheng Tong and man，I remember it's sort of so JuneJune 2022 had this bet on whether the Mo like 2024 June or July，you were going to win a gold medal in the Imo with the with like models imos. 
 
-发言人 1 05：49 By the way，we'l probably talk for 3 to 4 hours on the topic of scaling laws. But justjust to summarize，it's a paper and a set of papers，a set of ideas that say bigger might be better for model size and data size. In therealm of machine learning. 顺便说一句，我们可能会花 3 到 4 个小时讨论缩放
+有一个我清楚地记得。所以我的室友是一个国际移民组织的金牌得主，在美国有一个叫做普特南的比赛，这是一种针对大学生的国际移民组织。这个数学竞赛非常棒。所以 Sheng Tong 和 man，我记得它有点像 2022 年的月，押注于是像 2024 年的月还是七月，你将在 lmo 中获得像 imos 模型一样的金牌。
 
-定律这个话题。但只是为了总结一下，这是一篇论文和一组论文，一组想法，
+发言人 1 08：31 
 
-认为越大可能对模型大小和数据大小更好。在机器学习领域。
+and international math Olympian. 
 
-发言人 5 06：05 it's bigger and better，but predictably better. 它更大更好，但可以预见更好。
+和国际数学奥林匹克。
 
-发言人 1 06：08 Okay，there's another topic of conversation. 好的，还有另一个话题。
+发言人 5 08：33 
 
-发言人 2 06：10 But yeah，so around that time，for some of us，there were like a lot of conceptual conversations about what's this going to look like?
+Yeah Imo international math Olympiad. And so Arvid and I are both，you know，also competed in it. So it was sort of personal and I remember thinking Matt just this is not going to happen this was like，like even though I sort of believed in progress，I thought，you know I'm a girl，just like a modest，just delusional. That was the，that was the，and to be honest，I mean，I was to be clear，very wrong，but that was maybe the most prescient bet in the group. 
 
-What's the story going to be for all these different rent knowledge worker fields about how they're going to be made better by this technology
+是的，Imo 国际数学奥林匹克竞赛。所以你知道，阿尔维德和我也在其中竞争。所以这是有点个人的想法，我记得这不会发生，就像即使我有点相信进步，我想，你知道我是一个女孩，就像一个谦虚的，只是妄想。说实话，我的意思是，我说得很清楚，非常错误，但这可能是小组中最有先见之明的赌注。
 
-getting better? And then I think there were a couple of moments where like the theoretical gains predicted in that paper started to feel really concrete，and it started to feel like a moment where you could actually go and not，you do a Phd if you wanted to work on do useful work in Al，actually felt like now there was this，this whole set of systems 1 could build that were really useful. And I think that the first moment we already talked about a little bit，which was playing with the early bit of Copilot，like that was awesome andmagical. 但是，是的，在那个时候，对于我们中的一些人来说，有很多概念性
+发言人 1 09：05 
 
-的对话，关于这将会是什么样子？对于所有这些不同的知识工作者领域来说，
+So the new results from DeepMind，it turned out that youwere correct. 
 
-如何通过这项技术变得更好来使他们变得更好的故事是什么？然后我认为有几
+因此，来自 DeepMind 的新结果证明你是正确的。
 
-个时刻，论文中预测的理论收益开始变得非常具体，开始感觉像是一个你可以
+发言人 409：10 
 
-去的时刻，而不是，如果你想在 AI 方面做有用的工作，你就可以去做一个研
+That's what technically not in Correctress. 
 
-究，实际上感觉现在有一整套系统 1 可以构建，非常有用。我认为我们已经谈
+这就是技术上在矫正中不正确的地方。
 
-了一点的第一个时刻，那就是玩早期的 Copilot，就像那样，非常棒和神奇。
+发言人 2 09：14 
 
-发言人 2 06：51 I think that the next big moment where everything kind of clicked together was actually getting early access to GPT-4. So it was sort of end of 2022 was when we were tinkering with that model and the step up Inca felt enormous. And previous to that，we had been working on a couple of different projects. We had been because of Copilot，because of scaling odds，because of our prior interest in the technology，we had been
+one point away. Oman was very enthusiastic about that stuff. And before Iman had this like scaling lost t.e.r.r.o.r.d.d. want，it had the like charts and like the formulas on it. 
 
-tinkering around with tools for programmers，but things that are like very
+一点远。阿曼对那些东西非常热情。在 Iman 有这个像缩放一样失去了 t.e.r.o.r.d. 之前。想要，它上面有像图表和公式一样的东西。
 
-specific. So you know，we were building tools for financial professionals who have to work with a Jupiter notebook or like playing around with，can you
+发言人 1 09：25 
 
-do static analysis with these models? And then the stuff up in GPT-4 felt like，look，that really made concrete create the theoretical gains that we had
+So you like felt the A. 
 
-predicted before，felt like you could build a lot more just immediately at thatpoint in time. 我认为下一个重要的时刻，所有事情都在一起，实际上是尽早获得 GPT-4。所以在 2022 年年底，当我们正在修补那个模型时，Inca 感觉迈出了巨大的一步。在此之前，我们一直在从事几个不同的项目。我们一直是因为
+所以你喜欢感受 A。
 
-Copilot，因为扩展赔率，因为我们之前对技术感兴趣，我们一直在为程序员修
+发言人 4 09：27 
 
-补工具，但是那些非常具体的东西。所以你知道，我们正在为需要使用 Jupiter
+or you felt the scale? Yeah，I distinctly remember there was this one conversation I had with Michael where before I hadn't thought super deeply and critically about scaling laws. And he kind of posed the question，why isn't scaling all you need? Or why isn't scaling going to result in massive gains in progress? And I think I went through like the like the stages of grief. There is anger，denial，and then finally at the end，just thinking about it，acceptance. And I think I've been quite hopeful and optimistic about progress since. 
 
-笔记本或喜欢玩弄的金融专业人士构建工具，你可以使用这些模型进行静态分
+还是你感觉到了规模？是的，我清楚地记得我和迈克尔有过一次谈话，以前我没有非常深入和批判性地思考过缩放定律。
 
-析吗？然后 GPT-4 中的东西感觉，看，这确实使我们之前预测的理论收益具体
+他有点提出了一个问题，为什么不扩展你所需要的一切？或者为什么扩展不会导致巨大的进展？我想我经历了悲伤的阶段。有愤怒，否认，最后在最后，只是思考一下，接受。我认为从那以后我一直对进展充满希望和乐观。
 
-化，感觉在那个时候你可以立即建立更多的东西。
+发言人 4 10：03 
 
-发言人 207：40And. 而且。
+I think one thing I'll caveat is I think it also depends on like which domains you're going to see progress. Math is a great domain because especially like formal，they are improving because you get this fantastic signal of actually verifying if the thing was correct. And so this means something like RL can work really，really well. And I think like you could have systems that are perhaps very superhuman at math and still nottechnically have AGI. 
 
-发言人 407：41 also. 还有。
+我认为需要提醒的一件事是，我认为这也取决于你将看到哪些领域取得了进展。数学是一个伟大的领域，因为特别像正式的一样，它们正在改进，因为你得到了实际验证事物是否正确的奇妙信号。因此，这意味着像 RL 这样的东西可以非常非常好地工作。我认为你可能拥有在数学上非常超人的系统，但在技术上仍然没有 AGI。
 
-发言人 2 07：43 if we were being consistent，it really felt like this wasn't just
+发言人 1 10：27 
 
-going to be a point solution thing. This was going to be all of programming was going to flow through these models. And it felt like that demanded a
+Okay，so can we take it all the way to cursor? And what is cursor? It's a fork of Vs Code，and Vs Code is one of the most popular editors for a long time. Like everybody fell in love with it，everybody left Vim，I left Dmax for it，sorry. So unified in some fundamental way，the developer community. And then you look at the space of things. You look at the scaling laws. 
 
-different type of programming environment，a different type of
+好的，那么我们可以把它一直带到 Cursor 吗？Cursor 是什么？它是 Cursor 的一个分支，Cursor 长期以来一直是最受欢迎的编辑器之一。就像每个人都喜欢它一样，每个人都离开了 Vim，我离开了 Dmax，对不起。在某种根本的方面，开发者社区是如此统一。然后你看事物的空间。你看看缩放定律。
 
-programming. And so we set off to build that，that sort of larger vision
+发言人 1 10：55 
 
-around that. 如果我们保持一致性，真的感觉这不仅仅是一个点解决方案的事情。这将是所有编程都将流经这些模型。感觉这就需要一种不同类型的编程环
+Al is becoming amazing and you decided，okay，it's not enough to just write an extension fee Vs code because there's a lot of limitations to that we need if Al is going to keep getting better and better and better，we need to really like rethink how the Al is going to be part of the editing process. And so he decided to fork Vs Code and start to build a lot of the amazing features，will be able to talk about，but what was that decision like because there's a lot of extensions including Copilot of Vs Code that are doing sort of Al type stuff. What was the decision like to justfork Vs Code? 
 
-境，一种不同类型的编程。所以我们着手建立那个更大的愿景。发言人 508：00 There's one that I distinctly remember. So my roommate is an
+AI 正在变得越来越惊人，你决定，好吧，仅仅编写扩展费用和代码是不够的，因为如果 AI 要变得越来越好，我们需要很多限制。我们需要真正重新思考 AI 将如何成为编辑过程的一部分。因此，他决定分叉 Cursor，并开始构建许多惊人的功能，将能够谈论，但这个决定是什么样的，因为有很多扩展，包括做着 Al 类型的 Cursor 的 Copilot。只是分叉和代码的决定是什么样的？ 
 
-Imo gold winner，and there's a competition in the us called the Putnam，which is sort of the Imo for college people. It's this math competition isis exceptionally good. So Sheng Tong and man，I remember it's sort of so JuneJune 2022 had this bet on whether the Mo like 2024 June or July，you
+发言人 211：33 
 
-were going to win a gold medal in the Imo with the with like models imos. 有一个我清楚地记得。所以我的室友是一个国际移民组织的金牌得主，在美国
+So the decision to do an editor seemed kind of self evident in to us for at least what we wanted to do and achieve because when we started working on the editor，the idea was these models are going to get much better. Their capabilities are going to improve，and it's going to entirely change how you build software，both in A，you will have big productivity gains，but also radical and now like the active building software is going to change a lot. And so you're very limited in the control you have over a code editor if you're a plug into an existing coding environment. And we didn't want to get locked in by those limitations. We wanted to be able to just build the most useful stuff. 
 
-有一个叫做普特南的比赛，这是一种针对大学生的国际移民组织。这个数学竞
+所以做编辑器的决定似乎在我们看来是不言而喻的，至少就我们想做和实现的事情而言，因为当我们开始开发编辑器时，我们的想法是这些模型将变得更好。他们的能力将会提高，它将会彻底改变你构建软件的方式，这不仅会极大地提高生产力，而且还会激进，现在主动构建软件也将发生很大变化。因此，如果您是现有编码环境的插件，那么您对代码编辑器的控制非常有限。我们不想被这些限制所束缚。我们希望能够构建最有用的东西。
 
-赛非常棒。所以 Sheng Tong 和 man，我记得它有点像 2022 年的月，押注于是像 2024 年的月还是七月，你将在 lmo 中获得像 imos 模型一样的金牌。
+发言人 1 12：07 
 
-发言人 1 08：31 and international math Olympian. 和国际数学奥林匹克。
+Okay，well then the natural question is，you know Vs Code is kind of with Copilot a competitor，so how do you win? Is it basically just the speed and the quality of the features? 
 
-发言人 5 08：33 Yeah Imo international math Olympiad. And so Arvid and I are both，you know，also competed in it. So it was sort of personal and I remember thinking Matt just this is not going to happen this was like，like even though I sort of believed in progress，I thought，you know I'm a girl，just like a modest，just delusional. That was the，that was the，and to be
+好的，那么自然的问题是，你知道 Cursor 有点像 Copilot 和竞争对手，那么你怎么赢呢？它基本上只是功能的速度和质量吗？
 
-honest，I mean，I was to be clear，very wrong，but that was maybe the most prescient bet in the group. 是的，Imo 国际数学奥林匹克竞赛。所以你知道，阿尔维德和我也在其中竞争。所以这是有点个人的想法，我记得这不会发生，
+发言人 4 12：20 
 
-就像即使我有点相信进步，我想，你知道我是一个女孩，就像一个谦虚的，只
+Yeah，I mean，I think this is a space that is quite interesting，perhaps quite unique，where if you look at previous tech waves，maybe there's kind of one major thing that happened and unlock a new wave of companies. But every single year，every single model capability or jump，you get model capabilities，you now unlock this new wave of features, things that are possible，especially in programming. And so I think in Al programming，being even just a few months ahead，let alone a year ahead，makes your product much，much，much more useful. I think the cursor a year from now will need to make the cursor of today look obsolete. And I think，you know，Microsoft，we've done a number of like fantastic things，but I don't think they're in a great place to really keep innovating and pushing on this in the way that a startup can. 
 
-是妄想。说实话，我的意思是，我说得很清楚，非常错误，但这可能是小组中
+是的，我的意思是，我认为这是一个非常有趣的空间，也许是非常独特的，如果你看看以前的科技浪潮，也许会发现发生了一件重大的事情，并解锁了一个新的公司浪潮。但是每一年，每一个模型能力或跳跃，你都可以获得模型能力，你现在可以解锁这一波新的功能，这是可能的，特别是在编程方面。因此，我认为在人工智能编程中，即使只是提前几个月，更不用说提前一年，也会使您的产品变得更加有用。我认为一年后的 Cursor 需要让今天的 Cursor 看起来过时。我认为，你知道，微软，我们做了很多很棒的事情，但我不认为他们处于一个很好的位置，不能像初创公司那样真正地继续创新和推进。
 
-最有先见之明的赌注。
+发言人 1 13：13 
 
-发言人 1 09：05 So the new results from DeepMind，it turned out that youwere correct. 因此，来自 DeepMind 的新结果证明你是正确的。
+just rapidly implementing features. 
 
-发言人 409：10 That's what technically not in Correctress. 这就是技术上在矫正中不正确的地方。
+只是快速实现功能。
 
-发言人 2 09：14 one point away. Oman was very enthusiastic about that stuff. And before Iman had this like scaling lost t.e.r.r.o.r.d.d. want，it had the like charts and like the formulas on it. 一点远。阿曼对那些东西非常热情。在 Iman 有这个像缩放一样失去了 t.e.r.o.r.d. 之前。想要，它上面有像图表和公式一样的东西。
+发言人 4 13：15 
 
-发言人 1 09：25 So you like felt the A. 所以你喜欢感受 A。
+and push，yeah，like and kind of doing the research experimentation necessary to really push the ceiling. 
 
-发言人 4 09：27 or you felt the scale? Yeah，I distinctly remember there was this one conversation I had with Michael where before I hadn't thought
+并且推动，是的，像是在做必要的研究实验，以真正推动天花板。
 
-super deeply and critically about scaling laws. And he kind of posed the
+发言人 5 13：23 
 
-question，why isn't scaling all you need? Or why isn't scaling going to result in massive gains in progress? And I think I went through like the like the
+I don't know if I think of it in terms of features that I think of it in terms of like capabilities for programmers，it's that like，you know，as you know，the new one model came out and I'm sure there are going to be more more models of different types like longer context in maybe faster, like there's all these crazy ideas that you can try and hopefully 10 of the crazy ideas we will make it into something kind of cool and useful and we want people to have that sooner to rephrase. It's like an underrated fact we're making it for ourself when we started cursor，you really felt this frustration that you know models you could see models getting better，but the cobal experience had not changed it was like，man，these guys like the ceiling is getting higher like why are they not making you think like they should be making you think? They should be like he like，like where，where's all the alpha features? There were no alpha features，it was like I'm sure it was selling，well I'm sure it was a great business，but I didn't feel I'm one of these people that really want to try and use new things and just there's no new thing for like a very long while. 
 
-stages of grief. There is anger，denial，and then finally at the end，just
+我不知道我是否从特性的角度来看待它，我从程序员的能力的角度来看待它，就像你知道的那样，新模型出现了，我相信会有更多不同类型的模型，比如更长的上下文，也许更快，就像所有这些疯狂的你可以尝试的想法和希望的 10 个疯狂的想法，我们将把它变成很酷有用的东西，我们希望人们尽快拥有它。改写。当我们开始创建 Cursor 时，这就像是一个被低估的事实，你真的感到了这种挫败感，因为你知道模型可以看到模型变得更好，但是全球的经验并没有改变它就像，这些人喜欢天花板越来越高，为什么他们没有让你像他们应该让你思考一样思考？他们应该像他一样，像哪里，所有的 alpha 特征在哪里？没有 alpha 功能，就像我确定它在销售，我相信这是一项伟大的业务，但我并不觉得我是那些真正想尝试和使用新事物的人之一，只是在很长一段时间内没有新事物。
 
-thinking about it，acceptance. And I think I've been quite hopeful and
+发言人 1 14：35 
 
-optimistic about progress since. 还是你感觉到了规模？是的，我清楚地记得我和迈克尔有过一次谈话，以前我没有非常深入和批判性地思考过缩放定律。
+Yeah，it's interesting，I don't know how you put that into words，but when you compare a cursor with Copilot，Copilot pretty quickly became started to feel stale for some reason. 
 
-他有点提出了一个问题，为什么不扩展你所需要的一切？或者为什么扩展不会
+是的，这很有趣，我不知道你怎么用语言来表达，但是当你将 Cursor 和 Copilot 进行比较时，Copilot 很快就会因为某种原因开始感到陈旧。
 
-导致巨大的进展？我想我经历了悲伤的阶段。有愤怒，否认，最后在最后，只
+发言人 3 14：45 
 
-是思考一下，接受。我认为从那以后我一直对进展充满希望和乐观。
+Yeah，I think one thing that I think helps us is that we're sort of doing it all in one where we're developing the uux and the way you interact with the model. And at the same time as we're developing like how we actually make the model give better answers or like how you build up the prompter or like how do you find the context? And for a cursor tab，like how do you train the model? So I think that helps us to have all of it，like sort of like the same people working on the entire experience end to end. 
 
-发言人 4 10：03 I think one thing I'll caveat is I think it also depends on like which domains you're going to see progress. Math is a great domain
+是的，我认为有一件事对我们有所帮助，那就是我们正在开发 uux 以及您与模型交互的方式，从而完成所有工作。同时，随着我们的发展，比如我们如何让模型给出更好的答案，或者你如何构建提示器，或者你如何找到上下文？对于 Cursor 选项卡，例如如何训练模型？所以我认为这有助于我们拥有所有这些，就像同一个人在整个体验中进行端到端的工作一样。
 
-because especially like formal，they are improving because you get this
+发言人 5 15：17 
 
-fantastic signal of actually verifying if the thing was correct. And so this
+Yeah，it's like the person making the Ul and the person training the model，like sit to like 18 feet away. 
 
-means something like RL can work really，really well. And I think like you
+是的，就像制作 UI 的人和训练模型的人一样，就像坐在 18 英尺之外一样。
 
-could have systems that are perhaps very superhuman at math and still nottechnically have AGI. 我认为需要提醒的一件事是，我认为这也取决于你将看到哪些领域取得了进展。数学是一个伟大的领域，因为特别像正式的一样，它
+发言人 4 15：23 
 
-们正在改进，因为你得到了实际验证事物是否正确的奇妙信号。因此，这意味
+So often the same person even. 
 
-着像 RL 这样的东西可以非常非常好地工作。我认为你可能拥有在数学上非常超
+甚至经常是同一个人。
 
-人的系统，但在技术上仍然没有 AGI。
+发言人 5 15：25 
 
-发言人 1 10：27 Okay，so can we take it all the way to cursor? And what is
+yeah，often，often even the same person. So you can，you can create things that that are sort of not possible. If you're not，you're not talking，you're not experimenting. 
 
-cursor? It's a fork of Vs Code，and Vs Code is one of the most popular
+是的，经常甚至经常是同一个人。所以你可以，你可以创造一些不太可能的东西。如果你不是，你就不是在说话，你不是在实验。
 
-editors for a long time. Like everybody fell in love with it，everybody left
+发言人 1 15：34 
 
-Vim，I left Dmax for it，sorry. So unified in some fundamental way，the
+and you're using，like you said，cursor to write cursor. 
 
-developer community. And then you look at the space of things. You look at the scaling laws. 好的，那么我们可以把它一直带到 Cursor 吗？Cursor 是什么？它是 Cursor 的一个分支，Cursor 长期以来一直是最受欢迎的编辑器之一。就像每个人都喜欢它一样，每个人都离开了 Vim，我离开了 Dmax，对不起。在
+就像你说的，你正在使用 Cursor 来写入 Cursor。
 
-某种根本的方面，开发者社区是如此统一。然后你看事物的空间。你看看缩放
+发言人 3 15：37 
 
-定律。
+of course. Oh. 
 
-发言人 1 10：55 Al is becoming amazing and you decided，okay，it's not
+当然。哦。
 
-enough to just write an extension fee Vs code because there's a lot of
+发言人 415：37 
 
-limitations to that we need if Al is going to keep getting better and better and better，we need to really like rethink how the Al is going to be part of the editing process. And so he decided to fork Vs Code and start to build a lot of the amazing features，will be able to talk about，but what was that
+yeah. 是的。
 
-decision like because there's a lot of extensions including Copilot of Vs
+发言人 1 15：38 
 
-Code that are doing sort of Al type stuff. What was the decision like to justfork Vs Code? Al 正在变得越来越惊人，你决定，好吧，仅仅编写扩展费用和代码是不够的，因为如果 AI 要变得越来越好，我们需要很多限制。我们需要真
+Well，let's talk about some of these features. Let's talk about the all knowing，the all powerful praise be to the tab for the，you know, autocomplete on stairways basically. So what，how does tab work? What istab. 
 
-正重新思考 AI 将如何成为编辑过程的一部分。因此，他决定分叉 Cursor，并开
-
-始构建许多惊人的功能，将能够谈论，但这个决定是什么样的，因为有很多扩展，包括做着 Al 类型的 Cursor 的 Copilot。只是分叉和代码的决定是什么样的？ 发言人 211：33 So the decision to do an editor seemed kind of self evident in to us for at least what we wanted to do and achieve because when we
-
-started working on the editor，the idea was these models are going to get much better. Their capabilities are going to improve，and it's going to
-
-entirely change how you build software，both in A，you will have big
-
-productivity gains，but also radical and now like the active building software is going to change a lot. And so you're very limited in the control you have over a code editor if you're a plug into an existing coding environment. And we didn't want to get locked in by those limitations. We wanted to be able to just build the most useful stuff. 所以做编辑器的决定似乎在我们看来是不言而喻的，至少就我们想做和实现的事情而言，因为当我们开始开发编辑器时，
-
-我们的想法是这些模型将变得更好。他们的能力将会提高，它将会彻底改变你
-
-构建软件的方式，这不仅会极大地提高生产力，而且还会激进，现在主动构建
-
-软件也将发生很大变化。因此，如果您是现有编码环境的插件，那么您对代码
-
-编辑器的控制非常有限。我们不想被这些限制所束缚。我们希望能够构建最有
-
-用的东西。
-
-发言人 1 12：07 Okay，well then the natural question is，you know Vs Code is kind of with Copilot a competitor，so how do you win? Is it basically just the speed and the quality of the features? 好的，那么自然的问题是，你知道
-
-Cursor 有点像 Copilot 和竞争对手，那么你怎么赢呢？它基本上只是功能的速度和质量吗？
-
-发言人 4 12：20 Yeah，I mean，I think this is a space that is quite interesting，perhaps quite unique，where if you look at previous tech waves，maybe
-
-there's kind of one major thing that happened and unlock a new wave of companies. But every single year，every single model capability or jump，you get model capabilities，you now unlock this new wave of features,
-
-things that are possible，especially in programming. And so I think in Al
-
-programming，being even just a few months ahead，let alone a year ahead，makes your product much，much，much more useful. I think the cursor a
-
-year from now will need to make the cursor of today look obsolete. And I
-
-think，you know，Microsoft，we've done a number of like fantastic things，but I don't think they're in a great place to really keep innovating and pushing on this in the way that a startup can . 是的，我的意思是，我认为这是一个非常有趣的空间，也许是非常独特的，如果你看看以前的科技浪潮，也许会发现
-
-发生了一件重大的事情，并解锁了一个新的公司浪潮。但是每一年，每一个模
-
-型能力或跳跃，你都可以获得模型能力，你现在可以解锁这一波新的功能，这
-
-是可能的，特别是在编程方面。因此，我认为在人工智能编程中，即使只是提
-
-前几个月，更不用说提前一年，也会使您的产品变得更加有用。我认为一年后
-
-的 Cursor 需要让今天的 Cursor 看起来过时。我认为，你知道，微软，我们做了很多很棒的事情，但我不认为他们处于一个很好的位置，不能像初创公司那样
-
-真正地继续创新和推进。
-
-发言人 1 13：13 just rapidly implementing features. 只是快速实现功能。
-
-发言人 4 13：15 and push，yeah，like and kind of doing the research
-
-experimentation necessary to really push the ceiling. 并且推动，是的，像是在做必要的研究实验，以真正推动天花板。
-
-发言人 5 13：23 I don't know if I think of it in terms of features that I think of it in terms of like capabilities for programmers，it's that like，you know，as you know，the new one model came out and I'm sure there are going to be
-
-more more models of different types like longer context in maybe faster,
-
-like there's all these crazy ideas that you can try and hopefully 10 of the
-
-crazy ideas we will make it into something kind of cool and useful and we want people to have that sooner to rephrase. It's like an underrated fact
-
-we're making it for ourself when we started cursor，you really felt this
-
-frustration that you know models you could see models getting better，but the cobal experience had not changed it was like，man，these guys like the ceiling is getting higher like why are they not making you think like they
-
-should be making you think? They should be like he like，like where，where's all the alpha features? There were no alpha features，it was like I'm sure it was selling，well I'm sure it was a great business，but I didn't feel I'm one of these people that really want to try and use new things and just there's no new thing for like a very long while. 我不知道我是否从特性的角度来看待它，我从程序员的能力的角度来看待它，就像你知道的那样，新模型出现了，我相
-
-信会有更多不同类型的模型，比如更长的上下文，也许更快，就像所有这些疯
-
-狂的你可以尝试的想法和希望的 10 个疯狂的想法，我们将把它变成很酷有用的
-
-东西，我们希望人们尽快拥有它。改写。当我们开始创建 Cursor 时，这就像是
-
-一个被低估的事实，你真的感到了这种挫败感，因为你知道模型可以看到模型
-
-变得更好，但是全球的经验并没有改变它就像，这些人喜欢天花板越来越高，
-
-为什么他们没有让你像他们应该让你思考一样思考？他们应该像他一样，像哪
-
-里，所有的 alpha 特征在哪里？没有 alpha 功能，就像我确定它在销售，我相信
-
-这是一项伟大的业务，但我并不觉得我是那些真正想尝试和使用新事物的人之
-
-一，只是在很长一段时间内没有新事物。
-
-发言人 1 14：35 Yeah，it's interesting，I don't know how you put that into
-
-words，but when you compare a cursor with Copilot，Copilot pretty quickly became started to feel stale for some reason. 是的，这很有趣，我不知道你怎么用语言来表达，但是当你将 Cursor 和 Copilot 进行比较时，Copilot 很快就会因为某种原因开始感到陈旧。
-
-发言人 3 14：45 Yeah，I think one thing that I think helps us is that we're sort of doing it all in one where we're developing the uux and the way you interact with the model. And at the same time as we're developing like how we
-
-actually make the model give better answers or like how you build up the prompter or like how do you find the context? And for a cursor tab，like how do you train the model? So I think that helps us to have all of it，like sort of like the same people working on the entire experience end to end. 是的，我认为有一件事对我们有所帮助，那就是我们正在开发 uux 以及您与模型交互
-
-的方式，从而完成所有工作。同时，随着我们的发展，比如我们如何让模型给
-
-出更好的答案，或者你如何构建提示器，或者你如何找到上下文？对于 Cursor
-
-选项卡，例如如何训练模型？所以我认为这有助于我们拥有所有这些，就像同
-
-一个人在整个体验中进行端到端的工作一样。
-
-发言人 515：17 Yeah，it's like the person making the Ul and the person
-
-training the model，like sit to like 18 feet away. 是的，就像制作 UI 的人和训练模型的人一样，就像坐在 18 英尺之外一样。
-
-发言人 4 15：23 So often the same person even. 甚至经常是同一个人。
-
-发言人 5 15：25 yeah，often，often even the same person. So you can，you can create things that that are sort of not possible. If you're not，you're not
-
-talking，you're not experimenting. 是的，经常甚至经常是同一个人。所以你可以，你可以创造一些不太可能的东西。如果你不是，你就不是在说话，你不
-
-是在实验。
-
-发言人 1 15：34 and you're using，like you said，cursor to write cursor. 就像你说的，你正在使用 Cursor 来写入 Cursor。
-
-发言人 3 15：37 of course. Oh. 当然。哦。
-
-发言人 415：37 yeah. 是的。发言人 1 15：38 Well，let's talk about some of these features. Let's talk about the all knowing，the all powerful praise be to the tab for the，you know,
-
-autocomplete on stairways basically. So what，how does tab work? What istab. 好的，让我们来谈谈其中的一些功能。让我们谈谈对楼梯自动完成的全知
-
-全能的赞美，你知道的，基本上是对自动完成的。那么，tab 是如何工作的呢？
+好的，让我们来谈谈其中的一些功能。让我们谈谈对楼梯自动完成的全知全能的赞美，你知道的，基本上是对自动完成的。那么，tab 是如何工作的呢？
 
 什么是 tab。
 
-发言人 2 15：53 to highlight and summarize? At a high level，I would say that there are two things that cursor is pretty good at right now. There，there are other things that it does，but two things that it helps programmers with，one is this idea of looking over your shoulder and being like a really fast
+发言人 2 15：53 
 
-colleague who can kind of jump ahead of you and type and figure out what you're going to do next. And that was the original idea behind that was kind of the kernel. The idea behind good autocomplete was predicting what
+to highlight and summarize? At a high level，I would say that there are two things that cursor is pretty good at right now. There，there are other things that it does，but two things that it helps programmers with，one is this idea of looking over your shoulder and being like a really fastcolleague who can kind of jump ahead of you and type and figure out what you're going to do next. And that was the original idea behind that was kind of the kernel. The idea behind good autocomplete was predicting what you're going to do next，but you can make that concept even more ambitious by not just predicting the characters after your cursor，we're predicting the next entire change. You're going to make，the next D，next place you're going to jump to，And the second thing cursor is，is pretty good at right now too，is helping you sometimes jump ahead of the Al and tell it what to do and go from instructions to code and on both of those we've done a lot of work on making the editing experience for those things ergonomic and also making those things smart and fast. 
 
-you're going to do next，but you can make that concept even more
+强调和总结？在高层次上，我想说 Cursor 现在在两件事情上做得相当不错。还有其他的事情，它可以帮助程序员做两件事，一是超越你的肩膀，像一个非常快速的同事，可以跳到你前面，输入并弄清楚你下一步要做什么。这就是它背后的最初想法，有点像内核。好的自动完成背后的想法是预测你接下来要做什么，但你可以通过不仅仅是预测 Cursor 后的字符，而是预测下一个整个变化，使这个概念更加雄心勃勃。你将要做的，下一个 D，下一个你要跳转到的地方，第二件事 Cursor 现在也很擅长，正在帮助你有时超越 AI，告诉它该做什么，从指令到代码，在这两者上，我们做了很多工作，使这些东西的编辑体验符合人体工程学，并使这些东西变得智能和快速。
 
-ambitious by not just predicting the characters after your cursor，we're
+发言人 5 16：54 
 
-predicting the next entire change. You're going to make，the next D，next
+One of the things we really wanted was we wanted the model to be able to edit code for us that was kind of a wish and we had multiple attempts at it before，before we had a sort of a good model that could edit code for you Then after，after we had a good model，I think there'd been a lot of effort to，you know，make the inference fast for，you know，having，having a good，good experience and we've been starting to incorporate，I mean，Michael sort of mentioned this like ability to jump to different places and that jump to different places，I think came from a feeling of，you know，once you，once you accept an edit，it was like，man，it should be just really obvious where to go next. 
 
-place you're going to jump to，And the second thing cursor is，is pretty
+我们真正想要的一件事是，我们希望模型能够为我们编辑代码，这有点像一个愿望，我们之前有过多次尝试，在我们有一个可以为你编辑代码的好模型之前，在我们有一个好的模型之后，我认为我们已经付出了很多努力，让推断变得快速，因为我们拥有了良好、良好的体验，我们已经开始整合，我的意思是，迈克尔提到了这种跳跃到不同地方的能力，这种能力可以跳跃到不同的地方，我认为这是一种感觉，你知道的，一旦你接受了一个编辑，就像是，伙计，应该很明显下一步去哪里。
 
-good at right now too，is helping you sometimes jump ahead of the Al and tell it what to do and go from instructions to code and on both of those
+发言人 5 17：37 
 
-we've done a lot of work on making the editing experience for those things ergonomic and also making those things smart and fast. 强调和总结？在高层次上，我想说 Cursor 现在在两件事情上做得相当不错。还有其他的事情，它
+It's like it's like I made this change，the model should just know that like the next place to go to ISS like 18 lines down，like if you're if you're a Wim user，you could press 1，8 JJ or whatever. But like，why，why even，why am I doing this? Like the model，the model should just know it. And then so，so the idea was you just press tab，it would go 18 lines down and then make show you show you next edit and you would press tab，so it was just you as long as you could keep pressing tab then. So the internal competition was how many tabs can we make someone press once you have like the idea more more sort of abstractly the thing to think about it sort of like once howhow，how are the edits sort of 0，0 entropy? So once you've sort of expressed your intent and the edit is there's no like new bits of information and you finish your thought，but you still have to type some characters to like make the computer understand what you're actually thinking. Then maybe the model should just sort of read your mind and all the zero entropy bits should just be like tab delay，yeah's sort of abstract. There's this interesting thing where. 
 
-可以帮助程序员做两件事，一是超越你的肩膀，像一个非常快速的同事，可以
+这就像我做了这个改变一样，模型应该知道下一个要去国际空间站的地方就像 18 行以下，如果你是一个 Wim 用户，你可以按 1、8JJ 或其他键。但是，为什么，甚至为什么我要这样做？就像模型一样，模型应该知道它。然后，这个想法是你只需按 tab 键，它将向下显示 18 行，然后向你展示下一个编辑，你只需按 tab 键，所以只要你能继续按 tab 键就可以了。所以内部竞争是，一旦你有了更抽象的想法，我们可以让某人按下多少个标签，思考一下，就像曾经如何，编辑如何排序为 0,0 熵？所以一旦你表达了你的意图，编辑就没有新的信息了，你完成了你的想法，但你仍然需要输入一些字符，让计算机理解你实际在想什么。那么也许这个模型应该只是读懂你的思想，所有的零熵位应该就像 tab 延迟一样，是的，有点抽象。有一个有趣的事情在哪里。
 
-跳到你前面，输入并弄清楚你下一步要做什么。这就是它背后的最初想法，有
+发言人 4 18：43 
 
-点像内核。好的自动完成背后的想法是预测你接下来要做什么，但你可以通过
+if you look at language model loss on on different domains，I believe the bits per by which is kind of character normalized loss for code lower than language，which means in general，there are a lot of tokens in code that are super predictable，a lot of characters that are super predictable. And this is，I think，even magnified when you're not just trying to autocomplete code，but predicting what the user is going to do next in their editing of existing code. And so，you know，the goal cursor tabs，let's eliminate all the low entropy actions you take inside of the editor. When then 10 is effectively determined，let's just jump you forward in time，skip you forward. 
 
-不仅仅是预测 Cursor 后的字符，而是预测下一个整个变化，使这个概念更加雄
+如果你看一下不同域上的语言模型损失，我相信每比特是一种字符规范化损失，代码低于语言，这意味着一般来说，代码中有很多标记是超级可预测的，很多字符是超级可预测的。我认为，当你不仅仅是试图自动完成代码，而是预测用户在编辑现有代码时下一步要做什么时，这一点甚至会被放大。所以，你知道，目标 Cursor 选项卡，让我们消除你在编辑器内采取的所有低熵操作。当 10 有效确定时，让我们让你向前跳，跳过你向前。
 
-心勃勃。你将要做的，下一个 D，下一个你要跳转到的地方，第二件事 Cursor
 
-现在也很擅长，正在帮助你有时超越 AI，告诉它该做什么，从指令到代码，在这两者上，我们做了很多工作，使这些东西的编辑体验符合人体工程学，并使
 
-这些东西变得智能和快速。
 
-发言人 5 16：54 One of the things we really wanted was we wanted the
 
-model to be able to edit code for us that was kind of a wish and we had
 
-multiple attempts at it before，before we had a sort of a good model that could edit code for you Then after，after we had a good model，I think
 
-there'd been a lot of effort to，you know，make the inference fast for，you know，having，having a good，good experience and we've been starting to incorporate，I mean，Michael sort of mentioned this like ability to jump to different places and that jump to different places，I think came from a
 
-feeling of，you know，once you，once you accept an edit，it was like，man，it should be just really obvious where to go next. 我们真正想要的一件事是，我们希望模型能够为我们编辑代码，这有点像一个愿望，我们之前有过多次尝
 
-试，在我们有一个可以为你编辑代码的好模型之前，在我们有一个好的模型之
 
-后，我认为我们已经付出了很多努力，让推断变得快速，因为我们拥有了良
 
-好、良好的体验，我们已经开始整合，我的意思是，迈克尔提到了这种跳跃到
 
-不同地方的能力，这种能力可以跳跃到不同的地方，我认为这是一种感觉，你
 
-知道的，一旦你接受了一个编辑，就像是，伙计，应该很明显下一步去哪里。
 
-发言人 5 17：37 It's like it's like I made this change，the model should just
 
-know that like the next place to go to ISS like 18 lines down，like if you're if you're a Wim user，you could press 1，8 JJ or whatever. But like，why，why even，why am I doing this? Like the model，the model should just know it. And then so，so the idea was you just press tab，it would go 18 lines down and then make show you show you next edit and you would press tab，so it was just you as long as you could keep pressing tab then. So the internal competition was how many tabs can we make someone press once you
 
-have like the idea more more sort of abstractly the thing to think about it sort of like once howhow，how are the edits sort of 0，0 entropy? So once you've sort of expressed your intent and the edit is there's no like new bits of information and you finish your thought，but you still have to type some characters to like make the computer understand what you're actually
 
-thinking. Then maybe the model should just sort of read your mind and all the zero entropy bits should just be like tab delay，yeah's sort of abstract. There's this interesting thing where. 这就像我做了这个改变一样，模型应该知道下一个要去国际空间站的地方就像 18 行以下，如果你是一个 Wim 用户，你
 
-可以按 1、8JJ 或其他键。但是，为什么，甚至为什么我要这样做？就像模型一
 
-样，模型应该知道它。然后，这个想法是你只需按 tab 键，它将向下显示 18
 
-行，然后向你展示下一个编辑，你只需按 tab 键，所以只要你能继续按 tab 键就
 
-可以了。所以内部竞争是，一旦你有了更抽象的想法，我们可以让某人按下多
-
-少个标签，思考一下，就像曾经如何，编辑如何排序为 0,0 熵？所以一旦你表
-
-达了你的意图，编辑就没有新的信息了，你完成了你的想法，但你仍然需要输
-
-入一些字符，让计算机理解你实际在想什么。那么也许这个模型应该只是读懂
-
-你的思想，所有的零熵位应该就像 tab 延迟一样，是的，有点抽象。有一个有趣
-
-的事情在哪里。
-
-发言人 4 18：43 if you look at language model loss on on different domains，I believe the bits per by which is kind of character normalized loss for code lower than language，which means in general，there are a lot of tokens in code that are super predictable，a lot of characters that are super
-
-predictable. And this is，I think，even magnified when you're not just trying to autocomplete code，but predicting what the user is going to do next in their editing of existing code. And so，you know，the goal cursor tabs，let's eliminate all the low entropy actions you take inside of the editor. When then 10 is effectively determined，let's just jump you forward in time，skip you forward. 如果你看一下不同域上的语言模型损失，我相信每比特是一种字符规范化损失，代码低于语言，这意味着一般来说，代码中有很多标记是超级可预测的，很多字符是超级可预测的。我认为，当你不仅仅是试图自动完成代
-
-码，而是预测用户在编辑现有代码时下一步要做什么时，这一点甚至会被放
-
-大。所以，你知道，目标 Cursor 选项卡，让我们消除你在编辑器内采取的所有
-
-低熵操作。当 10 有效确定时，让我们让你向前跳，跳过你向前。
 
 发言人 1 19：22 Well，well，what's the intuition and what's the technical details of how to do next? Cursor prediction，that jump，that's not，that's not so
 
