@@ -176,9 +176,6 @@ With the above framework in mind, I'll try to answer that question for the five 
 
 人为约束。很多事情无法在不违反法律、不伤害人类或不扰乱社会的前提下完成。一个经过伦理约束的人工智能（aligned AI）不会去做这些事情（如果是一个没有伦理约束的人工智能，那我们就要回到讨论风险问题了）。人类社会中存在许多低效甚至有害的制度，但要在遵守临床试验法规、考虑人们改变习惯的意愿或政府行为等约束的同时改变这些制度并不容易。核能、超音速客机，甚至电梯都是很好的例子 —— 这些技术本身运作良好，但其影响力却因为法规限制或人们不必要的恐惧而大打折扣。
 
-
-
-
 物理定律的限制。这是对第一个限制因素的更严格阐述。某些物理定律似乎是永远无法突破的。比如无法超光速运动，混合后的物质无法恢复原状（比如倒入咖啡的牛奶无法分离），芯片在每平方厘米的晶体管数量有上限，否则就会变得不稳定。在计算过程中，擦除每一个比特信息都需要消耗最小量的能量，这就限制了世界上计算密度的上限。
 
 从不同的时间尺度来看，这些限制因素也有所不同。短期内看似不可突破的障碍，从长远来看可能会被智能系统找到应对方法。例如，智能系统可以帮助开发新的实验方法，让我们能在试管中获得过去只能通过活体动物实验才能得到的认知；或者帮助建造收集新数据所需的工具（比如更大型的粒子加速器）；或者在遵守伦理的前提下，找到更好的方式来应对人为限制（比如改进临床试验体系，在管理程序更简化的地区开展临床试验，或者改进科学方法本身，降低人体临床试验的必要性或成本）。
@@ -186,8 +183,6 @@ With the above framework in mind, I'll try to answer that question for the five 
 因此，我们可以这样设想：智能系统在初期会受到其他发展要素的严重制约，但随着时间推移，智能本身会逐渐找到方法来克服这些限制，虽然有些限制永远不会完全消除（比如基本物理定律就是绝对的）（注 10）。关键问题在于这一切会以多快的速度、按什么样的顺序展开。
 
 带着这个分析框架，我将针对引言中提到的五个领域来探讨这个问题。
-
-
 
 ### 1. Biology and health
 
@@ -219,7 +214,7 @@ mRNA vaccines that, in principle, allow us to design a vaccine against anything 
 
 Cell therapies such as CAR-T that allow immune cells to be taken out of the body and "reprogrammed" to attack, in principle, anything.
 
-Conceptual insights like the germ theory of disease or the realization of a link between the immune system and cancer13.
+Conceptual insights like the germ theory of disease or the realization of a link between the immune system and cancer 13.
 
 I'm going to the trouble of listing all these technologies because I want to make a crucial claim about them: I think their rate of discovery could be increased by 10x or more if there were a lot more talented, creative researchers. Or, put another way, I think the returns to intelligence are high for these discoveries, and that everything else in biology and medicine mostly follows from them.
 
@@ -259,7 +254,6 @@ It is worth looking at this list and reflecting on how different the world will 
 
 It's hard to overestimate how surprising these changes will be to everyone except the small community of people who expected powerful AI. For example, thousands of economists and policy experts in the US currently debate how to keep Social Security and Medicare solvent, and more broadly how to keep down the cost of healthcare (which is mostly consumed by those over 70 and especially those with terminal illnesses such as cancer). The situation for these programs is likely to be radically improved if all this comes to pass20, as the ratio of working age to retired population will change drastically. No doubt these challenges will be replaced with others, such as how to ensure widespread access to the new technologies, but it is worth reflecting on how much the world will change even if biology is the only area to be successfully accelerated by AI.
 
-
 生物学与健康
 
 在科学进步能直接、明确地改善人类生活质量这一方面，生物学可能是潜力最大的领域。上个世纪，人类已经征服了一些最古老的疾病（如天花），但仍有更多疾病需要克服，如果能战胜它们将是一项重大的人道主义成就。除了治愈疾病之外，生物科学理论上还可以从根本上提升人类的健康水平：延长健康寿命，增强人们对自身生理过程的掌控能力，以及解决许多我们目前认为无法改变的人类生理局限。
@@ -272,7 +266,7 @@ It's hard to overestimate how surprising these changes will be to everyone excep
 
 造成这些数据问题的部分原因是生物系统本身的复杂性：如果你曾经看过描绘人体代谢生物化学过程的图表，你就会明白想要研究这个复杂系统中任何一个环节的独立作用有多么困难，更不用说想要以精确或可预测的方式来干预这个系统了。此外，除了人体实验本身所需的基本时间外，实际的临床试验还涉及大量行政程序和监管要求，这些（在包括我在内的许多人看来）都增加了不必要的时间成本，拖慢了研究进展。
 
-考虑到这些困难，许多生物学家长期以来都对人工智能和「大数据」（big data）在生物学领域的价值持怀疑态度。在过去 30 年里，数学家、计算机科学家和物理学家将他们的专业知识应用到生物学领域，确实取得了不少成功，但并没有达到人们最初期待的那种革命性突破。虽然像 AlphaFold（其开发者刚刚获得了实至名归的诺贝尔化学奖）和 AlphaProteo（注 11）这样的重大突破在某种程度上减少了这种怀疑，但人们仍然普遍认为人工智能只能（而且将继续）在有限的场景下发挥作用。一种常见的说法是："人工智能可以帮助我们更好地分析数据，但它既不能创造新数据，也不能提升数据质量。如果原始数据质量差，分析结果也不会好到哪里去。"
+考虑到这些困难，许多生物学家长期以来都对人工智能和「大数据」（big data）在生物学领域的价值持怀疑态度。在过去 30 年里，数学家、计算机科学家和物理学家将他们的专业知识应用到生物学领域，确实取得了不少成功，但并没有达到人们最初期待的那种革命性突破。虽然像 AlphaFold（其开发者刚刚获得了实至名归的诺贝尔化学奖）和 AlphaProteo（注 11）这样的重大突破在某种程度上减少了这种怀疑，但人们仍然普遍认为人工智能只能（而且将继续）在有限的场景下发挥作用。一种常见的说法是：「人工智能可以帮助我们更好地分析数据，但它既不能创造新数据，也不能提升数据质量。如果原始数据质量差，分析结果也不会好到哪里去。」
 
 但我认为这种悲观的观点是对人工智能的误解。如果我们关于人工智能发展的核心假设是正确的，那么我们应该把人工智能看作一个虚拟的生物学家，而不是简单的数据分析工具。这个虚拟生物学家可以完成生物学家的所有工作，包括在现实世界中设计和执行实验（通过控制实验室机器人，或者像首席研究员（Principal Investigator）指导研究生那样告诉人类该做什么实验），发明新的生物学方法或测量技术等。正是通过加速整个研究过程，人工智能才能真正推动生物学的快速发展。我想特别强调这一点，因为这是我在讨论人工智能改变生物学能力时人们最常见的误解：我说的不仅仅是把人工智能当作数据分析工具。正如本文开头对强大人工智能的定义所言，我指的是使用人工智能来执行、指导和改进生物学家几乎所有的工作。
 
@@ -304,11 +298,11 @@ CRISPR（基因编辑技术）：这项技术能够在活体生物中编辑任�
 
 那么临床试验呢？虽然行政程序和审批流程确实造成了许多延误，但事实是，试验进展缓慢的主要原因（虽然不是全部原因！）在于我们需要严格评估那些效果并不显著或效果不确定的药物。令人遗憾的是，这种情况在当今的大多数治疗方法中都很普遍：一般来说，癌症药物只能延长患者几个月的寿命，同时还会产生需要仔细评估的严重副作用（阿尔茨海默病的药物也面临类似情况）。这就需要开展大规模研究（为了获得具有统计学意义的结果）和进行复杂的利弊权衡，而监管机构往往难以有效处理这些权衡，这又与行政程序的复杂性和各方利益的冲突有关。
 
-但当某个治疗方法确实非常有效时，审批过程会快得多：对于效果显著的药物，不仅有快速审批通道，获得批准的难度也会大大降低。新冠疫情期间的 mRNA 疫苗在 9 个月内就获得了批准 —— 这比常规速度快得多。不过，即使是这样的速度仍然可以更快 —— 从理论上说，mRNA 疫苗本可以在大约 2 个月内就获得批准。但是，这种程度的延迟（药物从开始到完成大约需要 1 年），再加上大规模并行研发和适度的反复试验（"多试几次"），与我们期望在 5-10 年内实现根本性突破的预期是相符的。从更乐观的角度来看，人工智能驱动的生物科学可能会通过开发更好的动物和细胞实验模型（甚至是计算机模拟），来提高对人体反应的预测准确性，从而减少临床试验中反复试验的需求。这一点在开发抗衰老药物时尤其重要，因为衰老过程持续数十年，我们需要更快的研发反馈循环。
+但当某个治疗方法确实非常有效时，审批过程会快得多：对于效果显著的药物，不仅有快速审批通道，获得批准的难度也会大大降低。新冠疫情期间的 mRNA 疫苗在 9 个月内就获得了批准 —— 这比常规速度快得多。不过，即使是这样的速度仍然可以更快 —— 从理论上说，mRNA 疫苗本可以在大约 2 个月内就获得批准。但是，这种程度的延迟（药物从开始到完成大约需要 1 年），再加上大规模并行研发和适度的反复试验（多试几次），与我们期望在 5-10 年内实现根本性突破的预期是相符的。从更乐观的角度来看，人工智能驱动的生物科学可能会通过开发更好的动物和细胞实验模型（甚至是计算机模拟），来提高对人体反应的预测准确性，从而减少临床试验中反复试验的需求。这一点在开发抗衰老药物时尤其重要，因为衰老过程持续数十年，我们需要更快的研发反馈循环。
 
 最后，关于临床试验和社会障碍，有一点值得特别指出：与其他一些技术相比，生物医学创新在实际应用方面有着特别出色的成功记录（注 16）。正如引言中提到的，很多技术尽管在技术层面运作良好，却常常受到社会因素的制约。这似乎暗示我们应该对人工智能的潜力持谨慎态度。但生物医学领域是独特的：虽然药物的研发过程可能过于繁琐，但一旦开发成功，这些药物通常都能顺利地推广使用。
 
-综上所述，我的基本预测是：在人工智能的推动下，生物学和医学领域将实现一个惊人的跨越 —— 把人类生物学家原本需要 50-100 年才能达到的进展，压缩到 5-10 年内完成。我把这种现象称为「21 世纪的时间压缩"：也就是说，一旦强大的人工智能系统开发出来，我们将在短短几年内实现原本需要整个 21 世纪才能完成的生物学和医学进步。
+综上所述，我的基本预测是：在人工智能的推动下，生物学和医学领域将实现一个惊人的跨越 —— 把人类生物学家原本需要 50-100 年才能达到的进展，压缩到 5-10 年内完成。我把这种现象称为「21 世纪的时间压缩」：也就是说，一旦强大的人工智能系统开发出来，我们将在短短几年内实现原本需要整个 21 世纪才能完成的生物学和医学进步。
 
 预测强大的人工智能在短短几年内能够实现什么，本质上仍然充满不确定性。但是，如果我们换个角度，去思考「如果没有人工智能的帮助，人类在未来 100 年内能够实现什么」，这个问题就会变得更容易把握。我们可以通过几种实用的方法来估计人工智能可能带来的整体进展：回顾 20 世纪人类已经取得的成就，或者从 21 世纪前 20 年的发展趋势推断，又或者设想「如果有 10 项像 CRISPR 这样的技术突破和 50 项像 CAR-T 这样的治疗方法会带来什么样的改变」。这些都能帮助我们更实际地评估强大人工智能可能带来的进展。
 
@@ -320,7 +314,7 @@ CRISPR（基因编辑技术）：这项技术能够在活体生物中编辑任�
 
 有效预防和治疗遗传性疾病。通过更先进的胚胎筛查技术，我们可能能够预防大多数遗传性疾病，同时某种更安全、更可靠的新一代基因编辑技术（在 CRISPR 基础上的改进）可能能够治愈已经出现的大多数遗传性疾病。不过，那些影响人体大部分细胞的全身性疾病可能是最后需要攻克的难关。
 
-预防阿尔茨海默病。目前我们在查明阿尔茨海默病的致病机理方面仍面临很大困难（我们知道它与 β- 淀粉样蛋白（beta-amyloid protein）有关，但具体机制非常复杂）。这正是那种可能通过更精密的测量工具来研究其生物学机制从而找到解决方案的问题。因此，我相信人工智能很有希望解决这个难题。一旦我们真正理解了其发病机制，就很可能通过相对简单的干预手段来预防这种疾病。不过，对于已经发生的阿尔茨海默病造成的大脑损伤，可能还是很难逆转。
+预防阿尔茨海默病。目前我们在查明阿尔茨海默病的致病机理方面仍面临很大困难（我们知道它与 β-淀粉样蛋白（beta-amyloid protein）有关，但具体机制非常复杂）。这正是那种可能通过更精密的测量工具来研究其生物学机制从而找到解决方案的问题。因此，我相信人工智能很有希望解决这个难题。一旦我们真正理解了其发病机制，就很可能通过相对简单的干预手段来预防这种疾病。不过，对于已经发生的阿尔茨海默病造成的大脑损伤，可能还是很难逆转。
 
 改善其他疾病的治疗效果。这包括了一系列其他疾病，如糖尿病（diabetes)、肥胖（obesity)、心脏病、自身免疫疾病（autoimmune diseases）等。这些疾病大多看起来比癌症和阿尔茨海默病更容易解决，而且许多疾病的发病率已经在显著下降。比如，心脏病的死亡率已经降低了超过 50%，而像 GLP-1 受体激动剂（GLP-1 agonists）这样相对简单的治疗方法在对抗肥胖和糖尿病方面已经取得了显著成效。
 
@@ -331,8 +325,6 @@ CRISPR（基因编辑技术）：这项技术能够在活体生物中编辑任�
 让我们回顾这个清单，想象一下如果所有这些突破都能在未来 7-12 年内实现（这符合人工智能快速发展的预期时间表），世界将会发生怎样的变化。毫无疑问，这将是人类历史上一个划时代的人道主义胜利，它将一举消除困扰人类数千年的大多数疾病威胁。我的许多朋友和同事现在正在养育下一代，等到这些孩子长大后，我希望疾病这个词对他们来说就像坏血病、天花或黑死病对我们这一代人一样遥远陌生。这一代人不仅将享有更大的生理特征自主权和自我表达的自由，而且很可能能够活到他们期望的年龄。
 
 这些变化之巨大，恐怕会让除了那少数预见到强大人工智能潜力的人之外的所有人都感到难以置信。举个例子：目前在美国，数千名经济学家和政策专家正在讨论如何维持社会保障（Social Security）和医疗保险（Medicare）体系的可持续性，以及更广泛地探讨如何控制医疗支出（这些支出主要来自 70 岁以上的人群，尤其是那些患有癌症等终末期疾病的患者）。如果这些生物医学突破能够实现，这些福利项目的状况很可能会得到根本性改善（注 20），因为工作年龄人口与退休人口的比例将发生显著变化。当然，这些问题解决后可能会出现新的挑战，比如如何确保这些新技术能够惠及更广泛的人群。但值得注意的是，即使人工智能只在生物学领域带来突破性进展，世界也将发生翻天覆地的变化。
-
-
 
 ### 2. Neuroscience and mind
 
@@ -374,48 +366,45 @@ One topic that often comes up in sci-fi depictions of AI, but that I intentional
 
 In summary, AI-accelerated neuroscience is likely to vastly improve treatments for, or even cure, most mental illness as well as greatly expand "cognitive and mental freedom" and human cognitive and emotional abilities. It will be every bit as radical as the improvements in physical health described in the previous section. Perhaps the world will not be visibly different on the outside, but the world as experienced by humans will be a much better and more humane place, as well as a place that offers greater opportunities for self-actualization. I also suspect that improved mental health will ameliorate a lot of other societal problems, including ones that seem political or economic.
 
-
 神经科学与心智发展
 
 在上一节中，我主要讨论了身体疾病和一般生物学，而没有涉及神经科学或心理健康。但实际上，神经科学是生物学的一个重要分支，而心理健康与身体健康同等重要。事实上，从某种程度上说，心理健康对人类福祉的影响可能比身体健康更加直接。目前有数亿人因为成瘾（addiction)、抑郁症（depression)、精神分裂症（schizophrenia)、重度自闭症（low-functioning autism)、创伤后应激障碍（PTSD)、反社会人格障碍（psychopathy)（注 21）或智力障碍（intellectual disabilities）等问题而生活质量极低。还有更多数十亿人正在与各种日常心理问题作斗争，这些问题往往可以被视为上述严重临床障碍的轻微形式。与生物学领域一样，我们不仅可以解决这些问题，还可能从根本上提升人类的生活体验质量。
 
 我之前为生物学建立的基本分析框架同样适用于神经科学。推动该领域发展的往往是为数不多的关键发现，这些发现通常与测量或精确干预的工具有关 —— 在前文提到的突破性技术中，光遗传学（optogenetics）就是一个神经科学的重要发现，最近的 CLARITY 技术和扩展显微镜技术（expansion microscopy）也是沿着相同方向的进展，此外许多通用的细胞生物学方法也可以直接应用于神经科学研究。我认为，这些技术进展的速度同样会被人工智能大大加快，因此「5-10 年内实现百年进展」的预期同样适用于神经科学领域，原因也是相似的。就像生物学一样，20 世纪神经科学取得了巨大进展 —— 比如，直到 1950 年代我们才真正理解神经元如何产生和传导电信号。因此，我们有理由期待，在人工智能的加速下，神经科学领域能在短短几年内取得突破性进展。
 
-在这个基本框架之上，我们还需要补充一点：过去几年我们从人工智能本身的研究中获得（或正在获得）的一些见解，可能会帮助推进神经科学的发展，即使这些研究仍然完全由人类来进行。人工智能的「可解释性」（interpretability）研究就是一个很好的例子：虽然生物神经元的工作方式表面上看起来与人工神经元完全不同（生物神经元通过电位峰值和峰值频率来传递信息，这就带来了人工神经元中不存在的时间维度，而且还有许多与细胞生理学和神经递质有关的细节会显著影响它们的功能），但它们都面临着一个相同的基本问题："如何让由简单单元组成的分布式、经过训练的网络，通过结合线性和非线性运算来完成重要的计算任务？」我强烈认为，在研究大多数有关计算和神经回路的重要问题时，单个神经元通信的具体细节可能并不那么重要（注 22）。举个例子：研究人员最近在研究人工智能系统可解释性时发现的一种计算机制，后来在小鼠大脑中也被发现了类似的机制。
+在这个基本框架之上，我们还需要补充一点：过去几年我们从人工智能本身的研究中获得（或正在获得）的一些见解，可能会帮助推进神经科学的发展，即使这些研究仍然完全由人类来进行。人工智能的「可解释性」（interpretability）研究就是一个很好的例子：虽然生物神经元的工作方式表面上看起来与人工神经元完全不同（生物神经元通过电位峰值和峰值频率来传递信息，这就带来了人工神经元中不存在的时间维度，而且还有许多与细胞生理学和神经递质有关的细节会显著影响它们的功能），但它们都面临着一个相同的基本问题：「如何让由简单单元组成的分布式、经过训练的网络，通过结合线性和非线性运算来完成重要的计算任务？」我强烈认为，在研究大多数有关计算和神经回路的重要问题时，单个神经元通信的具体细节可能并不那么重要（注 22）。举个例子：研究人员最近在研究人工智能系统可解释性时发现的一种计算机制，后来在小鼠大脑中也被发现了类似的机制。
 
 与真实神经网络相比，在人工神经网络上进行实验要容易得多（研究真实神经网络常常需要通过手术来研究动物大脑），因此可解释性研究很可能成为帮助我们更好地理解神经科学的重要工具。此外，强大的人工智能系统可能比人类更擅长开发和使用这类研究工具。
 
 除了可解释性研究之外，我们从人工智能领域学到的关于智能系统训练方法的知识，理应（虽然我不确定是否已经）在神经科学领域引发一场革命性的变革。当我还在从事神经科学研究时，很多人关注的问题在我现在看来是对学习过程的错误理解，因为那时候还没有「扩展假说」（scaling hypothesis）和「痛苦教训」（bitter lesson）这些概念。我们现在知道，一个简单的目标函数再加上大量数据就能产生令人难以置信的复杂行为，这使得理解目标函数和系统架构的固有倾向变得更加重要，而具体计算过程中的细节反而不那么关键了。虽然近年来我没有密切关注这个领域，但我感觉计算神经科学家们还没有完全领会这一点。对于扩展假说，我一直的理解是「啊哈 —— 这从宏观层面解释了智能是如何运作的，以及为什么它能在进化过程中如此容易地产生」，但我觉得大多数神经科学家并不这么看，部分原因是就连在人工智能领域内，扩展假说作为「智能的核心秘密」这一观点也尚未获得普遍认同。
 
-我认为神经科学家们应该尝试将这个基本见解与人类大脑的特殊性质结合起来研究，这些特殊性质包括生物物理限制、进化历史、神经网络拓扑结构、以及运动和感觉系统的输入 / 输出细节等，从而尝试解决神经科学中的一些关键难题。虽然可能已经有一些科学家在这样做，但我觉得还不够普遍。而未来的人工智能神经科学家可能能够更有效地利用这种研究角度来加速科学进展。
+我认为神经科学家们应该尝试将这个基本见解与人类大脑的特殊性质结合起来研究，这些特殊性质包括生物物理限制、进化历史、神经网络拓扑结构、以及运动和感觉系统的输入/输出细节等，从而尝试解决神经科学中的一些关键难题。虽然可能已经有一些科学家在这样做，但我觉得还不够普遍。而未来的人工智能神经科学家可能能够更有效地利用这种研究角度来加速科学进展。
 
 我预计人工智能将从四个不同方向推动神经科学的发展，这些方向将共同促进心理疾病的治疗和大脑功能的改善：
 
-传统研究方法的突破。这包括分子生物学、化学和遗传学领域的研究，基本上与第 1 节讨论的一般生物学研究类似，人工智能可能通过相同的机制来加速这些研究。目前已有许多药物可以通过调节神经递质（neurotransmitters）来改变大脑功能，影响警觉性或感知能力，调节情绪等。人工智能可以帮助我们开发出更多这样的药物，同时也可能加速我们对心理疾病遗传基础的研究。
+1、传统研究方法的突破。这包括分子生物学、化学和遗传学领域的研究，基本上与第 1 节讨论的一般生物学研究类似，人工智能可能通过相同的机制来加速这些研究。目前已有许多药物可以通过调节神经递质（neurotransmitters）来改变大脑功能，影响警觉性或感知能力，调节情绪等。人工智能可以帮助我们开发出更多这样的药物，同时也可能加速我们对心理疾病遗传基础的研究。
 
-精密的神经监测和干预技术。这指的是能够观察大量单个神经元或神经回路的活动，并能有针对性地改变它们行为的能力。光遗传学（optogenetics）和神经探针（neural probes）技术已经能在活体生物中实现这种监测和干预。此外，一些更先进的方法也已被提出，比如使用分子计时器（molecular ticker tapes）来记录大量单个神经元的放电模式，这些方法从理论上看是可行的。
+2、精密的神经监测和干预技术。这指的是能够观察大量单个神经元或神经回路的活动，并能有针对性地改变它们行为的能力。光遗传学（optogenetics）和神经探针（neural probes）技术已经能在活体生物中实现这种监测和干预。此外，一些更先进的方法也已被提出，比如使用分子计时器（molecular ticker tapes）来记录大量单个神经元的放电模式，这些方法从理论上看是可行的。
 
-先进的计算神经科学。如前所述，现代人工智能研究中的具体发现和整体理念都可能被有效地应用到系统神经科学的研究中，包括可能帮助我们揭示精神病（psychosis）或情绪障碍（mood disorders）等复杂疾病的真正成因和发展规律。
+3、先进的计算神经科学。如前所述，现代人工智能研究中的具体发现和整体理念都可能被有效地应用到系统神经科学的研究中，包括可能帮助我们揭示精神病（psychosis）或情绪障碍（mood disorders）等复杂疾病的真正成因和发展规律。
 
-行为干预方法的创新。虽然之前主要关注神经科学的生物学层面，但不能忽视精神病学和心理学在 20 世纪已经发展出的大量行为干预方法。人工智能很可能能够加速这一领域的发展，既能帮助开发新的治疗方法，也能帮助患者更好地执行现有的治疗方案。从更广泛的角度来说，我们可能会看到「人工智能辅导员」的出现，这种系统可以持续帮助人们发挥最大潜能，通过分析个人的行为模式来帮助提高社交和工作效率。
+4、行为干预方法的创新。虽然之前主要关注神经科学的生物学层面，但不能忽视精神病学和心理学在 20 世纪已经发展出的大量行为干预方法。人工智能很可能能够加速这一领域的发展，既能帮助开发新的治疗方法，也能帮助患者更好地执行现有的治疗方案。从更广泛的角度来说，我们可能会看到「人工智能辅导员」的出现，这种系统可以持续帮助人们发挥最大潜能，通过分析个人的行为模式来帮助提高社交和工作效率。
 
 我认为，这四个方向的进展会相互协同，就像在治疗身体疾病方面一样，即使没有人工智能的参与，也可能在未来 100 年内实现大多数心理疾病的治愈或预防 —— 因此在人工智能的加速下，可能在 5-10 年内就能完成。具体来说，我预测可能会出现以下突破：
 
-大多数心理疾病有望得到治愈。虽然我不是精神病学专家（我在神经科学领域主要研究开发用于观察小规模神经元群的探针），但我认为像创伤后应激障碍（PTSD)、抑郁症、精神分裂症、成瘾等疾病都可能通过结合上述四个研究方向得到深入理解和有效治疗。这些疾病的根源可能是「生物化学异常」（尽管可能很复杂）和「神经网络高层功能异常」的某种组合。换句话说，这是一个系统层面的神经科学问题 —— 当然，这并不否定前面提到的行为干预方法的重要性。随着我们开发出更好的测量和干预工具，特别是那些可以用于活体人类研究的工具，我们可能会在这个领域取得快速进展。
+1、大多数心理疾病有望得到治愈。虽然我不是精神病学专家（我在神经科学领域主要研究开发用于观察小规模神经元群的探针），但我认为像创伤后应激障碍（PTSD)、抑郁症、精神分裂症、成瘾等疾病都可能通过结合上述四个研究方向得到深入理解和有效治疗。这些疾病的根源可能是「生物化学异常」（尽管可能很复杂）和「神经网络高层功能异常」的某种组合。换句话说，这是一个系统层面的神经科学问题 —— 当然，这并不否定前面提到的行为干预方法的重要性。随着我们开发出更好的测量和干预工具，特别是那些可以用于活体人类研究的工具，我们可能会在这个领域取得快速进展。
 
-某些涉及大脑结构异常的疾病可能更难治疗，但并非无解。比如，有证据表明反社会人格障碍与明显的大脑解剖结构差异有关 —— 患者的某些脑区比正常人更小或发育不足。这类患者通常从小就缺乏同理心；无论他们的大脑有什么不同，很可能是先天性的。某些智力障碍和其他类似情况可能也属于这种情况。重新构建大脑结构听起来确实很困难，但这可能是一个智力投入会带来高回报的领域。也许我们能找到某种方法，让成年大脑返回到更早期或更具可塑性的状态，从而进行重塑。虽然我对这种可能性的把握程度不高，但我的直觉是人工智能可能会在这个方向上带来创新性的解决方案。
+2、某些涉及大脑结构异常的疾病可能更难治疗，但并非无解。比如，有证据表明反社会人格障碍与明显的大脑解剖结构差异有关 —— 患者的某些脑区比正常人更小或发育不足。这类患者通常从小就缺乏同理心；无论他们的大脑有什么不同，很可能是先天性的。某些智力障碍和其他类似情况可能也属于这种情况。重新构建大脑结构听起来确实很困难，但这可能是一个智力投入会带来高回报的领域。也许我们能找到某种方法，让成年大脑返回到更早期或更具可塑性的状态，从而进行重塑。虽然我对这种可能性的把握程度不高，但我的直觉是人工智能可能会在这个方向上带来创新性的解决方案。
 
-从基因层面预防心理疾病似乎是可行的。大多数心理疾病都具有一定的遗传性，全基因组关联研究（genome-wide association studies，GWAS）在识别相关基因因素方面已经开始取得进展，这些因素通常涉及多个基因。就像预防身体疾病一样，我们可能可以通过胚胎筛查来预防大多数此类疾病。不过，与身体疾病相比有一个重要区别：心理疾病更可能是多基因性的（即由多个基因共同影响），这种复杂性意味着在筛查过程中可能会不小心筛除掉一些与疾病相关但实际上有积极作用的特征。不过有趣的是，近年来的全基因组关联研究似乎表明，这种相关性可能之前被高估了。无论如何，人工智能加速的神经科学研究可能会帮助我们更好地理解这些复杂关系。当然，对复杂特征进行胚胎筛查必然会引发社会争议，不过我猜测大多数人可能会支持对严重或致残性心理疾病进行筛查。
+3、从基因层面预防心理疾病似乎是可行的。大多数心理疾病都具有一定的遗传性，全基因组关联研究（genome-wide association studies，GWAS）在识别相关基因因素方面已经开始取得进展，这些因素通常涉及多个基因。就像预防身体疾病一样，我们可能可以通过胚胎筛查来预防大多数此类疾病。不过，与身体疾病相比有一个重要区别：心理疾病更可能是多基因性的（即由多个基因共同影响），这种复杂性意味着在筛查过程中可能会不小心筛除掉一些与疾病相关但实际上有积极作用的特征。不过有趣的是，近年来的全基因组关联研究似乎表明，这种相关性可能之前被高估了。无论如何，人工智能加速的神经科学研究可能会帮助我们更好地理解这些复杂关系。当然，对复杂特征进行胚胎筛查必然会引发社会争议，不过我猜测大多数人可能会支持对严重或致残性心理疾病进行筛查。
 
-那些我们现在不认为是临床疾病的日常心理问题也有望得到解决。大多数人都存在一些日常心理问题，虽然这些问题还不至于被认为是临床疾病。比如有些人脾气暴躁，有些人注意力难以集中或总是感觉疲惫，有些人过分胆小或焦虑，或者不善于适应变化。现在已经有一些药物可以帮助提高警觉性或注意力，如咖啡因（caffeine)、莫达非尼（modafinil)、利他林（ritalin）等，但就像其他领域一样，未来可能会有更多突破。我们可能会发现更多类似的药物，也可能会开发出全新的干预方式，比如定向光刺激（就像前面提到的光遗传学技术）或磁场刺激。考虑到 20 世纪我们已经开发出了这么多能调节认知功能和情绪状态的药物，我对这个「时间压缩的 21 世纪」充满期待 —— 在这个时代，每个人都能让自己的大脑发挥更好的功能，享受更充实的日常生活体验。
+4、那些我们现在不认为是临床疾病的日常心理问题也有望得到解决。大多数人都存在一些日常心理问题，虽然这些问题还不至于被认为是临床疾病。比如有些人脾气暴躁，有些人注意力难以集中或总是感觉疲惫，有些人过分胆小或焦虑，或者不善于适应变化。现在已经有一些药物可以帮助提高警觉性或注意力，如咖啡因（caffeine)、莫达非尼（modafinil)、利他林（ritalin）等，但就像其他领域一样，未来可能会有更多突破。我们可能会发现更多类似的药物，也可能会开发出全新的干预方式，比如定向光刺激（就像前面提到的光遗传学技术）或磁场刺激。考虑到 20 世纪我们已经开发出了这么多能调节认知功能和情绪状态的药物，我对这个「时间压缩的 21 世纪」充满期待 —— 在这个时代，每个人都能让自己的大脑发挥更好的功能，享受更充实的日常生活体验。
 
-人类的基本生活体验可以得到极大提升。进一步来说，很多人都经历过一些特殊时刻，比如顿悟般的启示、创造性的灵感迸发、强烈的同理心、深刻的成就感、超越性的体验、爱的感动、对美的感受，或者冥想带来的平静。这些体验的性质和出现频率因人而异，同一个人在不同时期的体验也会很不同，有时候某些药物也能诱发这些体验（但往往伴有副作用）。这些现象表明，人类可能的体验范围实际上非常广阔，而且我们可以让这些特殊的美好时刻在生活中占据更大的比重。我们可能还能全面提升各种认知能力。这可以看作是神经科学领域的「生物自主权」或「延长寿命」。
+5、人类的基本生活体验可以得到极大提升。进一步来说，很多人都经历过一些特殊时刻，比如顿悟般的启示、创造性的灵感迸发、强烈的同理心、深刻的成就感、超越性的体验、爱的感动、对美的感受，或者冥想带来的平静。这些体验的性质和出现频率因人而异，同一个人在不同时期的体验也会很不同，有时候某些药物也能诱发这些体验（但往往伴有副作用）。这些现象表明，人类可能的体验范围实际上非常广阔，而且我们可以让这些特殊的美好时刻在生活中占据更大的比重。我们可能还能全面提升各种认知能力。这可以看作是神经科学领域的「生物自主权」或「延长寿命」。
 
 在科幻作品中描述人工智能时，经常会提到「意识上传」（mind uploading）的概念，也就是把人类大脑的模式和动态特征捕捉下来，并在计算机软件中重现。这个话题足够写一篇专门的文章，但简单来说，虽然我认为从理论上这几乎肯定是可能的，但在实践中，即使有强大的人工智能协助，它仍然面临着重大的技术和社会挑战，这些挑战可能无法在我们讨论的 5-10 年时间框架内解决。
 
 总的来说，在人工智能的加速下，神经科学很可能能够极大地改善多数心理疾病的治疗效果，甚至实现完全治愈，同时大幅拓展人类的「认知和心理自主权」，提升人类的认知和情感能力。这种进步将会像前文描述的身体健康改善一样具有革命性的意义。虽然这些变化可能不会改变世界的外在面貌，但会让人类的主观体验变得更加美好和人性化，让每个人都有更多机会实现自我价值。我也相信，心理健康的改善将有助于缓解许多其他社会问题，包括那些表面上看起来属于政治或经济领域的问题。
-
-
 
 ### 3. Economic development and poverty
 
@@ -445,15 +434,13 @@ The opt-out problem. One concern in both developed and developing world alike is
 
 Overall, I am optimistic about quickly bringing AI's biological advances to people in the developing world. I am hopeful, though not confident, that AI can also enable unprecedented economic growth rates and allow the developing world to at least surpass where the developed world is now. I am concerned about the "opt out" problem in both the developed and developing world, but suspect that it will peter out over time and that AI can help accelerate this process. It won't be a perfect world, and those who are behind won't fully catch up, at least not in the first few years. But with strong efforts on our part, we may be able to get things moving in the right direction—and fast. If we do, we can make at least a downpayment on the promises of dignity and equality that we owe to every human being on earth.
 
-
 经济发展与贫困
 
-前两部分讨论了如何开发新技术来治愈疾病和改善人类生活质量。然而，从人道主义的角度来看，我们需要思考一个重要问题："这些技术能让所有人受益吗？"
+前两部分讨论了如何开发新技术来治愈疾病和改善人类生活质量。然而，从人道主义的角度来看，我们需要思考一个重要问题：这些技术能让所有人受益吗？
 
-研发出治疗疾病的方法只是第一步，要从世界上彻底消除疾病则是另一个更大的挑战。放眼更广阔的视角，许多现有的健康干预措施都还没有在全球范围内推广应用，同样的情况也适用于其他（非医疗领域的）技术进步。这反映出一个现实：世界上很多地区的生活水平仍然十分低下——撒哈拉以南非洲的人均 GDP 仅约 2,000 美元，而美国则高达约 75,000 美元。如果人工智能 (AI) 只是进一步提升发达国家的经济增长和生活质量，却对发展中国家毫无帮助，那么这将是一个严重的道德缺失，也会让前两节中描述的人道主义成就大打折扣。理想的情况是，强大的 AI 应该在推动发达国家进步的同时，也帮助发展中国家缩小与发达国家的差距。
+研发出治疗疾病的方法只是第一步，要从世界上彻底消除疾病则是另一个更大的挑战。放眼更广阔的视角，许多现有的健康干预措施都还没有在全球范围内推广应用，同样的情况也适用于其他（非医疗领域的）技术进步。这反映出一个现实：世界上很多地区的生活水平仍然十分低下 —— 撒哈拉以南非洲的人均 GDP 仅约 2,000 美元，而美国则高达约 75,000 美元。如果人工智能 (AI) 只是进一步提升发达国家的经济增长和生活质量，却对发展中国家毫无帮助，那么这将是一个严重的道德缺失，也会让前两节中描述的人道主义成就大打折扣。理想的情况是，强大的 AI 应该在推动发达国家进步的同时，也帮助发展中国家缩小与发达国家的差距。
 
-我对 AI 在解决不平等和促进经济增长方面的信心，不如它在开发基础技术方面的信心那么强。这是因为技术创新对智能投入能产生明显的高效益（包括克服复杂问题和数据匮乏的能力），而经济系统则涉及许多人为限制和内在的复杂性。我对 AI 能否解决著名的"社会主义计算问题"（即如何在没有市场机制的情况下进行经济计算）持谨慎态度，而且我认为即使 AI 有这种能力，政府也不会（也不应该）把经济政策的制定完全交给它。此外还存在其他挑战，比如如何说服人们接受那些有效但可能引起他们怀疑的治疗方法。
-
+我对 AI 在解决不平等和促进经济增长方面的信心，不如它在开发基础技术方面的信心那么强。这是因为技术创新对智能投入能产生明显的高效益（包括克服复杂问题和数据匮乏的能力），而经济系统则涉及许多人为限制和内在的复杂性。我对 AI 能否解决著名的「社会主义计算问题」（即如何在没有市场机制的情况下进行经济计算）持谨慎态度，而且我认为即使 AI 有这种能力，政府也不会（也不应该）把经济政策的制定完全交给它。此外还存在其他挑战，比如如何说服人们接受那些有效但可能引起他们怀疑的治疗方法。
 
 发展中国家面临的挑战因私营和公共部门普遍存在的腐败问题而变得更加复杂。腐败会造成恶性循环：它加剧了贫困，而贫困又会滋生更多腐败。由 AI 驱动的经济发展规划必须应对腐败、制度不健全以及其他诸多人为因素带来的挑战。
 
@@ -482,7 +469,6 @@ Overall, I am optimistic about quickly bringing AI's biological advances to peop
 技术抵制问题。在发达国家和发展中国家都存在一个共同的挑战：部分人群可能会拒绝接受 AI 带来的福利（这类似于反疫苗运动，或更广泛的反技术运动）。这可能会导致恶性循环，比如，那些最需要决策能力提升的人群反而选择拒绝使用能够帮助改善其判断力的技术，这会导致社会差距不断扩大，甚至可能形成一个长期处于劣势的社会群体（一些研究者认为这将威胁民主制度，我将在下一节详细讨论这个问题）。这种情况会削弱 AI 在其他方面取得的积极进展。这个问题很难解决，因为强制人们接受技术在道德上是不可接受的，但我们至少可以努力提高公众的科学素养——也许 AI 本身就能在这方面提供帮助。值得欣慰的是，历史经验表明，反技术运动的实际影响往往小于其声势：尽管批评现代技术的声音很普遍，但最终大多数人还是会接受这些技术，特别是在涉及个人选择时。个人通常会采用对自己有益的健康和消费类技术，而那些真正受到阻碍的技术，比如核能，往往是因为集体性的政治决策。
 
 总的来说，我对于快速将 AI 在生物学领域的进展推广到发展中国家持乐观态度。我也希望 AI 能够帮助实现空前的经济增长率，使发展中国家至少达到当今发达国家的水平，尽管这个目标的实现还存在不确定性。关于技术抵制问题，虽然这在发达国家和发展中国家都让人担忧，但我认为这种抵制会随时间推移而减弱，而且 AI 可能会加速这个过程。当然，这个世界不会立即变得完美，发展落后的地区也不可能在最初几年就完全赶上来。但是通过我们的共同努力，我们有可能推动事态朝着正确的方向快速发展。如果我们能做到这一点，就能开始兑现我们对地球上每一个人的承诺——让所有人都能享有尊严和平等的生活。
-
 
 ### 4. Peace and governance
 
@@ -524,9 +510,9 @@ All of these are somewhat vague ideas, and as I said at the beginning of this se
 
 就这个问题而言，我认为需要从两个方面来考虑：国际冲突和各国的内部治理结构。从国际层面来看，当强大的人工智能技术出现时，确保民主国家在世界舞台上占据主导地位至关重要。由人工智能支撑的威权统治带来的后果令人不寒而栗，因此民主国家必须有能力主导强大人工智能进入世界的方式，既要防止被威权主义国家压制，也要避免这些国家内部出现人权侵犯。
 
-我认为目前最佳的解决方案是采取一种「协和战略」[26]，即由民主国家组成联盟，通过掌控供应链、快速发展以及限制或延缓对手获取芯片和半导体设备等关键资源，来获得明显的优势（即使这种优势是暂时的）。这个联盟可以采取双管齐下的方式：一方面利用人工智能建立强大的军事优势（强制手段），另一方面向更多国家提供共享先进人工智能技术的机会（激励措施），以换取他们对推进民主战略的支持（这种方式有点类似于历史上的「和平利用原子能计划"）。该联盟的目标是争取获得越来越多国家的支持，从而孤立那些最具对抗性的国家，最终使这些国家不得不接受与世界其他国家相同的条件：放弃与民主国家的竞争，以获得各种利益，避免与更强大的对手发生冲突。
+我认为目前最佳的解决方案是采取一种「协和战略」[26]，即由民主国家组成联盟，通过掌控供应链、快速发展以及限制或延缓对手获取芯片和半导体设备等关键资源，来获得明显的优势（即使这种优势是暂时的）。这个联盟可以采取双管齐下的方式：一方面利用人工智能建立强大的军事优势（强制手段），另一方面向更多国家提供共享先进人工智能技术的机会（激励措施），以换取他们对推进民主战略的支持（这种方式有点类似于历史上的「和平利用原子能计划」）。该联盟的目标是争取获得越来越多国家的支持，从而孤立那些最具对抗性的国家，最终使这些国家不得不接受与世界其他国家相同的条件：放弃与民主国家的竞争，以获得各种利益，避免与更强大的对手发生冲突。
 
-如果我们能够实现这些目标，我们将创造一个由民主国家主导的世界。在这个世界中，民主国家将拥有足够的经济和军事实力，使其不会被专制政权破坏、征服或颠覆，并可能将他们在人工智能领域的优势转化为长期的领先地位。这种理想状态可能会带来一个「永恒的 1991 年"—— 也就是民主国家始终保持优势，Fukuyama 所设想的「历史终结」愿景得以实现的世界。但我必须再次强调，实现这一目标将面临巨大挑战，尤其需要私营人工智能公司与民主国家政府之间的紧密合作，同时在采取强制措施和提供激励措施之间作出极其审慎的权衡。
+如果我们能够实现这些目标，我们将创造一个由民主国家主导的世界。在这个世界中，民主国家将拥有足够的经济和军事实力，使其不会被专制政权破坏、征服或颠覆，并可能将他们在人工智能领域的优势转化为长期的领先地位。这种理想状态可能会带来一个「永恒的 1991 年」—— 也就是民主国家始终保持优势，Fukuyama 所设想的「历史终结」愿景得以实现的世界。但我必须再次强调，实现这一目标将面临巨大挑战，尤其需要私营人工智能公司与民主国家政府之间的紧密合作，同时在采取强制措施和提供激励措施之间作出极其审慎的权衡。
 
 即便上述所有目标都实现了，我们仍然需要面对每个国家内部民主与专制势力之间的较量这个问题。虽然这个问题的发展难以预测，但在民主国家掌控最先进人工智能的全球环境下，我对人工智能可能会在世界各地自然而然地推动民主发展持谨慎乐观态度。特别是在这种情况下，民主国家政府可以利用他们在人工智能领域的优势来赢得信息领域的竞争：他们能够抵制专制政权的渗透和宣传活动，甚至可能通过提供专制政权无法在技术上封锁或监控的信息渠道和人工智能服务，来创建一个全球信息自由流动的环境。这种做法并不需要进行刻意的政治宣传，只需要防范恶意攻击，确保信息能够自由流通。虽然这种变化不会立竿见影，但这种公平的竞争环境很可能会逐步推动全球治理向民主方向发展，这主要基于以下几个原因。
 
@@ -548,10 +534,6 @@ All of these are somewhat vague ideas, and as I said at the beginning of this se
 
 以上这些设想都还比较模糊，正如我在本节开始时所说的，我对这些设想的可行性远没有对生物学、神经科学和减少贫困等领域进展的信心那么大。这些想法可能显得过于理想化。但重要的是我们要有远大的愿景，要敢于构想宏伟蓝图并付诸实践。将人工智能视为自由、个人权利和法律面前人人平等的守护者，这样的愿景太过重要，值得我们为之奋斗。在 21 世纪，借助人工智能技术的政治制度可能会成为个人自由更有力的保护者，同时也会成为一个激励世界的典范，推动自由民主成为全世界都渴望采用的政府形式。
 
-
-
-
-
 ### 5. Work and meaning
 
 Even if everything in the preceding four sections goes well—not only do we alleviate disease, poverty, and inequality, but liberal democracy becomes the dominant form of government, and existing liberal democracies become better versions of themselves—at least one important question still remains. "It's great we live in such a technologically advanced world as well as a fair and decent one", someone might object, "but with AI's doing everything, how will humans have meaning? For that matter, how will they survive economically?".
@@ -569,24 +551,6 @@ First of all, in the short term I agree with arguments that comparative advantag
 However, I do think in the long run AI will become so broadly effective and so cheap that this will no longer apply. At that point our current economic setup will no longer make sense, and there will be a need for a broader societal conversation about how the economy should be organized.
 
 While that might sound crazy, the fact is that civilization has successfully navigated major economic shifts in the past: from hunter-gathering to farming, farming to feudalism, and feudalism to industrialism. I suspect that some new and stranger thing will be needed, and that it's something no one today has done a good job of envisioning. It could be as simple as a large universal basic income for everyone, although I suspect that will only be a small part of a solution. It could be a capitalist economy of AI systems, which then give out resources (huge amounts of them, since the overall economic pie will be gigantic) to humans based on some secondary economy of what the AI systems think makes sense to reward in humans (based on some judgment ultimately derived from human values). Perhaps the economy runs on Whuffie points. Or perhaps humans will continue to be economically valuable after all, in some way not anticipated by the usual economic models. All of these solutions have tons of possible problems, and it's not possible to know whether they will make sense without lots of iteration and experimentation. And as with some of the other challenges, we will likely have to fight to get a good outcome here: exploitative or dystopian directions are clearly also possible and have to be prevented. Much more could be written about these questions and I hope to do so at some later time.
-
-Taking stock
-
-Through the varied topics above, I've tried to lay out a vision of a world that is both plausible if everything goes right with AI, and much better than the world today. I don't know if this world is realistic, and even if it is, it will not be achieved without a huge amount of effort and struggle by many brave and dedicated people. Everyone (including AI companies!) will need to do their part both to prevent risks and to fully realize the benefits.
-
-But it is a world worth fighting for. If all of this really does happen over 5 to 10 years—the defeat of most diseases, the growth in biological and cognitive freedom, the lifting of billions of people out of poverty to share in the new technologies, a renaissance of liberal democracy and human rights—I suspect everyone watching it will be surprised by the effect it has on them. I don't mean the experience of personally benefiting from all the new technologies, although that will certainly be amazing. I mean the experience of watching a long-held set of ideals materialize in front of us all at once. I think many will be literally moved to tears by it.
-
-Throughout writing this essay I noticed an interesting tension. In one sense the vision laid out here is extremely radical: it is not what almost anyone expects to happen in the next decade, and will likely strike many as an absurd fantasy. Some may not even consider it desirable; it embodies values and political choices that not everyone will agree with. But at the same time there is something blindingly obvious—something overdetermined—about it, as if many different attempts to envision a good world inevitably lead roughly here.
-
-In Iain M. Banks' The Player of Games29, the protagonist—a member of a society called the Culture, which is based on principles not unlike those I've laid out here—travels to a repressive, militaristic empire in which leadership is determined by competition in an intricate battle game. The game, however, is complex enough that a player's strategy within it tends to reflect their own political and philosophical outlook. The protagonist manages to defeat the emperor in the game, showing that his values (the Culture's values) represent a winning strategy even in a game designed by a society based on ruthless competition and survival of the fittest. A well-known post by Scott Alexander has the same thesis—that competition is self-defeating and tends to lead to a society based on compassion and cooperation. The "arc of the moral universe" is another similar concept.
-
-I think the Culture's values are a winning strategy because they're the sum of a million small decisions that have clear moral force and that tend to pull everyone together onto the same side. Basic human intuitions of fairness, cooperation, curiosity, and autonomy are hard to argue with, and are cumulative in a way that our more destructive impulses often aren't. It is easy to argue that children shouldn't die of disease if we can prevent it, and easy from there to argue that everyone's children deserve that right equally. From there it is not hard to argue that we should all band together and apply our intellects to achieve this outcome. Few disagree that people should be punished for attacking or hurting others unnecessarily, and from there it's not much of a leap to the idea that punishments should be consistent and systematic across people. It is similarly intuitive that people should have autonomy and responsibility over their own lives and choices. These simple intuitions, if taken to their logical conclusion, lead eventually to rule of law, democracy, and Enlightenment values. If not inevitably, then at least as a statistical tendency, this is where humanity was already headed. AI simply offers an opportunity to get us there more quickly—to make the logic starker and the destination clearer.
-
-Nevertheless, it is a thing of transcendent beauty. We have the opportunity to play some small role in making it real.
-
-Thanks to Kevin Esvelt, Parag Mallick, Stuart Ritchie, Matt Yglesias, Erik Brynjolfsson, Jim McClave, Allan Dafoe, and many people at Anthropic for reviewing drafts of this essay.
-
-To the winners of the 2024 Nobel prize in Chemistry, for showing us all the way.
 
 工作与意义
 
@@ -610,7 +574,27 @@ To the winners of the 2024 Nobel prize in Chemistry, for showing us all the way.
 
 这听起来可能很疯狂，但事实是人类文明在过去已经成功经历了几次重大的经济形态转变：从狩猎采集到农业生产，从农业社会到封建制度，再从封建制度到工业化社会。我认为我们需要某种全新且更不寻常的模式，而这种模式是现今没有人能够准确描绘的。它可能简单如建立一个全民基本收入制度，但我觉得这只是解决方案中的一小部分。它可能是一个由 AI 系统主导的资本主义经济体系，这些系统基于人类价值观制定规则，通过某种次级经济体系来向人类分配大量资源（因为整体经济规模将会十分庞大）。也许经济将基于信用积分（Whuffie points）运行。又或者人类最终仍将以常规经济模型未能预料到的方式保持其经济价值。所有这些解决方案都存在诸多潜在问题，如果没有反复试验和实践，我们就无法判断它们是否可行。就像面对其他挑战一样，我们可能需要付出努力才能获得理想的结果：显然，经济发展也可能走向剥削或黑暗化的方向，这是我们必须防范的。关于这些问题还有很多值得讨论的地方，我希望将来能有机会详细探讨。
 
-回顾与展望通过上述种种议题的探讨，我试图描绘这样一幅愿景：如果人工智能的发展一切顺利，我们将迎来一个既切实可行又远胜于当今的美好世界。这个愿景是否能够实现，我无法确定。即便有实现的可能，也需要无数勇敢而执着的人们不懈奋斗才能达成。每个人（包括 AI 公司！）都必须贡献自己的力量，既要防范潜在风险，又要充分发掘其中的机遇。
+### Taking stock
+
+Through the varied topics above, I've tried to lay out a vision of a world that is both plausible if everything goes right with AI, and much better than the world today. I don't know if this world is realistic, and even if it is, it will not be achieved without a huge amount of effort and struggle by many brave and dedicated people. Everyone (including AI companies!) will need to do their part both to prevent risks and to fully realize the benefits.
+
+But it is a world worth fighting for. If all of this really does happen over 5 to 10 years—the defeat of most diseases, the growth in biological and cognitive freedom, the lifting of billions of people out of poverty to share in the new technologies, a renaissance of liberal democracy and human rights—I suspect everyone watching it will be surprised by the effect it has on them. I don't mean the experience of personally benefiting from all the new technologies, although that will certainly be amazing. I mean the experience of watching a long-held set of ideals materialize in front of us all at once. I think many will be literally moved to tears by it.
+
+Throughout writing this essay I noticed an interesting tension. In one sense the vision laid out here is extremely radical: it is not what almost anyone expects to happen in the next decade, and will likely strike many as an absurd fantasy. Some may not even consider it desirable; it embodies values and political choices that not everyone will agree with. But at the same time there is something blindingly obvious—something overdetermined—about it, as if many different attempts to envision a good world inevitably lead roughly here.
+
+In Iain M. Banks' The Player of Games29, the protagonist—a member of a society called the Culture, which is based on principles not unlike those I've laid out here—travels to a repressive, militaristic empire in which leadership is determined by competition in an intricate battle game. The game, however, is complex enough that a player's strategy within it tends to reflect their own political and philosophical outlook. The protagonist manages to defeat the emperor in the game, showing that his values (the Culture's values) represent a winning strategy even in a game designed by a society based on ruthless competition and survival of the fittest. A well-known post by Scott Alexander has the same thesis—that competition is self-defeating and tends to lead to a society based on compassion and cooperation. The "arc of the moral universe" is another similar concept.
+
+I think the Culture's values are a winning strategy because they're the sum of a million small decisions that have clear moral force and that tend to pull everyone together onto the same side. Basic human intuitions of fairness, cooperation, curiosity, and autonomy are hard to argue with, and are cumulative in a way that our more destructive impulses often aren't. It is easy to argue that children shouldn't die of disease if we can prevent it, and easy from there to argue that everyone's children deserve that right equally. From there it is not hard to argue that we should all band together and apply our intellects to achieve this outcome. Few disagree that people should be punished for attacking or hurting others unnecessarily, and from there it's not much of a leap to the idea that punishments should be consistent and systematic across people. It is similarly intuitive that people should have autonomy and responsibility over their own lives and choices. These simple intuitions, if taken to their logical conclusion, lead eventually to rule of law, democracy, and Enlightenment values. If not inevitably, then at least as a statistical tendency, this is where humanity was already headed. AI simply offers an opportunity to get us there more quickly—to make the logic starker and the destination clearer.
+
+Nevertheless, it is a thing of transcendent beauty. We have the opportunity to play some small role in making it real.
+
+Thanks to Kevin Esvelt, Parag Mallick, Stuart Ritchie, Matt Yglesias, Erik Brynjolfsson, Jim McClave, Allan Dafoe, and many people at Anthropic for reviewing drafts of this essay.
+
+To the winners of the 2024 Nobel prize in Chemistry, for showing us all the way.
+
+回顾与展望
+
+通过上述种种议题的探讨，我试图描绘这样一幅愿景：如果人工智能的发展一切顺利，我们将迎来一个既切实可行又远胜于当今的美好世界。这个愿景是否能够实现，我无法确定。即便有实现的可能，也需要无数勇敢而执着的人们不懈奋斗才能达成。每个人（包括 AI 公司！）都必须贡献自己的力量，既要防范潜在风险，又要充分发掘其中的机遇。
 
 但这个世界值得我们为之奋斗。如果这一切真的能在未来 5 到 10 年内实现 —— 战胜大多数疾病，扩展生物和认知领域的自由，让数十亿人脱离贫困并享受科技进步的成果，见证自由民主和人权的复兴 —— 我相信每个亲历这一切的人都会被这些变革深深震撼。我说的不仅仅是亲身体验这些新技术带来的惊喜，尽管那必定令人赞叹。更重要的是，当我们共同见证那些长久以来的理想在眼前一一实现时的那份感动。我想，很多人都会为之落泪。
 
@@ -625,8 +609,6 @@ To the winners of the 2024 Nobel prize in Chemistry, for showing us all the way.
 特别感谢 Kevin Esvelt、Parag Mallick、Stuart Ritchie、Matt Yglesias、Erik Brynjolfsson、Jim McClave、Allan Dafoe，以及 Anthropic 的诸位同仁对本文初稿的悉心审阅。
 
 谨以此文献给 2024 年诺贝尔化学奖的获得者们，正是他们为我们照亮了前行的道路。
-
-
 
 ### Footnotes
 
