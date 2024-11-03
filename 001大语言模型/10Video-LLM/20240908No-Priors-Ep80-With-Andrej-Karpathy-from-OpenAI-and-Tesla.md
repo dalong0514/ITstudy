@@ -1,60 +1,58 @@
-## 20240908No-Priors-Ep80-With-Andrej-Karpathy-from-OpenAI-and-Tesla
+## 20240908No-Priors-Ep80-With-Andrejj-Karpathy-from-OpenAI-and-Tesla
 
-[No Priors Ep. 80 | With Andrej Karpathy from OpenAI and Tesla - YouTube](https://www.youtube.com/watch?v=hM_h0UA7upI)
+[No Priors Ep. 80 | With Andrejj Karpathy from OpenAI and Tesla - YouTube](https://www.youtube.com/watch?v=hM_h0UA7upI)
 
 Here's an outline of the key points from the interview，following the Minto Pyramid principle，in Chinese:
 
-\# 与 Andrej Karpathy 的对话要点
+\# 与 Andrejj Karpathy 的对话要点
 
 \## 主要观点：AI 正在改变教育和人类认知的未来
 
 \### 1. AI 在自动驾驶领域的进展
 
-- Waymo 和 Tesla 在自动驾驶技术上各有优势
+Waymo 和 Tesla 在自动驾驶技术上各有优势
 
-- 自动驾驶技术从演示到大规模应用需要时间
+自动驾驶技术从演示到大规模应用需要时间
 
-- Tesla 的软件优势可能使其在长期占据优势
+Tesla 的软件优势可能使其在长期占据优势
 
 \### 2. 人形机器人的发展前景
 
-- 人形机器人与汽车技术有很多共通之处
+人形机器人与汽车技术有很多共通之处
 
-- 人形设计有利于人机交互和数据收集
+人形设计有利于人机交互和数据收集
 
-- 初期应用可能集中在工业和 B2B 领域
+初期应用可能集中在工业和 B2B 领域
 
 \### 3. AI 模型的发展趋势
 
-- Transformer 架构是一个重要突破
+Transformer 架构是一个重要突破
 
-- 模型规模可能会缩小，专注于认知核心
+模型规模可能会缩小，专注于认知核心
 
-- 未来可能出现多个专门化 AI 模型协作的「公司」结构
+未来可能出现多个专门化 AI 模型协作的「公司」结构
 
 \### 4. AI 对教育的影响
 
-- AI 可以提供个性化、全球化的教育体验
+AI 可以提供个性化、全球化的教育体验
 
-- 教育者角色将转变为课程设计者，AI 成为学生接口
+教育者角色将转变为课程设计者，AI 成为学生接口
 
-- 人类学习潜力可能被大幅提升
+人类学习潜力可能被大幅提升
 
 \### 5. 对未来教育和职业发展的建议
 
-- 数学、物理、计算机科学等基础学科仍然重要
+数学、物理、计算机科学等基础学科仍然重要
 
-- 终身学习将成为常态
+终身学习将成为常态
 
-- 教育重点应放在培养思维能力上，而非记忆知识
+教育重点应放在培养思维能力上，而非记忆知识
 
 结论：AI 将深刻改变教育模式和人类认知能力，但人类仍需主动学习和适应以保持竞争力。
 
----
+### 01
 
-Here is the transcribed audio text split into logical paragraphs:
-
-Hi, listeners. Welcome back to No Priors. Today, we're hanging out with Andre Karpathy, who needs no introduction. Andre is a renowned researcher, beloved AI educator and Cuber, an early team member from OpenAI, the lead for Autopilot at Tesla, and now working on AI for Education. We'll talk to him about the state of research, his new company, and what we can expect from AI. Thanks a lot for joining us today. It's great to have you here.
+Hi, listeners. Welcome back to No Priors. Today, we're hanging out with Andrej Karpathy, who needs no introduction. Andrej is a renowned researcher, beloved AI educator and Cuber, an early team member from OpenAI, the lead for Autopilot at Tesla, and now working on AI for Education. We'll talk to him about the state of research, his new company, and what we can expect from AI. Thanks a lot for joining us today. It's great to have you here.
 
 Thank you, I'm happy to be here. 
 
@@ -83,6 +81,38 @@ Yeah, I think that was always like the plan from the start, I would say at Tesla
 My understanding is that current Waymo's are actually like not that, but that they've tried, but they ended up like not doing that is my current understanding, but I'm not sure because they don't talk about it. But I do fundamentally believe in this approach and I think that's the last piece to fall if you want to think about it that way and I do suspect that the end-to-end systems for Tesla in like say 10 years it is just a neural net I mean the videos stream into a neural net and commands come out you have to sort of build to build up to it incrementally and do it piece by piece. And even all the intermediate predictions and all those things that we've done, I don't think they've actually misled the development. I think they're part of it because there's a lot of subtle reasons for this.
 
 So actually, like end-to-end driving, when you're just imitating humans and so on, you have very few bits of supervision to train a massive neural net. And it's too few bits of signal to train so many billions of parameters. And so these intermediate representations and so on help you develop the features and the detectors for everything. And then it makes it a much easier problem for the end-to-end part of it. And so I suspect, although I don't know because I'm not part of the team, but there's a ton of pre-training happening so that you can do the fine-tuning for end-to-end. And so basically, I feel like it was necessary to eat through it incrementally, and that's what Tesla has done. I think it's the right approach, and it looks like it's working.
+
+大家好，欢迎收听 No Priors。今天，我们邀请到了一位重量级嘉宾 Andrej Karpathy。作为一位著名的研究员，他不仅是备受推崇的 AI 教育工作者和魔方爱好者，还是 OpenAI 的早期团队成员，曾担任 Tesla 自动驾驶部门的负责人，目前正致力于 AI 教育领域的工作。我们将与他探讨当前的研究状况、他的新公司，以及 AI 未来的发展前景。Andrej，非常感谢你今天能来做客。
+
+谢谢邀请，很高兴来到节目。
+
+你曾在 Tesla 领导自动驾驶项目，如今我们已经看到完全自动驾驶的乘用车在道路上行驶。从技术能力的角度来看，你如何评估我们目前所处的阶段？我们应该以怎样的速度来期待这项技术的能力提升和乘用车的普及？
+
+确实，我在自动驾驶领域投入了大约五年的时间。这是一个非常令人着迷的领域。目前，这个领域正在发生的事情很有趣。我经常会把自动驾驶与通用人工智能（AGI）进行类比，可能是因为我对这个领域特别熟悉。我认为在某种程度上，我们已经在自动驾驶领域实现了一定程度的通用人工智能，因为现在已经有了可以供付费用户实际使用的自动驾驶系统，能够在城市中自如行驶。
+
+在旧金山，Waymo 自动驾驶已经成为一种常见的出行方式。我相信你可能也体验过，我自己就搭乘过很多次。这项技术确实令人惊叹，可以自动驾驶带你去任何地方，而且已经实现了商业化运营。有趣的是，我第一次体验 Waymo 是在将近十年前，大约 2014 年。当时是我一位在 Waymo 工作的朋友安排的技术演示。即便是在十年前，它就能完美地完成环区域的自动驾驶演示。然而，从那次技术演示到现在这个覆盖整个城市且仍在不断扩张的商用产品，整整经历了十年的发展历程。
+
+这个过程中，你认为是监管因素还是技术因素起到了主导作用？技术是什么时候真正成熟的？是最近才实现的吗？
+
+我认为主要是技术因素。在一次 30 分钟的演示中，你看不到团队在十年间必须要解决的所有技术难题。从技术演示到商业产品之间存在着巨大的技术壁垒。当然，监管等因素也起到了重要作用。但我认为，从某种程度上说，我们确实在自动驾驶领域达到了类似 AGI 的水平。不过，最引人深思的是，这项技术还没有实现全球范围的推广。虽然你可以在旧金山体验这项服务，但这还没有从根本上改变整个世界。这个推广过程还需要很长时间。从单点示范到全球范围的实际应用之间还有很大的差距。这一点和 AGI 的发展路径很相似，我推测当我们实现 AGI 时也会经历类似的过程。
+
+在自动驾驶领域，大多数人认为 Waymo 领先于 Tesla。然而，从我个人的专业判断来看，Tesla 其实走在了 Waymo 的前面。虽然表面上看起来并非如此，但我对 Tesla 及其自动驾驶项目始终保持着强烈的信心。用我的理解来说，Tesla 面临的主要是软件层面的挑战，而 Waymo 则存在硬件层面的瓶颈。相比之下，软件问题更容易解决。Tesla 已经在全球范围内完成了车辆部署，这正是 Waymo 目前尚未实现的。因此，一旦 Tesla 突破技术瓶颈，实现可靠的系统部署，其影响力将会是惊人的。就在昨天，我试驾了他们的最新版本，系统可以自如地完成各种驾驶任务。最近他们在技术上取得了显著的进步。
+
+确实如此，我最近也经常使用这个系统，它的表现令人印象深刻。昨天，它展现出了极其出色的驾驶能力，这充分证明了研发团队的实力。因此，我依然认为 Tesla 主要面临软件挑战，而 Waymo 则需要解决硬件问题。尽管目前看来 Waymo 似乎占据优势，但从长远来看，当我们回顾十年后谁真正实现了规模化应用，以及创造了更大的商业价值，我认为 Tesla 在这个层面上仍然保持领先地位。
+
+在软件问题上，你认为还需要多久才能实现技术突破，达到与 Waymo 相当的水平？因为按照你的说法，Waymo 的车辆装配了大量昂贵的激光雷达（LiDAR）和其他类型的传感器（Sensors），这些硬件为其软件系统提供了支持。而如果采用 Tesla 的方案，只依靠摄像头（Camera），就能大幅降低成本和系统复杂度，而且这种方案可以更容易地应用到各类车型上。你觉得这种技术转变会在什么时候发生？
+
+我希望在未来几年内能看到这样的转变。但有趣的是，我觉得人们可能还没有充分认识到一点：Tesla 其实也在使用大量昂贵的传感器，只不过他们是在训练阶段使用这些设备。他们确实有配备激光雷达的测试车辆在路上行驶，也进行了许多非规模化的测试，使用额外的传感器进行数据收集，还包括地图绘制等各种工作。这些都是在训练阶段完成的，然后他们将收集到的数据和经验提炼为可以部署到仅依靠视觉系统的量产车上的解决方案。这实际上是一种非常巧妙的策略，将昂贵的传感器成本转移到了训练阶段，但我认为这个策略的价值还没有被充分理解。我相信这个方向会取得成功，因为图像像素中包含了足够的信息，而神经网络有能力处理这些信息。确实，这些传感器在训练阶段非常重要，但在实际应用阶段并不是必需的。
+
+另一个值得关注的技术转变是：自动驾驶系统从大量基于边缘案例的启发式方法（Heuristic Approach）转向了端到端深度学习（End-to-end Deep Learning）。这是最近发生的重要变革，你能详细说说这个转变吗？
+
+是的，这其实一直都是 Tesla 的既定战略。我之前提到过神经网络如何逐步取代传统技术栈，这个过程是这样的：当我刚加入时，系统中有大量的 C++ 代码，而现在车辆上运行的实时系统中 C++ 代码已经大幅减少。虽然后端还有许多我们没有谈到的复杂系统，但神经网络正在逐步接管整个流程。最初，它只负责图像层面的目标检测，然后发展到处理多帧图像并作出预测，再到利用时间序列上的多帧图像进行预测，同时逐步替换原有的 C++ 代码。最终目标是直接输出转向指令。这就是 Tesla 逐步完善技术栈的过程。
+
+据我了解，当前的 Waymo 采用了不同的方案。虽然他们也尝试过类似的方法，但最终没有采用这个路线。当然，由于他们不对外讨论技术细节，这只是我的个人理解。但我从根本上相信这种方法是正确的，这可能是最后需要实现的技术突破。我推测在未来十年左右，Tesla 的端到端系统将会发展成一个纯粹的神经网络：视频数据输入，直接输出控制指令。当然，这需要循序渐进，一步一步构建。包括我们现在开发的所有中间预测功能，实际上都是这个过程中必要的组成部分，而不是什么技术歧路，这背后有着深层的技术原因。
+
+实际上，在端到端驾驶系统中，如果仅仅依靠模仿人类驾驶行为，我们能获得的监督信号（Supervision Signal）是非常有限的。这些信号量太少，无法有效训练包含数十亿参数的大型神经网络。这就是为什么中间表征（Intermediate Representation）的作用如此重要，它们帮助我们开发特征和各类检测器，从而大大简化了端到端学习的难度。虽然我已经不是团队成员，无法了解具体细节，但我推测他们正在进行大量的预训练（Pre-training），为后续的端到端微调（Fine-tuning）做准备。我认为这种循序渐进的方法是必要的，这也正是 Tesla 一直在做的。这种方法看起来是正确的，而且正在显示出成效。
+
+### 02
 
 So I'm really looking forward to it. If you had started end-to-end, you wouldn't have had the data anyway. That makes sense. Yeah. So you worked on the Tesla humanoid robot before you left. I have so many questions, but one is like starting here. What transfers?
 
@@ -376,7 +406,7 @@ Outcomes being like understanding, learning, being able to contribute new knowle
 
 I think it's not an accident that if you go back 200 years, 300 years, the people who were doing science were nobility or people of wealth.
 
-We will all be nobility learning with Andre, yeah.
+We will all be nobility learning with Andrej, yeah.
 
 I do think that I see it very much equivalent to your quote earlier. I feel like learning something is kind of like going to the gym, but for the brain, right? Like it feels like going to the gym. I mean, going to the gym is fun. People like to lift, et cetera.
 
@@ -413,4 +443,74 @@ Thank you for doing this yeah
 Yes it's great to be here
 
 Find us on twitter at no priors pod subscribe to our youtube channel if you want to see our faces follow the show on apple podcasts spotify or wherever you listen that way you get a new episode every week and sign up for emails.
+
+### 翻译
+
+
+
+
+
+
+
+
+这个发展前景令人期待。确实，如果一开始就想实现端到端的自动驾驶，连基础数据都无法获得。这个观点很有道理。说到这里，我知道你在离开 Tesla 之前参与了人形机器人（Humanoid Robot）项目。我有很多问题想问，但让我们从最基础的开始：哪些技术是可以从自动驾驶转移到机器人领域的？
+
+基本上所有技术都是可以迁移的，不过我觉得很多人还没有意识到这一点。
+
+这个说法很大胆啊。毕竟这看起来是两个完全不同的技术领域。
+
+从技术角度来看，汽车本质上就是一种机器人。因此，我认为把 Tesla 定位为一家汽车公司是不准确的。它实际上是一家规模化的机器人公司。这里的「规模化」是一个关键因素。Tesla 不是在制造单个产品，而是在建立一个完整的规模化制造系统，这是完全不同的概念。正是基于这种定位，从汽车技术到人形机器人的技术迁移其实并不需要太多额外工作。
+
+举个有趣的例子，Tesla 的人形机器人 Optimus 在早期版本中，由于使用了与汽车完全相同的计算机和摄像头系统，它的行为模式非常像一辆汽车。当时我们直接在机器人上运行了原本用于汽车的神经网络，让它在办公室环境中活动。系统原本设计用来识别车辆可行驶区域（Drivable Space），现在则被用来识别机器人的可行走区域（Walkable Space）。有趣的是，系统展现出了一定的泛化（Generalization）能力，虽然需要一些微调（Fine-tuning），但它成功地将「驾驶」的概念转化为了在环境中的移动。
+
+你说得对，一个合理的理解方式是：从本质上讲，汽车确实是一种机器人，很多核心技术都可以迁移，主要的差异在于驱动系统（Actuation）和动作数据（Action Data）这些特定领域的内容。
+
+确实如此。虽然有一些特定组件需要重新开发，但技术迁移的范围令人惊叹。比如说，当 Elon 宣布启动 Optimus 项目时，整个过程的快速推进让我印象深刻。团队迅速调动了所有必要的技术资源，包括计算机辅助设计（CAD）模型和完整的供应链体系。这让我意识到 Tesla 内部积累了多么丰富的机器人制造专业知识。而且所有工具都是通用的，只是从汽车应用重新配置到机器人领域。这需要考虑相同的硬件设计原则、规模化生产问题，以及控制系统的开发。
+
+在智能控制系统方面，技术迁移的程度也很高。这不仅包括特定神经网络的迁移，还包括整个开发方法论、数据标注团队的工作流程以及各个团队之间的协调机制。这种大规模的技术迁移确实令人印象深刻。
+
+谈到人形机器人的应用前景，你认为最先会在哪些领域实现突破？很多人期待它能够完成家务，比如洗衣服之类的日常任务。
+
+我认为这种家庭应用场景会在较晚阶段才能实现。商业对消费者（B2C，Business-to-Consumer）市场不应该是最初的切入点，因为现阶段的机器人可能存在安全隐患，比如可能会在运行过程中发生意外。这涉及到太多的法律责任问题，所以这不是一个明智的起步方向。
+
+（对方打趣说：）"那就是一个力道很大的拥抱了。"
+
+确实，机器人可能会出现失衡摔倒等情况。目前这些技术还不够完善，需要大量的改进工作。因此，我认为最理想的首选客户是企业自身。我相信 Tesla 很可能会采取这种策略 —— 我想我对 Tesla 的看好已经很明显了。首先在自己的工厂环境中进行技术验证，从事一些基础的物料搬运（Material Handling）等任务。这种方式可以避免复杂的第三方合作协议，减少法律和合规方面的负担。这是一个循序渐进的发展过程。
+
+第二步则是开拓企业对企业（B2B，Business-to-Business）市场。我们可以与拥有大型仓库的企业合作，开展物料处理等业务。这个阶段需要制定正式的商业合同，建立必要的安全防护措施等基础设施。当技术在多个企业环境中得到验证后，才会考虑进入消费者市场。当然，我们现在已经能看到一些面向消费者的机器人产品，比如优趣科技（Unitree）推出的机器人就很吸引我。
+
+"我已经买了一台。"
+
+"真的吗？"
+
+"对，就是 G1 型号。"
+
+」是的，G1。我可能也会购入一台，我相信会有很多开发者在这类平台上进行创新。但从规模化应用的角度来看，我认为之前提到的发展路径更有可能成功。在初期，主要还是集中在物料处理等基础应用，然后逐步向更专业的服务机器人方向发展。有一个应用场景我特别期待，就是网络自由挑战赛（Net Freedom Challenge）中提出的落叶清理任务。我很期待看到 Optimus 能够在街道上灵活移动，精确地拾取每一片落叶，这样就可以取代噪音较大的吹叶机。我认为这是一个既实用又具有挑战性的应用场景，希望能成为最早实现的应用之一。
+
+"或者用耙子收集落叶。"
+
+"对，这也是个好办法，而且不会产生噪音。"
+
+"确实，安静地耙理落叶听起来很实用。实际上，已经有一种专门的落叶清理机器在使用了，只不过不是人形机器人。"
+
+让我们来讨论一下人形机器人设计理念的问题。最基本的观点是：既然我们的世界是按照人类的需求建造的，那么只要开发一套人形硬件平台，就能逐步扩展其任务处理能力。但也有另一种观点认为，人类的形态对于特定任务来说并非最优解。比如说，我们完全可以根据具体任务需求，设计出力量更大、体型更大或更小的机器人。既然如此，为什么我们要局限于人类的形态，而不是开发具有超越人类能力的专用机器人呢？你对这个问题有什么看法？
+
+我认为很多人可能低估了开发独立平台所需的基础设施成本。每开发一个新的机器人平台，都需要投入巨大的固定成本。因此，将资源集中在一个通用平台上，使其能够完成各种任务是更明智的选择。人形设计还有一个重要优势：它便于实现远程操作（Teleoperation）。这对数据收集来说极其重要，因为操作者可以基于自身经验直观地控制机器人。这个优势常常被人忽视。
+
+当然，正如你提到的，我们的环境本就是为人类设计的，这也是选择人形设计的重要原因之一。虽然我们可能会对人形平台做一些变体设计，但要记住每个平台都需要巨大的基础投入。还有一个关键因素是迁移学习（Transfer Learning）带来的优势。在人工智能领域，我们追求的是一个能够处理多任务的统一神经网络，让它能从各种任务中累积智能和能力。这就像大语言模型（LLM）之所以引人注目的原因：在统一的文本域中处理各种不同的任务，让知识在任务之间共享，所有功能都整合在同一个神经网络中。我们需要这样的平台，这样在一个任务（比如物体抓取）中收集的数据就能促进其他任务的发展。相比之下，如果为每个特定任务开发专门的系统，就无法充分利用任务之间的知识迁移优势。
+
+确实，这里有个值得讨论的问题：优趣科技的 G1 机器人售价约 3 万美元，而要开发一个功能完备的人形机器人，想要将成本控制在某个范围以下确实很困难。如果考虑替代方案，比如在移动平台上安装机械臂，在初期可能是一个更经济的通用平台解决方案。这个想法你觉得合理吗？
+
+是的，这个思路确实有其合理性。比如用轮式结构替代双足行走确实能降低成本。不过我担心这可能会陷入局部最优（Local Optimum）的问题。从长远来看，专注于开发和完善单一的人形平台可能是更明智的策略。此外，人形设计还有一个优势：它对于普通用户来说更容易接受和理解。人们可能会很自然地想要与其进行语音交互，这种心理因素也支持采用人形设计。当然，除非人们对人形机器人产生恐惧心理，而更偏好某种抽象的机器人形态。但如果是一个多轮移动平台的设计，我们还需要考虑这种外形是否会影响用户的接受度。
+
+这很有趣，因为优趣科技的另一个机器人产品采用了仿狗设计，这种形态可能会给人一种更亲切、更熟悉的感觉。
+
+确实，不过自从英剧《黑镜》（Black Mirror）播出后，机器狗的形象突然变得有些令人不安。这说明机器人的心理接受度是个复杂的问题。这也是为什么我认为人形设计在用户理解和接受度方面可能具有优势。
+
+从技术发展的角度来看，你认为在实现机器人特别是人形机器人这个愿景的过程中，还有哪些关键的技术里程碑需要突破？
+
+说实话，我对这个问题也没有非常明确的答案。不过我观察到一个有趣的现象：在人形机器人的开发中，对于下半身运动控制，可能并不适合采用从人类示范中进行模仿学习（Imitation Learning）的方法，因为这涉及到大量的倒立摆控制（Inverted Pendulum Control）等复杂问题。而对于上半身，我们则需要大量的远程操作、数据收集和端到端学习。这导致整个系统需要采用混合架构（Hybrid Architecture）的方案。
+
+在与该领域研究人员的交流中，我注意到他们更多关注的是驱动系统（Actuation)、物体操作（Manipulation）以及精确控制（Digital Manipulation）等具体技术问题。
+
 
