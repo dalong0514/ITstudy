@@ -359,9 +359,9 @@ if you look at language model loss on on different domains，I believe the bits 
 
 
 
-发言人 1 19：22 Well，well，what's the intuition and what's the technical details of how to do next? Cursor prediction，that jump，that's not，that's not so
+发言人 1 19：22 Well，well，what's the intuition and what's the technical details of how to do next? Cursor prediction，that jump，that's not，that's not so intuitive. 
 
-intuitive. 好的，好的，直觉是什么，下一步怎么做的技术细节是什么？Cursor 预测，那个跳跃，那不是，那不是那么直观。
+好的，好的，直觉是什么，下一步怎么做的技术细节是什么？Cursor 预测，那个跳跃，那不是，那不是那么直观。
 
 发言人 4 19：30 I think the people，yeah，I think I can speak to a few of the
 
@@ -383,9 +383,7 @@ Token。这意味着他们有很长很长的提示，可以看到你的很多代
 
 认为，这是使它高质量和非常快速的两个重要因素。发言人 1 20：20 Okay，so Moe mixture of experts，the input is huge，the
 
-output is small. Yeah，okay，so like what，what，what else can you say about how to make like caching play a . 好的，所以专家混合在一起，投入是巨大的，产出是小的。是的，好的，那就像，关于如何让缓存发挥作用，你还能说
-
-什么。
+output is small. Yeah，okay，so like what，what，what else can you say about how to make like caching play a . 好的，所以专家混合在一起，投入是巨大的，产出是小的。是的，好的，那就像，关于如何让缓存发挥作用，你还能说什么。
 
 发言人 4 20：30 role in caching? Caching plays a huge role because you're dealing with this many input tokens. If every single keystroke that you're
 
@@ -3858,4 +3856,3 @@ hundreds of thousands of programmers，and on the way to that will at least make
 perhaps profound programming code I saw on Reddit. Nothing is as
 
 permanent as a temporary solution that works. Thank you for listening and hope to see you next time. 感谢您收听与 Michael Sule、Arvid 和 Aman 的对话。要支持此播客，请在说明中查看我们的赞助商。现在让我给你留一个我在 Reddit 上看到的随机、有趣且可能深刻的编程代码。没有什么比临时解决方案更持久的了。感谢您的聆听，希望下次见到您。
-
