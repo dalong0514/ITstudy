@@ -4,6 +4,8 @@
 
 ### 部署
 
+http://localhost/apps
+
 1、直接用 docker 镜像部署。
 
 拉完仓库项目后：

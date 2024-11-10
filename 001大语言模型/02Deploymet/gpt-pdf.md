@@ -4,7 +4,13 @@
 
 [daodao97/gptpdf-ui: Using GPT to parse PDF](https://github.com/daodao97/gptpdf-ui)
 
+### 跑服务
+
+切换到虚拟环境 kaizhi。
+
 python3.10 gptpdf2txt.py
+
+python3.10 qwen_gptpdf2txt.py
 
 ### 部署记录
 
@@ -44,3 +50,12 @@ fitz-0.0.1.dev2
 解决方法：在一个新的虚拟环境里装 gptpdf 跑。
 
 补充：目前是放在虚拟环境 kaizhi 里的。
+
+2、本地 api 接口地址报错无效。
+
+ValueError: LLM(Large Languate Model) error, Please check your key or base_url, or network
+2024-11-08 08:47:36,104 - INFO - gpt parse page: 1
+2024-11-08 08:47:36,808 - INFO - HTTP Request: POST https://76b3-117-147-119-165.ngrok-free.app/v1/chat/completions "HTTP/1.1 404 Not Found"
+2024-11-08 08:47:36,808 - ERROR - Tunnel 76b3-117-147-119-165.ngrok-free.app not found
+
+解决方法：把链接（https://76b3-117-147-119-165.ngrok-free.app）输入到浏览器里回车，类似于手动通下路，然后再跑。
