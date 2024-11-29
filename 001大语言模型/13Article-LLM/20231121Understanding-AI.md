@@ -2,8 +2,6 @@
 
 [Large language models, explained with a minimum of math and jargon](https://www.understandingai.org/p/large-language-models-explained-with)
 
-Large language models, explained with a minimum of math and jargon
-
 Want to really understand how large language models work? Here’s a gentle primer.
 
 2023 年 7 月 27 日
