@@ -27,6 +27,45 @@ Flags:
 
 ollama run llama2
 
+
+---
+
+2024-12-14
+
+Ollama 现已支持直接运行 Hugging Face Hub 上的 GGUF 格式模型，操作简便。以下是具体步骤：
+
+1. **确保 Ollama 已更新至最新版本**：在最新版本中，Ollama 增强了对 Hugging Face 模型的支持。
+
+2. **运行 Hugging Face 上的模型**：使用以下命令即可直接运行指定模型：
+
+   ```bash
+   ollama run hf.co/{用户名}/{模型库名}
+   ```
+
+   例如，运行名为 `Llama-3.2-1B-Instruct-GGUF` 的模型：
+
+   ```bash
+   ollama run hf.co/bartowski/Llama-3.2-1B-Instruct-GGUF
+   ```
+
+3. **选择特定的量化版本**：如果需要运行特定量化类型的模型，可在命令中指定：
+
+   ```bash
+   ollama run hf.co/{用户名}/{模型库名}:{量化类型}
+   ```
+
+   例如，运行 `Q8_0` 量化版本的模型：
+
+   ```bash
+   ollama run hf.co/bartowski/Llama-3.2-3B-Instruct-GGUF:Q8_0
+   ```
+
+   请注意，量化类型标签不区分大小写。
+
+4. **自定义聊天模板和参数**：如果需要自定义模型的聊天模板或系统提示，可在模型库中添加相应的 `template` 或 `system` 文件。模板应采用 Go 模板格式。
+
+通过上述步骤，您可以轻松地在 Ollama 中运行 Hugging Face 上的 GGUF 模型。  
+
 ### 问题汇总
 
 跑本地 ollama 模型。
