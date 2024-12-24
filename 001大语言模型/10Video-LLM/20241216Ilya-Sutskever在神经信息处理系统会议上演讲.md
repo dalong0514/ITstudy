@@ -8,11 +8,6 @@ What you have here is an image, a screenshot, from a similar talk 10 years ago a
 
 这是一张图片的截图，来自十年前 2014 年在蒙特利尔举行的 New Rips 会议上的一个类似演讲。那时是个比较单纯的年代。这里我们在照片中展示。这是「之前」的样子。顺便说，这是「之后」的样子。希望现在我能成为一个经验丰富的指导者。
 
-
-
-
-
-
 But here I'd like to talk a little bit about the work itself and maybe a 10-year retrospective on it. Because a lot of the things in this work were correct, but some not so much. We can review them and we can see what happened and how it gently flowed to where we are today.
 
 在这里，我想稍微谈谈这项工作的内容，并回顾一下过去十年的发展历程。在这项工作中，很多事情都是正确的，但也有一些并不是完全正确。我们可以回顾这些内容，看看它们的变化过程，以及是如何逐步发展到今天的状况的。
@@ -25,13 +20,9 @@ Now let's dive into the details a little bit more. So, this was a slide from 10 
 
 现在让我们更深入地探讨一下细节。这是一张 10 年前的幻灯片，效果还不错。这里讨论的是深度学习假设。我们提到，如果拥有一个由 10 层组成的大型神经网络，那么它可以在不到一秒的时间内完成任何人类能够做到的事情。
 
-Why did we have this emphasis on things that human beings can do in a fraction of a second? Why this thing specifically? Well, if you believe the deep learning dogma, so to say, that artificial neurons and...
+Why did we have this emphasis on things that human beings can do in a fraction of a second? Why this thing specifically? Well, if you believe the deep learning dogma, so to say, that artificial neurons and Biological neurons are similar, or at least not too different, and you believe that real neurons are slow, then anything that we can do quickly, by we, I mean human beings. I even mean just one human in the entire world. If there is one human in the entire world that can do some task in a fraction of a second, then a 10-layer neural network can do it too, right? It follows.
 
-我们为什么要特别关注那些人类能在瞬间完成的任务呢？为什么会特别选择这一点？如果你相信所谓的深度学习信条，也就是说，人工神经元和...
-
-Biological neurons are similar, or at least not too different, and you believe that real neurons are slow, then anything that we can do quickly, by we, I mean human beings. I even mean just one human in the entire world. If there is one human in the entire world that can do some task in a fraction of a second, then a 10-layer neural network can do it too, right? It follows.
-
-生物神经元彼此相似，或者至少没有太大差异。如果假设你认为真实的神经元反应缓慢，那么任何人类能够快速完成的事情，即便全世界只有一个人能在瞬间完成某个任务，那么一个 10 层的神经网络也应该能够做到。这是一个合理的推论。
+我们为什么要特别关注那些人类能在瞬间完成的任务呢？为什么会特别选择这一点？如果你相信所谓的深度学习信条，也就是说，人工神经元和生物神经元彼此相似，或者至少没有太大差异。如果假设你认为真实的神经元反应缓慢，那么任何人类能够快速完成的事情，即便全世界只有一个人能在瞬间完成某个任务，那么一个 10 层的神经网络也应该能够做到。这是一个合理的推论。
 
 You just take their connections and you embed them inside your neural net, the artificial one. So this was the motivation. Anything that a human being can do in a fraction of a second, a big 10-layer neural network can do too.
 
@@ -49,13 +40,9 @@ What is it saying really? What does this slide really say? This slide says that 
 
 这段内容实际上是想说，如果你有一个自回归模型，它可以很好地预测下一个 Token，那么它就能够掌握接下来序列的正确分布。这是一个相对较新的研究发现。
 
-It wasn't literally the first ever autoregressive neural network, but I would argue it was the first autoregressive neural network where we really believed that if you...
+It wasn't literally the first ever autoregressive neural network, but I would argue it was the first autoregressive neural network where we really believed that if you train it really well, then you will get whatever you want. In our case, back then it was the humble, today humble, then incredibly audacious task of translation.
 
-尽管它并不是第一个自回归神经网络，但我认为它是第一个让我们真正相信其潜力的自回归神经网络。
-
-Train it really well, then you will get whatever you want. In our case, back then it was the humble, today humble, then incredibly audacious task of translation.
-
-未找到意译内容
+这并不是第一个真正意义上的自回归神经网络，但我认为它是第一个让我们确信「只要训练得足够好，就能实现你想要的一切目标」的自回归神经网络。在当时，对我们来说，这个目标是翻译 —— 一个如今看来平凡但在当时极为大胆的任务。
 
 Now I'm going to show you some ancient history that many of you may have never seen before. It's called the LSTM. To those unfamiliar, an LSTM is the thing that poor deep learning researchers did before transformers. It's basically a ResNet, but rotated 90 degrees.
 
@@ -73,13 +60,15 @@ And the conclusion slide, in some sense, the conclusion slide from the talk from
 
 在某种意义上，当时演讲的结论幻灯片是最为关键的，因为它明确指出了规模假设的初步想法。也就是说，拥有一个巨大的数据集并训练一个庞大的神经网络，理论上可以确保成功。可以说，这一理念确实在逐步实现。
 
-I want to mention one...
+I want to mention the other idea, and this is, I claim, the idea that truly stood the test of time, is the core idea of deep learning itself. It's the idea of connectionism. It's the idea that if you allow yourself to believe that an artificial neuron is kind of sort of like a biological neuron, right?
 
-The other idea, and this is, I claim, the idea that truly stood the test of time, is the core idea of deep learning itself. It's the idea of connectionism. It's the idea that if you allow yourself to believe that an artificial neuron is kind of sort of like a biological neuron, right?
+我想提到一个重要的理念，我认为，这个理念真正经受住了时间的考验，就是深度学习的核心理念 —— 连接主义。这个理念的核心在于，如果我们愿意相信人工神经元类似于生物神经元，那么就可以理解深度学习的基础。
 
-我想提到一个重要的理念……
 
-另一个深刻的理念，我认为，这个理念真正经受住了时间的考验，就是深度学习的核心理念 —— 连接主义。这个理念的核心在于，如果我们愿意相信人工神经元类似于生物神经元，那么就可以理解深度学习的基础。
+
+
+
+
 
 If you believe that one is kind of sort of like the other, then it gives you the confidence to believe that very large neural networks, they don't need to be literally human brain scale. They might be a little bit smaller, but you could configure them to do pretty much all the things that we do as human beings.
 
