@@ -260,32 +260,31 @@ When to use agents: Agents can be used for open-ended problems where it's diffic
 
 自主智能体适合使用智能体的场景：当面临难以预测步骤或无法预先设定路径的复杂问题时，可以选择使用智能体。这些问题通常无法通过固定的程序解决，而是需要灵活应对。大语言模型（LLM）可能需要多次交互，因此对其决策能力的信任是必要的。智能体的自主性使其在可信任的环境中能够有效地扩展和处理任务。
 
-
-
-
-
-
 The autonomous nature of agents means higher costs, and the potential for compounding errors. We recommend extensive testing in sandboxed environments, along with the appropriate guardrails.
 
 由于 AI 智能体具备自主性，这会导致更高的成本，并可能带来累积的错误。我们建议在隔离的测试环境中进行充分的测试，并设置适当的安全防护措施。
 
 Examples where agents are useful:
 
-The following examples are from our own implementations:
-
 AI 智能体的用途示例：
+
+The following examples are from our own implementations:
 
 以下是我们自己实现的示例：
 
-A coding Agent to resolve SWE-bench tasks, which involve edits to many files based on a task description;
+1 A coding Agent to resolve SWE-bench tasks, which involve edits to many files based on a task description;
 
-Our "computer use" reference implementation, where Claude uses a computer to accomplish tasks.
+[Raising the bar on SWE-bench Verified with Claude 3.5 Sonnet \ Anthropic](https://www.anthropic.com/research/swe-bench-sonnet)
 
 一个用于解决 SWE-bench 任务的编码 AI 智能体，这些任务要求根据任务描述对多个文件进行编辑；
 
+2 Our "computer use" reference implementation, where Claude uses a computer to accomplish tasks.
+
+[anthropic-quickstarts/computer-use-demo at main · anthropics/anthropic-quickstarts · GitHub](https://github.com/anthropics/anthropic-quickstarts/tree/main/computer-use-demo)
+
 我们所说的「计算机使用」参考实现，是指 Claude 如何使用计算机来完成这些任务。
 
-High-level flow of a coding agent
+Fig: High-level flow of a coding agent
 
 ### 05. Combining and customizing these patterns
 
@@ -329,25 +328,29 @@ Written by Erik Schluntz and Barry Zhang. This work draws upon our experiences b
 
 ### Appendix 1: Agents in practice
 
+附录 1：实际应用中的智能体
+
 Our work with customers has revealed two particularly promising applications for AI agents that demonstrate the practical value of the patterns discussed above. Both applications illustrate how agents add the most value for tasks that require both conversation and action, have clear success criteria, enable feedback loops, and integrate meaningful human oversight.
 
-附录 1：实际应用中的智能体我们与客户的合作发现了两个非常有前景的 AI 智能体应用，这些应用展示了我们讨论的模式在实际中的价值。这两个案例说明了智能体如何在需要对话和行动的任务中发挥最大作用。这些任务有明确的成功标准，可以实现反馈循环，并且能够有效整合人类监督。
+我们与客户的合作发现了两个非常有前景的 AI 智能体应用，这些应用展示了我们讨论的模式在实际中的价值。这两个案例说明了智能体如何在需要对话和行动的任务中发挥最大作用。这些任务有明确的成功标准，可以实现反馈循环，并且能够有效整合人类监督。
 
 A. Customer support
 
+A. 客户支持
+
 Customer support combines familiar chatbot interfaces with enhanced capabilities through tool integration. This is a natural fit for more open-ended agents because:
 
-A. 客户支持客户支持通过工具集成，提升了传统聊天机器人的功能。这种方式非常适合那些具有开放性功能的智能体，因为：
+客户支持通过工具集成，提升了传统聊天机器人的功能。这种方式非常适合那些具有开放性功能的智能体，因为：
 
-Support interactions naturally follow a conversation flow while requiring access to external information and actions;
-
-Tools can be integrated to pull customer data, order history, and knowledge base articles;
+1 Support interactions naturally follow a conversation flow while requiring access to external information and actions;
 
 客户支持互动通常按照自然的对话流程进行，但同时需要访问外部信息和执行操作；
 
+2 Tools can be integrated to pull customer data, order history, and knowledge base articles;
+
 可以通过集成工具来提取客户数据、订单历史及知识库文章；
 
-Actions such as issuing refunds or updating tickets can be handled programmatically; and
+3 Actions such as issuing refunds or updating tickets can be handled programmatically; and
 
 Success can be clearly measured through user-defined resolutions.
 
@@ -361,17 +364,21 @@ Several companies have demonstrated the viability of this approach through usage
 
 B. Coding agents
 
+B. 编码智能体
+
 The software development space has shown remarkable potential for LLM features, with capabilities evolving from code completion to autonomous problem-solving. Agents are particularly effective because:
 
-B. 编码智能体在软件开发领域，大语言模型（LLM）展示了惊人的潜力，其能力从简单的代码补全逐步发展到可以自主解决复杂问题。智能体之所以特别有效，是因为：
+在软件开发领域，大语言模型（LLM）展示了惊人的潜力，其能力从简单的代码补全逐步发展到可以自主解决复杂问题。智能体之所以特别有效，是因为：
 
-Code solutions are verifiable through automated tests;
+1 Code solutions are verifiable through automated tests;
 
-Agents can iterate on solutions using test results as feedback;
+代码解决方案可以通过自动化测试来验证其正确性； 
 
-代码解决方案可以通过自动化测试来验证其正确性； AI 智能体能够使用测试结果作为反馈，不断改进和优化解决方案；
+2 Agents can iterate on solutions using test results as feedback;
 
-The problem space is well-defined and structured; and
+AI 智能体能够使用测试结果作为反馈，不断改进和优化解决方案；
+
+3 The problem space is well-defined and structured; and
 
 Output quality can be measured objectively.
 
@@ -381,11 +388,13 @@ In our own implementation, agents can now solve real GitHub issues in the SWE-be
 
 在我们的实现中，AI 智能体现在可以仅凭拉取请求描述，解决 SWE-bench Verified 基准测试中的真实 GitHub 问题。然而，虽然自动化测试可以帮助验证功能，但人工审查对于确保解决方案符合更广泛的系统要求仍然至关重要。
 
-Appendix 2: Prompt engineering your tools
+### Appendix 2: Prompt engineering your tools
+
+附录 2：为工具进行提示工程
 
 No matter which agentic system you're building, tools will likely be an important part of your agent. Tools enable Claude to interact with external services and APIs by specifying their exact structure and definition in our API. When Claude responds, it will include a tool use block in the API response if it plans to invoke a tool. Tool definitions and specifications should be given just as much prompt engineering attention as your overall prompts. In this brief appendix, we describe how to prompt engineer your tools.
 
-附录 2：为工具进行提示工程不论您正在构建哪种类型的智能系统，工具通常是智能体中非常重要的一部分。通过在我们的 API 中精确指定结构和定义，工具可以让 Claude 与外部服务和 API 进行交互。当 Claude 做出响应并计划调用工具时，它会在 API 响应中包含一个工具使用块。工具的定义和规格应像整体提示一样受到提示工程的重视。在这个简短的附录中，我们将介绍如何为您的工具进行提示工程。
+不论您正在构建哪种类型的智能系统，工具通常是智能体中非常重要的一部分。通过在我们的 API 中精确指定结构和定义，工具可以让 Claude 与外部服务和 API 进行交互。当 Claude 做出响应并计划调用工具时，它会在 API 响应中包含一个工具使用块。工具的定义和规格应像整体提示一样受到提示工程的重视。在这个简短的附录中，我们将介绍如何为您的工具进行提示工程。
 
 There are often several ways to specify the same action. For instance, you can specify a file edit by writing a diff, or by rewriting the entire file. For structured output, you can return code inside markdown or inside JSON. In software engineering, differences like these are cosmetic and can be converted losslessly from one to the other. However, some formats are much more difficult for an LLM to write than others. Writing a diff requires knowing how many lines are changing in the chunk header before the new code is written. Writing code inside JSON (compared to markdown) requires extra escaping of newlines and quotes.
 
@@ -393,35 +402,33 @@ There are often several ways to specify the same action. For instance, you can s
 
 Our suggestions for deciding on tool formats are the following:
 
-Give the model enough tokens to "think" before it writes itself into a corner.
-
 我们的关于决定工具格式的建议如下：
+
+1 Give the model enough tokens to "think" before it writes itself into a corner.
 
 给模型提供足够的 Token，以便在它陷入困境之前进行充分的思考。
 
-Keep the format close to what the model has seen naturally occurring in text on the internet.
+2 Keep the format close to what the model has seen naturally occurring in text on the internet.
 
-Make sure there's no formatting "overhead" such as having to keep an accurate count of thousands of lines of code, or string-escaping any code it writes.
-
-未找到意译内容
+3 Make sure there's no formatting "overhead" such as having to keep an accurate count of thousands of lines of code, or string-escaping any code it writes.
 
 One rule of thumb is to think about how much effort goes into human-computer interfaces (HCI), and plan to invest just as much effort in creating good agent-computer interfaces (ACI). Here are some thoughts on how to do so:
 
-一个常用的经验法则是，在设计人机交互（HCI）时需要投入大量的精力，而在设计智能体 - 计算机接口（ACI）时，也应投入同样的精力。以下是一些实现这一目标的建议：
+一个常用的经验法则是，在设计人机交互（HCI）时需要投入大量的精力，而在设计智能体-计算机接口（ACI）时，也应投入同样的精力。以下是一些实现这一目标的建议：
 
-Put yourself in the model's shoes. Is it obvious how to use this tool, based on the description and parameters, or would you need to think carefully about it? If so, then it's probably also true for the model. A good tool definition often includes example usage, edge cases, input format requirements, and clear boundaries from other tools.
+1 Put yourself in the model's shoes. Is it obvious how to use this tool, based on the description and parameters, or would you need to think carefully about it? If so, then it's probably also true for the model. A good tool definition often includes example usage, edge cases, input format requirements, and clear boundaries from other tools.
 
 设身处地想一想，仅凭描述和参数，是否能很容易地使用这个工具，还是需要仔细斟酌？如果需要仔细斟酌，那么对于模型来说，也可能会遇到类似的困难。一个好的工具定义通常会包括使用实例、极端情况、输入格式要求，以及与其他工具的明确区分。
 
-How can you change parameter names or descriptions to make things more obvious? Think of this as writing a great docstring for a junior developer on your team. This is especially important when using many similar tools.
+2 How can you change parameter names or descriptions to make things more obvious? Think of this as writing a great docstring for a junior developer on your team. This is especially important when using many similar tools.
 
 如何更改参数名称或描述，使其更加清晰易懂？可以将此视为为团队中的初级开发人员编写一份优秀的文档字符串。特别是在使用许多相似工具时，这一点尤为重要，因为清晰的文档可以帮助开发人员快速理解和正确使用工具。
 
-Test how the model uses your tools: Run many example inputs in our workbench to see what mistakes the model makes, and iterate.
-
-Poka-yoke your tools. Change the arguments so that it is harder to make mistakes.
+3 Test how the model uses your tools: Run many example inputs in our workbench to see what mistakes the model makes, and iterate.
 
 测试模型对工具的使用方式：在工作台上多次运行示例输入，观察模型可能出现的错误，并通过迭代来改正这些错误。
+
+4 Poka-yoke your tools. Change the arguments so that it is harder to make mistakes.
 
 对你的工具进行 Poka-yoke（防错设计）。更改参数设置，以减少错误的发生。
 
