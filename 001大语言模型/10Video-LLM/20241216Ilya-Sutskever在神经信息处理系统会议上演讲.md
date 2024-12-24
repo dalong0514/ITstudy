@@ -196,6 +196,8 @@ But on this uplifting note, I will conclude. Thank you so much. Thank you. Thank
 
 说到这里，我想以积极的态度来结束。非常感谢大家的聆听。
 
+### Q&A
+
 Now in 2024, are there other biological structures that are part of human cognition that you think are worth exploring in a similar way or that you're interested in?
 
 那么，到了 2024 年，是否有其他生物结构作为人类认知的一部分，值得我们以类似的方式进行探索，或者是你感兴趣的呢？
@@ -204,26 +206,21 @@ Anyway, so, the way I'd answer this question is that if you are, or someone is, 
 
 无论如何，我会这样回答：如果你或其他人对某事有独到的见解，比如说，「我们其实很傻，因为显然大脑能做到一些我们无法做到的事情」，那么他们应该去追求这个方向。我个人没有这种见解。
 
-
-
-
-
-
 Well, it depends on the level of abstraction you're looking at. Maybe I'll answer it this way: there's been a lot of desire to make biologically inspired AI. And you could argue on some level that biologically inspired AI is incredibly successful, which is all of the plonin is biologically inspired AI.
 
 这取决于你从哪个抽象层次来看待这个问题。可以这样说：许多人一直希望创造受生物学启发的 AI。从某种角度来看，这类 AI 已经非常成功，因为所有被称为 plonin 的东西都是受生物学启发的 AI。
 
 But on the other hand, the biological inspiration was very, very, very modest. It's like, "Let's use neurons." This is the full extent.
 
-The concept of biological inspiration, such as using neurons, has been discussed extensively. More detailed biological inspiration has been very hard to come by. But I wouldn't rule it out completely. I think if someone has a special insight, they might be able to see something, and that would be useful.
-
 但另一方面，生物学灵感极其有限。就像是，「我们来使用神经元吧。」仅此而已。
+
+The concept of biological inspiration, such as using neurons, has been discussed extensively. More detailed biological inspiration has been very hard to come by. But I wouldn't rule it out completely. I think if someone has a special insight, they might be able to see something, and that would be useful.
 
 虽然使用神经元这样的生物学灵感已经被广泛讨论，但更详细的生物学灵感仍然难以获取。不过，我不会完全否定这种可能性。我认为如果有人有特别的见解，他们可能会看到一些有价值的东西。
 
 I have a question for you about sort of autocorrect. So here's the question. You mentioned reasoning as being one of the core aspects of maybe the modeling in the future and maybe a differentiator.
 
-未找到意译内容
+我有一个关于自动更正的问题。我的问题是：你提到推理可能是未来建模的核心方面之一，同时也可能成为一个区分点。
 
 What we saw in some of the poster sessions is that hallucinations in today's models, the way we're analyzing, I mean, maybe you correct me, you're the expert on this, but the way we're analyzing whether a model is hallucinating today, without, because we know of the dangers of models not being able to reason, that we're using a statistical analysis.
 
@@ -241,13 +238,13 @@ It's a core feature of Microsoft Word, like autocorrect. Yeah, I just, I mean, I
 
 这是 Microsoft Word 的一个核心功能，可以与自动更正功能相提并论。虽然我觉得把它叫做自动更正有些低估了它的强大功能，但答案仍然是肯定的。谢谢。
 
-Hi, Elia. I loved the ending, mysteriously leaving out, do they replace us or are they superior? Do they need rights? It's a new species of homo sapien spawned intelligence. So maybe they need, I mean, I think the RL guy thinks they think, you know, we need rights for these things.
+Hi, Ilya. I loved the ending, mysteriously leaving out, do they replace us or are they superior? Do they need rights? It's a new species of homo sapien spawned intelligence. So maybe they need, I mean, I think the RL guy thinks they think, you know, we need rights for these things.
 
-嗨，Elia。我喜欢这个结尾，神秘地留下了悬念：他们会取代我们吗？还是他们更优秀？他们需要权利吗？这是一种由智人衍生出的新型智能生命。所以也许他们需要 —— 我的意思是，我觉得那个强化学习（RL）的专家认为我们应该为这些存在赋予权利。
+嗨，Ilya。我喜欢这个结尾，神秘地留下了悬念：他们会取代我们吗？还是他们更优秀？他们需要权利吗？这是一种由智人衍生出的新型智能生命。所以也许他们需要 —— 我的意思是，我觉得那个强化学习（RL）的专家认为我们应该为这些存在赋予权利。
 
 I have an unrelated question to that. How do you create the right incentive mechanisms for humanity to actually create it in a way that gives it the freedoms that we have as homo sapiens?
 
-未找到意译内容
+我有一个与此无关的问题。如何为人类创造正确的激励机制，以便我们能够以一种赋予我们作为智人自由的方式去创造它？
 
 Mo sapiens? You know, I feel like this, in some sense, those are the kind of questions that people should be reflecting on more. But... To your question about what incentive structure should we create, I don't feel that I know. I don't feel confident answering questions like this because it's like you're talking about creating some kind of a top-down structure, government thing, I don't know. 
 
@@ -255,21 +252,27 @@ Mo sapiens? You know, I feel like this, in some sense, those are the kind of que
 
 It could be a cryptocurrency, too. Yeah. I mean, tensor you know there's things I don't feel like I am the right person to comment on cryptocurrency but, but you know there is a chance by the way with what you're describing will happen, that indeed we will have... 
 
-未找到意译内容
+这也可能是一种加密货币。是的。我的意思是，Tensor，你知道，我不认为自己是评论加密货币的合适人选，但你知道，你所描述的事情有可能发生，实际上我们可能会有……
 
 You know, in some sense, it's not a bad end result. If you have AIs and all they want is to coexist with us and also just to have rights, may.
 
+你知道，从某种角度来看，这样的结果其实也不错。如果 AI 只希望与我们和平共存，并且只是想要拥有一些权利，也许这并不坏。
+
 Be that will be fine. It's... But I don't know. I mean, I think things are so incredibly unpredictable. I hesitate to comment, but I encourage the speculation. Thank you.
 
-你知道，从某种角度来看，这样的结果其实也不错。如果 AI 只希望与我们和平共存，并且只是想要拥有一些权利，也许这并不坏。只是…… 我不太确定。我只是觉得事情真的太不可预测了。我虽然犹豫要不要发表评论，但我还是鼓励大家去猜测。谢谢。
+只是…… 我不太确定。我只是觉得事情真的太不可预测了。我虽然犹豫要不要发表评论，但我还是鼓励大家去猜测。谢谢。
 
 And yeah, thank you for the talk. It's really awesome. Hiya there. Thank you for the great talk. My name is Shalev Lifshitz from University of Toronto, working with Sheila. Thanks for all the work you've done.
 
-未找到意译内容
+是的，感谢您的演讲，真的太棒了。嗨，你好。感谢你做的精彩演讲。我是 Shalev Lifshitz，来自多伦多大学，和 Sheila 一起工作。感谢你所做的所有工作。
 
-I wanted to ask, do you think LLMs generalize multi-hop reasoning out of distribution? So okay, the question assumes that the answer is yes or no, but the question should not be answered with yes or no. Because what does it mean out of distribution generalization? What does it mean? What does it mean in distribut...
+I wanted to ask, do you think LLMs generalize multi-hop reasoning out of distribution? 
 
-未找到意译内容
+我想问一下，您认为大语言模型（LLMs）能够进行跨步推理的分布外泛化吗？
+
+So okay, the question assumes that the answer is yes or no, but the question should not be answered with yes or no. Because what does it mean out of distribution generalization? What does it mean? What does it mean in distribut...
+
+所以，好的，这个问题假设答案是「是」或「否」，但这个问题不应简单地用「是」或「否」来回答。因为「分布外泛化」究竟是什么意思？这意味着什么？在分布内又是什么意思呢？
 
 What does it mean to generalize? And what does it mean out of distribution? Because it's a test of time talk, I'll say that long, long ago, before people were using deep learning, they were using things like string matching, n-grams. For machine translation, people were using statistical phrase tables. Can you imagine? They had tens of thousands of lines of code of complexity, which was, I mean, it was truly unfathomable.
 
@@ -281,9 +284,9 @@ Back then, generalization meant, is it literally not the same phrasing as in a d
 
 Well, okay, you could say maybe it's in distribution, maybe it's memorization, but I also think...
 
-I think that our standards for what counts as generalization have increased really quite substantially, dramatically, unimaginably, if you keep track. And so I think the answer is, to some degree, probably not as well as human beings. I think it is true that human beings generalize much better. But at the same time, they definitely generalize out of distribution to some degree. I hope it's a useful tautological answer.
-
 好吧，你也许会说这可能是因为分布，或者是因为记忆，但我认为……
+
+I think that our standards for what counts as generalization have increased really quite substantially, dramatically, unimaginably, if you keep track. And so I think the answer is, to some degree, probably not as well as human beings. I think it is true that human beings generalize much better. But at the same time, they definitely generalize out of distribution to some degree. I hope it's a useful tautological answer.
 
 如果你一直关注的话，会发现我们对什么算作泛化的标准提升得非常快、非常大，甚至难以想象。因此，我认为在某种程度上，答案可能是这些系统还不如人类。人类的确在泛化方面表现得更好。然而，它们确实在某种程度上超出了原有分布进行泛化。我希望这是一个有用的答案。
 
