@@ -64,12 +64,6 @@ I want to mention the other idea, and this is, I claim, the idea that truly stoo
 
 我想提到一个重要的理念，我认为，这个理念真正经受住了时间的考验，就是深度学习的核心理念 —— 连接主义。这个理念的核心在于，如果我们愿意相信人工神经元类似于生物神经元，那么就可以理解深度学习的基础。
 
-
-
-
-
-
-
 If you believe that one is kind of sort of like the other, then it gives you the confidence to believe that very large neural networks, they don't need to be literally human brain scale. They might be a little bit smaller, but you could configure them to do pretty much all the things that we do as human beings.
 
 如果你认为某个事物与另一个有一定程度的相似性，这种想法可以让你相信，非常大的神经网络不必达到人类大脑的规模。虽然它们的规模可能较小，但通过适当配置，也能够执行我们人类几乎所有的任务。
@@ -90,9 +84,7 @@ And this is what's been the driver of all of progress, all the progress that we 
 
 这就是推动我们如今所见所有进步的原因：超大型神经网络，它们在庞大的数据集上进行训练。然而，传统意义上的预训练无疑将会结束。
 
-Pre-training will end. Why will it end? Because while compute is growing through better hardware,
-
-Better algorithms and larger clusters; all those things keep increasing your compute. The data is not growing because we have but one internet. We have but one internet. You could even go as far as to say that data is the fossil fuel of AI. It was created somehow, and now we use it, and we've achieved peak data, and there'll be no more. We have to deal with the data that we have.
+Pre-training will end. Why will it end? Because while compute is growing through better hardware, better algorithms and larger clusters; all those things keep increasing your compute. The data is not growing because we have but one internet. We have but one internet. You could even go as far as to say that data is the fossil fuel of AI. It was created somehow, and now we use it, and we've achieved peak data, and there'll be no more. We have to deal with the data that we have.
 
 预训练的时代可能即将结束。为什么会这样呢？尽管我们的计算能力正在不断提升，这是因为硬件性能的提升、更优化的算法和更大规模的计算集群共同作用，这些都在推动计算能力的增长。然而，数据量却没有相应地增加，因为我们的数据来源基本上就是唯一的互联网。可以把数据比作 AI 的「化石燃料」：它们以某种方式生成，如今被我们广泛使用，然而我们似乎已经达到了「数据峰值」，再难获得更多新数据。因此，我们需要更好地利用现有的数据资源。
 
@@ -102,15 +94,15 @@ Now, it still lets us go quite far, but this is only one internet. So here I'll 
 
 You may have heard the phrase "agents." It's common, and I'm sure you are familiar with it.
 
-Sure that eventually something will happen, but people feel like something agents is the future. More concretely, but also a little bit vaguely, synthetic data. But what does synthetic data mean? Figuring this out is a big challenge. I'm sure that different people have all kinds of interesting progress there.
-
 你可能听说过「智能体」这个词。这是一个常见的术语，我相信你对此并不陌生。
+
+Sure that eventually something will happen, but people feel like something agents is the future. More concretely, but also a little bit vaguely, synthetic data. But what does synthetic data mean? Figuring this out is a big challenge. I'm sure that different people have all kinds of interesting progress there.
 
 人们普遍认为智能体代表着未来，虽然具体的情况尚不明确，但合成数据的概念逐渐引起关注。那么，什么是合成数据呢？弄清楚合成数据的意义是一个巨大的挑战。我相信在这一领域，不同的人都取得了各种有趣的进展。
 
-An inference time compute, or maybe what's been most recently, most vividly seen in O1, the O1 model, these are all examples of things of people trying to figure out what to do after pre-training. Those are all very good things to do.
+An inference time compute, or maybe what's been most recently, most vividly seen in o1, the o1 model, these are all examples of things of people trying to figure out what to do after pre-training. Those are all very good things to do.
 
-推理时间计算，或者说是最近在 O1 模型中被生动展示的内容，都是人们在预训练之后探索下一步行动的例子。这些尝试都是非常有价值的。
+推理时间计算，或者说是最近在 o1 模型中被生动展示的内容，都是人们在预训练之后探索下一步行动的例子。这些尝试都是非常有价值的。
 
 I want to mention one other example from biology, which I think is really cool. And the example is this. So about many, many years ago, at this conference also, I saw a talk where someone presented this graph. But the graph showed the relationship...
 
@@ -130,7 +122,7 @@ In this image, you could see a variety of mammals. It was quite engaging to obse
 
 Alright, so we have all the different mammals. Then you've got non-human primates, which are basically the same thing. But then, you have the hominids. To my knowledge, hominids are like close relatives to humans in evolution, like the Neanderthals. There's a bunch of them, including Homo habilis, maybe. There's a whole bunch, and they're all here.
 
-好吧，哺乳动物有很多种类。再来是非人类灵长类动物，它们与哺乳动物有很多相似之处。接着是人科动物（hominids），据我所知，它们是人类在进化上的近亲，例如尼安德特人。有许多种类，包括能人（Homo habilis）等，它们都属于这一类。
+好吧，哺乳动物有很多种类。再来是非人类灵长类动物，它们与哺乳动物有很多相似之处。接着是人科动物（hominids），据我所知，它们是人类在进化上的近亲，例如尼安德特人。有许多种类，包括智人（Homo habilis）等，它们都属于这一类。
 
 What's interesting is that they have a different slope on their brain-to-body scaling exponent. So that's pretty cool. What that means is there is a precedent, an example of biology figuring out some kind of different scaling. Something clearly is different, so I think that is cool.
 
@@ -190,9 +182,9 @@ They will understand things from limited data. They will not get confused, all t
 
 And when all those things will happen together with self-awareness, because why not? Self-awareness.
 
-This is useful. It is part, you, ourselves, are parts of our own world models. When all those things come together, we will have systems of radically different qualities and properties that exist today. And of course, they will have incredible and amazing capabilities. 
-
 当所有这些特性与自我意识结合在一起时，为什么不呢？自我意识是非常有价值的。
+
+This is useful. It is part, you, ourselves, are parts of our own world models. When all those things come together, we will have systems of radically different qualities and properties that exist today. And of course, they will have incredible and amazing capabilities. 
 
 这是非常有用的，因为我们自己就是我们世界模型的一部分。当所有这些元素汇聚在一起时，我们将拥有在质量和特性上与当今截然不同的系统。这些系统当然会具备令人难以置信和惊人的能力。
 
@@ -202,15 +194,20 @@ But the kind of issues that come up with systems like this, and I'll just leave 
 
 But on this uplifting note, I will conclude. Thank you so much. Thank you. Thank you. Thank you. 
 
-Now in 2024, are there other biological structures that are part of human cognition that you think are worth exploring in a similar way or that you're interested in?
-
 说到这里，我想以积极的态度来结束。非常感谢大家的聆听。
+
+Now in 2024, are there other biological structures that are part of human cognition that you think are worth exploring in a similar way or that you're interested in?
 
 那么，到了 2024 年，是否有其他生物结构作为人类认知的一部分，值得我们以类似的方式进行探索，或者是你感兴趣的呢？
 
 Anyway, so, the way I'd answer this question is that if you are, or someone is, a person who has a specific insight about, "Hey, we are all being extremely silly because clearly the brain does something and we are not," and that's something that can be done, they should pursue it. I personally don't.
 
 无论如何，我会这样回答：如果你或其他人对某事有独到的见解，比如说，「我们其实很傻，因为显然大脑能做到一些我们无法做到的事情」，那么他们应该去追求这个方向。我个人没有这种见解。
+
+
+
+
+
 
 Well, it depends on the level of abstraction you're looking at. Maybe I'll answer it this way: there's been a lot of desire to make biologically inspired AI. And you could argue on some level that biologically inspired AI is incredibly successful, which is all of the plonin is biologically inspired AI.
 
