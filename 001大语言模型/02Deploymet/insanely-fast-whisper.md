@@ -1,8 +1,11 @@
 ### 01. 使用
 
-insanely-fast-whisper --model-name /Users/Daglas/dalong.modelsets/whisper-large-v3-turbo --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4 --language en --hf-token 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 --num-speakers 6
+insanely-fast-whisper --model-name /Users/Daglas/dalong.modelsets/whisper-large-v3-turbo --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4 --language en --hf-token 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 --num-speakers 2
 
 insanely-fast-whisper --model-name /Users/Daglas/dalong.modelsets/whisper-large-v3-turbo --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4 --language en --hf-token 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 --min-speakers 3 --max-speakers 6
+
+
+
 
 
 
@@ -15,6 +18,10 @@ insanely-fast-whisper --model-name /Users/Daglas/dalong.modelsets/whisper-large-
 
 insanely-fast-whisper --model-name /Users/Daglas/dalong.modelsets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4 --language zh
 
+
+2024-12-255 使用 diarization_model无效：
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.modelsets/whisper-large-v3-turbo --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4 --language en --diarization_model /Users/Daglas/dalong.modelsets/speaker-diarization-3.1 --num-speakers 2
 
 
 ---
