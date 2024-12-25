@@ -3,6 +3,22 @@
 MODEL=/Users/Daglas/dalong.datasets/chatglm3-6b-32k-ggml_q8_0.bin uvicorn chatglm_cpp.openai_api:app --host 0.0.0.0 --port 8000
 
 
+2023-11-26
+
+最源头的信息：
+
+宝玉老师和方军老师提及的，唐杰的那份 PPT：
+
+20231125ChatGLM-An-Alternative-to-ChatGPT
+
+转到的文章：
+
+[GLM-130B：开源的双语预训练模型 | GLM-130B](https://keg.cs.tsinghua.edu.cn/glm-130b/zh/posts/glm-130b/)
+
+然后转到 GitHub：
+
+[THUDM/GLM-130B: GLM-130B: An Open Bilingual Pre-Trained Model (ICLR 2023)](https://github.com/THUDM/GLM-130B)
+
 ### 量化方案
 
 [li-plus/chatglm.cpp: C++ implementation of ChatGLM-6B & ChatGLM2-6B & ChatGLM3 & more LLMs](https://github.com/li-plus/chatglm.cpp)
@@ -444,4 +460,3 @@ GitHub 提及的配套工具：
 [低配置部署 ChatGLM3-6B | 智谱 × 魔搭社区\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV11N4y1D7HC/?spm_id_from=333.999.0.0&vd_source=280fc27368a92928cafc2cb72c54a549)
 
 前面一个老师讲在魔塔上部署，获得的信息有限。21min 的时候换了另一个老师讲训练相关的东西。
-

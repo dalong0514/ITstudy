@@ -4,62 +4,39 @@
 
 cat /Users/Daglas/Desktop/output_dir/1best_recog/text_with_punc > /Users/Daglas/dalong.gpt/rewrite-text/origin_text_1.md
 
-2024-02-25
+---
 
-ffmpeg -i /Users/Daglas/Desktop/20240224批量转业主块-换管道PL图层.mkv -ss 2 -t 29 /Users/Daglas/Desktop/input.mkv
+2024-12-25
 
-ffmpeg -i /Users/Daglas/Desktop/input.mkv -vf "fps=20,scale=1280:-1:flags=lanczos" -c:v gif /Users/Daglas/Desktop/output.gif
+备注 1：funars 升级到新版后，调用命令发生了变化。
 
-ffmpeg -i /Users/Daglas/Desktop/input.mkv -vf "fps=10,scale=720:-1:flags=lanczos" -c:v gif /Users/Daglas/Desktop/output.gif
-
-ffmpeg -i /Users/Daglas/Desktop/input.mkv /Users/Daglas/Desktop/output.gif
-
-ffmpeg -i input.mp4 -vf "fps=10,scale=320:-1:flags=lanczos" -c:v gif output.gif
+备注 2：目前没有跑成功。
 
 
 
-ffmpeg -i /Users/Daglas/Desktop/20240227-105415.gif -ss 0 -t 18 /Users/Daglas/Desktop/output.gif
+funasr --model Whisper-large-v3-turbo /Users/Daglas/Desktop/output.wav --output_dir /Users/Daglas/Desktop/output_dir
+
+funasr ++model=Whisper-large-v3-turbo ++vad_model="fsmn-vad" ++punc_model="ct-punc" ++input=/Users/Daglas/Desktop/output.wav ++output_dir=/Users/Daglas/Desktop/output_dir
 
 
-ffmpeg -i /Users/Daglas/Desktop/20240302老阳闭门会-站在300年繁荣的起点.mkv -ss 136 -t 10253 /Users/Daglas/Desktop/output.mkv
+funasr ++model=Whisper-large-v3-turbo ++input=/Users/Daglas/Desktop/output.wav ++output_dir=/Users/Daglas/Desktop/output_dir ++dtype=float16
+
+funasr ++model=paraformer-zh ++vad_model="fsmn-vad" ++punc_model="ct-punc" ++input=asr_example_zh.wav
 
 
-
-ffmpeg -i /Users/Daglas/Desktop/20240228数智设计工艺流程系列功能和新版非标条件模块.mp4 -ss 2270 -t 1080 /Users/Daglas/Desktop/output.mp4
-
-
-
-
-2024-02-01
-
-ffmpeg -i /Users/Daglas/Desktop/20240201活水AI专场第三场.mkv -ss 0 -t 11280 /Users/Daglas/Desktop/20240131活水AI专场第二场01.mkv
-
-
-ffmpeg -i /Users/Daglas/Desktop/CH0105总论Part5答疑.mkv -ss 0 -t 1800 /Users/Daglas/Desktop/CH0105总论Part5答疑05.mkv
+funasr ++model=paraformer-en ++vad_model="fsmn-vad" ++punc_model="ct-punc" ++input=/Users/Daglas/Desktop/output.wav ++output_dir=/Users/Daglas/Desktop/output_dir
 
 
 
-2024-01-16
-
-ffmpeg -i /Users/Daglas/Downloads/20231225与晨曦科技软件交流.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Downloads/20231225与晨曦科技软件交流.wav
-
-ffmpeg -i /Users/Daglas/Downloads/20231225与晨曦科技软件交流.wav -ss 1320 -t 420 /Users/Daglas/Desktop/output.wav
-
-funasr --model paraformer-zh /Users/Daglas/Desktop/output.wav --output_dir /Users/Daglas/Desktop/output_dir
+funasr ++model=paraformer-en-spk ++input=/Users/Daglas/Desktop/output.wav ++output_dir=/Users/Daglas/Desktop/output_dir
 
 
-
-2024-01-09
-
-ffmpeg -i /Users/Daglas/Downloads/20240109数字化研究院部门会议.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Downloads/20240109数字化研究院部门会议.wav
-
-funasr --model paraformer-zh /Users/Daglas/Downloads/20240109数字化研究院部门会议.wav --output_dir /Users/Daglas/Desktop/output_dir
+funasr ++model=paraformer-en ++input=/Users/Daglas/Desktop/output.wav ++output_dir=/Users/Daglas/Desktop/output_dir
 
 
 
 2024-01-03
 
-ffmpeg -i /Users/Daglas/Music/dalong.knowledgeAudio/2024001数智设计/20240102与吴总交流汇报年度计划.m4a -ar 16000 -ac 1 -c:a pcm_s16le /Users/Daglas/Desktop/20240102与吴总交流汇报年度计划.wav
 
 funasr --model paraformer-zh-spk /Users/Daglas/Desktop/20240102与吴总交流汇报年度计划.wav --output_dir /Users/Daglas/Desktop/output_dir
 
@@ -82,7 +59,16 @@ funasr --model paraformer-zh /Users/Daglas/Desktop/20200526电气培训.wav --ou
 
 
 
+
+
+
+
+
 ### 部署记录
+
+
+
+
 
 1、安装 funasr。
 
@@ -158,3 +144,133 @@ from this answer 从这个答案
 
 pip uninstall umap
 pip install umap-learn
+
+
+### 帮助文档
+
+usage: funasr [-h] [--config CONFIG] [--log_level {CRITICAL,ERROR,WARNING,INFO,DEBUG,NOTSET}] [--output_dir OUTPUT_DIR] [--ngpu NGPU] [--njob NJOB] [--gpuid_list GPUID_LIST] [--seed SEED] [--dtype {float16,float32,float64}] [--num_workers NUM_WORKERS]
+              [--data_path_and_name_and_type DATA_PATH_AND_NAME_AND_TYPE] [--key_file KEY_FILE] [--hotword HOTWORD] [--allow_variable_data_keys ALLOW_VARIABLE_DATA_KEYS] [--mc MC] [--vad_infer_config VAD_INFER_CONFIG] [--vad_model_file VAD_MODEL_FILE]
+              [--punc_infer_config PUNC_INFER_CONFIG] [--punc_model_file PUNC_MODEL_FILE] [--cmvn_file CMVN_FILE] [--asr_train_config ASR_TRAIN_CONFIG] [--asr_model_file ASR_MODEL_FILE] [--sv_model_file SV_MODEL_FILE] [--lm_train_config LM_TRAIN_CONFIG]
+              [--lm_file LM_FILE] [--word_lm_train_config WORD_LM_TRAIN_CONFIG] [--word_lm_file WORD_LM_FILE] [--ngram_file NGRAM_FILE] [--model_tag MODEL_TAG] [--beam_search_config BEAM_SEARCH_CONFIG] [--batch_size BATCH_SIZE] [--nbest NBEST] [--beam_size BEAM_SIZE]
+              [--penalty PENALTY] [--maxlenratio MAXLENRATIO] [--minlenratio MINLENRATIO] [--ctc_weight CTC_WEIGHT] [--lm_weight LM_WEIGHT] [--ngram_weight NGRAM_WEIGHT] [--streaming STREAMING] [--fake_streaming FAKE_STREAMING] [--full_utt FULL_UTT]
+              [--chunk_size CHUNK_SIZE] [--left_context LEFT_CONTEXT] [--right_context RIGHT_CONTEXT] [--display_partial_hypotheses DISPLAY_PARTIAL_HYPOTHESES] [--quantize_asr_model QUANTIZE_ASR_MODEL] [--quantize_modules [QUANTIZE_MODULES ...]]
+              [--quantize_dtype {float16,qint8}] [--token_type {char,bpe,None}] [--bpemodel BPEMODEL] [--token_num_relax TOKEN_NUM_RELAX] [--decoding_ind DECODING_IND] [--decoding_mode DECODING_MODE] [--ctc_weight2 CTC_WEIGHT2] [--task_name TASK_NAME] [-m MODEL]
+              [-v VAD_MODEL] [-dv DISABLE_VAD] [-p PUNC_MODEL] [-dp DISABLE_PUNC] [--batch_size_token BATCH_SIZE_TOKEN] [--batch_size_token_threshold_s BATCH_SIZE_TOKEN_THRESHOLD_S] [--max_single_segment_time MAX_SINGLE_SEGMENT_TIME]
+              input
+
+ASR Decoding
+
+positional arguments:
+  input                 input file to transcribe
+
+options:
+  -h, --help            show this help message and exit
+  --config CONFIG       Give config file in yaml format (default: None)
+  --log_level {CRITICAL,ERROR,WARNING,INFO,DEBUG,NOTSET}
+                        The verbose level of logging (default: INFO)
+  --output_dir OUTPUT_DIR
+  --ngpu NGPU           The number of gpus. 0 indicates CPU mode (default: 1)
+  --njob NJOB           The number of jobs for each gpu (default: 1)
+  --gpuid_list GPUID_LIST
+                        The visible gpus (default: )
+  --seed SEED           Random seed (default: 0)
+  --dtype {float16,float32,float64}
+                        Data type (default: float32)
+  --num_workers NUM_WORKERS
+                        The number of workers used for DataLoader (default: 1)
+  --hotword HOTWORD     hotword file path or hotwords seperated by space (default: None)
+  --task_name TASK_NAME
+                        The decoding mode (default: asr)
+  -m MODEL, --model MODEL
+                        The asr mode name (default: paraformer-zh)
+  -v VAD_MODEL, --vad_model VAD_MODEL
+                        vad model name (default: fsmn-vad)
+  -dv DISABLE_VAD, --disable_vad DISABLE_VAD
+  -p PUNC_MODEL, --punc_model PUNC_MODEL
+  -dp DISABLE_PUNC, --disable_punc DISABLE_PUNC
+  --batch_size_token BATCH_SIZE_TOKEN
+  --batch_size_token_threshold_s BATCH_SIZE_TOKEN_THRESHOLD_S
+  --max_single_segment_time MAX_SINGLE_SEGMENT_TIME
+
+Input data related:
+  --data_path_and_name_and_type DATA_PATH_AND_NAME_AND_TYPE
+  --key_file KEY_FILE
+  --allow_variable_data_keys ALLOW_VARIABLE_DATA_KEYS
+  --mc MC               MultiChannel input (default: False)
+
+The model configuration related:
+  --vad_infer_config VAD_INFER_CONFIG
+                        VAD infer configuration (default: None)
+  --vad_model_file VAD_MODEL_FILE
+                        VAD model parameter file (default: None)
+  --punc_infer_config PUNC_INFER_CONFIG
+                        PUNC infer configuration (default: None)
+  --punc_model_file PUNC_MODEL_FILE
+                        PUNC model parameter file (default: None)
+  --cmvn_file CMVN_FILE
+                        Global CMVN file (default: None)
+  --asr_train_config ASR_TRAIN_CONFIG
+                        ASR training configuration (default: None)
+  --asr_model_file ASR_MODEL_FILE
+                        ASR model parameter file (default: None)
+  --sv_model_file SV_MODEL_FILE
+                        SV model parameter file (default: None)
+  --lm_train_config LM_TRAIN_CONFIG
+                        LM training configuration (default: None)
+  --lm_file LM_FILE     LM parameter file (default: None)
+  --word_lm_train_config WORD_LM_TRAIN_CONFIG
+                        Word LM training configuration (default: None)
+  --word_lm_file WORD_LM_FILE
+                        Word LM parameter file (default: None)
+  --ngram_file NGRAM_FILE
+                        N-gram parameter file (default: None)
+  --model_tag MODEL_TAG
+                        Pretrained model tag. If specify this option, *_train_config and *_file will be overwritten (default: None)
+  --beam_search_config BEAM_SEARCH_CONFIG
+                        The keyword arguments for transducer beam search. (default: {})
+
+Beam-search related:
+  --batch_size BATCH_SIZE
+                        The batch size for inference (default: 1)
+  --nbest NBEST         Output N-best hypotheses (default: 5)
+  --beam_size BEAM_SIZE
+                        Beam size (default: 20)
+  --penalty PENALTY     Insertion penalty (default: 0.0)
+  --maxlenratio MAXLENRATIO
+                        Input length ratio to obtain max output length. If maxlenratio=0.0 (default), it uses a end-detect function to automatically find maximum hypothesis lengths.If maxlenratio<0.0, its absolute value is interpretedas a constant max output length
+                        (default: 0.0)
+  --minlenratio MINLENRATIO
+                        Input length ratio to obtain min output length (default: 0.0)
+  --ctc_weight CTC_WEIGHT
+                        CTC weight in joint decoding (default: 0.0)
+  --lm_weight LM_WEIGHT
+                        RNNLM weight (default: 1.0)
+  --ngram_weight NGRAM_WEIGHT
+                        ngram weight (default: 0.9)
+  --streaming STREAMING
+  --fake_streaming FAKE_STREAMING
+  --full_utt FULL_UTT
+  --chunk_size CHUNK_SIZE
+  --left_context LEFT_CONTEXT
+  --right_context RIGHT_CONTEXT
+  --display_partial_hypotheses DISPLAY_PARTIAL_HYPOTHESES
+                        Whether to display partial hypotheses during chunk-by-chunk inference. (default: False)
+
+Dynamic quantization related:
+  --quantize_asr_model QUANTIZE_ASR_MODEL
+                        Apply dynamic quantization to ASR model. (default: False)
+  --quantize_modules [QUANTIZE_MODULES ...]
+                        Module names to apply dynamic quantization on. The module names are provided as a list, where each name is separated by a comma (e.g.: --quantize-config=[Linear,LSTM,GRU]). Each specified name should be an attribute of 'torch.nn', e.g.:
+                        torch.nn.Linear, torch.nn.LSTM, torch.nn.GRU, ... (default: None)
+  --quantize_dtype {float16,qint8}
+                        Dtype for dynamic quantization. (default: qint8)
+
+Text converter related:
+  --token_type {char,bpe,None}
+                        The token type for ASR model. If not given, refers from the training args (default: None)
+  --bpemodel BPEMODEL   The model path of sentencepiece. If not given, refers from the training args (default: None)
+  --token_num_relax TOKEN_NUM_RELAX
+  --decoding_ind DECODING_IND
+  --decoding_mode DECODING_MODE
+  --ctc_weight2 CTC_WEIGHT2
+                        CTC weight in joint decoding (default: 0.0)

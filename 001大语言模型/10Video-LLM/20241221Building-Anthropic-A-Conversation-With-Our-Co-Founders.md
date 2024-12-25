@@ -2,9 +2,21 @@
 
 [Building Anthropic | A conversation with our co-founders - YouTube](https://www.youtube.com/watch?v=om2lIWXLLN4)
 
-Why are we working on AI in the first place? I'm just going to arbitrarily pick Jared. Why are you doing AI at all? I mean, I was working on physics for a long time, and I got bored, and I wanted to hang out with more of my friends. I thought Dario pitched you on it. I don't think I explicitly pitched you any point. I just kind of showed you results of AI models and was trying to make the point that they're very general and they don't only apply to one thing. And then just at some point after I showed you enough of them, you were like, oh, yeah, that seems like it's right.
+Why are we working on AI in the first place? I'm just going to arbitrarily pick Jared. Why are you doing AI at all? 
 
-为什么我们一开始要研究 AI 呢？就拿 Jared 来说吧，你为什么选择从事 AI 工作？我自己在物理领域工作了很长时间，后来感觉有些厌倦，也想多和朋友们交流。我以为是 Dario 向你推荐的，但我自己并没有特别地向你推销过 AI。我只是展示了一些 AI 模型的成果，想说明这些模型非常通用，不仅限于单一应用。后来，在我展示了足够多的成果之后，你就认为这确实是个不错的方向。
+为什么我们一开始要研究 AI 呢？就拿 Jared 来说吧，你为什么选择从事 AI 工作？
+
+I mean, I was working on physics for a long time, and I got bored, and I wanted to hang out with more of my friends. 
+
+我自己在物理领域工作了很长时间，后来感觉有些厌倦，也想多和朋友们交流。
+
+I thought Dario pitched you on it. 
+
+我以为是 Dario 向你推销的。
+
+I don't think I explicitly pitched you any point. I just kind of showed you results of AI models and was trying to make the point that they're very general and they don't only apply to one thing. And then just at some point after I showed you enough of them, you were like, oh, yeah, that seems like it's right.
+
+我自己并没有特别地向你推销过。我只是展示了一些 AI 模型的成果，想说明这些模型非常通用，不仅限于单一应用。后来，在我展示了足够多的成果之后，你就认为这确实是个不错的方向。
 
 How long have you been a professor when you started? I think like six years or so. I think I helped recruit Sam. I talked to you and you were like, I think I've created a good bubble here. And my goal is to get Tom to come back. And then it worked. And did you meet everyone through Google when you were doing the interpretability stuff, Chris? No. So I guess I actually met a bunch of you when I was 19. And I was visiting the Bay Area for the first time. So I guess I met Dario and Jared then. And I guess they were postdocs, which I thought was very cool at the time.
 
