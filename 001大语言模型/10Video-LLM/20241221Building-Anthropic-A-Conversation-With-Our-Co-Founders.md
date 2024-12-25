@@ -30,6 +30,613 @@ Yeah, I think I was writing concrete problems in AI safety when I was at Google.
 
 是的，我记得在 Google 工作时，我正专注于撰写有关 AI 安全的具体问题。我想你写过关于那篇论文的报道。确实，我写过。我还记得在开始和你合作之前，你邀请我去办公室聊天，向我详细介绍了 AI 的一切。你解释得很清楚，让我意识到这些问题比我想象的要严峻得多。你可能当时讲解了大量计算、参数计数以及大脑中神经元的数量等等。我觉得 Dario 经常给人这样的印象，就是这些问题比我们意识到的要严重得多。是的，我就像个「快乐消息」的传递者。
 
+
+
+SPEAKER_04: Why are we working on AI in the first place?
+
+SPEAKER_02: I'm just going to arbitrarily pick Jared. Why are you doing AI at all? I mean, I was working on physics for a long time, and I got bored, and I wanted to hang out with more of my friends. I thought Dario pitched you on it.
+
+SPEAKER_03: I don't think I explicitly pitched you any point. I just kind of showed you results of AI models and was trying to make the point that they're very general and they don't only apply to one thing. And then just at some point after I showed you enough of them, you were like, oh, yeah, that seems like it's right. How long have you been a professor when you started?
+
+SPEAKER_02: I think like six years or so. I think I helped recruit Sam. I talked to you and you were like, I think I've created a good bubble here.
+
+SPEAKER_00: And my goal is to get Tom to come back.
+
+SPEAKER_01: And then it worked.
+
+SPEAKER_00: And did you meet everyone through Google when you were doing the interpretability stuff,
+
+SPEAKER_04: Chris?
+
+SPEAKER_02: No.
+
+SPEAKER_04: So I guess I actually met a bunch of you when I was 19.
+
+SPEAKER_05: And I was visiting the Bay Area for the first time.
+
+SPEAKER_04: So I guess I met Dario and Jared then.
+
+SPEAKER_02: And I guess they were postdocs, which I thought was very cool at the time.
+
+SPEAKER_04: And then I was working at Google Brain.
+
+SPEAKER_01: And Dario joined.
+
+SPEAKER_04: And we sat side by side, actually, for a while. We had desks beside each other and I worked with Tom there as well. And
+
+SPEAKER_01: then of course I went to work with all of you at OpenAI when I went there. So I guess I've known a
+
+SPEAKER_05: lot of you for like more than a decade, which is kind of wild. If I remember correctly, I met Dario
+
+SPEAKER_04: in 2015 when I went to a conference you were at, and I tried to interview you, and Google PR said I would have read all of your research papers.
+
+SPEAKER_03: Yeah, I think I was writing concrete problems in AI safety when I was at Google. I think you wrote a story about that paper.
+
+SPEAKER_02: I did. I remember right before I started working with you, I think you invited me to the office to come chat and just tell me everything about AI. And you explained. I remember afterwards being like, oh, I guess this stuff is much more serious than I realized.
+
+SPEAKER_01: And you were probably explaining the big blob of compute
+
+SPEAKER_00: and parameter counting and how many neurons are in the brain and everything. I feel like Dario often has that effect on people.
+
+SPEAKER_05: This is much more serious than I realized.
+
+SPEAKER_02: Yeah.
+
+SPEAKER_05: I'm the bringer of happy tidings.
+
+SPEAKER_03: But I remember when we were at OpenAI,
+
+SPEAKER_02: where there was the scaling laws stuff
+
+SPEAKER_03: and just making things bigger,
+
+SPEAKER_04: and it started to feel like it was working. And then it kind of kept on eerily working on a bunch of different projects, which I think is how we all ended up working closely together, because it was first GPT-2, and then scaling laws and GPT-2, and then scaling laws and GPT-3, and we ended up being a big group of people.
+
+SPEAKER_01: Yeah, we were the plop of people that were making things work.
+
+SPEAKER_03: Yeah.
+
+SPEAKER_01: That's right.
+
+SPEAKER_02: I think we were also excited about safety, because in that era, there was sort of this
+
+SPEAKER_01: idea that AI would become very powerful, but potentially not understand human values or
+
+SPEAKER_02: not even be able to communicate with us. And so I think we were all pretty excited about language models as a way to kind of
+
+SPEAKER_00: guarantee that AI systems would have to understand kind of implicit knowledge.
+
+SPEAKER_02: And RL for human feedback on top of language models, which was the whole reason for scaling
+
+SPEAKER_03: these models up was that the models weren't smart enough to do RLHSF on top of.
+
+SPEAKER_01: So that's the kind of intertwinement of safety and scaling of the models
+
+SPEAKER_02: that we still believe in today.
+
+SPEAKER_05: I think there was also an element of the scaling work was done
+
+SPEAKER_03: as part of the safety team that Dario started at OpenAI
+
+SPEAKER_00: because we thought that forecasting AI trends was important to be able to have us take them seriously and take safety seriously as a problem.
+
+SPEAKER_04: Correct. Yeah, I mean, we took, I remember being in some airport in England sampling from GPT-2 and using it to write fake news articles and slacking Dario and being like, oh, this stuff actually works and might have like huge policy implications. I think Dario said something like, yes.
+
+SPEAKER_01: It's a typical way. But then we worked on that a bunch, as well as the release stuff,
+
+SPEAKER_04: which was kind of wild. Yeah, I remember the release stuff. I think that was when we first
+
+SPEAKER_00: started working together. That was a fun time, the GPT-2 launch. Yeah, but I think it was good
+
+SPEAKER_04: for us, because we did a kind of slightly strange, safety-oriented thing all together, and then we ended up doing Anthropic, which is a much larger, slightly strange strange safety-oriented thing altogether. And then we ended up doing Anthropic, which is a much larger, slightly strange safety-oriented thing altogether.
+
+SPEAKER_01: So I guess just going back to the concrete problems,
+
+SPEAKER_04: because I remember I joined OpenAI in 2016,
+
+SPEAKER_03: one of the first 20 employees or whatever with Udario. And I remember at that time the concrete problems in AI safety seemed like it was the first mainstream AI safety paper. I don't really know if I ever asked you what the story was for how that came about. Chris knows the story because he was involved in it. I think we were both at Google. I forget what other project I was working on. But like with many things, it was my attempt to kind of procrastinate from whatever other project I was working on that I've now completely forgotten what it was.
+
+SPEAKER_00: But I think it was like Chris and I decided to write down what are some open problems in terms of AI safety?
+
+SPEAKER_01: And also, AI safety is usually talked about in this very kind of abstruse, abstract way.
+
+SPEAKER_00: Can we kind of ground it in the ML that was going on at the time? I mean, now there's been like, you know, six, seven years of work in that vein, but it was almost a strange idea at the time.
+
+SPEAKER_05: Yeah, I think there's a way in which it was almost like kind of political project, where at the time, a lot of people didn't take safety seriously. So I think that there was sort of this goal to collate a list of problems that sort of people agreed were reasonable, often already existed in literature, and then get a bunch of people across different institutions who are credible to be authors. And I remember I had this whole long period where I just talked to 20 different researchers at Brain to build support for publishing the paper. In some ways, if you look at it in terms of the problems and a lot of things that emphasized, I think it hasn't held up that well in that it's, you know, I think it's not really the right problems. But I think if you sort of see it instead as a consensus building exercise that there's something here that is real and that is worth taking seriously, then it was a pretty important moment.
+
+SPEAKER_04: I mean, you end up in this really weird sci-fi world where I remember at the start of Anthropic, we were talking about constitutional AI. And I think Jared said, oh, we're just going to write like a constitution for a language model and that'll change all of its behavior. And I remember that sounded like incredibly crazy at the time. But why did you guys think that was going to work? Because I remember that was one of the first early like big research ideas we had at the company.
+
+SPEAKER_02: Yeah, I mean, I think Dario and I had talked about it for a while. I think simple things just work really, really well in AI. I think the first versions of that were quite complicated, but then we kind of whittled away into just use the fact that AI systems are good at solving multiple choice exams and give them a prompt that tells them what they're looking for. And that was kind of a lot of what we needed.
+
+SPEAKER_03: And then we were able to just write down these principles. I mean, it goes back to the big blob of compute or the bitter lesson or the scaling hypothesis. If you can identify something that you can give the AI data for and that's kind of a clear target, you'll get it to do it. So here's this set of instructions. Here's this set of principles. AI language models can like read that set of principles and they can like compare it to the behavior that they themselves are engaging in. So like, you've got your training target there. So once you know that, I think my view and Jared's view is there's a way to get it to work. You just have to fiddle with enough of the details.
+
+SPEAKER_02: Yeah. I think it was always weird for me, especially in these early eras, because I was in physics and then coming from physics. And I think now we forget about this because everyone's excited about AI. But I remember talking to Dario about concrete problems and other things. And I just got the sense that AI researchers were very, very kind of psychologically damaged by the AI winter,
+
+SPEAKER_00: where they just kind of felt like having really ambitious ideas or ambitious visions was very disallowed. And that's kind of how I imagine it was in terms of talking about safety. In order to care about safety, you have to believe that AI systems could actually be really powerful and really useful. And I think that there was kind of a prohibition and against being ambitious. And I think one of the benefits is that physicists are very arrogant. And so they're constantly
+
+SPEAKER_01: doing really ambitious things and talking about things in terms of grand schemes. And so,
+
+SPEAKER_02: yeah, I mean, I think that's I think that's definitely true. Like I remember in 2014,
+
+SPEAKER_03: it was like there were just like, I don't know, there were just like some things you couldn't say, right. But but I actually think it was kind of an extension of problems that exist across academia other than maybe theoretical physics, where they've kind of evolved into very risk-averse institutions for a number of reasons. And even the industrial parts of AI had kind of transplanted or forklifted that mentality. And it took a long time. I think it took until like 2022 to get out of that mentality.
+
+SPEAKER_05: There's a weird thing about like, what does it mean to be conservative and respectable, where you might think like one version you could have is that what it means to be conservative is to take the risks or the potential harms of what you're doing really seriously and worry about that. But another kind of conservatism is to be like, ah, you know, taking an idea too seriously and believing that it might succeed is sort of like scientific arrogance. And so I think there's like kind of two different kinds of conservatism or caution. And I think we were sort of in a regime that was very controlled by that one. You see it historically, right? If you look at the early discussions in 1939 between people involved in nuclear physics about whether nuclear bombs were sort of a serious concern. You see exactly the same thing with Fermi resisting these ideas because it just seemed kind of like a crazy thing.
+
+SPEAKER_00: And other people like Zillard or Teller taking the ideas seriously because they were worried about the risks.
+
+SPEAKER_01: Perhaps the deepest lesson that I've learned in the last 10 years, and probably all of you have learned some form of it
+
+SPEAKER_03: as well, is there can be this kind of seeming consensus, these things that kind of everyone knows that, I don't know, seem sort of wise, seem like they're common sense, but really they're just kind of hurting behavior masquerading as maturity and sophistication. And when you've seen, the consensus can change overnight.
+
+SPEAKER_00: And when you've seen it happen a number of times, you suspected, but you didn't really bet on it. And you're like, oh, man, I kind of thought this, but what do I know? How can I be right and all these people are wrong? You see that a few times, then you just start saying, nope, this is the bet we're going to make. I don't know for sure if we're right, but just ignore all this other stuff, see it happen. And I don't know, even if you're right 50% of the time, being right 50% of the time contributes so much, right? You're adding so much that is not being added by anyone else.
+
+SPEAKER_04: And it feels like that's where we are today with some safety stuff, where there's like a consensus view that a lot of this safety stuff is unusual or doesn't naturally fall out of the technology. And then at Anthropic, we do all of this research where weird safety misalignment problems fall out as a natural dividend of the tech we're building. So it feels like we're in that counter consensus view right now. But I feel like that has been shifting over the past,
+
+SPEAKER_00: even just like 18. We've been helping to shift. We've definitely been publishing.
+
+SPEAKER_04: Publishing and doing research. Constant force. But I also think just world sentiment around AI has shifted really dramatically.
+
+SPEAKER_00: And it's more common in the user research that we do to hear just customers, regular people, say,
+
+SPEAKER_04: I'm really worried about what the impact of AI on the world more broadly is going to be.
+
+SPEAKER_01: And sometimes that means jobs or bias or toxicity. But it also sometimes means, is this just going to mess up the world?
+
+SPEAKER_02: How is this going to contribute to fundamentally changing how humans work together, operate?
+
+SPEAKER_01: I wouldn't have predicted that, actually.
+
+SPEAKER_02: For whatever reason, it seems like people in the ML research sphere have always been more pessimistic about AI becoming very powerful than the general public.
+
+SPEAKER_01: Maybe it's a weird form of humility or something.
+
+SPEAKER_02: And when Daria and I went to the White House in 2023,
+
+SPEAKER_00: in that meeting, Harris and Raimondo and stuff basically
+
+SPEAKER_04: said, paraphrase, but basically said, we've got our eye on you
+
+SPEAKER_02: guys.
+
+SPEAKER_04: AI is going to be a really big deal, and we're now actually
+
+SPEAKER_00: paying attention, which is.
+
+SPEAKER_04: And they're right.
+
+SPEAKER_03: They're right. They're absolutely right.
+
+SPEAKER_00: But I think in 2018, you wouldn't have been like, the president will call you to the White
+
+SPEAKER_03: House to tell you they're paying close attention to the development of language models.
+
+SPEAKER_01: Yeah. That was not a big event. Like in 2018.
+
+SPEAKER_04: One thing that I think is interesting too, is I guess all of us kind of got into this
+
+SPEAKER_03: when it didn't seem like there was like, like we thought, like we thought, we thought that it could happen, but yeah, it was, it was like, like fair me being like skeptical of the atomic bomb. It was like, he had, he was just a good scientist and like, there was some evidence that it could happen, but there also was a lot of evidence against it happening.
+
+SPEAKER_04: And he, I guess decided that it would be worthwhile because if it was true, then it would be a big deal. And I think for all of us, it was like 2015, 2016, 2017. There was some evidence and increasing evidence that this might be a big deal. But I remember in 2016, talking to all my advisors,
+
+SPEAKER_00: and I was like, I've done startup stuff. I want to help out with AI safety, but I'm not great at math. I don't exactly know how I can do it. And I think at the time, people were like, either were like, well, you need to be super good at decision theory in order to help out. And I was like, eh, it's probably not going to work.
+
+SPEAKER_03: Or they were like, it doesn't really seem like we're going to get some crazy AI thing. And so I had only a few people, basically, that were like, yeah, okay, that seems like a good thing to do.
+
+SPEAKER_04: I remember in 2014 making graphs of ImageNet results over time when I was a journalist and trying to get stories published about them, and people thought I was completely mad. And then I remember in 2015 trying to persuade Bloomberg to let me write a story about NVIDIA, because every AI research paper had started mentioning the use of GPUs, and they said that was completely mad. And then in
+
+SPEAKER_00: 2016, when I left journalism to go into AI, I had these emails saying,
+
+SPEAKER_01: you're making the worst mistake of your life, which I now occasionally look back on.
+
+SPEAKER_04: But it all seemed crazy at the time from many perspectives to go and take this seriously,
+
+SPEAKER_01: that scaling was going to work, and something was maybe different about the technology paradigm.
+
+SPEAKER_04: You're like Michael Jordan and that coach that didn't believe in him in high school.
+
+SPEAKER_01: How did you actually make the decision, though?
+
+SPEAKER_00: Did you feel torn, or was it obvious to you?
+
+SPEAKER_02: I did a crazy counter bet where I said, let me become your full-time AI reporter and double
+
+SPEAKER_04: my salary, which I knew that they wouldn't say yes to.
+
+SPEAKER_02: Then I went to sleep, and then I woke up and resigned.
+
+SPEAKER_04: It was all fairly relaxed. You're just a decisive guy. In that instance, I was. I think it's because I was going to work, reading archive papers, and then printing archive papers off and coming home and reading archive papers, including Dario's papers from the Baidu stuff. And being like, something completely crazy is happening here. And at some point, I thought you should bet with conviction, which I think everyone here has done in their careers is just betting with conviction that this is going to work.
+
+SPEAKER_01: Yeah.
+
+SPEAKER_04: I definitely was not as decisive as you.
+
+SPEAKER_03: I spent like six months like flip-flopping,
+
+SPEAKER_01: like, okay, like, should I do it? Like, should I try to do a startup? Should I try to do this thing?
+
+SPEAKER_00: But I also feel like back then, there wasn't as much talk of engineers and the impact that an engineer can have in AI.
+
+SPEAKER_03: That feels so natural to us now and we're at the same sort of talent raise for engineers of all different types.
+
+SPEAKER_04: But at the time it was like you're a researcher and that's the only people that can work on AI. So I don't think it was crazy that you were spending time thinking about that.
+
+SPEAKER_03: Yeah, yeah. And I think that was basically the thing that got me to join
+
+SPEAKER_00: OpenAI was like, I like, I messaged the people there and they were like, yeah, we actually think
+
+SPEAKER_01: that you can help out by doing engineering work. Yeah. And like that, that you can help out with
+
+SPEAKER_00: AI safety in that way, which I think there hadn't really been an opportunity for that. So that was
+
+SPEAKER_03: what. That's right. You were my, you were my manager at that opening. I was, I think I joined after you'd been there for a while. I was at brain for a bit. Yeah. I
+
+SPEAKER_00: don't know if I ever asked you like what it was that they got you to join. Yeah. So I had been at Stripe for about five and a half years and I knew Greg, he had been my boss. He was my boss at Stripe for a while. And I actually introduced him and Dario because I said when he was starting OpenAI, I was like, the smartest person that I know is Dario. You would be really lucky to get him. So Dario was at OpenAI. I had a few friends from Stripe that had gone there too. And I think sort of like you, I'd been thinking about what I wanted to do after Stripe. I had gone there just because I wanted to get more skills after working in, you know, nonprofit and international development. And I actually thought I was going to go back to doing that. Like essentially, I had always been working. I was like, I really want to help people that have, you know, less than I do. But I didn't have the skills when I was doing it before Stripe. And so I looked at going back to public health. I thought about going back into politics very briefly. But I was also looking around at other tech companies and other sort of ways of having impact. And OpenAI at the time felt like it was a really nice intersection. It was a nonprofit. They were working on this really big lofty mission. I really believed in sort of the AI, you know, potential because, I mean, I know Dario a little bit. And so he was.
+
+SPEAKER_03: They needed management help.
+
+SPEAKER_00: They definitely needed management help.
+
+SPEAKER_01: That is a fact.
+
+SPEAKER_03: And so there was, I think that felt,
+
+SPEAKER_01: it felt very me-shaped, right?
+
+SPEAKER_03: I was like, oh, there's this nonprofit
+
+SPEAKER_01: and they like, there's all these really great people
+
+SPEAKER_03: with these like really good intentions, but it seems like they're a little bit of a mess.
+
+SPEAKER_01: And that was, that was, that felt really exciting to me to get to come in. And even, you know, just, I was such a utility player. I was running people, but I was also running some of the technical teams.
+
+SPEAKER_04: Yeah, the scaling org. I worked on the language team.
+
+SPEAKER_00: I worked on some policy stuff. I worked with Chris. And I felt like there was just so much goodness in so many of the employees there. And I felt a very strong desire to come and try to help make the company a little more functional. I remember towards the end, after we'd done GPT-3, you were like,
+
+SPEAKER_04: have you guys heard of something called trust and safety? Yes.
+
+SPEAKER_00: I said, you know, I used to run some trust and safety teams at Stripe. There's a thing called
+
+SPEAKER_04: trust and safety that you might want to consider for a technology like this. And it's funny because it sort of is the intermediary step between AI safety research,
+
+SPEAKER_01: which is how do you actually make the model safe to something just much more practical? I do think there was a value in saying, this is going to be a big thing. We also have to be doing this sort of practical work day to day to build the muscles for when things are going to be a lot higher stakes. That might be a good transition point to talk about
+
+SPEAKER_04: things like the responsible scaling policy and how we came up with that or why we came up with it and how we're using it now, especially given how much trust and safety work we do on today's models.
+
+SPEAKER_03: So whose idea was the RSP? You and Paul? Yeah, it was me and Paul first talked about it in late, Paul Cristiano, in late 2022. First, it was like, oh, should we cap scaling at a particular point until we've discovered how to solve certain safety problems? And then it was like, well, it's kind of strange to have this one place where you cap it and then you uncap it. So let's have a bunch of thresholds. And then at each threshold, you have to do certain tests to see if the model is capable and you have to take increasing safety and security measures. Originally, we had this idea. And then the thought was just look like, you know, this will go better if, you know, if it's done by some third party, like we shouldn't we shouldn't be the ones to do it, right? It shouldn't come from one company, because then other companies are less likely to adopt it. So Paul actually went off and designed it and many features of it changed. And we were kind of on our side working on how it should work. And once Paul had something together, then pretty much immediately after he announced the concept, we announced ours within a month or two. I mean, many of us were heavily involved in it. I remember writing at least one draft of it myself, but there were, like, several drafts of it. There were so many drafts.
+
+SPEAKER_02: I think it's gone through the most drafts of any doc. Which makes sense, right? It's like, I feel like it is in the same way that, like, the U.S. treats, like, the Constitution as, like, the holy document.
+
+SPEAKER_01: Yeah. Which, like, I think is just a big thing that, like, strengthens the U.S. treats like the Constitution as like the holy document which like I think is just a big thing that like strengthens the U.S.
+
+SPEAKER_03: And like we don't expect the U.S. to go off the rails in part because just like every single person in the U.S. is like the Constitution is a big
+
+SPEAKER_01: deal and if you tread on that like I'm mad. Yeah. Like I think that like
+
+SPEAKER_03: the RSP is our like
+
+SPEAKER_01: it holds that thing. It's like the holy document for
+
+SPEAKER_00: Anthropic so it's like worth doing a lot of iterations getting it right. Some of what I think has been so cool to watch about the RSP development at Anthropic too is it feels like it has gone through so many different phases and there's so many different skills that are needed to make it work. There's the big ideas, which I feel like Dario and Paul and Sam and Jared and so many others are like, what are the principles? What are we trying to say? How do we know if we're right? But there's also this very, like, operational approach to just iterating where we're like, well, we thought that we were going to see this at this, you know, safety level. And we didn't. So should we change it so that we're making sure that we're holding ourselves accountable? And then there's all kinds of organizational things, right? We just were like, let's change the structure of the RSP organization for clearer accountability. And I think my sense is that for a document that's as important as this, right? I love the constitution analogy. It's like, there's all of these bodies and systems that exist in the US to like, make sure that we follow the constitution, right? There's the courts, there's the Supreme Court, there's the presidency, there's the, you know, the both houses of, you know, Congress, and they do all kinds of other things, of course. But there's like all of this infrastructure that you need around this like one document. And I feel like we're also learning that lesson here.
+
+SPEAKER_02: I think it sort of reflects a view a lot of us have about safety, which is that it's a solvable problem.
+
+SPEAKER_01: It's just a very, very hard problem that's going to take tons and tons of work.
+
+SPEAKER_02: All of these institutions that we need to build up, like there's all sorts of institutions built up around automotive safety, built up over many, many years. But we're like, do we have the time to do that? We've got to go as fast as we can to figure out what the institutions we need for AI safety are and build those and try to build them here first but make it exportable.
+
+SPEAKER_03: It forces unity also because if any part of the org is not kind of in line with our safety values, it shows up through kind of the RSP. The RSP is going to block them from doing what they want to do. And so it's a way to remind everyone over and over again, basically to make safety a product requirement, part of the product planning process. And so it's not just a bunch of bromides that we repeat. It's something that you actually, if you show up here and you're not aligned, you actually run into it.
+
+SPEAKER_04: And you either have to learn to get with the program or it doesn't work out.
+
+SPEAKER_00: The RSP has become kind of funny over time because we spend thousands of hours of work
+
+SPEAKER_04: on it. And then I go and talk to senators, and I explain the RSP, and I'm like, we have some stuff that means it's hard to steal what we make, and also that it's safe. And they're like, yes, that's a completely normal thing to do. Are you telling me not everyone does this? And you're like, oh, okay, yeah.
+
+SPEAKER_01: It is the exact truth that not everyone does this. It's amazing. We've spent so much effort on it here. And when you boil it down, they're like, yes, that sounds like a normal way.
+
+SPEAKER_02: Yeah, that sounds good.
+
+SPEAKER_00: That's been the goal.
+
+SPEAKER_02: Like Daniela was saying, let's make this as boring and normal.
+
+SPEAKER_00: Let's make this a finance thing. Yeah, management's like an audit.
+
+SPEAKER_03: Yeah, yeah.
+
+SPEAKER_02: Boring and normal is what we want, certainly in retrospect.
+
+SPEAKER_03: Well, also, Dario, I think in addition what we want, certainly in retrospect.
+
+SPEAKER_00: Well, also, Dario, I think in addition to driving alignment, it also drives clarity because it's really, it's written down what we're trying to do. And it's legible to everyone in the company.
+
+SPEAKER_03: And it's legible externally what we think we're supposed to be aiming towards from a safety perspective. It's not perfect. We're iterating on it. We're making it better. But I think there's some value in saying, like, this is what we're worried about. This thing over here, like, you can't just use this word to sort of derail something in either direction, right? To say, oh, because of safety, we can't do X. Or because of safety, we have to do X. We're really trying to make it clearer what we mean. Yeah, you can't. It prevents you from worrying about every last little thing under the sun.
+
+SPEAKER_00: That's right. Right? Because it's actually the fire drills that damage the cause of safety in the long run. I've said if there's a building and the fire alarm goes off every week, that's a really unsafe building because when there's actually a fire, you're like, oh, it just goes off
+
+SPEAKER_01: all the time.
+
+SPEAKER_05: So it's very important to be calibrated.
+
+SPEAKER_01: Yes.
+
+SPEAKER_03: A slightly different frame that I find kind of clarifying is that I think that RSP creates
+
+SPEAKER_01: healthy incentives at a lot of levels.
+
+SPEAKER_05: So I think internally it aligns the incentives of every team with safety because it means
+
+SPEAKER_01: if we don't make progress on safety, we're going to block. I also think that externally it creates a lot of healthier incentives than other possibilities at least that I see because it means that if we at some point have to take some kind of dramatic action, like if at some point we have to say, you know, our model, we've reached some point and we can't yet make a model safe, it aligns that with sort of the point where there's evidence that supports that decision. And there's sort of a pre-existing framework for thinking about it and it's legible. And so I think there's a lot of levels at which the RRSP, I think in ways that maybe I didn't initially understand when we were talking about the early versions of it, it creates a better framework than any of the other ones that I've thought about.
+
+SPEAKER_02: I think this is all true, but I feel like it undersells how challenging it's been to figure out what the right policies and evaluations and what the lines should be. I think that we have and continue to sort of iterate a lot on that. And I think there is a question also that's difficult of sort of, you could be at a point where it's very clear something's dangerous or very clear that something's safe, but with some technology that's so new, there's actually like a big gray area. And so I think that has been like all the things that we're saying were things that made me really, really excited about the RRSP at the beginning and still do. But also I think enacting this in a clear way and making it work has been much harder and more complicated than I anticipated. Yeah, I think this is exactly the point. The gray areas are impossible to predict. There's so many of them. Until, until you actually try to implement everything, you, like, don't know what's going to go wrong. So what we're trying to do is go and implement everything so we can see as early as possible what's going to go wrong.
+
+SPEAKER_03: Yeah, you have to do three or four passes
+
+SPEAKER_02: before you really get it right. Like, iteration is just very powerful, and, you know, you're not going to get it right on the first time. And so, you know, if the stakes are increasing, you want to get your iterations in early. You don't want to get it right on the first time. And so if the stakes are increasing, you want to get your iterations in early. You don't want to get them in late.
+
+SPEAKER_04: You're also building the internal institutions and processes, so the specifics might change a lot, but building the muscle of just doing it is the really valuable thing. I'm responsible for compute at AnthropBakon.
+
+SPEAKER_03: That's important. Thank you. compute at Anthropic. That's important. Thank you. I think so. So I think that for me, I guess we have to deal with external folks.
+
+SPEAKER_02: And different external folks are on different spectrums of the how fast do they think stuff
+
+SPEAKER_01: is going to get. I think that's also been a thing where I started out not thinking stuff would be that fast and have changed over time. And so I have sympathy for that. And so I think the RSP has been extremely useful for me in communicating with people who think that things might take longer, because then we have a thing where it's like, we don't need to do extreme safety measures until stuff gets really intense. And then we can be like, they might be like, I don't think stuff will get intense for a long time. And then I'll be like, okay, yeah, we don't have to do extreme safety measures. And so that makes it a lot easier to communicate with other folks externally.
+
+SPEAKER_04: Yeah, yeah. It makes it like a normal thing you can talk about rather than something really strange. Yeah. How else is it showing up for people?
+
+SPEAKER_02: Evals, evals, evals.
+
+SPEAKER_01: Good. It's all about evals. Everyone's doing evals.
+
+SPEAKER_02: The training team is doing evals all the time. We're trying to figure out, like, has this model gotten enough better that it has the potential to be dangerous? So how many teams do we have that are evals teams? You have Frontier Red Team. There must be. I mean, there's a lot of people.
+
+SPEAKER_04: Every team produces evals, basically.
+
+SPEAKER_00: And that means you're just measuring against the RSP. Like, measuring for certain signs of things that would concern you or not concern you.
+
+SPEAKER_02: Exactly. It's easy to lower bound the abilities of a model, but it's hard to upper bound.
+
+SPEAKER_01: So we just put tons and tons of research effort into saying, can this model do this dangerous thing or not?
+
+SPEAKER_02: Maybe there's some trick that we haven't thought of, like chain of thought or best event or some kind of tool use that's going to make it so it can help you do something
+
+SPEAKER_04: very dangerous. It's been really useful in policy because it's been a really abstract concept what safety is. And when I'm like, we have an eval which changes whether we deploy the model or not. And then you can go and calibrate with policymakers or experts in national security or some of these CBRN areas that we do to actually help us build evals that are well calibrated. And that counterfactually just wouldn't have happened otherwise. But once you've got the specific thing, people are a lot more motivated to help you make it accurate. So it's been useful for that.
+
+SPEAKER_00: The RSP shows up for me, for sure.
+
+SPEAKER_04: Everything? Often.
+
+SPEAKER_00: I actually think, weirdly, the way that I think about the RSP the most is
+
+SPEAKER_01: like what it sounds like, just like the tone. I think we just did a big rewrite of the tone of the RSP because it felt overly like technocratic and even a little bit adversarial. I spent a lot of time thinking about like, how do you build a system that people just want to be a part of,
+
+SPEAKER_00: right? It's so much better if the RSP is something that everyone in the company can walk around and tell you, just like with OKRs
+
+SPEAKER_01: like we do right now, what are the top goals of the RRSP? How do we
+
+SPEAKER_00: know if we're meeting them? What AI safety level are we at right now? Are we at ASL2? Are we at ASL3? That people know what to look for because that is how you're going to have good common knowledge of if something's going wrong. If it's overly technocratic and it's something that only particular people in the company feel is accessible to them, it's just like not as productive, right? And I think it's been really cool to watch it sort of transition into this document where I actually think most, if not everybody at the company, regardless of their role, could read it and say, this feels really reasonable. I want to make sure that we're building AI in the following ways, and I see why I would be worried about these things. And I also kind of know what to look for if I bump into something, right? It's almost like, make it simple enough that if you're working at a manufacturing plant, and you're like, huh, it looks like the safety seatbelt on this should connect this way,
+
+SPEAKER_01: but it doesn't connect, that you can spot it. And that there's just like healthy feedback flow between leadership and the board and the rest of the company and the people that are actually building it. Because I actually think the way this stuff goes wrong in most cases is just like the wires don't connect or they get crossed. And that would just be a really sad way for things to go wrong. It's just all about operationalizing it, making it easy for people to understand.
+
+SPEAKER_02: Yeah, the thing I would say is none of us wanted to found a company. We felt like it was our duty, right?
+
+SPEAKER_00: I felt like we had to.
+
+SPEAKER_02: Like, we have to do this thing. This is the way we're going to make things go better with AI. Like, that's also why we did the pledge, right?
+
+SPEAKER_00: Because we're like, the reason we're doing this feels like our duty.
+
+SPEAKER_03: I wanted to invent and discover things in some kind of beneficial way.
+
+SPEAKER_02: That was how I came to it. And that led to working on AI. And AI required a lot of engineering. And
+
+SPEAKER_03: eventually, AI required a lot of capital. But what I found was that if you don't do this in a way where you're setting the environment, where you set up the company, then a lot of it gets done. A lot of it repeats the same mistakes that I found so alienating about the tech community. It's the same people. It's the same attitude. It's the same pattern matching. And so at some point, it just seemed inevitable that we do it in a different way.
+
+SPEAKER_02: When we were hanging out in graduate school, I remember you had kind of this whole like program of trying to figure out how to do science in a way that would sort of advance the public good. And I think I think that's like pretty similar to how we we think about this. Maybe you have like this like Project Vannevar or something to do that. I was a professor. I think basically I just looked at the situation and I was convinced that AI was on a very, very, very steep trajectory in terms of impact. It didn't seem like because of the necessity for capital, like as a physics professor, I could continue doing that. And I kind of wanted to work with people that I trusted in building an institution to try to make kind of AI go well. But yeah, I would never recommend founding a company
+
+SPEAKER_01: or really want to do it. I mean, yeah, I think it's just a means to an end. I mean, I think that's like usually how things go well, though. If you're doing something just to sort of like enrich yourself or gain power or like you have to sort of actually care about accomplishing a real goal in the world and then you find whatever means you have to.
+
+SPEAKER_00: Well, something I think about a lot is just a strategic advantage for us is, I mean, it sounds really funny to say, but just like how much trust there is at this table, right?
+
+SPEAKER_01: Like, I think that's not, I mean, Tom, you were at other startups. I was never a founder before, but it's actually really hard to get a group of, like a big group of people to have like the same mission. Right. And I think the thing that I feel like the happiest about when I come into work and probably the most proud of at Anthropic is how well that has scaled to a lot of people. It feels to me like in this group and with the rest of leadership, everyone is here for the mission and our mission is really clear and it's it's very pure. Right. And I think that is something that I don't see as often, to Dario's point, in the tech industry. It feels like there's just a wholesomeness to what we're trying to do. I agree. None of us were like, let's just go found a company. I felt like we had to do it. It just felt like we couldn't keep doing what we were doing the place we were doing it. We had to do it by ourselves. couldn't keep doing what we were doing the place we were doing it. We had to do it by ourselves.
+
+SPEAKER_04: It felt like with GPT-3, which all of us had touched or worked on, and scaling laws and everything else, we could see it in front of us in 2020. And it felt like, well, if we don't do something soon altogether, you're going to hit the point of no return. And you have to do something to have any ability to change the environment.
+
+SPEAKER_01: I think building off Daniel,
+
+SPEAKER_04: I do think that there's just a lot of trust in this group.
+
+SPEAKER_03: I think each of us knows that we got into this because we want to help out with the world.
+
+SPEAKER_01: We did the 80% pledge thing, and that was a thing that everybody was just like,
+
+SPEAKER_03: yes, obviously we're going to do this.
+
+SPEAKER_04: I do think that the trust thing is a special thing that's extremely rare.
+
+SPEAKER_01: I credit Daniela with keeping the bar high. I credit you with the fact that we scaled.
+
+SPEAKER_02: She's clown racers.
+
+SPEAKER_01: You're the reason the culture scaled, I think.
+
+SPEAKER_02: People say how nice people are here, which is actually a wildly important thing.
+
+SPEAKER_01: I think Anthropic is really low politics.
+
+SPEAKER_02: And of course, we all have a different vantage point than average, and I try to remember that.
+
+SPEAKER_00: It's because of low ego.
+
+SPEAKER_01: But it's low ego, and I do think our interview process and just the type of people who work here,
+
+SPEAKER_00: there's almost an allergic reaction to politics.
+
+SPEAKER_04: And unity.
+
+SPEAKER_00: Unity is so important.
+
+SPEAKER_02: The idea that the product team, the research team, the trust and safety team,
+
+SPEAKER_00: the go-to-market team, the policy team, the safety folks,
+
+SPEAKER_03: they're all trying to contribute to kind of the same goal, the same mission of the company.
+
+SPEAKER_00: I think it's dysfunctional when different parts of the company think they're trying to accomplish different things, think the company is about different things, or think
+
+SPEAKER_03: that other parts of the company are trying to undermine what they're doing.
+
+SPEAKER_00: And I think the most important thing we've managed to preserve is, and again, things
+
+SPEAKER_01: like the RSP drive it, this idea that it's not, you know,
+
+SPEAKER_00: there's some parts of the company causing damage
+
+SPEAKER_04: and other parts of the company trying to repair it,
+
+SPEAKER_00: but that there are different parts of the company
+
+SPEAKER_01: doing different functions,
+
+SPEAKER_00: and they all function under a single theory of change.
+
+SPEAKER_03: Extreme pragmatism, right?
+
+SPEAKER_01: Yeah.
+
+SPEAKER_03: You know, the reason I went to OpenAI in the first place,
+
+SPEAKER_01: you know, it was a nonprofit.
+
+SPEAKER_05: It was a place where I could go and focus on safety.
+
+SPEAKER_03: And I think over time, that maybe wasn't as good a fit.
+
+SPEAKER_05: And there were some difficult decisions.
+
+SPEAKER_03: And I think in a lot of ways, I really trusted Dario and Danielle on that.
+
+SPEAKER_05: But I didn't want to leave. That was something that I think I was actually pretty reluctant to go along with. Because I think for one thing, I didn't know that it was good for the world to have more AI labs. And I think it was something that I was pretty reluctant for. And I think as well, when we did leave, I think I was reluctant to start a company. I think I was arguing for a long time that we should do a nonprofit instead and just focus on safety research. time that we should do a nonprofit instead and just focus on safety research. I think it really took pragmatism and confronting the constraints and just being honest about what the constraints implied for accomplishing that mission that led to Anthropic.
+
+SPEAKER_03: I think just a really important lesson that we were good about early on is make less promises
+
+SPEAKER_05: and keep more of them. Like try to be calibrated, be realistic,
+
+SPEAKER_01: confront the trade-offs because trust and credibility
+
+SPEAKER_05: are more important than any particular policy.
+
+SPEAKER_01: It is so unusual to have what we have.
+
+SPEAKER_00: And watching Mike Krieger defend safety things of reasons why we shouldn't ship a product yet, but also then to watch Binet say, okay, we have to do the right thing for the business. How do we get this across the finish line? And to hear people deep in the technical safety org talking about how it's also important that we build things that are practical for people and hearing engineers on inference talk about safety, that's amazing. I think that is, again, one of the most special things about working here is everybody with that unity is prioritizing the pragmatism, the safety, the business. That's wild.
+
+SPEAKER_03: I think about it as spreading the trade-offs from just the leadership of the company to
+
+SPEAKER_00: everyone, right? I think the dysfunctional world is like,
+
+SPEAKER_03: you have a bunch of people who only see a big, you know, safety is like, we always have to do this. And product is like, we always have to do this. And research is like, you know, this is the only thing we care about. And then you're stuck at the top, right?
+
+SPEAKER_00: You're stuck at the top. You have to decide between, you don't have as much information as either of them. That's the dysfunctional world. The functional world is when you're able to communicate to everyone. There are these trade-offs we're all facing together.
+
+SPEAKER_01: The world is a far from perfect place. There's trade-offs. Everything you do is going to be suboptimal. Everything you do is going to be some attempt to get the best of both worlds that doesn't work out as well as you thought it was. And everyone is on the same page about confronting those tradeoffs together. And they just feel like they're confronting them from a particular post, from a particular job, as part of the overall job of confronting all the tradeoffs.
+
+SPEAKER_02: It's a bet on Race to the Top, right?
+
+SPEAKER_01: It's a bet on Race to the Top.
+
+SPEAKER_02: Like, it's not a pure upside bet. Things could go wrong.
+
+SPEAKER_01: But, like, we're all aligned on, like, this is the bet that we're making. It's a race to the top, right? It's a race to the top. It's not a pure upside bet. Things could go wrong.
+
+SPEAKER_02: We're all aligned on this is the bet that we're making.
+
+SPEAKER_04: And markets are pragmatic. So the more successful and proper it becomes as a company, the more incentive there is for people to copy the things that make us successful. And the more that success is tied to actual safety stuff we do, the more it just creates a gravitational force in the industry that will actually get the rest of industry to compete. And it's like, sure, we'll build seatbelts and everyone else can copy them. That's good.
+
+SPEAKER_01: That's like good world.
+
+SPEAKER_04: That's really good.
+
+SPEAKER_01: Yeah, this is the race to the top, right?
+
+SPEAKER_03: But if you're saying, well, we're not going to build the technology, you're not going to build it better than someone else, that in the end, that just doesn't work because you're not proving that it's possible to get from here to there. Where the world needs to get, never mind the industry, never mind one company, is it needs to get us successfully through from this technology doesn't exist to the technology exists in a very powerful way. And society has actually managed it. And I think the only way that's going to happen is that if you have, at the level of a single company and eventually at the level of the industry, you're actually confronting those tradeoffs. You have to find a way to actually be competitive, to actually lead the industry in some cases, and yet manage to do things safely. And if you can do that, the gravitational pull you exert is so great. There's so many factors from the regulatory environment to the kinds of people who want to work at different places to even sometimes the views of customers that kind of drive in the direction of if you can show that you can do well on safety without sacrificing competitiveness, right? If you can find these kind of win-wins, then others are incentivized to do the same thing.
+
+SPEAKER_02: Yeah, I mean, I think that's why getting things like the RRSP right is so important. Because I think that we ourselves, seeing where the technology is headed, have often thought, oh, wow, we need to be really careful of this thing. But at the same time, we have to be even more careful not to be crying wolf, saying that, like, innovation needs to stop here. We need to sort of find a way to make AI useful, innovative, delightful for customers, but also figure out what the constraints really have to be that we can stand behind that make systems safe so that what the constraints really have to be that we can stand behind that make systems safe so that it's possible for others to think that they can do that too, and they can succeed, they can compete with us. We're not doomers, right? We want to build the positive thing. We want to build the good thing.
+
+SPEAKER_03: And we've seen it happen in practice. A few months after we came out with our RSP, the three most prominent AI companies had one, right? Interpretability research. That's another area we've done it. Just the focus on safety overall, like collaboration with the AI safety institutes, other areas.
+
+SPEAKER_04: Yeah, the Frontier Red team got cloned almost immediately, which is good. You want all the labs to be testing for, like, very, very scary risks. Export the seatbelts. Yeah. Export the seatbelts.
+
+SPEAKER_00: Yeah, export the seatbelts. Well, Jack also mentioned it earlier, but customers also really care about safety, right? Customers don't want models that are hallucinating. They don't want models that are easy to jailbreak. They want models that are helpful and harmless, right?
+
+SPEAKER_01: And so a lot of the time what we hear in customer calls is just we're going with Claude because we know it's safer. I think that is also a huge market impact, right? Because our ability to have models that are trustworthy and reliable, that matters for the market pressure that it puts on competitors, too.
+
+SPEAKER_00: Maybe to unpack something that Dario said a little bit more.
+
+SPEAKER_05: I think there's this narrative or this idea that maybe the virtuous thing is to almost like nobly fail, right? It's like you should go and put safety, you should go and put things, you should sort of demonstrate like in an impragmatic way so that you can sort of demonstrate your purity to the cause or something like this. And I think if you do that, it's actually very self-defeating. For one thing, it means that you're going to have the people who are making decisions be self-selected for being people who don't care and for people who aren't prioritizing safety and who don't care about it. And I think on the other hand, if you try really hard to find the way to align the incentives and make it so that if there are hard decisions, they happen at the points where there is the most force to go and support making the correct hard decisions and where there's the most evidence. Then you can sort of start to trigger this race to the top that Dario is describing, where instead of going and having the people who care get pushed out of influence, you instead pull other people to have to go and follow.
+
+SPEAKER_04: So what are you all excited about when it comes to the next things we'll be working on?
+
+SPEAKER_05: I think there's a bunch of reasons you can be excited about interoperability.
+
+SPEAKER_04: One is obviously safety. But there's another one that I think I find at an emotional level equally exciting or equally meaningful to me,
+
+SPEAKER_05: which is just that I think neural networks are beautiful. And I think that there's a lot of beauty in them that we don't see. We treat them like these black boxes that we're not particularly interested in the internal stuff. But when you start to go and look inside them, they're just full of amazing, beautiful structure. You know, it's sort of like if people looked at biology and they were like, you know, like evolution is really boring. It's a simple thing that goes and runs for a long time and then it makes animals. And instead, it's like actually each one of those animals that evolution produces, and I think that it's an optimization process, like training a neural network. They're full of incredible complexity and structure. And we have an entire sort of
+
+SPEAKER_00: artificial biology inside of neural networks. If you're just willing to look inside them, there's all of this amazing stuff. And I think that we're just starting to slowly unpack it. And it's incredible. And there's so much there. But there's just so much to be discovered there. We're just starting to crack it open. And I think it's going to be amazing and beautiful. And sometimes I imagine, you know, like a decade in the future, walking into a bookstore and buying, you know, the textbook on neural network interpolability or really like on the biology of neural networks and just the kind of wild things that are going to be inside of it. And I think that in the next decade, we're going to, in the next couple of years, even we're going to go and start to go and really discover all of those things. And it's going to be wild and incredible.
+
+SPEAKER_04: It's also going to be great that you get to buy your own textbook.
+
+SPEAKER_01: I'm excited that a few years ago, if you had said, like, governments will set up new bodies to like test and evaluate AI
+
+SPEAKER_04: systems, and they will actually be competent and good, you would have not thought that was going to be the case. But it's happened. And it's kind of like governments have built these new embassies almost to deal with this new kind of class of technology or like thing that Chris studies. And I'm just very excited to see where that goes. I think it actually means that we have state capacity to deal with this kind of societal transition so it's not just companies. And I'm excited to help with that.
+
+SPEAKER_00: I'm already excited about this to a certain extent today, but I think just imagining the future world of what AI is going to be able to do for people, it's impossible to not feel
+
+SPEAKER_01: excited about that. Dario talks about this a lot, but I think even just the sort of glimmers of Claude being able to help with vaccine development and cancer research and biological research is crazy, just to be able to watch what it can do now. But when I fast forward three years in the future or five years in the future, imagining that Claude could actually solve so many of the fundamental problems that we just face as humans, just even just from a health perspective alone, even if you sort of take everything else out, feels really exciting to me, just like thinking back to my international development times, it would be amazing if Claude was responsible for helping to do a lot of the work that I was trying to do a lot less effectively when I was like 25.
+
+SPEAKER_02: I mean, I guess similarly, I'm excited to build Claude for work. I'm excited to build Claude into the company and into companies all over the world.
+
+SPEAKER_03: I guess I'm excited just for
+
+SPEAKER_02: I guess like personally
+
+SPEAKER_03: I like using Claude a lot.
+
+SPEAKER_01: Definitely, there's been increasing amounts of home times with me just chatting with Claude about stuff.
+
+SPEAKER_03: I think the biggest recent thing has been code, where six months ago, I didn't use Claude to do any coding work.
+
+SPEAKER_01: Our teams didn't really use Claude that much for coding. And now it's just a phase difference. I gave a talk at YC a week before last. And at the beginning, I just asked, how many folks here use Claude for coding now?
+
+SPEAKER_03: And literally 95% of hands.
+
+SPEAKER_04: All the hands in the room, which is totally different than how it was four months ago.
+
+SPEAKER_03: So when I think about what I'm excited about, I think about places where, you know, like I said before, where there's this kind of consensus that, again, seems like consensus, seems like what everyone wise thinks, and then it just kind of breaks. And so places where I think that's about to happen and it hasn't happened yet. One of them is interpretability. I think interpretability is both the key to steering and making safe AI systems, and we're about to understand. And interpretability contains insights about intelligent optimization problems and about how the human brain works. I've said, and I'm really not joking, Chris Ola is gonna be a future Nobel medicine laureate.
+
+SPEAKER_00: I'm serious.
+
+SPEAKER_01: I'm serious because a lot of these,
+
+SPEAKER_00: I used to be a neuroscientist, a lot of these mental illnesses, the ones we haven't figured out, right? Schizophrenia or the mood disorders. I suspect there's some higher level system thing going on and that it's hard to make sense of those with brains because brains are so mushy and hard to open up and interact with. Neural nets are not like this. They're not a perfect analogy, but as time goes on, they will be a better analogy. That's one area. Second is related to that, I think, just the use of AI for biology. Biology is an incredibly difficult problem. People continue to be skeptical for a number of reasons. I think that consensus is starting to break. We saw a Nobel Prize in Chemistry awarded for AlphaFold, remarkable accomplishment. We should be trying to build things that can help us create 100 AlphaFolds. And then finally, using AI to enhance democracy. We worry about if AI is built in the wrong way, it can be a tool for authoritarianism. How can AI be a tool for freedom and self-determination? I think that one is earlier than the other two, but it's going to be just as important.
+
+SPEAKER_02: Yeah, I mean, I guess two things that at least connect to what you were saying earlier. I mean, one is I feel like people frequently join Anthropic because they're sort of scientifically really curious about AI and then kind of get convinced by AI progress to sort of share the vision of the need, not just to advance the technology, but to understand it more deeply and to make sure that it's safe. And I feel like it's actually just sort of exciting to have people that you're working with, like kind of more and more united in their vision for both what AI development looks like and the sort of sense of responsibility associated with it. And I feel like that's been happening a lot due to a lot of advances that have happened in the last year, like what Tom talked about. Another is that, I mean, going back really to concrete problems, I feel like we've done a lot of work on AI safety up until this point. A lot of it's really important. But I think we're now, with some recent developments, really getting a glimmer of what kinds of risks might literally come about from systems that are very, very advanced so that we can investigate and study them directly with interpretability, with other kinds of safety mechanisms, and really understand what the risks from very advanced AI might look like. And I think that that's something that is really going to allow us to sort of further the mission in a really deeply scientific empirical way. And so I'm excited about sort of the next six months of how we use our understanding of what can go wrong with advanced systems to characterize that and figure out how to avoid those pitfalls.
+
+SPEAKER_00: Perfect. Finn.
+
+SPEAKER_01: We did it! Good time.
+
+SPEAKER_02: We've got to do this for often.
+
+SPEAKER_01: This is the only time we ever get to catch up.
+
+
+### 初版
+
+
+
 But I remember when we were at OpenAI, where there was the scaling laws stuff and just making things bigger, and it started to feel like it was working. And then it kind of kept on eerily working on a bunch of different projects, which I think is how we all ended up working closely together, because it was first GPT-2, and then scaling laws and GPT-2, and then scaling laws and GPT-3, and we ended up being a big group of people. Yeah, we were the plop of people that were making things work. Yeah. That's right.
 
 我记得在 OpenAI 的时候，我们研究扩展法则，只是将规模扩大，结果开始觉得这方法确实奏效。然后，这个方法在多个项目中持续奏效，这可能就是我们为什么会紧密合作的原因。最初是 GPT-2，然后是扩展法则与 GPT-2，接着是扩展法则与 GPT-3，最后我们形成了一个庞大的团队。是的，我们就是那个让事情变得可行的团队。没错。

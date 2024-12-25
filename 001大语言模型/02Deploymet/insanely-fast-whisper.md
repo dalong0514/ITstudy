@@ -1,10 +1,21 @@
 ### 01. 使用
 
-insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4
+insanely-fast-whisper --model-name /Users/Daglas/dalong.modelsets/whisper-large-v3-turbo --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4 --language en --hf-token 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 --num-speakers 6
 
-insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4 --language en
+insanely-fast-whisper --model-name /Users/Daglas/dalong.modelsets/whisper-large-v3-turbo --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4 --language en --hf-token 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 --min-speakers 3 --max-speakers 6
 
-insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4 --language zh
+
+
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.modelsets/whisper-large-v3-turbo --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4 --language zh
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.modelsets/whisper-large-v3-turbo --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4 --language en
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.modelsets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4 --language en
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.modelsets/whisper-large-v3 --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4 --language zh
+
+
 
 ---
 
@@ -325,6 +336,54 @@ git clone https://www.modelscope.cn/AI-ModelScope/whisper-large-v3.git
 
 ### 03. 问题汇总
 
+#### 2024-12-25
+
+1、多人音频转录时报错。
+
+有些可以，比如「20241216Ilya-Sutskever在神经信息处理系统会议上演讲」，有些就不行，比如「20241221Building-Anthropic-A-Conversation-With-Our-Co-Founders」。
+
+报错信息：
+
+Traceback (most recent call last):
+  File "/Users/Daglas/.local/bin/insanely-fast-whisper", line 8, in <module>
+    sys.exit(main())
+  File "/Users/Daglas/.local/pipx/venvs/insanely-fast-whisper/lib/python3.10/site-packages/insanely_fast_whisper/cli.py", line 280, in main
+    segmented_transcript = post_process_segments_and_transcripts(
+  File "/Users/Daglas/.local/pipx/venvs/insanely-fast-whisper/lib/python3.10/site-packages/insanely_fast_whisper/cli.py", line 127, in post_process_segments_and_transcripts
+    upto_idx = np.argmin(np.abs(end_timestamps - end_time))
+  File "/Users/Daglas/.local/pipx/venvs/insanely-fast-whisper/lib/python3.10/site-packages/numpy/core/fromnumeric.py", line 1325, in argmin
+    return _wrapfunc(a, 'argmin', axis=axis, out=out, **kwds)
+  File "/Users/Daglas/.local/pipx/venvs/insanely-fast-whisper/lib/python3.10/site-packages/numpy/core/fromnumeric.py", line 59, in _wrapfunc
+    return bound(*args, **kwds)
+ValueError: attempt to get argmin of an empty sequence
+
+解决方案：
+
+[Out Of memory & attempt to get argmin of an empty sequence · Issue #199 · Vaibhavs10/insanely-fast-whisper](https://github.com/Vaibhavs10/insanely-fast-whisper/issues/199)
+
+NickNaskida commented on Sep 8
+Guys, I noticed that not the latest version of the model was deployed on replicate, that's why not all features were supported and most of the bugs existed.
+
+So I found the code for replicate deployed model and merged in the latest fixes from this repo. I also added support for num_speakers, min_speakers, and max_speakers for diarization on replicate.
+
+Deployed Public Model on Replicate: https://replicate.com/nicknaskida/incredibly-fast-whisper
+Github Repo with fixes and latest features: https://github.com/NickNaskida/insanely-fast-whisper
+
+Enjoy, hope it will be useful 🤗
+
+[nicknaskida/incredibly-fast-whisper – Run with an API on Replicate](https://replicate.com/nicknaskida/incredibly-fast-whisper?prediction=61mxv1trx1rma0ckzkrr576kq0&output=json)
+
+Insanely Fast Whisper
+An opinionated CLI to transcribe Audio files w/ Whisper on-device! Powered by 🤗 Transformers, Optimum & flash-attn
+
+TL;DR - Transcribe 150 minutes (2.5 hours) of audio in less than 98 seconds - with OpenAI’s Whisper Large v3. Blazingly fast transcription is now a reality!⚡️
+
+Original work by Vaibhav Srivastav & Chenxi
+
+Changes made: - Add num_speakers, min_speakers, max_speakers support during diarization. - Deployed on replicate with latest version (0.0.15) of the insanely-fast-whisper which contains bug fixes and improvements.
+
+pipx install insanely-fast-whisper==0.0.15 --force
+
 
 
 #### Frequently Asked Questions
@@ -398,7 +457,7 @@ insanely-fast-whisper --model-name /Users/Daglas/dalong.datasets/whisper-large-v
 
 1、版本从 0.0.10 升级到 0.0.13 后导致用不了。
 
-怀疑作者升版没考虑 mac 都一些东西。
+怀疑作者升版没考虑 mac 的一些东西。
 
 解决方案：退回到 0.0.10 版本。
 
@@ -506,4 +565,18 @@ zsh completions have been installed to:
 
 echo 'export PATH="/Users/Daglas/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
 
+### 多人音频转录
 
+[Speaker diarization · Issue #230 · Vaibhavs10/insanely-fast-whisper](https://github.com/Vaibhavs10/insanely-fast-whisper/issues/230)
+
+You need to provide an Hugging Face authentication token for Pyannote.audio to diarise the audio clips. Pass it as arg to che command --hf-token
+
+所以只需加上爆脸的 token 就行了。
+
+首选需要安装最新版的：
+
+pipx install insanely-fast-whisper==0.0.15 --force
+
+之前 llama 虚拟环境里应该有其他包与之冲突，切换到 whisper 虚拟环境里跑。
+
+insanely-fast-whisper --model-name /Users/Daglas/dalong.modelsets/whisper-large-v3-turbo --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4 --language en --hf_token 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
