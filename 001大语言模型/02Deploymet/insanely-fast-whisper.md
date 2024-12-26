@@ -586,4 +586,6 @@ pipx install insanely-fast-whisper==0.0.15 --force
 
 之前 llama 虚拟环境里应该有其他包与之冲突，切换到 whisper 虚拟环境里跑。
 
+补充，晚上（2024-12-25）又试了下，llama 虚拟环境也能正常跑。
+
 insanely-fast-whisper --model-name /Users/Daglas/dalong.modelsets/whisper-large-v3-turbo --file-name /Users/Daglas/Desktop/output.wav --device mps --transcript-path /Users/Daglas/Desktop/output.json --batch-size 4 --language en --hf_token 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

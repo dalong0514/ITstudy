@@ -86,16 +86,15 @@ SPEAKER_03(Dario Amodei): Yeah. I'm the bringer of happy tidings.
 
 是的，我就像个「快乐消息」的传递者。
 
-
 SPEAKER_01(Jack Clark): But I remember when we were at OpenAI, where there was the scaling laws stuff and just making things bigger, and it started to feel like it was working. And then it kind of kept on eerily working on a bunch of different projects, which I think is how we all ended up working closely together, because it was first GPT-2, and then scaling laws and GPT-2, and then scaling laws and GPT-3, and we ended up being a big group of people.
 
 我记得当我们在 OpenAI 工作时，我们讨论了关于扩展规律（scaling laws）的研究，只是简单地把模型做得更大，结果开始显得很有效。后来，这种方法在许多不同的项目中似乎持续有效，这可能也是我们最终紧密合作的原因之一。最初是 GPT-2，然后是扩展规律结合 GPT-2，接着是扩展规律结合 GPT-3，最终我们形成了一个大型的合作团队。
 
 SPEAKER_03(Dario Amodei): Yeah, we were the plop of people that were making things work.
 
-SPEAKER_02(Jared Kaplan): That's right. I think we were also excited about safety, because in that era, there was sort of this idea that AI would become very powerful, but potentially not understand human values or not even be able to communicate with us. And so I think we were all pretty excited about language models as a way to kind of guarantee that AI systems would have to understand kind of implicit knowledge.
-
 SPEAKER_03：是的，我们就是那些让事情顺利进行的人。
+
+SPEAKER_02(Jared Kaplan): That's right. I think we were also excited about safety, because in that era, there was sort of this idea that AI would become very powerful, but potentially not understand human values or not even be able to communicate with us. And so I think we were all pretty excited about language models as a way to kind of guarantee that AI systems would have to understand kind of implicit knowledge.
 
 SPEAKER_02：没错。我想我们那时也对安全性非常关注，因为那个年代有一种观点认为，AI 可能会变得非常强大，但可能无法理解人类的价值观，甚至无法与我们沟通。因此，我觉得我们对大语言模型特别感兴趣，因为它们能确保 AI 系统理解隐含的知识。
 
@@ -173,9 +172,9 @@ SPEAKER_01：现在，我们处理安全问题时普遍认为这些问题有些�
 
 SPEAKER_07(Daniela Amodei): But I feel like that has been shifting over the past, even just like 18. 
 
-SPEAKER_01(Jack Clark): We've been helping to shift. We've definitely been publishing. Publishing and doing research. Constant force. 
-
 SPEAKER_07：但我感觉在过去的时间里，这种情况已经在发生变化，甚至可能是过去的 18 个月。
+
+SPEAKER_01(Jack Clark): We've been helping to shift. We've definitely been publishing. Publishing and doing research. Constant force. 
 
 SPEAKER_01：我们一直在帮助推动这种变化。我们确实一直在发表论文和进行研究，成为一股持续的推动力量。
 
@@ -193,17 +192,17 @@ SPEAKER_05：无论出于何种原因，似乎机器学习研究领域的人总�
 
 SPEAKER_07(Daniela Amodei): Maybe it's a weird form of humility or something. 
 
-SPEAKER_01(Jack Clark): And when Daria and I went to the White House in 2023, in that meeting, Harris and Raimondo and stuff basically said, paraphrase, but basically said, we've got our eye on you guys. AI is going to be a really big deal, and we're now actually paying attention, which is.
-
 SPEAKER_07：也许这是一种奇怪的谦逊表现。
+
+SPEAKER_01(Jack Clark): And when Daria and I went to the White House in 2023, in that meeting, Harris and Raimondo and stuff basically said, paraphrase, but basically said, we've got our eye on you guys. AI is going to be a really big deal, and we're now actually paying attention, which is.
 
 SPEAKER_01：当 Daria 和我在 2023 年拜访白宫时，那次会议上，Harris 和 Raimondo 等人基本上表示，他们在关注我们。AI 将会成为一个非常重要的领域，我们现在确实在密切关注，这确实是。
 
 SPEAKER_03(Dario Amodei): And they're right. They're absolutely right.
 
-SPEAKER_01(Jack Clark): But I think in 2018, you wouldn't have been like, the president will call you to the White House to tell you they're paying close attention to the development of language models. Yeah. That was not a big event. Like in 2018.
-
 SPEAKER_03：他们是对的，确实如此。
+
+SPEAKER_01(Jack Clark): But I think in 2018, you wouldn't have been like, the president will call you to the White House to tell you they're paying close attention to the development of language models. Yeah. That was not a big event. Like in 2018.
 
 SPEAKER_01：但是我觉得，在 2018 年，你不会想到总统会邀请你去白宫，并告诉你他们正在密切关注语言模型的发展。是的，那在 2018 年并不是一个大事件。
 
@@ -229,9 +228,9 @@ But it all seemed crazy at the time from many perspectives to go and take this s
 
 SPEAKER_07(Daniela Amodei): You're like Michael Jordan and that coach that didn't believe in him in high school.
 
-SPEAKER_02(Jared Kaplan): How did you actually make the decision, though? Did you feel torn, or was it obvious to you?
-
 SPEAKER_07：你就像 Michael Jordan，当初他的高中教练不相信他。
+
+SPEAKER_02(Jared Kaplan): How did you actually make the decision, though? Did you feel torn, or was it obvious to you?
 
 SPEAKER_02：你是怎么做出这个决定的？你当时是否感到纠结，还是很清楚自己的选择？
 
@@ -241,9 +240,9 @@ SPEAKER_01：我做了一个大胆的提议，我说，让我成为你们的全�
 
 SPEAKER_02(Jared Kaplan): You're just a decisive guy. 
 
-SPEAKER_01(Jack Clark): In that instance, I was. I think it's because I was going to work, reading archive papers, and then printing archive papers off and coming home and reading archive papers, including Dario's papers from the Baidu stuff. And being like, something completely crazy is happening here. And at some point, I thought you should bet with conviction, which I think everyone here has done in their careers is just betting with conviction that this is going to work.
-
 SPEAKER_02：你是个做决定很果断的人。
+
+SPEAKER_01(Jack Clark): In that instance, I was. I think it's because I was going to work, reading archive papers, and then printing archive papers off and coming home and reading archive papers, including Dario's papers from the Baidu stuff. And being like, something completely crazy is happening here. And at some point, I thought you should bet with conviction, which I think everyone here has done in their careers is just betting with conviction that this is going to work.
 
 SPEAKER_01：那时我确实是这样。我想是因为我在工作时不断阅读和打印存档论文，回家后继续研读，包括 Dario 关于百度的论文。我意识到这里有些非常疯狂的事情正在发生。我觉得在某个时刻，你应该坚定地下注。我想我们在座的每一位在职业生涯中都曾这样，坚定地相信某件事会成功。
 
@@ -261,9 +260,9 @@ SPEAKER_04：对，对。我加入 OpenAI 的主要原因是，我联系了那�
 
 SPEAKER_07(Daniela Amodei): I was.
 
-SPEAKER_04: I think I joined after you'd been there for a while. I was at brain for a bit. Yeah. I don't know if I ever asked you like what it was that they got you to join. 
-
 SPEAKER_07：是的，我是。
+
+SPEAKER_04: I think I joined after you'd been there for a while. I was at brain for a bit. Yeah. I don't know if I ever asked you like what it was that they got you to join. 
 
 SPEAKER_04：我好像是在你在那里工作了一段时间后才加入的。我之前在 Brain 工作过一段时间。我不确定自己是否问过你，是什么让你决定加入的？
 
@@ -273,9 +272,9 @@ SPEAKER_07：是的。我在 Stripe 工作了大约五年半，并且认识 Greg
 
 SPEAKER_04: They needed management help. They definitely needed management help.
 
-SPEAKER_07(Daniela Amodei): That is a fact. And so there was, I think that felt, it felt very me-shaped, right? I was like, oh, there's this nonprofit and they like, there's all these really great people with these like really good intentions, but it seems like they're a little bit of a mess.
-
 SPEAKER_04：他们确实需要管理方面的帮助。
+
+SPEAKER_07(Daniela Amodei): That is a fact. And so there was, I think that felt, it felt very me-shaped, right? I was like, oh, there's this nonprofit and they like, there's all these really great people with these like really good intentions, but it seems like they're a little bit of a mess.
 
 SPEAKER_07：这是事实。所以，我觉得这正好适合我。我当时想，有个非营利组织，他们有很多优秀的人，怀着良好的意图，但似乎有些混乱。
 
@@ -289,9 +288,9 @@ Yeah, the scaling org. I worked on the language team. I worked on some policy st
 
 SPEAKER_01(Jack Clark): I remember towards the end, after we'd done GPT-3, you were like, have you guys heard of something called trust and safety? 
 
-SPEAKER_07(Daniela Amodei): Yes. I said, you know, I used to run some trust and safety teams at Stripe. There's a thing called trust and safety that you might want to consider for a technology like this. And it's funny because it sort of is the intermediary step between AI safety research, which is how do you actually make the model safe to something just much more practical? I do think there was a value in saying, this is going to be a big thing. We also have to be doing this sort of practical work day to day to build the muscles for when things are going to be a lot higher stakes. 
-
 SPEAKER_01：我记得在我们完成 GPT-3 之后，你提到过一个叫做信任与安全的概念。
+
+SPEAKER_07(Daniela Amodei): Yes. I said, you know, I used to run some trust and safety teams at Stripe. There's a thing called trust and safety that you might want to consider for a technology like this. And it's funny because it sort of is the intermediary step between AI safety research, which is how do you actually make the model safe to something just much more practical? I do think there was a value in saying, this is going to be a big thing. We also have to be doing this sort of practical work day to day to build the muscles for when things are going to be a lot higher stakes. 
 
 SPEAKER_07：是的。我当时说，我曾在 Stripe 负责过一些信任与安全团队。对于这种技术，你可能需要考虑信任与安全。这很有趣，因为它似乎是介于 AI 安全研究（即如何确保模型安全）和更实际应用之间的一个过渡步骤。我确实认为，指出这一点将成为一件重要的事情。同时，我们也需要每天进行这种实际操作，以便在未来面临更高风险时做好准备。
 
@@ -305,9 +304,9 @@ SPEAKER_03(Dario Amodei): Yeah, it was me and Paul first talked about it in late
 
 SPEAKER_02(Jared Kaplan): I think it's gone through the most drafts of any doc. Which makes sense, right? 
 
-SPEAKER_04: It's like, I feel like it is in the same way that, like, the U.S. treats, like, the Constitution as, like, the holy document. I think is just a big thing that, like, strengthens the U.S. treats like the Constitution as like the holy document which like I think is just a big thing that like strengthens the U.S. And like we don't expect the U.S. to go off the rails in part because just like every single person in the U.S. is like the Constitution is a big deal and if you tread on that like I'm mad. Yeah. Like I think that like the RSP is our like it holds that thing. It's like the holy document for Anthropic so it's like worth doing a lot of iterations getting it right. 
-
 SPEAKER_02：我觉得这份文件经历的草稿次数比其他任何文件都多。这很合理，对吧？
+
+SPEAKER_04: It's like, I feel like it is in the same way that, like, the U.S. treats, like, the Constitution as, like, the holy document. I think is just a big thing that, like, strengthens the U.S. treats like the Constitution as like the holy document which like I think is just a big thing that like strengthens the U.S. And like we don't expect the U.S. to go off the rails in part because just like every single person in the U.S. is like the Constitution is a big deal and if you tread on that like I'm mad. Yeah. Like I think that like the RSP is our like it holds that thing. It's like the holy document for Anthropic so it's like worth doing a lot of iterations getting it right. 
 
 SPEAKER_04：我觉得这就像美国对待宪法，把它当作神圣的文件。这是一个重要的事情，加强了美国。而且，美国不会偏离轨道，部分原因是每个美国人都认为宪法很重要，如果有人侵犯它，他们会很生气。是的，我觉得 RSP 对于我们来说就像是 Anthropic 的神圣文件，所以值得经过多次迭代来完善它。
 
@@ -337,9 +336,9 @@ It is the exact truth that not everyone does this. It's amazing. We've spent so 
 
 SPEAKER_05(Sam McCandlish): Like Daniela was saying, let's make this as boring and normal. Let's make this a finance thing. Yeah, management's like an audit.
 
-SPEAKER_03(Dario Amodei): Boring and normal is what we want, certainly in retrospect.
-
 SPEAKER_05：就像 Daniela 说的那样，我们让这件事变得无聊和平常一些。把它当作金融上的事情来处理。是的，管理就像是在进行审计。
+
+SPEAKER_03(Dario Amodei): Boring and normal is what we want, certainly in retrospect.
 
 SPEAKER_03：无聊和平常就是我们想要的，尤其是从回头来看。
 
@@ -350,6 +349,10 @@ SPEAKER_07(Daniela Amodei): Well, also, Dario, I think in addition what we want,
 And it's legible externally what we think we're supposed to be aiming towards from a safety perspective. It's not perfect. We're iterating on it. We're making it better. But I think there's some value in saying, like, this is what we're worried about. This thing over here, like, you can't just use this word to sort of derail something in either direction, right? To say, oh, because of safety, we can't do X. Or because of safety, we have to do X. We're really trying to make it clearer what we mean. 
 
 从安全的角度来看，我们追求的目标在外界看来是可以理解的。虽然并不完美，但我们正在不断改进，使其更好。我认为，明确我们所担心的问题是有价值的。我们希望传达出一个清晰的信息：不能仅仅因为安全的缘故就简单地决定不能做 X 或必须做 X。我们确实在努力让我们的意思更加明确。
+
+
+
+
 
 SPEAKER_03(Dario Amodei): Yeah, you can't. It prevents you from worrying about every last little thing under the sun. Because it's actually the fire drills that damage the cause of safety in the long run. I've said if there's a building and the fire alarm goes off every week, that's a really unsafe building because when there's actually a fire, you're like, oh, it just goes off all the time. So it's very important to be calibrated.
 
@@ -362,7 +365,6 @@ SPEAKER_06：我发现用一种稍微不同的方式来看待问题可以让我�
 SPEAKER_02(Jared Kaplan): I think this is all true, but I feel like it undersells how challenging it's been to figure out what the right policies and evaluations and what the lines should be. I think that we have and continue to sort of iterate a lot on that. And I think there is a question also that's difficult of sort of, you could be at a point where it's very clear something's dangerous or very clear that something's safe, but with some technology that's so new, there's actually like a big gray area. And so I think that has been like all the things that we're saying were things that made me really, really excited about the RRSP at the beginning and still do. But also I think enacting this in a clear way and making it work has been much harder and more complicated than I anticipated. 
 
 SPEAKER_02：我认为这些观点都很正确，但我觉得这低估了确定合适的政策和评估标准，以及划定界限的困难程度。我觉得我们一直在不断地进行调整。还存在一个难题，就是在某些情况下，你可能非常清楚某个事物的危险性或安全性，但对于一些全新的技术，实际上存在一个巨大的灰色地带。因此，我认为这些挑战正是让我对 RRSP 项目最初产生极大兴趣的原因，现在仍然如此。但同时，我发现要以一种清晰的方式实施这些政策，并使其有效，比我预期的要困难和复杂得多。
-
 
 YPEAKER_05: eah, I think this is exactly the point. The gray areas are impossible to predict. There's so many of them. Until, until you actually try to implement everything, you, like, don't know what's going to go wrong. So what we're trying to do is go and implement everything so we can see as early as possible what's going to go wrong.
 
