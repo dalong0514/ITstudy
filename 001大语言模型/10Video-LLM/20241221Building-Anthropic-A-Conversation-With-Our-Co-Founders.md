@@ -350,10 +350,6 @@ And it's legible externally what we think we're supposed to be aiming towards fr
 
 从安全的角度来看，我们追求的目标在外界看来是可以理解的。虽然并不完美，但我们正在不断改进，使其更好。我认为，明确我们所担心的问题是有价值的。我们希望传达出一个清晰的信息：不能仅仅因为安全的缘故就简单地决定不能做 X 或必须做 X。我们确实在努力让我们的意思更加明确。
 
-
-
-
-
 SPEAKER_03(Dario Amodei): Yeah, you can't. It prevents you from worrying about every last little thing under the sun. Because it's actually the fire drills that damage the cause of safety in the long run. I've said if there's a building and the fire alarm goes off every week, that's a really unsafe building because when there's actually a fire, you're like, oh, it just goes off all the time. So it's very important to be calibrated.
 
 SPEAKER_03：是的，你无法避免每件小事都去担忧。因为长远来看，频繁的火灾演习实际上会对安全造成损害。我曾说过，如果一栋楼每周都响火警，那就说明它非常不安全。因为当真正发生火灾时，人们可能会觉得火警总是误报。因此，确保警报系统的准确性是非常重要的。
@@ -384,17 +380,17 @@ SPEAKER_04: I'm responsible for compute at AnthropBakon. That's important. Thank
 
 SPEAKER_01(Jack Clark): Yeah, yeah. It makes it like a normal thing you can talk about rather than something really strange. Yeah. How else is it showing up for people?
 
-SPEAKER_05(Sam McCandlish): Evals, evals, evals. Good. It's all about evals. Everyone's doing evals. The training team is doing evals all the time. We're trying to figure out, like, has this model gotten enough better that it has the potential to be dangerous? So how many teams do we have that are evals teams? You have Frontier Red Team. There must be. I mean, there's a lot of people.
-
 SPEAKER_01：是的，是的。这样一来，这就变成了一个可以正常讨论的话题，而不再是一些很奇怪的东西。那么，它还以其他什么方式表现出来呢？
+
+SPEAKER_05(Sam McCandlish): Evals, evals, evals. Good. It's all about evals. Everyone's doing evals. The training team is doing evals all the time. We're trying to figure out, like, has this model gotten enough better that it has the potential to be dangerous? So how many teams do we have that are evals teams? You have Frontier Red Team. There must be. I mean, there's a lot of people.
 
 SPEAKER_05：评估，评估，评估。没错，现在一切都在围绕评估展开。大家都在进行评估，培训团队也是一直在进行评估。我们在努力判断，这个模型是否已经改进到可能会带来危险的程度。那么，我们有多少评估团队呢？比如说，Frontier 红队。肯定有很多人参与其中。
 
 SPEAKER_01(Jack Clark): Every team produces evals, basically.
 
-SPEAKER_07(Daniela Amodei): And that means you're just measuring against the RSP. Like, measuring for certain signs of things that would concern you or not concern you.
-
 SPEAKER_01：每个团队几乎都会做评估。
+
+SPEAKER_07(Daniela Amodei): And that means you're just measuring against the RSP. Like, measuring for certain signs of things that would concern you or not concern you.
 
 SPEAKER_07：这意味着你只是衡量是否符合 RSP 的标准，比如检查某些特征是否会引起你的关注。
 
@@ -420,9 +416,9 @@ And I think it's been really cool to watch it sort of transition into this docum
 
 SPEAKER_05(Sam McCandlish): Yeah, the thing I would say is none of us wanted to found a company. We felt like it was our duty, right?
 
-SPEAKER_07(Daniela Amodei): I felt like we had to.
-
 SPEAKER_05：是啊，我想说，我们都不想创办公司，但觉得这是我们的责任。
+
+SPEAKER_07(Daniela Amodei): I felt like we had to.
 
 SPEAKER_07：我感觉我们不得不这样做。
 
@@ -452,13 +448,13 @@ SPEAKER_04：接着 Daniel 的话，我确实觉得在这个小组中充满了�
 
 SPEAKER_05(Sam McCandlish): I credit Daniela with keeping the bar high. I credit you with the fact that we scaled.  She's clown racers. You're the reason the culture scaled, I think.
 
-我认为 Daniela 一直将标准保持得很高。我还认为，我们能够实现扩展，多亏了你的贡献。她就像小丑赛车手一样富有趣味。而你，我觉得是让这种文化得以扩展的关键。
+SPEAKER_05：我认为 Daniela 一直将标准保持得很高。我还认为，我们能够实现扩展，多亏了你的贡献。她就像小丑赛车手一样富有趣味。而你，我觉得是让这种文化得以扩展的关键。
 
 SPEAKER_01(Jack Clark): People say how nice people are here, which is actually a wildly important thing.
 
-SPEAKER_07(Daniela Amodei): I think Anthropic is really low politics. And of course, we all have a different vantage point than average, and I try to remember that. It's because of low ego. But it's low ego, and I do think our interview process and just the type of people who work here, there's almost an allergic reaction to politics.
-
 SPEAKER_01：人们常说这里的人都很友善，这确实是件非常重要的事情。
+
+SPEAKER_07(Daniela Amodei): I think Anthropic is really low politics. And of course, we all have a different vantage point than average, and I try to remember that. It's because of low ego. But it's low ego, and I do think our interview process and just the type of people who work here, there's almost an allergic reaction to politics.
 
 SPEAKER_07：我觉得在 Anthropic，政治斗争很少。当然，我们的视角与普通人不太一样，我努力记住这一点。这是因为大家的自我意识都比较低。我认为我们的面试流程和在这里工作的人，几乎对政治斗争有一种排斥反应。
 
@@ -516,9 +512,9 @@ SPEAKER_02：是的，我觉得这就是为什么像 RRSP 这样的项目非常�
 
 SPEAKER_05(Sam McCandlish): We're not doomers, right? We want to build the positive thing. We want to build the good thing.
 
-SPEAKER_03(Dario Amodei): And we've seen it happen in practice. A few months after we came out with our RSP, the three most prominent AI companies had one, right? Interpretability research. That's another area we've done it. Just the focus on safety overall, like collaboration with the AI safety institutes, other areas.
-
 SPEAKER_05：我们不是消极的人，对吗？我们希望创造积极和有益的事物。
+
+SPEAKER_03(Dario Amodei): And we've seen it happen in practice. A few months after we came out with our RSP, the three most prominent AI companies had one, right? Interpretability research. That's another area we've done it. Just the focus on safety overall, like collaboration with the AI safety institutes, other areas.
 
 SPEAKER_03：我们已经在实际中看到这样的成果。就在我们推出 RSP 几个月后，三家最知名的 AI 公司也纷纷推出了类似的项目。再比如，在可解释性研究方面，我们也取得了进展。我们始终关注 AI 安全，与 AI 安全研究所等机构展开了合作，并在多个领域进行了探索。
 
@@ -536,9 +532,9 @@ SPEAKER_06：让我们更深入地探讨一下 Dario 提到的观点。有一种
 
 SPEAKER_01(Jack Clark): So what are you all excited about when it comes to the next things we'll be working on?
 
-SPEAKER_06(Chris Olah): I think there's a bunch of reasons you can be excited about interoperability. One is obviously safety. But there's another one that I think I find at an emotional level equally exciting or equally meaningful to me, which is just that I think neural networks are beautiful. And I think that there's a lot of beauty in them that we don't see. We treat them like these black boxes that we're not particularly interested in the internal stuff. But when you start to go and look inside them, they're just full of amazing, beautiful structure. You know, it's sort of like if people looked at biology and they were like, you know, like evolution is really boring. It's a simple thing that goes and runs for a long time and then it makes animals. And instead, it's like actually each one of those animals that evolution produces, and I think that it's an optimization process, like training a neural network. They're full of incredible complexity and structure. And we have an entire sort of artificial biology inside of neural networks. If you're just willing to look inside them, there's all of this amazing stuff. And I think that we're just starting to slowly unpack it. And it's incredible. And there's so much there. But there's just so much to be discovered there. We're just starting to crack it open. And I think it's going to be amazing and beautiful. And sometimes I imagine, you know, like a decade in the future, walking into a bookstore and buying, you know, the textbook on neural network interpolability or really like on the biology of neural networks and just the kind of wild things that are going to be inside of it. And I think that in the next decade, we're going to, in the next couple of years, even we're going to go and start to go and really discover all of those things. And it's going to be wild and incredible.
-
 SPEAKER_01：那么，关于我们接下来要做的事情，你们有什么让人兴奋的期待吗？
+
+SPEAKER_06(Chris Olah): I think there's a bunch of reasons you can be excited about interoperability. One is obviously safety. But there's another one that I think I find at an emotional level equally exciting or equally meaningful to me, which is just that I think neural networks are beautiful. And I think that there's a lot of beauty in them that we don't see. We treat them like these black boxes that we're not particularly interested in the internal stuff. But when you start to go and look inside them, they're just full of amazing, beautiful structure. You know, it's sort of like if people looked at biology and they were like, you know, like evolution is really boring. It's a simple thing that goes and runs for a long time and then it makes animals. And instead, it's like actually each one of those animals that evolution produces, and I think that it's an optimization process, like training a neural network. They're full of incredible complexity and structure. And we have an entire sort of artificial biology inside of neural networks. If you're just willing to look inside them, there's all of this amazing stuff. And I think that we're just starting to slowly unpack it. And it's incredible. And there's so much there. But there's just so much to be discovered there. We're just starting to crack it open. And I think it's going to be amazing and beautiful. And sometimes I imagine, you know, like a decade in the future, walking into a bookstore and buying, you know, the textbook on neural network interpolability or really like on the biology of neural networks and just the kind of wild things that are going to be inside of it. And I think that in the next decade, we're going to, in the next couple of years, even we're going to go and start to go and really discover all of those things. And it's going to be wild and incredible.
 
 SPEAKER_06：我觉得有很多理由对互操作性感到兴奋。首先是安全性，这是显而易见的。但对我来说，在情感上同样激动的是，我觉得神经网络本身非常美丽。我们往往把它们视为不透明的「黑箱」，对其内部结构并不特别感兴趣。然而，当你深入探索时，会发现神经网络内部充满了令人惊叹的美丽结构。这有点像有人看待生物进化时，可能觉得进化过程简单而乏味，只是漫长的时间塑造出动物。然而，实际上，每一个进化而来的生物都蕴含着极其复杂的结构，就像训练神经网络是一个优化过程一样。我们在神经网络中也有类似于人工生物学的复杂体系。如果你愿意深入研究，就会发现其中的奥妙。我认为我们才刚刚开始揭开这一切的面纱，真是不可思议。未来有太多的内容等待我们去发现。想象一下，十年后走进书店，买一本关于神经网络互操作性或「神经网络生物学」的教科书，其中将包含各种令人惊叹的内容。我相信，在未来的几年甚至十年内，我们将开始探索这些领域，必将带来激动人心的发现。
 
@@ -552,7 +548,7 @@ SPEAKER_07：今天我对此已经感到有些兴奋，但想象一下未来 AI 
 
 SPEAKER_05(Sam McCandlish): I mean, I guess similarly, I'm excited to build Claude for work. I'm excited to build Claude into the company and into companies all over the world.
 
-我想，我同样感到兴奋的是，将 Claude 应用于工作中。我很期待把 Claude 引入到公司内部，并推广到世界各地的企业。
+SPEAKER_05：我想，我同样感到兴奋的是，将 Claude 应用于工作中。我很期待把 Claude 引入到公司内部，并推广到世界各地的企业。
 
 SPEAKER_04: I guess I'm excited just for I guess like personally I like using Claude a lot. Definitely, there's been increasing amounts of home times with me just chatting with Claude about stuff. I think the biggest recent thing has been code, where six months ago, I didn't use Claude to do any coding work. Our teams didn't really use Claude that much for coding. And now it's just a phase difference. I gave a talk at YC a week before last. And at the beginning, I just asked, how many folks here use Claude for coding now? And literally 95% of hands. All the hands in the room, which is totally different than how it was four months ago.
 
@@ -560,7 +556,7 @@ SPEAKER_04：我想我很兴奋，因为我个人非常喜欢用 Claude 聊天�
 
 SPEAKER_03(Dario Amodei): So when I think about what I'm excited about, I think about places where, you know, like I said before, where there's this kind of consensus that, again, seems like consensus, seems like what everyone wise thinks, and then it just kind of breaks. And so places where I think that's about to happen and it hasn't happened yet. One of them is interpretability. I think interpretability is both the key to steering and making safe AI systems, and we're about to understand. And interpretability contains insights about intelligent optimization problems and about how the human brain works. I've said, and I'm really not joking, Chris Ola is gonna be a future Nobel medicine laureate.
 
-当我想到让我感到兴奋的事时，我会想到那些似乎已经形成共识的领域。这些领域看似是所有明智之士都认同的，但却可能很快会被颠覆。我认为，可解释性就是这样一个即将发生变化的领域。可解释性不仅是引导和确保 AI 系统安全的关键，我们也即将更深入地理解它。它还揭示了有关智能优化问题和人类大脑运作方式的深刻见解。我曾说过，我并非在开玩笑，Chris Ola 可能会成为未来的诺贝尔医学奖得主。
+SPEAKER_03：当我想到让我感到兴奋的事时，我会想到那些似乎已经形成共识的领域。这些领域看似是所有明智之士都认同的，但却可能很快会被颠覆。我认为，可解释性就是这样一个即将发生变化的领域。可解释性不仅是引导和确保 AI 系统安全的关键，我们也即将更深入地理解它。它还揭示了有关智能优化问题和人类大脑运作方式的深刻见解。我曾说过，我并非在开玩笑，Chris Ola 可能会成为未来的诺贝尔医学奖得主。
 
 I'm serious because a lot of these, I used to be a neuroscientist, a lot of these mental illnesses, the ones we haven't figured out, right? Schizophrenia or the mood disorders. I suspect there's some higher level system thing going on and that it's hard to make sense of those with brains because brains are so mushy and hard to open up and interact with. Neural nets are not like this. They're not a perfect analogy, but as time goes on, they will be a better analogy. That's one area. Second is related to that, I think, just the use of AI for biology. Biology is an incredibly difficult problem. People continue to be skeptical for a number of reasons. I think that consensus is starting to break. We saw a Nobel Prize in Chemistry awarded for AlphaFold, remarkable accomplishment. We should be trying to build things that can help us create 100 AlphaFolds. And then finally, using AI to enhance democracy. We worry about if AI is built in the wrong way, it can be a tool for authoritarianism. How can AI be a tool for freedom and self-determination? I think that one is earlier than the other two, but it's going to be just as important.
 
@@ -568,4 +564,4 @@ I'm serious because a lot of these, I used to be a neuroscientist, a lot of thes
 
 SPEAKER_02(Jared Kaplan): Yeah, I mean, I guess two things that at least connect to what you were saying earlier. I mean, one is I feel like people frequently join Anthropic because they're sort of scientifically really curious about AI and then kind of get convinced by AI progress to sort of share the vision of the need, not just to advance the technology, but to understand it more deeply and to make sure that it's safe. And I feel like it's actually just sort of exciting to have people that you're working with, like kind of more and more united in their vision for both what AI development looks like and the sort of sense of responsibility associated with it. And I feel like that's been happening a lot due to a lot of advances that have happened in the last year, like what Tom talked about. Another is that, I mean, going back really to concrete problems, I feel like we've done a lot of work on AI safety up until this point. A lot of it's really important. But I think we're now, with some recent developments, really getting a glimmer of what kinds of risks might literally come about from systems that are very, very advanced so that we can investigate and study them directly with interpretability, with other kinds of safety mechanisms, and really understand what the risks from very advanced AI might look like. And I think that that's something that is really going to allow us to sort of further the mission in a really deeply scientific empirical way. And so I'm excited about sort of the next six months of how we use our understanding of what can go wrong with advanced systems to characterize that and figure out how to avoid those pitfalls.
 
-是的，我想至少有两点与你之前提到的内容相关。首先，很多人加入 Anthropic 是因为他们对 AI 充满科学好奇心，随着 AI 的进步，他们不仅想推动技术发展，更希望深入理解并确保其安全。与同事们在 AI 开发的愿景和责任感上逐渐达成共识，这让人感到振奋。由于过去一年中，尤其是 Tom 提到的那些进展，这种情况变得更加普遍。其次，回到具体问题上，我们在 AI 安全领域已经做了很多重要工作。最近的进展让我们开始看到非常先进的系统可能带来的风险，这使我们能够通过可解释性和其他安全机制直接研究这些风险，并深入了解高级 AI 的潜在威胁。我认为，这将帮助我们以一种科学实证的方式推动我们的使命。因此，我对接下来六个月内如何利用我们对高级系统可能问题的理解来描述和规避这些风险感到兴奋。
+SPEAKER_02：是的，我想至少有两点与你之前提到的内容相关。首先，很多人加入 Anthropic 是因为他们对 AI 充满科学好奇心，随着 AI 的进步，他们不仅想推动技术发展，更希望深入理解并确保其安全。与同事们在 AI 开发的愿景和责任感上逐渐达成共识，这让人感到振奋。由于过去一年中，尤其是 Tom 提到的那些进展，这种情况变得更加普遍。其次，回到具体问题上，我们在 AI 安全领域已经做了很多重要工作。最近的进展让我们开始看到非常先进的系统可能带来的风险，这使我们能够通过可解释性和其他安全机制直接研究这些风险，并深入了解高级 AI 的潜在威胁。我认为，这将帮助我们以一种科学实证的方式推动我们的使命。因此，我对接下来六个月内如何利用我们对高级系统可能问题的理解来描述和规避这些风险感到兴奋。
