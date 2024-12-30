@@ -1090,53 +1090,53 @@ ChatGPT 没有任何关于这些规则的显式「知识」。但在训练中，
 
 We discussed above that inside ChatGPT any piece of text is effectively represented by an array of numbers that we can think of as coordinates of a point in some kind of "linguistic feature space". So when ChatGPT continues a piece of text this corresponds to tracing out a trajectory in linguistic feature space. But now we can ask what makes this trajectory correspond to text we consider meaningful. And might there perhaps be some kind of "semantic laws of motion" that define—or at least constrain—how points in linguistic feature space can move around while preserving "meaningfulness"?
 
-So what is this linguistic feature space like? Here's an example of how single words (here, common nouns) might get laid out if we project such a feature space down to 2D:
-
-We saw another example above based on words representing plants and animals. But the point in both cases is that "semantically similar words" are placed nearby.
-
-As another example, here's how words corresponding to different parts of speech get laid out:
-
-Of course, a given word doesn't in general just have "one meaning" (or necessarily correspond to just one part of speech). And by looking at how sentences containing a word lay out in feature space, one can often "tease apart" different meanings—as in the example here for the word "crane" (bird or machine?):
-
-OK, so it's at least plausible that we can think of this feature space as placing "words nearby in meaning" close in this space. But what kind of additional structure can we identify in this space? Is there for example some kind of notion of "parallel transport" that would reflect "flatness" in the space? One way to get a handle on that is to look at analogies:
-
-And, yes, even when we project down to 2D, there's often at least a "hint of flatness", though it's certainly not universally seen.
-
-So what about trajectories? We can look at the trajectory that a prompt for ChatGPT follows in feature space—and then we can see how ChatGPT continues that:
-
-There's certainly no "geometrically obvious" law of motion here. And that's not at all surprising; we fully expect this to be a considerably more complicated story. And, for example, it's far from obvious that even if there is a "semantic law of motion" to be found, what kind of embedding (or, in effect, what "variables") it'll most naturally be stated in.
-
-In the picture above, we're showing several steps in the "trajectory"—where at each step we're picking the word that ChatGPT considers the most probable (the "zero temperature" case). But we can also ask what words can "come next" with what probabilities at a given point:
-
-And what we see in this case is that there's a "fan" of high-probability words that seems to go in a more or less definite direction in feature space. What happens if we go further? Here are the successive "fans" that appear as we "move along" the trajectory:
-
-Here's a 3D representation, going for a total of 40 steps:
-
-And, yes, this seems like a mess—and doesn't do anything to particularly encourage the idea that one can expect to identify "mathematical-physics-like" "semantic laws of motion" by empirically studying "what ChatGPT is doing inside". But perhaps we're just looking at the "wrong variables" (or wrong coordinate system) and if only we looked at the right one, we'd immediately see that ChatGPT is doing something "mathematical-physics-simple" like following geodesics. But as of now, we're not ready to "empirically decode" from its "internal behavior" what ChatGPT has "discovered" about how human language is "put together".
-
 我们之前讨论过，在 ChatGPT 内部，任何一段文本实际上都是由一系列数字表示的，我们可以将其视为某种「语言特征空间」中点的坐标。因此，当 ChatGPT 继续一段文本时，这相当于在语言特征空间中追踪出一条轨迹。但现在我们可以问，是什么使这条轨迹对应于我们认为有意义的文本。是否也许存在某种「语义运动定律」，定义或至少限制语言特征空间中的点如何移动，同时保持「有意义」？
+
+So what is this linguistic feature space like? Here's an example of how single words (here, common nouns) might get laid out if we project such a feature space down to 2D:
 
 那么，这个语言特征空间是什么样的呢？下面是一个例子，展示了如果我们将这样的特征空间投影到二维空间，单个单词（这里是常见名词）可能如何布局：
 
+We saw another example above based on words representing plants and animals. But the point in both cases is that "semantically similar words" are placed nearby.
+
 我们在上面看到了另一个基于代表植物和动物的词汇的例子。但在这两种情况中，关键点是「语义上相似的词汇」被放置在附近。
+
+As another example, here's how words corresponding to different parts of speech get laid out:
 
 作为另一个例子，这里是不同词性的单词如何布局：
 
+Of course, a given word doesn't in general just have "one meaning" (or necessarily correspond to just one part of speech). And by looking at how sentences containing a word lay out in feature space, one can often "tease apart" different meanings—as in the example here for the word "crane" (bird or machine?):
+
 当然，一个给定的单词通常不只有「一个意义」（或者不一定只对应一个词性）。通过查看包含某个单词的句子在特征空间中的布局，人们通常可以「分辨出」不同的含义 —— 就像这里的单词「crane」（鹤或机器？）的例子：
+
+OK, so it's at least plausible that we can think of this feature space as placing "words nearby in meaning" close in this space. But what kind of additional structure can we identify in this space? Is there for example some kind of notion of "parallel transport" that would reflect "flatness" in the space? One way to get a handle on that is to look at analogies:
 
 好的，至少我们可以设想这个特征空间将「意义上接近的词汇」放置在空间中的靠近位置。但我们能在这个空间中识别出什么额外的结构呢？例如，是否存在某种「平行转移」的概念，反映空间的「平坦性」？了解这一点的一种方法是查看类比：
 
+And, yes, even when we project down to 2D, there's often at least a "hint of flatness", though it's certainly not universally seen.
+
 是的，即使我们将其投影到二维空间，通常也至少会有一种「平坦性的暗示」，尽管这种情况当然并非普遍存在。
+
+So what about trajectories? We can look at the trajectory that a prompt for ChatGPT follows in feature space—and then we can see how ChatGPT continues that:
 
 那么轨迹呢？我们可以观察 ChatGPT 提示在特征空间中的轨迹，然后我们可以看到 ChatGPT 如何继续这个轨迹：
 
+There's certainly no "geometrically obvious" law of motion here. And that's not at all surprising; we fully expect this to be a considerably more complicated story. And, for example, it's far from obvious that even if there is a "semantic law of motion" to be found, what kind of embedding (or, in effect, what "variables") it'll most naturally be stated in.
+
 在这里并没有看到「几何上明显」的运动规律。这并不令人惊讶；我们完全预期这是一个更复杂的故事。例如，即使确实存在「语义运动定律」，用哪种嵌入（或实际上是哪种「变量」）来自然陈述它也远非明显。
+
+In the picture above, we're showing several steps in the "trajectory"—where at each step we're picking the word that ChatGPT considers the most probable (the "zero temperature" case). But we can also ask what words can "come next" with what probabilities at a given point:
 
 在上图中，我们展示了「轨迹」的几个步骤 —— 在每个步骤中，我们选择 ChatGPT 认为最可能的词（「零温度」情况）。但我们也可以问，在某一点上哪些词可以「接下来出现」，以及相应的概率是多少：
 
+And what we see in this case is that there's a "fan" of high-probability words that seems to go in a more or less definite direction in feature space. What happens if we go further? Here are the successive "fans" that appear as we "move along" the trajectory:
+
 在这种情况下，我们看到的是一个在特征空间中似乎朝着一个或多或少明确方向的高概率词汇「扇形」。如果我们走得更远会发生什么？这里是我们在「沿着」轨迹「移动」时出现的连续「扇形」：
 
+Here's a 3D representation, going for a total of 40 steps:
+
 这里是一个总共 40 步的 3D 表示：
+
+And, yes, this seems like a mess—and doesn't do anything to particularly encourage the idea that one can expect to identify "mathematical-physics-like" "semantic laws of motion" by empirically studying "what ChatGPT is doing inside". But perhaps we're just looking at the "wrong variables" (or wrong coordinate system) and if only we looked at the right one, we'd immediately see that ChatGPT is doing something "mathematical-physics-simple" like following geodesics. But as of now, we're not ready to "empirically decode" from its "internal behavior" what ChatGPT has "discovered" about how human language is "put together".
 
 1『所以之前看那个评测 M3 的哔站视频，UP 跑贪吃蛇的时候说，跑了多少步。（2023-11-24）』
 
@@ -1146,77 +1146,77 @@ And, yes, this seems like a mess—and doesn't do anything to particularly encou
 
 What does it take to produce "meaningful human language"? In the past, we might have assumed it could be nothing short of a human brain. But now we know it can be done quite respectably by the neural net of ChatGPT. Still, maybe that's as far as we can go, and there'll be nothing simpler—or more human understandable—that will work. But my strong suspicion is that the success of ChatGPT implicitly reveals an important "scientific" fact: that there's actually a lot more structure and simplicity to meaningful human language than we ever knew—and that in the end there may be even fairly simple rules that describe how such language can be put together.
 
-As we mentioned above, syntactic grammar gives rules for how words corresponding to things like different parts of speech can be put together in human language. But to deal with meaning, we need to go further. And one version of how to do this is to think about not just a syntactic grammar for language, but also a semantic one.
-
-For purposes of syntax, we identify things like nouns and verbs. But for purposes of semantics, we need "finer gradations". So, for example, we might identify the concept of "moving", and the concept of an "object" that "maintains its identity independent of location". There are endless specific examples of each of these "semantic concepts". But for the purposes of our semantic grammar, we'll just have some general kind of rule that basically says that "objects" can "move". There's a lot to say about how all this might work (some of which I've said before). But I'll content myself here with just a few remarks that indicate some of the potential path forward.
-
-It's worth mentioning that even if a sentence is perfectly OK according to the semantic grammar, that doesn't mean it's been realized (or even could be realized) in practice. "The elephant traveled to the Moon" would doubtless "pass" our semantic grammar, but it certainly hasn't been realized (at least yet) in our actual world—though it's absolutely fair game for a fictional world.
-
-When we start talking about "semantic grammar" we're soon led to ask "What's underneath it?" What "model of the world" is it assuming? A syntactic grammar is really just about the construction of language from words. But a semantic grammar necessarily engages with some kind of "model of the world"—something that serves as a "skeleton" on top of which language made from actual words can be layered.
-
-Until recent times, we might have imagined that (human) language would be the only general way to describe our "model of the world". Already a few centuries ago there started to be formalizations of specific kinds of things, based particularly on mathematics. But now there's a much more general approach to formalization: computational language.
-
-And, yes, that's been my big project over the course of more than four decades (as now embodied in the Wolfram Language): to develop a precise symbolic representation that can talk as broadly as possible about things in the world, as well as abstract things that we care about. And so, for example, we have symbolic representations for cities and molecules and images and neural networks, and we have built-in knowledge about how to compute about those things.
-
-And, after decades of work, we've covered a lot of areas in this way. But in the past, we haven't particularly dealt with "everyday discourse". In "I bought two pounds of apples" we can readily represent (and do nutrition and other computations on) the "two pounds of apples". But we don't (quite yet) have a symbolic representation for "I bought".
-
-It's all connected to the idea of semantic grammar—and the goal of having a generic symbolic "construction kit" for concepts, that would give us rules for what could fit together with what, and thus for the "flow" of what we might turn into human language.
-
-But let's say we had this "symbolic discourse language". What would we do with it? We could start off doing things like generating "locally meaningful text". But ultimately we're likely to want more "globally meaningful" results—which means "computing" more about what can actually exist or happen in the world (or perhaps in some consistent fictional world).
-
-Right now in Wolfram Language we have a huge amount of built-in computational knowledge about lots of kinds of things. But for a complete symbolic discourse language we'd have to build in additional "calculi" about general things in the world: if an object moves from A to B and from B to C, then it's moved from A to C, etc.
-
-Given a symbolic discourse language we might use it to make "standalone statements". But we can also use it to ask questions about the world, "Wolfram|Alpha style". Or we can use it to state things that we "want to make so", presumably with some external actuation mechanism. Or we can use it to make assertions—perhaps about the actual world, or perhaps about some specific world we're considering, fictional or otherwise.
-
-Human language is fundamentally imprecise, not least because it isn't "tethered" to a specific computational implementation, and its meaning is basically defined just by a "social contract" between its users. But computational language, by its nature, has a certain fundamental precision—because in the end what it specifies can always be "unambiguously executed on a computer". Human language can usually get away with a certain vagueness. (When we say "planet" does it include exoplanets or not, etc.?) But in computational language we have to be precise and clear about all the distinctions we're making.
-
-It's often convenient to leverage ordinary human language in making up names in computational language. But the meanings they have in computational language are necessarily precise—and might or might not cover some particular connotation in typical human language usage.
-
-How should one figure out the fundamental "ontology" suitable for a general symbolic discourse language? Well, it's not easy. Which is perhaps why little has been done since the primitive beginnings Aristotle made more than two millennia ago. But it really helps that today we now know so much about how to think about the world computationally (and it doesn't hurt to have a "fundamental metaphysics" from our Physics Project and the idea of the ruliad).
-
-But what does all this mean in the context of ChatGPT? From its training ChatGPT has effectively "pieced together" a certain (rather impressive) quantity of what amounts to semantic grammar. But its very success gives us a reason to think that it's going to be feasible to construct something more complete in computational language form. And, unlike what we've so far figured out about the innards of ChatGPT, we can expect to design the computational language so that it's readily understandable to humans.
-
-When we talk about semantic grammar, we can draw an analogy to syllogistic logic. At first, syllogistic logic was essentially a collection of rules about statements expressed in human language. But (yes, two millennia later) when formal logic was developed, the original basic constructs of syllogistic logic could now be used to build huge "formal towers" that include, for example, the operation of modern digital circuitry. And so, we can expect, it will be with more general semantic grammar. At first, it may just be able to deal with simple patterns, expressed, say, as text. But once its whole computational language framework is built, we can expect that it will be able to be used to erect tall towers of "generalized semantic logic", that allow us to work in a precise and formal way with all sorts of things that have never been accessible to us before, except just at a "ground-floor level" through human language, with all its vagueness.
-
-We can think of the construction of computational language—and semantic grammar—as representing a kind of ultimate compression in representing things. Because it allows us to talk about the essence of what's possible, without, for example, dealing with all the "turns of phrase" that exist in ordinary human language. And we can view the great strength of ChatGPT as being something a bit similar: because it too has in a sense "drilled through" to the point where it can "put language together in a semantically meaningful way" without concern for different possible turns of phrase.
-
-So what would happen if we applied ChatGPT to underlying computational language? The computational language can describe what's possible. But what can still be added is a sense of "what's popular"—based for example on reading all that content on the web. But then—underneath—operating with computational language means that something like ChatGPT has immediate and fundamental access to what amount to ultimate tools for making use of potentially irreducible computations. And that makes it a system that can not only "generate reasonable text", but can expect to work out whatever can be worked out about whether that text actually makes "correct" statements about the world—or whatever it's supposed to be talking about.
-
 生成「有意义的人类语言」需要什么？在过去，我们可能会认为这不亚于一个人脑的工作。但现在我们知道，ChatGPT 的神经网络也能相当体面地完成这项工作。尽管如此，也许这就是我们能走的极限，不会有更简单或更易于人类理解的方法。但我强烈怀疑，ChatGPT 的成功隐含地揭示了一个重要的「科学」事实：有意义的人类语言实际上比我们所知的有更多的结构和简单性，并且最终可能存在相当简单的规则来描述这种语言是如何组合在一起的。
+
+As we mentioned above, syntactic grammar gives rules for how words corresponding to things like different parts of speech can be put together in human language. But to deal with meaning, we need to go further. And one version of how to do this is to think about not just a syntactic grammar for language, but also a semantic one.
 
 正如我们上面提到的，句法语法为不同词性的单词在人类语言中的组合提供了规则。但要处理意义，我们需要更进一步。做这件事的一种方法是考虑不仅仅是语言的句法语法，还有语义语法。
 
+For purposes of syntax, we identify things like nouns and verbs. But for purposes of semantics, we need "finer gradations". So, for example, we might identify the concept of "moving", and the concept of an "object" that "maintains its identity independent of location". There are endless specific examples of each of these "semantic concepts". But for the purposes of our semantic grammar, we'll just have some general kind of rule that basically says that "objects" can "move". There's a lot to say about how all this might work (some of which I've said before). But I'll content myself here with just a few remarks that indicate some of the potential path forward.
+
 为了句法，我们识别诸如名词和动词等。但为了语义，我们需要更「细微的区分」。例如，我们可能会识别「移动」的概念，以及「独立于位置保持其身份」的「物体」的概念。这些「语义概念」有无数具体例子。但对于我们的语义语法来说，我们只需要一些大致的规则，基本上说「物体」可以「移动」。关于这一切如何工作有很多要说的（我之前说过一些）。但在这里，我将满足于只提几点，表明一些可能的前进道路。
+
+It's worth mentioning that even if a sentence is perfectly OK according to the semantic grammar, that doesn't mean it's been realized (or even could be realized) in practice. "The elephant traveled to the Moon" would doubtless "pass" our semantic grammar, but it certainly hasn't been realized (at least yet) in our actual world—though it's absolutely fair game for a fictional world.
 
 值得一提的是，即使一个句子完全符合语义语法，也并不意味着它在实践中已经实现（或甚至能够实现）。「大象去了月球」无疑会通过我们的语义语法，但它当然尚未在我们的实际世界中实现（至少目前还没有）—— 尽管它绝对适用于一个虚构的世界。
 
+When we start talking about "semantic grammar" we're soon led to ask "What's underneath it?" What "model of the world" is it assuming? A syntactic grammar is really just about the construction of language from words. But a semantic grammar necessarily engages with some kind of "model of the world"—something that serves as a "skeleton" on top of which language made from actual words can be layered.
+
 当我们开始讨论「语义语法」时，我们很快就会问「它的底层是什么？」它假设了什么样的「世界模型」？句法语法实际上只是关于如何从单词构建语言。但语义语法必然涉及某种「世界模型」—— 这个模型作为一个「骨架」，实际单词构成的语言可以在其上层叠。
+
+Until recent times, we might have imagined that (human) language would be the only general way to describe our "model of the world". Already a few centuries ago there started to be formalizations of specific kinds of things, based particularly on mathematics. But now there's a much more general approach to formalization: computational language.
 
 直到最近，我们可能会想象（人类）语言将是描述我们的「世界模型」的唯一通用方式。几个世纪前，特别是基于数学，就开始有了特定事物的形式化。但现在有了一种更通用的形式化方法：计算语言。
 
+And, yes, that's been my big project over the course of more than four decades (as now embodied in the Wolfram Language): to develop a precise symbolic representation that can talk as broadly as possible about things in the world, as well as abstract things that we care about. And so, for example, we have symbolic representations for cities and molecules and images and neural networks, and we have built-in knowledge about how to compute about those things.
+
 是的，这已经是我四十多年来的重大项目（现在体现在 Wolfram 语言中）：开发一种精确的符号表示，尽可能广泛地讨论世界上的事物，以及我们关心的抽象事物。因此，例如，我们有城市、分子、图像和神经网络的符号表示，并且我们内置了关于如何计算这些事物的知识。
+
+And, after decades of work, we've covered a lot of areas in this way. But in the past, we haven't particularly dealt with "everyday discourse". In "I bought two pounds of apples" we can readily represent (and do nutrition and other computations on) the "two pounds of apples". But we don't (quite yet) have a symbolic representation for "I bought".
 
 经过几十年的工作，我们以这种方式涵盖了许多领域。但在过去，我们并没有特别处理「日常对话」。在「我买了两磅苹果」中，我们可以轻松地表示（并对）「两磅苹果」进行营养和其他计算。但我们还没有（完全）为「我买了」制作符号表示。
 
+It's all connected to the idea of semantic grammar—and the goal of having a generic symbolic "construction kit" for concepts, that would give us rules for what could fit together with what, and thus for the "flow" of what we might turn into human language.
+
 这一切都与语义语法的概念相关 —— 目标是拥有一个通用的符号「概念构建工具包」，为我们提供什么能与什么相匹配的规则，从而为我们可能转化为人类语言的「流程」提供规则。
+
+But let's say we had this "symbolic discourse language". What would we do with it? We could start off doing things like generating "locally meaningful text". But ultimately we're likely to want more "globally meaningful" results—which means "computing" more about what can actually exist or happen in the world (or perhaps in some consistent fictional world).
 
 但假设我们拥有这种「符号话语语言」。我们会用它做什么呢？我们可以从生成「局部有意义的文本」开始。但最终我们可能会希望更「全球意义上」的结果 —— 这意味着要更多地「计算」关于在世界中（或某些一致的虚构世界中）实际存在或发生的事物。
 
+Right now in Wolfram Language we have a huge amount of built-in computational knowledge about lots of kinds of things. But for a complete symbolic discourse language we'd have to build in additional "calculi" about general things in the world: if an object moves from A to B and from B to C, then it's moved from A to C, etc.
+
 目前在 Wolfram 语言中，我们拥有大量关于许多种事物的内置计算知识。但对于完整的符号话语语言，我们必须建立额外的关于世界上一般事物的「计算规则」：如果一个物体从 A 移动到 B，然后从 B 移动到 C，那么它就从 A 移动到了 C，等等。
+
+Given a symbolic discourse language we might use it to make "standalone statements". But we can also use it to ask questions about the world, "Wolfram|Alpha style". Or we can use it to state things that we "want to make so", presumably with some external actuation mechanism. Or we can use it to make assertions—perhaps about the actual world, or perhaps about some specific world we're considering, fictional or otherwise.
 
 鉴于符号话语语言，我们可以用它来做「独立陈述」。但我们也可以用它来询问有关世界的问题，「Wolfram|Alpha 风格」。或者我们可以用它来陈述我们「想要实现的事物」，大概是通过某种外部驱动机制。或者我们可以用它来做出断言 —— 也许是关于实际世界的，或者也许是关于我们正在考虑的某个特定世界，无论是虚构的还是其他。
 
+Human language is fundamentally imprecise, not least because it isn't "tethered" to a specific computational implementation, and its meaning is basically defined just by a "social contract" between its users. But computational language, by its nature, has a certain fundamental precision—because in the end what it specifies can always be "unambiguously executed on a computer". Human language can usually get away with a certain vagueness. (When we say "planet" does it include exoplanets or not, etc.?) But in computational language we have to be precise and clear about all the distinctions we're making.
+
 人类语言从根本上来说是不精确的，不仅因为它不是「锚定」在特定的计算实现上，而且其含义基本上仅由其使用者之间的「社会契约」定义。但计算语言，由于其本质，具有一定的基本精确性 —— 因为最终它所指定的内容总是可以「在计算机上明确执行」。人类语言通常可以容忍一定程度的模糊性。（当我们说「行星」时，它包括系外行星吗？等等）但在计算语言中，我们必须对我们所做的所有区分都精确而清晰。
+
+It's often convenient to leverage ordinary human language in making up names in computational language. But the meanings they have in computational language are necessarily precise—and might or might not cover some particular connotation in typical human language usage.
 
 利用普通人类语言来构造计算语言中的名称通常很方便。但它们在计算语言中的含义必然是精确的 —— 可能涵盖或可能不涵盖典型人类语言使用中的某些特定含义。
 
+How should one figure out the fundamental "ontology" suitable for a general symbolic discourse language? Well, it's not easy. Which is perhaps why little has been done since the primitive beginnings Aristotle made more than two millennia ago. But it really helps that today we now know so much about how to think about the world computationally (and it doesn't hurt to have a "fundamental metaphysics" from our Physics Project and the idea of the ruliad).
+
 弄清楚适合通用符号话语语言的基本「本体论」应该如何界定并不容易。这也许就是为什么自从亚里士多德两千多年前的初步尝试以来，几乎没有进展。但今天我们对如何以计算方式思考世界的了解已经大大增强，这无疑是一个巨大的帮助（我们的物理项目和 ruliad 的「基本形而上学」概念也起到了作用）。
+
+But what does all this mean in the context of ChatGPT? From its training ChatGPT has effectively "pieced together" a certain (rather impressive) quantity of what amounts to semantic grammar. But its very success gives us a reason to think that it's going to be feasible to construct something more complete in computational language form. And, unlike what we've so far figured out about the innards of ChatGPT, we can expect to design the computational language so that it's readily understandable to humans.
 
 那么，这一切在 ChatGPT 的背景下意味着什么呢？通过它的训练，ChatGPT 实际上已经「拼凑」了相当多的等同于语义语法的内容。但它的成功给了我们一个理由，让我们相信构建更完整的计算语言形式是可行的。而且，与我们目前对 ChatGPT 内部了解的情况不同，我们可以期望设计计算语言，使其容易被人类理解。
 
+When we talk about semantic grammar, we can draw an analogy to syllogistic logic. At first, syllogistic logic was essentially a collection of rules about statements expressed in human language. But (yes, two millennia later) when formal logic was developed, the original basic constructs of syllogistic logic could now be used to build huge "formal towers" that include, for example, the operation of modern digital circuitry. And so, we can expect, it will be with more general semantic grammar. At first, it may just be able to deal with simple patterns, expressed, say, as text. But once its whole computational language framework is built, we can expect that it will be able to be used to erect tall towers of "generalized semantic logic", that allow us to work in a precise and formal way with all sorts of things that have never been accessible to us before, except just at a "ground-floor level" through human language, with all its vagueness.
+
 当我们讨论语义语法时，我们可以类比于三段论逻辑。起初，三段论逻辑基本上是关于用人类语言表达的陈述的一系列规则。但（是的，两千年后）当形式逻辑被发展出来后，三段论逻辑的原始基本构造就可以用来构建包括现代数字电路运作等在内的巨大的「形式化建筑物」。我们也可以期望，对于更广泛的语义语法也将是如此。一开始，它可能只能处理简单的模式，例如以文本形式表达的。但一旦整个计算语言框架建立起来，我们可以期待它将能够被用来建立「通用语义逻辑」的高塔，使我们能够以精确和形式化的方式处理以前除了通过人类语言在「底层」上，带有所有其模糊性的情况下，从未能够接触到的各种事物。
 
+We can think of the construction of computational language—and semantic grammar—as representing a kind of ultimate compression in representing things. Because it allows us to talk about the essence of what's possible, without, for example, dealing with all the "turns of phrase" that exist in ordinary human language. And we can view the great strength of ChatGPT as being something a bit similar: because it too has in a sense "drilled through" to the point where it can "put language together in a semantically meaningful way" without concern for different possible turns of phrase.
+
 我们可以将计算语言和语义语法的构建视为代表一种最终的压缩，用以代表事物。因为它使我们能够谈论可能发生的事物的本质，而不需要处理普通人类语言中存在的所有「转述」。我们可以将 ChatGPT 的巨大优势视为类似的东西：因为它也以某种意义上「穿透了」，达到了一个点，在这个点上，它可以「以有语义意义的方式组合语言」，而不用关心不同可能的措辞。
+
+So what would happen if we applied ChatGPT to underlying computational language? The computational language can describe what's possible. But what can still be added is a sense of "what's popular"—based for example on reading all that content on the web. But then—underneath—operating with computational language means that something like ChatGPT has immediate and fundamental access to what amount to ultimate tools for making use of potentially irreducible computations. And that makes it a system that can not only "generate reasonable text", but can expect to work out whatever can be worked out about whether that text actually makes "correct" statements about the world—or whatever it's supposed to be talking about.
 
 那么，如果我们将 ChatGPT 应用于底层的计算语言会发生什么呢？计算语言可以描述可能发生的事情。但仍然可以增加的是基于阅读网络上所有内容的「流行度」的感觉。但在此之下，使用计算语言意味着像 ChatGPT 这样的系统可以直接并基本地使用潜在的不可约简计算的终极工具。这使它不仅能够「生成合理文本」，而且可以预期弄清楚该文本是否对世界或其所讨论的任何事物做出了「正确」的陈述。
 
@@ -1224,33 +1224,33 @@ So what would happen if we applied ChatGPT to underlying computational language?
 
 The basic concept of ChatGPT is at some level rather simple. Start from a huge sample of human-created text from the web, books, etc. Then train a neural net to generate text that's "like this". And in particular, make it able to start from a "prompt" and then continue with text that's "like what it's been trained with".
 
-As we've seen, the actual neural net in ChatGPT is made up of very simple elements—though billions of them. And the basic operation of the neural net is also very simple, consisting essentially of passing input derived from the text it's generated so far "once through its elements" (without any loops, etc.) for every new word (or part of a word) that it generates.
-
-But the remarkable—and unexpected—thing is that this process can produce text that's successfully "like" what's out there on the web, in books, etc. And not only is it coherent human language, it also "says things" that "follow its prompt" making use of content it's "read". It doesn't always say things that "globally make sense" (or correspond to correct computations)—because (without, for example, accessing the "computational superpowers" of Wolfram|Alpha) it's just saying things that "sound right" based on what things "sounded like" in its training material.
-
-The specific engineering of ChatGPT has made it quite compelling. But ultimately (at least until it can use outside tools) ChatGPT is "merely" pulling out some "coherent thread of text" from the "statistics of conventional wisdom" that it's accumulated. But it's amazing how human-like the results are. And as I've discussed, this suggests something that's at least scientifically very important: that human language (and the patterns of thinking behind it) are somehow simpler and more "law like" in their structure than we thought. ChatGPT has implicitly discovered it. But we can potentially explicitly expose it, with semantic grammar, computational language, etc.
-
-What ChatGPT does in generating text is very impressive—and the results are usually very much like what we humans would produce. So does this mean ChatGPT is working like a brain? Its underlying artificial-neural-net structure was ultimately modeled on an idealization of the brain. And it seems quite likely that when we humans generate language many aspects of what's going on are quite similar.
-
-When it comes to training (AKA learning) the different "hardware" of the brain and of current computers (as well as, perhaps, some undeveloped algorithmic ideas) forces ChatGPT to use a strategy that's probably rather different (and in some ways much less efficient) than the brain. And there's something else as well: unlike even in typical algorithmic computation, ChatGPT doesn't internally "have loops" or "recompute on data". And that inevitably limits its computational capability—even with respect to current computers, but definitely with respect to the brain.
-
-It's not clear how to "fix that" and still maintain the ability to train the system with reasonable efficiency. But to do so will presumably allow a future ChatGPT to do even more "brain-like things". Of course, there are plenty of things that brains don't do so well—particularly involving what amount to irreducible computations. And for these both brains and things like ChatGPT have to seek "outside tools"—like Wolfram Language.
-
-But for now it's exciting to see what ChatGPT has already been able to do. At some level it's a great example of the fundamental scientific fact that large numbers of simple computational elements can do remarkable and unexpected things. But it also provides perhaps the best impetus we've had in two thousand years to understand better just what the fundamental character and principles might be of that central feature of the human condition that is human language and the processes of thinking behind it.
-
 ChatGPT 的基本概念在某种程度上相当简单。从网络、书籍等收集大量人类创造的文本样本开始。然后训练一个神经网络，使其生成「类似于这些」的文本。特别是，使其能够从一个「提示」开始，然后继续生成「与其训练内容相似」的文本。
+
+As we've seen, the actual neural net in ChatGPT is made up of very simple elements—though billions of them. And the basic operation of the neural net is also very simple, consisting essentially of passing input derived from the text it's generated so far "once through its elements" (without any loops, etc.) for every new word (or part of a word) that it generates.
 
 正如我们所见，ChatGPT 中的实际神经网络由非常简单的元素组成，尽管它们有数十亿个。神经网络的基本操作也非常简单，本质上是将其生成的文本的输入「单次通过其元素」（没有任何循环等），以产生它生成的每个新单词（或单词的一部分）。
 
+But the remarkable—and unexpected—thing is that this process can produce text that's successfully "like" what's out there on the web, in books, etc. And not only is it coherent human language, it also "says things" that "follow its prompt" making use of content it's "read". It doesn't always say things that "globally make sense" (or correspond to correct computations)—because (without, for example, accessing the "computational superpowers" of Wolfram|Alpha) it's just saying things that "sound right" based on what things "sounded like" in its training material.
+
 但令人惊讶且出乎意料的是，这个过程可以产生与网络上、书籍中等地方的文本「相似」的文本。这不仅是连贯的人类语言，它还「说出」了「根据提示」并利用它「阅读过」的内容的东西。它并不总是说出「全局上有意义」的事情（或对应于正确的计算）—— 因为（例如，未能访问 Wolfram|Alpha 的「计算超能力」）它只是说出一些基于其训练材料中的「听起来正确」的事情。
+
+The specific engineering of ChatGPT has made it quite compelling. But ultimately (at least until it can use outside tools) ChatGPT is "merely" pulling out some "coherent thread of text" from the "statistics of conventional wisdom" that it's accumulated. But it's amazing how human-like the results are. And as I've discussed, this suggests something that's at least scientifically very important: that human language (and the patterns of thinking behind it) are somehow simpler and more "law like" in their structure than we thought. ChatGPT has implicitly discovered it. But we can potentially explicitly expose it, with semantic grammar, computational language, etc.
 
 ChatGPT 的具体工程设计使其非常引人注目。但归根结底（至少在它能使用外部工具之前），ChatGPT 只是从它积累的「传统智慧统计」中提取出一些「连贯的文本线索」。但它的结果令人惊讶地类似于人类，正如我所讨论的，这表明至少在科学上非常重要的一点：人类语言（及其背后的思维模式）在其结构上比我们认为的要简单得多，更具有「法则性」。ChatGPT 已经隐含地发现了这一点。但我们可以通过语义语法、计算语言等显式地展示出来。
 
+What ChatGPT does in generating text is very impressive—and the results are usually very much like what we humans would produce. So does this mean ChatGPT is working like a brain? Its underlying artificial-neural-net structure was ultimately modeled on an idealization of the brain. And it seems quite likely that when we humans generate language many aspects of what's going on are quite similar.
+
 ChatGPT 在生成文本方面的表现令人印象深刻，其结果通常非常类似于我们人类所产生的内容。那么，这是否意味着 ChatGPT 的运作方式类似于大脑？它的基础人工神经网络结构最初是基于对大脑的理想化模型。当我们人类生成语言时，很可能许多正在进行的活动在很多方面都是相似的。
+
+When it comes to training (AKA learning) the different "hardware" of the brain and of current computers (as well as, perhaps, some undeveloped algorithmic ideas) forces ChatGPT to use a strategy that's probably rather different (and in some ways much less efficient) than the brain. And there's something else as well: unlike even in typical algorithmic computation, ChatGPT doesn't internally "have loops" or "recompute on data". And that inevitably limits its computational capability—even with respect to current computers, but definitely with respect to the brain.
 
 当涉及到训练（也就是学习）时，大脑和当前计算机的不同「硬件」（以及可能一些未开发的算法思想）迫使 ChatGPT 使用一种可能与大脑相当不同（在某些方面效率远低）的策略。还有另外一个因素：与典型的算法计算不同，ChatGPT 在内部并没有「循环」或「重新计算数据」。这不可避免地限制了它的计算能力 —— 即使与当前计算机相比也是如此，但与大脑相比更是如此。
 
+It's not clear how to "fix that" and still maintain the ability to train the system with reasonable efficiency. But to do so will presumably allow a future ChatGPT to do even more "brain-like things". Of course, there are plenty of things that brains don't do so well—particularly involving what amount to irreducible computations. And for these both brains and things like ChatGPT have to seek "outside tools"—like Wolfram Language.
+
 目前尚不清楚如何「解决这个问题」，同时仍然保持合理效率地训练系统的能力。但为了做到这一点，将使未来的 ChatGPT 能够做更多「类脑的事情」。当然，有很多大脑不擅长的事情 —— 特别是涉及到实质上不可约简的计算。在这些方面，无论是大脑还是像 ChatGPT 这样的系统都需要寻求「外部工具」—— 比如 Wolfram 语言。
+
+But for now it's exciting to see what ChatGPT has already been able to do. At some level it's a great example of the fundamental scientific fact that large numbers of simple computational elements can do remarkable and unexpected things. But it also provides perhaps the best impetus we've had in two thousand years to understand better just what the fundamental character and principles might be of that central feature of the human condition that is human language and the processes of thinking behind it.
 
 但目前看到 ChatGPT 已经能够做到的事情是令人兴奋的。在某种程度上，它是一个伟大的科学事实的绝佳示例，即大量简单的计算元素可以做出惊人且意想不到的事情。但它也可能是我们在两千年里最好的动力，以更好地理解人类语言及其背后的思维过程的基本特征和原则，这是人类条件的核心特征。
 
