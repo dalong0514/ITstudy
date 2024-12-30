@@ -12,25 +12,47 @@ February 14, 2023
 
 That ChatGPT can automatically generate something that reads even superficially like human-written text is remarkable, and unexpected. But how does it do it? And why does it work? My purpose here is to give a rough outline of what's going on inside ChatGPT—and then to explore why it is that it can do so well in producing what we might consider to be meaningful text. I should say at the outset that I'm going to focus on the big picture of what's going on—and while I'll mention some engineering details, I won't get deeply into them. (And the essence of what I'll say applies just as well to other current "large language models" [LLMs] as to ChatGPT.)
 
+ChatGPT 能自动产生看似由人类撰写的文本，这本身就令人惊叹且出人意料。但它是如何实现的？为什么它能有效呢？本文旨在概述 ChatGPT 内部的工作原理，并探讨其在生成看似有意义的文本方面的出色表现。首先声明，我会着重于整体概念而不会深入技术细节。（我所述之内容同样适用于其他当前流行的「大型语言模型」[LLMs]，包括 ChatGPT。）
+
 The first thing to explain is that what ChatGPT is always fundamentally trying to do is to produce a "reasonable continuation" of whatever text it's got so far, where by "reasonable" we mean "what one might expect someone to write after seeing what people have written on billions of webpages, etc."
+
+首先，ChatGPT 的基本目标是对已有文本生成一个「合理的继续」，其中「合理」指的是基于大量网络页面和数字化书籍中的内容，人们可能会如何继续写作。
 
 So let's say we've got the text "The best thing about AI is its ability to". Imagine scanning billions of pages of human-written text (say on the web and in digitized books) and finding all instances of this text—then seeing what word comes next what fraction of the time. ChatGPT effectively does something like this, except that (as I'll explain) it doesn't look at literal text; it looks for things that in a certain sense "match in meaning". But the end result is that it produces a ranked list of words that might follow, together with "probabilities":
 
+例如，对于「人工智能最棒的地方在于它的能力」，ChatGPT 会扫描数十亿页文本，寻找这句话的所有出现，并观察接下来的词出现的频率。ChatGPT 实际上在执行类似的操作，但它不是直接查找文本，而是寻找在某种意义上「意义相匹配」的内容。最终，它会生成一个可能接续的单词列表及其「概率」：
+
 And the remarkable thing is that when ChatGPT does something like write an essay what it's essentially doing is just asking over and over again "given the text so far, what should the next word be?"—and each time adding a word. (More precisely, as I'll explain, it's adding a "token", which could be just a part of a word, which is why it can sometimes "make up new words".)
+
+当 ChatGPT 像撰写文章这样的任务时，它实际上在反复询问：「基于目前的文本，下一个词应该是什么？」然后逐个添加词汇。（更准确地说，它添加的是「标记」，这可能只是一个词的部分，这也是其有时能创造新词的原因。）
 
 But, OK, at each step it gets a list of words with probabilities. But which one should it actually pick to add to the essay (or whatever) that it's writing? One might think it should be the "highest-ranked" word (i.e. the one to which the highest "probability" was assigned). But this is where a bit of voodoo begins to creep in. Because for some reason—that maybe one day we'll have a scientific-style understanding of—if we always pick the highest-ranked word, we'll typically get a very "flat" essay, that never seems to "show any creativity" (and even sometimes repeats word for word). But if sometimes (at random) we pick lower-ranked words, we get a "more interesting" essay.
 
+但问题来了：在每一步，它会得到一个带有概率的单词列表，但应该选择哪一个来继续撰写呢？直觉上，我们可能会选排名最高的单词。但这时就有些玄学的因素介入了。因为出于某种原因，如果我们总是选择排名最高的词，通常会得到内容单调、缺乏创造力的文章（有时甚至会原样重复）。但如果偶尔选择排名较低的词，文章则会更有趣。
+
 The fact that there's randomness here means that if we use the same prompt multiple times, we're likely to get different essays each time. And, in keeping with the idea of voodoo, there's a particular so-called "temperature" parameter that determines how often lower-ranked words will be used, and for essay generation, it turns out that a "temperature" of 0.8 seems best. (It's worth emphasizing that there's no "theory" being used here; it's just a matter of what's been found to work in practice. And for example the concept of "temperature" is there because exponential distributions familiar from statistical physics happen to be being used, but there's no "physical" connection—at least so far as we know.)
+
+这里的随机性意味着，即使是同一个提示，每次得到的文章也可能不同。而且有一个所谓的「温度」参数，它决定了低排名词的使用频率，在撰写文章时，0.8 的「温度」似乎是最佳选择。（值得一提的是，这里没有应用任何理论，而是基于实践中发现的最佳做法。例如，「温度」的概念源于统计物理学中的指数分布，但至少目前看来，它与物理学没有直接关联。）
 
 Before we go on I should explain that for purposes of exposition I'm mostly not going to use the full system that's in ChatGPT; instead I'll usually work with a simpler GPT-2 system, which has the nice feature that it's small enough to be able to run on a standard desktop computer. And so for essentially everything I show I'll be able to include explicit Wolfram Language code that you can immediately run on your computer. (Click any picture here to copy the code behind it.)
 
+在我们继续之前，我要说明，为了更好地说明问题，我大部分时间不会使用 ChatGPT 的完整系统。相反，我通常会使用一个更简单的 GPT-2 系统，它的优点是体积小，可以在标准桌面电脑上运行。因此，对于我展示的几乎所有内容，我都可以提供您可以立即在电脑上运行的 Wolfram 语言代码。（点击这里的任何图片可以复制背后的代码。）
+
 For example, here's how to get the table of probabilities above. First, we have to retrieve the underlying "language model" neural net:
+
+比如，下面是获取上述概率表的方法。首先，我们需要检索底层的「语言模型」神经网络：
 
 Later on, we'll look inside this neural net, and talk about how it works. But for now we can just apply this "net model" as a black box to our text so far, and ask for the top 5 words by probability that the model says should follow:
 
+稍后我们将深入了解这个神经网络及其工作原理。但现在，我们可以把这个「网络模型」当作一个黑盒子，应用到我们目前的文本上，询问模型认为应该接下来的前 5 个词的概率：
+
 This takes that result and makes it into an explicit formatted "dataset":
 
+这将把结果转换为一个明确格式化的「数据集」：
+
 Here's what happens if one repeatedly "applies the model"—at each step adding the word that has the top probability (specified in this code as the "decision" from the model):
+
+如果一个人反复「应用这个模型」，在每一步加入概率最高的词语（在这段代码中定义为模型的「决策」），会发生什么：
 
 In[]:= NestList [StringJoin [#, model [#, "Decision"]] &,
 "The best thing about Al is its ability to", 7]
@@ -46,51 +68,29 @@ The best thing about Al is its ability to learn from experience. It's not}
 
 What happens if one goes on longer? In this ("zero temperature") case what comes out soon gets rather confused and repetitive:
 
-But what if instead of always picking the "top" word one sometimes randomly picks "non-top" words (with the "randomness" corresponding to "temperature" 0.8)? Again one can build up text:
-
-And every time one does this, different random choices will be made, and the text will be different—as in these 5 examples:
-
-It's worth pointing out that even at the first step there are a lot of possible "next words" to choose from (at temperature 0.8), though their probabilities fall off quite quickly (and, yes, the straight line on this log-log plot corresponds to an n–1 "power-law" decay that's very characteristic of the general statistics of language):
-
-So what happens if one goes on longer? Here's a random example. It's better than the top-word (zero temperature) case, but still at best a bit weird:
-
-This was done with the simplest GPT-2 model (from 2019). With the newer and bigger GPT-3 models the results are better. Here's the top-word (zero temperature) text produced with the same "prompt", but with the biggest GPT-3 model:
-
-And here's a random example at "temperature 0.8":
-
-ChatGPT 能自动产生看似由人类撰写的文本，这本身就令人惊叹且出人意料。但它是如何实现的？为什么它能有效呢？本文旨在概述 ChatGPT 内部的工作原理，并探讨其在生成看似有意义的文本方面的出色表现。首先声明，我会着重于整体概念而不会深入技术细节。（我所述之内容同样适用于其他当前流行的「大型语言模型」[LLMs]，包括 ChatGPT。）
-
-首先，ChatGPT 的基本目标是对已有文本生成一个「合理的继续」，其中「合理」指的是基于大量网络页面和数字化书籍中的内容，人们可能会如何继续写作。
-
-例如，对于「人工智能最棒的地方在于它的能力」，ChatGPT 会扫描数十亿页文本，寻找这句话的所有出现，并观察接下来的词出现的频率。ChatGPT 实际上在执行类似的操作，但它不是直接查找文本，而是寻找在某种意义上「意义相匹配」的内容。最终，它会生成一个可能接续的单词列表及其「概率」：
-
-当 ChatGPT 像撰写文章这样的任务时，它实际上在反复询问：「基于目前的文本，下一个词应该是什么？」然后逐个添加词汇。（更准确地说，它添加的是「标记」，这可能只是一个词的部分，这也是其有时能创造新词的原因。）
-
-但问题来了：在每一步，它会得到一个带有概率的单词列表，但应该选择哪一个来继续撰写呢？直觉上，我们可能会选排名最高的单词。但这时就有些玄学的因素介入了。因为出于某种原因，如果我们总是选择排名最高的词，通常会得到内容单调、缺乏创造力的文章（有时甚至会原样重复）。但如果偶尔选择排名较低的词，文章则会更有趣。
-
-这里的随机性意味着，即使是同一个提示，每次得到的文章也可能不同。而且有一个所谓的「温度」参数，它决定了低排名词的使用频率，在撰写文章时，0.8 的「温度」似乎是最佳选择。（值得一提的是，这里没有应用任何理论，而是基于实践中发现的最佳做法。例如，「温度」的概念源于统计物理学中的指数分布，但至少目前看来，它与物理学没有直接关联。）
-
-在我们继续之前，我要说明，为了更好地说明问题，我大部分时间不会使用 ChatGPT 的完整系统。相反，我通常会使用一个更简单的 GPT-2 系统，它的优点是体积小，可以在标准桌面电脑上运行。因此，对于我展示的几乎所有内容，我都可以提供您可以立即在电脑上运行的 Wolfram 语言代码。（点击这里的任何图片可以复制背后的代码。）
-
-比如，下面是获取上述概率表的方法。首先，我们需要检索底层的「语言模型」神经网络：
-
-稍后我们将深入了解这个神经网络及其工作原理。但现在，我们可以把这个「网络模型」当作一个黑盒子，应用到我们目前的文本上，询问模型认为应该接下来的前 5 个词的概率：
-
-这将把结果转换为一个明确格式化的「数据集」：
-
-如果一个人反复「应用这个模型」，在每一步加入概率最高的词语（在这段代码中定义为模型的「决策」），会发生什么：
-
 如果继续进行会怎样？在这个（零温度）案例中，输出的内容很快就会变得混乱和重复：
+
+But what if instead of always picking the "top" word one sometimes randomly picks "non-top" words (with the "randomness" corresponding to "temperature" 0.8)? Again one can build up text:
 
 但如果不总是挑选「最顶端」的词，而是有时随机选择「非顶端」的词（与「温度」0.8 的「随机性」相对应），会怎样？可以再次构建文本：
 
+And every time one does this, different random choices will be made, and the text will be different—as in these 5 examples:
+
 每次进行这个过程时，都会做出不同的随机选择，文本也将不同 —— 如这 5 个示例所示：
+
+It's worth pointing out that even at the first step there are a lot of possible "next words" to choose from (at temperature 0.8), though their probabilities fall off quite quickly (and, yes, the straight line on this log-log plot corresponds to an n–1 "power-law" decay that's very characteristic of the general statistics of language):
 
 值得指出的是，即使是在第一步，也有许多可能的「下一个词」可供选择（在温度 0.8 时），尽管它们的概率很快就会下降（是的，这个对数 —— 对数图上的直线对应于一个 n-1 的「幂律」衰减，这是语言统计中非常典型的特性）：
 
+So what happens if one goes on longer? Here's a random example. It's better than the top-word (zero temperature) case, but still at best a bit weird:
+
 那么如果继续下去会怎样呢？这是一个随机示例。它比顶词（零温度）情况更好，但最多也只是有些奇怪：
 
+This was done with the simplest GPT-2 model (from 2019). With the newer and bigger GPT-3 models the results are better. Here's the top-word (zero temperature) text produced with the same "prompt", but with the biggest GPT-3 model:
+
 这是使用最简单的 2019 年版 GPT-2 模型完成的。使用更新且更大的 GPT-3 模型，结果会更好。这是使用相同的「提示」，但用最大的 GPT-3 模型生成的顶词（零温度）文本：
+
+And here's a random example at "temperature 0.8":
 
 这是「温度 0.8」下的一个随机示例：
 
