@@ -28,6 +28,13 @@ Flags:
 ollama run llama2
 
 
+
+export HF_ENDPOINT=https://hf-mirror.com
+
+ollama run hf.co/bartowski/QVQ-72B-Preview-GGUF:Q8_0
+
+
+
 ---
 
 2024-12-14
@@ -170,6 +177,17 @@ http://192.168.10.110:11434
 /Users/Daglas/.ollama/models/blobs/sha256-8934d96d3f08982e95922b2b7a2c626a1fe873d7c3b06e8e56d7bc0a1fef9246
 
 ### 转化本地的模型文件
+
+2025-01-01
+
+cat model.gguf.0 model.gguf.1 model.gguf.2 > merged_model.gguf
+
+cat QVQ-72B-Preview-Q8_0-00001-of-00002.gguf QVQ-72B-Preview-Q8_0-00002-of-00002.gguf > QVQ-72B-Preview-Q8_0.gguf
+
+ollama create qvq-72b-preview-q8_0 -f Modelfile
+
+
+---
 
 之前看官网文档根本没 get 到要点，其实是要新建一个文件，把本地模型的文件放到那个文件里，然后用 ollama 去执行那个文件。
 

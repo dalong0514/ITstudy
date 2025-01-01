@@ -1,7 +1,5 @@
 ## 20231122What-Is-ChatGPT-Doing-and-Why-Does-It-Work
 
-What Is ChatGPT Doing … and Why Does It Work?
-
 [What Is ChatGPT Doing … and Why Does It Work?—Stephen Wolfram Writings](https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/)
 
 Stephen Wolfram
@@ -98,69 +96,69 @@ And here's a random example at "temperature 0.8":
 
 OK, so ChatGPT always picks its next word based on probabilities. But where do those probabilities come from? Let's start with a simpler problem. Let's consider generating English text one letter (rather than word) at a time. How can we work out what the probability for each letter should be?
 
-A very minimal thing we could do is just take a sample of English text, and calculate how often different letters occur in it. So, for example, this counts letters in the Wikipedia article on "cats":
-
-And this does the same thing for "dogs":
-
-The results are similar, but not the same ("o" is no doubt more common in the "dogs" article because, after all, it occurs in the word "dog" itself). Still, if we take a large enough sample of English text we can expect to eventually get at least fairly consistent results:
-
-Here's a sample of what we get if we just generate a sequence of letters with these probabilities:
-
-We can break this into "words" by adding in spaces as if they were letters with a certain probability:
-
-We can do a slightly better job of making "words" by forcing the distribution of "word lengths" to agree with what it is in English:
-
-We didn't happen to get any "actual words" here, but the results are looking slightly better. To go further, though, we need to do more than just pick each letter separately at random. And, for example, we know that if we have a "q", the next letter basically has to be "u".
-
-Here's a plot of the probabilities for letters on their own:
-
-And here's a plot that shows the probabilities of pairs of letters ("2-grams") in typical English text. The possible first letters are shown across the page, the second letters down the page:
-
-And we see here, for example, that the "q" column is blank (zero probability) except on the "u" row. OK, so now instead of generating our "words" a single letter at a time, let's generate them looking at two letters at a time, using these "2-gram" probabilities. Here's a sample of the result—which happens to include a few "actual words":
-
-With sufficiently much English text we can get pretty good estimates not just for probabilities of single letters or pairs of letters (2-grams), but also for longer runs of letters. And if we generate "random words" with progressively longer n-gram probabilities, we see that they get progressively "more realistic":
-
-But let's now assume—more or less as ChatGPT does—that we're dealing with whole words, not letters. There are about 40,000 reasonably commonly used words in English. And by looking at a large corpus of English text (say a few million books, with altogether a few hundred billion words), we can get an estimate of how common each word is. And using this we can start generating "sentences", in which each word is independently picked at random, with the same probability that it appears in the corpus. Here's a sample of what we get:
-
-Not surprisingly, this is nonsense. So how can we do better? Just like with letters, we can start taking into account not just probabilities for single words but probabilities for pairs or longer n-grams of words. Doing this for pairs, here are 5 examples of what we get, in all cases starting from the word "cat":
-
-It's getting slightly more "sensible looking". And we might imagine that if we were able to use sufficiently long n-grams we'd basically "get a ChatGPT"—in the sense that we'd get something that would generate essay-length sequences of words with the "correct overall essay probabilities". But here's the problem: there just isn't even close to enough English text that's ever been written to be able to deduce those probabilities.
-
-In a crawl of the web there might be a few hundred billion words; in books that have been digitized there might be another hundred billion words. But with 40,000 common words, even the number of possible 2-grams is already 1.6 billion—and the number of possible 3-grams is 60 trillion. So there's no way we can estimate the probabilities even for all of these from text that's out there. And by the time we get to "essay fragments" of 20 words, the number of possibilities is larger than the number of particles in the universe, so in a sense they could never all be written down.
-
-So what can we do? The big idea is to make a model that lets us estimate the probabilities with which sequences should occur—even though we've never explicitly seen those sequences in the corpus of text we've looked at. And at the core of ChatGPT is precisely a so-called "large language model" (LLM) that's been built to do a good job of estimating those probabilities.
-
 那么，ChatGPT 总是根据概率来挑选它的下一个词。但这些概率是怎么来的呢？我们不妨从一个更简单的问题开始：尝试一次生成一个字母（而不是一个单词）来构成英文文本。我们怎样才能确定每个字母的概率呢？
+
+A very minimal thing we could do is just take a sample of English text, and calculate how often different letters occur in it. So, for example, this counts letters in the Wikipedia article on "cats":
 
 一个非常基本的做法是选取一些英文文本样本，然后计算其中不同字母出现的频率。比如，以下是统计维基百科「猫」条目中字母出现频率的例子：
 
+And this does the same thing for "dogs":
+
 对「狗」条目做同样的统计：
+
+The results are similar, but not the same ("o" is no doubt more common in the "dogs" article because, after all, it occurs in the word "dog" itself). Still, if we take a large enough sample of English text we can expect to eventually get at least fairly consistent results:
 
 结果相似，但有所不同（例如，「o」在「狗」条目中更常见，因为它出现在单词「dog」中）。然而，如果我们取足够大的英文文本样本，我们至少可以期待最终得到相对一致的结果：
 
+Here's a sample of what we get if we just generate a sequence of letters with these probabilities:
+
 以下是我们仅使用这些概率生成的一系列字母样本：
+
+We can break this into "words" by adding in spaces as if they were letters with a certain probability:
 
 我们可以通过添加空格（把它们当作有一定概率出现的字母）来把这些字母分成「单词」：
 
+We can do a slightly better job of making "words" by forcing the distribution of "word lengths" to agree with what it is in English:
+
 通过强制「单词长度」分布与英语中的分布一致，我们可以稍微更好地构造「单词」：
+
+We didn't happen to get any "actual words" here, but the results are looking slightly better. To go further, though, we need to do more than just pick each letter separately at random. And, for example, we know that if we have a "q", the next letter basically has to be "u".
 
 虽然我们这里没有碰巧生成任何「真正的单词」，但结果看起来稍微好一些。然而，要进一步提高，我们需要做的不仅仅是随机选择每个字母。比如，我们知道如果有一个「q」，下一个字母几乎必定是「u」。
 
+Here's a plot of the probabilities for letters on their own:
+
 这是单独一个字母的概率图：
+
+And here's a plot that shows the probabilities of pairs of letters ("2-grams") in typical English text. The possible first letters are shown across the page, the second letters down the page:
 
 这是展示典型英文文本中字母对（2-gram）概率的图表。可能的首字母在页面上展示，第二个字母在页面下方展示：
 
+And we see here, for example, that the "q" column is blank (zero probability) except on the "u" row. OK, so now instead of generating our "words" a single letter at a time, let's generate them looking at two letters at a time, using these "2-gram" probabilities. Here's a sample of the result—which happens to include a few "actual words":
+
 例如，我们可以看到在「q」列中，除了「u」行外，其他都是零概率。好的，现在我们不再一次只生成一个字母的「单词」，而是尝试使用这些「2-gram」概率，一次考虑两个字母来生成它们。这是所得结果的一个样本 —— 偶然包含了一些「真正的单词」：
+
+With sufficiently much English text we can get pretty good estimates not just for probabilities of single letters or pairs of letters (2-grams), but also for longer runs of letters. And if we generate "random words" with progressively longer n-gram probabilities, we see that they get progressively "more realistic":
 
 有了足够多的英文文本，我们不仅可以准确估计单个字母或字母对（2-grams）的概率，还可以估计更长字母串的概率。如果我们用逐渐增长的 n-gram 概率生成「随机单词」，我们会发现它们逐渐变得「更加真实」：
 
+But let's now assume—more or less as ChatGPT does—that we're dealing with whole words, not letters. There are about 40,000 reasonably commonly used words in English. And by looking at a large corpus of English text (say a few million books, with altogether a few hundred billion words), we can get an estimate of how common each word is. And using this we can start generating "sentences", in which each word is independently picked at random, with the same probability that it appears in the corpus. Here's a sample of what we get:
+
 但现在，让我们像 ChatGPT 那样假设我们处理的是完整的单词，而不是字母。英语中大约有 40,000 个常见单词。通过分析大量英文文本（例如几百万本书，总共几百亿个单词），我们可以估算出每个单词的普遍性。利用这个数据，我们可以开始生成「句子」，其中每个单词都是独立随机挑选的，其概率与它在语料库中出现的频率一致。以下是我们得到的样本：
+
+Not surprisingly, this is nonsense. So how can we do better? Just like with letters, we can start taking into account not just probabilities for single words but probabilities for pairs or longer n-grams of words. Doing this for pairs, here are 5 examples of what we get, in all cases starting from the word "cat":
 
 不出所料，这些文本毫无意义。那我们怎么能做得更好呢？就像处理字母一样，我们可以开始考虑不仅仅是单个单词的概率，还要考虑单词对或更长的 n-gram 的概率。采用这种方法生成单词对，以下是我们从「cat」这个词开始得到的 5 个例子：
 
+It's getting slightly more "sensible looking". And we might imagine that if we were able to use sufficiently long n-grams we'd basically "get a ChatGPT"—in the sense that we'd get something that would generate essay-length sequences of words with the "correct overall essay probabilities". But here's the problem: there just isn't even close to enough English text that's ever been written to be able to deduce those probabilities.
+
 看起来稍微更有意义了。我们可能会想象，如果我们能使用足够长的 n-gram，我们基本上可以「创造出一个 ChatGPT」—— 意味着我们将得到能够生成具有「正确的整体文章概率」的长篇单词序列的工具。但问题是：迄今为止写过的英文文本远远不够，无法用来推断这些概率。
 
+In a crawl of the web there might be a few hundred billion words; in books that have been digitized there might be another hundred billion words. But with 40,000 common words, even the number of possible 2-grams is already 1.6 billion—and the number of possible 3-grams is 60 trillion. So there's no way we can estimate the probabilities even for all of these from text that's out there. And by the time we get to "essay fragments" of 20 words, the number of possibilities is larger than the number of particles in the universe, so in a sense they could never all be written down.
+
 在网络上爬取的文本可能有几百亿个单词；在已经数字化的书籍中可能还有另外几百亿个单词。但是，在 40,000 个常用词的情况下，即使是 2-gram 的可能性也已经达到了 16 亿，而 3-gram 的可能性则达到了 60 万亿。因此，我们不可能仅凭已有的文本来估算所有这些概率。而到了 20 个单词的「文章片段」，可能性的数量已经超过了宇宙中的粒子总数，所以从某种意义上说，这些文本是不可能全部被写出来的。
+
+So what can we do? The big idea is to make a model that lets us estimate the probabilities with which sequences should occur—even though we've never explicitly seen those sequences in the corpus of text we've looked at. And at the core of ChatGPT is precisely a so-called "large language model" (LLM) that's been built to do a good job of estimating those probabilities.
 
 那么我们能做些什么呢？一个关键的想法是建立一个模型，即使我们从未在所研究的文本语料库中明确见过这些序列，也能估算出序列出现的概率。而 ChatGPT 的核心就是一个被精心构建用于有效估算这些概率的所谓的「大型语言模型」（LLM）。
 
@@ -168,37 +166,37 @@ So what can we do? The big idea is to make a model that lets us estimate the pro
 
 Say you want to know (as Galileo did back in the late 1500s) how long it's going to take a cannon ball dropped from each floor of the Tower of Pisa to hit the ground. Well, you could just measure it in each case and make a table of the results. Or you could do what is the essence of theoretical science: make a model that gives some kind of procedure for computing the answer rather than just measuring and remembering each case.
 
-Let's imagine we have (somewhat idealized) data for how long the cannon ball takes to fall from various floors:
-
-How do we figure out how long it's going to take to fall from a floor we don't explicitly have data about? In this particular case, we can use known laws of physics to work it out. But say all we've got is the data, and we don't know what underlying laws govern it. Then we might make a mathematical guess, like that perhaps we should use a straight line as a model:
-
-We could pick different straight lines. But this is the one that's on average closest to the data we're given. And from this straight line we can estimate the time to fall for any floor.
-
-How did we know to try using a straight line here? At some level we didn't. It's just something that's mathematically simple, and we're used to the fact that lots of data we measure turns out to be well fit by mathematically simple things. We could try something mathematically more complicated—say a + b x + c x2—and then in this case we do better:
-
-Things can go quite wrong, though. Like here's the best we can do with a + b/x + c sin(x):
-
-It is worth understanding that there's never a "model-less model". Any model you use has some particular underlying structure—then a certain set of "knobs you can turn" (i.e. parameters you can set) to fit your data. And in the case of ChatGPT, lots of such "knobs" are used—actually, 175 billion of them.
-
-But the remarkable thing is that the underlying structure of ChatGPT—with "just" that many parameters—is sufficient to make a model that computes next-word probabilities "well enough" to give us reasonable essay-length pieces of text.
-
-[Fasti consolari dell'Accademia fiorentina di Salvino Salvini consolo della medesima e rettore generale dello Studio di Firenze. All'altezza reale del serenissimo Gio. Gastone gran principe di Toscana : Salvini, Salvino : Free Download, Borrow, and Streaming : Internet Archive](https://archive.org/details/bub_gb_49d42xp-USMC/page/404/mode/2up)
-
 想象一下，如果你像伽利略在 16 世纪末那样，想知道从比萨斜塔的每一层掉落的炮弹到达地面需要多长时间。你可以在每种情况下测量并制作一张结果表。或者，你可以做理论科学的本质所在：创建一个模型，提供一种计算答案的方法，而不是仅仅测量和记住每个案例。
+
+Let's imagine we have (somewhat idealized) data for how long the cannon ball takes to fall from various floors:
 
 让我们假设我们有关于炮弹从各个楼层落下所需时间的（有些理想化的）数据：
 
+How do we figure out how long it's going to take to fall from a floor we don't explicitly have data about? In this particular case, we can use known laws of physics to work it out. But say all we've got is the data, and we don't know what underlying laws govern it. Then we might make a mathematical guess, like that perhaps we should use a straight line as a model:
+
 我们如何确定从我们没有明确数据的楼层落下需要多长时间？在这种特定情况下，我们可以使用已知的物理定律来计算出来。但假设我们只有数据，并不知道控制它的基本规律是什么。那么我们可能会做出一个数学猜测，比如说我们可能应该使用一条直线作为模型：
+
+We could pick different straight lines. But this is the one that's on average closest to the data we're given. And from this straight line we can estimate the time to fall for any floor.
 
 我们可以选择不同的直线。但这条直线平均而言最接近我们所给的数据。根据这条直线，我们可以估算任何楼层的落地时间。
 
+How did we know to try using a straight line here? At some level we didn't. It's just something that's mathematically simple, and we're used to the fact that lots of data we measure turns out to be well fit by mathematically simple things. We could try something mathematically more complicated—say a + b x + c x2—and then in this case we do better:
+
 我们怎么知道要尝试使用直线呢？在某种程度上，我们并不知道。这只是数学上简单的东西，我们习惯于许多我们测量的数据能够被数学上简单的模型很好地拟合。我们可以尝试更复杂的数学模型 —— 比如 a + b x + c x²—— 然后在这种情况下我们可能会做得更好：
+
+Things can go quite wrong, though. Like here's the best we can do with a + b/x + c sin(x):
 
 不过，情况有时也可能出错。例如，用 a + b/x + c sin (x) 得出的最佳结果可能是这样的：
 
+It is worth understanding that there's never a "model-less model". Any model you use has some particular underlying structure—then a certain set of "knobs you can turn" (i.e. parameters you can set) to fit your data. And in the case of ChatGPT, lots of such "knobs" are used—actually, 175 billion of them.
+
 值得理解的是，从来没有「无模型的模型」。你使用的任何模型都有一定的基础结构，然后有一系列「可以调整的旋钮」（即你可以设置的参数）来拟合你的数据。在 ChatGPT 的情况下，使用了许多这样的「旋钮」—— 实际上有 1750 亿个。
 
+But the remarkable thing is that the underlying structure of ChatGPT—with "just" that many parameters—is sufficient to make a model that computes next-word probabilities "well enough" to give us reasonable essay-length pieces of text.
+
 但值得注意的是，ChatGPT 的基础结构 —— 仅用这么多参数 —— 就足以构建一个模型，这个模型能够「足够好地」计算下一个词的概率，从而产生合理长度的文章文本。
+
+[Fasti consolari dell'Accademia fiorentina di Salvino Salvini consolo della medesima e rettore generale dello Studio di Firenze. All'altezza reale del serenissimo Gio. Gastone gran principe di Toscana : Salvini, Salvino : Free Download, Borrow, and Streaming : Internet Archive](https://archive.org/details/bub_gb_49d42xp-USMC/page/404/mode/2up)
 
 ### 04. Models for Human-Like Tasks
 
