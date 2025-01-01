@@ -159,9 +159,9 @@ Task Decomposition: A LLM acts as a controller that breaks down a task into smal
 
 For each subtask, a specific model is chosen to perform the task.
 
-Specific export models execute the subtasks, and the result is given to the controller LLM, which generates a response.
-
 针对每个子任务，都会选择一个特定的模型来执行。
+
+Specific export models execute the subtasks, and the result is given to the controller LLM, which generates a response.
 
 这些专门的模型负责执行各自的子任务，并将结果反馈给控制中心的大语言模型（LLM），由后者生成最终的响应。
 
@@ -175,43 +175,39 @@ HuggingGPT 就是一个应用规划模式的例子。它将大语言模型与 Hu
 
 Source: Author
 
-### 多智能体协同来源：作者
-
 Here is how it works:
 
-Specialized Agents: Each agent is designed to perform specific roles or tasks, such as a software engineer, a product manager, or a designer.
+1 Specialized Agents: Each agent is designed to perform specific roles or tasks, such as a software engineer, a product manager, or a designer.
 
 专业化的 AI 智能体（AI Agent）：每个 AI 智能体都被设计用于执行特定的角色或任务，例如软件工程师、产品经理或设计师。
 
-Task Decomposition: Complex tasks are broken down into smaller, manageable subtasks that can be distributed among the agents.
-
-Communication and Coordination: Agents interact with each other, exchanging information and coordinating their actions to achieve common goals.
+2 Task Decomposition: Complex tasks are broken down into smaller, manageable subtasks that can be distributed among the agents.
 
 任务分解：复杂的任务会被分解为更小、更易于管理的子任务，然后将这些子任务分配给不同的 AI 智能体（AI Agent）。
 
+3 Communication and Coordination: Agents interact with each other, exchanging information and coordinating their actions to achieve common goals.
+
 通信和协调：AI 智能体之间相互互动，交换信息并协调各自的行动，以达成共同的目标。
 
-Distributed Problem Solving: The system uses the collective capabilities of multiple agents to address problems too complex for a single agent.
-
-I don't think there are a ton of real-world multi-agent systems out there yet since the technology is too immature. An example I found is ChatDev, which is a virtual software company with a CEO, CTO, engineers, etc.
+4 Distributed Problem Solving: The system uses the collective capabilities of multiple agents to address problems too complex for a single agent.
 
 分布式问题解决：这种方法利用多个 AI 智能体的协同工作能力，来解决单个 AI 智能体难以处理的复杂问题。
+
+I don't think there are a ton of real-world multi-agent systems out there yet since the technology is too immature. An example I found is ChatDev, which is a virtual software company with a CEO, CTO, engineers, etc.
 
 我认为目前实际应用中的多智能体系统还不多，因为相关技术仍不成熟。例如，我发现了一个名为 ChatDev 的项目，它模拟了一家虚拟软件公司，其中有 CEO、CTO 和工程师等不同的角色。
 
 Andrew Ng classifies the Planning and the Multi-Agent Collaboration pattern as unpredictable:
 
-Like the design pattern of Planning, I find the output quality of multi-agent collaboration hard to predict, especially when allowing agents to interact freely and providing them with multiple tools. The more mature patterns of Reflection and Tool Use are more reliable. - Andrew Ng
-
 吴恩达认为，规划和多智能体协作模式具有不可预测性：
 
-「像规划模式一样，我发现多智能体协作的输出质量难以预测，尤其当允许智能体自由交互并使用多种工具时。相比之下，更成熟的反射和工具使用模式则更为可靠。」—— 吴恩达
+Like the design pattern of Planning, I find the output quality of multi-agent collaboration hard to predict, especially when allowing agents to interact freely and providing them with multiple tools. The more mature patterns of Reflection and Tool Use are more reliable. - Andrew Ng
+
+「像规划模式一样，我发现多智能体协作的输出质量难以预测，尤其当允许智能体自由交互并使用多种工具时。相比之下，更成熟的反思和工具使用模式则更为可靠。」—— 吴恩达
 
 So, given his insights, I think the first two patterns are more likely to be used in current production systems.
 
 因此，根据他的观点，我认为前两种模式更有可能被应用在目前的生产系统中。
-
-
 
 ## 原文
 
