@@ -1014,7 +1014,7 @@ LLMs alone often hit a blocker when it comes to using personal, corporate, priva
 
 ## 原文
 
-### 1. The problem with LLMs
+\1. The problem with LLMs
 
 So you have your favorite chatbot, and you use it for your daily job to boost your productivity. It can translate text, write nice emails, tell jokes, etc. And then comes the day when your colleague comes to you and asks :
 
@@ -1052,7 +1052,7 @@ perform real time Google searches
 
 etc.
 
-### 2. What are Agents, Tools and Chains ?
+\2. What are Agents, Tools and Chains ?
 
 An agent is an application which attempts to achieve a goal (or a task) by having at its disposal a set of tools and taking decisions based on its observations of the environment.
 
@@ -1072,7 +1072,7 @@ image by author
 
 Chains are somehow different. Whereas agents can ‘decide' by themselves what to do and which steps to take, chains are just a sequence of predefined steps. They can still rely on tools though, meaning that they can include a step in which they need to select from available tools. We'll cover that later.
 
-### 3. Creating a simple chat without Tools
+\3. Creating a simple chat without Tools
 
 To illustrate our point, we will first of all see how our LLM performs as-is, without any help.
 
@@ -1094,7 +1094,7 @@ Use LangChain's API with Agents and Tools
 
 Both have their advantages and drawbacks. The purpose of this article is also to show you the possibilities and let you decide which one you prefer.
 
-### 4. Adding Tools to our chat: The Google way with Function Calling
+\4. Adding Tools to our chat: The Google way with Function Calling
 
 There are basically two ways of creating a tool out of a function.
 
@@ -1130,7 +1130,7 @@ And nicely formatted the answer to be human-readable!
 
 Let's now see another way of doing with LangChain.
 
-### 5. Adding Tools to our chat: The Langchain way with Agents
+\5. Adding Tools to our chat: The Langchain way with Agents
 
 LangChain is a composable framework to build with LLMs. It is the orchestration framework for controllable agentic workflows.
 
@@ -1160,7 +1160,7 @@ Hmmm. Seems like the agent is missing one argument, or at least asking for more 
 
 Well, seems we're back to square one. The LLM has been told the project id but forgot about the question. Our agent seems to be lacking memory to remember previous questions and answers. Maybe we should think of…
 
-### 6. Adding Memory to our Agent
+\6. Adding Memory to our Agent
 
 Memory is another concept in Agents, which basically helps the system to remember the conversation history and avoid endless loops like above. Think of memory as being a notepad where the LLM keeps track of previous questions and answers to build context around the conversation.
 
@@ -1180,7 +1180,7 @@ In some use cases however, certain actions might require special attention becau
 
 One way to secure our workflows is to add a human-in-the-loop step.
 
-### 7. Creating a Chain with a Human Validation step
+\7. Creating a Chain with a Human Validation step
 
 A chain is somehow different from an agent. Whereas the agent can decide to use or not to use tools, a chain is more static. It is a sequence of steps, for which we can still include a step where the LLM will choose from a set of tools.
 
@@ -1206,7 +1206,7 @@ You will then be asked to confirm that the LLM understood correctly:
 
 This human-in-the-loop step can be very helpful for critical workflows where a misinterpretation from the LLM could have dramatic consequences.
 
-### 8. Using search tools
+\8. Using search tools
 
 One of the most convenient tools to retrieve information in real-time are search engines . One way to do that is to use GoogleSerperAPIWrapper (you will need to register to get an API key in order to use it), which provides a nice interface to query Google Search and get results quickly.
 
@@ -1220,12 +1220,11 @@ Let's now add our Serper tool to our toolbox and see if our model can use Google
 
 And rerun our query :
 
-### Conclusion
+Conclusion
 
 LLMs alone often hit a blocker when it comes to using personal, corporate, private or real-data. Indeed, such information is generally not available at training time. Agents and tools are a powerful way to augment these models by allowing them to interact with systems and APIs, and orchestrate workflows to boost productivity.
 
-## 问题解决
-
+## 问题解决记录
 
 ➜  ~ ./google-cloud-sdk/bin/gcloud init
 Welcome! This command will take you through the configuration of gcloud.
@@ -1283,7 +1282,3 @@ Some things to try next:
 * Run `gcloud --help` to see the Cloud Platform services you can interact with. And run `gcloud help COMMAND` to get help on any gcloud command.
 * Run `gcloud topic --help` to learn about advanced features of the CLI like arg files and output formatting
 * Run `gcloud cheat-sheet` to see a roster of go-to `gcloud` commands.
-
-
-
-
