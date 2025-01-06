@@ -286,9 +286,11 @@ The following examples are from our own implementations:
 
 Fig: High-level flow of a coding agent
 
+编码智能体的高级流程
+
 ### 05. Combining and customizing these patterns
 
-编码智能体的高级流程结合并定制这些模式
+结合并定制这些模式
 
 These building blocks aren't prescriptive. They're common patterns that developers can shape and combine to fit different use cases. The key to success, as with any LLM features, is measuring performance and iterating on implementations. To repeat: you should consider adding complexity only when it demonstrably improves outcomes.
 
@@ -322,9 +324,11 @@ Frameworks can help you get started quickly, but don't hesitate to reduce abstra
 
 Acknowledgements
 
+致谢
+
 Written by Erik Schluntz and Barry Zhang. This work draws upon our experiences building agents at Anthropic and the valuable insights shared by our customers, for which we're deeply grateful.
 
-致谢本文由 Erik Schluntz 和 Barry Zhang 撰写。我们的工作基于在 Anthropic 构建智能体的经验，并得到了客户分享的宝贵见解，在此我们深表感谢。
+本文由 Erik Schluntz 和 Barry Zhang 撰写。我们的工作基于在 Anthropic 构建智能体的经验，并得到了客户分享的宝贵见解，在此我们深表感谢。
 
 ### Appendix 1: Agents in practice
 
@@ -352,9 +356,9 @@ Customer support combines familiar chatbot interfaces with enhanced capabilities
 
 3 Actions such as issuing refunds or updating tickets can be handled programmatically; and
 
-Success can be clearly measured through user-defined resolutions.
-
 像发放退款和更新票证这样的操作可以通过编程方式来处理；而且，
+
+Success can be clearly measured through user-defined resolutions.
 
 成功可以通过用户定义的解决方案来清晰地衡量。
 
@@ -410,7 +414,11 @@ Our suggestions for deciding on tool formats are the following:
 
 2 Keep the format close to what the model has seen naturally occurring in text on the internet.
 
+保持格式与模型在互联网上自然接触到的文本格式相近。
+
 3 Make sure there's no formatting "overhead" such as having to keep an accurate count of thousands of lines of code, or string-escaping any code it writes.
+
+确保没有格式上的「负担」，例如不必精确计算数千行代码，或者对它生成的任何代码进行字符串转义。
 
 One rule of thumb is to think about how much effort goes into human-computer interfaces (HCI), and plan to invest just as much effort in creating good agent-computer interfaces (ACI). Here are some thoughts on how to do so:
 
