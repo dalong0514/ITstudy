@@ -110,53 +110,73 @@ Single Agent Architecture. (Image by author)
 
 The main difference between a simple LLM and an agent comes down to the system prompt.
 
-The system prompt, in the context of an LLM, is a set of instructions and contextual information provided to the model before it engages with user queries.
-
 简单的大语言模型（LLM）和 AI 智能体之间的主要区别，在于它们的系统提示。
+
+The system prompt, in the context of an LLM, is a set of instructions and contextual information provided to the model before it engages with user queries.
 
 对于大语言模型而言，系统提示是指在模型响应用户提问之前，预先提供给它的一组指令和背景信息。
 
 The agentic behavior expected of the LLM can be codified within the system prompt.
 
-Here are some common agentic patterns, which can be customized to fit your needs:
-
 大语言模型期望的像智能体一样的行为，可以在系统提示中进行定义。
+
+Here are some common agentic patterns, which can be customized to fit your needs:
 
 这里有一些常见的智能体行为模式，您可以根据自己的需求进行定制：
 
-Tool Use: The agent determines when to route queries to the appropriate tool or rely on its own knowledge.
-
-Reflection: The agent reviews and corrects its answers before responding to the user. A reflection step can also be added to most LLM systems.
+1 Tool Use: The agent determines when to route queries to the appropriate tool or rely on its own knowledge.
 
 工具使用：AI 智能体（AI Agent）会判断何时将问题交给合适的工具处理，或者何时依靠自身的知识来解答。
 
+2 Reflection: The agent reviews and corrects its answers before responding to the user. A reflection step can also be added to most LLM systems.
+
 反思：AI 智能体在回答用户之前，会检查并修正自己的答案。许多大语言模型（LLM/Large Language Model）系统也可以加入反思步骤。
 
-Reason-then-Act (ReAct): The agent iteratively reasons through how to solve the query, performs an action, observes the outcome, and determines whether to take another action or provide a response.
+3 Reason-then-Act (ReAct): The agent iteratively reasons through how to solve the query, performs an action, observes the outcome, and determines whether to take another action or provide a response.
 
 Reason-then-Act（ReAct）：ReAct（Reason-then-Act）智能体以迭代的方式进行推理，思考如何解决问题，然后采取行动，查看行动的结果，并决定是采取进一步的行动还是给出最终答案。
 
-Plan-then-Execute: The agent plans upfront by breaking the task into sub-steps (if needed) and then executes each step.
+4 Plan-then-Execute: The agent plans upfront by breaking the task into sub-steps (if needed) and then executes each step.
+
+计划-执行：AI 智能体预先规划，将任务分解为子步骤（如果需要），然后执行每个步骤。
 
 The last two patterns — ReAct and Plan-then-Execute — are often the best starting point for building a general-purpose single agent.
 
-计划 - 执行：AI 智能体预先规划，将任务分解为子步骤（如果需要），然后执行每个步骤。
-
-最后两种模式 ——ReAct 和计划 - 执行 —— 通常是构建通用型单 AI 智能体的最佳起点。
+最后两种模式 —— ReAct 和计划-执行 —— 通常是构建通用型单 AI 智能体的最佳起点。
 
 Overview of Common Agentic Patterns. (Image by author)
 
-To implement these behaviors effectively, you'll need to do some prompt engineering. You might also want to use a structured generation technique. This basically means shaping the LLM's output to match a specific format or schema, so the agent's responses stay consistent with the communication style you're aiming for.
-
 常用 AI 智能体模式概览。(作者图片)
+
+To implement these behaviors effectively, you'll need to do some prompt engineering. You might also want to use a structured generation technique. This basically means shaping the LLM's output to match a specific format or schema, so the agent's responses stay consistent with the communication style you're aiming for.
 
 为了有效地实现这些行为，你需要进行一些提示工程（prompt engineering）。你可能还需要使用结构化生成技术。这基本上意味着引导大语言模型（LLM）的输出，使其符合特定的格式或结构，从而使 AI 智能体的回复与你期望的沟通风格保持一致。
 
 Example: Below is a system prompt excerpt for a ReAct style agent from the Bee Agent Framework.
 
-#### Step 3. Define the agent's core instructions
-
 示例：以下是来自 Bee Agent Framework 的一个 ReAct 风格 AI 智能体的系统提示示例。
+
+[bee-agent-framework/src/agents/bee/prompts.ts at main · i-am-bee/bee-agent-framework](https://github.com/i-am-bee/bee-agent-framework/blob/main/src/agents/bee/prompts.ts)
+
+\# Communication structure
+You communicate only in instruction lines. The format is: "Instruction: expected output". You must only use these instruction lines and must not enter empty lines or anything else between instruction lines.
+You must skip the instruction lines Function Name, Function Input and Function Output if no function calling is required.
+
+Message: User's message. You never use this instruction line.
+Thought: A single-line plan of how to answer the user's message. It must be immediately followed by Final Answer.
+Thought: A single-line step-by-step plan of how to answer the user's message. You can use the available functions defined above. This instruction line must be immediately followed by Function Name if one of the available functions defined above needs to be called, or by Final Answer. Do not provide the answer here.
+Function Name: Name of the function. This instruction line must be immediately followed by Function Input.
+Function Input: Function parameters. Empty object is a valid parameter.
+Function Output: Output of the function in JSON format.
+Thought: Continue your thinking process.
+Final Answer: Answer the user or ask for more information or clarification. It must always be preceded by Thought.
+
+\## Examples
+Message: Can you translate "How are you" into French?
+Thought: The user wants to translate a text into French. I can do that.
+Final Answer: Comment vas-tu?
+
+#### Step 3. Define the agent's core instructions
 
 步骤 3. 定义 AI 智能体的核心指令。
 
