@@ -206,7 +206,7 @@ def get_exchange_rate_from_api(params):
 
 \# Try it out !
 get_exchange_rate_from_api({'currency_from': 'USD', 'currency_to': 'EUR'})
----
+ ---
 '{"amount":1.0,"base":"USD","date":"2024-11-20","rates":{"EUR":0.94679}}'
 ```
 

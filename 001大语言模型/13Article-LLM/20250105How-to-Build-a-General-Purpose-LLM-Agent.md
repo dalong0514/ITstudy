@@ -186,67 +186,131 @@ We tend to take for granted that LLMs come with a bunch of features right out of
 
 This could include instructions like:
 
-Agent Name and Role: What the agent is called and what it's meant to do.
-
 这可以包括以下类型的指令：
+
+1 Agent Name and Role: What the agent is called and what it's meant to do.
 
 AI 智能体名称和角色：AI 智能体的名称以及其设计用途。
 
-Tone and Conciseness: How formal or casual it should sound, and how brief it should be.
-
-When to Use Tools: Deciding when to rely on external tools versus the model's own knowledge.
+2 Tone and Conciseness: How formal or casual it should sound, and how brief it should be.
 
 语气和简洁性：语气应该有多正式或随意，以及应该有多精炼。
 
+3 When to Use Tools: Deciding when to rely on external tools versus the model's own knowledge.
+
 何时使用工具：决定何时使用外部工具，而不是依赖模型自身的知识。
 
-Handling Errors: What the agent should do when something goes wrong with a tool or process.
-
-Example: Below is a snippet of the instructions section from the Bee Agent Framework.
+4 Handling Errors: What the agent should do when something goes wrong with a tool or process.
 
 错误处理：当工具或流程出现问题时，AI 智能体应该如何应对。
 
+Example: Below is a snippet of the instructions section from the Bee Agent Framework.
+
 示例：以下是 Bee Agent Framework 中指令部分的节选。
+
+[bee-agent-framework/src/agents/bee/prompts.ts at main · i-am-bee/bee-agent-framework](https://github.com/i-am-bee/bee-agent-framework/blob/main/src/agents/bee/prompts.ts)
+
+\# Instructions
+User can only see the Final Answer, all answers must be provided there.
+You must always use the communication structure and instructions defined above. Do not forget that Thought must be a single-line immediately followed by Final Answer.
+You must always use the communication structure and instructions defined above. Do not forget that Thought must be a single-line immediately followed by either Function Name or Final Answer.
+Functions must be used to retrieve factual or historical information to answer the message.
+If the user suggests using a function that is not available, answer that the function is not available. You can suggest alternatives if appropriate.
+When the message is unclear or you need more information from the user, ask in Final Answer.
+
+\# Your capabilities
+Prefer to use these capabilities over functions.
+- You understand these languages: English, Spanish, French.
+- You can translate and summarize, even long documents.
+
+\# Notes
+- If you don't know the answer, say that you don't know.
+- The current time and date in ISO format can be found in the last message.
+- When answering the user, use friendly formats for time and date.
+- Use markdown syntax for formatting code snippets, links, JSON, tables, images, files.
+- Sometimes, things don't go as planned. Functions may not provide useful information on the first few tries. You should always try a few different approaches before declaring the problem unsolvable.
+- When the function doesn't give you what you were asking for, you must either use another function or a different function input.
+  - When using search engines, you try different formulations of the query, possibly even in a different language.
+- You cannot do complex calculations, computations, or data manipulations without using functions.m
 
 #### Step 4. Define and optimize your core tools
 
+步骤 4. 定义并优化你的核心工具
+
 Tools are what give your agents their superpowers. With a narrow set of well-defined tools, you can achieve broad functionality. Key tools to include are code execution, web search, file reading, and data analysis.
 
-步骤 4. 定义并优化你的核心工具工具是赋予你的 AI 智能体超能力的关键。通过精简且定义明确的工具集，你可以实现广泛的功能。关键工具包括代码执行、网络搜索、文件读取和数据分析。
+工具是赋予你的 AI 智能体超能力的关键。通过精简且定义明确的工具集，你可以实现广泛的功能。关键工具包括代码执行、网络搜索、文件读取和数据分析。
 
 For each tool, you'll need to define the following and include it as part of the system prompt:
 
-Tool Name: A unique, descriptive name for the capability.
-
 对于每个工具，您需要定义以下内容，并将其纳入系统提示中：
+
+1 Tool Name: A unique, descriptive name for the capability.
 
 工具名称：此功能唯一的、描述性的名称。
 
-Tool Description: A clear explanation of what the tool does and when to use it. This helps the agent determine when to pick the right tool.
+2 Tool Description: A clear explanation of what the tool does and when to use it. This helps the agent determine when to pick the right tool.
 
-Tool Input Schema: A schema that outlines required and optional parameters, their types, and any constraints. The agent uses this to fill in the inputs it needs based on the user's query..
+工具描述：对工具的功能以及何时使用进行清晰的解释。这有助于 AI 智能体（AI Agent）确定何时选择合适的工具。
 
-工具描述： 对工具的功能以及何时使用进行清晰的解释。这有助于 AI 智能体（AI Agent）确定何时选择合适的工具。
+3 Tool Input Schema: A schema that outlines required and optional parameters, their types, and any constraints. The agent uses this to fill in the inputs it needs based on the user's query..
 
 工具输入结构： 一个概述了必需和可选参数、它们的类型以及任何约束的结构。AI 智能体使用这个结构来根据用户的查询填写所需的输入。
 
-A pointer to where/how to run the tool.
-
-Example: Below is an excerpt of an Arxiv tool implementation from Langchain Community. This implementation requires an ArxivAPIWrapper implementation.
+4 A pointer to where/how to run the tool.
 
 关于如何运行此工具的说明。
 
+Example: Below is an excerpt of an Arxiv tool implementation from Langchain Community. This implementation requires an ArxivAPIWrapper implementation.
+
 示例：以下是 Langchain Community 中 Arxiv 工具实现的一个片段。这个工具的实现需要 ArxivAPIWrapper。
+
+[langchain/libs/community/langchain\_community/tools/arxiv/tool.py at master · langchain-ai/langchain](https://github.com/langchain-ai/langchain/blob/master/libs/community/langchain_community/tools/arxiv/tool.py)
+
+[langchain/libs/community/langchain\_community/tools at master · langchain-ai/langchain](https://github.com/langchain-ai/langchain/tree/master/libs/community/langchain_community/tools)
 
 In certain cases, you'll need to optimize tools to get the performance you're looking for. This might involve tweaking the tool name or description with some prompt engineering, setting up advanced configurations to handle common errors, or filtering the tool's output.
 
-在某些情况下，为了达到预期的性能，您可能需要对工具进行优化。这可能包括： 通过一些提示工程（prompt engineering）的技巧，调整工具的名称或描述；设置更高级的配置来处理常见的错误；或者对工具的输出结果进行筛选。
+在某些情况下，为了达到预期的性能，您可能需要对工具进行优化。这可能包括：通过一些提示工程（prompt engineering）的技巧，调整工具的名称或描述；设置更高级的配置来处理常见的错误；或者对工具的输出结果进行筛选。
+
+```py
+class ArxivInput(BaseModel):
+    """Input for the Arxiv tool."""
+
+    query: str = Field(description="search query to look up")
+
+
+class ArxivQueryRun(BaseTool):  # type: ignore[override, override]
+    """Tool that searches the Arxiv API."""
+
+    name: str = "arxiv"
+    description: str = (
+        "A wrapper around Arxiv.org "
+        "Useful for when you need to answer questions about Physics, Mathematics, "
+        "Computer Science, Quantitative Biology, Quantitative Finance, Statistics, "
+        "Electrical Engineering, and Economics "
+        "from scientific articles on arxiv.org. "
+        "Input should be a search query."
+    )
+    api_wrapper: ArxivAPIWrapper = Field(default_factory=ArxivAPIWrapper)  # type: ignore[arg-type]
+    args_schema: Type[BaseModel] = ArxivInput
+
+    def _run(
+        self,
+        query: str,
+        run_manager: Optional[CallbackManagerForToolRun] = None,
+    ) -> str:
+        """Use the Arxiv tool."""
+        return self.api_wrapper.run(query)p
+```
 
 #### Step 5. Decide on a memory handling strategy
 
+步骤 5. 确定内存处理策略
+
 LLMs are limited by their context window — the number of tokens they can "remember" at a time. This memory can fill up fast with things like past interactions in multi-turn conversations, lengthy tool outputs, or extra context the agent is grounded on. That's why having a solid memory handling strategy is crucial.
 
-第五步。确定内存处理策略大语言模型（LLM）的处理能力受限于其上下文窗口 —— 即它们一次能够处理的 Token 数量。这个内存空间会很快被各种信息占据，例如多轮对话中的历史记录、冗长的工具输出，或是 AI 智能体（AI Agent）所依赖的额外背景信息。因此，制定一个有效的内存处理策略至关重要。
+大语言模型（LLM）的处理能力受限于其上下文窗口 —— 即它们一次能够处理的 Token 数量。这个内存空间会很快被各种信息占据，例如多轮对话中的历史记录、冗长的工具输出，或是 AI 智能体（AI Agent）所依赖的额外背景信息。因此，制定一个有效的内存处理策略至关重要。
 
 Memory, in the context of an agent, refers to the system's capability to store, recall, and utilize information from past interactions. This enables the agent to maintain context over time, improve its responses based on previous exchanges, and provide a more personalized experience.
 
@@ -254,17 +318,17 @@ Memory, in the context of an agent, refers to the system's capability to store, 
 
 Common Memory Handling Strategies:
 
-Sliding Memory: Keep the last k conversation turns in memory and drop the older ones.
-
 常见的内存管理方法：
 
-滑动内存： 保留最近的 k 轮对话在内存中，并丢弃更早的对话。
+1 Sliding Memory: Keep the last k conversation turns in memory and drop the older ones.
 
-Token Memory: Keep the last n tokens and forget the rest.
+滑动内存：保留最近的 k 轮对话在内存中，并丢弃更早的对话。
 
-Summarized Memory: Use the LLM to summarize the conversation at each turn and drop the individual messages.
+2 Token Memory: Keep the last n tokens and forget the rest.
 
 Token 记忆：保留最近的 n 个 Token，并丢弃其余的。
+
+3 Summarized Memory: Use the LLM to summarize the conversation at each turn and drop the individual messages.
 
 总结记忆：利用大语言模型（LLM）逐轮总结对话，并舍弃原始消息。
 
@@ -274,13 +338,18 @@ Additionally, you can also have an LLM detect key moments to store in long-term 
 
 The five steps we've covered so far lay the foundation for setting up an agent. But what happens if we run a user query through our LLM at this stage?
 
-Answer: you get a raw text output. (Image by author)
-
 我们目前介绍的五个步骤为建立一个 AI 智能体奠定了基础。但是，如果在这个阶段我们用大语言模型处理用户查询，会发生什么呢？
 
-答案：你会得到一段未经处理的文本。(图片由作者提供)
+Fig: Answer: you get a raw text output. (Image by author)
 
 Here's an example of what that might look like:
+
+User Message: Extract key insighs from this dataset
+Files: bill-of-materials.csv
+Thought: First, I need to inspect the columns of the dataset and provide basic data statistics.
+Function Name: Python
+Function Input: {"language":"python","code":"import pandas as pd\n\ndataset = pd.read_csv('bill-of-materials.csv')\n\nprint(dataset.columns)\nprint(dataset.describe())","inputFiles":["bill-of-materials.csv"]}
+Function Output:
 
 At this point, the agent produces raw text output. So how do we get it to actually execute the next step? That's where parsing and orchestration come in.
 
@@ -288,9 +357,11 @@ At this point, the agent produces raw text output. So how do we get it to actual
 
 #### Step 6. Parse the agent's raw output
 
+第六步：解析智能体的原始输出
+
 A parser is a function that converts raw data into a format your application can understand and work with (like an object with properties)
 
-第六步：解析智能体的原始输出解析器是一种函数，它将原始数据转换成应用可以理解和使用的格式，比如带有属性的对象。
+解析器是一种函数，它将原始数据转换成应用可以理解和使用的格式，比如带有属性的对象。
 
 For the agent we're building, the parser needs to recognize the communication structure we defined in Step 2 and return a structured output, like JSON. This makes it easier for the application to process and execute the agent's next steps.
 
@@ -302,39 +373,80 @@ Note: some model providers like OpenAI, can return parsable outputs by default. 
 
 #### Step 7. Orchestrate the agent's next step
 
+步骤 7. 规划智能体的下一步行动
+
 The final step is setting up the orchestration logic. This determines what happens after the LLM outputs a result. Depending on the output, you'll either:
 
-步骤 7. 规划智能体的下一步行动最后一步是建立规划逻辑。它决定了大语言模型给出结果之后会发生什么。根据输出结果，你将：
+最后一步是设置编排逻辑。它决定了在 LLM 输出结果后会发生什么。根据输出的不同，您要么：
 
-Execute a tool call, or
+1 Execute a tool call, or
 
-Return an answer — either the final response to the user's query or a follow-up request for more information.
+2 Return an answer — either the final response to the user's query or a follow-up request for more information.
 
-数字媒体，包括音频、图像和视频，已经渗透到我们日常生活的方方面面。它们被广泛应用于社交媒体、新闻网站和各种通讯渠道。随着这些媒体内容爆炸式增长，如何高效地存储、检索和分析这些数据变得至关重要。为了应对这一挑战，人们开发了各种压缩技术。这些技术旨在减小媒体文件的大小，同时尽可能保持可接受的质量水平。例如，FLAC 是一种流行的无损音频压缩格式，它可以在不损失任何原始音频数据的前提下减小文件大小。而 JPEG 是一种广泛使用的有损图像压缩格式，它通过丢弃部分数据来减小文件大小，但可能会导致一定的质量损失。这些压缩技术在现代数字媒体管理中起着至关重要的作用，使得我们能够高效地存储和传输大量数据。接下来，我们将深入探讨用于生成式 AI（Generative AI）的压缩技术，并详细研究它们的特性。
+执行一个工具调用，  
 
-图 1：常见压缩技术概览
+要么返回一个答案 —— 这可能是对用户查询的最终回复，也可能是一个进一步请求更多信息的后续问题。
 
 Extended single agent architecture. (Image by author)
 
 If a tool call is triggered, the tool's output is sent back to the LLM (as part of its working memory). The LLM would then determine what to do with this new information: either perform another tool call or return an answer to the user.
 
-扩展的单智能体架构。(作者供图)
-
 如果触发了工具调用，工具的输出结果会返回给大语言模型（LLM），并作为其工作记忆的一部分存储起来。随后，大语言模型会根据这个新信息来决定下一步操作：是再次调用工具，还是直接回复用户。
 
 Here's an example of how this orchestration logic might look in code:
 
-And voilà! You now have a system capable of handling a wide variety of use cases — from competitive analysis and advanced research to automating complex workflows.
-
 以下展示了这种编排逻辑在代码中的实现方式：
+
+```py
+def orchestrator(llm_agent, llm_output, tools, user_query):
+    """
+    Orchestrates the response based on LLM output and iterates if necessary.
+
+    Parameters:
+    - llm_agent (callable): The LLM agent function for processing tool outputs.
+    - llm_output (dict): Initial output from the LLM, specifying the next action.
+    - tools (dict): Dictionary of available tools with their execution methods.
+    - user_query (str): The original user query.
+
+    Returns:
+    - str: The final response to the user.
+    """
+    while True:
+        action = llm_output.get("action")
+
+        if action == "tool_call":
+            # Extract tool name and parameters
+            tool_name = llm_output.get("tool_name")
+            tool_params = llm_output.get("tool_params", {})
+
+            if tool_name in tools:
+                try:
+                    # Execute the tool
+                    tool_result = tools[tool_name](**tool_params)
+                    # Send tool output back to the LLM agent for further processing
+                    llm_output = llm_agent({"tool_output": tool_result})
+                except Exception as e:
+                    return f"Error executing tool '{tool_name}': {str(e)}"
+            else:
+                return f"Error: Tool '{tool_name}' not found."
+
+        elif action == "return_answer":
+            # Return the final answer to the user
+            return llm_output.get("answer", "No answer provided.")
+
+        else:
+            return "Error: Unrecognized action type from LLM output."
+```
+
+And voilà! You now have a system capable of handling a wide variety of use cases — from competitive analysis and advanced research to automating complex workflows.
 
 至此，你就拥有了一个能够应对多种应用场景的系统，它既可以进行竞争分析和深入研究，也能自动化复杂的工作流程。
 
-Where do multi-agent systems come in?
-
-While this generation of LLMs is incredibly powerful, they have a key limitation: they struggle with information overload. Too much context or too many tools can overwhelm the model, leading to performance issues. A general-purpose single agent will eventually hit this ceiling, especially since agents are notoriously token-hungry.
+### Where do multi-agent systems come in?
 
 多智能体系统如何发挥作用？
+
+While this generation of LLMs is incredibly powerful, they have a key limitation: they struggle with information overload. Too much context or too many tools can overwhelm the model, leading to performance issues. A general-purpose single agent will eventually hit this ceiling, especially since agents are notoriously token-hungry.
 
 虽然这一代大语言模型（LLM）功能非常强大，但它们面临一个关键限制：难以处理过量信息。过多的上下文或工具会让模型难以招架，导致性能下降。通用的单智能体最终会触及这个瓶颈，尤其因为智能体对 Token 的需求量很大。
 
@@ -346,33 +458,35 @@ That said, a general-purpose single-agent setup is a fantastic starting point fo
 
 也就是说，一个通用的单智能体系统是原型开发的一个很好的起点。它可以帮助你快速测试你的用例，并识别哪些环节出现问题。通过这个过程，你可以：
 
-Understand which parts of the task truly benefit from an agentic approach.
-
-Identify components that can be spun off as standalone processes in a larger workflow.
+1 Understand which parts of the task truly benefit from an agentic approach.
 
 理解任务的哪些部分能够真正从 AI 智能体（AI Agent）方法中获益。
+
+2 Identify components that can be spun off as standalone processes in a larger workflow.
 
 识别在更大的工作流程中，哪些组件可以作为独立的流程拆分出来。
 
 Starting with a single agent gives you valuable insights to refine your approach as you scale to more complex systems.
 
-What is the best way to get started?
-
 从一个 AI 智能体开始，可以帮助你获得宝贵的经验，从而在未来扩展到更复杂的系统时，更好地优化你的方法。
+
+### What is the best way to get started?
 
 那么，如何开始是最好的呢？
 
 Ready to dive in and start building? Using a framework can be a great way to quickly test and iterate on your agent configuration.
 
-Planning on using open-source models like Llama 3? Try this starter template from the Bee Agent Framework.
+准备好开始动手构建了吗？使用框架是快速测试和迭代你的 AI 智能体配置的好方法。
 
-准备好开始动手构建了吗？ 使用框架是快速测试和迭代你的 AI 智能体配置的好方法。
+1 Planning on using open-source models like Llama 3? Try this starter template from the Bee Agent Framework.
 
 如果你打算使用像 Llama 3 这样的开源模型，不妨试试 Bee Agent Framework 提供的入门模板。
 
-Planning on using frontier models like OpenAI? Try this tutorial from LangGraph.
+2 Planning on using frontier models like OpenAI? Try this tutorial from LangGraph.
 
 您是否正计划使用像 OpenAI 这样的前沿模型？不妨试试 LangGraph 的这篇教程。
+
+[How to create a ReAct agent from scratch](https://langchain-ai.github.io/langgraph/how-tos/react-agent-from-scratch/)
 
 ## 原文
 
