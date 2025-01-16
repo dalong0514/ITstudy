@@ -170,105 +170,302 @@ This code snippet demonstrates building the agent using LangGraph. should_we_sto
 
 ### 02. User Interface
 
+用户界面
+
 We have multiple options for serving the agent: two of them are behind a REST API or through a graphical UI. This example uses the latter, based on FastAPI and NiceGUI. The UI maintains a message history, sending new user messages to the agent. The agent’s response updates the UI, displaying the new message history. Tool responses can also be displayed.
 
-用户界面我们有多种使用 AI 智能体的方式：可以通过 REST API 或者图形界面。本例使用的是后者，它基于 FastAPI 和 NiceGUI。图形界面会保存消息记录，并将用户的新消息发送给 AI 智能体。AI 智能体的回复会更新界面，显示最新的消息记录。同时，工具的反馈也会显示。
+我们有多种使用 AI 智能体的方式：可以通过 REST API 或者图形界面。本例使用的是后者，它基于 FastAPI 和 NiceGUI。图形界面会保存消息记录，并将用户的新消息发送给 AI 智能体。AI 智能体的回复会更新界面，显示最新的消息记录。同时，工具的反馈也会显示。
 
 UI Implementation details (llm_agent/chat_app.py):
 
-ui.chat_message: Displays messages.
-message.type: Determines the user's avatar and whether the message was sent or received.
+1 ui.chat_message: Displays messages.
 
-用户界面（UI）实现细节（llm_agent/chat_app.py)：
+ui.chat_message：用于显示聊天消息。
 
-ui.chat_message： 用于显示聊天消息。
-message.type： 用于确定用户头像，并区分消息是发送的还是接收的。
+2 message.type: Determines the user's avatar and whether the message was sent or received.
+
+message.type：用于确定用户头像，并区分消息是发送的还是接收的。
+
+```py
+\# Modified from https://github.com/zauberzeug/nicegui/blob/main/examples/chat_app/main.py
+import os
+from typing import Optional
+
+from fastapi import FastAPI, Request
+from langchain_core.messages import AnyMessage, HumanMessage
+from langgraph.graph.graph import CompiledGraph
+from nicegui import run, ui
+
+from llm_agent.state import OverallState
+
+
+def message_to_content(message: AnyMessage):
+    if message.type == "human":
+        return message.content
+    elif message.type == "ai":
+        if message.tool_calls:
+            return f"Requesting tools: {[x['name'] for x in message.tool_calls]}"
+        else:
+            return message.content
+    elif message.type == "tool":
+        return (
+            message.content
+            if len(message.content) < 300
+            else message.content[:300] + "..."
+        )
+    else:
+        return message.content
+
+
+class PageData:
+    def __init__(self, messages=None, query=None, processing=None):
+        self.messages: Optional[list] = messages
+        self.query: Optional[str] = query
+        self.processing: Optional[bool] = processing
+
+    def reset(self):
+        self.query = ""
+
+
+class Refreshables:
+    @ui.refreshable
+    async def chat_messages(self, page_data: PageData) -> None:
+        if page_data.messages:
+            for message in page_data.messages:
+                bg_set = {"ai": "set1", "tool": "set4", "human": "set2"}[message.type]
+                avatar = f"https://robohash.org/{message.type}?bgset={bg_set}"
+                ui.chat_message(
+                    text=message_to_content(message),
+                    avatar=avatar,
+                    sent=message.type == "human",
+                )
+            ui.spinner(type="dots").bind_visibility(page_data, "processing")
+        else:
+            ui.label("No messages yet").classes("mx-auto my-36")
+        await ui.run_javascript("window.scrollTo(0, document.body.scrollHeight)")
+
+
+async def handle_enter(page_data, agent, config, refreshables) -> None:
+    if page_data.query:
+        message = HumanMessage(content=page_data.query[:1000])
+        page_data.reset()
+        page_data.processing = True
+        state = OverallState(messages=[message])
+        # state_dict = agent.invoke(state, config)
+        state_dict = await run.io_bound(agent.invoke, state, config)
+        page_data.messages = state_dict["messages"]
+        page_data.processing = False
+        refreshables.chat_messages.refresh(page_data=page_data)
+
+
+async def chat_page(request: Request):
+    agent: CompiledGraph = request.state.agent
+    config = {"configurable": {"thread_id": request.app.storage.browser["id"]}}
+    messages: list[AnyMessage] = agent.get_state(config).values.get("messages", [])
+    page_data = PageData(messages=messages)
+    refreshables = Refreshables()
+
+    ui.add_css(
+        r"a:link, a:visited {color: inherit !important; text-decoration: none; font-weight: 500}"
+    )
+    with ui.footer().classes("bg-white"), ui.column().classes(
+        "w-full max-w-3xl mx-auto my-6"
+    ):
+        with ui.row().classes("w-full no-wrap items-center"):
+            ui.input(
+                placeholder="message",
+            ).props("outlined dense maxlength=1000").on(
+                "keydown.enter",
+                lambda e: handle_enter(
+                    page_data=page_data,
+                    agent=agent,
+                    config=config,
+                    refreshables=refreshables,
+                ),
+            ).props("rounded outlined input-class=mx-3").classes(
+                "flex-grow"
+            ).bind_value(page_data, "query")
+
+        ui.markdown(
+            "Built with [NiceGUI](https://nicegui.io) and [LangGraph](https://langchain-ai.github.io/langgraph/)"
+        ).classes("text-xs self-end mr-8 m-[-1em] text-primary")
+
+    await (
+        ui.context.client.connected()
+    )  # chat_messages(...) uses run_javascript which is only possible after connecting
+    with ui.column().classes("w-full max-w-2xl mx-auto items-stretch"):
+        await refreshables.chat_messages(page_data=page_data)
+
+
+def init(fastapi_app: FastAPI) -> None:
+    ui.page("/", title="LLM Agent", response_timeout=10)(chat_page)
+
+    ui.run_with(
+        fastapi_app,
+        mount_path="/"
+    )
+```
 
 Once the user presses the “Enter” key, the page’s backend sends a query to the agends and await’s the result. Once the result is in, it updates the messages list and refreshes the message history to display the result to the user.
 
 当用户按下「Enter」键后，页面的后端会向 AI 智能体（AI Agent）发送查询，并等待其返回结果。一旦收到结果，后端会更新消息列表，并刷新消息历史，从而将结果呈现给用户。
 
-
-Image by author
 The tool response is truncated for readability and uses a different avatar to differentiate it from the LLM responses.
 
-Persistence
-The in-memory state store from langgraph.checkpoint.memory.MemorySaver is sufficient for a proof of concept or a demo app, but his approach is not suitable for production due to its volatile nature where you lose data if the service restarts or if the user is routed to a different instance. A future blog post will cover more robust persistence options. The --session-affinity flag in the deployment script helps mitigate this by routing users to the same instance, preserving the in-memory state within a session, but it is more of a band-aid than a real solution.
+为了方便阅读，工具的回复被截断，并使用了不同的头像，以便与大语言模型（LLM）的回复区分开来。
 
-作者提供的图像为了方便阅读，工具的回复被截断，并使用了不同的头像，以便与大语言模型（LLM）的回复区分开来。
+### 03. Persistence
 
 持久化
+
+The in-memory state store from langgraph.checkpoint.memory.MemorySaver is sufficient for a proof of concept or a demo app, but his approach is not suitable for production due to its volatile nature where you lose data if the service restarts or if the user is routed to a different instance. A future blog post will cover more robust persistence options. The --session-affinity flag in the deployment script helps mitigate this by routing users to the same instance, preserving the in-memory state within a session, but it is more of a band-aid than a real solution.
+
 `langgraph.checkpoint.memory.MemorySaver` 提供的内存状态存储，对于概念验证或演示应用来说是足够的。但是，这种方法不适合生产环境，因为它具有易失性，当服务重启或用户被路由到不同的实例时，数据会丢失。未来的博客文章将介绍更可靠的持久化方案。部署脚本中的 `--session-affinity` 标志，通过将用户路由到同一实例来帮助缓解这个问题，从而在会话中保留内存状态，但这更多的是一种临时措施，而不是真正的解决方案。
 
-Containerization and Deployment
+### 04. Containerization and Deployment
+
 The application is packaged into a Docker image using a standard Dockerfile:
 
-The Dockerfile pulls a python base image, installs dependencies from requirements and then copies the relevant source file. It then runs the app using the utility bash script run.sh .
-
 容器化和部署该应用程序被打包成 Docker 镜像，打包过程使用标准的 Dockerfile：
+
+```
+FROM python:3.10-slim
+
+WORKDIR "/app"
+
+ENV PYTHONFAULTHANDLER=1 \
+    PYTHONHASHSEED=random \
+    PYTHONUNBUFFERED=1
+
+ENV PIP_DEFAULT_TIMEOUT=100 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_NO_CACHE_DIR=1
+
+
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
+COPY run.sh run.sh
+
+COPY llm_agent llm_agent
+
+CMD ["bash", "run.sh", "prod"]
+```
+
+The Dockerfile pulls a python base image, installs dependencies from requirements and then copies the relevant source file. It then runs the app using the utility bash script run.sh .
 
 Dockerfile 指令会拉取一个 Python 基础镜像，并从 requirements 文件中安装依赖，然后复制相关的源文件。之后，它会使用 bash 脚本 run.sh 来运行程序。
 
 The deployment script (deploy.sh) uses Google Cloud Build and Cloud Run:
 
-Before running this script:
+部署脚本（deploy.sh）会用到 Google Cloud Build 和 Cloud Run 这两项服务：
 
-部署脚本（deploy.sh） 会用到 Google Cloud Build 和 Cloud Run 这两项服务：
+```
+PROJECT_ID=$(gcloud config get-value project)
+REPO="demo"
+LOCATION="europe-west1"
+IMAGE="llm_agent"
+SERVICE_NAME="llm-agent"
+VERSION="0.0.1"
+GAR_TAG=$LOCATION-docker.pkg.dev/$PROJECT_ID/$REPO/$IMAGE:$VERSION
+
+\# Create repository
+gcloud artifacts repositories create $REPO --repository-format=docker \
+    --location=$LOCATION --description="Docker repository" \
+    --project=$PROJECT_ID  || true # If fails because already exist then its fine
+
+\# Build image
+gcloud builds submit --tag $GAR_TAG
+
+\# Deploy Cloud run
+gcloud run deploy $SERVICE_NAME --image=$GAR_TAG --max-instances=1 --min-instances=0 --port=8080 \
+ --allow-unauthenticated --region=europe-west1 --memory=2Gi --cpu=1 -q --session-affinity \
+ --service-account=cloud-run@$PROJECT_ID.iam.gserviceaccount.com --concurrency 300 --timeout 1800 \
+ $(awk '!/^#/ && NF {printf "--set-env-vars %s ", $0}' .env) # --no-cpu-throttling
+```
+
+Before running this script:
 
 在执行此脚本之前，请确保：
 
-Install the Google Cloud SDK (gcloud CLI): https://cloud.google.com/sdk/docs/install
-Authenticate with your Google Cloud account: gcloud auth login
-Set your project ID: gcloud config set project YOUR_PROJECT_ID
-Activate all relevant services: Cloud build, GAR, Cloud Run.
-The script creates a Docker repository in Google Artifact Registry (GAR), builds the Docker image using Cloud Build, and deploys the image to Cloud Run. Key parameters in the gcloud run deploy command include:
+1 Install the Google Cloud SDK (gcloud CLI): https://cloud.google.com/sdk/docs/install
 
 要安装 Google Cloud SDK（gcloud CLI），请参考：https://cloud.google.com/sdk/docs/install
+
+2 Authenticate with your Google Cloud account: gcloud auth login
+
 使用您的 Google Cloud 账号进行身份验证，请执行：gcloud auth login
+
+3 Set your project ID: gcloud config set project YOUR_PROJECT_ID
+
 设置您的项目 ID，请执行：gcloud config set project YOUR_PROJECT_ID
+
+4 Activate all relevant services: Cloud build, GAR, Cloud Run.
+
 请激活以下服务：Cloud Build、GAR 和 Cloud Run。
+
+The script creates a Docker repository in Google Artifact Registry (GAR), builds the Docker image using Cloud Build, and deploys the image to Cloud Run. Key parameters in the gcloud run deploy command include:
+
 这个脚本会在 Google Artifact Registry（GAR）中创建一个 Docker 镜像仓库，然后使用 Cloud Build 构建 Docker 镜像，最后将镜像部署到 Cloud Run。gcloud run deploy 命令的关键参数如下：
 
 --session-affinity: Routes users to the same instance.
+
+将用户引导至同一实例。
+
 --set-env-vars: Sets environment variables (including your LLM API key, read from the .env file). Store API keys securely using Google Cloud Secret Manager in production environments.
 Running this script will deploy the app and return the URL of the service for you.
 
---session-affinity：将用户引导至同一实例。
---set-env-vars：设置环境变量，包括从 .env 文件读取的您的大语言模型（LLM）API 密钥。在生产环境中，建议使用 Google Cloud Secret Manager 安全地存储 API 密钥。
+设置环境变量，包括从 .env 文件读取的您的大语言模型（LLM）API 密钥。在生产环境中，建议使用 Google Cloud Secret Manager 安全地存储 API 密钥。
 运行此脚本将部署应用，并返回该服务的 URL。
 
-CI and Secret Detection
-The project includes two GitHub Actions:
+### 05. CI and Secret Detection
 
-Secret Detection: Scans for leaked secrets in the codebase. This is particularly important when your work involves API keys or service accounts.
-CI: Checks code formatting (using ruff) and runs automated tests.
-Future Improvements
-Some key aspects need to be improved to make the app more robust:
+The project includes two GitHub Actions:
 
 持续集成（CI）与密钥检测本项目使用了两个 GitHub Actions：
 
+1 Secret Detection: Scans for leaked secrets in the codebase. This is particularly important when your work involves API keys or service accounts.
+
 密钥检测：扫描代码库中泄露的密钥（例如 API 密钥或服务帐户）。当你的工作涉及到 API 密钥或服务账户时，这项检测尤为重要。
+
+CI: Checks code formatting (using ruff) and runs automated tests.
+
 CI：检查代码格式（使用 ruff 工具）并运行自动化测试。
+
+### 06. Future Improvements
+
+Some key aspects need to be improved to make the app more robust:
+
 未来改进为了使应用程序更加稳定可靠，以下几个关键方面需要改进：
 
-Persistent Storage: Replace the in-memory state store with a persistent database like MongoDB.
-Tracing and APMs: Integrate tools like New Relic or LangSmith for performance monitoring and tracing.
-Logging: Implement robust logging of conversations.
-CD: Automate the deployment process.
-Streaming Responses: Stream LLM responses to the UI for a more interactive experience.
-I will expand on them in future blog posts so don’t forget to follow me on Medium
+1 Persistent Storage: Replace the in-memory state store with a persistent database like MongoDB.
 
 持久化存储：使用诸如 MongoDB 这样的持久化数据库来替代内存中的状态存储。
+
+2 Tracing and APMs: Integrate tools like New Relic or LangSmith for performance monitoring and tracing.
+
 追踪和应用性能监控（APM)：集成 New Relic 或 LangSmith 等工具，用于性能监控和性能分析。
+
+3 Logging: Implement robust logging of conversations.
+
 日志记录：实现可靠的对话日志记录。
+
+4 CD: Automate the deployment process.
+
 持续部署（CD)：自动化部署流程。
+
+5 Streaming Responses: Stream LLM responses to the UI for a more interactive experience.
+
 流式响应：将大语言模型（LLM）的响应以流的形式发送到用户界面，从而提供更具交互性的体验。
+
+I will expand on them in future blog posts so don’t forget to follow me on Medium
+
 我将在未来的博客文章中详细介绍这些内容，请不要忘记在 Medium 上关注我。
 
-Summary
+### 07. Summary
+
 This tutorial aims to make your journey into building and deploying LLM agents easier. Its reusable, modular design allows for rapid development, enabling you to quickly transition from concept or idea to deployed application. Modify only the necessary components — UI, backend LLM service, tools, or agent logic — to suit your needs. While some design choices prioritize simplicity, feel free to adapt them for better robustness and production readiness.
 
-总结本教程旨在简化您构建和部署大语言模型（LLM/Large Language Model）智能体的过程。它采用可复用、模块化的设计，支持快速开发，让您能够迅速将概念或想法转化为实际部署的应用。您只需根据需求修改必要的组件，例如用户界面（UI)、后端大语言模型服务、工具或智能体逻辑。尽管某些设计选择侧重于简洁性，您仍然可以根据需要调整它们，以提高系统的稳健性和生产就绪程度。
+本教程旨在简化您构建和部署大语言模型（LLM/Large Language Model）智能体的过程。它采用可复用、模块化的设计，支持快速开发，让您能够迅速将概念或想法转化为实际部署的应用。您只需根据需求修改必要的组件，例如用户界面（UI)、后端大语言模型服务、工具或智能体逻辑。尽管某些设计选择侧重于简洁性，您仍然可以根据需要调整它们，以提高系统的稳健性和生产就绪程度。
 
 [CVxTz/easy\_llm\_agent\_deploy: One line llm agent deployment based on langgraph.](https://github.com/CVxTz/easy_llm_agent_deploy)
 
