@@ -27,15 +27,23 @@ Flags:
 
 ollama run llama2
 
+ollama create minicpm-o-2_6 -f Modelfile
 
+openbmb/MiniCPM-o-2_6
 
 export HF_ENDPOINT=https://hf-mirror.com
 
 ollama run hf.co/bartowski/QVQ-72B-Preview-GGUF:Q8_0
 
 
+ollama run hf.co/openbmb/MiniCPM-o-2_6-gguf:Q8_0
+
 
 ---
+
+2025-01-18
+
+ollama run hf.co/bartowski/Qwen2-VL-7B-Instruct-GGUF:Q8_0
 
 2024-12-14
 
@@ -72,6 +80,9 @@ Ollama 现已支持直接运行 Hugging Face Hub 上的 GGUF 格式模型，操�
 4. **自定义聊天模板和参数**：如果需要自定义模型的聊天模板或系统提示，可在模型库中添加相应的 `template` 或 `system` 文件。模板应采用 Go 模板格式。
 
 通过上述步骤，您可以轻松地在 Ollama 中运行 Hugging Face 上的 GGUF 模型。  
+
+
+
 
 ### 问题汇总
 
