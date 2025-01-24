@@ -35,6 +35,8 @@ export HF_ENDPOINT=https://hf-mirror.com
 
 ollama run hf.co/bartowski/QVQ-72B-Preview-GGUF:Q8_0
 
+ollama run hf.co/bytedance-research/UI-TARS-7B-gguf
+
 
 ollama run hf.co/openbmb/MiniCPM-o-2_6-gguf:Q8_0
 
@@ -186,6 +188,11 @@ http://192.168.10.110:11434
 ### 本地模型文件的存储地址
 
 /Users/Daglas/.ollama/models/blobs/sha256-8934d96d3f08982e95922b2b7a2c626a1fe873d7c3b06e8e56d7bc0a1fef9246
+
+bytedance-research/UI-TARS-7B-gguf
+
+
+ollama create ui-tars-7b -f Modelfile
 
 ### 转化本地的模型文件
 
